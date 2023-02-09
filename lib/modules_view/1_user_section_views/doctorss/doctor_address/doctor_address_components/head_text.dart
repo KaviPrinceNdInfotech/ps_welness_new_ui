@@ -33,9 +33,9 @@ class DoctorAddressHeadText extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: ' Address',
+                  text: ' Address & Departments',
                   style: GoogleFonts.alatsi(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.deepPurple.shade500,
                     //color: Color(0xff023382)

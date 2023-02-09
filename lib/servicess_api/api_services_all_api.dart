@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 //import 'package:ps_welness/model/1_user_model/health_checkup_list/health_checkup_list.dart';
 //import 'package:ps_welness/model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
@@ -25,6 +26,8 @@ import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.da
 //import 'package:ps_welness/modules_view/1_user_section_views/nursess/nurse_type_model/nurse_type_model.dart';
 
 import '../model/1_user_model/city_model/city_modelss.dart';
+import '../model/1_user_model/get_department_list_model/department_model.dart';
+import '../model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 import '../model/1_user_model/health_checkup_list/health_checkup_list.dart';
 import '../model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
 import '../model/1_user_model/lab_list_models.dart';
@@ -35,6 +38,7 @@ import '../model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import '../model/1_user_model/states_model/state_modells.dart';
 import '../model/9_doctors_model/doctor_payment_history.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
+import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
 import '../model/9_doctors_model/view_patient_report_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
 
@@ -407,7 +411,7 @@ class ApiProvider {
 
   //doctor profile  api 2..........................
   static DoctorProfileApi() async {
-    var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=151';
+    var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=150';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -487,7 +491,7 @@ class ApiProvider {
   //view_payment_history.............
 
   static ViewPaymentHistoryApi() async {
-    var url = baseUrl + 'api/DoctorApi/paymentHistory?id=151&Date=2023-01-10&=';
+    var url = baseUrl + 'http://test.pswellness.in/api/DoctorApi/paymentHistory?id=151&Date=2023-01-10';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -502,12 +506,12 @@ class ApiProvider {
 
   //patient_list_api..........................
   static ViewPatientsListApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/GetPatientList?Id=151";
+    var url = "http://test.pswellness.in/api/DoctorApi/ViewPatientList?DoctorId=151";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        var PatientList = labListUserFromJson(r.body);
+        var PatientList = patientListFromJson(r.body);
         return PatientList;
       }
     } catch (error) {
@@ -637,7 +641,7 @@ class ApiProvider {
   //
   ///state Api get...........................
   static Future<List<StateModel>> getSatesApi() async {
-    var url = "http://pswellness.in/api/CommonApi/GetStates";
+    var url = "http://test.pswellness.in/api/CommonApi/GetStates";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -656,7 +660,7 @@ class ApiProvider {
 
   static Future<List<City>> getCitiesApi(String stateID) async {
     var url =
-        "http://pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
+        "http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -670,6 +674,65 @@ class ApiProvider {
       return [];
     }
   }
+
+
+  ///doctor department Api get..dropdownapi user.........................
+  static Future<List<DepartmentModel>> getDortorDepartmentApi() async {
+    var url = "http://test.pswellness.in/api/CommonApi/GetDepartments";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var statesData = getdepartmentmodelFromJson(r.body);
+        return statesData.departments;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///get_cities_api...........
+
+  static Future<List<SpecialistModel>> getSpeaclistbyIdApi(String depId) async {
+    var url =
+    "http://test.pswellness.in/api/CommonApi/GetSpecialist?depId=$depId";
+        //"http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var speclistData = getspecialistdeptbyIdFromJson(r.body);
+        return speclistData.specialist;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+
+  ///get_skils_api...........
+
+  static getSkillsApi() async {
+    var url =
+        'http://test.pswellness.in/api/DoctorApi/GetDoctorSkills?doctorId=111';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        GetskillsModel? viewSkilsReport =
+        getskillsModelFromJson(r.body);
+        return viewSkilsReport;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+  ///
+
 
 
   ///nurse Api get...........................

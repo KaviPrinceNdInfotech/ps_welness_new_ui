@@ -10,7 +10,9 @@ import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 //import 'package:ps_welness/widgets/controller_bindingss.dart';
 
+import 'controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
+import 'controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -19,6 +21,8 @@ class MyHttpOverrides extends HttpOverrides {
     // Get.lazyPut(() => AllProductModel());
     //Get.lazyPut(() => GiftcardModel());
     Get.lazyPut(() => NurseBooking1Controller());
+    Get.lazyPut(() => Doctor_appointment_1_Controller());
+    Get.lazyPut(() => SkillsListController());
 
 
     return super.createHttpClient(context)

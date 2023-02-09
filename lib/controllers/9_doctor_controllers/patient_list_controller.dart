@@ -9,12 +9,12 @@ class PatientListController extends GetxController {
 
   PatientList? patientList;
 
-  void labListApi() async {
-    isLoading(true);
+  void patientListApi() async {
+    isLoading(false);
     patientList = await ApiProvider.ViewPatientsListApi();
     print('Prince lab list');
     print(patientList);
-    if (patientList != null) {
+    if (patientList?.response != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
       //Get.to(()=>Container());
@@ -24,7 +24,7 @@ class PatientListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    labListApi();
+    patientListApi();
   }
 
   @override

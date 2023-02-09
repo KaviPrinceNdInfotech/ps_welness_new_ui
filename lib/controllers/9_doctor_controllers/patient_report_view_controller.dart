@@ -18,7 +18,7 @@ class DoctorPatientReportControllers extends GetxController {
   void viewpatientreportApi() async {
     isLoading(true);
     viewPatientReport = await ApiProvider.ViewPatientReportsApi();
-    if (viewPatientReport != null
+    if (viewPatientReport?.response != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

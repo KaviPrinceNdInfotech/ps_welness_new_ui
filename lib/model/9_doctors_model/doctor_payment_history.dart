@@ -4,14 +4,9 @@
 
 import 'dart:convert';
 
-List<PaymentHistory?>? paymentHistoryFromJson(String str) =>
-    json.decode(str) == null
-        ? []
-        : List<PaymentHistory?>.from(
-            json.decode(str)!.map((x) => PaymentHistory.fromJson(x)));
+List<PaymentHistory> paymentHistoryFromJson(String str) => List<PaymentHistory>.from(json.decode(str).map((x) => PaymentHistory.fromJson(x)));
 
-String paymentHistoryToJson(List<PaymentHistory?>? data) => json.encode(
-    data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())));
+String paymentHistoryToJson(List<PaymentHistory> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class PaymentHistory {
   PaymentHistory({
@@ -20,15 +15,15 @@ class PaymentHistory {
   });
 
   DateTime? appointmentDate;
-  int? amount;
+  double? amount;
 
   factory PaymentHistory.fromJson(Map<String, dynamic> json) => PaymentHistory(
-        appointmentDate: DateTime.parse(json["AppointmentDate"]),
-        amount: json["Amount"],
-      );
+    appointmentDate: json["AppointmentDate"] == null ? null : DateTime.parse(json["AppointmentDate"]),
+    amount: json["Amount"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "AppointmentDate": appointmentDate?.toIso8601String(),
-        "Amount": amount,
-      };
+    "AppointmentDate": appointmentDate?.toIso8601String(),
+    "Amount": amount,
+  };
 }

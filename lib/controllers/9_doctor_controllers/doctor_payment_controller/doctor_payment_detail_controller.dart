@@ -18,7 +18,7 @@ class DoctorPaymentViewControllers extends GetxController {
   void viewPaymentHistoryApi() async {
     isLoading(true);
     viewPaymenthistory = await ApiProvider.ViewPaymentHistoryApi();
-    if (viewPaymenthistory != null
+    if (viewPaymenthistory == null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

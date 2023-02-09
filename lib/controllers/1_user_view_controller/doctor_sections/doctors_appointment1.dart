@@ -1,38 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
+//import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 import '../../../model/1_user_model/city_model/city_modelss.dart';
+import '../../../model/1_user_model/get_department_list_model/department_model.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../model/1_user_model/test_name_model/test_name_modells.dart';
 
 class Doctor_appointment_1_Controller extends GetxController {
   final GlobalKey<FormState> doctorappointment1key = GlobalKey<FormState>();
 
-  ///this is for State....................................
-  Rx<City?> selectedCity = (null as City?).obs;
-  RxList<City> cities = <City>[].obs;
 
-  //this is for City.................................
+
+  ///this is for state.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
   List<StateModel> states = <StateModel>[].obs;
 
-  //this is for City.................................
-  Rx<TestModel?> selectedTest = (null as TestModel?).obs;
-  List<TestModel> tests = <TestModel>[].obs;
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+
+  ///this is for department.................................
+  Rx<DepartmentModel?> selectedDepartment = (null as DepartmentModel?).obs;
+  List<DepartmentModel> department = <DepartmentModel>[].obs;
+
+
+  ///this is for department.................................
+  Rx<SpecialistModel?> selectedSpecialist = (null as SpecialistModel?).obs;
+  List<SpecialistModel> specialist = <SpecialistModel>[].obs;
 
   // Rx<String?> selectedTest = (null as String?).obs;
   // RxList<String> cities2 = <String>[].obs;
 
-  ///lab test api class.................
-  void getTestNameApi() async {
-    tests = await ApiProvider.getTestNameApi();
-    print('Prince lab test  list');
-    print(tests);
-  }
+
 
   ///get state api.........
 
@@ -49,6 +54,25 @@ class Doctor_appointment_1_Controller extends GetxController {
     cities.addAll(localList);
     print("Prince cities of $stateID");
     print(cities);
+  }
+
+
+  ///get department api.........
+
+  void getdepartmentApi() async {
+    department = await ApiProvider.getDortorDepartmentApi();
+    print('Prince departmrntttss  list');
+    print(department);
+  }
+
+
+  ///get specialist api...........
+  void getspecialistByDeptID(String depId) async {
+    specialist.clear();
+    final localList = await ApiProvider.getSpeaclistbyIdApi(depId);
+    specialist.addAll(localList);
+    print("Prince cities of $depId");
+    print(specialist);
   }
 
   // late TextEditingController nameController,
@@ -72,12 +96,20 @@ class Doctor_appointment_1_Controller extends GetxController {
     //states.refresh();
     super.onInit();
     getStateLabApi();
+    getdepartmentApi();
     selectedState.listen((p0) {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
-    });
-    getTestNameApi();
+    }
+    );
+    selectedDepartment.listen((p0) {
+      if (p0 != null) {
+        getspecialistByDeptID("${p0.id}");
+      }
+    }
+    );
+    //getDepartmentNameApi();
   }
     // nameController = TextEditingController();
     // emailController = TextEditingController();
@@ -95,6 +127,7 @@ class Doctor_appointment_1_Controller extends GetxController {
 
   @override
   void onClose() {
+    //StateModel != null;
     // nameController.dispose();
     // emailController.dispose();
     // passwordController.dispose();

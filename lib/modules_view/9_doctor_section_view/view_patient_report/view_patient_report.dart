@@ -63,7 +63,7 @@ class ViewPatientReport extends StatelessWidget {
                                   width: size.width * 0.06,
                                 ),
                                 Text(
-                                  'View Patient Report',
+                                  'View Patient Report Doctor',
                                   style: TextStyle(
                                     fontSize: size.height * 0.022,
                                     fontWeight: FontWeight.w700,
@@ -80,7 +80,7 @@ class ViewPatientReport extends StatelessWidget {
                             child: Container(
                               height: size.height * 0.2,
                               width: size.width,
-                              color: Colors.white70,
+                              color: Colors.blueGrey.shade200,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -191,224 +191,234 @@ class ViewPatientReport extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                 )),
                           ),
-                          SizedBox(
-                              height: size.height * 0.59,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 3,
-                                  // _doctorPatientReportControllers
-                                  //     .viewPatientReport!.response!.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return
-                                        // Obx(
-                                        // () => (_doctorPatientReportControllers
-                                        //         .isLoading.value)
-                                        //     ? Center(
-                                        //         child:
-                                        //             CircularProgressIndicator())
-                                        //     : _doctorPatientReportControllers
-                                        //             .viewPatientReport!
-                                        //             .response!
-                                        //             .isEmpty
-                                        //         //.getcatagartlist!.result!.isEmpty
-                                        //         ? Center(
-                                        //             child: Text(
-                                        //               'No List',
-                                        //               style: TextStyle(
-                                        //                 fontSize:
-                                        //                     size.height * 0.02,
-                                        //               ),
-                                        //             ),
-                                        //           )
-                                        //         :
-                                        Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.00,
-                                          vertical: size.height * 0.0005),
-                                      child: Container(
-                                        height: size.height * 0.25,
-                                        margin: EdgeInsets.symmetric(
-                                            vertical: 30 / 7),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [
-                                                lightPrimary1,
-                                                darkPrimary2,
-                                              ]),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(-0, -0),
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              color: darkShadow,
-                                            ),
-                                            BoxShadow(
-                                              offset: Offset(1, 3),
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              color: Colors.grey,
-                                            ),
-                                          ],
-                                          // image: DecorationImage(
-                                          //     image: AssetImage(
-                                          //         'lib/assets/background_stack_png/appointment6.png'),
-                                          //     fit: BoxFit.cover)
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(0.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Patient Name:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          size.width * 0.035,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Paid Fees :',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          size.width * 0.035,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Payment Id:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          size.width * 0.035,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Patient Location:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          size.width * 0.035,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Payment date:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          size.width * 0.035,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Payment Timing :',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          size.width * 0.035,
-                                                    ),
-                                                  ),
-                                                ],
+                          Obx(
+                              ()=> (_doctorPatientReportControllers.isLoading.value)
+                                  ? Center(child: CircularProgressIndicator())
+                                  : _doctorPatientReportControllers.viewPatientReport!.response!.isEmpty
+                                  ? Center(
+                                child: Text('Empty list!'),
+                              )
+
+                            //child
+                                  : SizedBox(
+                                height: size.height * 0.55,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _doctorPatientReportControllers.viewPatientReport?.response?.length,
+                                    // _doctorPatientReportControllers
+                                    //     .viewPatientReport!.response!.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return
+                                          // Obx(
+                                          // () => (_doctorPatientReportControllers
+                                          //         .isLoading.value)
+                                          //     ? Center(
+                                          //         child:
+                                          //             CircularProgressIndicator())
+                                          //     : _doctorPatientReportControllers
+                                          //             .viewPatientReport!
+                                          //             .response!
+                                          //             .isEmpty
+                                          //         //.getcatagartlist!.result!.isEmpty
+                                          //         ? Center(
+                                          //             child: Text(
+                                          //               'No List',
+                                          //               style: TextStyle(
+                                          //                 fontSize:
+                                          //                     size.height * 0.02,
+                                          //               ),
+                                          //             ),
+                                          //           )
+                                          //         :
+                                          Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: size.width * 0.00,
+                                            vertical: size.height * 0.0005),
+                                        child: Container(
+                                          height: size.height * 0.25,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 30 / 7),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [
+                                                  lightPrimary1,
+                                                  darkPrimary2,
+                                                ]),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                offset: Offset(-0, -0),
+                                                spreadRadius: 0,
+                                                blurRadius: 0,
+                                                color: darkShadow,
                                               ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Vineet Mishra',
-                                                    style: GoogleFonts.raleway(
-                                                        color:
-                                                            Colors.red.shade300,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.width * 0.035),
-                                                  ),
-                                                  Text(
-                                                    '₹ 1950',
-                                                    style: GoogleFonts.raleway(
-                                                        color:
-                                                            Colors.red.shade300,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.width * 0.035),
-                                                  ),
-                                                  Text(
-                                                    '678',
-                                                    style: GoogleFonts.raleway(
-                                                        color:
-                                                            Colors.red.shade300,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.width * 0.035),
-                                                  ),
-                                                  Text(
-                                                    'Sector 12, C 52 Noida',
-                                                    style: GoogleFonts.raleway(
-                                                        color:
-                                                            Colors.red.shade300,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.width * 0.035),
-                                                  ),
-                                                  Text(
-                                                    'Jan 1,23',
-                                                    style: GoogleFonts.raleway(
-                                                        color:
-                                                            Colors.red.shade300,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.width * 0.035),
-                                                  ),
-                                                  Text(
-                                                    '07:00 pm',
-                                                    style: GoogleFonts.raleway(
-                                                        color:
-                                                            Colors.red.shade300,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.width * 0.035),
-                                                  ),
-                                                ],
+                                              BoxShadow(
+                                                offset: Offset(1, 3),
+                                                spreadRadius: 0,
+                                                blurRadius: 0,
+                                                color: Colors.grey,
                                               ),
                                             ],
+                                            // image: DecorationImage(
+                                            //     image: AssetImage(
+                                            //         'lib/assets/background_stack_png/appointment6.png'),
+                                            //     fit: BoxFit.cover)
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(0.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Patient Name:',
+                                                      style: GoogleFonts.poppins(
+                                                        color: MyTheme.blueww,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            size.width * 0.035,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Paid Fees :',
+                                                      style: GoogleFonts.poppins(
+                                                        color: MyTheme.blueww,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            size.width * 0.035,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Payment Id:',
+                                                      style: GoogleFonts.poppins(
+                                                        color: MyTheme.blueww,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            size.width * 0.035,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Patient Location:',
+                                                      style: GoogleFonts.poppins(
+                                                        color: MyTheme.blueww,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            size.width * 0.035,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Payment date:',
+                                                      style: GoogleFonts.poppins(
+                                                        color: MyTheme.blueww,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            size.width * 0.035,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Payment Timing :',
+                                                      style: GoogleFonts.poppins(
+                                                        color: MyTheme.blueww,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            size.width * 0.035,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Vineet Mishra',
+                                                      style: GoogleFonts.raleway(
+                                                          color:
+                                                              Colors.red.shade300,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                    Text(
+                                                      '₹ 1950',
+                                                      style: GoogleFonts.raleway(
+                                                          color:
+                                                              Colors.red.shade300,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                    Text(
+                                                      '678',
+                                                      style: GoogleFonts.raleway(
+                                                          color:
+                                                              Colors.red.shade300,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                    Text(
+                                                      'Sector 12, C 52 Noida',
+                                                      style: GoogleFonts.raleway(
+                                                          color:
+                                                              Colors.red.shade300,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                    Text(
+                                                      'Jan 1,23',
+                                                      style: GoogleFonts.raleway(
+                                                          color:
+                                                              Colors.red.shade300,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                    Text(
+                                                      '07:00 pm',
+                                                      style: GoogleFonts.raleway(
+                                                          color:
+                                                              Colors.red.shade300,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  })),
+                                      );
+                                    })),
+                          ),
                         ],
                       ),
                     ),

@@ -186,7 +186,7 @@ class MainDrawer extends StatelessWidget {
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
-                FontAwesomeIcons.add,
+                FontAwesomeIcons.dashcube,
                 color: MyTheme.blueww,
                 size: size.height * 0.021,
               ),
