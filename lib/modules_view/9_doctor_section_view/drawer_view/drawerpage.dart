@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/add_skills/add_skills.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
@@ -150,6 +151,7 @@ class MainDrawer extends StatelessWidget {
               },
             ),
 
+
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -182,7 +184,6 @@ class MainDrawer extends StatelessWidget {
                 Get.offNamed('/PatientList');
               },
             ),
-
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -199,22 +200,56 @@ class MainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
+                'View Skils',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/SkillsListScreen'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => SkillsListScreen());
+                Get.offNamed('/SkillsListScreen');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.add,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
                 'Add Skils',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AddSkilsScreen'
+              tileColor: Get.currentRoute == '/AddSkillsPageDoctor'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => AddSkilsScreen());
-                Get.offNamed('/AddSkilsScreen');
+                Get.to(() => AddSkillsPageDoctor());
+
+                Get.offNamed('/AddSkillsPageDoctor');
               },
             ),
+
 
             ListTile(
               // horizontalTitleGap: 10,

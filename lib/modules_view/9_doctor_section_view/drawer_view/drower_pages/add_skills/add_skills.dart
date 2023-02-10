@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
+import 'add_skils_credentials.dart';
+import 'headtext.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
-import 'complaint_components/credentials.dart';
-import 'complaint_components/head_text.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_components/credentials.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_components/head_text.dart';
 
-class ComplaintPageDoctor extends StatelessWidget {
-  const ComplaintPageDoctor({Key? key}) : super(key: key);
+class AddSkillsPageDoctor extends StatelessWidget {
+  const AddSkillsPageDoctor({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,9 @@ class ComplaintPageDoctor extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-            lightPrimary,
-            darkPrimary,
-          ])),
+                lightPrimary,
+                darkPrimary,
+              ])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         // appBar: AppBar(
@@ -40,12 +41,12 @@ class ComplaintPageDoctor extends StatelessWidget {
                   //left: -30,
                   right: -size.width * 0.006,
                   child: Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: size.height * 0.200,
-                      width: size.width * 0.47,
+                      width: size.width * 0.40,
                       decoration: BoxDecoration(
-                          //color: Colors.,
+                        //color: Colors.,
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                           ),
@@ -60,8 +61,8 @@ class ComplaintPageDoctor extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ComplaintHeadText(),
-                    ComplaintCredentials(),
+                    SkillsHeadText(),
+                    AddskillsCredentials(),
                     //HospitalSocial(),
                     //Spacer(),
                   ],

@@ -5,17 +5,20 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/skils_controller/add_skils_controller.dart';
 import 'package:ps_welness_new_ui/model/add_skils_model/add_skil_model.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/add_skills/add_skills.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+
+import '../../../../../../widgets/widgets/rectangular_button.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/controllers/skils_controller/add_skils_controller.dart';
 // import 'package:ps_welness/model/add_skils_model/add_skil_model.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 
-class AddSkilsScreen extends StatelessWidget {
+class SkillsListScreen extends StatelessWidget {
 
-
-  AddSkilsScreen({Key? key}) : super(key: key);
+  SkillsListScreen({Key? key}) : super(key: key);
   static const id = '/Home_screen';
   //final TodoController todoController = Get.put(TodoController());
   //final TextEditingController textEditingController = TextEditingController();
@@ -28,7 +31,7 @@ class AddSkilsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: MyTheme.ThemeColors,
         elevation: 0,
-        title: Text('Add Skils'),
+        title: Text('View Skils'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
@@ -37,6 +40,7 @@ class AddSkilsScreen extends StatelessWidget {
           Icons.add,
         ),
         onPressed: () {
+
           // Get.defaultDialog(
           //     backgroundColor: MyTheme.ThemeColors,
           //     title: '',
@@ -45,7 +49,16 @@ class AddSkilsScreen extends StatelessWidget {
           //       children: [
           //         NeumorphicTextFieldContainer(
           //           child: TextFormField(
-          //             controller: textEditingController,
+          //             maxLines: 1,
+          //             autofillHints: [AutofillHints.name],
+          //             controller: _skillsListController.skillsnameController,
+          //             onSaved: (value) {
+          //               _skillsListController.SkillName = value!;
+          //             },
+          //             validator: (value) {
+          //               return _skillsListController.validskillss(value!);
+          //             },
+          //             //controller: textEditingController,
           //             // onSaved: (value) {
           //             //   _chemist_1_controller.confirmpassword = value!;
           //             // },
@@ -67,8 +80,8 @@ class AddSkilsScreen extends StatelessWidget {
           //               ),
           //               border: InputBorder.none,
           //             ),
-          //             keyboardType: TextInputType.multiline,
-          //             maxLines: 1,
+          //            // keyboardType: TextInputType.multiline,
+          //             //maxLines: 1,
           //             autofocus: true,
           //             //obscureText: true,
           //             //controller: _loginpasswordController.mobileController,
@@ -77,48 +90,64 @@ class AddSkilsScreen extends StatelessWidget {
           //         SizedBox(
           //           height: 30.0,
           //         ),
-          //         ElevatedButton(
-          //           style: ElevatedButton.styleFrom(
-          //             primary: Colors.red, // background
-          //             onPrimary: Colors.yellow, // foreground
-          //           ),
-          //           onPressed: () {
-          //             todoController.todos.add(
-          //               Todo(
-          //                 text: textEditingController.text,
-          //               ),
-          //             );
-          //             Get.back();
-          //             // if (
-          //             // settingsScreenController
-          //             //     .categoryNameController.text.isNotEmpty) {
-          //             //   var expenseCategory = ExpenseCategory(
-          //             //       settingsScreenController
-          //             //           .categoryNameController.text,
-          //             //       id: _addExpenseController.expenseCategories.length);
-          //             //   settingsScreenController
-          //             //       .addExpenseCategory(expenseCategory);
-          //             //   _addExpenseController.expenseCategories
-          //             //       .add(expenseCategory);
-          //             //   Get.back();
-          //             // }
-          //             // else {
-          //             //   Get.snackbar(
-          //             //     "title",
-          //             //     "content",
-          //             //   );
-          //             // }
-          //           },
-          //           child: Text(
-          //             'ADD SKILS',
-          //             style: TextStyle(color: Colors.white, fontSize: 16.0),
-          //           ),
-          //           //color: Colors.redAccent,
-          //         )
+          //         RectangularButton(
+          //             text: 'SUBMIT',
+          //             press: () {
+          //               CallLoader.loader();
+          //               _skillsListController.checkSkills();
+          //               //_loginpasswordController.checkLoginpassword();
+          //               //Get.to(HomePage());
+          //               //_loginpasswordController.checkLoginpassword();
+          //             })
+          //         // ElevatedButton(
+          //         //   style: ElevatedButton.styleFrom(
+          //         //     primary: Colors.red, // background
+          //         //     onPrimary: Colors.yellow, // foreground
+          //         //   ),
+          //         //   onPressed: () {
+          //         //     CallLoader.loader();
+          //         //     _skillsListController.checkSkills();
+          //         //
+          //         //    // _skillsListController.skillsListApi();
+          //         //     //_skillsListController.refresh();
+          //         //     _skillsListController.update();
+          //         //     //todoController.todos.add(
+          //         //     //   Todo(
+          //         //     //     text: textEditingController.text,
+          //         //     //   ),
+          //         //     //);
+          //         //     Get.back();
+          //         //     // if (
+          //         //     // settingsScreenController
+          //         //     //     .categoryNameController.text.isNotEmpty) {
+          //         //     //   var expenseCategory = ExpenseCategory(
+          //         //     //       settingsScreenController
+          //         //     //           .categoryNameController.text,
+          //         //     //       id: _addExpenseController.expenseCategories.length);
+          //         //     //   settingsScreenController
+          //         //     //       .addExpenseCategory(expenseCategory);
+          //         //     //   _addExpenseController.expenseCategories
+          //         //     //       .add(expenseCategory);
+          //         //     //   Get.back();
+          //         //     // }
+          //         //     // else {
+          //         //     //   Get.snackbar(
+          //         //     //     "title",
+          //         //     //     "content",
+          //         //     //   );
+          //         //     // }
+          //         //   },
+          //         //   child: Text(
+          //         //     'ADD SKILS',
+          //         //     style: TextStyle(color: Colors.white, fontSize: 16.0),
+          //         //   ),
+          //         //   //color: Colors.redAccent,
+          //         // )
           //       ],
           //     ),
           //     radius: 10.0);
-          // Get.to(TodoScreen());
+          Get.to(AddSkillsPageDoctor());
+
         },
       ),
       body: Obx(
@@ -136,11 +165,20 @@ class AddSkilsScreen extends StatelessWidget {
             shrinkWrap: true,
               itemCount: _skillsListController.viewSkilsReport?.skills.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  leading: Text(
-                    _skillsListController.viewSkilsReport!.skills[index].skillName.toString()
-                  ),
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: Text(
+                          _skillsListController.viewSkilsReport!.skills[index].skillName.toString()
+                      ),
+                      trailing: Icon(Icons.delete_forever_outlined,color: Colors.red,),
+                    ),
+                    Divider(
+                      color: Colors.cyan,
+                    ),
+                  ],
                 );
+
               }
           )
           // ListView.builder(

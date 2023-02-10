@@ -769,6 +769,49 @@ class ApiProvider {
     }
   }
 
+
+
+  ///add doctor's skils api...........
+
+
+  static doctorSkillsApi(
+      var Doctor_Id,
+      var SkillName,
+      ) async {
+    var url = baseUrl + 'api/DoctorApi/AddSkill';
+
+    var body = {
+      "Doctor_Id": "111",
+      "SkillName": SkillName,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      //Get.snackbar("Skills added",r.body);
+      var prefs = GetStorage();
+      //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+
   // static ViewLabApi() async {
   //    var url = "http://pswellness.in/api/LabApi/LabsList?CityId=786";
   //    try {
