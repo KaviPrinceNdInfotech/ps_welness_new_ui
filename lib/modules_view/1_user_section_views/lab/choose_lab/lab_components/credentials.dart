@@ -212,7 +212,7 @@ class LabCredentials extends StatelessWidget {
                               test.testName,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.013,
+                                fontSize: size.height * 0.010,
                               ),
                             ),
                           );

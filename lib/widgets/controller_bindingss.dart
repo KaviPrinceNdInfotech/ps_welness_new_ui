@@ -61,6 +61,7 @@ class ControllerBinding extends Bindings {
     Get.put(PatientListController());
     Get.put(Doctor_appointment_1_Controller());
     Get.put(SkillsListController());
+    Get.put(LabListController());
 
 
     //Get.put(CatagaryByIdController());

@@ -182,7 +182,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Service Timing:',
+                                          'Service Charge:',
                                           style: GoogleFonts.poppins(
                                             color: MyTheme.text1,
                                             fontWeight: FontWeight.w600,
@@ -221,30 +221,33 @@ class NurseAppointmentHistory extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                         // _nurseHistoryController.nurseappointmentdetail!.result![index].totalFee.toString(),
+                                          _nursebookingHistoryController.nurseappointmentdetail!.result![index].totalFee.toString(),
                                           //_nurseHistoryController.nurseappointmentdetail!.result![index].totalFee.toString(),
-                                         'Nov 16,22 - Nov 20,22',
+                                         //'Nov 16,22 - Nov 20,22',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,
                                               fontWeight: FontWeight.w700,
                                               fontSize: size.width * 0.039),
                                         ),
                                         Text(
-                                          'other',
+                                            _nursebookingHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                          //'other',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,
                                               fontWeight: FontWeight.w700,
                                               fontSize: size.width * 0.039),
                                         ),
                                         Text(
-                                          'Pending',
+                                          _nursebookingHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                          //'Pending',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,
                                               fontWeight: FontWeight.w700,
                                               fontSize: size.width * 0.039),
                                         ),
                                         Text(
-                                          '6',
+                                          _nursebookingHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                         // '6',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,
                                               fontWeight: FontWeight.w700,

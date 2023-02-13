@@ -131,14 +131,14 @@ class ApiProvider {
     if (r.statusCode == 200) {
       var prefs = GetStorage();
       //saved id..........
-      prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
 
       //saved token.........
-      prefs.write("token".toString(), json.decode(r.body)['token']);
-      token = prefs.read("token").toString();
-      print(token);
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -185,7 +185,7 @@ class ApiProvider {
     if (r.statusCode == 200) {
       var prefs = GetStorage();
       //saved id..........
-       prefs.write("Id".toString(), json.decode(r.body)['Id']);
+       prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
        Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
       ///
@@ -552,7 +552,6 @@ class ApiProvider {
       "PatientId": PatientId,
       "MedicineId": MedicineId,
       "Quantity":Quantity,
-
     };
     final headers = {"Authorization": "Bearer $token"};
 
