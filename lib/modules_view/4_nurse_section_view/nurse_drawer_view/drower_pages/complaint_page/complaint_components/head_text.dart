@@ -31,10 +31,10 @@ class ComplaintHeadText extends StatelessWidget {
                 width: size.width * 0.03,
               ),
               Text(
-                'Register Complain',
+                'Register Nurse Complain',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: size.width * 0.05,
+                  fontSize: size.width * 0.04,
                   fontWeight: FontWeight.w700,
                 ),
               )
@@ -44,7 +44,7 @@ class ComplaintHeadText extends StatelessWidget {
           Text(
             '24*7 availability',
             style: GoogleFonts.alatsi(
-                fontSize: 30,
+                fontSize: size.height*0.035,
                 fontWeight: FontWeight.w600,
                 color: Color(0xff023382)),
           ),

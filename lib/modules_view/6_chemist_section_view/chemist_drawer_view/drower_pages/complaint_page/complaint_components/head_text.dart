@@ -31,7 +31,7 @@ class ComplaintHeadText extends StatelessWidget {
                 width: size.width * 0.03,
               ),
               Text(
-                'Register Complain',
+                'Register Complain Chemist',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: size.width * 0.05,

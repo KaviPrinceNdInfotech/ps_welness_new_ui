@@ -205,6 +205,7 @@ class ApiProvider {
   //complain_register user api................
 
   static UserComplainApi(
+
     var LoginId,
     var Subjects,
     var Complaints,
@@ -213,10 +214,17 @@ class ApiProvider {
     var Others,
     var Doctor,
   ) async {
+
     var url = baseUrl + 'api/ComplaintApi/PatientComplaint';
+    // var prefs = GetStorage();
+    // //saved id..........
+    // //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    // Id = prefs.read("Id").toString();
+    // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
 
     var body = {
-      "Login_Id": LoginId,
+      "Login_Id": Id,
       "Subjects": Subjects,
       "Complaints": Complaints,
       "IsDeleted": IsDeleted,
@@ -232,6 +240,11 @@ class ApiProvider {
     print(r.body);
     if (r.statusCode == 200) {
       var prefs = GetStorage();
+      //saved id..........
+      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      Id = prefs.read("Id").toString();
+      print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
       //saved id..........
       // prefs.write("Id".toString(), json.decode(r.body)['Id']);
       // Id = prefs.read("Id").toString();

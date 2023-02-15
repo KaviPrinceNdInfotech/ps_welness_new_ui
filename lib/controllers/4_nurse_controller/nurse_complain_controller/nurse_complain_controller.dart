@@ -2,13 +2,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
-import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
-import '../../modules_view/circular_loader/circular_loaders.dart';
-import '../../servicess_api/api_services_all_api.dart';
 
-class ComplaintController extends GetxController {
-  final GlobalKey<FormState> complaintformkey = GlobalKey<FormState>();
+import '../../../modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
+import '../../../servicess_api/api_services_all_api.dart';
+//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
+
+
+class NurseComplaintController extends GetxController {
+  final GlobalKey<FormState> nursecomplaintformkey = GlobalKey<FormState>();
 
   ///this is for State....................................
   Rx<String?> selectedCity = (null as String?).obs;
@@ -36,7 +38,7 @@ class ComplaintController extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(UserHomePage());
+      Get.to(NurseHomePage());
     }
   }
 
@@ -92,6 +94,12 @@ class ComplaintController extends GetxController {
     }
     return null;
   }
+  String? validsubject(String value) {
+    if (value.length < 2) {
+      return "This is required field.";
+    }
+    return null;
+  }
 
   String? validAddress(String value) {
     if (value.length < 2) {
@@ -100,11 +108,11 @@ class ComplaintController extends GetxController {
     return null;
   }
 
-  void checkUser3() {
-    if (complaintformkey.currentState!.validate()) {
+  void checkNurse3() {
+    if (nursecomplaintformkey.currentState!.validate()) {
       usercomplaintApi();
     }
-    complaintformkey.currentState!.save();
+    nursecomplaintformkey.currentState!.save();
     // final isValid = complaintformkey.currentState!.validate();
     // if (!isValid) {
     //   return;
