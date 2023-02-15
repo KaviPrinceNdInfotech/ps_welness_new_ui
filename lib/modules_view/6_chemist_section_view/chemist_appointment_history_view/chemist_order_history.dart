@@ -8,6 +8,8 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 
+import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
+import '../../../controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import '../../../controllers/6_chemist_view_controllers/chemist_order_history_controller.dart';
 
 //import '../../../controllers/10_lab_controller/lab_appointment_controller/nurse_appointment_controller.dart';
@@ -17,6 +19,10 @@ class ChemistOrderHistory extends StatelessWidget {
 
   ChemistOrderController _chemistOrderController =
       Get.put(ChemistOrderController());
+  DoctorHistoryController _doctorHistoryyController =
+  Get.put(DoctorHistoryController());
+  NurseHistoryController _nurseHistoryController =
+  Get.put(NurseHistoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +89,9 @@ class ChemistOrderHistory extends StatelessWidget {
                           width: size.width * 0.03,
                         ),
                         Text(
-                          'Order History',
+                          'Order History Chemist',
                           style: GoogleFonts.alatsi(
-                              fontSize: size.height * 0.032,
+                              fontSize: size.height * 0.022,
                               fontWeight: FontWeight.w600,
                               color: Color(0xff023382)),
                         ),
@@ -166,252 +172,270 @@ class ChemistOrderHistory extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  SizedBox(
-                      height: size.height * 0.71,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.03,
-                                  vertical: size.height * 0.0005),
-                              child: Container(
-                                height: size.height * 0.32,
-                                margin: EdgeInsets.symmetric(vertical: 30 / 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [
-                                        lightPrimary2,
-                                        darkPrimary,
-                                      ]),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(-0, -0),
-                                      spreadRadius: 0,
-                                      blurRadius: 0,
-                                      color: Colors.cyan.shade300,
+                  Obx(
+                        () => (_nurseHistoryController.isLoading.value)
+                        ? Center(child: CircularProgressIndicator())
+                        : _nurseHistoryController.nurseappointmentdetail?.result == null
+                        ? Center(
+                      child: Text('No List'),
+                    )
+                        : SizedBox(
+                        height: size.height * 0.71,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _nurseHistoryController.nurseappointmentdetail?.result?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.03,
+                                    vertical: size.height * 0.0005),
+                                child: Container(
+                                  height: size.height * 0.32,
+                                  margin: EdgeInsets.symmetric(vertical: 30 / 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          lightPrimary2,
+                                          darkPrimary,
+                                        ]),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(-0, -0),
+                                        spreadRadius: 0,
+                                        blurRadius: 0,
+                                        color: Colors.cyan.shade300,
 
-                                      // color: darkShadow1,
-                                    ),
-                                    BoxShadow(
-                                      offset: Offset(4, 4),
-                                      spreadRadius: 0,
-                                      blurRadius: 0,
-                                      color: Colors.cyan.shade300,
-                                    ),
-                                  ],
-                                  // image: DecorationImage(
-                                  //     image: NetworkImage(
-                                  //         'https://images.unsplash.com/photo-1626624340240-aadc087844fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ymx1ciUyMGltYWdlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'),
-                                  //     fit: BoxFit.cover)
-                                ),
-                                child: Stack(
-                                  //clipBehavior: Clip.none,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: size.height * 0.01,
-                                          horizontal: size.width * 0.02),
-                                      child: Material(
-                                        elevation: 6,
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(10),
-                                          topLeft: Radius.circular(10),
-                                        ),
-                                        child: Container(
-                                          //height: size.height * 0.3,
-                                          width: size.width * 0.35,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(10),
-                                              topLeft: Radius.circular(10),
+                                        // color: darkShadow1,
+                                      ),
+                                      BoxShadow(
+                                        offset: Offset(4, 4),
+                                        spreadRadius: 0,
+                                        blurRadius: 0,
+                                        color: Colors.cyan.shade300,
+                                      ),
+                                    ],
+                                    // image: DecorationImage(
+                                    //     image: NetworkImage(
+                                    //         'https://images.unsplash.com/photo-1626624340240-aadc087844fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Ymx1ciUyMGltYWdlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'),
+                                    //     fit: BoxFit.cover)
+                                  ),
+                                  child: Stack(
+                                    //clipBehavior: Clip.none,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: size.height * 0.01,
+                                            horizontal: size.width * 0.02),
+                                        child: Material(
+                                          elevation: 6,
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(10),
+                                            topLeft: Radius.circular(10),
+                                          ),
+                                          child: Container(
+                                            //height: size.height * 0.3,
+                                            width: size.width * 0.35,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(10),
+                                                topLeft: Radius.circular(10),
+                                              ),
+                                              //shape: BoxShape.rectangle,
+                                              //color: Colors.blueGrey,
+                                              //border: Border.all(color: Colors.red),
+                                              gradient: MyTheme.gradient8,
                                             ),
-                                            //shape: BoxShape.rectangle,
-                                            //color: Colors.blueGrey,
-                                            //border: Border.all(color: Colors.red),
-                                            gradient: MyTheme.gradient8,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Name:',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Name:',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'Mobile :',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'Mobile :',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'State :',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'State :',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'City :',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'City :',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'Pin :',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'Starting Date:',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'Paid Amount:',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'Paid Amount:',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'Address:',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'Address:',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'Status:',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'Status:',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'Record :',
-                                                style: GoogleFonts.poppins(
-                                                  color: MyTheme.text1,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: size.width * 0.035,
+                                                Text(
+                                                  'Record :',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.text1,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: size.width * 0.035,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'JK Agarwal',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                '8977889999',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                'Bihar',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                'Mokama',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                '827777',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                '700',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                'Noida, UP sector 15 metro',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                'Paid',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                              Text(
-                                                'Yes',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.grey.shade800,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        size.width * 0.035),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].patientName.toString(),
+
+                                                  // 'JK Agarwal',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].contactNumber.toString(),
+
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                                  //'Bihar',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                                 // 'Mokama',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].paymentDate.toString(),
+                                                 // '827777',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                                  //'700',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].paymentDate.toString(),
+                                                 // 'Noida, UP sector 15 metro',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                                 // 'Paid',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                                Text(
+                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                                 // 'Yes',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.grey.shade800,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.035),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          })),
+                              );
+                            })),
+                  ),
                 ],
               ),
 

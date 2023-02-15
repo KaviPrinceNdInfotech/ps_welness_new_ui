@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/patient_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/add_skills/add_skills.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -28,6 +29,8 @@ import 'drower_pages/supports/support_view.dart';
 class MainDrawer extends StatelessWidget {
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
+  PatientListController _patientListController = Get.put(PatientListController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

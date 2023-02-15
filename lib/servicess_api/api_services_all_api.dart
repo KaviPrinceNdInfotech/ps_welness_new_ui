@@ -26,6 +26,7 @@ import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.da
 //import 'package:ps_welness/modules_view/1_user_section_views/nursess/nurse_type_model/nurse_type_model.dart';
 
 import '../model/1_user_model/city_model/city_modelss.dart';
+import '../model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
 import '../model/1_user_model/get_department_list_model/department_model.dart';
 import '../model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 import '../model/1_user_model/health_checkup_list/health_checkup_list.dart';
@@ -491,7 +492,7 @@ class ApiProvider {
   //view_payment_history.............
 
   static ViewPaymentHistoryApi() async {
-    var url = baseUrl + 'http://test.pswellness.in/api/DoctorApi/paymentHistory?id=151&Date=2023-01-10';
+    var url = baseUrl + 'api/DoctorApi/paymentHistory?id=151&Date=2023-01-10';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -809,6 +810,100 @@ class ApiProvider {
       return r;
     }
   }
+
+
+  //GetDoctorListHospitalModel...
+
+  ///get_skils_api...........
+
+  static getListOfDoctorApi() async {
+    var url =
+        'http://test.pswellness.in/api/HospitalAPI/DoctorList?hospitalId=209';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        GetDoctorListHospitalModel? viewdoctorlist =
+        getDoctorListHospitalModelFromJson(r.body);
+        return viewdoctorlist;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+  ///Todo: from here ........
+
+  //login user api ps welness api 1..................................
+
+  static DoctorsSignUpApi(
+      var DoctorName,
+      var EmailId,
+      var Password,
+      var ConfirmPassword,
+      var MobileNumber,
+      var Fee,
+      var PhoneNumber,
+      var StartTime,
+      var SlotTiming,
+      var Department_Id,
+      var Specialist_Id,
+      var LicenceNumber,
+      var LicenceImage,
+      var LicenceImageName,
+      var PinCode,
+      var ClinicName,
+      var Location,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var EndTime,
+      var LicenceBase64,
+
+      ) async {
+    var url = baseUrl + 'api/SignupApi/DoctorRegistration';
+    var body = {
+      "DoctorName": DoctorName,
+      "EmailId": EmailId,
+      "Password": Password,
+      "ConfirmPassword": ConfirmPassword,
+      "MobileNumber": MobileNumber,
+      "Fee": Fee,
+      "PhoneNumber": PhoneNumber,
+      "StartTime": StartTime,
+      "SlotTiming": SlotTiming,
+      "Department_Id": Department_Id,
+      "Specialist_Id": Specialist_Id,
+      "LicenceNumber": LicenceNumber,
+      "LicenceImage": LicenceImage,
+      "LicenceImageName": LicenceImageName,
+      "PinCode": PinCode,
+      "ClinicName": ClinicName,
+      "Location": Location,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "EndTime": EndTime,
+      "LicenceBase64": LicenceBase64,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    }else if (r.statusCode == 500) {
+      Get.snackbar('message', r.body);
+    }
+    else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+
 
 
   // static ViewLabApi() async {

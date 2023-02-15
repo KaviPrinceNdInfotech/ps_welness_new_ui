@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
+import '../../../../servicess_api/api_services_all_api.dart';
+
 class DoctorHistoryController extends GetxController {
   final GlobalKey<FormState> DoctorHistoryformkey = GlobalKey<FormState>();
 
@@ -9,7 +12,24 @@ class DoctorHistoryController extends GetxController {
   var selectedDate = DateTime.now().obs;
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
-  RxBool isLoading = false.obs;
+  //RxBool isLoading = false.obs;
+
+
+  RxBool isLoading = true.obs;
+
+  GetDoctorListHospitalModel? getdoctorhospitalmodel;
+
+  void doctorListHospitalApi() async {
+    isLoading(true);
+    getdoctorhospitalmodel = await ApiProvider.getListOfDoctorApi();
+    print('Prince lab list');
+    print(getdoctorhospitalmodel);
+    if (getdoctorhospitalmodel?.list != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(false);
+      //Get.to(()=>Container());
+    }
+  }
 
   late TextEditingController appointmentController1;
   late TextEditingController appointmentController2;

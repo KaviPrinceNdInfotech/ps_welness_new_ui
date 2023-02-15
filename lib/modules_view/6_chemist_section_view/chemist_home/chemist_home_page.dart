@@ -199,6 +199,7 @@ class ChemistHomePage extends StatelessWidget {
                               horizontal: size.width * 0.01),
                           decoration: BoxDecoration(
                               color: Color(0xff11eae0),
+
                               //colors[index],
                               // gradient: LinearGradient(
                               //     begin: Alignment.centerLeft,
@@ -208,6 +209,7 @@ class ChemistHomePage extends StatelessWidget {
                               //       Color(0xffffffff)
                               //       //darkPrimary,
                               //     ]),
+
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(

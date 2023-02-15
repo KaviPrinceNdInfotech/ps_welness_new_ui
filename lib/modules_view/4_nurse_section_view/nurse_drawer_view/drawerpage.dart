@@ -163,14 +163,14 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/PatientList'
+              tileColor: Get.currentRoute == '/PatientListNurse'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => PatientList());
-                Get.offNamed('/PatientList');
+                Get.to(() => PatientListNurse());
+                Get.offNamed('/PatientListNurse');
               },
             ),
 
