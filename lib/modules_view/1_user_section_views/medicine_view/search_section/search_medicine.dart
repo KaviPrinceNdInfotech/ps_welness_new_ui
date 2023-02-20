@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_cart_section/medicine_cart_sections.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
@@ -20,6 +21,7 @@ class SearchMedicine extends StatelessWidget {
   SearchMedicine({Key? key}) : super(key: key);
   LabListController _labListController = Get.put(LabListController());
   MedicineListController _medicineListController = Get.put(MedicineListController());
+  MedicineCartListController _medicineCartListController = Get.put(MedicineCartListController());
 
 
 
@@ -312,11 +314,15 @@ class SearchMedicine extends StatelessWidget {
                                         ),
                                         child: InkWell(
                                           onTap: () {
-                                            // controller.addtocartApi(_homePageController
-                                            //     .getflashsellproduct!
-                                            //     .result![
-                                            // index]
-                                            //     .id);
+                                            /// Add to cart................button
+                                            _medicineCartListController.addtocartApi(
+
+                                              _medicineListController.medicinelistmodel!.data[index].id.toString(),
+                                              "1",
+
+
+                                            );
+
                                             Get.to(() => MedicineCart());
                                           },
                                           child: Container(

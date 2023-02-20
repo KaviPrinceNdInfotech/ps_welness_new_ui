@@ -89,7 +89,7 @@ class ComplaintCredentials extends StatelessWidget {
             // SizedBox(
             //   height: size.height * 0.02,
             // ),
-            ///Subject..........
+            ///Subject.........................
             Text('Subject',style: TextStyle(
               fontSize: size.height*0.015,
               fontWeight: FontWeight.bold,
@@ -105,6 +105,7 @@ class ComplaintCredentials extends StatelessWidget {
                   _chemistComplaintController.Subjects = value!;
                 },
                 validator: (value) {
+
                   return _chemistComplaintController.validsubject(value!);
                 },
                 cursorColor: Colors.black,

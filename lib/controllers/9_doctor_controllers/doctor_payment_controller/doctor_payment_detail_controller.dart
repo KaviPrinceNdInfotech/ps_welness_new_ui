@@ -24,7 +24,6 @@ class DoctorPaymentViewControllers extends GetxController {
       isLoading(false);
     }
   }
-
   @override
   void onInit() {
     super.onInit();

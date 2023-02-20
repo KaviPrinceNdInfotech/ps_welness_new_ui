@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
@@ -15,6 +16,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 // import 'package:ps_welness/modules_view/forget_password_view/forget_password_view.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 // import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
+
 
 class Credentials extends StatelessWidget {
   Credentials({Key? key}) : super(key: key);
@@ -110,12 +112,31 @@ class Credentials extends StatelessWidget {
                 child: Text(
                   'Forget Password?',
                   style: GoogleFonts.alegreya(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade700,
                     fontSize: size.width * 0.035,
                   ),
                 ),
               ),
             ),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: InkWell(
+            //     onTap: () {
+            //
+            //       Get.to(() => ChangePassword());
+            //     },
+            //     child: Text(
+            //       'Change Password?',
+            //       style: GoogleFonts.alegreya(
+            //         fontWeight: FontWeight.w600,
+            //         color: Colors.grey.shade700,
+            //         fontSize: size.width * 0.035,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
 
             RectangularButton(
                 text: 'Sign In',

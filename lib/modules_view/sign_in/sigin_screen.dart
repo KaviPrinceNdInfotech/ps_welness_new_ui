@@ -52,6 +52,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 Positioned(
                   bottom: -size.height * 0.332,
                   //left: -30,
@@ -74,6 +75,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 Positioned(
                   bottom: size.height * 0.383,
                   //left: -30,
@@ -96,6 +98,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -51,7 +52,7 @@ class _MapViewState extends State<MapView> {
 
   MapController _mapControllers = Get.put(MapController());
 
-  late GoogleMapController mapController;
+   late GoogleMapController mapController;
 
   late Position _currentPosition;
   String _currentAddress = '';
@@ -287,6 +288,7 @@ class _MapViewState extends State<MapView> {
     return 12742 * asin(sqrt(a));
   }
 
+
   // Create the polylines for showing the route between two places
   _createPolylines(
     double startLatitude,
@@ -324,12 +326,33 @@ class _MapViewState extends State<MapView> {
     super.initState();
   }
 
+
+  Completer<GoogleMapController> _controllerGoogleMap=Completer();
+  late GoogleMapController newGoogleMapController;
+  double mapbottompadding=0;
+
+  GlobalKey<ScaffoldState> scaffoldkey=new GlobalKey<ScaffoldState>();
+  late Position currentpositon;
+  var geolocator=Geolocator();
+
+  void locatepostion() async{
+    Position position=await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    currentpositon=position;  // this is line 26, it is point before await
+
+    LatLng latLngPosition=LatLng(position.latitude,position.longitude);
+
+    CameraPosition cameraPosition=new CameraPosition(target: latLngPosition,zoom: 14);
+    newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  }
+  static final CameraPosition googlepostion=CameraPosition(target: LatLng(37.4249,-122.0657));
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       height: height,
       width: width,
       child: Scaffold(
@@ -345,25 +368,30 @@ class _MapViewState extends State<MapView> {
               mapType: MapType.normal,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
+
+
+
+
+
               polylines: Set<Polyline>.of(polylines.values),
               onMapCreated: (GoogleMapController controller) {
                 mapController = controller;
               },
             ),
             Positioned(
-              bottom: size.height * 0.0,
+              bottom: size.height * 0.025,
               left: size.height * 0.00,
               right: size.width * 0,
               child: Container(
-                height: size.height * 0.14,
+                height: size.height * 0.17,
                 width: size.width,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.white30,
                 ),
                 child: Column(
                   children: [
                     Container(
-                      height: size.height * 0.043,
+                      height: size.height * 0.051,
                       width: size.width,
                       decoration: BoxDecoration(
                         color: Colors.cyanAccent,
@@ -376,7 +404,7 @@ class _MapViewState extends State<MapView> {
                               value: _mapControllers.selectedState.value,
                               decoration: InputDecoration(
                                 contentPadding:
-                                    EdgeInsets.only(bottom: size.height * 0.01),
+                                    EdgeInsets.only(bottom: size.height * 0.02),
                                 // prefixIcon: Icon(
                                 //   Icons.real_estate_agent,
                                 //   color: Colors.black,
@@ -418,7 +446,7 @@ class _MapViewState extends State<MapView> {
                       height: size.height * 0.004,
                     ),
                     Container(
-                      height: size.height * 0.043,
+                      height: size.height * 0.051,
                       width: size.width,
                       decoration: BoxDecoration(
                         color: Colors.cyanAccent,
@@ -443,7 +471,7 @@ class _MapViewState extends State<MapView> {
                               hint: Text(
                                 'Vehicle Type',
                                 style: TextStyle(
-                                  fontSize: size.height * 0.016,
+                                  fontSize: size.height * 0.019,
                                 ),
                               ),
                               items: items.map((String items) {
@@ -471,17 +499,17 @@ class _MapViewState extends State<MapView> {
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.005,
+                      height: size.height * 0.009,
                     ),
                     PhysicalModel(
                       color: Colors.grey.shade300,
-                      elevation: 10,
+                      elevation: 2,
                       shadowColor: Colors.grey.shade900,
                       borderRadius: BorderRadius.circular(10),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Container(
-                          height: size.height * 0.03,
+                          height: size.height * 0.035,
                           width: size.width * 0.6,
                           decoration: BoxDecoration(
                             color: Colors.indigo,

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 //import 'package:ps_welness/widgets/controller_bindingss.dart';
@@ -25,6 +26,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => Doctor_appointment_1_Controller());
     Get.lazyPut(() => SkillsListController());
     Get.lazyPut(() => LabListController());
+    Get.lazyPut(() => MapController());
 
 
     return super.createHttpClient(context)

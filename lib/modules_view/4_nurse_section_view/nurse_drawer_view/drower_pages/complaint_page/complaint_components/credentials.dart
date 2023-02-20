@@ -16,18 +16,11 @@ import '../../../../../../widgets/widgets/rectangular_button.dart';
 // import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
 class ComplaintCredentials extends StatelessWidget {
-
   ComplaintCredentials({Key? key}) : super(key: key);
-
-
   // Hospital_1_Controller _hospital_1_controller =
   //     Get.put(Hospital_1_Controller());
-
-
   NurseComplaintController _nurseComplaintController = Get.put(NurseComplaintController());
-
   //ComplaintController _complaintController = Get.put(ComplaintController());
-
   var items = [
     'Select',
     'Doctor',

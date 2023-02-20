@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_lists/nurse_list_appointment.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/nurse_location_model/nurse_location_models.dart';
@@ -966,7 +967,8 @@ class Nursebooking1Credentials extends StatelessWidget {
                   press: () {
                     CallLoader.loader();
                     _nurseBooking1Controller.checkNurse1();
-                    Get.to(NurseAppointmentHistory());
+                    Get.to(()=>NurseListUser());
+                    //Get.to(NurseAppointmentHistory());
 
 
                     //_loginpasswordController.checkLoginpassword();

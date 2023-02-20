@@ -87,7 +87,7 @@ class AppointmentCheckout extends StatelessWidget {
                               width: size.width * 0.06,
                             ),
                             Text(
-                              'Book  Doctor\'s  Appoinmtment',
+                              'Book  Nurse\'s  Appoinmtment',
                               style: GoogleFonts.lato(
                                 fontSize: size.width * 0.05,
                                 color: MyTheme.blueww,
@@ -152,7 +152,7 @@ class AppointmentCheckout extends StatelessWidget {
                               ),
                               Spacer(),
                               Text(
-                                'Fees: ₹ 500',
+                                'Fees: ₹ 600',
                                 //doctorcatagary[index],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -181,7 +181,7 @@ class AppointmentCheckout extends StatelessWidget {
                                 height: size.height * 0.022,
                               ),
                               Text(
-                                'Dr. Kumar Prince',
+                                'Mrs Alex',
                                 //doctorcatagary[index],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -192,18 +192,18 @@ class AppointmentCheckout extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'Cardiologist',
+                                'ANM',
                                 //doctorcatagary[index],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w700,
                                   color: Colors.grey.shade700,
                                   fontSize: size.height * 0.017,
                                 ),
                               ),
                               Text(
-                                'Experenced: 2 yr',
+                                'Experienced: 3 yr',
                                 //doctorcatagary[index],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -312,7 +312,7 @@ class AppointmentCheckout extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Nov 26, 2022',
+                                  'Mar 02,2023',
                                   //doctorcatagary[index],
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -324,7 +324,7 @@ class AppointmentCheckout extends StatelessWidget {
                                 ),
 
                                 Text(
-                                  '15:30',
+                                  '19:10',
                                   //doctorcatagary[index],
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -448,7 +448,7 @@ class AppointmentCheckout extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '₹ 500',
+                                  '₹ 600',
                                   //doctorcatagary[index],
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

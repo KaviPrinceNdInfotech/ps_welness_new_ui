@@ -59,6 +59,7 @@ class SignUpList extends StatelessWidget {
       // 'service 7',
       // 'service 8',
     ];
+
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: SafeArea(
@@ -500,5 +501,6 @@ class SignUpList extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

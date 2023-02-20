@@ -35,10 +35,10 @@ class NurseeAppointmentDetail extends StatelessWidget {
         body: Obx(
           () => (_nurseappointmentdetailController.isLoading.value)
               ? Center(child: CircularProgressIndicator())
-              : _nurseappointmentdetailController.nurseappointmentdetail != null
-                  ? Center(
-                      child: Text('No Data'),
-                    )
+              // : _nurseappointmentdetailController.nurseappointmentdetail != null
+              //     ? Center(
+              //         child: Text('No Data'),
+              //       )
                   : SafeArea(
                       child: Stack(
                         clipBehavior: Clip.none,

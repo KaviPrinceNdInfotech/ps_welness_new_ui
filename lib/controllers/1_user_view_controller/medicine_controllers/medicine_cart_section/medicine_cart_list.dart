@@ -28,12 +28,32 @@ class MedicineCartListController extends GetxController {
 
   //var Id = '';
 
-  void addtocartApi(var PatientId,MedicineId,Quantity) async {
+  void addtocartApi(MedicineId,Quantity) async {
     //CallLoader.loader();
     isLoading(true);
-    http.Response r = await ApiProvider.AddToCartMedicineApi(PatientId,MedicineId,Quantity);
+    http.Response r = await ApiProvider.Addtocartmedicineapi(MedicineId,Quantity);
 
-    if (r.statusCode == 200) {
+      if (r.statusCode == 200) {
+        labListApi();
+
+
+        ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
+        Get.to(
+              () => MedicineCart(cartId: 4, medicineId: 2,
+                  medicineName: 'adsf12', quantity: 1,
+                  brandName: 'asdf', unitPrice:123.0, totalPrice: 123.0), //next page class
+          duration: Duration(
+              milliseconds: 300), //duration of transitions, default 1 sec
+          transition:
+          // Transition.leftToRight //transition effect
+          // Transition.fadeIn
+          //Transition.size
+          Transition.zoom,
+        );
+
+        //CallLoader.hideLoader();
+        //isLoading(false);
+      }
       //MedicineCart(PatientId: PatientId,MedicineId:MedicineId,Quantity:Quantity);
 
 
@@ -51,7 +71,6 @@ class MedicineCartListController extends GetxController {
 
       //CallLoader.hideLoader();
       //isLoading(false);
-    }
   }
 
   @override
@@ -62,13 +81,18 @@ class MedicineCartListController extends GetxController {
 
   @override
   void onClose() {
+
     medicinecartlistmodel = null;
+
     super.onClose();
   }
 
   @override
+
   void dispose() {
+
     medicinecartlistmodel = null;
+
     super.dispose();
   }
 }

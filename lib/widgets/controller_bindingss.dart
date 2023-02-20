@@ -12,6 +12,7 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/patient_list_
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/patient_report_view_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
@@ -62,6 +63,7 @@ class ControllerBinding extends Bindings {
     Get.put(Doctor_appointment_1_Controller());
     Get.put(SkillsListController());
     Get.put(LabListController());
+    Get.put(MapController());
 
 
     //Get.put(CatagaryByIdController());

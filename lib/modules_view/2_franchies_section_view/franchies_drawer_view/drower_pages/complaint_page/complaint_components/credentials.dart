@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
+import '../../../../../../controllers/2_franchises_controller/franchises_complain_controller/franchises_complain_controller.dart';
 import '../../../../../../controllers/complaint_controller/complaint_controller.dart';
 
 //import 'package:ps_welness/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
@@ -29,7 +31,24 @@ class ComplaintCredentials extends StatelessWidget {
     'Item 5',
   ];
 
+
+  FranchisesComplaintController _franchiesComplaintController = Get.put(FranchisesComplaintController());
+
+  //ComplaintController _complaintController = Get.put(ComplaintController());
+  //
+  // var items = [
+  //   'Select',
+  //   'Doctor',
+  //   'Hospital',
+  //   'Driver',
+  //   'Ambulance',
+  //   'Patient',
+  //   'Other',
+  // ];
+
   get newvalue => null!;
+
+  //..............................................
 
   // LoginpasswordController _loginpasswordController =
   //     Get.put(LoginpasswordController());
@@ -38,13 +57,14 @@ class ComplaintCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _complaintController.complaintformkey,
+      key: _franchiesComplaintController.franchisescomplaintformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ///Todo: state............................
             // ///Todo: email.....................
             // NeumorphicTextFieldContainer(
             //   child: TextFormField(
@@ -76,45 +96,119 @@ class ComplaintCredentials extends StatelessWidget {
             // SizedBox(
             //   height: size.height * 0.02,
             // ),
+            ///Subject..........
+            Text('Subject',style: TextStyle(
+              fontSize: size.height*0.015,
+              fontWeight: FontWeight.bold,
 
-            ///Todo: state............................
+            ),),
 
             NeumorphicTextFieldContainer(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-                child: Obx(
-                  () => DropdownButtonFormField(
-                      value: _complaintController.selectedState.value,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.subject,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: Text('Select Subject'),
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(
-                            items,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        _complaintController.selectedState.value = newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
-                      }),
+              child: TextFormField(
+                maxLines: 1,
+                autofillHints: [AutofillHints.addressCityAndState],
+                controller: _franchiesComplaintController.subjectController,
+                onSaved: (value) {
+                  _franchiesComplaintController.Subjects = value!;
+                },
+                validator: (value) {
+                  return _franchiesComplaintController.validsubject(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  hintText: 'Subject',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  // prefixIcon: Icon(
+                  //   Icons.comment_bank_outlined,
+                  //   color: black.withOpacity(0.7),
+                  //   size: 20,
+                  // ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            // NeumorphicTextFieldContainer(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+            //     child: Obx(
+            //           () => DropdownButtonFormField(
+            //           value: _nurseComplaintController.selectedState.value,
+            //           decoration: InputDecoration(
+            //             prefixIcon: Icon(
+            //               Icons.subject,
+            //               color: Colors.black,
+            //             ),
+            //             enabledBorder: InputBorder.none,
+            //             border: InputBorder.none,
+            //           ),
+            //           hint: Text('Select Subject'),
+            //           items: items.map((String items) {
+            //             return DropdownMenuItem(
+            //               value: items,
+            //               child: Text(
+            //                 items,
+            //                 style: TextStyle(
+            //
+            //                   fontWeight: FontWeight.w600,
+            //                   fontSize: size.height * 0.015,
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           onChanged: (String? newValue) {
+            //             _nurseComplaintController.selectedState.value = newValue!;
+            //             // _hospital_2_controller.states.value =
+            //             //     newValue! as List<String>;
+            //             // _hospital_2_controller.selectedCity.value = null;
+            //             // _hospital_2_controller.cities.clear();
+            //             // _hospital_2_controller.cities
+            //             //     .addAll(stateCityMap[newvalue]!);
+            //           }),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            Text('Others',style: TextStyle(
+              fontSize: size.height*0.015,
+              fontWeight: FontWeight.bold,
+
+            ),),
+
+            ///todo: other value..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                maxLines: 1,
+                autofillHints: [AutofillHints.addressCityAndState],
+                controller: _franchiesComplaintController.otherController,
+                onSaved: (value) {
+                  _franchiesComplaintController.Others = value!;
+                },
+                validator: (value) {
+                  return _franchiesComplaintController.validothers(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  hintText: 'Other',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  // prefixIcon: Icon(
+                  //   Icons.comment_bank_outlined,
+                  //   color: black.withOpacity(0.7),
+                  //   size: 20,
+                  // ),
+                  border: InputBorder.none,
                 ),
               ),
             ),
@@ -123,17 +217,26 @@ class ComplaintCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            Text('Write your complain',style: TextStyle(
+              fontSize: size.height*0.015,
+              fontWeight: FontWeight.bold,
+
+            ),),
+
             ///todo: location value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 maxLines: 5,
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _complaintController.complaintController,
+                controller: _franchiesComplaintController.complaintController,
                 onSaved: (value) {
-                  _complaintController.complaint = value!;
+                  _franchiesComplaintController.complaint = value!;
                 },
                 validator: (value) {
-                  return _complaintController.validAddress(value!);
+                  return _franchiesComplaintController.validAddress(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -166,7 +269,10 @@ class ComplaintCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'SUBMIT',
                 press: () {
-                  Get.to(NurseHomePage());
+                  CallLoader.loader();
+                  _franchiesComplaintController.checkFranchises3();
+                  //_loginpasswordController.checkLoginpassword();
+                  //Get.to(HomePage());
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

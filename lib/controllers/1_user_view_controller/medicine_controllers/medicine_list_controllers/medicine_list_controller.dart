@@ -24,9 +24,6 @@ class MedicineListController extends GetxController {
     }
   }
 
-
-
-
   @override
   void onInit() {
     super.onInit();
@@ -41,6 +38,7 @@ class MedicineListController extends GetxController {
 
   @override
   void dispose() {
+
     medicinelistmodel = null;
     super.dispose();
   }

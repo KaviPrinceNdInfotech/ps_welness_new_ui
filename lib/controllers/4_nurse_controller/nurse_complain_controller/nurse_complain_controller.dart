@@ -20,16 +20,16 @@ class NurseComplaintController extends GetxController {
   Rx<String?> selectedState = (null as String?).obs;
   RxList<String> states = <String>[].obs;
 
-  void usercomplaintApi() async {
+  void nursecomplaintApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.UserComplainApi(
+    http.Response r = await ApiProvider.NurseComplainApi(
       loginidController.text,
       subjectController.text,
       complaintController.text,
       isdeletedController.text,
       isresolveController.text,
       otherController.text,
-      doctorController.text,
+      //doctorController.text,
     );
 
     if (r.statusCode == 200) {
@@ -42,34 +42,38 @@ class NurseComplaintController extends GetxController {
     }
   }
 
-  late TextEditingController loginidController,
+  late TextEditingController
+
       subjectController,
       complaintController,
       isdeletedController,
       isresolveController,
       otherController,
-      doctorController;
+      //doctorController''
+       loginidController;
 
-  var Login_Id = '';
+
   var Subjects = '';
   var complaint = '';
   var IsDeleted = '';
   var IsResolved = '';
   var Others = '';
-  var Doctor = '';
+  //var Doctor = '';
+  var Login_Id = '';
 
   @override
   void onInit() {
     states.refresh();
     super.onInit();
 
-    loginidController = TextEditingController();
+
     subjectController = TextEditingController();
     complaintController = TextEditingController();
     isdeletedController = TextEditingController();
     isresolveController = TextEditingController();
     otherController = TextEditingController();
-    doctorController = TextEditingController();
+    loginidController = TextEditingController();
+    //doctorController = TextEditingController();
   }
 
   @override
@@ -79,13 +83,14 @@ class NurseComplaintController extends GetxController {
 
   @override
   void onClose() {
-    loginidController.dispose();
     subjectController.dispose();
     complaintController.dispose();
     isdeletedController.dispose();
     isresolveController.dispose();
     otherController.dispose();
-    doctorController.dispose();
+    loginidController.dispose();
+
+    // doctorController.dispose();
   }
 
   String? validothers(String value) {
@@ -110,7 +115,7 @@ class NurseComplaintController extends GetxController {
 
   void checkNurse3() {
     if (nursecomplaintformkey.currentState!.validate()) {
-      usercomplaintApi();
+      nursecomplaintApi();
     }
     nursecomplaintformkey.currentState!.save();
     // final isValid = complaintformkey.currentState!.validate();

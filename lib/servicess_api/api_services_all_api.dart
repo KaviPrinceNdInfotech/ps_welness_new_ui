@@ -44,6 +44,7 @@ import '../model/9_doctors_model/view_patient_report_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
 
 class ApiProvider {
+
   static var baseUrl = 'http://test.pswellness.in/';
   //'http://pswellness.in/';
   static String token = '';
@@ -86,7 +87,10 @@ class ApiProvider {
       "Address": Address,
       "Pincode": Pincode,
     };
+
     print(body);
+
+
     http.Response r = await http.post(
       Uri.parse(url), body: body,
       //headers: headers
@@ -135,6 +139,53 @@ class ApiProvider {
       prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+      //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+//Change passwo
+
+  static ChangePasswordApi(
+      var ID,
+      var Password,
+      var ConfirmPassword
+      ) async {
+    var url = baseUrl + 'api/SignupApi/ChangePassword';
+    var prefs = GetStorage();
+    //saved id..........
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    Id = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+    var body = {
+      "ID":Id.toString(),
+      // Id.toString(),
+      //2.toString(),
+      "Password": Password,
+      "ConfirmPassword": ConfirmPassword,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      var prefs = GetStorage();
+      //saved id..........
+      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      //Id = prefs.read("data")["Id"].toString();
+      //print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
 
       //saved token.........
       // prefs.write("token".toString(), json.decode(r.body)['token']);
@@ -315,6 +366,7 @@ class ApiProvider {
       return;
     }
   }
+
   //from_here nurse type.........................
 
   //doctor profile  api 2..........................
@@ -369,7 +421,6 @@ class ApiProvider {
   ) async {
     try {
       var url = baseUrl + 'api/SignupApi/DoctorRegistration';
-
       var body = {
         "PinCode": PinCode,
         "Id": Id,
@@ -484,6 +535,53 @@ class ApiProvider {
     }
   }
 
+  //complain_register doctor api................
+
+  static NurseComplainApi(
+      var LoginId,
+      var Subjects,
+      var Complaints,
+      var IsDeleted,
+      var IsResolved,
+      var Others,
+
+      ) async {
+    var url = baseUrl + 'api/ComplaintApi/NurseComplaints';
+
+    var body = {
+      "Subjects": Subjects,
+      "Complaints": Complaints,
+      "IsDeleted": IsDeleted,
+      "IsResolved": IsResolved,
+      "Others": Others,
+      "Login_Id": LoginId,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      var prefs = GetStorage();
+      //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
   //view_patient_list api 3.........
 
   static ViewPatientReportsApi() async {
@@ -550,28 +648,24 @@ class ApiProvider {
   }
 
 ///todo:add to cart......................................................add to cart...
-  static AddToCartMedicineApi( var PatientId,MedicineId,Quantity) async {
+  static Addtocartmedicineapi( MedicineId,Quantity) async {
     var url = baseUrl + 'api/PatientMedicine/AddMedicineToCart';
     var prefs = GetStorage();
     //saved id..........
     final PatientId = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&okoko:${Id}');
-    final MedicineId = prefs.read("MedicineId").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&okoko:${MedicineId}');
-
     // token = prefs.read("token").toString();
-    // print('&&&&&&&&&&&&&&&&&&&&&&okok:${token}');
 
     var body = {
       "PatientId": PatientId,
       "MedicineId": MedicineId,
       "Quantity":Quantity,
     };
-    final headers = {"Authorization": "Bearer $token"};
+   // final headers = {"Authorization": "Bearer $token"};
 
     print(body);
     http.Response r =
-    await http.post(Uri.parse(url), body: body, headers: headers);
+    await http.post(Uri.parse(url), body: body,);
     print(url);
     print(r.body);
     print(r.statusCode);
@@ -602,6 +696,7 @@ class ApiProvider {
       return;
     }
   }
+
   //
   /// user medicine_list_api..........................
   static MedicinelistApi() async {
@@ -788,7 +883,7 @@ class ApiProvider {
 
 
   static doctorSkillsApi(
-      var Doctor_Id,
+      var DoctorId,
       var SkillName,
       ) async {
     var url = baseUrl + 'api/DoctorApi/AddSkill';
@@ -858,16 +953,16 @@ class ApiProvider {
       var PhoneNumber,
       var StartTime,
       var SlotTiming,
-      var Department_Id,
-      var Specialist_Id,
+      var DepartmentId,
+      var SpecialistId,
       var LicenceNumber,
       var LicenceImage,
       var LicenceImageName,
       var PinCode,
       var ClinicName,
       var Location,
-      var StateMaster_Id,
-      var CityMaster_Id,
+      var StateMasterId,
+      var CityMasterId,
       var EndTime,
       var LicenceBase64,
 
@@ -883,16 +978,16 @@ class ApiProvider {
       "PhoneNumber": PhoneNumber,
       "StartTime": StartTime,
       "SlotTiming": SlotTiming,
-      "Department_Id": Department_Id,
-      "Specialist_Id": Specialist_Id,
+      "Department_Id": DepartmentId,
+      "Specialist_Id": SpecialistId,
       "LicenceNumber": LicenceNumber,
       "LicenceImage": LicenceImage,
       "LicenceImageName": LicenceImageName,
       "PinCode": PinCode,
       "ClinicName": ClinicName,
       "Location": Location,
-      "StateMaster_Id": StateMaster_Id,
-      "CityMaster_Id": CityMaster_Id,
+      "StateMaster_Id": StateMasterId,
+      "CityMaster_Id": CityMasterId,
       "EndTime": EndTime,
       "LicenceBase64": LicenceBase64,
     };
@@ -935,3 +1030,22 @@ class ApiProvider {
   //       }
   //    }
 }
+
+///Todo: from here we can do dynamic id in the url............
+// static Future<List<SpecialistModel>> getSpeaclistbyIdApi(String depId) async {
+// var url =
+// "http://test.pswellness.in/api/CommonApi/GetSpecialist?depId=$depId";
+// //"http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
+// try {
+// http.Response r = await http.get(Uri.parse(url));
+// print(r.body.toString());
+// if (r.statusCode == 200) {
+// var speclistData = getspecialistdeptbyIdFromJson(r.body);
+// return speclistData.specialist;
+// } else {
+// return [];
+// }
+// } catch (error) {
+// return [];
+// }
+// }

@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.6.10'
+    ext.kotlin_version = '1.6.21'
     repositories {
         google()
         mavenCentral()
@@ -9,6 +9,9 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+//    dependencies {
+//        implementation 'com.google.android.gms:play-services-location:21.0.1'
+//    }
 }
 
 allprojects {
@@ -29,3 +32,7 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+//apply plugin: 'com.android.application'
+//dependencies {
+//    implementation 'com.google.android.gms:play-services-location:21.0.1'
+//}
