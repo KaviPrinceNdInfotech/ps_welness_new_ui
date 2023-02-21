@@ -52,7 +52,9 @@ class _MapViewState extends State<MapView> {
 
   MapController _mapControllers = Get.put(MapController());
 
-   late GoogleMapController mapController;
+  GoogleMapController mapController = Get.find();
+
+   //late GoogleMapController mapController;
 
   late Position _currentPosition;
   String _currentAddress = '';

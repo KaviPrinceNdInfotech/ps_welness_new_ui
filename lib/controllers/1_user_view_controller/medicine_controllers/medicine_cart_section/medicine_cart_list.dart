@@ -9,6 +9,8 @@ import '../../../../servicess_api/api_services_all_api.dart';
 
 class MedicineCartListController extends GetxController {
   RxBool isLoading = true.obs;
+  String MedicineId = "";
+  var cartId = "";
 
   MedicineCartListModel? medicinecartlistmodel;
 
@@ -31,17 +33,18 @@ class MedicineCartListController extends GetxController {
   void addtocartApi(MedicineId,Quantity) async {
     //CallLoader.loader();
     isLoading(true);
-    http.Response r = await ApiProvider.Addtocartmedicineapi(MedicineId,Quantity);
+    http.Response r = await ApiProvider.Addtocartmedicineapi(MedicineId,Quantity,);
 
-      if (r.statusCode == 200) {
+
+      if (r.statusCode == 200 || r.statusCode != 200) {
         labListApi();
-
-
         ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
         Get.to(
-              () => MedicineCart(cartId: 4, medicineId: 2,
-                  medicineName: 'adsf12', quantity: 1,
-                  brandName: 'asdf', unitPrice:123.0, totalPrice: 123.0), //next page class
+              () => MedicineCart(
+                  cartId: 88, medicineId: MedicineId,
+                  medicineName: "nm123", quantity: Quantity,
+                  brandName: 'asd', unitPrice:12.0, totalPrice: 432.0
+              ), //next page class
           duration: Duration(
               milliseconds: 300), //duration of transitions, default 1 sec
           transition:

@@ -7,6 +7,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nu
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
+import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 //import 'package:ps_welness/model/1_user_model/health_checkup_list/health_checkup_list.dart';
 //import 'package:ps_welness/model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
@@ -115,6 +116,8 @@ class ApiProvider {
       return r;
     }
   }
+
+
   //login user api ps welness api 2..................................
 
   static LoginEmailApi(
@@ -681,10 +684,14 @@ class ApiProvider {
     }
   }
 
-  /// user medicinrcart_list_api..........................
+  /// user medicinrcart_list_api.............................................
   static MedicinecartlistApi() async {
+    var prefs = GetStorage();
+    //saved id..........
+    final PatientId = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&okoko:${Id}');
     var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineCart?patientId=137";
+        "http://test.pswellness.in/api/PatientMedicine/MedicineCart?patientId=$PatientId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -692,6 +699,7 @@ class ApiProvider {
         var MedicineCartListModel = medicineCartListModelFromJson(r.body);
         return MedicineCartListModel;
       }
+      //print('&&&&&&&&&&&&&&&&&&&&&&okokouuuuu:${Id}');
     } catch (error) {
       return;
     }
@@ -1008,6 +1016,23 @@ class ApiProvider {
     else {
       Get.snackbar('Error', r.body);
       return r;
+    }
+  }
+
+
+  ///todo: banner Api for user.........
+
+  static getbanneruserApi() async {
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
     }
   }
 

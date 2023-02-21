@@ -27,6 +27,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => SkillsListController());
     Get.lazyPut(() => LabListController());
     Get.lazyPut(() => MapController());
+    //Get.lazyPut(() => GoogleMapController());
 
 
     return super.createHttpClient(context)
