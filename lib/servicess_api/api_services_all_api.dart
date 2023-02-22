@@ -8,6 +8,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_m
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
+import 'package:ps_welness_new_ui/model/banner_image_model/banner_test_list_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 //import 'package:ps_welness/model/1_user_model/health_checkup_list/health_checkup_list.dart';
 //import 'package:ps_welness/model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
@@ -1023,7 +1024,9 @@ class ApiProvider {
   ///todo: banner Api for user.........
 
   static getbanneruserApi() async {
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+     var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
+     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1035,6 +1038,40 @@ class ApiProvider {
       return;
     }
   }
+
+  ///todo: banner Api for doctor.........
+
+  static getbannerdoctorApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=4';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  //todo:test banner........................
+
+  // static SliderBannerApi() async {
+  //   var url = "https://api.gyros.farm/api/AdminApi/BannerImage";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       SliderListModel sliderbanerlist = sliderListModelFromJson(r.body);
+  //       return sliderbanerlist;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
 
 
 

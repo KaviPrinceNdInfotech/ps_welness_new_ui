@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
@@ -9,6 +13,7 @@ import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/map_page_user/google_map_2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/map_page_user/map_page_google_map.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/google_map/new_map/new_g_map.dart';
@@ -167,15 +172,12 @@ class UserHomePage extends StatelessWidget {
           // leading: Icon(Icons.read_more_outlined),
         ),
         drawer: UserMainDrawer(),
-        body: Obx(() => (_userHomepagContreoller.isLoading.value)
-    ? Center(
-    child: CircularProgressIndicator(),
-    )
-        : SingleChildScrollView(
+        body: SingleChildScrollView(
             child: Column(
               children: [
+
                 Container(
-                  height: size.height * 0.28,
+                  height: size.height * 0.23,
                   width: size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -183,9 +185,10 @@ class UserHomePage extends StatelessWidget {
                       border: Border.all(color: Colors.grey)),
                   child: Padding(
                     padding: const EdgeInsets.all(2),
-                    child: Mycrusial(),
+                    child: MySlider(),
                   ),
                 ),
+
                 SizedBox(
                   height: size.height * 0.005,
                 ),
@@ -936,113 +939,164 @@ class UserHomePage extends StatelessWidget {
               ],
             ),
           ),
-        ),
+
       ),
     );
   }
 }
 
-class Mycrusial extends StatelessWidget {
-  final _sliderKey = GlobalKey();
-  Mycrusial({Key? key}) : super(key: key);
-
-  final List<Color> colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.yellow,
-    Colors.green,
-    Colors.blue,
-    Colors.indigo,
-    Colors.purple,
-  ];
-
-  final List<String> images = [
-    "https://plus.unsplash.com/premium_photo-1661776255948-7a76baa9d7b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80",
-    "https://images.unsplash.com/photo-1601841162542-956af38ba052?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-    'https://images.unsplash.com/photo-1599493758267-c6c884c7071f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-    'https://images.unsplash.com/photo-1576765608622-067973a79f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1756&q=80',
-    'https://images.unsplash.com/photo-1588543385566-413e13a51a24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
-    'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1791&q=80',
-    'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
-    //"https://images.unsplash.com/photo-1625047509248-ec889cbff17f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGFjJTIwcmVwYWlyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    // "https://images.unsplash.com/photo-1607400201515-c2c41c07d307?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGFjJTIwcmVwYWlyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    //"https://images.unsplash.com/photo-1621905251918-48416bd8575a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWMlMjByZXBhaXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-    //"https://images.unsplash.com/photo-1604754742629-3e5728249d73?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    //"https://images.unsplash.com/photo-1513366884929-f0b3bedfb653?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-    //"https://images.unsplash.com/photo-1577801622187-9a1076d049da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGFjJTIwcmVwYWlyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    // "https://images.unsplash.com/photo-1615870123253-f3de8aa89e24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8OXxjVlFHYWlJSTI3OHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-  ];
-  final bool _isPlaying = true;
-
-  //get _sliderKey => null;
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Container(
-          height: size.height * 0.28,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              color: MyTheme.ThemeColors,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: CarouselSlider.builder(
-                //scrollPhysics: NeverScrollableScrollPhysics(),
-                key: _sliderKey,
-                unlimitedMode: true,
-                autoSliderTransitionTime: Duration(seconds: 1),
-                //autoSliderDelay: Duration(seconds: 5),
-                slideBuilder: (index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Material(
-                      elevation: 12,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        height: size.height * 38,
-                        width: size.width,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.white, width: 3),
-                          image: DecorationImage(
-                              image: NetworkImage(images[index]),
-                              fit: BoxFit.fill),
-                        ),
-                        //color: colors[index],
-                        // child: Text(
-                        //   letters[index],
-                        //   style: TextStyle(fontSize: 200, color: Colors.white),
-                        // ),
-                      ),
-                    ),
-                  );
-                },
-                slideTransform: DefaultTransform(),
-                slideIndicator: CircularSlideIndicator(
-                  indicatorBorderWidth: 2,
-                  indicatorRadius: 4,
-                  itemSpacing: 15,
-                  currentIndicatorColor: Colors.white,
-                  padding: EdgeInsets.only(bottom: 0),
-                ),
-                itemCount: images.length,
-                enableAutoSlider: true,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class Mycrusial extends StatelessWidget {
+//   final _sliderKey = GlobalKey();
+//   UserHomepagContreoller _userHomepagContreoller = Get.put(UserHomepagContreoller());
+//   Future<List<String>> getData() async {
+//     var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+//     var res = await http.get(Uri.parse(url));
+//     if (res.statusCode == 200) {
+//       var data = json.decode(res.body);
+//       var rest = data["BannerImageList"];
+//       //your json string
+//       String jsonString = json.encode(rest);
+//       //convert json string to list
+//       List<String> newData = List<String>.from(json.decode(jsonString));
+//       print("List Size&&&&&&&&&&&&&&&: ${newData}");
+//       return newData;
+//     } else {
+//       throw Exception('Failed to load data');
+//     }
+//   }
+//
+//   Mycrusial({Key? key}) : super(key: key);
+//
+//   final List<Color> colors = [
+//     Colors.red,
+//     Colors.orange,
+//     Colors.yellow,
+//     Colors.green,
+//     Colors.blue,
+//     Colors.indigo,
+//     Colors.purple,
+//   ];
+//
+//   final List<String> images = [
+//     "https://plus.unsplash.com/premium_photo-1661776255948-7a76baa9d7b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80",
+//     "https://images.unsplash.com/photo-1601841162542-956af38ba052?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+//     'https://images.unsplash.com/photo-1599493758267-c6c884c7071f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+//     'https://images.unsplash.com/photo-1576765608622-067973a79f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1756&q=80',
+//     'https://images.unsplash.com/photo-1588543385566-413e13a51a24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+//     'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1791&q=80',
+//     'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80',
+//     //"https://images.unsplash.com/photo-1625047509248-ec889cbff17f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGFjJTIwcmVwYWlyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+//     // "https://images.unsplash.com/photo-1607400201515-c2c41c07d307?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGFjJTIwcmVwYWlyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+//     //"https://images.unsplash.com/photo-1621905251918-48416bd8575a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YWMlMjByZXBhaXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+//     //"https://images.unsplash.com/photo-1604754742629-3e5728249d73?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+//     //"https://images.unsplash.com/photo-1513366884929-f0b3bedfb653?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+//     //"https://images.unsplash.com/photo-1577801622187-9a1076d049da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGFjJTIwcmVwYWlyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+//     // "https://images.unsplash.com/photo-1615870123253-f3de8aa89e24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8OXxjVlFHYWlJSTI3OHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+//   ];
+//   final bool _isPlaying = true;
+//
+//   //get _sliderKey => null;
+//   var base = 'https://api.gyros.farm/Images/';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     Size size = MediaQuery.of(context).size;
+//     return Scaffold(
+//       body: Obx(
+//               () => (_userHomepagContreoller.isLoading.value)
+//               ? Center(child: CircularProgressIndicator())
+//           //: _homePageController.getsliderbaner!.bannerImageList != null
+//                   : _userHomepagContreoller.getsliderbaner!.bannerImageList == null
+//           //: _allProductController.allProductModel!.result!.isEmpty
+//           //_bestSellerController.bestsellermodel!.result!.isEmpty
+//               ? Center(
+//             child: Text('No data'),
+//           )
+//
+//           :Padding(
+//           padding: const EdgeInsets.all(4.0),
+//           child: Container(
+//             height: size.height * 0.28,
+//             width: size.width,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(10),
+//             ),
+//             child: Center(
+//               child: Material(
+//                 color: MyTheme.ThemeColors,
+//                 borderRadius: BorderRadius.circular(10),
+//                 elevation: 0,
+//                 child: CarouselSlider.builder(
+//                   //scrollPhysics: NeverScrollableScrollPhysics(),
+//                   key: _sliderKey,
+//                   unlimitedMode: true,
+//                   autoSliderTransitionTime: Duration(seconds: 1),
+//                   //autoSliderDelay: Duration(seconds: 5),
+//                   slideBuilder: (index) {
+//                     return Padding(
+//                       padding: const EdgeInsets.all(7.0),
+//                       child: Material(
+//                         elevation: 12,
+//                         borderRadius: BorderRadius.circular(10),
+//                         child: Container(
+//                           height: size.height * 38,
+//                           width: size.width,
+//                           alignment: Alignment.center,
+//                           decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.circular(10),
+//                             border: Border.all(color: Colors.white, width: 3),
+//                             image: DecorationImage(
+//                                 image: NetworkImage(
+//                                     images[index]
+//                                 ),
+//                                 fit: BoxFit.fill),
+//                           ),
+//                           //color: colors[index],
+//                           // child: Text(
+//                           //   letters[index],
+//                           //   style: TextStyle(fontSize: 200, color: Colors.white),
+//                           // ),
+//                           child: Image.network(
+//                             base +
+//                                 '${_userHomepagContreoller.getsliderbaner!.bannerImageList![index].toString()}',
+//                             fit: BoxFit.fitWidth,
+//                             errorBuilder: (context, error, stackTrace) {
+//                               //if image not comming in catagary then we have to purchase
+//
+//                               return Text(
+//                                 'No Image',
+//                                 style: TextStyle(
+//                                   fontWeight: FontWeight.bold,
+//                                   fontSize: size.height*12,
+//                                 ),
+//                               );
+//                             },
+//                             //images[index]
+//                           ),
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                   slideTransform: DefaultTransform(),
+//                   slideIndicator: CircularSlideIndicator(
+//                     indicatorBorderWidth: 2,
+//                     indicatorRadius: 4,
+//                     itemSpacing: 15,
+//                     currentIndicatorColor: Colors.white,
+//                     padding: EdgeInsets.only(bottom: 0),
+//                   ),
+//                   itemCount: _userHomepagContreoller.banerlistmodel!.bannerImageList.length,
+//                   //images.length,
+//                   enableAutoSlider: true,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 ///...........
 ///

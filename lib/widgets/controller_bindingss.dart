@@ -29,6 +29,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_check
 import '../controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
+import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/9_doctor_controllers/doctor_drawer_controllers/doctor_profile_controller.dart';
 import '../controllers/user_controller/user_controller_1.dart';
 
@@ -64,6 +65,7 @@ class ControllerBinding extends Bindings {
     Get.put(SkillsListController());
     Get.put(LabListController());
     Get.put(MapController());
+    Get.put(UserHomepagContreoller());
 
 
     //Get.put(CatagaryByIdController());
