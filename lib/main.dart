@@ -12,6 +12,7 @@ import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 //import 'package:ps_welness/widgets/controller_bindingss.dart';
 
 import 'controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
+import 'controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
@@ -29,6 +30,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => LabListController());
     Get.lazyPut(() => MapController());
     Get.lazyPut(() => UserHomepagContreoller());
+    Get.lazyPut(() => DoctorListController());
     //Get.lazyPut(() => GoogleMapController());
 
 

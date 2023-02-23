@@ -64,14 +64,15 @@ class MySlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/images/';
+    var base = 'http://test.pswellness.in/Images/';
     //var base = 'https://api.gyros.farm/Images/';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Obx(
             () => (_userhomePageController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-        : _userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
+        :_userhomePageController.banerlistmodel?.bannerImageList != null
+            //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
             //: _userhomePageController.getsliderbaner!.bannerImageList == null
         //: _allProductController.allProductModel!.result!.isEmpty
         //_bestSellerController.bestsellermodel!.result!.isEmpty
@@ -102,7 +103,8 @@ class MySlider extends StatelessWidget {
                   width: size.width,
                   // height: 26.h,
                   child: Image.network(
-                    base + '${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                    '$base${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                    //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       //if image not comming in catagary then we have to purchase

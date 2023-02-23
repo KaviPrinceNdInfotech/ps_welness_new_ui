@@ -42,6 +42,7 @@ import '../model/1_user_model/states_model/state_modells.dart';
 import '../model/9_doctors_model/doctor_payment_history.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
+import '../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/9_doctors_model/view_patient_report_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
 
@@ -651,6 +652,25 @@ class ApiProvider {
     }
   }
 
+
+  //doctor_list_api..........................
+  static ViewDoctorListApi() async {
+    var url = "http://test.pswellness.in/api/DoctorApi/getDoctorList";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var GetDoctorListModel = getDoctorListModelFromJson(r.body);
+        return GetDoctorListModel;
+      }
+      print(url);
+      print(r.body);
+      print(r.statusCode);
+    } catch (error) {
+      return;
+    }
+  }
+
 ///todo:add to cart......................................................add to cart...
   static Addtocartmedicineapi( MedicineId,Quantity) async {
     var url = baseUrl + 'api/PatientMedicine/AddMedicineToCart';
@@ -1021,12 +1041,30 @@ class ApiProvider {
   }
 
 
-  ///todo: banner Api for user.........
+  ///todo: banner Api for user.1........
 
   static getbanneruserApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-     var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
-     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+     //var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
+     var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        //BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+  ///todo: banner Api for franchies.2........
+
+  static getbannerfrachiseApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=2';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1039,7 +1077,25 @@ class ApiProvider {
     }
   }
 
-  ///todo: banner Api for doctor.........
+  ///todo: banner Api for healthcheckup.3........
+
+  static getbannerhealthcheckupApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=3';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: banner Api for doctor..4.......
 
   static getbannerdoctorApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
@@ -1056,6 +1112,80 @@ class ApiProvider {
       return;
     }
   }
+
+  ///todo: banner Api for driver..5.......
+
+  static getbannerdriverApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=5';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: banner Api for nurse..6.......
+
+  static getbannernurseApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=6';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+  ///todo: banner Api for nurse..7.......
+
+  static getbannerrawApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=7';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: banner Api for chemist.8........
+
+  static getbannerchemistApi() async {
+    //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
+    var url = baseUrl + 'api/SignupApi/getBanner/?id=8';
+    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        BannerListModel bannerListModel = bannerListModelFromJson(r.body);
+        return bannerListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+
+
 
   //todo:test banner........................
 

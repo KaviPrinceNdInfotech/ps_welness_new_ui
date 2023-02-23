@@ -16,7 +16,7 @@ class UserHomepagContreoller extends GetxController {
 
   BannerListModel? banerlistmodel;
 
- // SliderListModel? getsliderbaner;
+  // SliderListModel? getsliderbaner;
 
 
   // void userbannerApi() async {
@@ -38,15 +38,12 @@ class UserHomepagContreoller extends GetxController {
   void sliderBannerApi() async {
     isLoading(true);
     banerlistmodel = await ApiProvider.getbanneruserApi();
-    if (
-    banerlistmodel!.bannerImageList == null
+    if (banerlistmodel?.bannerImageList != null
     //getsliderbaner!.bannerImageList!.isNotEmpty
     ) {
       isLoading(false);
     }
   }
-
-
 
   ///add to cart...api................
 
@@ -97,3 +94,4 @@ class UserHomepagContreoller extends GetxController {
 //     throw Exception('Failed to load data');
 //   }
 // }
+
