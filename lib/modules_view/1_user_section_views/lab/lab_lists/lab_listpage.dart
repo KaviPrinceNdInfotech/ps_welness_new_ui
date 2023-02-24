@@ -50,7 +50,7 @@ class LabListPage extends StatelessWidget {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: size.height * 0.02),
-                            )
+                            ),
                           ],
                         ),
                       ),

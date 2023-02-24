@@ -103,7 +103,7 @@ class MySlider extends StatelessWidget {
                   width: size.width,
                   // height: 26.h,
                   child: Image.network(
-                    '$base${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                    '$base${_userhomePageController.banerlistmodel!.bannerImageList![index]}',
                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
