@@ -12,6 +12,7 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drawerpage.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/slider_franchise.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/franchise_commission_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_payment_report/franchise_payment_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_historyy_report.dart';
@@ -46,6 +47,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_containe
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../../../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
 import '../franchise_payout_report/franchise_payout_report.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_chemist_details/chemist_detail.dart';
@@ -245,7 +247,7 @@ class FranchiesHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Mycrusial(),
+                  child: MyFranchiseSlider(),
                 ),
               ),
               SizedBox(
@@ -3362,100 +3364,211 @@ class FranchiesHomePage extends StatelessWidget {
   }
 }
 
-class Mycrusial extends StatelessWidget {
-  final _sliderKey = GlobalKey();
-  Mycrusial({Key? key}) : super(key: key);
-
-  final List<Color> colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.yellow,
-    Colors.green,
-    Colors.blue,
-    Colors.indigo,
-    Colors.purple,
-  ];
-
-  final List<String> images = [
-    'https://media.istockphoto.com/id/1207168332/photo/adult-and-children-hands-holding-paper-family-cutout-family-home-foster-care-homeless-charity.jpg?b=1&s=170667a&w=0&k=20&c=nLT8wduB3SKjWp8WQYa2hW28vckCqFyMwNpteoFq_mA=',
-    'https://images.unsplash.com/photo-1531431057391-da7a1aabd412?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-    'https://images.unsplash.com/photo-1577896851905-dc99e1f8b4b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-    'https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-    'https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60',
-    //'https://images.unsplash.com/photo-1523299174285-a59d80640155?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
-    // 'https://images.unsplash.com/photo-1576765608866-5b51046452be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2078&q=80',
-  ];
-  final bool _isPlaying = true;
-
-  //get _sliderKey => null;
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Container(
-          height: size.height * 0.28,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              color: MyTheme.ThemeColors,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: CarouselSlider.builder(
-                //scrollPhysics: NeverScrollableScrollPhysics(),
-                key: _sliderKey,
-                unlimitedMode: true,
-                autoSliderTransitionTime: Duration(seconds: 1),
-                //autoSliderDelay: Duration(seconds: 5),
-                slideBuilder: (index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Material(
-                      elevation: 12,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        height: size.height * 38,
-                        width: size.width,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.white, width: 3),
-                          image: DecorationImage(
-                              image: NetworkImage(images[index]),
-                              fit: BoxFit.fill),
-                        ),
-                        //color: colors[index],
-                        // child: Text(
-                        //   letters[index],
-                        //   style: TextStyle(fontSize: 200, color: Colors.white),
-                        // ),
-                      ),
-                    ),
-                  );
-                },
-                slideTransform: DefaultTransform(),
-                slideIndicator: CircularSlideIndicator(
-                  indicatorBorderWidth: 2,
-                  indicatorRadius: 4,
-                  itemSpacing: 15,
-                  currentIndicatorColor: Colors.white,
-                  padding: EdgeInsets.only(bottom: 0),
-                ),
-                itemCount: images.length,
-                enableAutoSlider: true,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class Mycrusial extends StatelessWidget {
+//   final _sliderKey = GlobalKey();
+//   FranchiseHomepagContreoller _franchiseHomepagContreoller =Get.put(FranchiseHomepagContreoller());
+//   Mycrusial({Key? key}) : super(key: key);
+//
+//   final List<Color> colors = [
+//     Colors.red,
+//     Colors.orange,
+//     Colors.yellow,
+//     Colors.green,
+//     Colors.blue,
+//     Colors.indigo,
+//     Colors.purple,
+//   ];
+//
+//   final List<String> images = [
+//     'https://media.istockphoto.com/id/1207168332/photo/adult-and-children-hands-holding-paper-family-cutout-family-home-foster-care-homeless-charity.jpg?b=1&s=170667a&w=0&k=20&c=nLT8wduB3SKjWp8WQYa2hW28vckCqFyMwNpteoFq_mA=',
+//     'https://images.unsplash.com/photo-1531431057391-da7a1aabd412?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
+//     'https://images.unsplash.com/photo-1577896851905-dc99e1f8b4b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+//     'https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+//     'https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60',
+//     //'https://images.unsplash.com/photo-1523299174285-a59d80640155?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+//     // 'https://images.unsplash.com/photo-1576765608866-5b51046452be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2078&q=80',
+//   ];
+//   final bool _isPlaying = true;
+//
+//   //get _sliderKey => null;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     var base = 'http://test.pswellness.in/Images/';
+//     //var base = 'https://api.gyros.farm/Images/';
+//     Size size = MediaQuery.of(context).size;
+//     return Scaffold(
+//       body: Obx(
+//             () => (_franchiseHomepagContreoller.isLoading.value)
+//             ? Center(child: CircularProgressIndicator())
+//             :_franchiseHomepagContreoller.banerlistmodel!.bannerImageList.isEmpty
+//         //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
+//         //: _userhomePageController.getsliderbaner!.bannerImageList == null
+//         //: _allProductController.allProductModel!.result!.isEmpty
+//         //_bestSellerController.bestsellermodel!.result!.isEmpty
+//             ? Center(
+//           child: Text('No data'),
+//         )
+//             : SizedBox(
+//           height:size.height*0.33,
+//           child: CarouselSlider.builder(
+//             //scrollPhysics: NeverScrollableScrollPhysics(),
+//             key: _sliderKey,
+//             unlimitedMode: true,
+//             autoSliderTransitionTime: Duration(seconds: 2),
+//             //autoSliderDelay: Duration(seconds: 5),
+//             slideBuilder: (index) {
+//               return Container(
+//                 height: size.height*0.29,
+//                 alignment: Alignment.center,
+//                 // decoration: BoxDecoration(
+//                 //   image: DecorationImage(
+//                 //       image: NetworkImage(base +
+//                 //           '${_homePageController.getsliderbaner!.bannerImageList![index]}'),
+//                 //
+//                 //   fit: BoxFit.fill),
+//
+//                 child: Container(
+//                   height: size.height * 0.33,
+//                   width: size.width,
+//                   // height: 26.h,
+//                   child: Image.network(
+//                     base + '${_franchiseHomepagContreoller.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
+//                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+//                     fit: BoxFit.fill,
+//                     errorBuilder: (context, error, stackTrace) {
+//                       //if image not comming in catagary then we have to purchase
+//
+//                       return Center(
+//                         child: Text(
+//
+//                           'No Image',
+//
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: size.height*0.02,
+//                           ),
+//                         ),
+//                       );
+//                     },
+//                   ),
+//                 ),
+//               );
+//             },
+//             slideTransform: ZoomOutSlideTransform(),
+//             slideIndicator: CircularSlideIndicator(
+//               indicatorBorderWidth: 2,
+//               indicatorRadius: 4,
+//               itemSpacing: 15,
+//               currentIndicatorColor: Colors.white,
+//               padding: EdgeInsets.only(bottom: 5),
+//             ),
+//             itemCount: _franchiseHomepagContreoller.banerlistmodel!.bannerImageList.length,
+//             enableAutoSlider: true,
+//           ),
+//
+//           // FutureBuilder<List<String>>(
+//           //   future: getData(),
+//           //   builder: (context, snapshot) {
+//           //     if (snapshot.hasData) {
+//           //       var items = snapshot.data;
+//           //       var base = 'https://api.gyros.farm/Images/';
+//           //       return Container(
+//           //         height: 26.h,
+//           //         child: CarouselSlider.builder(
+//           //           //scrollPhysics: NeverScrollableScrollPhysics(),
+//           //           key: _sliderKey,
+//           //           unlimitedMode: true,
+//           //           autoSliderTransitionTime: Duration(seconds: 2),
+//           //           //autoSliderDelay: Duration(seconds: 5),
+//           //           slideBuilder: (index) {
+//           //             return Container(
+//           //               height: 26.h,
+//           //               alignment: Alignment.center,
+//           //               decoration: BoxDecoration(
+//           //                 image: DecorationImage(
+//           //                     image: NetworkImage(base + '${items![index]}'),
+//           //                     fit: BoxFit.fill),
+//           //               ),
+//           //             );
+//           //           },
+//           //           slideTransform: ZoomOutSlideTransform(),
+//           //           slideIndicator: CircularSlideIndicator(
+//           //             indicatorBorderWidth: 2,
+//           //             indicatorRadius: 4,
+//           //             itemSpacing: 15,
+//           //             currentIndicatorColor: Colors.white,
+//           //             padding: EdgeInsets.only(bottom: 6),
+//           //           ),
+//           //           itemCount: items!.length,
+//           //           enableAutoSlider: true,
+//           //         ),
+//           //       );
+//           //
+//           //       /*  ListView(
+//           //         physics: NeverScrollableScrollPhysics(),
+//           //         children: <Widget>[
+//           //           Container(
+//           //             height: 26.h,
+//           //             child: CarouselSlider.builder(
+//           //               //scrollPhysics: NeverScrollableScrollPhysics(),
+//           //               key: _sliderKey,
+//           //               unlimitedMode: true,
+//           //               autoSliderTransitionTime: Duration(seconds: 2),
+//           //               //autoSliderDelay: Duration(seconds: 5),
+//           //               slideBuilder: (index) {
+//           //                 return Container(
+//           //                   height: 26.h,
+//           //                   alignment: Alignment.center,
+//           //                   decoration: BoxDecoration(
+//           //                     image: DecorationImage(
+//           //                         image: NetworkImage('${'Images'}'),
+//           //                         fit: BoxFit.fill),
+//           //                   ),
+//           //                   //color: colors[index],
+//           //                   // child: Text(
+//           //                   //   letters[index],
+//           //                   //   style: TextStyle(fontSize: 200, color: Colors.white),
+//           //                   // ),
+//           //                 );
+//           //               },
+//           //               slideTransform: ZoomOutSlideTransform(),
+//           //               slideIndicator: CircularSlideIndicator(
+//           //                 indicatorBorderWidth: 2,
+//           //                 indicatorRadius: 4,
+//           //                 itemSpacing: 15,
+//           //                 currentIndicatorColor: Colors.white,
+//           //                 padding: EdgeInsets.only(bottom: 6),
+//           //               ),
+//           //               itemCount: images.length,
+//           //               enableAutoSlider: true,
+//           //             ),
+//           //           ),
+//           //           Padding(
+//           //             padding: const EdgeInsets.symmetric(vertical: 1),
+//           //             child: Align(
+//           //               child: ConstrainedBox(
+//           //                 constraints:
+//           //                     BoxConstraints(minWidth: 190, maxWidth: 600),
+//           //               ),
+//           //             ),
+//           //           ),
+//           //         ],
+//           //       );*/
+//           //     } else if (snapshot.hasError) {
+//           //       return Text("${snapshot.error}");
+//           //     }
+//           //     return Center(
+//           //         child: CircularProgressIndicator(
+//           //       color: Colors.white,
+//           //     ));
+//           //   },
+//           // )
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 ///...........
 ///

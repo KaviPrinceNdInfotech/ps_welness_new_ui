@@ -11,11 +11,14 @@ import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 //import 'package:ps_welness/widgets/controller_bindingss.dart';
 
+import 'controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
 import 'controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import 'controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
+import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 import 'controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
 
@@ -31,6 +34,9 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => MapController());
     Get.lazyPut(() => UserHomepagContreoller());
     Get.lazyPut(() => DoctorListController());
+    Get.lazyPut(() => FranchiseHomepagContreoller());
+    Get.lazyPut(() => LabHomepagContreoller());
+    Get.lazyPut(() => DriverHomepagContreoller());
     //Get.lazyPut(() => GoogleMapController());
 
 

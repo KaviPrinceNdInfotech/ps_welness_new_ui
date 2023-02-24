@@ -9,14 +9,14 @@ import '../../../../servicess_api/api_services_all_api.dart';
 import '../../../model/banner_image_model/banner_test_list_api.dart';
 
 
-class UserHomepagContreoller extends GetxController {
+class LabHomepagContreoller extends GetxController {
   RxBool isLoading = true.obs;
   String MedicineId = "";
   var cartId = "";
 
   BannerListModel? banerlistmodel;
 
- // SliderListModel? getsliderbaner;
+  // SliderListModel? getsliderbaner;
 
 
   // void userbannerApi() async {
@@ -36,8 +36,8 @@ class UserHomepagContreoller extends GetxController {
 
 
   void sliderBannerApi() async {
-    isLoading(false);
-    banerlistmodel = await ApiProvider.getbanneruserApi();
+    isLoading(true);
+    banerlistmodel = await ApiProvider.getbannerhealthcheckupApi();
     if (
     banerlistmodel!.bannerImageList.isNotEmpty
     //getsliderbaner!.bannerImageList!.isNotEmpty

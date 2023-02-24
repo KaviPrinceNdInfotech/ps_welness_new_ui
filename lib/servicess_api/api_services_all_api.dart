@@ -851,7 +851,7 @@ class ApiProvider {
   }
 
 
-  ///get_skils_api...........
+  ///get_skils_api.....................
 
   static getSkillsApi() async {
     var url =
@@ -1041,15 +1041,17 @@ class ApiProvider {
   }
 
 
-  ///todo: banner Api for user.1........
+  ///todo: banner Api for user.1....................
 
   static getbanneruserApi() async {
+
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
      //var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
      var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
+      print(url.toString());
       if (r.statusCode == 200) {
         BannerListModel bannerListModel = bannerListModelFromJson(r.body);
         //BannerListModel bannerListModel = bannerListModelFromJson(r.body);
@@ -1059,15 +1061,19 @@ class ApiProvider {
       return;
     }
   }
+
   ///todo: banner Api for franchies.2........
 
   static getbannerfrachiseApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=2';
+    //var url = baseUrl + 'api/SignupApi/getBanner/?id=2';
+    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=2";
+
     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
+      print(url.toString());
       if (r.statusCode == 200) {
         BannerListModel bannerListModel = bannerListModelFromJson(r.body);
         return bannerListModel;
@@ -1081,11 +1087,13 @@ class ApiProvider {
 
   static getbannerhealthcheckupApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=3';
+    //var url = baseUrl + 'api/SignupApi/getBanner/?id=3';
+    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=3";
     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
+      print(url.toString());
       if (r.statusCode == 200) {
         BannerListModel bannerListModel = bannerListModelFromJson(r.body);
         return bannerListModel;

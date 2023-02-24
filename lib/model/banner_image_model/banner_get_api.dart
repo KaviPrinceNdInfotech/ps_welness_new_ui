@@ -10,23 +10,23 @@ String bannerListModelToJson(BannerListModel data) => json.encode(data.toJson())
 
 class BannerListModel {
   BannerListModel({
-    this.bannerImageList,
-    this.status,
-    this.message,
+    required this.bannerImageList,
+    required this.status,
+    required this.message,
   });
 
-  List<BannerImageList>? bannerImageList;
-  int? status;
-  String? message;
+  List<BannerImageList> bannerImageList;
+  int status;
+  String message;
 
   factory BannerListModel.fromJson(Map<String, dynamic> json) => BannerListModel(
-    bannerImageList: json["BannerImageList"] == null ? [] : List<BannerImageList>.from(json["BannerImageList"]!.map((x) => BannerImageList.fromJson(x))),
+    bannerImageList: List<BannerImageList>.from(json["BannerImageList"].map((x) => BannerImageList.fromJson(x))),
     status: json["status"],
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
-    "BannerImageList": bannerImageList == null ? [] : List<dynamic>.from(bannerImageList!.map((x) => x.toJson())),
+    "BannerImageList": List<dynamic>.from(bannerImageList.map((x) => x.toJson())),
     "status": status,
     "message": message,
   };
@@ -34,17 +34,17 @@ class BannerListModel {
 
 class BannerImageList {
   BannerImageList({
-    this.id,
-    this.bannerPath,
+    required this.id,
+    required this.bannerPath,
     this.imageFile,
-    this.proId,
+    required this.proId,
     this.bannerlist,
   });
 
-  int? id;
-  String? bannerPath;
+  int id;
+  String bannerPath;
   dynamic imageFile;
-  int? proId;
+  int proId;
   dynamic bannerlist;
 
   factory BannerImageList.fromJson(Map<String, dynamic> json) => BannerImageList(

@@ -10,15 +10,17 @@ import 'package:get/get_core/src/get_main.dart';
 //import 'package:gyros_app/view/home_page/home_page_controller.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+import '../../../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 
 
 //import 'package:http/http.dart' as http;
 
-class MySlider extends StatelessWidget {
+class MyLabSlider extends StatelessWidget {
   final _sliderKey = GlobalKey();
-  MySlider({Key? key}) : super(key: key);
-  UserHomepagContreoller _userhomePageController = Get.put(UserHomepagContreoller());
+  MyLabSlider({Key? key}) : super(key: key);
+  LabHomepagContreoller _labHomepagContreoller = Get.put(LabHomepagContreoller());
 
   //HomePageController _homePageController = Get.put(HomePageController());
 
@@ -70,11 +72,13 @@ class MySlider extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Obx(
-            () => (_userhomePageController.isLoading.value)
+            () => (_labHomepagContreoller.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-        :_userhomePageController.banerlistmodel?.bannerImageList == null
-            //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
-            //: _userhomePageController.getsliderbaner!.bannerImageList == null
+        //:_franchiseHomepagContreoller.banerlistmodel?.bannerImageList == null
+            :_labHomepagContreoller.banerlistmodel!.bannerImageList.isEmpty
+
+        //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
+        //: _userhomePageController.getsliderbaner!.bannerImageList == null
         //: _allProductController.allProductModel!.result!.isEmpty
         //_bestSellerController.bestsellermodel!.result!.isEmpty
             ? Center(
@@ -104,7 +108,7 @@ class MySlider extends StatelessWidget {
                   width: size.width,
                   // height: 26.h,
                   child: Image.network(
-                    base + '${_userhomePageController.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
+                    base + '${_labHomepagContreoller.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
@@ -134,7 +138,7 @@ class MySlider extends StatelessWidget {
               currentIndicatorColor: Colors.white,
               padding: EdgeInsets.only(bottom: 5),
             ),
-            itemCount: _userhomePageController.banerlistmodel!.bannerImageList!.length,
+            itemCount: _labHomepagContreoller.banerlistmodel!.bannerImageList!.length,
             enableAutoSlider: true,
           ),
 
@@ -235,7 +239,6 @@ class MySlider extends StatelessWidget {
           //     ));
           //   },
           // )
-
         ),
       ),
     );

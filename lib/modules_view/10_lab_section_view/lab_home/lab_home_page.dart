@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drawerpage.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_slider.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_payment_history/lab_payment_history.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -158,7 +159,7 @@ class LabHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Mycrusial(),
+                  child: MyLabSlider(),
                 ),
               ),
               SizedBox(

@@ -11,14 +11,15 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+import '../../../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 
 
 //import 'package:http/http.dart' as http;
 
-class MySlider extends StatelessWidget {
+class MyFranchiseSlider extends StatelessWidget {
   final _sliderKey = GlobalKey();
-  MySlider({Key? key}) : super(key: key);
-  UserHomepagContreoller _userhomePageController = Get.put(UserHomepagContreoller());
+  MyFranchiseSlider({Key? key}) : super(key: key);
+  FranchiseHomepagContreoller _franchiseHomepagContreoller =Get.put(FranchiseHomepagContreoller());
 
   //HomePageController _homePageController = Get.put(HomePageController());
 
@@ -70,11 +71,13 @@ class MySlider extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Obx(
-            () => (_userhomePageController.isLoading.value)
+            () => (_franchiseHomepagContreoller.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-        :_userhomePageController.banerlistmodel?.bannerImageList == null
-            //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
-            //: _userhomePageController.getsliderbaner!.bannerImageList == null
+            //:_franchiseHomepagContreoller.banerlistmodel?.bannerImageList == null
+              :_franchiseHomepagContreoller.banerlistmodel!.bannerImageList.isEmpty
+
+      //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
+        //: _userhomePageController.getsliderbaner!.bannerImageList == null
         //: _allProductController.allProductModel!.result!.isEmpty
         //_bestSellerController.bestsellermodel!.result!.isEmpty
             ? Center(
@@ -104,7 +107,7 @@ class MySlider extends StatelessWidget {
                   width: size.width,
                   // height: 26.h,
                   child: Image.network(
-                    base + '${_userhomePageController.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
+                    base + '${_franchiseHomepagContreoller.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
@@ -134,7 +137,7 @@ class MySlider extends StatelessWidget {
               currentIndicatorColor: Colors.white,
               padding: EdgeInsets.only(bottom: 5),
             ),
-            itemCount: _userhomePageController.banerlistmodel!.bannerImageList!.length,
+            itemCount: _franchiseHomepagContreoller.banerlistmodel!.bannerImageList!.length,
             enableAutoSlider: true,
           ),
 
@@ -235,7 +238,6 @@ class MySlider extends StatelessWidget {
           //     ));
           //   },
           // )
-
         ),
       ),
     );
