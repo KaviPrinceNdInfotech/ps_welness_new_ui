@@ -32,6 +32,7 @@ class DoctorListController extends GetxController {
 
   @override
   void onInit() {
+
     super.onInit();
 
     doctorListApi();
@@ -55,7 +56,6 @@ class DoctorListController extends GetxController {
     doctorListUser = null;
 
     super.dispose();
-
 
   }
 }
