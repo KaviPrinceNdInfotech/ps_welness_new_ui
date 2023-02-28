@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_drawer_view/drawerpage.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_home/rwa_slider.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_patient_list/rwa_patient_list.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_payment_history/rwa_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_profile_page_view/profile_view.dart';
@@ -39,7 +40,6 @@ class RwaHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     GlobalKey<ScaffoldState> _key = GlobalKey();
-
     final List<String> productname = [
       'Add Patient',
       'Update Bank Details',
@@ -165,7 +165,7 @@ class RwaHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Mycrusial(),
+                  child: RwaSlider(),
                 ),
               ),
               SizedBox(

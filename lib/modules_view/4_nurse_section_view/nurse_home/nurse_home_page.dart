@@ -16,6 +16,7 @@ import '../../../controllers/1_user_view_controller/user_appointment_controller/
 import '../nurse_appointment_details/nurse_appointment_details.dart';
 import '../nurse_appointment_history_view/appointment_history_view.dart';
 import '../nurse_payment_history/nurse_payment_history.dart';
+import 'nurse_slider.dart';
 
 //import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/user_drawHomePage({Key? key}) : super(key: key);
 
@@ -155,7 +156,7 @@ class NurseHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Mycrusial(),
+                  child: NurseSlider(),
                 ),
               ),
               SizedBox(

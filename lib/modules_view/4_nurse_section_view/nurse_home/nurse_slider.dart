@@ -14,14 +14,15 @@ import '../../../controllers/10_lab_controller/lab_home_controllers/lab_home_con
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../../../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
+import '../../../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
 
 
 //import 'package:http/http.dart' as http;
 
-class MyDriverSlider extends StatelessWidget {
+class NurseSlider extends StatelessWidget {
   final _sliderKey = GlobalKey();
-  MyDriverSlider({Key? key}) : super(key: key);
-  DriverHomepagContreoller _driverHomepagContreoller = Get.put(DriverHomepagContreoller());
+  NurseSlider({Key? key}) : super(key: key);
+  NurseHomepagContreoller _nurseHomepagContreoller = Get.put(NurseHomepagContreoller());
 
   //HomePageController _homePageController = Get.put(HomePageController());
 
@@ -73,10 +74,10 @@ class MyDriverSlider extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Obx(
-            () => (_driverHomepagContreoller.isLoading.value)
+            () => (_nurseHomepagContreoller.isLoading.value)
             ? Center(child: CircularProgressIndicator())
         //:_franchiseHomepagContreoller.banerlistmodel?.bannerImageList == null
-            :_driverHomepagContreoller.banerlistmodel!.bannerImageList.isEmpty
+            :_nurseHomepagContreoller.banerlistmodel!.bannerImageList.isEmpty
 
         //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
         //: _userhomePageController.getsliderbaner!.bannerImageList == null
@@ -109,7 +110,7 @@ class MyDriverSlider extends StatelessWidget {
                   width: size.width,
                   // height: 26.h,
                   child: Image.network(
-                    base + '${_driverHomepagContreoller.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
+                    base + '${_nurseHomepagContreoller.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
@@ -117,9 +118,7 @@ class MyDriverSlider extends StatelessWidget {
 
                       return Center(
                         child: Text(
-
                           'No Image',
-
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: size.height*0.02,
@@ -139,7 +138,7 @@ class MyDriverSlider extends StatelessWidget {
               currentIndicatorColor: Colors.white,
               padding: EdgeInsets.only(bottom: 5),
             ),
-            itemCount: _driverHomepagContreoller.banerlistmodel!.bannerImageList!.length,
+            itemCount: _nurseHomepagContreoller.banerlistmodel!.bannerImageList!.length,
             enableAutoSlider: true,
           ),
 

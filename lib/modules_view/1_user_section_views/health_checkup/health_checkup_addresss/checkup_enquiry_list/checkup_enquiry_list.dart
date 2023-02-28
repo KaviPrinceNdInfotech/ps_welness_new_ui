@@ -105,6 +105,7 @@ class HealthChkpEnquiryList extends StatelessWidget {
                           margin: new EdgeInsets.fromLTRB(15, 20, 10, 20),
                           padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                         ),
+
                         // Container(
                         //   height: size.height * 0.06,
                         //   width: size.width * 0.2,
@@ -122,6 +123,7 @@ class HealthChkpEnquiryList extends StatelessWidget {
                         //     ),
                         //   )),
                         // ),
+
                       ],
                     ),
                     Obx(
@@ -134,7 +136,7 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                   child: Text("No List"),
                                 )
                               : SizedBox(
-                                  height: size.height * 0.78,
+                                 // height: size.height * 0.78,
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _healthCheckupController

@@ -1143,11 +1143,12 @@ class ApiProvider {
 
   static getbannernurseApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=6';
-    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+   // var url = baseUrl + 'api/SignupApi/getBanner/?id=6';
+    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=6";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
+      print(url);
       if (r.statusCode == 200) {
         BannerListModel bannerListModel = bannerListModelFromJson(r.body);
         return bannerListModel;
@@ -1156,15 +1157,17 @@ class ApiProvider {
       return;
     }
   }
-  ///todo: banner Api for nurse..7.......
+  ///todo: banner Api for rwa..7.......
+
 
   static getbannerrawApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=7';
-    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+   // var url = baseUrl + 'api/SignupApi/getBanner/?id=7';
+    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=7";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
+      print(url);
       if (r.statusCode == 200) {
         BannerListModel bannerListModel = bannerListModelFromJson(r.body);
         return bannerListModel;
@@ -1178,11 +1181,12 @@ class ApiProvider {
 
   static getbannerchemistApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=8';
-    //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    //var url = baseUrl + 'api/SignupApi/getBanner/?id=8';
+    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=8";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
+      print(url);
       if (r.statusCode == 200) {
         BannerListModel bannerListModel = bannerListModelFromJson(r.body);
         return bannerListModel;

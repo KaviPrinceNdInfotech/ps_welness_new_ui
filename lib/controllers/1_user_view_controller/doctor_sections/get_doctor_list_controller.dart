@@ -12,12 +12,19 @@ class DoctorListController extends GetxController {
   GetDoctorListModel? doctorListUser;
 
   void doctorListApi() async {
+
     isLoading(true);
+
     doctorListUser = await ApiProvider.ViewDoctorListApi();
+
     print('Prince doctor list');
+
     print(doctorListUser);
+
     if (doctorListUser != null) {
+
       //Get.to(() => TotalPrice());
+
       isLoading(false);
       //Get.to(()=>Container());
     }
@@ -26,19 +33,30 @@ class DoctorListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     doctorListApi();
+
   }
 
   @override
   void onClose() {
+
+
     doctorListUser = null;
+
+
     super.onClose();
   }
 
   @override
+
   void dispose() {
+
     doctorListUser = null;
+
     super.dispose();
+
+
   }
 }
 

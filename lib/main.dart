@@ -19,6 +19,9 @@ import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_bo
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
+import 'controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
+import 'controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
+import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import 'controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
 
@@ -37,6 +40,9 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => FranchiseHomepagContreoller());
     Get.lazyPut(() => LabHomepagContreoller());
     Get.lazyPut(() => DriverHomepagContreoller());
+    Get.lazyPut(() => NurseHomepagContreoller());
+    Get.lazyPut(() => RwaHomepagContreoller());
+    Get.lazyPut(() => ChemistHomepagContreoller());
     //Get.lazyPut(() => GoogleMapController());
 
 

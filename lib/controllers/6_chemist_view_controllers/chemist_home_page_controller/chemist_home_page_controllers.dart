@@ -9,21 +9,37 @@ import '../../../../servicess_api/api_services_all_api.dart';
 import '../../../model/banner_image_model/banner_test_list_api.dart';
 
 
-class FranchiseHomepagContreoller extends GetxController {
+class ChemistHomepagContreoller extends GetxController {
   RxBool isLoading = true.obs;
   String MedicineId = "";
   var cartId = "";
 
   BannerListModel? banerlistmodel;
 
+ // SliderListModel? getsliderbaner;
+
+
+  // void userbannerApi() async {
+  //   isLoading(false);
+  //   banerlistmodel = await ApiProvider.getbanneruserApi();
+  //   print('Prince lab list');
+  //   print(banerlistmodel);
+  //   if (banerlistmodel?.bannerImageList != null) {
+  //     //Get.to(() => TotalPrice());
+  //     isLoading(false);
+  //     //Get.to(()=>Container());
+  //   }
+  // }
+
+
+  //crusial slider banner api..........
 
 
   void sliderBannerApi() async {
     isLoading(false);
-    banerlistmodel = await ApiProvider.getbannerfrachiseApi();
+    banerlistmodel = await ApiProvider.getbannerchemistApi();
     if (
-    banerlistmodel!.bannerImageList.isNotEmpty
-    //isNotEmpty
+    banerlistmodel!.bannerImageList != null
     //getsliderbaner!.bannerImageList!.isNotEmpty
     ) {
       isLoading(false);

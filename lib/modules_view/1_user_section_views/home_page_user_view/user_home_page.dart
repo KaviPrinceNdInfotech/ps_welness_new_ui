@@ -702,7 +702,9 @@ class UserHomePage extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
+                                            
                                             radius: 10.0);
+
                                         //whatsAppOpen();
                                         // _launchWhatsapp();
 
@@ -710,7 +712,6 @@ class UserHomePage extends StatelessWidget {
                                         //Get.to(() => Profoile());
                                       } else if (index == 3) {
                                         Get.to(() => ChooseLab());
-
                                         ///
                                         //Get.to(() => TheJwelleryStore());
 

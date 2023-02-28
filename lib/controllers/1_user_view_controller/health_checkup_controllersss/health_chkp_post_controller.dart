@@ -43,7 +43,7 @@ class ChooseHealthchkpsCenterController extends GetxController {
   // RxList<String> cities2 = <String>[].obs;
 
   ///lab test api class.................
-  void getTestNameApi() async {
+  void getTestNameeApi() async {
     tests = await ApiProvider.getTestNameApi();
     print('Prince lab test  list');
     print(tests);
@@ -98,7 +98,7 @@ class ChooseHealthchkpsCenterController extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
-    getTestNameApi();
+    getTestNameeApi();
   }
 
   @override

@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_appo
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/profile_driver_page_view/driver_profile.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/slider_driver.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_update_bank_details/bank_update_view.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -178,7 +179,7 @@ class DriverHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Mycrusial(),
+                  child: MyDriverSlider(),
                 ),
               ),
               SizedBox(

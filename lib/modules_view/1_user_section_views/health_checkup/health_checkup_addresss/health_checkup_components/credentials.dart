@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/checkup_enquiry_list/checkup_enquiry_list.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
 // import 'package:ps_welness/controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
@@ -190,49 +192,55 @@ class HealthCheckupCredentials extends StatelessWidget {
                   color: MyTheme.blueww,
                 ),
               ),
+              NeumorphicTextFieldContainer(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
+                  child: Obx(
+                        () => DropdownButtonFormField(
+                      // menuMaxHeight: size.height * 0.06,
+                      //icon: Icon(Icons.location_city),
+                        value: _chooseHealthchkpsCenterController.selectedTest.value,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.text_snippet_outlined,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: Text('Selected Test'),
+                        items: _chooseHealthchkpsCenterController.tests.map((TestModel test) {
+                          return DropdownMenuItem(
+                            value: test,
+                            child: Text(
+                              test.testName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.010,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (TestModel? newValue) {
+                          _chooseHealthchkpsCenterController.selectedTest.value = newValue!;
+
+                        }),
+                  ),
+                ),
+              ),
 
               SizedBox(
                 height: size.height * 0.018,
                 //appPadding / 2,
               ),
 
-              // GetBuilder<Hospital_2_Controller>(
-              //   // specify type as Controller
-              //   init: Hospital_2_Controller(), // intialize with the Controller
-              //   builder: (value) => InkWell(
-              //     onTap: () {
-              //       _doctor_2_controller.getImage(ImageSource.gallery);
-              //     },
-              //     child: NeumorphicTextFieldContainer(
-              //       child: Container(
-              //         height: size.height * 0.07,
-              //         //width: size.width * 0.5,
-              //         child: Padding(
-              //           padding:
-              //               EdgeInsets.symmetric(horizontal: size.width * 0.1),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //             children: [
-              //               Text(
-              //                 'Authorise Letter Image',
-              //                 style: TextStyle(
-              //                   fontSize: size.width * 0.03,
-              //                   fontWeight: FontWeight.w700,
-              //                 ),
-              //               ),
-              //               Icon(Icons.camera),
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                    Get.to(CheckupCatagaryDetails());
+                    Get.to(() => HealthChkpEnquiryList());
+
+                    //Get.to(CheckupCatagaryDetails());
+                    ///this is delux button here............
                     // LabListPage());
                     //_loginpasswordController.checkLoginpassword();
                   })

@@ -34,25 +34,22 @@ import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
+import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
+import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
+import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import '../controllers/9_doctor_controllers/doctor_drawer_controllers/doctor_profile_controller.dart';
 import '../controllers/user_controller/user_controller_1.dart';
 
 class ControllerBinding extends Bindings {
   @override
   void dependencies() {
-    // TODO: implement dependencies...........
-
+    // TODO: implement dependencies....................
     //Get.put(IntroVideoBoxController());
     Get.put(FranchiesSpecialistController());
-
     Get.put(DoctorProfileControllers());
-
     Get.put(DoctorProfileController());
-
     Get.put(DoctorPatientReportControllers());
-
     Get.put(DoctorPaymentViewControllers());
-
     Get.put(LabListController());
     Get.put(NurseBooking1Controller());
     Get.put(NurseAppointmentDetailController());
@@ -74,8 +71,9 @@ class ControllerBinding extends Bindings {
     Get.put(FranchiseHomepagContreoller());
     Get.put(LabHomepagContreoller());
     Get.put(DriverHomepagContreoller());
-
-
+    Get.put(NurseHomepagContreoller());
+    Get.put(RwaHomepagContreoller());
+    Get.put(ChemistHomepagContreoller());
     //Get.put(CatagaryByIdController());
   }
 // CartNewController _cartNewController = Get.put(CartNewController());

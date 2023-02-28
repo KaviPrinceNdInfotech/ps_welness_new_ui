@@ -22,6 +22,7 @@ import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_
 import '../chemist_appointment_history_view/chemist_order_history.dart';
 import '../chemist_drawer_view/drawerpage.dart';
 import '../chemist_profile_page_view/profile_view.dart';
+import 'chemist_slider.dart';
 //import 'drower_pages/supports/support_view.dart';
 //import '../lab_appointment_details/lab_appointment_details.dart';
 //import '../lab_appointment_history_view/appointment_history_view.dart';
@@ -166,7 +167,7 @@ class ChemistHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: Mycrusial(),
+                  child: ChemistSlider(),
                 ),
               ),
               SizedBox(
