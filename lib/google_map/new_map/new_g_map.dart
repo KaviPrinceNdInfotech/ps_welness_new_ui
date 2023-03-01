@@ -21,6 +21,7 @@ class MapView extends StatefulWidget {
   _MapViewState createState() => _MapViewState();
 }
 
+
 var items = [
   'Item 1',
   'Item 2',
@@ -28,6 +29,7 @@ var items = [
   'Item 4',
   'Item 5',
 ];
+
 
 class _MapViewState extends State<MapView> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
@@ -49,12 +51,16 @@ class _MapViewState extends State<MapView> {
   List<LatLng> polylineCoordinates = [];
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  //late GoogleMapController mapController = Get.put(GoogleMapController());
 
-  MapController _mapControllers = Get.put(MapController());
 
-  GoogleMapController mapController = Get.find();
+  final MapController _mapControllers = Get.put(MapController());
 
-   //late GoogleMapController mapController;
+  late GoogleMapController mapController = Get.find();
+  //Get.lazyPut(() => GoogleMapController());
+
+
+  //late GoogleMapController mapController;
 
   late Position _currentPosition;
   String _currentAddress = '';
@@ -114,7 +120,9 @@ class _MapViewState extends State<MapView> {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
+
         _currentPosition = position;
+
         print('CURRENT POS: $_currentPosition');
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(
@@ -182,7 +190,9 @@ class _MapViewState extends State<MapView> {
         position: LatLng(startLatitude, startLongitude),
         infoWindow: InfoWindow(
           title: 'Start $startCoordinatesString',
+
           snippet: _startAddress,
+
         ),
         icon: BitmapDescriptor.defaultMarker,
       );

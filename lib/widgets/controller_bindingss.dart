@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
@@ -74,6 +75,8 @@ class ControllerBinding extends Bindings {
     Get.put(NurseHomepagContreoller());
     Get.put(RwaHomepagContreoller());
     Get.put(ChemistHomepagContreoller());
+    //Get.put(GoogleMapController());
+
     //Get.put(CatagaryByIdController());
   }
 // CartNewController _cartNewController = Get.put(CartNewController());
