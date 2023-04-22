@@ -19,6 +19,7 @@ import 'package:ps_welness_new_ui/modules_view/change_password_view/change_passw
 // import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart'; //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
 
 import '../../../constants/my_theme.dart';
+import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import '../../9_doctor_section_view/drawer_view/drower_pages/about_us/about_us.dart';
 import '../../9_doctor_section_view/drawer_view/drower_pages/supports/support_view.dart';
 import '../../forget_password_view/forget_password_view.dart';
@@ -34,6 +35,7 @@ class UserMainDrawer extends StatelessWidget {
     ///use media query to provide the main.......
 
     Size size = MediaQuery.of(context).size;
+    DoctorHistoryController _doctorHistoryController = Get.put(DoctorHistoryController());
 
     return SafeArea(
       child: Drawer(
@@ -41,10 +43,12 @@ class UserMainDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+
             DrawerHeader(
               decoration: BoxDecoration(
                 color: MyTheme.ThemeColors,
               ),
+
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 1.70),
                 child: Column(
@@ -63,7 +67,7 @@ class UserMainDrawer extends StatelessWidget {
                       )),
                     ),
                     SizedBox(
-                      height: size.height * 0.01,
+                      height: size.height * 0.0,
                     ),
                     Text(
                       'Kumar Prince',
@@ -212,6 +216,8 @@ class UserMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _doctorHistoryController.update();
+                _doctorHistoryController.doctorListHospitalApi();
                 Get.to(() => DoctorHistoryUser());
                 Get.offNamed('/DoctorHistoryUser');
               },

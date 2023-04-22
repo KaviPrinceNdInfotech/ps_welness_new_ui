@@ -57,6 +57,7 @@ class WolletUser extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     WolletHeadText(),
+
                     WalletCredentials(),
                     //DoctorAddressCredentials(),
                     //HospitalSocial(),

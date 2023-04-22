@@ -15,7 +15,7 @@ import '../../book__schealthcheckup_shedule/book_checkup_schedule.dart';
 class HealthChkpEnquiryList extends StatelessWidget {
   HealthChkpEnquiryList({Key? key}) : super(key: key);
 
-  HealthCheckupController _healthCheckupController =
+  final HealthCheckupController _healthCheckupController =
       Get.put(HealthCheckupController());
 
   ///.............checkup-list.........
@@ -25,7 +25,8 @@ class HealthChkpEnquiryList extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: Obx(
-        () => (_healthCheckupController.isLoading.value)
+        () =>
+        (_healthCheckupController.isLoading.value)
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -59,90 +60,72 @@ class HealthChkpEnquiryList extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          child: Theme(
-                            data: Theme.of(context)
-                                .copyWith(splashColor: Colors.transparent),
-                            child:
-                                // (_nurseHistoryController.isLoading.value)
-                                // ? Center(child: CircularProgressIndicator())
-                                // :
-                                TextField(
-                              // controller: _nurseHistoryController
-                              //     .appointmentController1,
-                              onTap: () {
-                                // _nurseHistoryController.chooseDate();
-                              },
-                              autofocus: false,
-                              style: TextStyle(
-                                  fontSize: 15.0, color: MyTheme.blueww),
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.search),
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Search Checkup Center',
-                                contentPadding: const EdgeInsets.only(
-                                    left: 10.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                              ),
+                    Container(
+                      decoration: new BoxDecoration(
+                          borderRadius: new BorderRadius.all(
+                              const Radius.circular(30.0)),
+                          color: Colors.white),
+                      width: size.width * 0.93,
+                      height: size.height * 0.064,
+                      margin: const EdgeInsets.fromLTRB(15, 20, 10, 20),
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                      child: Theme(
+                        data: Theme.of(context)
+                            .copyWith(splashColor: Colors.transparent),
+                        child:
+                            // (_nurseHistoryController.isLoading.value)
+                            // ? Center(child: CircularProgressIndicator())
+                            // :
+                            TextField(
+                              onChanged: (value) => _healthCheckupController.filterCheckupcenter(value),
+
+                          // // controller: _nurseHistoryController
+                          // //     .appointmentController1,
+                          // onTap: () {
+                          //   // _nurseHistoryController.chooseDate();
+                          // },
+                          autofocus: false,
+                          style: TextStyle(
+                              fontSize: 15.0, color: MyTheme.blueww),
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Search Checkup Center',
+                            contentPadding: const EdgeInsets.only(
+                                left: 10.0, bottom: 12.0, top: 12.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(25.7),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(25.7),
                             ),
                           ),
-                          decoration: new BoxDecoration(
-                              borderRadius: new BorderRadius.all(
-                                  new Radius.circular(30.0)),
-                              color: Colors.white),
-                          width: size.width * 0.93,
-                          height: size.height * 0.064,
-                          margin: new EdgeInsets.fromLTRB(15, 20, 10, 20),
-                          padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                         ),
-
-                        // Container(
-                        //   height: size.height * 0.06,
-                        //   width: size.width * 0.2,
-                        //   decoration: BoxDecoration(
-                        //     color: MyTheme.blueww,
-                        //     borderRadius: BorderRadius.circular(30),
-                        //   ),
-                        //   child: Center(
-                        //       child: Text(
-                        //     'Search',
-                        //     style: TextStyle(
-                        //       color: Colors.white,
-                        //       fontSize: size.width * 0.035,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   )),
-                        // ),
-
-                      ],
+                      ),
                     ),
-                    Obx(
-                      () => (_healthCheckupController.isLoading.value)
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : _healthCheckupController.healthCheckupListss == null
-                              ? Center(
+                    // Obx(
+                    //   () => (_healthCheckupController.isLoading.value)
+                    //       ? Center(
+                    //           child: CircularProgressIndicator(),
+                    //         )
+                    //       : _healthCheckupController.healthCheckupListss == null
+                    _healthCheckupController.foundCheckupcenter.value.isEmpty
+                     ? Center(
                                   child: Text("No List"),
                                 )
                               : SizedBox(
                                  // height: size.height * 0.78,
                                   child: ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: _healthCheckupController
-                                          .healthCheckupListss
-                                          ?.healthCheckupList
-                                          .length,
+                                      itemCount:_healthCheckupController.foundCheckupcenter.length,
+
+                                      // itemCount: _healthCheckupController
+                                      //     .healthCheckupListss
+                                      //     ?.healthCheckupList
+                                      //     .length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return Padding(
@@ -323,12 +306,14 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                                   .start,
                                                           children: [
                                                             Text(
-                                                              _healthCheckupController
-                                                                  .healthCheckupListss!
-                                                                  .healthCheckupList[
-                                                                      index]
-                                                                  .labName
-                                                                  .toString(),
+                                                        _healthCheckupController.foundCheckupcenter[index].labName.toString(),
+
+                                                              // _healthCheckupController
+                                                              //     .healthCheckupListss!
+                                                              //     .healthCheckupList[
+                                                              //         index]
+                                                              //     .labName
+                                                              //     .toString(),
                                                               //'SKY Checkup Center',
                                                               style: GoogleFonts
                                                                   .roboto(
@@ -347,12 +332,14 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                                   size.width *
                                                                       0.48,
                                                               child: Text(
-                                                                _healthCheckupController
-                                                                    .healthCheckupListss!
-                                                                    .healthCheckupList[
-                                                                        index]
-                                                                    .locationName
-                                                                    .toString(),
+                                                                _healthCheckupController.foundCheckupcenter[index].locationName.toString(),
+
+                                                                // _healthCheckupController
+                                                                //     .healthCheckupListss!
+                                                                //     .healthCheckupList[
+                                                                //         index]
+                                                                //     .locationName
+                                                                //     .toString(),
                                                                 maxLines: 2,
                                                                 overflow:
                                                                     TextOverflow
@@ -374,12 +361,14 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              _healthCheckupController
-                                                                  .healthCheckupListss!
-                                                                  .healthCheckupList[
-                                                                      index]
-                                                                  .mobileNumber
-                                                                  .toString(),
+                                                              _healthCheckupController.foundCheckupcenter[index].mobileNumber.toString(),
+
+                                                              // _healthCheckupController
+                                                              //     .healthCheckupListss!
+                                                              //     .healthCheckupList[
+                                                              //         index]
+                                                              //     .mobileNumber
+                                                              //     .toString(),
                                                               // '7877665430',
                                                               style: GoogleFonts
                                                                   .roboto(
@@ -394,12 +383,14 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              _healthCheckupController
-                                                                  .healthCheckupListss!
-                                                                  .healthCheckupList[
-                                                                      index]
-                                                                  .cityName
-                                                                  .toString(),
+                                                              _healthCheckupController.foundCheckupcenter[index].cityName.toString(),
+
+                                                              // _healthCheckupController
+                                                              //     .healthCheckupListss!
+                                                              //     .healthCheckupList[
+                                                              //         index]
+                                                              //     .cityName
+                                                              //     .toString(),
 
                                                               //'11 am to 6 pm',
                                                               style: GoogleFonts
@@ -415,12 +406,13 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              _healthCheckupController
-                                                                  .healthCheckupListss!
-                                                                  .healthCheckupList[
-                                                                      index]
-                                                                  .location
-                                                                  .toString(),
+                                                              _healthCheckupController.foundCheckupcenter[index].location.toString(),
+                                                              // _healthCheckupController
+                                                              //     .healthCheckupListss!
+                                                              //     .healthCheckupList[
+                                                              //         index]
+                                                              //     .location
+                                                              //     .toString(),
                                                               //'Mon - Sun',
                                                               style: GoogleFonts
                                                                   .roboto(
@@ -435,7 +427,11 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              'Rs.${_healthCheckupController.healthCheckupListss?.healthCheckupList[index].testAmt.toDouble()}',
+                                                              'Rs.${
+                                                                  _healthCheckupController.foundCheckupcenter[index].testAmt
+
+                                                              // _healthCheckupController.healthCheckupListss?.healthCheckupList[index].testAmt.toDouble()
+                                                              }',
                                                               //' 300',
                                                               style: GoogleFonts
                                                                   .roboto(
@@ -534,7 +530,7 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                           ),
                                         );
                                       })),
-                    ),
+
                   ],
                 ),
               ),

@@ -18,9 +18,9 @@ import '../../controllers/map_controllers/map_controller.dart';
 
 class MapView extends StatefulWidget {
   @override
+
   _MapViewState createState() => _MapViewState();
 }
-
 
 var items = [
   'Item 1',
@@ -32,6 +32,7 @@ var items = [
 
 
 class _MapViewState extends State<MapView> {
+
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
 
   final startAddressController = TextEditingController();
@@ -57,10 +58,10 @@ class _MapViewState extends State<MapView> {
   final MapController _mapControllers = Get.put(MapController());
 
   late GoogleMapController mapController = Get.find();
+
   //Get.lazyPut(() => GoogleMapController());
-
-
   //late GoogleMapController mapController;
+
 
   late Position _currentPosition;
   String _currentAddress = '';
@@ -99,6 +100,8 @@ class _MapViewState extends State<MapView> {
               width: 2,
             ),
           ),
+
+
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
@@ -159,6 +162,8 @@ class _MapViewState extends State<MapView> {
   }
 
   // Method for calculating the distance between two places
+
+
   Future<bool> _calculateDistance() async {
     try {
       // Retrieving placemarks from addresses
@@ -300,8 +305,8 @@ class _MapViewState extends State<MapView> {
     return 12742 * asin(sqrt(a));
   }
 
-
   // Create the polylines for showing the route between two places
+
   _createPolylines(
     double startLatitude,
     double startLongitude,
@@ -380,14 +385,10 @@ class _MapViewState extends State<MapView> {
               mapType: MapType.normal,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
-
-
-
-
-
               polylines: Set<Polyline>.of(polylines.values),
               onMapCreated: (GoogleMapController controller) {
                 mapController = controller;
+
               },
             ),
             Positioned(
@@ -454,9 +455,13 @@ class _MapViewState extends State<MapView> {
                         ),
                       ),
                     ),
+
+
                     SizedBox(
                       height: size.height * 0.004,
                     ),
+
+
                     Container(
                       height: size.height * 0.051,
                       width: size.width,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_section/catagary/choose_catagary.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_section/doctorss_lists/doctor_list_appointment.dart';
@@ -28,6 +29,8 @@ class DoctorAddressCredentials extends StatelessWidget {
 
   Doctor_appointment_1_Controller _doctor_appointment_1_controller =
       Get.put(Doctor_appointment_1_Controller());
+  DoctorListController _doctorListController = Get.put(DoctorListController());
+
 
   var items = [
     'Item 1',
@@ -319,6 +322,8 @@ class DoctorAddressCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'SUBMIT',
                 press: () {
+                  _doctorListController.doctorListApi();
+                  _doctorListController.update();
                  Get.to(DoctorListUser());
                   //this is not required in detail list
                  ///Get.to(CatagaryDetails());

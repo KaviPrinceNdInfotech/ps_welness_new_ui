@@ -107,10 +107,12 @@ class LabAppointmentHistory extends StatelessWidget {
                         child: Theme(
                           data: Theme.of(context)
                               .copyWith(splashColor: Colors.transparent),
-                          child: Obx(
-                            () => (_labappointmentController.isLoading.value)
-                                ? Center(child: CircularProgressIndicator())
-                                : TextField(
+                          child:
+                          // Obx(
+                          //   () => (_labappointmentController.isLoading.value)
+                          //       ? Center(child: CircularProgressIndicator())
+                          //       :
+                            TextField(
                                     controller: _labappointmentController
                                         .appointmentController1,
                                     onTap: () {
@@ -140,14 +142,13 @@ class LabAppointmentHistory extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                          ),
+                        //  ),
                         ),
                       ),
                       Container(
                         height: size.height * 0.06,
                         width: size.width * 0.2,
                         decoration: BoxDecoration(
-                          //color: MyTheme.blueww,
                           gradient: MyTheme.gradient10,
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -169,15 +170,15 @@ class LabAppointmentHistory extends StatelessWidget {
                   Obx(
                       ()=> (_labappointmentController.isLoading.value)
                       ? Center(child: CircularProgressIndicator(),)
-                      :_labappointmentController.healthCheckupList?.viewMoreHealth == null
-                      ? Center(
-                        child: Text('No List'),
-                      )
+                      // :_labappointmentController == null
+                      // ? Center(
+                      //   child: Text('No List'),
+                      // )
                     : SizedBox(
                         height: size.height * 0.71,
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: _labappointmentController.healthCheckupList?.viewMoreHealth.length,
+                            itemCount: _labappointmentController.labHistorybylabIdList?.testList?.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Stack(
                                 clipBehavior: Clip.none,
@@ -318,12 +319,17 @@ class LabAppointmentHistory extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                   _labappointmentController.healthCheckupList!
-                                                    .viewMoreHealth[index]
-                                                    .labName
-                                                    .toString(),
+                                                    Text('${_labappointmentController.labHistorybylabIdList?.testList?[index].patientName}'
                                                      // 'Vishal Mishra',
+                                                     , style: GoogleFonts.raleway(
+                                                          color: Colors
+                                                              .grey.shade800,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.width * 0.035),
+                                                    ),
+                                                    Text('9987341967',
                                                       style: GoogleFonts.raleway(
                                                           color: Colors
                                                               .grey.shade800,
@@ -332,11 +338,7 @@ class LabAppointmentHistory extends StatelessWidget {
                                                           fontSize:
                                                               size.width * 0.035),
                                                     ),
-                                                    Text(
-                                                      // _labappointmentController.healthCheckupList!
-                                                      //     .viewMoreHealth[index].packageId
-                                                      //     .toString(),
-                                                      '9987341967',
+                                                    Text('1000',
                                                       style: GoogleFonts.raleway(
                                                           color: Colors
                                                               .grey.shade800,
@@ -345,9 +347,9 @@ class LabAppointmentHistory extends StatelessWidget {
                                                           fontSize:
                                                               size.width * 0.035),
                                                     ),
-                                                    Text(
-                                                      '₹ ${_labappointmentController.healthCheckupList?.viewMoreHealth[index].testAmt}',
-                                                          //'1000',
+                                                    Text('uu'
+                                                      //_labappointmentController.labHistorybylabIdList!.testList[index].patientAddress.toString()
+                                                       ,
                                                       style: GoogleFonts.raleway(
                                                           color: Colors
                                                               .grey.shade800,
@@ -356,8 +358,7 @@ class LabAppointmentHistory extends StatelessWidget {
                                                           fontSize:
                                                               size.width * 0.035),
                                                     ),
-                                                    Text(
-                                                      'Dwarka 12, A 52, Delhi',
+                                                    Text('22 nov 2022-02 dec 2022',
                                                       style: GoogleFonts.raleway(
                                                           color: Colors
                                                               .grey.shade800,
@@ -366,20 +367,7 @@ class LabAppointmentHistory extends StatelessWidget {
                                                           fontSize:
                                                               size.width * 0.035),
                                                     ),
-                                                    Text(
-                                                      _labappointmentController.healthCheckupList!.viewMoreHealth[index].labName.toString(),
-                                                      //'22 nov 2022-02 dec 2022',
-                                                      style: GoogleFonts.raleway(
-                                                          color: Colors
-                                                              .grey.shade800,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          fontSize:
-                                                              size.width * 0.035),
-                                                    ),
-                                                    Text(
-                                                      _labappointmentController.healthCheckupList!.viewMoreHealth[index].packageId.toString(),
-                                                     // '12 hours',
+                                                    Text('12 hours',
                                                       style: GoogleFonts.raleway(
                                                           color: Colors
                                                               .grey.shade800,

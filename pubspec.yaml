@@ -39,6 +39,7 @@ dependencies:
   get: ^4.6.5
   http: ^0.13.5
   url_launcher: ^6.1.6
+  shared_preferences: ^2.0.15
   get_storage: ^2.0.3
   lottie: ^1.4.3
   google_fonts: ^3.0.1

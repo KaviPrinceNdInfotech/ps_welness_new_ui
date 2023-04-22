@@ -34,6 +34,9 @@ PODS:
   - razorpay_flutter (1.1.10):
     - Flutter
     - razorpay-pod
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - Toast (4.0.0)
   - url_launcher_ios (0.0.1):
     - Flutter
@@ -52,6 +55,7 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - razorpay_flutter (from `.symlinks/plugins/razorpay_flutter/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
@@ -87,6 +91,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   razorpay_flutter:
     :path: ".symlinks/plugins/razorpay_flutter/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
@@ -106,6 +112,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   razorpay-pod: 3ec6fe82e7d5927013cfbbef81a880188c86b077
   razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
+  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
 

@@ -19,7 +19,7 @@ class LabHeadText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: size.height * 0.05),
+          SizedBox(height: size.height * 0.08),
           RichText(
             text: TextSpan(
               children: <TextSpan>[

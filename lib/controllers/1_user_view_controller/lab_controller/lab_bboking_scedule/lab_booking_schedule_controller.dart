@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+
+import '../../../../servicess_api/api_services_all_api.dart';
 
 class book_lab_schedule_Controller extends GetxController {
   final GlobalKey<FormState> booklabscheduleformkey = GlobalKey<FormState>();
@@ -28,8 +33,28 @@ class book_lab_schedule_Controller extends GetxController {
       print('No image selected');
     }
   }
+  ///todo: book lab controller..post..........................
 
-  ///TODO: image picker.2................
+  // void bookapiApi() async {
+  //   CallLoader.loader();
+  //   http.Response r = await ApiProvider.LoginEmailApi(
+  //     // emailController.text,
+  //     // passwordController.text,
+  //   );
+  //
+  //   if (r.statusCode == 200) {
+  //     var data = jsonDecode(r.body);
+  //
+  //     CallLoader.hideLoader();
+  //
+  //     /// we can navigate to user page.....................................
+  //     //Get.to(UserHomePage());
+  //   }
+  // }
+
+
+
+  ///TODO: image picker.2...........................................
   ///
   var selectedImagepath1 = ''.obs;
 

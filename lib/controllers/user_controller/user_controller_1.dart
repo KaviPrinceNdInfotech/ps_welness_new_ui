@@ -50,8 +50,8 @@ class User_1_Controller extends GetxController {
       emailController.text,
       mobileController.text,
       passwordController.text,
-      selectedState.value!.stateName,
-      selectedCity.value!.cityName,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
       addressController.text,
       pinController.text,
     );
@@ -68,7 +68,6 @@ class User_1_Controller extends GetxController {
 
   late TextEditingController nameController,
       emailController,
-
       // confirmpasswordController,
       mobileController,
       passwordController,

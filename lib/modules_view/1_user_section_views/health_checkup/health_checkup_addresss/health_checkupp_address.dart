@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/head_text.dart';
 
@@ -50,6 +51,20 @@ class HealthCheckup1 extends StatelessWidget {
                               ),
                               fit: BoxFit.cover)),
                     ),
+                  ),
+                ),
+                Positioned(
+                  top: size.height * 0.02,
+                  //bottom: size.height * 0.64,
+                  left: -size.width*0.8,
+                  right: -size.width * 0.006,
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: InkWell(
+                        onTap: () {
+                          navigator?.pop();
+                        },
+                        child: Icon(Icons.arrow_back_ios_new_outlined)),
                   ),
                 ),
                 Column(

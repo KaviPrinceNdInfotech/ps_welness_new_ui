@@ -11,6 +11,11 @@ class MedicineListController extends GetxController {
   RxBool isLoading = true.obs;
 
   MedicineList? medicinelistmodel;
+  @override
+  void onInit() {
+    medicineListApi();
+    super.onInit();
+  }
 
   void medicineListApi() async {
     isLoading(true);
@@ -20,15 +25,11 @@ class MedicineListController extends GetxController {
     if (medicinelistmodel != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
+      foundProducts.value = medicinelistmodel!.data;
       //Get.to(()=>Container());
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    medicineListApi();
-  }
 
   @override
   void onClose() {
@@ -41,6 +42,29 @@ class MedicineListController extends GetxController {
 
     medicinelistmodel = null;
     super.dispose();
+  }
+  RxList<Datum> foundProducts = RxList<Datum>([]);
+
+  void filterProducts(String searchmedicineName) {
+    List<Datum> finalResults = [];
+    if (searchmedicineName.isEmpty) {
+      finalResults = medicinelistmodel!.data;
+    } else {
+      finalResults = medicinelistmodel!.data.where((element) =>
+      // print(element.productName);
+      // print(productName);
+      // print(element.productName
+      //     .toString()
+      //     .toLowerCase()
+      //     .contains(productName.toString().toLowerCase().trim()));
+      element.medicineName
+          .toString()
+          .toLowerCase()
+          .contains(searchmedicineName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResults.length);
+    foundProducts.value = finalResults;
   }
 }
 

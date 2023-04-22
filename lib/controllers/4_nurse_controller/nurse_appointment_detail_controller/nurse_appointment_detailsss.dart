@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 
 import '../../../model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import '../../../servicess_api/api_services_all_api.dart';
@@ -20,18 +22,60 @@ class NurseAppointmentDetailController extends GetxController {
   var appointment = ''.obs;
 
   NurseAppointmentDetail? nurseappointmentdetail;
+  NurseListbycityId? nurseListbycityId;
+
+  NursedetailbyId? nursedetailbyId;
 
   //all catagary list .........
 
   void nurseappointmentApi() async {
     //isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
+    print('Prince doctor list');
+    print(nurseappointmentdetail);
     if (
     //nurseappointmentdetail?.result != null
     nurseappointmentdetail != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
+     //foundNurses.value = nurseappointmentdetail!.result!;
+
+    }
+  }
+
+  ///todo from here we have get nurse list by location id...
+  void nurselistsApi() async {
+    //isLoading(true);
+    nurseListbycityId = await ApiProvider.NursListApi();
+    print('Prince doctor list');
+    print(nurseListbycityId);
+    if (
+    //nurseappointmentdetail?.result != null
+    nurseListbycityId != null
+    //getcatagartlist!.result!.isNotEmpty
+    ) {
+      isLoading(false);
+      foundNurses.value = nurseListbycityId!.getNurse!;
+
+    }
+  }
+
+  ///todo: from here nurse detail.............18 april 2023...
+
+  void nursedetailApi() async {
+    //isLoading(true);
+    nursedetailbyId = await ApiProvider.NursDetailApi();
+    print('Prince nurse detail..');
+    print(nursedetailbyId);
+    if (nursedetailbyId != null
+    //nurseappointmentdetail?.result != null
+    //nursedetailbyId != null
+    //getcatagartlist!.result!.isNotEmpty
+    ) {
+      isLoading(false);
+      //foundNurses.value = nurseappointmentdetail!.result!;
+
     }
   }
 
@@ -39,6 +83,8 @@ class NurseAppointmentDetailController extends GetxController {
   void onInit() {
     super.onInit();
     nurseappointmentApi();
+    nurselistsApi();
+    nursedetailApi();
     appointmentController = TextEditingController();
     appointmentController.text = "DD-MM-YYYY";
   }
@@ -91,4 +137,18 @@ class NurseAppointmentDetailController extends GetxController {
 //   }
 //   return false;
 // }
+
+RxList<GetNurse> foundNurses = RxList<GetNurse>([]);
+  void filterNurse (String searchnursepatientName) {
+    List<GetNurse>? finalResult = [];
+    if (searchnursepatientName.isEmpty) {
+      finalResult = nurseListbycityId!.getNurse;
+    } else {
+      finalResult = nurseListbycityId!.getNurse!.where((element) => element.nurseName
+          .toString().toLowerCase().contains(searchnursepatientName.toString().toLowerCase().trim())
+      ).toList();
+    }
+    print(finalResult!.length);
+    foundNurses.value = finalResult!;
+  }
 }

@@ -21,10 +21,12 @@ class DoctorHistoryUser extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
-      body: Obx(
-          ()=> (_doctorHistoryController.isLoading.value)
+      body:
+      Obx(
+          ()=> (_doctorHistoryController.isLoading.isFalse)
               ? Center(child: CircularProgressIndicator())
-        : SafeArea(
+        :
+          SafeArea(
           child: Column(
             children: [
               Padding(
@@ -49,89 +51,134 @@ class DoctorHistoryUser extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: size.height * 0.02),
-                    )
+                    ),
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  Container(
-                    decoration: new BoxDecoration(
-                        borderRadius:
-                            new BorderRadius.all(new Radius.circular(30.0)),
-                        color: Colors.white),
-                    width: size.width * 0.72,
-                    height: size.height * 0.06,
-                    margin: new EdgeInsets.fromLTRB(15, 20, 10, 20),
-                    padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
-                    child: Theme(
-                      data: Theme.of(context)
-                          .copyWith(splashColor: Colors.transparent),
-                      child: Obx(
-                        () => (_doctorHistoryController.isLoading.value)
-                            ? Center(child: CircularProgressIndicator())
-                            : TextField(
-                                controller: _doctorHistoryController
-                                    .appointmentController1,
-                                onTap: () {
-                                  _doctorHistoryController.chooseDate();
-                                },
-                                autofocus: false,
-                                style: TextStyle(
-                                    fontSize: 15.0, color: MyTheme.blueww),
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.search),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: 'dd-mm-yyyy',
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 10.0, bottom: 12.0, top: 0.0),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(25.7),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(25.7),
-                                  ),
-                                ),
-                              ),
+              Container(
+                decoration: new BoxDecoration(
+                    borderRadius:
+                    new BorderRadius.all(new Radius.circular(30.0)),
+                    color: Colors.white),
+                width: size.width * 0.9,
+                height: size.height * 0.06,
+                margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
+                padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
+                child: Theme(
+                  data: Theme.of(context)
+                      .copyWith(splashColor: Colors.transparent),
+                  child: TextField(
+                    onChanged: (value) =>_doctorHistoryController.filterDoctor(value),
+                    autofocus: false,
+                    style:
+                    TextStyle(fontSize: 15.0, color: MyTheme.blueww),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'Search Doctor..',
+                      contentPadding: const EdgeInsets.only(
+                          left: 10.0, bottom: 12.0, top: 6.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(25.7),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(25.7),
                       ),
                     ),
                   ),
-                  Container(
-                    height: size.height * 0.06,
-                    width: size.width * 0.2,
-                    decoration: BoxDecoration(
-                      color: MyTheme.blueww,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Center(
-                        child: Text(
-                      'Search',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: size.width * 0.035,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                  ),
-                ],
+                ),
               ),
-              Obx(
-                      () => (_doctorHistoryController.isLoading.value)
-                      ? Center(child: CircularProgressIndicator())
-                      : _doctorHistoryController.getdoctorhospitalmodel ==
-                      null
-                      ? Center(
-                    child: Text('No List'),
-                  )
-                      :
+              _doctorHistoryController.foundDoctor.value.isEmpty
+              // Row(
+              //   children: [
+              //     Container(
+              //       decoration: new BoxDecoration(
+              //           borderRadius:
+              //               new BorderRadius.all(new Radius.circular(30.0)),
+              //           color: Colors.white),
+              //       width: size.width * 0.72,
+              //       height: size.height * 0.06,
+              //       margin: new EdgeInsets.fromLTRB(16, 20, 10, 20),
+              //       padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
+              //       child: Theme(
+              //         data: Theme.of(context)
+              //             .copyWith(splashColor: Colors.transparent),
+              //         child: Obx(
+              //           () => (_doctorHistoryController.isLoading.value)
+              //               ? Center(child: CircularProgressIndicator())
+              //               : TextField(
+              //                   controller: _doctorHistoryController
+              //                      .appointmentController1,
+              //                   onTap: () {
+              //                     _doctorHistoryController.chooseDate();
+              //                   },
+              //                   autofocus: false,
+              //                   style: TextStyle(
+              //                       fontSize: 15.0, color: MyTheme.blueww,fontWeight: FontWeight.w800),
+              //                   decoration: InputDecoration(
+              //                     prefixIcon: Icon(Icons.search),
+              //                     filled: true,
+              //                     fillColor: Colors.white,
+              //                     hintText: 'dd-mm-yyyy',
+              //                     contentPadding: const EdgeInsets.only(
+              //                         left: 10.0, bottom: 12.0, top: 6.0),
+              //                     focusedBorder: OutlineInputBorder(
+              //                       borderSide: BorderSide(color: Colors.white),
+              //                       borderRadius: BorderRadius.circular(25.7),
+              //                     ),
+              //                     enabledBorder: UnderlineInputBorder(
+              //                       borderSide: BorderSide(color: Colors.white),
+              //                       borderRadius: BorderRadius.circular(25.7),
+              //                     ),
+              //                   ),
+              //                 ),
+              //         ),
+              //       ),
+              //     ),
+              //     Container(
+              //       height: size.height * 0.06,
+              //       width: size.width * 0.2,
+              //       decoration: BoxDecoration(
+              //         color: MyTheme.blueww,
+              //         borderRadius: BorderRadius.circular(30),
+              //       ),
+              //       child: Center(
+              //           child: Text(
+              //         'Search',
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: size.width * 0.035,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       )),
+              //     ),
+              //   ],
+              // ),
+              //Obx(
+                  //     () => (_doctorHistoryController.isLoading.isFalse)
+                  //     // ? Center(child: CircularProgressIndicator()
+                  //     // )
+                  // ?
+                  // //     : _doctorHistoryController.getdoctorhospitalmodele ==
+                  // //     null
+                  // //     ? Center(
+                  // //   child: Text('No List'),
+                  // // )
+                  // //
+                  //     :
+                  ? Center(
+                child: Text('No List'),
+              )
+                  :
                  SizedBox(
                     height: size.height * 0.73,
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: _doctorHistoryController.getdoctorhospitalmodel!.list!.length,
+                        itemCount:
+                        _doctorHistoryController.foundDoctor.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
@@ -251,35 +298,62 @@ class DoctorHistoryUser extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Dr.Vineet Mishra',
+                                                _doctorHistoryController.foundDoctor[index].doctorName.toString()
+                                         // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].doctorName.toString()
+                                                //'Dr.Vineet Mishra',
+                                                ,style: GoogleFonts.raleway(
+                                                    color: Colors.cyanAccent,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: size.width * 0.039),
+                                              ),
+                                              SizedBox(
+                                                height: size.height*0.015,
+                                                width: size.width*0.24,
+                                                child: Center(
+                                                  child: Text(
+                                                    overflow: TextOverflow.visible,
+                                                    _doctorHistoryController.foundDoctor[index].appointmentDate.toString(),
+                                                     // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].appointmentDate.toString(),
+                                                   maxLines: 1,
+                                                      textScaleFactor: 1.0,
+
+                                                   // 'Nov 16,22 - Nov 20,22',
+                                                    style: GoogleFonts.raleway(
+                                                        color: Colors.cyanAccent,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: size.width * 0.039),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                _doctorHistoryController.getdoctorhospitalmodele!.appointment![index].appointedTime.toString(),
+                                                //'22:37',
                                                 style: GoogleFonts.raleway(
                                                     color: Colors.cyanAccent,
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: size.width * 0.039),
                                               ),
                                               Text(
-                                                'Nov 16,22 - Nov 20,22',
+                                               "₹ ${
+                                              _doctorHistoryController
+                                                  .getdoctorhospitalmodele!
+                                                  .appointment![index]
+                                                  .amount
+                                                  .toString()
+                                            },",
+                                                //'Rs.500',
                                                 style: GoogleFonts.raleway(
                                                     color: Colors.cyanAccent,
                                                     fontWeight: FontWeight.w700,
                                                     fontSize: size.width * 0.039),
                                               ),
                                               Text(
-                                                '22:37',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.cyanAccent,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: size.width * 0.039),
-                                              ),
-                                              Text(
-                                                'Rs.500',
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.cyanAccent,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: size.width * 0.039),
-                                              ),
-                                              Text(
-                                                'B6 new ashok nagar delhi 110096',
+                                                  _doctorHistoryController
+                                                      .getdoctorhospitalmodele!
+                                                      .appointment![index].clinicAddress
+                                                      .toString(),
+                                               // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].clinicAddress.toString(),
+                                                // 'B6 new ashok nagar delhi 110096',
                                                 style: GoogleFonts.raleway(
                                                     color: Colors.cyanAccent,
                                                     fontWeight: FontWeight.w700,
@@ -296,11 +370,12 @@ class DoctorHistoryUser extends StatelessWidget {
                             ),
                           );
                         })),
-              ),
+             // ),
             ],
           ),
         ),
-      ),
+    //  ),
+    ),
     );
   }
 }

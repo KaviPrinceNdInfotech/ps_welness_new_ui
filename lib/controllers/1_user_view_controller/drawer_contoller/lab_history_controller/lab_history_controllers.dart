@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_appointment_history.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_details_api.dart';
 
 import '../../../../model/1_user_model/health_checkup_list/health_checkup_list.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
@@ -36,6 +38,8 @@ class LabHistoryController extends GetxController {
 
   HealthCheckupList? healthCheckupList;
 
+  Labappointmentbyuserid? labappointmentbyuserid;
+
   void labListApi() async {
     isLoading(true);
     healthCheckupList = await ApiProvider.LabListDrowerApi();
@@ -44,6 +48,21 @@ class LabHistoryController extends GetxController {
     if (healthCheckupList?.viewMoreHealth != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
+
+      //Get.to(()=>Container());
+    }
+  }
+
+  ///...........................userid.........
+  void labHistorybyUserId() async {
+    isLoading(true);
+    labappointmentbyuserid = await ApiProvider.LabappointmentshistorybyuserIdApi();
+    print('Prince lab appointment history ');
+    print(labappointmentbyuserid);
+    if (labappointmentbyuserid?.labModel != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(false);
+      foundLab.value = labappointmentbyuserid!.labModel!;
       //Get.to(()=>Container());
     }
   }
@@ -74,9 +93,10 @@ class LabHistoryController extends GetxController {
 
   @override
   void onInit() {
-    states.refresh();
+    //states.refresh();
     super.onInit();
     labListApi();
+    labHistorybyUserId();
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "DD-MM-YYYY";
@@ -183,5 +203,20 @@ class LabHistoryController extends GetxController {
     }
     labHistoryformkey.currentState!.save();
     //Get.to(() => HomePage());
+  }
+
+
+  RxList<LabModel> foundLab = RxList<LabModel>([]);
+  void filterLab (String searchlabName) {
+    List<LabModel>? finalResult = [];
+    if (searchlabName.isEmpty) {
+      finalResult = labappointmentbyuserid!.labModel;
+    } else {
+      finalResult = labappointmentbyuserid!.labModel!.where((element) => element.labName
+          .toString().toLowerCase().contains(searchlabName.toString().toLowerCase().trim())
+      ).toList();
+    }
+    print(finalResult!.length);
+    foundLab.value = finalResult!;
   }
 }

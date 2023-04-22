@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../model/1_user_model/doctor_appointment_history_model/user_doctor_apointment_history.dart';
 import '../../../../model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
 
@@ -17,16 +18,18 @@ class DoctorHistoryController extends GetxController {
 
   RxBool isLoading = true.obs;
 
-  GetDoctorListHospitalModel? getdoctorhospitalmodel;
+  UserDoctorAppointmentHistory? getdoctorhospitalmodele;
 
   void doctorListHospitalApi() async {
-    isLoading(true);
-    getdoctorhospitalmodel = await ApiProvider.getListOfDoctorApi();
+   // isLoading(false);
+    getdoctorhospitalmodele = await ApiProvider.userdoctorApi();
+    //getListOfDoctorApi();
     print('Prince lab list');
-    print(getdoctorhospitalmodel);
-    if (getdoctorhospitalmodel?.list != null) {
+    print(getdoctorhospitalmodele);
+    if (getdoctorhospitalmodele?.appointment != null) {
       //Get.to(() => TotalPrice());
-      isLoading(false);
+      isLoading(true);
+      foundDoctor.value = getdoctorhospitalmodele!.appointment!;
       //Get.to(()=>Container());
     }
   }
@@ -49,23 +52,23 @@ class DoctorHistoryController extends GetxController {
 
   //radio.........
 
-  onChangeServicee(String servicee) {
-    selectedServicee.value = servicee;
-  }
-
-  onChangeHours(String servicee) {
-    selectedhours.value = servicee;
-  }
-
-  onChangeShifts(String servicee) {
-    selectedshift.value = servicee;
-  }
-
-  var selectedService = ''.obs;
-
-  onChangePlan(String plan) {
-    selectedService.value = plan;
-  }
+  // onChangeServicee(String servicee) {
+  //   selectedServicee.value = servicee;
+  // }
+  //
+  // onChangeHours(String servicee) {
+  //   selectedhours.value = servicee;
+  // }
+  //
+  // onChangeShifts(String servicee) {
+  //   selectedshift.value = servicee;
+  // }
+  //
+  // var selectedService = ''.obs;
+  //
+  // onChangePlan(String plan) {
+  //   selectedService.value = plan;
+  // }
 
   //this is for City.................................
   Rx<String?> selectedState = (null as String?).obs;
@@ -81,6 +84,7 @@ class DoctorHistoryController extends GetxController {
 
     appointmentController2 = TextEditingController();
     appointmentController2.text = "DD-MM-YYYY";
+    doctorListHospitalApi();
   }
 
   @override
@@ -156,8 +160,8 @@ class DoctorHistoryController extends GetxController {
     //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
     // }
   }
-
   bool disableDate(DateTime day) {
+
     if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
         day.isBefore(DateTime.now().add(Duration(days: 30))))) {
       return true;
@@ -172,5 +176,19 @@ class DoctorHistoryController extends GetxController {
     }
     DoctorHistoryformkey.currentState!.save();
     //Get.to(() => HomePage());
+  }
+
+  RxList<Appointment> foundDoctor = RxList<Appointment>([]);
+  void filterDoctor (String searcdoctorName) {
+    List<Appointment>? finalResult = [];
+    if (searcdoctorName.isEmpty) {
+      finalResult = getdoctorhospitalmodele!.appointment;
+    } else {
+      finalResult = getdoctorhospitalmodele!.appointment!.where((element) => element.doctorName
+          .toString().toLowerCase().contains(searcdoctorName.toString().toLowerCase().trim())
+      ).toList();
+    }
+    print(finalResult!.length);
+    foundDoctor.value = finalResult!;
   }
 }

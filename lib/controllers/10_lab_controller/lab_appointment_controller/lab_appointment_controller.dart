@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/10_lab_module/lab_model_byId.dart';
+//import 'package:ps_welness_new_ui/model/10_lab_module/lab_model_byId.dart';
 
 import '../../../model/1_user_model/health_checkup_list/health_checkup_list.dart';
 import '../../../servicess_api/api_services_all_api.dart';
@@ -35,14 +37,14 @@ class LabAppointmentController extends GetxController {
 
   RxBool isLoading = true.obs;
 
-  HealthCheckupList? healthCheckupList;
+  LabHistorybyLabId? labHistorybylabIdList;
 
-  void labListApi() async {
+  void labApointmentHistorybyLabIdApi() async {
     isLoading(true);
-    healthCheckupList = await ApiProvider.LabListDrowerApi();
+    labHistorybylabIdList = await ApiProvider.LabappointmenthistoryApi();
     print('Prince lab list');
-    print(healthCheckupList);
-    if (healthCheckupList?.viewMoreHealth != null) {
+    print(labHistorybylabIdList);
+    if (labHistorybylabIdList?.testList != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
       //Get.to(()=>Container());
@@ -77,7 +79,7 @@ class LabAppointmentController extends GetxController {
   void onInit() {
     states.refresh();
     super.onInit();
-    labListApi();
+    labApointmentHistorybyLabIdApi();
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "DD-MM-YYYY";
@@ -93,13 +95,13 @@ class LabAppointmentController extends GetxController {
 
   @override
   void onClose() {
-    healthCheckupList = null;
+    labHistorybylabIdList = null;
     super.onClose();
   }
 
   @override
   void dispose() {
-    healthCheckupList = null;
+    labHistorybylabIdList = null;
     super.dispose();
   }
 

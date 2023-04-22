@@ -11,6 +11,7 @@ import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/get_department_list_model/department_model.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../model/1_user_model/test_name_model/test_name_modells.dart';
+import '../../../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
 
 class Doctor_appointment_1_Controller extends GetxController {
   final GlobalKey<FormState> doctorappointment1key = GlobalKey<FormState>();
@@ -74,6 +75,8 @@ class Doctor_appointment_1_Controller extends GetxController {
     print("Prince cities of $depId");
     print(specialist);
   }
+
+
 
   // late TextEditingController nameController,
   //     emailController,

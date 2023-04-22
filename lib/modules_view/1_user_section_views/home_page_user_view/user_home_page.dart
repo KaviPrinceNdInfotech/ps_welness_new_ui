@@ -14,6 +14,9 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_l
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/map_page_user/google_map_2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/map_page_user/map_page_google_map.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view/nurse_drawer_view/drower_pages/about_us/about_us.dart';
+import '../../9_doctor_section_view/drawer_view/drower_pages/supports/support_view.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/google_map/new_map/new_g_map.dart';
@@ -29,11 +32,14 @@ import '../../../constants/my_theme.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
+//import '../../4_nurse_section_view/nurse_drawer_view/drower_pages/supports/support_view.dart';
 import '../doctorss/doctor_address/doctor_address.dart';
 import '../health_checkup/health_checkup_addresss/health_checkupp_address.dart';
 import '../medicine_view/search_section/search_medicine.dart';
 import '../nursess/book_nurse_appointment1/nurse_booking_1.dart';
 import '../user_drawer/user_drawer.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
+
 
 //import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/user_drawHomePage({Key? key}) : super(key: key);
 
@@ -123,6 +129,7 @@ class UserHomePage extends StatelessWidget {
                       //'lib/assets/user_assets/12lab.png'
                       'lib/assets/background_stack_png/users_patient.png'
                   )),
+
               RichText(
                 text: TextSpan(
                   children: <TextSpan>[
@@ -147,6 +154,7 @@ class UserHomePage extends StatelessWidget {
                   ],
                 ),
               ),
+
               // Text(
               //   'PS WELLNESS',
               //   style: GoogleFonts.alatsi(
@@ -154,10 +162,12 @@ class UserHomePage extends StatelessWidget {
               //     fontSize: 22,
               //   ),
               // ),
+
             ],
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
+
           //MyTheme.ThemeColors,
           leading: IconButton(
             icon: Icon(
@@ -704,7 +714,6 @@ class UserHomePage extends StatelessWidget {
                                             ),
                                             
                                             radius: 10.0);
-
                                         //whatsAppOpen();
                                         // _launchWhatsapp();
 
@@ -864,6 +873,7 @@ class UserHomePage extends StatelessWidget {
                                         ///
                                         //Get.to(() => ServicesPage());
                                       } else if (index == 6) {
+                                        Get.to(() => SupportView());
                                       } else if (index == 7) {
                                         //Get.to(() => TermsMemberPage());
                                       }
@@ -896,6 +906,7 @@ class UserHomePage extends StatelessWidget {
                                           ]),
                                     ),
                                   ),
+
                                   SizedBox(
                                     height: size.height * 0.005,
                                   ),
@@ -925,6 +936,7 @@ class UserHomePage extends StatelessWidget {
                                 ],
                               ),
                             ),
+
                             // child: child,
                           );
                           //   Container(

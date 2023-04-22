@@ -94,11 +94,4 @@ class LabAppointmentDetailController extends GetxController {
     // }
   }
 
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
 }

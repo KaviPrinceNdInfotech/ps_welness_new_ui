@@ -30,7 +30,6 @@ class NurseListUser extends StatelessWidget {
         // ? Center(
         //   child: Text('No Data'),
         // )
-
         : SafeArea(
           child: Column(
             children: [
@@ -44,9 +43,11 @@ class NurseListUser extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.02,
                       ),
+
                       // SizedBox(
                       //   height: size.height * 0.05,
                       // ),
+
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -80,10 +81,19 @@ class NurseListUser extends StatelessWidget {
                         ),
                       ),
                       Container(
+                        decoration: new BoxDecoration(
+                            borderRadius:
+                                new BorderRadius.all(new Radius.circular(30.0)),
+                            color: Colors.white),
+                        width: size.width * 0.9,
+                        height: size.height * 0.06,
+                        margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: Theme(
                           data: Theme.of(context)
                               .copyWith(splashColor: Colors.transparent),
                           child: TextField(
+                            onChanged: (value) =>_nurseAppointmentDetailController.filterNurse(value),
                             autofocus: false,
                             style:
                                 TextStyle(fontSize: 15.0, color: MyTheme.blueww),
@@ -91,9 +101,9 @@ class NurseListUser extends StatelessWidget {
                               prefixIcon: Icon(Icons.search),
                               filled: true,
                               fillColor: Colors.white,
-                              hintText: 'Search',
+                              hintText: 'Search Nurse..',
                               contentPadding: const EdgeInsets.only(
-                                  left: 10.0, bottom: 12.0, top: 0.0),
+                                  left: 10.0, bottom: 12.0, top: 6.0),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(25.7),
@@ -105,35 +115,29 @@ class NurseListUser extends StatelessWidget {
                             ),
                           ),
                         ),
-                        decoration: new BoxDecoration(
-                            borderRadius:
-                                new BorderRadius.all(new Radius.circular(30.0)),
-                            color: Colors.white),
-                        width: size.width * 0.9,
-                        height: size.height * 0.06,
-                        margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
-                        padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                       ),
                     ],
                   ),
                 ),
               ),
-              Obx(
-                ()=> (_nurseAppointmentDetailController.isLoading.value)
-                ? Center(child: CircularProgressIndicator())
-                :_nurseAppointmentDetailController?.nurseappointmentdetail ==null
+              _nurseAppointmentDetailController.foundNurses.value.isEmpty
+              // Obx(
+              //   ()=> (_nurseAppointmentDetailController.isLoading.value)
+              //   ? Center(child: CircularProgressIndicator())
+              //   :_nurseAppointmentDetailController?.nurseappointmentdetail ==null
+              //   ?
                 ? Center(
                   child: Text('No List'),
                 )
                 : SizedBox(
                   height: size.height * 0.73,
                   child: ListView.builder(
-
+                     itemCount: _nurseAppointmentDetailController.foundNurses.length,
                       ///shrinkWrap: true,
-                      itemCount: _nurseAppointmentDetailController
-                          .nurseappointmentdetail
-                          ?.result
-                          ?.length,
+                      // itemCount: _nurseAppointmentDetailController
+                      //     .nurseappointmentdetail
+                      //     ?.result
+                      //     ?.length,
                       //6,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
@@ -142,7 +146,7 @@ class NurseListUser extends StatelessWidget {
                               vertical: size.height * 0.0),
                           child: InkWell(
                             onTap: () {
-                              //Get.to(() => DoctorListUser());
+                              ///Get.to(() => DoctorListUser());
                             },
                             child: Padding(
                               padding: EdgeInsets.all(size.height * 0.007),
@@ -186,10 +190,13 @@ class NurseListUser extends StatelessWidget {
                                             height: size.height * 0.12,
                                           ),
                                           Text(
-                                            " Fees:₹${_nurseAppointmentDetailController
-                                                .nurseappointmentdetail
-                                            !.result![index].totalFee
-                                                .toString()}",
+                                            " Fees:₹"
+                                            "${_nurseAppointmentDetailController.foundNurses[index].fee}",
+                                            //     "${_nurseAppointmentDetailController
+                                            //     .nurseappointmentdetail
+                                            // !.result![index].totalFee
+                                            //     .toString()}"
+                                               // ",
                                             //'Fees: ₹  600',
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -213,9 +220,10 @@ class NurseListUser extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            _nurseAppointmentDetailController
-                                                .nurseappointmentdetail
-                                                !.result![index].patientName.toString(),
+                                            "${_nurseAppointmentDetailController.foundNurses[index].nurseName}",
+                                            // _nurseAppointmentDetailController
+                                            //     .nurseappointmentdetail
+                                            //     !.result![index].patientName.toString(),
                                             //'Mrs Alex',
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -227,9 +235,11 @@ class NurseListUser extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            _nurseAppointmentDetailController
-                                                .nurseappointmentdetail
-                                            !.result![index].nurseId.toString(),
+                                            "${_nurseAppointmentDetailController.foundNurses[index].nurseTypeName}",
+
+                                            // _nurseAppointmentDetailController
+                                            //     .nurseappointmentdetail
+                                            // !.result![index].nurseId.toString(),
                                             //'ANM',
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -241,7 +251,8 @@ class NurseListUser extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'Experienced: 3 yr',
+                                            'Experenced: '
+                                                '${_nurseAppointmentDetailController.foundNurses[index].experience} yr',
                                             //doctorcatagary[index],
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -299,7 +310,7 @@ class NurseListUser extends StatelessWidget {
                         );
                       }),
                 ),
-              ),
+
             ],
           ),
         ),

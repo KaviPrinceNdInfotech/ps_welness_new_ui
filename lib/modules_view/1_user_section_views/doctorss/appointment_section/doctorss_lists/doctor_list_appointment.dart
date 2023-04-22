@@ -73,10 +73,19 @@ class DoctorListUser extends StatelessWidget {
                         ),
                       ),
                       Container(
+                        decoration: new BoxDecoration(
+                            borderRadius:
+                                new BorderRadius.all(new Radius.circular(30.0)),
+                            color: Colors.white),
+                        width: size.width * 0.9,
+                        height: size.height * 0.06,
+                        margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: Theme(
                           data: Theme.of(context)
                               .copyWith(splashColor: Colors.transparent),
                           child: TextField(
+                            onChanged: (value) =>_doctorListController.filterDoctor(value),
                             autofocus: false,
                             style:
                                 TextStyle(fontSize: 15.0, color: MyTheme.blueww),
@@ -84,9 +93,9 @@ class DoctorListUser extends StatelessWidget {
                               prefixIcon: Icon(Icons.search),
                               filled: true,
                               fillColor: Colors.white,
-                              hintText: 'Search',
+                              hintText: 'Search Doctor..',
                               contentPadding: const EdgeInsets.only(
-                                  left: 10.0, bottom: 12.0, top: 0.0),
+                                  left: 10.0, bottom: 12.0, top: 6.0),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(25.7),
@@ -98,32 +107,27 @@ class DoctorListUser extends StatelessWidget {
                             ),
                           ),
                         ),
-                        decoration: new BoxDecoration(
-                            borderRadius:
-                                new BorderRadius.all(new Radius.circular(30.0)),
-                            color: Colors.white),
-                        width: size.width * 0.9,
-                        height: size.height * 0.06,
-                        margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
-                        padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                       ),
                     ],
                   ),
                 ),
               ),
-              Obx(
-                ()=> (_doctorListController.isLoading.value)
-                ? Center(child: CircularProgressIndicator())
-                :_doctorListController.doctorListUser == null
-                ? Center(
-                  child: Text('No data'),
-                )
-                : SizedBox(
+              //Obx(
+                // ()=> (_doctorListController.isLoading.value)
+                // ? Center(child: CircularProgressIndicator())
+                // :_doctorListController.doctorListUser == null
+                // ? Center(
+                //   child: Text('No data'),
+                // )
+                // :
+              _doctorListController.foundDoctors.value.isEmpty
+              ? Center(child: Text("No Doctor Found"),)
+                :SizedBox(
                   height: size.height * 0.73,
                   child: ListView.builder(
-
                       ///shrinkWrap: true,
-                      itemCount:_doctorListController.doctorListUser?.getDoctor?.length,
+                      itemCount:_doctorListController.foundDoctors.length,
+                      //_doctorListController.doctorListUser?.getDoctor?.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
@@ -173,7 +177,8 @@ class DoctorListUser extends StatelessWidget {
                                             height: size.height * 0.12,
                                           ),
                                           Text(
-                                            'Fees: ₹ ${_doctorListController.doctorListUser?.getDoctor![index].fee.toString()}',
+                                            'Fees: ₹ "${_doctorListController.foundDoctors[index].fee}"',
+                                                //'${_doctorListController.doctorListUser?.getDoctor![index].fee.toString()}'
                                             //doctorcatagary[index],
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -196,7 +201,8 @@ class DoctorListUser extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            _doctorListController.doctorListUser!.getDoctor![index].doctorName.toString(),
+                                            "${_doctorListController.foundDoctors[index].doctorName}",
+                                           // _doctorListController.doctorListUser!.getDoctor![index].doctorName.toString(),
                                            // _doctorListController.doctorListUser?.getDoctor![index].fee.toString(),
                                            // 'Kumar Prince',
                                             //doctorcatagary[index],
@@ -209,7 +215,8 @@ class DoctorListUser extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            _doctorListController.doctorListUser!.getDoctor![index].departmentName.toString(),
+                                            "${_doctorListController.foundDoctors[index].departmentName}",
+                                           // _doctorListController.doctorListUser!.getDoctor![index].departmentName.toString(),
                                             //'Cardiologist',
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -221,7 +228,8 @@ class DoctorListUser extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'Experenced: ${ _doctorListController.doctorListUser!.getDoctor![index].experience.toString()} yr',
+                                            'Experenced: '
+                                                '${_doctorListController.foundDoctors[index].experience} yr',
                                             //doctorcatagary[index],
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -279,7 +287,7 @@ class DoctorListUser extends StatelessWidget {
                         );
                       }),
                 ),
-              ),
+              //),
             ],
           ),
         ),

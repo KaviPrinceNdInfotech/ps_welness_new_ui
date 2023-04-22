@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 import '../../../../constants/constants/constants.dart';
 import 'lab_components/credentials.dart';
@@ -51,6 +52,20 @@ class ChooseLab extends StatelessWidget {
                             ),
                             fit: BoxFit.cover)),
                   ),
+                ),
+              ),
+              Positioned(
+                top: size.height * 0.05,
+                //bottom: size.height * 0.64,
+                left: -size.width*0.8,
+                right: -size.width * 0.006,
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: InkWell(
+                      onTap: () {
+                        navigator?.pop();
+                      },
+                      child: Icon(Icons.arrow_back_ios_new_outlined)),
                 ),
               ),
               Positioned(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medeicine_address_add/add_address_medicine.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_address_list/medicine_address_list_view.dart';
 
 import '../../../../constants/constants/constants.dart';
 import '../../../../constants/my_theme.dart';
@@ -597,22 +599,28 @@ class MedicineCart extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Container(
-                                height: size.height * 0.04,
-                                width: size.width * 0.25,
-                                decoration: BoxDecoration(
-                                  color: MyTheme.containercolor17,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Center(
-                                    child: Text(
-                                  'Book Now',
-                                  style: TextStyle(
-                                    color: Colors.orange,
-                                    fontSize: size.height * 0.02,
-                                    fontWeight: FontWeight.w500,
+                              InkWell(
+                                onTap: () {
+                                  Get.to(Medicineaddresslist());
+                                  //Get.to(AddAdderessMedicine());
+                                },
+                                child: Container(
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.25,
+                                  decoration: BoxDecoration(
+                                    color: MyTheme.containercolor17,
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                )),
+                                  child: Center(
+                                      child: Text(
+                                    'Book Now',
+                                    style: TextStyle(
+                                      color: Colors.orange,
+                                      fontSize: size.height * 0.02,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )),
+                                ),
                               ),
                             ],
                           ),

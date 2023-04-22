@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
@@ -17,8 +18,8 @@ class UserDetailProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    DoctorProfileControllers _doctorProfileControllers =
-        Get.put(DoctorProfileControllers());
+    UserProfileControllers _userrsProfileControllers =
+        Get.put(UserProfileControllers());
 
     return Scaffold(
       backgroundColor: MyTheme.white,
@@ -31,9 +32,9 @@ class UserDetailProfile extends StatelessWidget {
       //   centerTitle: true,
       // ),
       body: Obx(
-        () => (_doctorProfileControllers.isLoading.value)
+        () => (_userrsProfileControllers.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-            : _doctorProfileControllers.doctorProfile == null
+            : _userrsProfileControllers.userProfile == null
                 ? Center(
                     child: Text('No Data'),
                   )
@@ -154,12 +155,14 @@ class UserDetailProfile extends StatelessWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              // _doctorProfileControllers
+                                        _userrsProfileControllers.userProfile!.patientName.toString()
+
+                                        // _doctorProfileControllers
                                               //     .doctorProfile!.doctorName
                                               //     .toString(),
-                                              'Prince Kumar',
+                                              //'Prince Kumar',
                                               // 'Kumar Prince',
-                                              style: GoogleFonts.poppins(
+                                             , style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.yellow.shade800,
@@ -169,9 +172,8 @@ class UserDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.emailId
-                                                  .toString(),
+                                              _userrsProfileControllers.userProfile!.emailId.toString(),
+
                                               //'prince@gmail.com',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
@@ -194,8 +196,7 @@ class UserDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.location
+                                              _userrsProfileControllers.userProfile!.location
                                                   .toString(),
                                               // 'Sec,C53',
                                               style: GoogleFonts.poppins(
@@ -208,9 +209,7 @@ class UserDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.cityName
-                                                  .toString(),
+                                              _userrsProfileControllers.userProfile!.cityName.toString(),
                                               //'Patna',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
@@ -222,9 +221,7 @@ class UserDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.stateName
-                                                  .toString(),
+                                              _userrsProfileControllers.userProfile!.location.toString(),
                                               //'Bihar',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,

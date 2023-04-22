@@ -73,6 +73,7 @@ class LabListPage extends StatelessWidget {
                                   // ? Center(child: CircularProgressIndicator())
                                   // :
                                   TextField(
+                                    onChanged: (value) => _labListController.filterProduct(value),
                                 // controller: _nurseHistoryController
                                 //     .appointmentController1,
                                 onTap: () {
@@ -125,19 +126,20 @@ class LabListPage extends StatelessWidget {
 
                       ///.....................................................................
 
-                      Obx(
-                        () => (_labListController.isLoading.value)
-                            ? Center(child: CircularProgressIndicator())
-                            : _labListController.labListUser == null
-                                ? Center(
+                      // Obx(
+                      //   () => (_labListController.isLoading.value)
+                      //       ? Center(child: CircularProgressIndicator())
+                      //       : _labListController.labListUser == null
+            _labListController.foundProducts.value.isEmpty
+
+            ? Center(
                                     child: Text('No List'),
                                   )
                                 : SizedBox(
                                     height: size.height * 0.78,
                                     child: ListView.builder(
                                         shrinkWrap: true,
-                                        itemCount: _labListController
-                                            .labListUser!.labList.length,
+                                        itemCount: _labListController.foundProducts.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return Padding(
@@ -331,11 +333,12 @@ class LabListPage extends StatelessWidget {
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                  _labListController
-                                                                      .labListUser!
-                                                                      .labList[
-                                                                          index]
-                                                                      .labName,
+                                                            _labListController.foundProducts[index].labName.toString(),
+                                                                  // _labListController
+                                                                  //     .labListUser!
+                                                                  //     .labList[
+                                                                  //         index]
+                                                                  //     .labName,
                                                                   // 'Vineet ji Lab',
                                                                   style:
                                                                       GoogleFonts
@@ -351,7 +354,11 @@ class LabListPage extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  'Noida sector12 B12',
+                                                                  _labListController.foundProducts[index].location.toString(),
+                                                                  // _labListController
+                                                                  //     .labListUser!
+                                                                  //     .labList[
+                                                                  // index].location,
                                                                   style:
                                                                       GoogleFonts
                                                                           .roboto(
@@ -366,11 +373,13 @@ class LabListPage extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  _labListController
-                                                                      .labListUser!
-                                                                      .labList[
-                                                                          index]
-                                                                      .mobileNumber,
+                                                                  _labListController.foundProducts[index].mobileNumber.toString(),
+
+                                                                  // _labListController
+                                                                  //     .labListUser!
+                                                                  //     .labList[
+                                                                  //         index]
+                                                                  //     .mobileNumber,
                                                                   //'8977665431',
                                                                   style:
                                                                       GoogleFonts
@@ -386,11 +395,13 @@ class LabListPage extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  _labListController
-                                                                      .labListUser!
-                                                                      .labList[
-                                                                          index]
-                                                                      .openingHours,
+                                                                  _labListController.foundProducts[index].openingHours.toString(),
+
+                                                                  // _labListController
+                                                                  //     .labListUser!
+                                                                  //     .labList[
+                                                                  //         index]
+                                                                  //     .openingHours,
                                                                   //'10 am to 6 pm',
                                                                   style:
                                                                       GoogleFonts
@@ -406,7 +417,14 @@ class LabListPage extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  'Mon - Sat',
+                                                                  _labListController.foundProducts[index].workingDay.toString(),
+
+                                                                  // _labListController
+                                                                  //     .labListUser!
+                                                                  //     .labList[
+                                                                  // index]
+                                                                  //     .workingDay,
+                                                                  //'Mon - Sat',
                                                                   style:
                                                                       GoogleFonts
                                                                           .roboto(
@@ -421,7 +439,17 @@ class LabListPage extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  'Rs.700',
+                                                                  'Rs.${
+                                                                      _labListController.foundProducts[index].fee.toString()
+
+                                                                  //     _labListController
+                                                                  //     .labListUser!
+                                                                  //     .labList[
+                                                                  // index]
+                                                                  //     .fee
+                                                                  }'
+                                                                      //'700'
+                                                                  ,
                                                                   style:
                                                                       GoogleFonts
                                                                           .roboto(
@@ -517,7 +545,7 @@ class LabListPage extends StatelessWidget {
                                             ),
                                           );
                                         })),
-                      ),
+                     // ),
                     ],
                   ),
                 ),

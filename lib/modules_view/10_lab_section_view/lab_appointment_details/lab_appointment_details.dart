@@ -188,7 +188,7 @@ class LabAppointmentDetail extends StatelessWidget {
                               itemCount: _labappointmentdetailController
                                   .healthCheckupListss
                                   ?.healthCheckupList
-                                  .length,
+                                  ?.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Stack(
                                   clipBehavior: Clip.none,
@@ -346,7 +346,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                       Text(
                                                   _labappointmentdetailController
                                                       .healthCheckupListss
-                                                      !.healthCheckupList[index].labName.toString()
+                                                      !.healthCheckupList![index].labName.toString()
                                                         //'Vishal Mishra',
                                                         ,style: GoogleFonts.raleway(
                                                             color: Colors
@@ -357,7 +357,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                 size.width * 0.035),
                                                       ),
                                                       Text(
-                                                        _labappointmentdetailController.healthCheckupListss!.healthCheckupList[index].mobileNumber.toString(),
+                                                        _labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].mobileNumber.toString(),
                                                         //'8977889999',
                                                         style: GoogleFonts.raleway(
                                                             color: Colors
@@ -368,7 +368,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                 size.width * 0.035),
                                                       ),
                                                       Text(
-                                                        '₹ ${_labappointmentdetailController.healthCheckupListss!.healthCheckupList[index].testAmt.toString()}',
+                                                        '₹ ${_labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].testAmt.toString()}',
                                                             //'1000',
                                                         style: GoogleFonts.raleway(
                                                             color: Colors
@@ -379,7 +379,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                 size.width * 0.035),
                                                       ),
                                                       Text(
-                                                        _labappointmentdetailController.healthCheckupListss!.healthCheckupList[index].location.toString(),
+                                                        _labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].location.toString(),
                                                        // 'Sector 2, C 53, Noida',
                                                         style: GoogleFonts.raleway(
                                                             color: Colors
@@ -390,7 +390,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                 size.width * 0.035),
                                                       ),
                                                       Text(
-                                                        _labappointmentdetailController.healthCheckupListss!.healthCheckupList[index].cityName.toString(),
+                                                        _labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].cityName.toString(),
                                                        // '22 nov 2022-02 dec 2022',
                                                         style: GoogleFonts.raleway(
                                                             color: Colors
@@ -404,7 +404,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                         height: size.height*0.02,
                                                         width: size.width*0.59,
                                                         child: Text(
-                                                          _labappointmentdetailController.healthCheckupListss!.healthCheckupList[index].locationName.toString()
+                                                          _labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].locationName.toString()
                                                           ,
                                                          // '12 hours',
                                                           style: GoogleFonts.raleway(

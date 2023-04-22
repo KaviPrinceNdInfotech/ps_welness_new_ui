@@ -108,6 +108,7 @@ class NurseBooking1Controller extends GetxController {
   }
 
   /// nurse form booking api..................
+
   var Id = '';
 
   void nurseBookingFormApi() async {
