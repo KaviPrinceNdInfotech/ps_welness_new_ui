@@ -13,7 +13,9 @@ class MedicineListController extends GetxController {
   MedicineList? medicinelistmodel;
   @override
   void onInit() {
+
     medicineListApi();
+
     super.onInit();
   }
 

@@ -23,6 +23,7 @@ import 'controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_pag
 import 'controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
 import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import 'controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
+import 'controllers/complaint_controller/complaint_controller.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -43,6 +44,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => NurseHomepagContreoller());
     Get.lazyPut(() => RwaHomepagContreoller());
     Get.lazyPut(() => ChemistHomepagContreoller());
+    Get.lazyPut(() => ComplaintController());
     //Get.lazyPut(() => GoogleMapController());
 
 

@@ -166,7 +166,7 @@ class LabPaymentHistory extends StatelessWidget {
                   Obx(
                       () => (_labpaymentController.isLoading.value)
                       ? Center(child:  CircularProgressIndicator(),)
-                      :_labpaymentController.nurseappointmentdetail?.result == null
+                      :_labpaymentController.nurseappointmentdetail?.nurseAppointments == null
                       ?Center(
                         child: Text('No List'),
                       )
@@ -174,7 +174,7 @@ class LabPaymentHistory extends StatelessWidget {
                         height: size.height * 0.76,
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: _labpaymentController.nurseappointmentdetail?.result?.length,
+                            itemCount: _labpaymentController.nurseappointmentdetail?.nurseAppointments?.length,
                             //5,
                             itemBuilder: (BuildContext context, int index) {
                               return Stack(
@@ -332,7 +332,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      _labpaymentController.nurseappointmentdetail!.result![index].patientName.toString(),
+                                                      _labpaymentController.nurseappointmentdetail!.nurseAppointments![index].nurseName.toString(),
                                                       //'Rahul Mishra',
                                                       style: GoogleFonts.raleway(
                                                           color: MyTheme.blueww,
@@ -342,7 +342,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                               size.width * 0.035),
                                                     ),
                                                     Text(
-                                                      _labpaymentController.nurseappointmentdetail!.result![index].contactNumber.toString(),
+                                                      _labpaymentController.nurseappointmentdetail!.nurseAppointments![index].totaNumberofdays.toString(),
 
                                                       //'0977889999',
                                                       style: GoogleFonts.raleway(
@@ -353,7 +353,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                               size.width * 0.035),
                                                     ),
                                                     Text(
-                                                      '₹ ${ _labpaymentController.nurseappointmentdetail!.result![index].totalFee.toString() }',
+                                                      '₹ ${ _labpaymentController.nurseappointmentdetail!.nurseAppointments![index].totalFee.toString() }',
                                                          // '//6000',
                                                       style: GoogleFonts.raleway(
                                                           color: MyTheme.blueww,
@@ -363,7 +363,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                               size.width * 0.035),
                                                     ),
                                                     Text(
-                                                      _labpaymentController.nurseappointmentdetail!.result![index].serviceDate.toString(),
+                                                      _labpaymentController.nurseappointmentdetail!.nurseAppointments![index].paymentDate.toString(),
 
                                                       //'33njkn99',
                                                       style: GoogleFonts.raleway(
@@ -374,7 +374,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                               size.width * 0.035),
                                                     ),
                                                     Text(
-                                                      _labpaymentController.nurseappointmentdetail!.result![index].paymentDate.toString(),
+                                                      _labpaymentController.nurseappointmentdetail!.nurseAppointments![index].location.toString(),
                                                       //'22 nov 2022',
                                                       style: GoogleFonts.raleway(
                                                           color: MyTheme.blueww,
@@ -384,7 +384,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                               size.width * 0.035),
                                                     ),
                                                     Text(
-                                                      _labpaymentController.nurseappointmentdetail!.result![index].rDate.toString(),
+                                                      _labpaymentController.nurseappointmentdetail!.nurseAppointments![index].totalFee.toString(),
                                                       //'8:00 am',
                                                       style: GoogleFonts.raleway(
                                                           color: MyTheme.blueww,

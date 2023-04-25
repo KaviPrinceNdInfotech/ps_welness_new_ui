@@ -46,6 +46,8 @@ dependencies:
   image_picker: ^0.8.6
   intl: ^0.17.0
   flutter_svg: ^1.1.0
+  neopop: ^1.0.2
+
 
   pdf: ^3.8.4
   path_provider: ^2.0.11

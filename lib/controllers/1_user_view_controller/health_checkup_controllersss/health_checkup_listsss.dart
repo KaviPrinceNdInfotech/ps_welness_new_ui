@@ -19,6 +19,19 @@ class HealthCheckupController extends GetxController {
     if (healthCheckupListss?.healthCheckupList != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
+      //foundCheckupcenter.value = healthCheckupListss!.healthCheckupList!;
+      //Get.to(()=>Container());
+    }
+  }
+
+  void HealthcheckupApi() async {
+    isLoading(true);
+    healthCheckupListss = await ApiProvider.HealthcheckuplistApi();
+    print('Prince lab list');
+    print(healthCheckupListss);
+    if (healthCheckupListss?.healthCheckupList != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(false);
       foundCheckupcenter.value = healthCheckupListss!.healthCheckupList!;
       //Get.to(()=>Container());
     }
@@ -28,6 +41,7 @@ class HealthCheckupController extends GetxController {
   void onInit() {
     super.onInit();
     labListApi();
+    HealthcheckupApi();
   }
 
   @override

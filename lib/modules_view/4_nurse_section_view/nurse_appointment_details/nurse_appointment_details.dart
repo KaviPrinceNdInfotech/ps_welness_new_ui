@@ -206,7 +206,7 @@ class NurseeAppointmentDetail extends StatelessWidget {
                                                 itemCount:
                                                     _nurseappointmentdetailController
                                                         .nurseappointmentdetail
-                                                        ?.result
+                                                        ?.nurseAppointments
                                                         ?.length,
                                                 //1,
                                                 // _nurseappointmentdetailController

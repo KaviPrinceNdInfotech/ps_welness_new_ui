@@ -116,22 +116,22 @@ class NurseHistoryUser extends StatelessWidget {
             Obx(
                   () => (_nurseHistoryController.isLoading.value)
                   ? Center(child: CircularProgressIndicator())
-                  : _nurseHistoryController.nurseappointmentdetail?.result == null
+                  : _nurseHistoryController.nurseappointmentdetail?.nurseAppointments == null
                   ? Center(
                 child: Text('No List'),
               )
                   : SizedBox(
-                  height: size.height * 0.79,
+                  height: size.height *0.73,
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: _nurseHistoryController.nurseappointmentdetail?.result?.length,
+                      itemCount: _nurseHistoryController.nurseappointmentdetail?.nurseAppointments?.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.03,
                               vertical: size.height * 0.0005),
                           child: Container(
-                            height: size.height * 0.37,
+                           /// height: size.height * 0.37,
                             margin: EdgeInsets.symmetric(vertical: 30 / 6),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
@@ -272,7 +272,7 @@ class NurseHistoryUser extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].patientName.toString(),
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].nurseName.toString(),
                                               // 'okokokokok',
                                               style: GoogleFonts.raleway(
                                                   color: Colors.cyanAccent,
@@ -280,7 +280,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                   fontSize: size.width * 0.039),
                                             ),
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].contactNumber.toString()
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].paymentDate.toString()
                                               ,
                                               // 'okokokokok',
                                               style: GoogleFonts.raleway(
@@ -289,7 +289,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                   fontSize: size.width * 0.039),
                                             ),
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].requestDate.toString(),
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].startDate.toString(),
                                               //'Nov 16,22',
                                               style: GoogleFonts.raleway(
                                                   color: Colors.cyanAccent,
@@ -297,7 +297,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                   fontSize: size.width * 0.039),
                                             ),
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].serviceDate.toString(),
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].endDate.toString(),
 
                                               // 'Nov 17,22',
                                               style: GoogleFonts.raleway(
@@ -306,7 +306,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                   fontSize: size.width * 0.039),
                                             ),
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].contactNumber.toString()
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].totaNumberofdays.toString()
                                               ,
                                               // 'okokokokok',
                                               style: GoogleFonts.raleway(
@@ -315,7 +315,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                   fontSize: size.width * 0.039),
                                             ),
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].totalFee.toString(),
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].location.toString(),
 
                                               //'Rs.1200',
                                               style: GoogleFonts.raleway(
@@ -324,7 +324,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                   fontSize: size.width * 0.039),
                                             ),
                                             Text(
-                                              _nurseHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                              _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].fee.toString(),
                                               //'12',
                                               style: GoogleFonts.raleway(
                                                   color: Colors.cyanAccent,

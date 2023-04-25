@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/profile_u_controller/profile_update_controller.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -152,7 +153,7 @@ class ProfileCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField(
-                      value: _profileController.selectedState.value,
+                      value: _profileController.selectedSubject.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
@@ -162,11 +163,12 @@ class ProfileCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select State'),
-                      items: items.map((String items) {
+                      items:
+                      _profileController.subject.map((Complaint41Patient subject) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: subject,
                           child: Text(
-                            items,
+                            subject.subjectName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -174,8 +176,8 @@ class ProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                        _profileController.selectedState.value = newValue!;
+                      onChanged: (Complaint41Patient? newValue) {
+                        _profileController.selectedSubject.value = newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;

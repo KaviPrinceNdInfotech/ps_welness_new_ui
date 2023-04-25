@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
+import '../../model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../servicess_api/api_services_all_api.dart';
 
 class ComplaintController extends GetxController {
   final GlobalKey<FormState> complaintformkey = GlobalKey<FormState>();
+  RxBool isLoading = true.obs;
 
   ///this is for State....................................
   Rx<String?> selectedCity = (null as String?).obs;
@@ -17,6 +19,20 @@ class ComplaintController extends GetxController {
   //this is for City.................................
   Rx<String?> selectedState = (null as String?).obs;
   RxList<String> states = <String>[].obs;
+
+  //this is for subject type.................................
+  Rx<Complaint41Patient?> selectedSubject = (null as Complaint41Patient?).obs;
+  List<Complaint41Patient> subject = <Complaint41Patient>[].obs;
+
+
+  ///todo: complain subject type.........................25april...2023..
+
+  ///nurse type api class.................
+  void getcomplainTypeeApi() async {
+    subject = await ApiProvider.getsubjecttypeApi();
+    print('Prince subject type list');
+    print(subject);
+  }
 
   void usercomplaintApi() async {
     CallLoader.loader();
@@ -58,8 +74,10 @@ class ComplaintController extends GetxController {
 
   @override
   void onInit() {
-    states.refresh();
+    //states.refresh();
+    //subject.refresh();
     super.onInit();
+    getcomplainTypeeApi();
 
     loginidController = TextEditingController();
     subjectController = TextEditingController();
@@ -68,6 +86,7 @@ class ComplaintController extends GetxController {
     isresolveController = TextEditingController();
     otherController = TextEditingController();
     doctorController = TextEditingController();
+
   }
 
   @override

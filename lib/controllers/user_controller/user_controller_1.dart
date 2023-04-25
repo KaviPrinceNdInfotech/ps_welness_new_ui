@@ -45,11 +45,12 @@ class User_1_Controller extends GetxController {
 
   void usersignupApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.UserSignUpApi(
+    http.Response r = await ApiProvider.UserSignUpApinew(
       nameController.text,
       emailController.text,
       mobileController.text,
       passwordController.text,
+      confitrmpasswordController.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
       addressController.text,
@@ -71,6 +72,7 @@ class User_1_Controller extends GetxController {
       // confirmpasswordController,
       mobileController,
       passwordController,
+      confitrmpasswordController,
       StateController,
       CityController,
       addressController,
@@ -79,6 +81,7 @@ class User_1_Controller extends GetxController {
   var name = '';
   var email = '';
   var password = '';
+  var confirmpassword = ' ';
   var mobile = '';
   var state = '';
   var city = '';
@@ -93,6 +96,7 @@ class User_1_Controller extends GetxController {
     emailController = TextEditingController();
     mobileController = TextEditingController();
     passwordController = TextEditingController();
+    confitrmpasswordController = TextEditingController();
     StateController = TextEditingController();
     CityController = TextEditingController();
     addressController = TextEditingController();
@@ -167,6 +171,7 @@ class User_1_Controller extends GetxController {
   //     return null;
   //   }
   // }
+
 
   String? validPhone(String value) {
     if (value.isEmpty) {

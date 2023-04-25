@@ -43,7 +43,7 @@ class RozarwalletController extends GetxController {
       'amount':
       //100*100,
 
-      int.parse(_walletController.Money.text,
+      int.parse(_walletController.walletAmount.text,
         // _walletPostController.Money.toString()
         // '${_walletPostController.walletamountFormKey.currentState}'
       )
@@ -97,7 +97,7 @@ class RozarwalletController extends GetxController {
         // _walletController.getwalletlist!.result[index].walletAmount!.toDouble()
         // _walletController.getwalletlist!.result.first.walletAmount!.toDouble();
 
-        _walletController.Money.text;
+        _walletController.walletAmount.text;
 
 
         //_walletPostController.walletPostApi();
@@ -115,12 +115,9 @@ class RozarwalletController extends GetxController {
   }
 
 
-
-
   void _handlePaymentError(PaymentFailureResponse response) {
     Get.snackbar(
         "ERROR", "CODE: ${response.code}  MESSAGE:${response.message}");
-
     print('payment fail');
   }
 

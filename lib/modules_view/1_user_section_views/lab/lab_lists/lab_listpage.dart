@@ -544,7 +544,8 @@ class LabListPage extends StatelessWidget {
                                               ),
                                             ),
                                           );
-                                        })),
+                                        })
+            ),
                      // ),
                     ],
                   ),

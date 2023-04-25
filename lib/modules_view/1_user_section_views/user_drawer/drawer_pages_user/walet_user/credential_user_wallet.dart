@@ -37,7 +37,7 @@ class WalletCredentials extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("jdfkjsdfksldnsdjg: ${_wallet_2_controller.Money.text}");
+    print("jdfkjsdfksldnsdjg: ${_wallet_2_controller.walletAmount.text}");
 
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -111,19 +111,19 @@ class WalletCredentials extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     height: size.height*0.08,
-                                    width: size.width*0.34,
+                                    width: size.width*0.3,
                                     // color: Colors.red,
                                     child: ListView.builder(
                                       itemCount: 1,
                                       //itemCount: _walletController.getwalletlist?.result.length,
                                       itemBuilder: (BuildContext context , int index){
-                                        print("kmmfmlmfklfm: ${_wallet_2_controller.getwalletlist!.result[index].walletAmount!.toDouble()}");
+                                        print("kmmfmlmfklfm: ${_wallet_2_controller.getwalletlist?.result?[index].walletAmount?.toDouble()}");
                                         return
                                           Obx(
 
                                                 () => (_wallet_2_controller.isLoading.value)
                                                 ? Center(child: CircularProgressIndicator())
-                                                :_wallet_2_controller.getwalletlist!.result.isEmpty
+                                                :_wallet_2_controller.getwalletlist!.result!.isEmpty
                                                 ? Center(
                                               child: Text('No List'),
                                             )
@@ -134,8 +134,8 @@ class WalletCredentials extends StatelessWidget {
                                               ),
                                               child: Container(
                                                 height: size.height*0.04,
-                                                width: size.width*0.15,
-                                                child: Center(child: Text('₹ ${_wallet_2_controller.getwalletlist!.result[index].walletAmount!.toDouble()}' ,
+                                                width: size.width*0.12,
+                                                child: Center(child: Text('₹ ${_wallet_2_controller.getwalletlist!.result![index].walletAmount!.toDouble()}' ,
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold ,
                                                       color: Colors.black,
@@ -233,7 +233,7 @@ class WalletCredentials extends StatelessWidget {
                                       AutofillHints.transactionAmount
                                     ],
                                     controller:
-                                        _wallet_2_controller.Money,
+                                        _wallet_2_controller.walletAmount,
                                     onSaved: (value) {
                                       _wallet_2_controller.amount = value!;
                                     },
@@ -280,7 +280,7 @@ class WalletCredentials extends StatelessWidget {
                                         vertical: size.height * 0.001),
                                     child: InkWell(
                                       onTap: () {
-                                        _wallet_2_controller.Money.text = '100';
+                                        _wallet_2_controller.walletAmount.text = '100';
 
                                         // Get.to(() => DoctorListUser());
                                       },
@@ -332,7 +332,7 @@ class WalletCredentials extends StatelessWidget {
                                         vertical: size.height * 0.001),
                                     child: InkWell(
                                       onTap: () {
-                                        _wallet_2_controller.Money.text = '200';
+                                        _wallet_2_controller.walletAmount.text = '200';
                                         // Get.to(() => DoctorListUser());
                                       },
                                       child: Container(
@@ -383,7 +383,7 @@ class WalletCredentials extends StatelessWidget {
                                         vertical: size.height * 0.001),
                                     child: InkWell(
                                       onTap: () {
-                                        _wallet_2_controller.Money.text = '500';
+                                        _wallet_2_controller.walletAmount.text = '500';
 
                                         // Get.to(() => DoctorListUser());
                                       },
@@ -435,7 +435,7 @@ class WalletCredentials extends StatelessWidget {
                                         vertical: size.height * 0.001),
                                     child: InkWell(
                                       onTap: () {
-                                        _wallet_2_controller.Money.text = '2000';
+                                        _wallet_2_controller.walletAmount.text = '2000';
 
                                         // Get.to(() => DoctorListUser());
                                       },
@@ -490,7 +490,7 @@ class WalletCredentials extends StatelessWidget {
                                   vertical: size.height * 0.051),
                               child: InkWell(
                                 onTap: () {
-                                  print("jhgvjdfhvjkfhvfi: ${_wallet_2_controller.Money.text}");
+                                  print("jhgvjdfhvjkfhvfi: ${_wallet_2_controller.walletAmount.text}");
                                   // var prefs = GetStorage();
                                   // //saved amount..........
                                   // amount = prefs.read(_walletPostController.Money.text);

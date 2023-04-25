@@ -126,7 +126,7 @@ class NurseAppointmentHistory extends StatelessWidget {
               Obx(
                       () => (_nursebookingHistoryController.isLoading.value)
                       ? Center(child: CircularProgressIndicator())
-                  : _nursebookingHistoryController.nurseappointmentdetail?.result == null
+                  : _nursebookingHistoryController.nurseappointmentdetail?.nurseAppointments == null
                       ? Center(
                      child: Text('No Data'),
                   )
@@ -135,7 +135,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                     height: size.height * 0.73,
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: _nursebookingHistoryController.nurseappointmentdetail?.result?.length,
+                        itemCount: _nursebookingHistoryController.nurseappointmentdetail?.nurseAppointments?.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
@@ -221,7 +221,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          _nursebookingHistoryController.nurseappointmentdetail!.result![index].totalFee.toString(),
+                                          _nursebookingHistoryController.nurseappointmentdetail!.nurseAppointments![index].totalFee.toString(),
                                           //_nurseHistoryController.nurseappointmentdetail!.result![index].totalFee.toString(),
                                          //'Nov 16,22 - Nov 20,22',
                                           style: GoogleFonts.raleway(
@@ -230,7 +230,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                                               fontSize: size.width * 0.039),
                                         ),
                                         Text(
-                                            _nursebookingHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                            _nursebookingHistoryController.nurseappointmentdetail!.nurseAppointments![index].paymentDate.toString(),
                                           //'other',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,
@@ -238,7 +238,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                                               fontSize: size.width * 0.039),
                                         ),
                                         Text(
-                                          _nursebookingHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                          _nursebookingHistoryController.nurseappointmentdetail!.nurseAppointments![index].paymentDate.toString(),
                                           //'Pending',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,
@@ -246,7 +246,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                                               fontSize: size.width * 0.039),
                                         ),
                                         Text(
-                                          _nursebookingHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                          _nursebookingHistoryController.nurseappointmentdetail!.nurseAppointments![index].totaNumberofdays.toString(),
                                          // '6',
                                           style: GoogleFonts.raleway(
                                               color: Colors.cyanAccent,

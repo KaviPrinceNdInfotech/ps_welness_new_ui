@@ -20,7 +20,7 @@ class NurseBookingHistoryController extends GetxController {
     isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
     if (
-    nurseappointmentdetail?.result != null
+    nurseappointmentdetail?.nurseAppointments != null
     //appointmentdetail != null
     //getcatagartlist!.result!.isNotEmpty
     ) {

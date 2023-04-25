@@ -93,8 +93,7 @@ class HealthCheckupCredentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select State'),
-                        items:
-                        _chooseHealthchkpsCenterController.states.map((StateModel state) {
+                        items: _chooseHealthchkpsCenterController.states.map((StateModel state) {
                           return DropdownMenuItem(
                             value: state,
                             child: Text(

@@ -175,7 +175,7 @@ class ChemistOrderHistory extends StatelessWidget {
                   Obx(
                         () => (_nurseHistoryController.isLoading.value)
                         ? Center(child: CircularProgressIndicator())
-                        : _nurseHistoryController.nurseappointmentdetail?.result == null
+                        : _nurseHistoryController.nurseappointmentdetail?.nurseAppointments == null
                         ? Center(
                       child: Text('No List'),
                     )
@@ -183,7 +183,7 @@ class ChemistOrderHistory extends StatelessWidget {
                         height: size.height * 0.71,
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: _nurseHistoryController.nurseappointmentdetail?.result?.length,
+                            itemCount: _nurseHistoryController.nurseappointmentdetail?.nurseAppointments?.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(
@@ -344,7 +344,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].patientName.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].nurseName.toString(),
 
                                                   // 'JK Agarwal',
                                                   style: GoogleFonts.raleway(
@@ -354,7 +354,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].contactNumber.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].paymentDate.toString(),
 
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -363,7 +363,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].location.toString(),
                                                   //'Bihar',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -372,7 +372,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].totaNumberofdays.toString(),
                                                  // 'Mokama',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -381,7 +381,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].paymentDate.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].fee.toString(),
                                                  // '827777',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -390,7 +390,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].paymentDate.toString(),
                                                   //'700',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -399,7 +399,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].paymentDate.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].startDate.toString(),
                                                  // 'Noida, UP sector 15 metro',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -408,7 +408,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].serviceStatus.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].endDate.toString(),
                                                  // 'Paid',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,
@@ -417,7 +417,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                                           size.width * 0.035),
                                                 ),
                                                 Text(
-                                                  _nurseHistoryController.nurseappointmentdetail!.result![index].totalDays.toString(),
+                                                  _nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].totaNumberofdays.toString(),
                                                  // 'Yes',
                                                   style: GoogleFonts.raleway(
                                                       color: Colors.grey.shade800,

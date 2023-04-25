@@ -332,7 +332,7 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                                   size.width *
                                                                       0.48,
                                                               child: Text(
-                                                                _healthCheckupController.foundCheckupcenter[index].locationName.toString(),
+                                                                _healthCheckupController.foundCheckupcenter[index].location.toString(),
 
                                                                 // _healthCheckupController
                                                                 //     .healthCheckupListss!

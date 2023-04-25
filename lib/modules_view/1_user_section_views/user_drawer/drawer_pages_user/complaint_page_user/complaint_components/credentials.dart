@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 
 
 
@@ -83,27 +84,27 @@ class ComplaintCredentials extends StatelessWidget {
             // ),
 
             ///Todo: state............................
-
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      value: _complaintController.selectedState.value,
+                      () => DropdownButtonFormField<Complaint41Patient>(
+                      value: _complaintController.selectedSubject.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
-                          Icons.subject,
+                          Icons.real_estate_agent,
                           color: Colors.black,
                         ),
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
                       hint: Text('Select Subject'),
-                      items: items.map((String items) {
+                      items:
+                      _complaintController.subject.map((Complaint41Patient subject) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: subject,
                           child: Text(
-                            items,
+                            subject.subjectName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -111,8 +112,8 @@ class ComplaintCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                        _complaintController.selectedState.value = newValue!;
+                      onChanged: (Complaint41Patient? newValue) {
+                        _complaintController.selectedSubject.value = newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;

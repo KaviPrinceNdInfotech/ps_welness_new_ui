@@ -263,7 +263,7 @@ class LabHistoryUser extends StatelessWidget {
                                                                         0.039),
                                                       ),
                                                       Text(
-                                                          _labHistoryController.foundLab[index].bookingDate.toString(),
+                                                          _labHistoryController.foundLab[index].testDate.toString(),
 
                                                           // 'Nov 16,22     ',
                                                         style:
@@ -294,7 +294,7 @@ class LabHistoryUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         'Rs ${
-                                                            _labHistoryController.foundLab[index].fee?.toDouble()
+                                                            _labHistoryController.foundLab[index].testAmount?.toDouble()
                                                         }',
                                                         style:
                                                             GoogleFonts.raleway(

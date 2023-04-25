@@ -37,24 +37,24 @@ class LabModel {
     this.id,
     this.labName,
     this.testName,
-    this.bookingDate,
-    this.fee,
+    this.testDate,
+    this.testAmount,
     this.location,
   });
 
   int? id;
   String? labName;
   String? testName;
-  DateTime? bookingDate;
-  double? fee;
+  DateTime? testDate;
+  double? testAmount;
   String? location;
 
   factory LabModel.fromJson(Map<String, dynamic> json) => LabModel(
     id: json["Id"],
     labName: json["LabName"],
     testName: json["TestName"],
-    bookingDate: json["BookingDate"] == null ? null : DateTime.parse(json["BookingDate"]),
-    fee: json["Fee"],
+    testDate: json["TestDate"] == null ? null : DateTime.parse(json["TestDate"]),
+    testAmount: json["TestAmount"],
     location: json["Location"],
   );
 
@@ -62,8 +62,8 @@ class LabModel {
     "Id": id,
     "LabName": labName,
     "TestName": testName,
-    "BookingDate": bookingDate?.toIso8601String(),
-    "Fee": fee,
+    "TestDate": testDate?.toIso8601String(),
+    "TestAmount": testAmount,
     "Location": location,
   };
 }

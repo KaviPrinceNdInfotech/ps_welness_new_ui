@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medeicine_address_add/add_address_medicine.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_cart_section/medicine_cart_sections.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_checkout/medicine_checkout.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
@@ -66,6 +68,7 @@ class Medicineaddresslist extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         Get.to(AddAdderessMedicine());
+                        ///todo: add address................
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -146,10 +149,10 @@ class Medicineaddresslist extends StatelessWidget {
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.03,
+                                    horizontal: size.width * 0.02,
                                     vertical: size.height * 0.0005),
                                 child: Container(
-                                  height: size.height * 0.2,
+                                 // height: size.height * 0.2,
                                   margin: EdgeInsets.symmetric(vertical: 30 / 6),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -186,142 +189,196 @@ class Medicineaddresslist extends StatelessWidget {
                                             // 'lib/assets/background_stack_png/patient3_history.png'
                                           ),
                                           fit: BoxFit.cover)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          height: size.height * 0.145,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Medicine Name:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Brand Name:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Medicine Type Name:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Medicine Description:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Price:',
-                                                    style: GoogleFonts.poppins(
-                                                      color: MyTheme.blueww,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                ],
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                    children: [
+                                      SizedBox(
+                                        height: size.height*0.18,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Name:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
                                               ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "gyiuhojk",
-                                                    //"${_medicineListController.foundProducts[index].medicineName}",
-                                                    // _medicineListController.medicinelistmodel!.data[index].medicineName.toString(),
-
-                                                    //'Flexion',
-                                                    style: GoogleFonts.roboto(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w800,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-
-                                                  Text(
-                                                    "okokokokokoafdb",
-                                                    //'Bharat Biotech'
-                                                   // "${_medicineListController.foundProducts[index].brandName}",
-                                                    //_medicineListController.medicinelistmodel!.data[index].brandName.toString(),
-                                                    style: GoogleFonts.roboto(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w800,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-
-                                                   // "${_medicineListController.foundProducts[index].medicineTypeId}",
-
-                                                    // _medicineListController.medicinelistmodel!.data[index].medicineTypeId.toString(),
-                                                    'Capsule',
-                                                    style: GoogleFonts.roboto(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w800,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    //"${_medicineListController.foundProducts[index].medicineDescription}",
-
-                                                    //_medicineListController.medicinelistmodel!.data[index].medicineDescription.toString(),
-                                                    'It is good medicine',
-                                                    style: GoogleFonts.roboto(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w800,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    //"${_medicineListController.foundProducts[index].mrp}",
-
-                                                    // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
-                                                    'Rs 15',
-                                                    style: GoogleFonts.roboto(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w800,
-                                                      fontSize: size.width * 0.033,
-                                                    ),
-                                                  ),
-                                                  // Align(
-                                                  //     alignment: Alignment.centerRight,
-                                                  //     child:
-                                                  //         Icon(Icons.access_time_outlined)),
-                                                ],
+                                            ),
+                                            Text(
+                                              'Email Id:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
                                               ),
-                                            ],
+                                            ),
+                                            Text(
+                                              'Mobile No:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+
+                                            Text(
+                                              'State:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              'City:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Location:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Pin:',
+                                              style: GoogleFonts.poppins(
+                                                color: MyTheme.blueww,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: size.height*0.18,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Kumar prince",
+                                              //"${_medicineListController.foundProducts[index].medicineName}",
+                                              // _medicineListController.medicinelistmodel!.data[index].medicineName.toString(),
+
+                                              //'Flexion',
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              "ok@gmail.com",
+                                              //'Bharat Biotech'
+                                             // "${_medicineListController.foundProducts[index].brandName}",
+                                              //_medicineListController.medicinelistmodel!.data[index].brandName.toString(),
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+
+                                             // "${_medicineListController.foundProducts[index].medicineTypeId}",
+
+                                              // _medicineListController.medicinelistmodel!.data[index].medicineTypeId.toString(),
+                                              '7867554433',
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              //"${_medicineListController.foundProducts[index].medicineDescription}",
+
+                                              //_medicineListController.medicinelistmodel!.data[index].medicineDescription.toString(),
+                                              'Delhi',
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              //"${_medicineListController.foundProducts[index].mrp}",
+
+                                              // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
+                                              'Palam',
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              //"${_medicineListController.foundProducts[index].mrp}",
+
+                                              // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
+                                              'Palam',
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            Text(
+                                              //"${_medicineListController.foundProducts[index].mrp}",
+
+                                              // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
+                                              'Palam',
+                                              style: GoogleFonts.roboto(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.width * 0.033,
+                                              ),
+                                            ),
+                                            // Align(
+                                            //     alignment: Alignment.centerRight,
+                                            //     child:
+                                            //         Icon(Icons.access_time_outlined)),
+                                          ],
+                                        ),
+                                      ),
+                                      Material(
+                                        elevation: 2,
+                                        color: Colors.black12,
+                                        shadowColor: Colors.grey,
+                                        borderRadius: BorderRadius.circular(100),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(CheckOutMedicine());
+
+                                          },
+                                          child: Container(
+                                            height: size.height * 0.06,
+                                            width: size.width * 0.13,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/image/43657-arrow-right.gif'),
+                                                    fit: BoxFit.fitWidth)),
+                                            // child: Image.asset('lib/assets/images/right-arrow.gif')
                                           ),
                                         ),
-                                        //Spacer(),
-
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );

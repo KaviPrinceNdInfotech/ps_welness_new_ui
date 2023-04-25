@@ -11,7 +11,7 @@ class Wallet_2_Controller extends GetxController {
   final GlobalKey<FormState> walletformkey = GlobalKey<FormState>();
   RxBool isLoading = true.obs;
   WalletModel? getwalletlist;
-
+/// wallet list api..............
 
   void walletListssApi() async {
     isLoading(true);
@@ -26,7 +26,7 @@ class Wallet_2_Controller extends GetxController {
     isLoading(true);
     http.Response r = await ApiProvider.WalletPostApi(
         UserId.text,
-        Money.text
+        walletAmount.text
     );
     if (r.statusCode == 200) {
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
@@ -84,14 +84,16 @@ class Wallet_2_Controller extends GetxController {
   }
   ///............................................................................................
   TextEditingController UserId = TextEditingController();
-  TextEditingController Money = TextEditingController();
   TextEditingController walletAmount = TextEditingController();
+  TextEditingController walletAmount2 = TextEditingController();
 
 
 
 
 
   late TextEditingController ammountController;
+  late TextEditingController walletAmountController;
+  //var walletAmount = '';
 
   var amount = '';
 
@@ -107,11 +109,12 @@ class Wallet_2_Controller extends GetxController {
     //editingController = TextEditingController();
 
     ammountController = TextEditingController();
+    walletAmountController = TextEditingController();
     walletListssApi();
 
     super.onInit();
     UserId;
-    Money;
+    amount;
     walletAmount;
   }
 
@@ -120,7 +123,7 @@ class Wallet_2_Controller extends GetxController {
     Get.delete<Wallet_2_Controller>();
     super.dispose();
     UserId.dispose();
-    Money.dispose();
+    //amount.dispose();
   }
 
   @override

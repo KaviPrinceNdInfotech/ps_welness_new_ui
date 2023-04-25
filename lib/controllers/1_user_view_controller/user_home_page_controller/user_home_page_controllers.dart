@@ -2,10 +2,12 @@ import 'package:get/get.dart';
 //import 'package:ps_welness/model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_type_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 
 import '../../../../model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
+//import '../../../model/1_user_model/ambulance/ambulance_type2_model.dart';
 import '../../../model/banner_image_model/banner_test_list_api.dart';
 
 
@@ -33,8 +35,6 @@ class UserHomepagContreoller extends GetxController {
 
 
   //crusial slider banner api..........
-
-
   void sliderBannerApi() async {
     isLoading(false);
     banerlistmodel = await ApiProvider.getbanneruserApi();
@@ -43,6 +43,21 @@ class UserHomepagContreoller extends GetxController {
     //getsliderbaner!.bannerImageList!.isNotEmpty
     ) {
       isLoading(false);
+    }
+  }
+  ///.....................
+  Ambulancetype? ambulancetype;
+
+  ///ambulance_detail_api.....................23april....2023.........
+  void getambulanceApi() async {
+    isLoading(true);
+    ambulancetype = await ApiProvider.ViewAmbulanceTypeApi();
+    print('Prince lab sedule.........');
+    print(ambulancetype);
+    if (ambulancetype?.ambulanceT != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(false);
+      //Get.to(()=>Container());
     }
   }
 
@@ -56,6 +71,7 @@ class UserHomepagContreoller extends GetxController {
   void onInit() {
     super.onInit();
     sliderBannerApi();
+    getambulanceApi();
     //userbannerApi();
   }
 
@@ -65,6 +81,7 @@ class UserHomepagContreoller extends GetxController {
 
 
     banerlistmodel = null;
+    ambulancetype = null;
 
 
     super.onClose();
@@ -74,6 +91,8 @@ class UserHomepagContreoller extends GetxController {
   @override
   void dispose() {
     banerlistmodel = null;
+    ambulancetype = null;
+
     super.dispose();
   }
 }

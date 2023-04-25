@@ -404,7 +404,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                         height: size.height*0.02,
                                                         width: size.width*0.59,
                                                         child: Text(
-                                                          _labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].locationName.toString()
+                                                          _labappointmentdetailController.healthCheckupListss!.healthCheckupList![index].location.toString()
                                                           ,
                                                          // '12 hours',
                                                           style: GoogleFonts.raleway(

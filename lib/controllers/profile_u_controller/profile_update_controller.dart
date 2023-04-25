@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
+import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 class ProfileController extends GetxController {
   final GlobalKey<FormState> profileformkey = GlobalKey<FormState>();
@@ -11,6 +13,22 @@ class ProfileController extends GetxController {
   //this is for City.................................
   Rx<String?> selectedState = (null as String?).obs;
   RxList<String> states = <String>[].obs;
+
+  //this is for subject type.................................
+  Rx<Complaint41Patient?> selectedSubject = (null as Complaint41Patient).obs;
+  List<Complaint41Patient> subject = <Complaint41Patient>[].obs;
+
+
+  ///todo: complain subject type.........................25april...2023..
+
+  ///nurse type api class.................
+  void getcomplainTypeApi() async {
+    subject = await ApiProvider.getsubjecttypeApi();
+    print('Prince lab test  list');
+    print(subject);
+  }
+
+
 
   late TextEditingController nameController,
       emailController,
@@ -34,7 +52,7 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() {
-    states.refresh();
+    //states.refresh();
     super.onInit();
     nameController = TextEditingController(text: 'Kavi Singh');
     emailController = TextEditingController();
