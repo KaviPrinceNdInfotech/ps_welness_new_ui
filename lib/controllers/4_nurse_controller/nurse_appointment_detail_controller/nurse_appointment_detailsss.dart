@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 
+import '../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../../../model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/4_nurse_all_models/nurse_appointment_details_list.dart';
@@ -20,6 +21,17 @@ class NurseAppointmentDetailController extends GetxController {
   late TextEditingController appointmentController;
 
   var appointment = ''.obs;
+
+  Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
+  List<TimeSlot> timeslot = <TimeSlot>[].obs;
+
+
+  ///nurse type api class.................
+  void timeslotApi() async {
+    timeslot = (await ApiProvider.gettimeslotApi())!;
+    print('Prince time slot  list');
+    print(timeslot);
+  }
 
   NurseAppointmentDetail? nurseappointmentdetail;
   NurseListbycityId? nurseListbycityId;
@@ -40,6 +52,7 @@ class NurseAppointmentDetailController extends GetxController {
         ) {
       isLoading(false);
      //foundNurses.value = nurseappointmentdetail!.result!;
+      //gettimeslotApi
 
     }
   }
@@ -85,6 +98,7 @@ class NurseAppointmentDetailController extends GetxController {
     nurseappointmentApi();
     nurselistsApi();
     nursedetailApi();
+    timeslotApi();
     appointmentController = TextEditingController();
     appointmentController.text = "DD-MM-YYYY";
   }

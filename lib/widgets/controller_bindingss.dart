@@ -40,6 +40,7 @@ import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_
 import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import '../controllers/9_doctor_controllers/doctor_drawer_controllers/doctor_profile_controller.dart';
+import '../controllers/profile_u_controller/profile_update_controller.dart';
 import '../controllers/user_controller/user_controller_1.dart';
 
 class ControllerBinding extends Bindings {
@@ -77,6 +78,7 @@ class ControllerBinding extends Bindings {
     Get.put(RwaHomepagContreoller());
     Get.put(ChemistHomepagContreoller());
     Get.put(ComplaintController());
+    Get.put(ProfileController());
     //Get.put(GoogleMapController());
 
     //Get.put(CatagaryByIdController());

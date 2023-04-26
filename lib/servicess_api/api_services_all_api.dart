@@ -52,6 +52,7 @@ import '../model/1_user_model/medicine_list_model/medicine_list_models.dart';
 import '../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import '../model/1_user_model/states_model/state_modells.dart';
+import '../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../model/9_doctors_model/doctor_payment_history.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
@@ -72,6 +73,7 @@ class ApiProvider {
   static String Id = ''.toString();
   static String MedicineId = ''.toString();
   static String adminId = ''.toString();
+  static String userid = ''.toString();
 
 
   //static String cartlistid = '';
@@ -181,11 +183,6 @@ class ApiProvider {
 
 
 
-
-
-
-
-
   ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
   static NursListApi() async {
     var url =
@@ -225,8 +222,6 @@ class ApiProvider {
       return;
     }
   }
-
-
 
   //login user api ps welness api 2..................................
 
@@ -271,7 +266,7 @@ class ApiProvider {
     }
   }
 
-//Change passwo
+///Change password in user 26 april 2023.....
 
   static ChangePasswordApi(
       var id,
@@ -300,18 +295,70 @@ class ApiProvider {
     );
     print(r.body);
     if (r.statusCode == 200) {
+
       var prefs = GetStorage();
       //saved id..........
       //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
-      //var prefs = GetStorage();
-      //saved id..........
-      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
-      //Id = prefs.read("data")["Id"].toString();
-      //print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
 
-      //saved token.........
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+
+  ///todo:this is the usercomplain api...26 april 2023...............
+  static UserComplainnewApi(
+      var patsubid,
+      var Others,
+      var Complaints,
+      var Login_Id,
+      ) async {
+    var url = baseUrl + 'api/ComplaintApi/PatientComplaints';
+    var prefs = GetStorage();
+    //saved id..........
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    // var prefs = GetStorage();
+    // //saved id..........
+    // //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    // Id = prefs.read("Id").toString();
+    // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+
+    var body = {
+      "patsubid": patsubid,
+      "Others": Others,
+      "Complaints": Complaints,
+      "Login_Id": adminId,
+
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      // var prefs = GetStorage();
+      // //saved id..........
+      // //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+
+      //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+      ///
+      // //saved token.........
       // prefs.write("token".toString(), json.decode(r.body)['token']);
       // token = prefs.read("token").toString();
       // print(token);
@@ -324,7 +371,77 @@ class ApiProvider {
     }
   }
 
-  //user profile details.........
+  ///user profile update.........26 april 2023...
+
+  ///here profile api of user.............24 april 2023...
+
+  static Userprofileupdate(
+      var Id,
+      var patientName,
+      var MobileNumber,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var Location,
+      var PinCode,
+      var adminLogin_id,
+      var AccountNo,
+      var IFSCCode,
+      var BranchName,
+      ) async {
+    //var a= int.parse(State).toString();
+    //var b= int.parse(City).toString();
+    var url = baseUrl + 'api/PatientApi/UpdateProfilebyPatient';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
+
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+
+
+
+    var body = {
+      "Id":
+      //137,
+      userid,
+      "patientName": patientName,
+      //"EmailId": EmailId,
+      "MobileNumber": MobileNumber,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "Location": Location,
+      "PinCode": PinCode,
+      "adminLogin_id":
+      //1222,
+      adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "Location": Location,
+      "BranchName": BranchName,
+    };
+
+    // print(body);
+
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    // print(r.body);
+    if (r.statusCode == 200) {
+//adminId
+
+      print("gvhjbknlokokookupdate${body}");
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
 
   //doctor profile  api 2..........................
   static UserProfileApi() async {
@@ -1077,36 +1194,55 @@ class ApiProvider {
     }
   }
 
-  ///ambulance catagary Api get...........................24 april 2023...
-  static getambulancecatagaryApi() async {
-    var url =
-        "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=1";
+
+  ///time slots Api get...........................26 april 2023.....slot........
+
+  static Future<List<TimeSlot>?> gettimeslotApi() async {
+    var url = "http://test.pswellness.in/api/CommonApi/TimeSlot";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        var AmbulancecatagaryListss = ambulancecatagarybyIdFromJson(r.body);
-        return AmbulancecatagaryListss;
+        var timeslotData = timeSlotsFromJson(r.body);
+        return timeslotData.timeSlots;
+      } else {
+        return [];
       }
     } catch (error) {
-      return;
+      return [];
     }
   }
+
+  ///ambulance catagary Api get...........................24 april 2023......yuibubu
   // static Future<List<Vehicle>> getambulancecatagaryApi() async {
-  //   var url = "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=1";
+  //   var url =
+  //       "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=1";
   //   try {
   //     http.Response r = await http.get(Uri.parse(url));
   //     print(r.body.toString());
   //     if (r.statusCode == 200) {
-  //       var ambulanceData = ambulancecatagarybyIdFromJson(r.body);
-  //       return ambulanceData.vehicle;
-  //     } else {
-  //       return [];
+  //       var AmbulancecatagaryListss = ambulancecatagarybyIdFromJson(r.body);
+  //       return AmbulancecatagaryListss;
   //     }
   //   } catch (error) {
-  //     return [];
+  //     return;
   //   }
   // }
+  static Future<List<Vehicle>?> getambulancecatagaryApi() async {
+    var url = "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=1";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var ambulanceData = ambulancecatagarybyIdFromJson(r.body);
+        return ambulanceData.vehicle;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
 
   ///get_vehicle_type_api...........24 april 2023........
 
@@ -1211,12 +1347,14 @@ class ApiProvider {
   }
   ///todo:complain_subject..user.of...user...id.....getapidropdown...25apr...2023..
   static Future<List<Complaint41Patient>> getsubjecttypeApi() async {
-    var url = "http://pswellness.in/api/CommonApi/NurseList";
+    var url = "http://test.pswellness.in/api/CommonApi/PatientSubjects";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
         var subjecttypeData = complainSubjectModelFromJson(r.body);
+        //ComplainSubjectModel hggh=complainSubjectModelFromJson(r.body);
+        //return subjecttypeData.complaint41Patient;
         return subjecttypeData.complaint41Patient;
       } else {
         return [];
@@ -1225,6 +1363,21 @@ class ApiProvider {
       return [];
     }
   }
+  // static Future<List<StateModel>> getSatesApi() async {
+  //   var url = "http://test.pswellness.in/api/CommonApi/GetStates";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       var statesData = statesModelFromJson(r.body);
+  //       return statesData.states;
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (error) {
+  //     return [];
+  //   }
+  //}
 
 
   ///nurse location Api get.........................................................

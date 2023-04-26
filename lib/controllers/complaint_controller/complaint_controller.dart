@@ -33,17 +33,16 @@ class ComplaintController extends GetxController {
     print('Prince subject type list');
     print(subject);
   }
+  ///todo: user complain post Api...........26 april 2023.....
 
-  void usercomplaintApi() async {
+  void postComplainApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.UserComplainApi(
-      loginidController.text,
-      subjectController.text,
-      complaintController.text,
-      isdeletedController.text,
-      isresolveController.text,
+    http.Response r = await ApiProvider.UserComplainnewApi(
+      selectedSubject.value?.subid.toString(),
       otherController.text,
-      doctorController.text,
+      complainController.text,
+      loginidController.text,
+
     );
 
     if (r.statusCode == 200) {
@@ -56,21 +55,58 @@ class ComplaintController extends GetxController {
     }
   }
 
-  late TextEditingController loginidController,
-      subjectController,
-      complaintController,
-      isdeletedController,
-      isresolveController,
+  late TextEditingController
+      patsubidController,
       otherController,
-      doctorController;
+      complainController,
+      loginidController;
 
-  var Login_Id = '';
-  var Subjects = '';
-  var complaint = '';
-  var IsDeleted = '';
-  var IsResolved = '';
+
+  var postsubid = '';
   var Others = '';
-  var Doctor = '';
+  var Complaints = '';
+  var Login_Id = '';
+
+
+  ///todo:user complain...........
+
+  // void usercomplaintApi() async {
+  //   CallLoader.loader();
+  //   http.Response r = await ApiProvider.UserComplainApi(
+  //     loginidController.text,
+  //     subjectController.text,
+  //     complaintController.text,
+  //     isdeletedController.text,
+  //     isresolveController.text,
+  //     otherController.text,
+  //     doctorController.text,
+  //   );
+  //
+  //   if (r.statusCode == 200) {
+  //     var data = jsonDecode(r.body);
+  //
+  //     CallLoader.hideLoader();
+  //
+  //     /// we can navigate to user page.....................................
+  //     Get.to(UserHomePage());
+  //   }
+  // }
+  //
+  // late TextEditingController loginidController,
+  //     subjectController,
+  //     complaintController,
+  //     isdeletedController,
+  //     isresolveController,
+  //     otherController,
+  //     doctorController;
+  //
+  // var Login_Id = '';
+  // var Subjects = '';
+  // var complaint = '';
+  // var IsDeleted = '';
+  // var IsResolved = '';
+  // var Others = '';
+  // var Doctor = '';
 
   @override
   void onInit() {
@@ -79,13 +115,11 @@ class ComplaintController extends GetxController {
     super.onInit();
     getcomplainTypeeApi();
 
-    loginidController = TextEditingController();
-    subjectController = TextEditingController();
-    complaintController = TextEditingController();
-    isdeletedController = TextEditingController();
-    isresolveController = TextEditingController();
+    patsubidController = TextEditingController();
     otherController = TextEditingController();
-    doctorController = TextEditingController();
+    complainController = TextEditingController();
+    loginidController = TextEditingController();
+
 
   }
 
@@ -96,13 +130,10 @@ class ComplaintController extends GetxController {
 
   @override
   void onClose() {
-    loginidController.dispose();
-    subjectController.dispose();
-    complaintController.dispose();
-    isdeletedController.dispose();
-    isresolveController.dispose();
+    patsubidController.dispose();
     otherController.dispose();
-    doctorController.dispose();
+    complainController.dispose();
+    loginidController.dispose();
   }
 
   String? validothers(String value) {
@@ -121,7 +152,7 @@ class ComplaintController extends GetxController {
 
   void checkUser3() {
     if (complaintformkey.currentState!.validate()) {
-      usercomplaintApi();
+      postComplainApi();
     }
     complaintformkey.currentState!.save();
     // final isValid = complaintformkey.currentState!.validate();

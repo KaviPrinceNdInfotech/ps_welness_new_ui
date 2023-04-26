@@ -8,6 +8,10 @@ import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_m
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
+import '../../../../../../controllers/complaint_controller/complaint_controller.dart';
+import '../../../../../../model/1_user_model/city_model/city_modelss.dart';
+import '../../../../../../model/1_user_model/states_model/state_modells.dart';
+import '../../../../../../widgets/circular_loader.dart';
 import '../../../../home_page_user_view/user_home_page.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/controllers/profile_u_controller/profile_update_controller.dart';
@@ -23,6 +27,8 @@ class ProfileCredentials extends StatelessWidget {
   //     Get.put(Hospital_1_Controller());
 
   ProfileController _profileController = Get.put(ProfileController());
+ // ComplaintController _complaintController = Get.put(ComplaintController());
+
 
   var items = [
     'Item 1',
@@ -84,10 +90,10 @@ class ProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _profileController.mobileController,
+               // autofillHints: [AutofillHints.telephoneNumber],
+                controller: _profileController.MobileNumberController,
                 onSaved: (value) {
-                  _profileController.mobile = value!;
+                  _profileController.MobileNumber = value!;
                 },
                 validator: (value) {
                   return _profileController.validPhone(value!);
@@ -118,9 +124,9 @@ class ProfileCredentials extends StatelessWidget {
               child: TextFormField(
                 //initialValue: "I am smart",
                 autofillHints: [AutofillHints.name],
-                controller: _profileController.nameController,
+                controller: _profileController.patientNameController,
                 onSaved: (value) {
-                  _profileController.name = value!;
+                  _profileController.patientName = value!;
                 },
                 validator: (value) {
                   return _profileController.validName(value!);
@@ -128,7 +134,7 @@ class ProfileCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Clinic Name',
+                  hintText: 'Patient Name',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -146,15 +152,58 @@ class ProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///Todo: state............................
+            ///Todo: subject of complain............................
 
+            // NeumorphicTextFieldContainer(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+            //     child: Obx(
+            //           () => DropdownButtonFormField<Complaint41Patient>(
+            //           value: _complaintController.selectedSubject.value,
+            //           decoration: InputDecoration(
+            //             prefixIcon: Icon(
+            //               Icons.real_estate_agent,
+            //               color: Colors.black,
+            //             ),
+            //             enabledBorder: InputBorder.none,
+            //             border: InputBorder.none,
+            //           ),
+            //           hint: Text('Select Subject'),
+            //           items:
+            //           _complaintController.subject.map((Complaint41Patient subject) {
+            //             return DropdownMenuItem(
+            //               value: subject,
+            //               child: Text(
+            //                 subject.subjectName,
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.w600,
+            //                   fontSize: size.height * 0.015,
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           onChanged: (Complaint41Patient? newValue) {
+            //             _complaintController.selectedSubject.value = newValue!;
+            //             // _hospital_2_controller.states.value =
+            //             //     newValue! as List<String>;
+            //             // _hospital_2_controller.selectedCity.value = null;
+            //             // _hospital_2_controller.cities.clear();
+            //             // _hospital_2_controller.cities
+            //             //     .addAll(stateCityMap[newvalue]!);
+            //           }),
+            //     ),
+            //   ),
+            // ),
+
+            ///todo: state...............
+            ///
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      value: _profileController.selectedSubject.value,
-                      decoration: InputDecoration(
+                      () => DropdownButtonFormField<StateModel>(
+                      value: _profileController.selectedState.value,
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
                           color: Colors.black,
@@ -162,13 +211,13 @@ class ProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
+                      hint: const Text('Select State'),
                       items:
-                      _profileController.subject.map((Complaint41Patient subject) {
+                      _profileController.states.map((StateModel state) {
                         return DropdownMenuItem(
-                          value: subject,
+                          value: state,
                           child: Text(
-                            subject.subjectName,
+                            state.stateName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -176,8 +225,9 @@ class ProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (Complaint41Patient? newValue) {
-                        _profileController.selectedSubject.value = newValue!;
+                      onChanged: (StateModel? newValue) {
+                        _profileController.selectedState.value = newValue!;
+                        _profileController.selectedCity.value = null;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -199,10 +249,10 @@ class ProfileCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      //icon: Icon(Icons.location_city),
+                      () => DropdownButtonFormField<City>(
+                    //icon: Icon(Icons.location_city),
                       value: _profileController.selectedCity.value,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
                           color: Colors.black,
@@ -210,12 +260,12 @@ class ProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
-                      items: items.map((String items) {
+                      hint: const Text('Selected City'),
+                      items: _profileController.cities.map((City city) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: city,
                           child: Text(
-                            items,
+                            city.cityName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -223,7 +273,10 @@ class ProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
+                      onTap: () {
+                        _profileController.refresh();
+                      },
+                      onChanged: (City? newValue) {
                         _profileController.selectedCity.value = newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
@@ -244,9 +297,9 @@ class ProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _profileController.locatoionController,
+                controller: _profileController.LocationController,
                 onSaved: (value) {
-                  _profileController.location = value!;
+                  _profileController.Location = value!;
                 },
                 validator: (value) {
                   return _profileController.validLocation(value!);
@@ -269,37 +322,37 @@ class ProfileCredentials extends StatelessWidget {
               ),
             ),
 
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
-            ///Todo: fees..............
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _profileController.feesController,
-                onSaved: (value) {
-                  _profileController.fees = value!;
-                },
-                validator: (value) {
-                  return _profileController.validFees(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Fees',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.currency_rupee,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
+            //
+            // ///Todo: fees..............
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     controller: _profileController.feesController,
+            //     onSaved: (value) {
+            //       _profileController.fees = value!;
+            //     },
+            //     validator: (value) {
+            //       return _profileController.validFees(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Fees',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.currency_rupee,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -312,7 +365,7 @@ class ProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.password],
-                controller: _profileController.pinController,
+                controller: _profileController.PinCodeController,
                 onSaved: (value) {
                   _profileController.pin = value!;
                 },
@@ -357,9 +410,9 @@ class ProfileCredentials extends StatelessWidget {
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _profileController.accountnoController,
+                controller: _profileController.AccountNoController,
                 onSaved: (value) {
-                  _profileController.account = value!;
+                  _profileController.AccountNo = value!;
                 },
                 validator: (value) {
                   return _profileController.validAccount(value!);
@@ -391,9 +444,9 @@ class ProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _profileController.ifscController,
+                controller: _profileController.IFSCCodeController,
                 onSaved: (value) {
-                  _profileController.ifsc = value!;
+                  _profileController.IFSCCode = value!;
                 },
                 validator: (value) {
                   return _profileController.validIfsc(value!);
@@ -425,9 +478,9 @@ class ProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _profileController.branchController,
+                controller: _profileController.BranchNameController,
                 onSaved: (value) {
-                  _profileController.branch = value!;
+                  _profileController.BranchName = value!;
                 },
                 validator: (value) {
                   return _profileController.validBranch(value!);
@@ -462,7 +515,9 @@ class ProfileCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'UPDATE',
                 press: () {
-                  Get.to(UserHomePage());
+                  CallLoader.loader();
+                  _profileController.checkProfilee();
+
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

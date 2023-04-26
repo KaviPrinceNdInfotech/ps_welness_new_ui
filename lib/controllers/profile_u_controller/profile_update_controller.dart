@@ -1,21 +1,33 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
+import 'package:http/http.dart' as http;
+
+
+import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
+import '../../modules_view/circular_loader/circular_loaders.dart';
 
 class ProfileController extends GetxController {
   final GlobalKey<FormState> profileformkey = GlobalKey<FormState>();
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
+  ///this is for state.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
 
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
 
   //this is for subject type.................................
-  Rx<Complaint41Patient?> selectedSubject = (null as Complaint41Patient).obs;
+  // Rx<Complaint41Patient?> selectedSubject = (null as Complaint41Patient).obs;
+  // List<Complaint41Patient> subject = <Complaint41Patient>[].obs;
+  //this is for subject type.................................
+  Rx<Complaint41Patient?> selectedSubject = (null as Complaint41Patient?).obs;
   List<Complaint41Patient> subject = <Complaint41Patient>[].obs;
 
 
@@ -28,41 +40,108 @@ class ProfileController extends GetxController {
     print(subject);
   }
 
+  ///todo:state get drop down...api..
+  ///get state api.........
+
+  void getStateLabApi() async {
+    states = await ApiProvider.getSatesApi();
+    print('Prince state  list');
+    print(states);
+  }
+
+  ///get cities api...........
+  void getCityByStateIDLab(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+    print("Prince cities of $stateID");
+    print(cities);
+  }
 
 
-  late TextEditingController nameController,
-      emailController,
-      mobileController,
-      locatoionController,
-      feesController,
-      pinController,
-      accountnoController,
-      ifscController,
-      branchController;
+  ///user update profile.......26 april 2023....
+  void userupdateApi() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.Userprofileupdate(
+      idController.text,
+      patientNameController.text,
+      MobileNumberController.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      LocationController.text,
+      PinCodeController.text,
+      adminLogin_idController.text,
+      AccountNoController.text,
+      IFSCCodeController.text,
+      BranchNameController.text,
 
-  var name = '';
-  var email = '';
-  var mobile = '';
-  var location = '';
-  var fees = '';
+    );
+
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      Get.to(UserHomePage());
+    }
+  }
+
+
+
+  late TextEditingController
+  idController,
+      patientNameController,
+      //emailController,
+      MobileNumberController,
+      LocationController,
+      PinCodeController,
+  adminLogin_idController,
+  AccountNoController,
+  IFSCCodeController,
+  BranchNameController;
+
+ // var id = '';
+  //var adminLogin_id = '';
+  var patientName = '';
+ // var email = '';
+  var MobileNumber = '';
+  var Location = '';
+  var PinCode = '';
   var pin = '';
-  var account = '';
-  var ifsc = '';
-  var branch = '';
+  var AccountNo = '';
+  var IFSCCode = '';
+  var BranchName = '';
 
   @override
   void onInit() {
-    //states.refresh();
     super.onInit();
-    nameController = TextEditingController(text: 'Kavi Singh');
-    emailController = TextEditingController();
-    mobileController = TextEditingController(text: '8988776655');
-    locatoionController = TextEditingController(text: 'New Ashok Nagar');
-    feesController = TextEditingController(text: '2000');
-    pinController = TextEditingController(text: '889999');
-    accountnoController = TextEditingController(text: '9898666666');
-    ifscController = TextEditingController(text: '999ONSBI');
-    branchController = TextEditingController(text: 'SBI');
+    patientNameController = TextEditingController(text: 'Kavi Singh');
+    //emailController = TextEditingController();
+    MobileNumberController = TextEditingController(text: '8988776655');
+    LocationController = TextEditingController(text: 'New Ashok Nagar');
+    adminLogin_idController = TextEditingController(text: '2000');
+    PinCodeController = TextEditingController(text: '889999');
+    AccountNoController = TextEditingController(text: '9898666666');
+    IFSCCodeController = TextEditingController(text: '999ONSBI');
+    BranchNameController = TextEditingController(text: 'SBI');
+    idController = TextEditingController();
+    getStateLabApi();
+
+    //states.refresh();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDLab("${p0.id}");
+      }
+    }
+    );
+    // selectedDepartment.listen((p0) {
+    //   if (p0 != null) {
+    //     getspecialistByDeptID("${p0.id}");
+    //   }
+    // }
+    //);
+
   }
 
   @override
@@ -72,15 +151,16 @@ class ProfileController extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    mobileController.dispose();
-    locatoionController.dispose();
-    feesController.dispose();
-    pinController.dispose();
-    accountnoController.dispose();
-    ifscController.dispose();
-    branchController.dispose();
+    patientNameController.dispose();
+   // emailController.dispose();
+    MobileNumberController.dispose();
+    LocationController.dispose();
+    PinCodeController.dispose();
+    AccountNoController.dispose();
+    IFSCCodeController.dispose();
+    BranchNameController.dispose();
+    adminLogin_idController.dispose();
+    idController.dispose();
   }
 
   String? validName(String value) {
@@ -170,11 +250,9 @@ class ProfileController extends GetxController {
   }
 
   void checkProfilee() {
-    final isValid = profileformkey.currentState!.validate();
-    if (!isValid) {
-      return;
+    if (profileformkey.currentState!.validate()) {
+      userupdateApi();
     }
     profileformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

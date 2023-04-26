@@ -21,7 +21,7 @@ class Change_password_Controller extends GetxController {
     http.Response r = await ApiProvider.ChangePasswordApi(
       idController.text,
       passwordController.text,
-        newpasswordController.text,
+      newpasswordController.text,
 
     );
 

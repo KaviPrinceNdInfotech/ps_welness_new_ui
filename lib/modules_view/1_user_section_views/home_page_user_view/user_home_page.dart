@@ -810,7 +810,6 @@ class UserHomePage extends StatelessWidget {
                                         Get.to(() => HealthCheckup1());
                                         //Get.defaultDialog(
                                         //barrierDismissible: true,
-
                                       } else if (index == 5) {
                                         Get.to(() => SearchMedicine());
                                         // Get.defaultDialog(

@@ -6,6 +6,9 @@ import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+
+import '../../../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/appointment_checkout/appointment_checkout.dart';
@@ -341,54 +344,96 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                         SizedBox(
                           height: size.height * 0.01,
                         ),
-                        SizedBox(
-                          height: size.height * 0.06,
-                          width: size.width,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 32,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Ink(
-                                    child: PhysicalModel(
-                                      color: MyTheme.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      elevation: 20,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: size.width * 0.01,
-                                            vertical: size.height * 0.004),
-                                        child: Container(
-                                          //height: size.height * 0.025,
-                                          width: size.width * 0.17,
-                                          decoration: BoxDecoration(
-                                            color: MyTheme.ThemeColors,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '10:00',
-                                                style: TextStyle(
-                                                  fontSize: size.height * 0.015,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                        NeumorphicTextFieldContainer(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                            child: Obx(
+                                  () => DropdownButtonFormField<TimeSlot>(
+                                  value: _nurseAppointmentDetailController.selectedTimeslot.value,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.place,
+                                      color: Colors.black,
+                                    ),
+                                    enabledBorder: InputBorder.none,
+                                    border: InputBorder.none,
+                                  ),
+                                  hint: Text('Select Nurse'),
+                                  items:
+                                  _nurseAppointmentDetailController.timeslot.map((TimeSlot timeslot) {
+                                    return DropdownMenuItem(
+                                      value: timeslot,
+                                      child: Text(
+                                        timeslot.slotTime.toString(),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.height * 0.015,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              }),
+                                    );
+                                  }).toList(),
+                                  onChanged: (TimeSlot? newValue) {
+                                    _nurseAppointmentDetailController.selectedTimeslot.value = newValue!;
+                                    // _nurseBooking1Controller.selectedCity.value = null;
+                                    // _hospital_2_controller.states.value =
+                                    //     newValue! as List<String>;
+                                    // _hospital_2_controller.selectedCity.value = null;
+                                    // _hospital_2_controller.cities.clear();
+                                    // _hospital_2_controller.cities
+                                    //     .addAll(stateCityMap[newvalue]!);
+                                  }),
+                            ),
+                          ),
                         ),
+                        // SizedBox(
+                        //   height: size.height * 0.06,
+                        //   width: size.width,
+                        //   child:
+                        //   ListView.builder(
+                        //       shrinkWrap: true,
+                        //       scrollDirection: Axis.horizontal,
+                        //       itemCount: 32,
+                        //       itemBuilder: (BuildContext context, int index) {
+                        //         return Padding(
+                        //           padding: const EdgeInsets.all(3.0),
+                        //           child: Ink(
+                        //             child: PhysicalModel(
+                        //               color: MyTheme.white,
+                        //               borderRadius: BorderRadius.circular(5),
+                        //               elevation: 20,
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.symmetric(
+                        //                     horizontal: size.width * 0.01,
+                        //                     vertical: size.height * 0.004),
+                        //                 child: Container(
+                        //                   //height: size.height * 0.025,
+                        //                   width: size.width * 0.17,
+                        //                   decoration: BoxDecoration(
+                        //                     color: MyTheme.ThemeColors,
+                        //                     borderRadius:
+                        //                         BorderRadius.circular(5),
+                        //                   ),
+                        //                   child: Column(
+                        //                     mainAxisAlignment:
+                        //                         MainAxisAlignment.center,
+                        //                     children: [
+                        //                       Text(
+                        //                         '10:00',
+                        //                         style: TextStyle(
+                        //                           fontSize: size.height * 0.015,
+                        //                           fontWeight: FontWeight.w600,
+                        //                           color: Colors.white,
+                        //                         ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         );
+                        //       }),
+                        // ),
                       ],
                     ),
                   ),

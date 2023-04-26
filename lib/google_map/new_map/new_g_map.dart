@@ -434,7 +434,7 @@ class _MapViewState extends State<MapView> {
                     ///.......selected....ambulance catagary....
                     NeumorphicTextFieldContainer(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                         child: Obx(
                               () => DropdownButtonFormField<Vehicle>(
                               value: _ambulancegetController.selectedambCatagary.value,
@@ -481,7 +481,7 @@ class _MapViewState extends State<MapView> {
 ///.........selected vhicle..by catagary id.....
                     NeumorphicTextFieldContainer(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.0),
                         child: Obx(
                               () => DropdownButtonFormField<VehicleDetaile>(
                             //icon: Icon(Icons.location_city),
@@ -498,11 +498,14 @@ class _MapViewState extends State<MapView> {
                               items: _ambulancegetController.vhicletypes.map((VehicleDetaile vhiclee) {
                                 return DropdownMenuItem(
                                   value: vhiclee,
-                                  child: Text(
-                                    vhiclee.vehicleTypeName.toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.015,
+                                  child: SizedBox(
+                                    width: size.width*0.8,
+                                    child: Text(
+                                      vhiclee.vehicleTypeName.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.height * 0.015,
+                                      ),
                                     ),
                                   ),
                                 );
@@ -621,7 +624,7 @@ class _MapViewState extends State<MapView> {
                         Radius.circular(20.0),
                       ),
                     ),
-                    width: width * 0.9,
+                    width: width,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                       child: Column(

@@ -33,17 +33,14 @@ class UserMainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///use media query to provide the main.......
-
     Size size = MediaQuery.of(context).size;
     DoctorHistoryController _doctorHistoryController = Get.put(DoctorHistoryController());
-
     return SafeArea(
       child: Drawer(
         backgroundColor: MyTheme.ContainerUnSelectedColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-
             DrawerHeader(
               decoration: BoxDecoration(
                 color: MyTheme.ThemeColors,

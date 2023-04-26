@@ -25,15 +25,15 @@ class ComplaintCredentials extends StatelessWidget {
 
   ComplaintController _complaintController = Get.put(ComplaintController());
 
-  var items = [
-    'Select',
-    'Doctor',
-    'Hospital',
-    'Driver',
-    'Ambulance',
-    'Patient',
-    'Other',
-  ];
+  // var items = [
+  //   'Select',
+  //   'Doctor',
+  //   'Hospital',
+  //   'Driver',
+  //   'Ambulance',
+  //   'Patient',
+  //   'Other',
+  // ];
 
   get newvalue => null!;
 
@@ -172,9 +172,9 @@ class ComplaintCredentials extends StatelessWidget {
               child: TextFormField(
                 maxLines: 5,
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _complaintController.complaintController,
+                controller: _complaintController.complainController,
                 onSaved: (value) {
-                  _complaintController.complaint = value!;
+                  _complaintController.Complaints = value!;
                 },
                 validator: (value) {
                   return _complaintController.validAddress(value!);

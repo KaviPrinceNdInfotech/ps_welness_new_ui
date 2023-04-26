@@ -44,6 +44,10 @@ import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 class AmbulancegetController extends GetxController {
 
   final GlobalKey<FormState> Chooseambulancevehicletypekey = GlobalKey<FormState>();
+  ///ambulancde catagary Id...........
+
+  Rx<Vehicle?> selectedambCatagary = (null as Vehicle?).obs;
+  List<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
 
   ///vehicle by catagary Id...........
   ///
@@ -52,23 +56,15 @@ class AmbulancegetController extends GetxController {
 
   ///ambulancde catagary Id...........
 
- Rx<Vehicle?> selectedambCatagary = (null as Vehicle?).obs;
-  RxList<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
-
-
   // var selectedambCatagary = (null as Vehicle?).obs;
   //   //final selectedambCatagary = < as Vehicle>[].obs;
   //   late var ambulancvecatagarys = <Vehicle>[].obs;
   //   //RxList<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
 
-
-
-
-
   ///get ambulance catagary api.........
 
   void ambulancecatagaryyApi() async {
-    ambulancvecatagarys = await ApiProvider.getambulancecatagaryApi();
+    ambulancvecatagarys = (await ApiProvider.getambulancecatagaryApi())!;
     print('Prince ambulance catagary list');
     print(ambulancvecatagarys);
   }
