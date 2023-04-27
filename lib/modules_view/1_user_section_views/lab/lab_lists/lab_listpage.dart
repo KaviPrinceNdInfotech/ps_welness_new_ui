@@ -440,7 +440,7 @@ class LabListPage extends StatelessWidget {
                                                                 ),
                                                                 Text(
                                                                   'Rs.${
-                                                                      _labListController.foundProducts[index].fee.toString()
+                                                                      _labListController.foundProducts[index].fee.toDouble()
 
                                                                   //     _labListController
                                                                   //     .labListUser!

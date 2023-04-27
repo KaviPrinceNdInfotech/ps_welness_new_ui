@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -6,19 +8,27 @@ import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nu
 
 import '../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../../../model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import '../../../modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
+import '../../../modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_detail_and_schedule/nurse_details_schedules.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 //import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class NurseAppointmentDetailController extends GetxController {
+
+  final GlobalKey<FormState> NurseBooking2formkey = GlobalKey<FormState>();
+
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
   RxBool isLoading = false.obs;
 
-  late TextEditingController appointmentController;
+  // late TextEditingController appointmentController,
+  //     nurseidController;
 
   var appointment = ''.obs;
 
@@ -32,6 +42,9 @@ class NurseAppointmentDetailController extends GetxController {
     print('Prince time slot  list');
     print(timeslot);
   }
+
+
+
 
   NurseAppointmentDetail? nurseappointmentdetail;
   NurseListbycityId? nurseListbycityId;
@@ -56,6 +69,39 @@ class NurseAppointmentDetailController extends GetxController {
 
     }
   }
+
+  ///todo: nurse schedule api by the help of list Id of nurse....
+  void nurseBooking2Api() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.Nursesebooking2Api(
+      nurseidController.text,
+      appointmentController.text,
+      selectedTimeslot.value?.slotid.toString(),
+      //selectedState.value?.id.toString(),
+      // selectedCity.value?.id.toString(),
+    );
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      //Get.to(NurseListUser());
+     // Get.to(NurseDetailsSchedulePage());
+      Get.to(() => AppointmentCheckout());
+
+
+      /// we can navigate to user page.....................................
+      //Get.to(NurseAppointmentHistory());
+
+    }
+  }
+
+
+  late TextEditingController
+
+  nurseidController,
+  //selectedNurse.value?.id.toString(),
+      appointmentController;
+
 
   ///todo from here we have get nurse list by location id...
   void nurselistsApi() async {
@@ -99,8 +145,9 @@ class NurseAppointmentDetailController extends GetxController {
     nurselistsApi();
     nursedetailApi();
     timeslotApi();
+    nurseidController = TextEditingController();
     appointmentController = TextEditingController();
-    appointmentController.text = "DD-MM-YYYY";
+    appointmentController.text = "YYY-MM-DD";
   }
 
   @override
@@ -132,7 +179,7 @@ class NurseAppointmentDetailController extends GetxController {
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController
-        ..text = DateFormat.yMMMd().format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
@@ -164,5 +211,16 @@ RxList<GetNurse> foundNurses = RxList<GetNurse>([]);
     }
     print(finalResult!.length);
     foundNurses.value = finalResult!;
+  }
+
+
+
+  ///.......................
+  void checkNurse2() {
+    if (NurseBooking2formkey.currentState!.validate()) {
+      //nurseBookingFormApi();
+      nurseBooking2Api();
+    }
+    NurseBooking2formkey.currentState!.save();
   }
 }

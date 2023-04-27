@@ -63,7 +63,7 @@ class _MapViewState extends State<MapView> {
 
   final MapController _mapControllers = Get.put(MapController());
 
-  late GoogleMapController mapController = Get.find();
+  late GoogleMapController mapController;
 
   //Get.lazyPut(() => GoogleMapController());
   //late GoogleMapController mapController;
@@ -395,6 +395,7 @@ class _MapViewState extends State<MapView> {
               polylines: Set<Polyline>.of(polylines.values),
               onMapCreated: (GoogleMapController controller) {
                 mapController = controller;
+                newGoogleMapController = controller;
 
               },
             ),

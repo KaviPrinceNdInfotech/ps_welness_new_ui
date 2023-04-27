@@ -16,6 +16,8 @@ import '../../../model/1_user_model/nurse_appointment_models/nurse_type_model.da
 import '../../../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../../../model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import '../../../modules_view/1_user_section_views/nursess/appointment_history_nurse/nurse_history_appointment.dart';
+import '../../../modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_detail_and_schedule/nurse_details_schedules.dart';
+import '../../../modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_lists/nurse_list_appointment.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 
@@ -111,48 +113,83 @@ class NurseBooking1Controller extends GetxController {
 
   var Id = '';
 
-  void nurseBookingFormApi() async {
+///todo: nurse booking..............27 april 2023..
+  void nurseBooking1Api() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.NurseselectionformApi(
-      serviceTypeController.value,
-      serviceTimeController.value,
-      nurseTypeIdController.value,
+    http.Response r = await ApiProvider.Nursesebooking1Api(
       patientIdController.text,
-      mobileController.text,
-      ServiceDateController.text,
-      StartDateController.value,
-      EndDateController.value,
-      LocationIdController.text,
+      selectedNurse.value?.id.toString(),
+      selectedhours.value,
+      selectedshift.value,
+      appointmentController1.text,
+      appointmentController2.text,
+      mobileNumberController.text,
+      selectedNurseLocation.value?.id.toString(),
+      //selectedState.value?.id.toString(),
+      // selectedCity.value?.id.toString(),
     );
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
+      //Get.off(NurseListUser());
+      Get.to(NurseDetailsSchedulePage());
 
       /// we can navigate to user page.....................................
-      Get.to(NurseAppointmentHistory());
+      //Get.to(NurseAppointmentHistory());
 
     }
   }
 
-  late TextEditingController serviceTypeController,
-      serviceTimeController,
-      nurseTypeIdController,
-      patientIdController,
-      mobileController,
-      ServiceDateController,
-      StartDateController,
-      EndDateController,
-      LocationIdController;
+  // void nurseBookingFormApi() async {
+  //   CallLoader.loader();
+  //   http.Response r = await ApiProvider.NurseselectionformApi(
+  //     serviceTypeController.value,
+  //     serviceTimeController.value,
+  //     nurseTypeIdController.value,
+  //     patientIdController.text,
+  //     mobileController.text,
+  //     ServiceDateController.text,
+  //     StartDateController.value,
+  //     EndDateController.value,
+  //     LocationIdController.text,
+  //
+  //     //selectedState.value?.id.toString(),
+  //    // selectedCity.value?.id.toString(),
+  //   );
+  //
+  //   if (r.statusCode == 200) {
+  //     var data = jsonDecode(r.body);
+  //
+  //     CallLoader.hideLoader();
+  //     Get.to(NurseListUser());
+  //
+  //     /// we can navigate to user page.....................................
+  //     //Get.to(NurseAppointmentHistory());
+  //
+  //   }
+  // }
 
-  var serviceTime = '';
-  var nurseTypeId = '';
-  var patientId = '';
-  var mobile = '';
-  var ServiceDate = '';
+  late TextEditingController
+
+  patientIdController,
+  //selectedNurse.value?.id.toString(),
+  serviceTypeController,
+  serviceTimeController,
+  startDateController,
+  endDateController,
+  mobileNumberController;
+
+  ///todo new user nurse booking 1.....
+
+  var Patient_Id = '';
+  var NurseTypeId = '';
+  var ServiceType = '';
+  var ServiceTime = '';
   var StartDate = '';
   var EndDate = '';
+  var MobileNumber = '';
   var LocationId = '';
 
   @override
@@ -165,17 +202,18 @@ class NurseBooking1Controller extends GetxController {
 
     serviceTypeController = TextEditingController();
     serviceTimeController = TextEditingController();
-    nurseTypeIdController = TextEditingController();
     patientIdController = TextEditingController();
-    mobileController = TextEditingController();
-    ServiceDateController = TextEditingController();
-    LocationIdController = TextEditingController();
+    serviceTypeController = TextEditingController();
+    serviceTimeController= TextEditingController();
+    startDateController = TextEditingController();
+    endDateController = TextEditingController();
+    mobileNumberController = TextEditingController();
 
     appointmentController1 = TextEditingController();
-    appointmentController1.text = "DD-MM-YYYY";
+    appointmentController1.text = "YYYY-MM-DD";
 
     appointmentController2 = TextEditingController();
-    appointmentController2.text = "DD-MM-YYYY";
+    appointmentController2.text = "YYYY-MM-DD";
   }
 
   @override
@@ -187,13 +225,8 @@ class NurseBooking1Controller extends GetxController {
   void onClose() {
     serviceTypeController.dispose();
     serviceTimeController.dispose();
-    nurseTypeIdController.dispose();
     patientIdController.dispose();
-    mobileController.dispose();
-    ServiceDateController.dispose();
-    StartDateController.dispose();
-    EndDateController.dispose();
-    LocationIdController.dispose();
+
 
   }
 
@@ -218,7 +251,7 @@ class NurseBooking1Controller extends GetxController {
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController1
-        ..text = DateFormat.yMMMd().format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController1.text.length,
             affinity: TextAffinity.upstream));
@@ -251,7 +284,7 @@ class NurseBooking1Controller extends GetxController {
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController2
-        ..text = DateFormat.yMMMd().format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController2.text.length,
             affinity: TextAffinity.upstream));
@@ -355,7 +388,8 @@ class NurseBooking1Controller extends GetxController {
   // }
   void checkNurse1() {
     if (NurseBookingformkey.currentState!.validate()) {
-      nurseBookingFormApi();
+      //nurseBookingFormApi();
+      nurseBooking1Api();
     }
     NurseBookingformkey.currentState!.save();
   }

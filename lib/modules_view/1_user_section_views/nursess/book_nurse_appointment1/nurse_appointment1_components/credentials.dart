@@ -34,13 +34,13 @@ class Nursebooking1Credentials extends StatelessWidget {
 
   // User_1_Controller _user_1_controller = Get.put(User_1_Controller());
 
-  var items = [
-    'Technician',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
+  // var items = [
+  //   'Technician',
+  //   'Item 2',
+  //   'Item 3',
+  //   'Item 4',
+  //   'Item 5',
+  // ];
 
   get newvalue => null!;
 
@@ -721,9 +721,9 @@ class Nursebooking1Credentials extends StatelessWidget {
               NeumorphicTextFieldContainer(
                 child: TextFormField(
                   autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _nurseBooking1Controller.mobileController,
+                  controller: _nurseBooking1Controller.mobileNumberController,
                   onSaved: (value) {
-                    _nurseBooking1Controller.mobile = value!;
+                    _nurseBooking1Controller.MobileNumber = value!;
                   },
                   validator: (value) {
                     return _nurseBooking1Controller.validPhone(value!);
@@ -785,11 +785,15 @@ class Nursebooking1Credentials extends StatelessWidget {
                         _nurseBooking1Controller.locations.map((NurseLocationModel locations) {
                           return DropdownMenuItem(
                             value: locations,
-                            child: Text(
-                              locations.locationName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.015,
+                            child: SizedBox(
+                              height: size.height*0.06,
+                              width: size.width*0.65,
+                              child: Text(
+                                locations.locationName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.015,
+                                ),
                               ),
                             ),
                           );
@@ -967,7 +971,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                   press: () {
                     CallLoader.loader();
                     _nurseBooking1Controller.checkNurse1();
-                    Get.to(()=>NurseListUser());
+                    //Get.to(()=>NurseListUser());
                     //Get.to(NurseAppointmentHistory());
 
 

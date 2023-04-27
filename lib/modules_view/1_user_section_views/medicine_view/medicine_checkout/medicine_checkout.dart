@@ -9,6 +9,7 @@ import 'package:ps_welness_new_ui/controllers/rozar_pay_controller/rozar_pay_con
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/my_theme.dart';
+//import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_checkout_controller/medicine_checkout_controller.dart';
 
 
 class CheckOutMedicine extends StatelessWidget {
@@ -17,7 +18,10 @@ class CheckOutMedicine extends StatelessWidget {
   RxBool isLoading = false.obs;
   //CartController controller = Get.find();
   RozarPayController _rozarPayController = Get.put(RozarPayController());
- // CheckoutController _checkoutController = Get.put(CheckoutController());
+
+
+
+  // CheckoutController _checkoutController = Get.put(CheckoutController());
  //  AddressListController _addressListController =
  //  Get.put(AddressListController());
  //final CartController controller = Get.put(CartController());

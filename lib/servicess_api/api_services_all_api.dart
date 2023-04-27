@@ -48,6 +48,7 @@ import '../model/1_user_model/health_checkup_list/health_checkup_list.dart';
 import '../model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
 import '../model/1_user_model/lab_list_models.dart';
 import '../model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
+import '../model/1_user_model/medicine_checkout/medicine_checkout_model.dart';
 import '../model/1_user_model/medicine_list_model/medicine_list_models.dart';
 import '../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../model/1_user_model/nurse_type_model/nurse_type_model.dart';
@@ -146,10 +147,7 @@ class ApiProvider {
       var Location,
       var Pincode,
       ) async {
-    //var a= int.parse(State).toString();
-    //var b= int.parse(City).toString();
     var url = baseUrl + 'api/SignupApi/PatientRegistration';
-
     var body = {
       "PatientName": PatientName,
       "EmailId": EmailId,
@@ -161,9 +159,6 @@ class ApiProvider {
       "Location": Location,
       "Pincode": Pincode,
     };
-
-    // print(body);
-
     http.Response r = await http.post(
       Uri.parse(url), body: body,
       //headers: headers
@@ -181,6 +176,68 @@ class ApiProvider {
     }
   }
 
+
+
+  ///here delivery address api of user.............27 april 2023...
+
+  static deliverymedicineAddressApi(
+      var Name,
+      var Email,
+      var MobileNumber,
+      var Password,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var DeliveryAddress,
+      var PinCode,
+
+      ) async {
+    var url = baseUrl + 'api/PatientApi/MedicineAddress';
+    var body = {
+      "Name": Name,
+      "Email": Email,
+      "MobileNumber": MobileNumber,
+      "Password": "12345",
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "DeliveryAddress": DeliveryAddress,
+      "PinCode": PinCode,
+    };
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    // print(r.body);
+    if (r.statusCode == 200) {
+      print(r.body);
+      print(body);
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+
+  ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
+  static NursecheckoutApi() async {
+    var url =
+        "http://test.pswellness.in/api/NurseServices/NurseAptmt?Nurse_Id=83";
+    //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        NurseCheckoutModel? nursecheckout =
+        nurseCheckoutModelFromJson(r.body);
+        return nursecheckout;
+      }
+    } catch (error) {
+      return;
+    }
+  }
 
 
   ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
@@ -511,6 +568,104 @@ class ApiProvider {
       return r;
     }
   }
+
+
+
+  ///todo: nurse booking 1 api........27 april 2023...
+
+  static Nursesebooking1Api(
+      var Patient_Id,
+      var NurseTypeId,
+      var ServiceType,
+      var ServiceTime,
+      var StartDate,
+      var EndDate,
+      var MobileNumber,
+      var LocationId,
+
+      ) async {
+    var url = baseUrl + 'api/NurseServices/NurseServices';
+
+    var body = {
+      "Patient_Id": Id,
+      "NurseTypeId": NurseTypeId,
+      "ServiceType": ServiceType,
+      "NurseType_Id": NurseTypeId,
+      "ServiceTime": ServiceTime,
+      "StartDate": StartDate,
+      "EndDate": EndDate,
+      "MobileNumber": MobileNumber,
+      "LocationId": LocationId,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      var prefs = GetStorage();
+      //saved id..........
+      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      Id = prefs.read("Id").toString();
+      print('&&&&&&&&&&&&&&nursebookingId:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: nurse booking 2 api........27 april 2023...
+
+  static Nursesebooking2Api(
+      var Nurse_Id,
+      var ServiceDate,
+      var Slotid,
+
+      ) async {
+    var url = baseUrl + 'api/NurseServices/NurseBookings';
+
+    var body = {
+      "Nurse_Id": "55",
+      "ServiceDate": ServiceDate,
+      "Slotid": Slotid,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      var prefs = GetStorage();
+      //saved id..........
+      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      Id = prefs.read("Id").toString();
+     // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+
+
   //complain_register user api................
 
   static UserComplainApi(

@@ -10,6 +10,7 @@ import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
+import '../../../../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
 import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import '../medicine_address_list/medicine_address_list_view.dart';
 
@@ -19,7 +20,7 @@ class AddaddressmedicineCredentials extends StatelessWidget {
   // Hospital_1_Controller _hospital_1_controller =
   //     Get.put(Hospital_1_Controller());
 
-  medicine_address_Controller _medicine_address_controller = Get.put(medicine_address_Controller());
+  MedicineAddressController _medicine_address_controller = Get.put(MedicineAddressController());
 
   var items = [
     'Item 1',
@@ -38,7 +39,7 @@ class AddaddressmedicineCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _medicine_address_controller.addressmedicineformkey,
+      key: _medicine_address_controller.medicineaddressformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -109,33 +110,6 @@ class AddaddressmedicineCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///Todo: password..............
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _medicine_address_controller.passwordController,
-                onSaved: (value) {
-                  _medicine_address_controller.password = value!;
-                },
-                validator: (value) {
-                  return _medicine_address_controller.validPassword(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
 
             SizedBox(
               height: size.height * 0.02,
@@ -183,7 +157,7 @@ class AddaddressmedicineCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _medicine_address_controller.addressController,
+                controller: _medicine_address_controller.deliveryaddressController,
                 onSaved: (value) {
                   _medicine_address_controller.address = value!;
                 },
@@ -304,28 +278,7 @@ class AddaddressmedicineCredentials extends StatelessWidget {
               ),
             ),
 
-            // child: DropdownButton(
-            //     value: _hospital_2_controller.selectedState.value,
-            //     menuMaxHeight: size.height * 0.3,
-            //     items: items.map((String items) {
-            //       return DropdownMenuItem(
-            //         value: items,
-            //         child: Text(items),
-            //       );
-            //     }).toList(),
-            //     // _hospital_2_controller.states.map((String value) {
-            //     //   return DropdownMenuItem(
-            //     //     value: value,
-            //     //
-            //     //   )
-            //     onChanged: (String? newValue) {
-            //       _hospital_2_controller.states.value =
-            //           newValue! as List<String>;
-            //       _hospital_2_controller.selectedCity.value = null;
-            //       _hospital_2_controller.cities.clear();
-            //       _hospital_2_controller.cities
-            //           .addAll(stateCityMap[newvalue]!);
-            //     })),
+
 
             SizedBox(
               height: size.height * 0.02,
@@ -386,8 +339,10 @@ class AddaddressmedicineCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'Submit',
                 press: () {
+                  CallLoader.loader();
+                  _medicine_address_controller.checkaddressmedicine();
 
-                  Get.to(Medicineaddresslist());
+                 // Get.to(Medicineaddresslist());
                   //CallLoader.loader();
                  // _medicine_address_controller.checkUser1();
                   //Get.to(UserHomePage());

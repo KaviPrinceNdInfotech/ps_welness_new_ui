@@ -2,10 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/user_views/user_components/credentials.dart';
 import 'package:ps_welness_new_ui/modules_view/user_views/user_components/head_text.dart';
 
+import '../../../../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
 import 'medicine_add_address_credential.dart';
 import 'medicine_head_text_addaddress.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -13,7 +16,9 @@ import 'medicine_head_text_addaddress.dart';
 // import 'package:ps_welness/modules_view/user_views/user_components/head_text.dart';
 
 class AddAdderessMedicine extends StatelessWidget {
-  const AddAdderessMedicine({Key? key}) : super(key: key);
+   AddAdderessMedicine({Key? key}) : super(key: key);
+
+  MedicineAddressController _medicineAddressController = Get.put(MedicineAddressController());
 
   @override
   Widget build(BuildContext context) {
