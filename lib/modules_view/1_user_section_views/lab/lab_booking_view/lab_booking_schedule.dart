@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/controllers/rozar_pay_controller/rozar_pay_controller.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/health_checkup/book__schealthcheckup_shedule/book_lab_components/credentials.dart';
@@ -188,7 +189,9 @@ class LabSchedule1Page extends StatelessWidget {
                           height: size.height * 0.00,
                         ),
 
-                        LabScheduleCredentials(),
+                        SizedBox(
+                          height: size.height*0.37,
+                            child: LabScheduleCredentials()),
 
                         // Align(
                         //   alignment: Alignment.centerLeft,
@@ -361,6 +364,8 @@ class LabSchedule1Page extends StatelessWidget {
                               ),
                               child: InkWell(
                                 onTap: () {
+                                  CallLoader.loader();
+                                  _labListController.checkLab2();
                                   //_rozarPayController.openCheckout();
                                   //print('okokokopayment');
 

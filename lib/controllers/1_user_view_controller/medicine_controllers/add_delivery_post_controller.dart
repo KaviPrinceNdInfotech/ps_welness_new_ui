@@ -12,7 +12,7 @@ import '../../../servicess_api/api_services_all_api.dart';
 
 
 class MedicineAddressController extends GetxController {
-  final GlobalKey<FormState> medicineaddressformkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> medicineaddressformmkey = GlobalKey<FormState>();
 
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
@@ -208,10 +208,10 @@ class MedicineAddressController extends GetxController {
   }
 
   void checkaddressmedicine() {
-    if (medicineaddressformkey.currentState!.validate()) {
+    if (medicineaddressformmkey.currentState!.validate()) {
       addmedicineaddressApi();
     }
-    medicineaddressformkey.currentState!.save();
+    medicineaddressformmkey.currentState!.save();
   }
 
 // void checkUser1() {

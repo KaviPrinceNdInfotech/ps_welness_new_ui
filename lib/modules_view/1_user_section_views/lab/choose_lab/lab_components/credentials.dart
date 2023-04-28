@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
@@ -296,7 +297,9 @@ class LabCredentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                    Get.to(LabCatagaryDetails());
+                    CallLoader.loader();
+                    _chooseLabController.checklab1();
+                   // Get.to(LabCatagaryDetails());
                     // LabListPage());
                     //_loginpasswordController.checkLoginpassword();
                   })

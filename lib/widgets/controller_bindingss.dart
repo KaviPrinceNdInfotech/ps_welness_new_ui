@@ -33,6 +33,7 @@ import '../controllers/1_user_view_controller/doctor_sections/doctors_appointmen
 import '../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import '../controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
+import '../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
@@ -85,6 +86,9 @@ class ControllerBinding extends Bindings {
     Get.put(NurseAppointmentDetailController());
     Get.put(ChooseLabController());
     Get.put(MedicineAddressController());
+    Get.put(medicine_addresssList_Controller());
+    Get.put(LabListController());
+    Get.put(LabListController());
     //Get.put(GoogleMapController());
 
     //Get.put(CatagaryByIdController());

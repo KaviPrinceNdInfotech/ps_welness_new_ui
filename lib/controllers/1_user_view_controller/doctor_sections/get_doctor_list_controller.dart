@@ -41,7 +41,7 @@ class DoctorListController extends GetxController {
     if (doctorListUser != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
-      foundDoctors.value = doctorListUser!.getDoctor!;
+      foundDoctors.value = doctorListUser!.doctorchoose!;
       //Get.to(()=>Container());
     }
   }
@@ -106,13 +106,13 @@ class DoctorListController extends GetxController {
     // }
   }
   
-  RxList<GetDoctor> foundDoctors = RxList<GetDoctor>([]);
+  RxList<Doctorchoose> foundDoctors = RxList<Doctorchoose>([]);
   void filterDoctor (String searchdoctorName) {
-    List<GetDoctor>? finalResult = [];
+    List<Doctorchoose>? finalResult = [];
     if (searchdoctorName.isEmpty) {
-      finalResult = doctorListUser!.getDoctor;
+      finalResult = doctorListUser!.doctorchoose;
     } else {
-      finalResult = doctorListUser!.getDoctor!.where((element) => element.doctorName
+      finalResult = doctorListUser!.doctorchoose!.where((element) => element.doctorName
           .toString().toLowerCase().contains(searchdoctorName.toString().toLowerCase().trim())
       ).toList();
     }

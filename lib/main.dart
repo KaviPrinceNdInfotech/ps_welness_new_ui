@@ -17,6 +17,7 @@ import 'controllers/1_user_view_controller/doctor_sections/get_doctor_list_contr
 import 'controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import 'controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
+import 'controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
@@ -54,6 +55,10 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => NurseAppointmentDetailController());
     Get.lazyPut(() => ChooseLabController());
     Get.lazyPut(() => MedicineAddressController());
+    Get.lazyPut(() => medicine_addresssList_Controller());
+    Get.lazyPut(() => LabListController());
+    Get.lazyPut(() => LabListController());
+
     //Get.lazyPut(() => GoogleMapController());
 
 

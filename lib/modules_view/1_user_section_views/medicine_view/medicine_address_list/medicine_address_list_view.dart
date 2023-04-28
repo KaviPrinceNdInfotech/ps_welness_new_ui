@@ -27,7 +27,7 @@ class Medicineaddresslist extends StatelessWidget {
   //final MedicineListController _medicineListController = Get.put(MedicineListController());
   //MedicineCartListController _medicineCartListController = Get.put(MedicineCartListController());
 
-  medicine_address_Controller _medicine_address_controller = Get.put(medicine_address_Controller());
+  medicine_addresssList_Controller _medicine_addresslist_controller = Get.put(medicine_addresssList_Controller());
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class Medicineaddresslist extends StatelessWidget {
               data: Theme.of(context)
                   .copyWith(splashColor: Colors.transparent),
               child: Obx(
-                    () => (_medicine_address_controller.isLoading.isFalse)
+                    () => (_medicine_addresslist_controller.isLoading.isFalse)
                     ? Center(child: CircularProgressIndicator())
                     : Column(
                   children: [
@@ -140,10 +140,12 @@ class Medicineaddresslist extends StatelessWidget {
                     //     ? Center(child: Text("No Result Found"))
                     //     :
                     SizedBox(
-                        height: size.height*0.83,
+                        height: size.height*0.8,
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: 5,
+                            itemCount:_medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness!.length,
+                            //5,
+                            //_medicine_address_controller.medicineaddresslistmodel.mobileNumber,
                             //_medicineListController.foundProducts.length,
                             // itemCount: _medicineListController.medicinelistmodel!.data.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -270,7 +272,9 @@ class Medicineaddresslist extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Kumar prince",
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].name.toString()
+                                              ,
+                                             // "Kumar prince",
                                               //"${_medicineListController.foundProducts[index].medicineName}",
                                               // _medicineListController.medicinelistmodel!.data[index].medicineName.toString(),
 
@@ -282,7 +286,8 @@ class Medicineaddresslist extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              "ok@gmail.com",
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].email.toString(),
+                                             // "ok@gmail.com",
                                               //'Bharat Biotech'
                                              // "${_medicineListController.foundProducts[index].brandName}",
                                               //_medicineListController.medicinelistmodel!.data[index].brandName.toString(),
@@ -297,7 +302,9 @@ class Medicineaddresslist extends StatelessWidget {
                                              // "${_medicineListController.foundProducts[index].medicineTypeId}",
 
                                               // _medicineListController.medicinelistmodel!.data[index].medicineTypeId.toString(),
-                                              '7867554433',
+                                              //'7867554433'
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].mobileNumber.toString()
+                                              ,
                                               style: GoogleFonts.roboto(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w800,
@@ -305,10 +312,12 @@ class Medicineaddresslist extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].stateName.toString()
                                               //"${_medicineListController.foundProducts[index].medicineDescription}",
 
                                               //_medicineListController.medicinelistmodel!.data[index].medicineDescription.toString(),
-                                              'Delhi',
+                                             // 'Delhi'
+                                              ,
                                               style: GoogleFonts.roboto(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w800,
@@ -319,7 +328,9 @@ class Medicineaddresslist extends StatelessWidget {
                                               //"${_medicineListController.foundProducts[index].mrp}",
 
                                               // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
-                                              'Palam',
+                                              //'Palam'
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].cityName.toString()
+                                              ,
                                               style: GoogleFonts.roboto(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w800,
@@ -330,7 +341,9 @@ class Medicineaddresslist extends StatelessWidget {
                                               //"${_medicineListController.foundProducts[index].mrp}",
 
                                               // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
-                                              'Palam',
+                                             // 'Palam'
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].deliveryAddress.toString()
+                                              ,
                                               style: GoogleFonts.roboto(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w800,
@@ -341,7 +354,9 @@ class Medicineaddresslist extends StatelessWidget {
                                               //"${_medicineListController.foundProducts[index].mrp}",
 
                                               // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
-                                              'Palam',
+                                              _medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].pinCode.toString()
+
+                                              ,
                                               style: GoogleFonts.roboto(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w800,

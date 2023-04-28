@@ -9,6 +9,7 @@ import 'package:ps_welness_new_ui/modules_view/user_views/user_components/creden
 import 'package:ps_welness_new_ui/modules_view/user_views/user_components/head_text.dart';
 
 import '../../../../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
+import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import 'medicine_add_address_credential.dart';
 import 'medicine_head_text_addaddress.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -18,9 +19,10 @@ import 'medicine_head_text_addaddress.dart';
 class AddAdderessMedicine extends StatelessWidget {
    AddAdderessMedicine({Key? key}) : super(key: key);
 
-  MedicineAddressController _medicineAddressController = Get.put(MedicineAddressController());
+  // medicine_address_Controller _medicine_address_controller = Get.put(medicine_address_Controller());
 
-  @override
+
+   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(

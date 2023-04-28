@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/lab_catagary/choose_catagary.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 import '../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../../model/1_user_model/test_name_model/test_name_modells.dart';
+import '../../../../modules_view/1_user_section_views/lab/lab_lists/lab_listpage.dart';
+import '../../../../modules_view/circular_loader/circular_loaders.dart';
+import 'package:http/http.dart' as http;
+
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness/model/1_user_model/test_name_model/test_name_modells.dart';
@@ -66,17 +73,30 @@ class ChooseLabController extends GetxController {
     print(cities);
   }
 
-  late TextEditingController pinController,
-      clinicnameController,
-      passwordController,
-      confirmpasswordController,
-      mobileController;
+  void labbooking1Api() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.labbookingpostApi(
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+        selectedTest.value?.id.toString(),
+    );
 
-  var clinic_name = '';
-  var email = '';
-  var password = '';
-  var confirmpassword = '';
-  var mobile = '';
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      /// we can navigate to user page.....................................
+     // Get.to(LabCatagaryDetails());
+      Get.to(LabListPage());
+
+    }
+  }
+
+  // late TextEditingController pinController,
+  //     clinicnameController,
+  //     passwordController,
+  //     confirmpasswordController,
+
 
   //get stateCitymap => null;
 
@@ -88,8 +108,8 @@ class ChooseLabController extends GetxController {
     //);
     //states.refresh();
 
-    clinicnameController = TextEditingController();
-    mobileController = TextEditingController();
+    // clinicnameController = TextEditingController();
+    // mobileController = TextEditingController();
     super.onInit();
 
     getStateLabApi();
@@ -108,8 +128,8 @@ class ChooseLabController extends GetxController {
 
   @override
   void onClose() {
-    clinicnameController.dispose();
-    mobileController.dispose();
+    // clinicnameController.dispose();
+    // mobileController.dispose();
   }
 
   String? validClinicname(String value) {
@@ -130,12 +150,10 @@ class ChooseLabController extends GetxController {
     return null;
   }
 
-  void checkDoctor2() {
-    final isValid = ChooseLabformkey.currentState!.validate();
-    if (!isValid) {
-      return;
+  void checklab1() {
+    if (ChooseLabformkey.currentState!.validate()) {
+      labbooking1Api();
     }
     ChooseLabformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

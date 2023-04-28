@@ -9,13 +9,14 @@ import 'package:http/http.dart' as http;
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 import '../../../../model/1_user_model/city_model/city_modelss.dart';
+import '../../../../model/1_user_model/medicine_list_address_dwlivery_api/medicine_list_address_model.dart';
 import '../../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
 
 
-class medicine_address_Controller extends GetxController {
+class medicine_addresssList_Controller extends GetxController {
   RxBool isLoading = true.obs;
 
   final GlobalKey<FormState> addressmedicineformkey = GlobalKey<FormState>();
@@ -88,8 +89,26 @@ class medicine_address_Controller extends GetxController {
   var address = '';
   var pin = '';
 
+
+  MedicineAddressModel? medicineaddresslistmodel;
+
+  ///list address medicine 28april 2023................
+  void medicineaddressListApi() async {
+   // isLoading(true);
+    medicineaddresslistmodel = await ApiProvider.MedicineaddresslistApi();
+    print('Prince address list');
+    print(medicineaddresslistmodel);
+    if (medicineaddresslistmodel?.addAddressMediciness != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(true);
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
+  }
+
   @override
   void onInit() {
+    medicineaddressListApi();
     //states.refresh();
     super.onInit();
     nameController = TextEditingController();
@@ -115,6 +134,7 @@ class medicine_address_Controller extends GetxController {
 
   @override
   void onClose() {
+
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();
@@ -215,6 +235,7 @@ class medicine_address_Controller extends GetxController {
   void checkUser1() {
     if (addressmedicineformkey.currentState!.validate()) {
       usersignupApi();
+      medicineaddressListApi();
     }
     addressmedicineformkey.currentState!.save();
   }

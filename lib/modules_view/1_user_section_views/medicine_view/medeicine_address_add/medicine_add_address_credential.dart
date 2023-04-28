@@ -20,7 +20,12 @@ class AddaddressmedicineCredentials extends StatelessWidget {
   // Hospital_1_Controller _hospital_1_controller =
   //     Get.put(Hospital_1_Controller());
 
+
   MedicineAddressController _medicine_address_controller = Get.put(MedicineAddressController());
+  medicine_addresssList_Controller _medicine_addresslist_controller = Get.put(medicine_addresssList_Controller());
+
+  // medicine_address_Controller _medicine_address_controller = Get.put(medicine_address_Controller());
+
 
   var items = [
     'Item 1',
@@ -39,7 +44,7 @@ class AddaddressmedicineCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _medicine_address_controller.medicineaddressformkey,
+      key: _medicine_address_controller.medicineaddressformmkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -341,6 +346,11 @@ class AddaddressmedicineCredentials extends StatelessWidget {
                 press: () {
                   CallLoader.loader();
                   _medicine_address_controller.checkaddressmedicine();
+                  _medicine_addresslist_controller.update();
+                  _medicine_addresslist_controller.medicineaddressListApi();
+                  _medicine_address_controller.addmedicineaddressApi();
+                  _medicine_address_controller.refresh();
+                  //_medicine_address_controller.
 
                  // Get.to(Medicineaddresslist());
                   //CallLoader.loader();

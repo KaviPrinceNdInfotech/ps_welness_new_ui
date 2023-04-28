@@ -396,7 +396,6 @@ class LabListPage extends StatelessWidget {
                                                                 ),
                                                                 Text(
                                                                   _labListController.foundProducts[index].openingHours.toString(),
-
                                                                   // _labListController
                                                                   //     .labListUser!
                                                                   //     .labList[
@@ -418,7 +417,6 @@ class LabListPage extends StatelessWidget {
                                                                 ),
                                                                 Text(
                                                                   _labListController.foundProducts[index].workingDay.toString(),
-
                                                                   // _labListController
                                                                   //     .labListUser!
                                                                   //     .labList[
@@ -438,18 +436,17 @@ class LabListPage extends StatelessWidget {
                                                                             0.033,
                                                                   ),
                                                                 ),
+
                                                                 Text(
                                                                   'Rs.${
-                                                                      _labListController.foundProducts[index].fee.toDouble()
-
+                                                                      _labListController.foundProducts[index].fee?.toDouble()
                                                                   //     _labListController
                                                                   //     .labListUser!
                                                                   //     .labList[
                                                                   // index]
                                                                   //     .fee
-                                                                  }'
-                                                                      //'700'
-                                                                  ,
+                                                                  }',
+                                                                      //'700',
                                                                   style:
                                                                       GoogleFonts
                                                                           .roboto(
@@ -473,7 +470,6 @@ class LabListPage extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ),
-
                                                     //Spacer(),
                                                     Row(
                                                       children: [

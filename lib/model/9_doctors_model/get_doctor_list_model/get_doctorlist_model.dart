@@ -266,59 +266,118 @@ import 'dart:convert';
 
 import 'dart:convert';
 
+// GetDoctorListModel getDoctorListModelFromJson(String str) => GetDoctorListModel.fromJson(json.decode(str));
+//
+// String getDoctorListModelToJson(GetDoctorListModel data) => json.encode(data.toJson());
+//
+// class GetDoctorListModel {
+//   GetDoctorListModel({
+//     required this.getDoctor,
+//   });
+//
+//   List<GetDoctor> getDoctor;
+//
+//   factory GetDoctorListModel.fromJson(Map<String, dynamic> json) => GetDoctorListModel(
+//     getDoctor: List<GetDoctor>.from(json["getDoctor"].map((x) => GetDoctor.fromJson(x))),
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     "getDoctor": List<dynamic>.from(getDoctor.map((x) => x.toJson())),
+//   };
+// }
+//
+// class GetDoctor {
+//   GetDoctor({
+//     required this.id,
+//     required this.doctorName,
+//     required this.experience,
+//     required this.fee,
+//     required this.about,
+//     required this.departmentName,
+//   });
+//
+//   int id;
+//   String doctorName;
+//   int experience;
+//   double fee;
+//   String about;
+//   String departmentName;
+//
+//   factory GetDoctor.fromJson(Map<String, dynamic> json) => GetDoctor(
+//     id: json["Id"],
+//     doctorName: json["DoctorName"],
+//     experience: json["Experience"],
+//     fee: json["Fee"],
+//     about: json["About"],
+//     departmentName: json["DepartmentName"],
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     "Id": id,
+//     "DoctorName": doctorName,
+//     "Experience": experience,
+//     "Fee": fee,
+//     "About": about,
+//     "DepartmentName": departmentName,
+//   };
+// }
+
+// To parse this JSON data, do
+//
+//     final getDoctorListModel = getDoctorListModelFromJson(jsonString);
+
+import 'dart:convert';
+
 GetDoctorListModel getDoctorListModelFromJson(String str) => GetDoctorListModel.fromJson(json.decode(str));
 
 String getDoctorListModelToJson(GetDoctorListModel data) => json.encode(data.toJson());
 
 class GetDoctorListModel {
+  List<Doctorchoose> ?doctorchoose;
+
   GetDoctorListModel({
-    required this.getDoctor,
+    this.doctorchoose,
   });
 
-  List<GetDoctor> getDoctor;
-
   factory GetDoctorListModel.fromJson(Map<String, dynamic> json) => GetDoctorListModel(
-    getDoctor: List<GetDoctor>.from(json["getDoctor"].map((x) => GetDoctor.fromJson(x))),
+    doctorchoose: List<Doctorchoose>.from(json["Doctorchoose"].map((x) => Doctorchoose.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "getDoctor": List<dynamic>.from(getDoctor.map((x) => x.toJson())),
+    "Doctorchoose": List<dynamic>.from(doctorchoose!.map((x) => x.toJson())),
   };
 }
 
-class GetDoctor {
-  GetDoctor({
-    required this.id,
-    required this.doctorName,
-    required this.experience,
-    required this.fee,
-    required this.about,
-    required this.departmentName,
+class Doctorchoose {
+  int ?id;
+  String? doctorName;
+  String? departmentName;
+  double ?fee;
+  int? experience;
+
+  Doctorchoose({
+    this.id,
+    this.doctorName,
+    this.departmentName,
+    this.fee,
+    this.experience,
   });
 
-  int id;
-  String doctorName;
-  int experience;
-  double fee;
-  String about;
-  String departmentName;
-
-  factory GetDoctor.fromJson(Map<String, dynamic> json) => GetDoctor(
+  factory Doctorchoose.fromJson(Map<String, dynamic> json) => Doctorchoose(
     id: json["Id"],
     doctorName: json["DoctorName"],
-    experience: json["Experience"],
-    fee: json["Fee"],
-    about: json["About"],
     departmentName: json["DepartmentName"],
+    fee: json["Fee"],
+    experience: json["Experience"],
   );
 
   Map<String, dynamic> toJson() => {
     "Id": id,
     "DoctorName": doctorName,
-    "Experience": experience,
-    "Fee": fee,
-    "About": about,
     "DepartmentName": departmentName,
+    "Fee": fee,
+    "Experience": experience,
   };
 }
+
 
