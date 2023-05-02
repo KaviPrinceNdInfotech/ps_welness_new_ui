@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/about_franchies/about_franchies.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/complaint_page/complaint_page.dart';
@@ -14,6 +16,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/forget_password_view/forget_password_view.dart';
 
 import '../../forget_password_view/forget_password_view.dart';
+import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/about_franchies/about_franchies.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_details_franchies/profile_franchies_detail_page.dart';
@@ -364,10 +367,10 @@ class FranchiesisMainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                ///....logout
+                SharedPreferences.getInstance().then((value) => value.clear());
+                //Get.back();
+                Get.to(() => SignInScreen());
               },
             ),
 

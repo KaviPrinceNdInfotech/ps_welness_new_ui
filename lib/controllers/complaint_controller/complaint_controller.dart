@@ -1,7 +1,9 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 import '../../model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
@@ -24,7 +26,6 @@ class ComplaintController extends GetxController {
   Rx<Complaint41Patient?> selectedSubject = (null as Complaint41Patient?).obs;
   List<Complaint41Patient> subject = <Complaint41Patient>[].obs;
 
-
   ///todo: complain subject type.........................25april...2023..
 
   ///nurse type api class.................
@@ -33,6 +34,7 @@ class ComplaintController extends GetxController {
     print('Prince subject type list');
     print(subject);
   }
+
   ///todo: user complain post Api...........26 april 2023.....
 
   void postComplainApi() async {
@@ -42,7 +44,6 @@ class ComplaintController extends GetxController {
       otherController.text,
       complainController.text,
       loginidController.text,
-
     );
 
     if (r.statusCode == 200) {
@@ -55,18 +56,15 @@ class ComplaintController extends GetxController {
     }
   }
 
-  late TextEditingController
-      patsubidController,
+  late TextEditingController patsubidController,
       otherController,
       complainController,
       loginidController;
-
 
   var postsubid = '';
   var Others = '';
   var Complaints = '';
   var Login_Id = '';
-
 
   ///todo:user complain...........
 
@@ -114,13 +112,10 @@ class ComplaintController extends GetxController {
     //subject.refresh();
     super.onInit();
     getcomplainTypeeApi();
-
     patsubidController = TextEditingController();
     otherController = TextEditingController();
     complainController = TextEditingController();
     loginidController = TextEditingController();
-
-
   }
 
   @override
@@ -155,11 +150,5 @@ class ComplaintController extends GetxController {
       postComplainApi();
     }
     complaintformkey.currentState!.save();
-    // final isValid = complaintformkey.currentState!.validate();
-    // if (!isValid) {
-    //   return;
-    // }
-    //complaintformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

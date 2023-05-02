@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_details_api.dart';
 
@@ -11,7 +12,6 @@ import '../../../model/1_user_model/time_slots_common_model/time_slots_common.da
 import '../../../modules_view/1_user_section_views/lab/lab_appointment_checkout/lab_appointment_checkout.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
-import 'package:http/http.dart' as http;
 
 //import 'package:ps_welness/model/1_user_model/lab_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -23,8 +23,6 @@ class LabListController extends GetxController {
   LabListUser? labListUser;
   Labdetailbyid? labdetailsbyid;
   Labcheckoutmodel? labCheckoutModel;
-
-
 
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
@@ -43,19 +41,13 @@ class LabListController extends GetxController {
     print('Prince doctor list');
     print(labCheckoutModel);
     if (
-    //nurseappointmentdetail?.result != null
-    labCheckoutModel != null
-    //getcatagartlist!.result!.isNotEmpty
-    ) {
+        //nurseappointmentdetail?.result != null
+        labCheckoutModel != null
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
       isLoading(false);
-
-
     }
   }
-
-
-
-
 
   void labListApi() async {
     isLoading(true);
@@ -69,7 +61,8 @@ class LabListController extends GetxController {
       //Get.to(()=>Container());
     }
   }
-///lab_detail_api.....................18april....2023..
+
+  ///lab_detail_api.....................18april....2023..
   void labdetailApi() async {
     isLoading(true);
     labdetailsbyid = await ApiProvider.ViewLabdetailsApi();
@@ -110,20 +103,15 @@ class LabListController extends GetxController {
       // Get.to(NurseDetailsSchedulePage());
       Get.to(() => LabAppointmentCheckout());
 
-
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());
 
     }
   }
 
-
-  late TextEditingController
-
-  labidController,
-  //selectedNurse.value?.id.toString(),
+  late TextEditingController labidController,
+      //selectedNurse.value?.id.toString(),
       appointmentController;
-
 
   @override
   void onInit() {
@@ -135,7 +123,6 @@ class LabListController extends GetxController {
     labidController = TextEditingController();
     appointmentController = TextEditingController();
     appointmentController.text = "YYY-MM-DD";
-
   }
 
   @override
@@ -143,6 +130,7 @@ class LabListController extends GetxController {
     labListUser = null;
     super.onClose();
   }
+
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
@@ -183,20 +171,21 @@ class LabListController extends GetxController {
 
   RxList<LabBooking> foundProducts = RxList<LabBooking>([]);
 
-  void filterProduct (String searchlabName) {
+  void filterProduct(String searchlabName) {
     List<LabBooking>? finalResult = [];
     if (searchlabName.isEmpty) {
       finalResult = labListUser!.labBookings;
-    }else {
-      finalResult = labListUser!.labBookings?.where((element) =>
-    element.labName.toString().toLowerCase()
-    .contains(searchlabName.toString().toLowerCase().trim())
-    ).toList();
+    } else {
+      finalResult = labListUser!.labBookings
+          ?.where((element) => element.labName
+              .toString()
+              .toLowerCase()
+              .contains(searchlabName.toString().toLowerCase().trim()))
+          .toList();
     }
     print(finalResult?.length);
     foundProducts.value = finalResult!;
   }
-
 
   ///.......................
   void checkLab2() {
@@ -207,6 +196,5 @@ class LabListController extends GetxController {
     Lab3formkey.currentState!.save();
   }
 }
-
 
 ///todo from here checkout model value..............

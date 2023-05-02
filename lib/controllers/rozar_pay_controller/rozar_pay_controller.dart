@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-//import 'package:gyros_app/controllers/check_out_controller/check_out_controlles.dart';
-//import 'package:gyros_app/controllers/get_profile/get_profile_controller.dart';
-//import 'package:gyros_app/view/model_cart_practice/controllers/cart_controllersss.dart';
-//import 'package:gyros_app/view/order_confirmation_screens/order_confirmation.dart';
-//import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-//import '../post_order_controller/post_order_controller.dart';
+import '../../modules_view/1_user_section_views/user_drawer/drawer_pages_user/lab_appointment_history/lab_history.dart';
+import '../1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
+import '../1_user_view_controller/lab_controller/post_lab_order_controller/post_lab_order_controller.dart';
+import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
+
 
 class RozarPayController extends GetxController {
   //get isLoading => null;
 
   RxBool isLoading = false.obs;
+  LabListController _labListController = Get.put(LabListController());
+  UserProfileControllers _userrsProfileControllers = Get.put(UserProfileControllers());
+
   //final CartController controller = Get.put(CartController());
   //GetProfileController _getProfileController = Get.put(GetProfileController());
   //CheckoutController _checkoutController = Get.put(CheckoutController());
-  //PostOrderController _postOrderController = Get.put(PostOrderController());
+  PostOrderController _postOrderController = Get.put(PostOrderController());
+  LabHistoryController _labHistoryController = Get.put(LabHistoryController());
+
 
   @override
   void onInit() {
@@ -39,24 +44,25 @@ class RozarPayController extends GetxController {
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': int.parse('100'
+      'amount': int.parse(
+         // '100'
 
-              //'${_checkoutController.checkoutModel!.result!.totalCost.toString()}'
-              ) *
-          100,
-      //var amc = int.parse('${controller.cartListModel!.totalPrice}');
-      //"${controller.cartListModel!.totalPrice }",
-      // 'Order_id':orderId,
-      'name': 'Kavi Singh',
-      //_getProfileController.getprofileModel!.result!.name.toString(),
-      //'Kumar Prince',
+              '${_labListController.labCheckoutModel?.fee!.toInt()}'
+              ) * 100,
+      'name':
+      //'Kavi Singh',
+      _userrsProfileControllers.userProfile!.patientName.toString(),
       'timeout': 60 * 5,
       'description': 'Do Payment',
       'prefill': {
-        'contact': '7877663456',
+        'contact': _userrsProfileControllers.userProfile!.mobileNumber.toString(),
+
+        //'7877663456',
         //_getProfileController.getprofileModel!.result!.mobileNo.toString(),
         //'7019380053',
-        'email': 'kp@gmail.com',
+        'email': _userrsProfileControllers.userProfile!.emailId.toString(),
+
+        //'kp@gmail.com',
         // _getProfileController.getprofileModel!.result!.emailId.toString(),
         //'kumarprince261299@gmail.com'
       },
@@ -79,20 +85,19 @@ class RozarPayController extends GetxController {
     Get.snackbar("SUCCESS", "ID: ${response.paymentId}");
     print('payment sucess');
 
-    // Get.to(OrderConfirmationPage());
 
-    // _postOrderController.postOrderApi().then((statusCode) {
-    //   if (statusCode == 200) {
-    //     ///This is the main thing to provide updated list history...
-    //     //_getProfileController.OrderHistoryApi();
-    //    // _getProfileController.update();
-    //
-    //     ///nov 14....................................
-    //     //Get.to(OrderConfirmationPage());
-    //   } else {
-    //     // SHow
-    //   }
-    // });
+
+    _postOrderController.postOrderApi().then((statusCode) {
+      if (statusCode == 200) {
+        ///This is the main thing to provide updated list history...
+        _labHistoryController.labHistorybyUserId();
+        ///nov 14....................................
+        Get.to(LabHistoryUser());
+        _labHistoryController.update();
+      } else {
+        // SHow
+      }
+    });
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

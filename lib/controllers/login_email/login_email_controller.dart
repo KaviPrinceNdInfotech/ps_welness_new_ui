@@ -1,11 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
+
+import '../../modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
+import '../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import '../../modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
+import '../../modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
+import '../../modules_view/5_rwa_section_view/rwa_home/rwa_home_page.dart';
+import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+import '../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
+import '../../utils/models/account_model.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 //import 'package:ps_welness/modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -22,12 +30,48 @@ class LoginpasswordController extends GetxController {
     );
 
     if (r.statusCode == 200) {
-      var data = jsonDecode(r.body);
-
+      print("ACCOUNT ${r.body}");
+      final accountData = accountModelFromJson(r.body);
+      print("ACCOUNT ${accountData.toJson()}");
+      await accountService.setAccountData(accountData);
       CallLoader.hideLoader();
 
-      /// we can navigate to user page.....................................
-      Get.to(UserHomePage());
+      switch (accountData.role) {
+        case 'patient':
+
+          /// we can navigate to user page.....................................
+          Get.to(const UserHomePage());
+          break;
+        // case 'Patient':
+        //
+        //   /// we can navigate to user page.....................................
+        //   Get.to(const UserHomePage());
+        //   break;
+        /// we can navigate to franchise page.....................................
+        case 'Franchise':
+          Get.to(FranchiesHomePage());
+          break;
+        case 'lab':
+          Get.to(LabHomePage());
+          break;
+        case 'doctor':
+          Get.to(HomePage());
+          break;
+        case 'driver':
+          Get.to(DriverHomePage());
+          break;
+        case 'Nurse':
+          Get.to(NurseHomePage());
+          break;
+        case 'RWA':
+          Get.to(RwaHomePage());
+          break;
+        case 'chemist':
+          Get.to(ChemistHomePage());
+          break;
+        default:
+          break;
+      }
     }
   }
 

@@ -18,12 +18,12 @@ import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_mod
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 
 import '../../controllers/map_controllers/map_controller.dart';
+import '../../modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness/controllers/map_controllers/map_controller.dart';
 //import 'package:ps_welness/google_map/new_map/secrets.dart';
 
 class MapView extends StatefulWidget {
   @override
-
   _MapViewState createState() => _MapViewState();
 }
 
@@ -35,14 +35,13 @@ var items = [
   'Item 5',
 ];
 
-
 class _MapViewState extends State<MapView> {
-
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
 
   final startAddressController = TextEditingController();
   final destinationAddressController = TextEditingController();
-  AmbulancegetController _ambulancegetController = Get.put(AmbulancegetController());
+  AmbulancegetController _ambulancegetController =
+      Get.put(AmbulancegetController());
 
   final startAddressFocusNode = FocusNode();
   final desrinationAddressFocusNode = FocusNode();
@@ -60,14 +59,12 @@ class _MapViewState extends State<MapView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   //late GoogleMapController mapController = Get.put(GoogleMapController());
 
-
   final MapController _mapControllers = Get.put(MapController());
 
   late GoogleMapController mapController;
 
   //Get.lazyPut(() => GoogleMapController());
   //late GoogleMapController mapController;
-
 
   late Position _currentPosition;
   String _currentAddress = '';
@@ -106,8 +103,6 @@ class _MapViewState extends State<MapView> {
               width: 2,
             ),
           ),
-
-
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
@@ -129,7 +124,6 @@ class _MapViewState extends State<MapView> {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
-
         _currentPosition = position;
 
         print('CURRENT POS: $_currentPosition');
@@ -169,7 +163,6 @@ class _MapViewState extends State<MapView> {
 
   // Method for calculating the distance between two places
 
-
   Future<bool> _calculateDistance() async {
     try {
       // Retrieving placemarks from addresses
@@ -201,9 +194,7 @@ class _MapViewState extends State<MapView> {
         position: LatLng(startLatitude, startLongitude),
         infoWindow: InfoWindow(
           title: 'Start $startCoordinatesString',
-
           snippet: _startAddress,
-
         ),
         icon: BitmapDescriptor.defaultMarker,
       );
@@ -349,26 +340,29 @@ class _MapViewState extends State<MapView> {
     super.initState();
   }
 
-
-  Completer<GoogleMapController> _controllerGoogleMap=Completer();
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
   late GoogleMapController newGoogleMapController;
-  double mapbottompadding=0;
+  double mapbottompadding = 0;
 
-  GlobalKey<ScaffoldState> scaffoldkey=new GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldkey = new GlobalKey<ScaffoldState>();
   late Position currentpositon;
-  var geolocator=Geolocator();
+  var geolocator = Geolocator();
 
-  void locatepostion() async{
-    Position position=await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    currentpositon=position;  // this is line 26, it is point before await
+  void locatepostion() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentpositon = position; // this is line 26, it is point before await
 
-    LatLng latLngPosition=LatLng(position.latitude,position.longitude);
+    LatLng latLngPosition = LatLng(position.latitude, position.longitude);
 
-    CameraPosition cameraPosition=new CameraPosition(target: latLngPosition,zoom: 14);
-    newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    CameraPosition cameraPosition =
+        new CameraPosition(target: latLngPosition, zoom: 14);
+    newGoogleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
-  static final CameraPosition googlepostion=CameraPosition(target: LatLng(37.4249,-122.0657));
 
+  static final CameraPosition googlepostion =
+      CameraPosition(target: LatLng(37.4249, -122.0657));
 
   @override
   Widget build(BuildContext context) {
@@ -382,7 +376,6 @@ class _MapViewState extends State<MapView> {
         key: _scaffoldKey,
         body: Stack(
           children: <Widget>[
-
             // Map View
             GoogleMap(
               markers: Set<Marker>.from(markers),
@@ -396,7 +389,6 @@ class _MapViewState extends State<MapView> {
               onMapCreated: (GoogleMapController controller) {
                 mapController = controller;
                 newGoogleMapController = controller;
-
               },
             ),
             // Positioned(
@@ -435,10 +427,12 @@ class _MapViewState extends State<MapView> {
                     ///.......selected....ambulance catagary....
                     NeumorphicTextFieldContainer(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.01),
                         child: Obx(
-                              () => DropdownButtonFormField<Vehicle>(
-                              value: _ambulancegetController.selectedambCatagary.value,
+                          () => DropdownButtonFormField<Vehicle>(
+                              value: _ambulancegetController
+                                  .selectedambCatagary.value,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.warning_amber,
@@ -448,7 +442,8 @@ class _MapViewState extends State<MapView> {
                                 border: InputBorder.none,
                               ),
                               hint: Text('Ambulance Catagary'),
-                              items: _ambulancegetController.ambulancvecatagarys.map((Vehicle ambulancvecatagarys) {
+                              items: _ambulancegetController.ambulancvecatagarys
+                                  .map((Vehicle ambulancvecatagarys) {
                                 return DropdownMenuItem(
                                   value: ambulancvecatagarys,
                                   child: Text(
@@ -461,8 +456,10 @@ class _MapViewState extends State<MapView> {
                                 );
                               }).toList(),
                               onChanged: (Vehicle? newValue) {
-                                _ambulancegetController.selectedambCatagary.value = newValue!;
-                                _ambulancegetController.selectedambCatagary.value = null;
+                                _ambulancegetController
+                                    .selectedambCatagary.value = newValue!;
+                                _ambulancegetController
+                                    .selectedambCatagary.value = null;
                                 // _hospital_2_controller.states.value =
                                 //     newValue! as List<String>;
                                 // _hospital_2_controller.selectedCity.value = null;
@@ -474,19 +471,20 @@ class _MapViewState extends State<MapView> {
                       ),
                     ),
 
-
                     SizedBox(
                       height: size.height * 0.001,
                     ),
 
-///.........selected vhicle..by catagary id.....
+                    ///.........selected vhicle..by catagary id.....
                     NeumorphicTextFieldContainer(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.0),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.0),
                         child: Obx(
-                              () => DropdownButtonFormField<VehicleDetaile>(
-                            //icon: Icon(Icons.location_city),
-                              value: _ambulancegetController.selectedvhicleCatagary.value,
+                          () => DropdownButtonFormField<VehicleDetaile>(
+                              //icon: Icon(Icons.location_city),
+                              value: _ambulancegetController
+                                  .selectedvhicleCatagary.value,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.car_crash_sharp,
@@ -496,11 +494,12 @@ class _MapViewState extends State<MapView> {
                                 border: InputBorder.none,
                               ),
                               hint: Text('Vehicle Type'),
-                              items: _ambulancegetController.vhicletypes.map((VehicleDetaile vhiclee) {
+                              items: _ambulancegetController.vhicletypes
+                                  .map((VehicleDetaile vhiclee) {
                                 return DropdownMenuItem(
                                   value: vhiclee,
                                   child: SizedBox(
-                                    width: size.width*0.8,
+                                    width: size.width * 0.8,
                                     child: Text(
                                       vhiclee.vehicleTypeName.toString(),
                                       style: TextStyle(
@@ -515,7 +514,8 @@ class _MapViewState extends State<MapView> {
                                 _ambulancegetController.refresh();
                               },
                               onChanged: (VehicleDetaile? newValue) {
-                                _ambulancegetController.selectedvhicleCatagary.value = newValue!;
+                                _ambulancegetController
+                                    .selectedvhicleCatagary.value = newValue!;
                                 // _hospital_2_controller.states.value =
                                 //     newValue! as List<String>;
                                 // _hospital_2_controller.selectedCity.value = null;
@@ -535,26 +535,36 @@ class _MapViewState extends State<MapView> {
                       shadowColor: Colors.grey.shade900,
                       borderRadius: BorderRadius.circular(10),
                       child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          height: size.height * 0.035,
-                          width: size.width * 0.6,
-                          decoration: BoxDecoration(
-                            color: Colors.indigo,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.01),
-                            child: Center(
-                                child: Text(
-                              'Send Request',
-                              style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            )),
+                        padding: EdgeInsets.all(4.0),
+                        child: InkWell(
+                          onTap: () {
+                            // _ambulancegetController.update();
+                            // _ambulancegetController.ambulancecatagaryyApi();
+
+                            CallLoader.loader();
+                            _ambulancegetController
+                                .googlerequestambulance(markers);
+                          },
+                          child: Container(
+                            height: size.height * 0.035,
+                            width: size.width * 0.6,
+                            decoration: BoxDecoration(
+                              color: Colors.indigo,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.01),
+                              child: Center(
+                                  child: Text(
+                                'Send Request',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.02,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              )),
+                            ),
                           ),
                         ),
                       ),

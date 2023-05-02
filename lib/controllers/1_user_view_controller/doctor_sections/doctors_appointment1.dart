@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 //import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
+
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -10,13 +14,11 @@ import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/get_department_list_model/department_model.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
-import '../../../model/1_user_model/test_name_model/test_name_modells.dart';
-import '../../../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
+import '../../../modules_view/1_user_section_views/doctorss/appointment_section/doctorss_lists/doctor_list_appointment.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
 
 class Doctor_appointment_1_Controller extends GetxController {
   final GlobalKey<FormState> doctorappointment1key = GlobalKey<FormState>();
-
-
 
   ///this is for state.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
@@ -30,15 +32,12 @@ class Doctor_appointment_1_Controller extends GetxController {
   Rx<DepartmentModel?> selectedDepartment = (null as DepartmentModel?).obs;
   List<DepartmentModel> department = <DepartmentModel>[].obs;
 
-
   ///this is for department.................................
   Rx<SpecialistModel?> selectedSpecialist = (null as SpecialistModel?).obs;
   List<SpecialistModel> specialist = <SpecialistModel>[].obs;
 
   // Rx<String?> selectedTest = (null as String?).obs;
   // RxList<String> cities2 = <String>[].obs;
-
-
 
   ///get state api.........
 
@@ -57,7 +56,6 @@ class Doctor_appointment_1_Controller extends GetxController {
     print(cities);
   }
 
-
   ///get department api.........
 
   void getdepartmentApi() async {
@@ -65,7 +63,6 @@ class Doctor_appointment_1_Controller extends GetxController {
     print('Prince departmrntttss  list');
     print(department);
   }
-
 
   ///get specialist api...........
   void getspecialistByDeptID(String depId) async {
@@ -76,7 +73,25 @@ class Doctor_appointment_1_Controller extends GetxController {
     print(specialist);
   }
 
+  void doctorbooking1Api() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.doctorbooking1postApi(
+      selectedDepartment.value?.id.toString(),
+      selectedSpecialist.value?.id.toString(),
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+    );
 
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      // Get.to(LabCatagaryDetails());
+      Get.to(DoctorListUser());
+    }
+  }
 
   // late TextEditingController nameController,
   //     emailController,
@@ -104,24 +119,21 @@ class Doctor_appointment_1_Controller extends GetxController {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
-    }
-    );
+    });
     selectedDepartment.listen((p0) {
       if (p0 != null) {
         getspecialistByDeptID("${p0.id}");
       }
-    }
-    );
+    });
     //getDepartmentNameApi();
   }
-    // nameController = TextEditingController();
-    // emailController = TextEditingController();
-    // passwordController = TextEditingController();
-    // confirmpasswordController = TextEditingController();
-    // mobileController = TextEditingController();
-    // addressController = TextEditingController();
-    // pinController = TextEditingController();
-
+  // nameController = TextEditingController();
+  // emailController = TextEditingController();
+  // passwordController = TextEditingController();
+  // confirmpasswordController = TextEditingController();
+  // mobileController = TextEditingController();
+  // addressController = TextEditingController();
+  // pinController = TextEditingController();
 
   @override
   void onReady() {
@@ -215,11 +227,9 @@ class Doctor_appointment_1_Controller extends GetxController {
   // }
 
   void doctorcheck1() {
-    final isValid = doctorappointment1key.currentState!.validate();
-    if (!isValid) {
-      return;
+    if (doctorappointment1key.currentState!.validate()) {
+      doctorbooking1Api();
     }
     doctorappointment1key.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

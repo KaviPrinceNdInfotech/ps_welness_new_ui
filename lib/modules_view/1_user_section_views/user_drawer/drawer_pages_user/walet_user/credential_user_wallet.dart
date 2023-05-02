@@ -14,7 +14,7 @@ import '../../../home_page_user_view/user_home_page.dart';
 
 class WalletCredentials extends StatelessWidget {
   WalletCredentials({Key? key}) : super(key: key);
-  TextEditingController amount = TextEditingController();
+  TextEditingController walletAmount = TextEditingController();
 
 
   Wallet_2_Controller _wallet_2_controller = Get.put(Wallet_2_Controller());

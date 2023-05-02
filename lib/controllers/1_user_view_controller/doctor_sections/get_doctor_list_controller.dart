@@ -1,34 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../../../model/1_user_model/lab_list_models.dart';
+import '../../../model/1_user_model/hlthchkp_detail_model/healthchkp_detail_model.dart';
+import '../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../../../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../../../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
+import '../../../modules_view/1_user_section_views/doctorss/doctor_checkout/doctor_checkout.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/1_user_model/lab_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 class DoctorListController extends GetxController {
+  final GlobalKey<FormState> doctor3formkey = GlobalKey<FormState>();
+
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
   RxBool isLoading = true.obs;
+  Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
+  List<TimeSlot> timeslot = <TimeSlot>[].obs;
 
-  late TextEditingController appointmentController;
+  //late TextEditingController appointmentController;
   var appointment = ''.obs;
 
-
-
   GetDoctorListModel? doctorListUser;
+  HealthCheckupcheDetail? healthCheckupcheDetail;
   @override
-
   void onInit() {
     super.onInit();
     doctorListApi();
+    timeslotApi();
     doctordetailApi();
+    doctoridController = TextEditingController();
     appointmentController = TextEditingController();
     appointmentController.text = "DD-MM-YYYY";
   }
@@ -46,6 +56,56 @@ class DoctorListController extends GetxController {
     }
   }
 
+  ///lab_detail_api.....................18april....2023..
+  void labdetailApi() async {
+    isLoading(true);
+    healthCheckupcheDetail = await ApiProvider.ViewdetailhlthchkpApi();
+    print('Prince lab sedule.........');
+    print(healthCheckupcheDetail);
+    if (healthCheckupcheDetail?.year != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(false);
+      //Get.to(()=>Container());
+    }
+  }
+
+  ///nurse type api class.................
+  void timeslotApi() async {
+    timeslot = (await ApiProvider.gettimeslotApi())!;
+    print('Prince time slot  list');
+    print(timeslot);
+  }
+
+  void doctorBooking2Api() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.Doctorbooking2Api(
+      doctoridController.text,
+      selectedTimeslot.value?.slotid.toString(),
+      appointmentController.text,
+
+      //selectedState.value?.id.toString(),
+      // selectedCity.value?.id.toString(),
+    );
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      //Get.to(NurseListUser());
+      // Get.to(NurseDetailsSchedulePage());
+      //Get.to(() => AppointmentCheckout());
+      //Get.to(())DoctorAppointmentCheckout
+      Get.to(DoctorAppointmentCheckout());
+
+      /// we can navigate to user page.....................................
+      //Get.to(NurseAppointmentHistory());
+
+    }
+  }
+
+  late TextEditingController doctoridController,
+      //selectedNurse.value?.id.toString(),
+      appointmentController;
+
   ///get specialist api...........17 april 2023...prince
   GetDoctorDetailbyId? doctordetailbyid;
   void doctordetailApi() async {
@@ -59,8 +119,6 @@ class DoctorListController extends GetxController {
       //Get.to(()=>Container());
     }
   }
-
-
 
   @override
   void onClose() {
@@ -94,7 +152,7 @@ class DoctorListController extends GetxController {
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController
-        ..text = DateFormat.yMMMd().format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
@@ -105,19 +163,30 @@ class DoctorListController extends GetxController {
     //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
     // }
   }
-  
+
   RxList<Doctorchoose> foundDoctors = RxList<Doctorchoose>([]);
-  void filterDoctor (String searchdoctorName) {
+  void filterDoctor(String searchdoctorName) {
     List<Doctorchoose>? finalResult = [];
     if (searchdoctorName.isEmpty) {
       finalResult = doctorListUser!.doctorchoose;
     } else {
-      finalResult = doctorListUser!.doctorchoose!.where((element) => element.doctorName
-          .toString().toLowerCase().contains(searchdoctorName.toString().toLowerCase().trim())
-      ).toList();
+      finalResult = doctorListUser!.doctorchoose!
+          .where((element) => element.doctorName
+              .toString()
+              .toLowerCase()
+              .contains(searchdoctorName.toString().toLowerCase().trim()))
+          .toList();
     }
     print(finalResult?.length);
     foundDoctors.value = finalResult!;
+  }
+
+  void checkdoctor2() {
+    if (doctor3formkey.currentState!.validate()) {
+      //nurseBookingFormApi();
+      doctorBooking2Api();
+    }
+    doctor3formkey.currentState!.save();
   }
 }
 

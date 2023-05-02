@@ -1,17 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../model/1_user_model/test_name_model/test_name_modells.dart';
+import '../../../modules_view/1_user_section_views/health_checkup/health_checkup_addresss/checkup_enquiry_list/checkup_enquiry_list.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
+
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness/model/1_user_model/test_name_model/test_name_modells.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 class ChooseHealthchkpsCenterController extends GetxController {
+  RxBool isLoading = true.obs;
+
   final GlobalKey<FormState> ChooseChekpformkey = GlobalKey<FormState>();
 
   ///TODO: image picker.................
@@ -65,6 +73,30 @@ class ChooseHealthchkpsCenterController extends GetxController {
     print("Prince cities of $stateID");
     print(cities);
   }
+
+  void healthbooking1Api() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.Healthbooking1Api(
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      selectedTest.value?.id.toString(),
+    );
+
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      Get.to(HealthChkpEnquiryList());
+      //Get.to(LabListPage());
+
+    }
+  }
+
+  ///
+
+  ///
 
   late TextEditingController pinController,
       clinicnameController,
@@ -130,12 +162,10 @@ class ChooseHealthchkpsCenterController extends GetxController {
     return null;
   }
 
-  void checkDoctor2() {
-    final isValid = ChooseChekpformkey.currentState!.validate();
-    if (!isValid) {
-      return;
+  void checkhealthbooking1() {
+    if (ChooseChekpformkey.currentState!.validate()) {
+      healthbooking1Api();
     }
     ChooseChekpformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

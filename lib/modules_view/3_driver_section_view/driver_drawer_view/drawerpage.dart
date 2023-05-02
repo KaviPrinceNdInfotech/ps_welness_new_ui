@@ -11,8 +11,10 @@ import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_draw
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/driver_profile_details/profile_driver_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/profile_driver_page_view/driver_profile.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
+import '../../sign_in/sigin_screen.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/about_us/about_us.dart';
@@ -369,10 +371,10 @@ class DriverMainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                ///....logout
+                SharedPreferences.getInstance().then((value) => value.clear());
+                //Get.back();
+                Get.to(() => SignInScreen());
               },
             ),
 

@@ -10,15 +10,14 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profil
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/patient_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/add_skills/add_skills.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
-// import 'package:ps_welness/modules_view/9_doctor_section_view/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_page.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_view.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
 
+import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/about_us/about_us.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/patient_lists/patient_list.dart';
@@ -29,7 +28,8 @@ import 'drower_pages/supports/support_view.dart';
 class MainDrawer extends StatelessWidget {
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
-  PatientListController _patientListController = Get.put(PatientListController());
+  PatientListController _patientListController =
+      Get.put(PatientListController());
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +154,6 @@ class MainDrawer extends StatelessWidget {
               },
             ),
 
-
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -252,7 +251,6 @@ class MainDrawer extends StatelessWidget {
                 Get.offNamed('/AddSkillsPageDoctor');
               },
             ),
-
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -412,10 +410,9 @@ class MainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                SharedPreferences.getInstance().then((value) => value.clear());
+                //Get.back();
+                Get.to(() => SignInScreen());
               },
             ),
 

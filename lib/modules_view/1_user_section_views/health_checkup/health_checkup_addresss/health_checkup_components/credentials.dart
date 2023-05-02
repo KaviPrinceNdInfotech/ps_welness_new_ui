@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/checkup_enquiry_list/checkup_enquiry_list.dart';
+
 //import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
 // import 'package:ps_welness/controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
@@ -14,13 +14,12 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_check
 // import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
 import '../../../../../constants/my_theme.dart';
-import '../../../../../controllers/1_user_view_controller/health_checkup_controller/health_checkup_1_controller.dart';
 import '../../../../../controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
 import '../../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../../model/1_user_model/states_model/state_modells.dart';
+import '../../../../../widgets/circular_loader.dart';
 import '../../../../../widgets/widgets/neumorphic_text_field_container.dart';
 import '../../../../../widgets/widgets/rectangular_button.dart';
-import '../../checkup_catagary/choose_catagary.dart';
 
 class HealthCheckupCredentials extends StatelessWidget {
   HealthCheckupCredentials({Key? key}) : super(key: key);
@@ -57,8 +56,8 @@ class HealthCheckupCredentials extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                //height: size.height * 0.02,
-              ),
+                  //height: size.height * 0.02,
+                  ),
 
               SizedBox(
                 height: size.height * 0.02,
@@ -82,8 +81,9 @@ class HealthCheckupCredentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                   child: Obx(
-                        () => DropdownButtonFormField<StateModel>(
-                        value: _chooseHealthchkpsCenterController.selectedState.value,
+                    () => DropdownButtonFormField<StateModel>(
+                        value: _chooseHealthchkpsCenterController
+                            .selectedState.value,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.real_estate_agent,
@@ -93,7 +93,8 @@ class HealthCheckupCredentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select State'),
-                        items: _chooseHealthchkpsCenterController.states.map((StateModel state) {
+                        items: _chooseHealthchkpsCenterController.states
+                            .map((StateModel state) {
                           return DropdownMenuItem(
                             value: state,
                             child: Text(
@@ -106,8 +107,10 @@ class HealthCheckupCredentials extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (StateModel? newValue) {
-                          _chooseHealthchkpsCenterController.selectedState.value = newValue!;
-                          _chooseHealthchkpsCenterController.selectedCity.value = null;
+                          _chooseHealthchkpsCenterController
+                              .selectedState.value = newValue!;
+                          _chooseHealthchkpsCenterController
+                              .selectedCity.value = null;
                           // _hospital_2_controller.states.value =
                           //     newValue! as List<String>;
                           // _hospital_2_controller.selectedCity.value = null;
@@ -138,9 +141,10 @@ class HealthCheckupCredentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                   child: Obx(
-                        () => DropdownButtonFormField<City>(
-                      //icon: Icon(Icons.location_city),
-                        value: _chooseHealthchkpsCenterController.selectedCity.value,
+                    () => DropdownButtonFormField<City>(
+                        //icon: Icon(Icons.location_city),
+                        value: _chooseHealthchkpsCenterController
+                            .selectedCity.value,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.location_city,
@@ -150,7 +154,8 @@ class HealthCheckupCredentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Selected City'),
-                        items: _chooseHealthchkpsCenterController.cities.map((City city) {
+                        items: _chooseHealthchkpsCenterController.cities
+                            .map((City city) {
                           return DropdownMenuItem(
                             value: city,
                             child: Text(
@@ -166,7 +171,8 @@ class HealthCheckupCredentials extends StatelessWidget {
                           _chooseHealthchkpsCenterController.refresh();
                         },
                         onChanged: (City? newValue) {
-                          _chooseHealthchkpsCenterController.selectedCity.value = newValue!;
+                          _chooseHealthchkpsCenterController
+                              .selectedCity.value = newValue!;
                           // _hospital_2_controller.states.value =
                           //     newValue! as List<String>;
                           // _hospital_2_controller.selectedCity.value = null;
@@ -195,10 +201,11 @@ class HealthCheckupCredentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
                   child: Obx(
-                        () => DropdownButtonFormField(
-                      // menuMaxHeight: size.height * 0.06,
-                      //icon: Icon(Icons.location_city),
-                        value: _chooseHealthchkpsCenterController.selectedTest.value,
+                    () => DropdownButtonFormField(
+                        // menuMaxHeight: size.height * 0.06,
+                        //icon: Icon(Icons.location_city),
+                        value: _chooseHealthchkpsCenterController
+                            .selectedTest.value,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.text_snippet_outlined,
@@ -208,7 +215,8 @@ class HealthCheckupCredentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Selected Test'),
-                        items: _chooseHealthchkpsCenterController.tests.map((TestModel test) {
+                        items: _chooseHealthchkpsCenterController.tests
+                            .map((TestModel test) {
                           return DropdownMenuItem(
                             value: test,
                             child: Text(
@@ -221,8 +229,8 @@ class HealthCheckupCredentials extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (TestModel? newValue) {
-                          _chooseHealthchkpsCenterController.selectedTest.value = newValue!;
-
+                          _chooseHealthchkpsCenterController
+                              .selectedTest.value = newValue!;
                         }),
                   ),
                 ),
@@ -236,7 +244,10 @@ class HealthCheckupCredentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                    Get.to(() => HealthChkpEnquiryList());
+                    CallLoader.loader();
+                    _chooseHealthchkpsCenterController.checkhealthbooking1();
+
+                    ///Get.to(() => HealthChkpEnquiryList());
 
                     //Get.to(CheckupCatagaryDetails());
                     ///this is delux button here............

@@ -8,15 +8,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/modules_view/6_chemist_section_view/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
-// import 'package:ps_welness/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_page.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_view.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
 
+import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/about_us/about_us.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_page_view/nurse_profile.dart';
@@ -366,10 +365,10 @@ class ChemistMainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                ///....logout
+                SharedPreferences.getInstance().then((value) => value.clear());
+                //Get.back();
+                Get.to(() => SignInScreen());
               },
             ),
 

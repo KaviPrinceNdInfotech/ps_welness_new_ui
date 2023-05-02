@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
@@ -16,6 +15,7 @@ import 'package:ps_welness_new_ui/controllers/complaint_controller/complaint_con
 import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
+
 //import 'package:ps_welness/controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
@@ -29,6 +29,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_check
 //import 'package:ps_welness/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
 
 import '../controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
+import '../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import '../controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import '../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import '../controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
@@ -36,6 +37,7 @@ import '../controllers/1_user_view_controller/medicine_controllers/add_delivery_
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
+import '../controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_lab_controller.dart';
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
@@ -89,6 +91,8 @@ class ControllerBinding extends Bindings {
     Get.put(medicine_addresssList_Controller());
     Get.put(LabListController());
     Get.put(LabListController());
+    Get.put(RozarPayLabController());
+    Get.put(AmbulancegetController());
     //Get.put(GoogleMapController());
 
     //Get.put(CatagaryByIdController());

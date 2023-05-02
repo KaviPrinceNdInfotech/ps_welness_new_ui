@@ -5,10 +5,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_section/catagary/choose_catagary.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_section/doctorss_lists/doctor_list_appointment.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 // import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
@@ -30,7 +29,6 @@ class DoctorAddressCredentials extends StatelessWidget {
   Doctor_appointment_1_Controller _doctor_appointment_1_controller =
       Get.put(Doctor_appointment_1_Controller());
   DoctorListController _doctorListController = Get.put(DoctorListController());
-
 
   var items = [
     'Item 1',
@@ -78,8 +76,9 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<StateModel>(
-                      value: _doctor_appointment_1_controller.selectedState.value,
+                  () => DropdownButtonFormField<StateModel>(
+                      value:
+                          _doctor_appointment_1_controller.selectedState.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
@@ -89,8 +88,8 @@ class DoctorAddressCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: const Text('Select State'),
-                      items:
-                      _doctor_appointment_1_controller.states.map((StateModel state) {
+                      items: _doctor_appointment_1_controller.states
+                          .map((StateModel state) {
                         return DropdownMenuItem(
                           value: state,
                           child: Text(
@@ -103,8 +102,10 @@ class DoctorAddressCredentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (StateModel? newValue) {
-                        _doctor_appointment_1_controller.selectedState.value = newValue!;
-                        _doctor_appointment_1_controller.selectedCity.value = null;
+                        _doctor_appointment_1_controller.selectedState.value =
+                            newValue!;
+                        _doctor_appointment_1_controller.selectedCity.value =
+                            null;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -135,9 +136,10 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<City>(
-                    //icon: Icon(Icons.location_city),
-                      value: _doctor_appointment_1_controller.selectedCity.value,
+                  () => DropdownButtonFormField<City>(
+                      //icon: Icon(Icons.location_city),
+                      value:
+                          _doctor_appointment_1_controller.selectedCity.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
@@ -147,7 +149,8 @@ class DoctorAddressCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: const Text('Selected City'),
-                      items: _doctor_appointment_1_controller.cities.map((City city) {
+                      items: _doctor_appointment_1_controller.cities
+                          .map((City city) {
                         return DropdownMenuItem(
                           value: city,
                           child: Text(
@@ -163,7 +166,8 @@ class DoctorAddressCredentials extends StatelessWidget {
                         _doctor_appointment_1_controller.refresh();
                       },
                       onChanged: (City? newValue) {
-                        _doctor_appointment_1_controller.selectedCity.value = newValue!;
+                        _doctor_appointment_1_controller.selectedCity.value =
+                            newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -198,8 +202,9 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<DepartmentModel>(
-                      value: _doctor_appointment_1_controller.selectedDepartment.value,
+                  () => DropdownButtonFormField<DepartmentModel>(
+                      value: _doctor_appointment_1_controller
+                          .selectedDepartment.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.space_dashboard_outlined,
@@ -209,8 +214,8 @@ class DoctorAddressCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: const Text('Select Department'),
-                      items:
-                      _doctor_appointment_1_controller.department.map((DepartmentModel department) {
+                      items: _doctor_appointment_1_controller.department
+                          .map((DepartmentModel department) {
                         return DropdownMenuItem(
                           value: department,
                           child: Text(
@@ -223,8 +228,10 @@ class DoctorAddressCredentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (DepartmentModel? newValue) {
-                        _doctor_appointment_1_controller.selectedDepartment.value = newValue!;
-                        _doctor_appointment_1_controller.selectedSpecialist.value = null;
+                        _doctor_appointment_1_controller
+                            .selectedDepartment.value = newValue!;
+                        _doctor_appointment_1_controller
+                            .selectedSpecialist.value = null;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -255,9 +262,10 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<SpecialistModel>(
-                    //icon: Icon(Icons.location_city),
-                      value: _doctor_appointment_1_controller.selectedSpecialist.value,
+                  () => DropdownButtonFormField<SpecialistModel>(
+                      //icon: Icon(Icons.location_city),
+                      value: _doctor_appointment_1_controller
+                          .selectedSpecialist.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.folder_special,
@@ -267,7 +275,8 @@ class DoctorAddressCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: const Text(' Choose Specialist'),
-                      items: _doctor_appointment_1_controller.specialist.map((SpecialistModel specialist ) {
+                      items: _doctor_appointment_1_controller.specialist
+                          .map((SpecialistModel specialist) {
                         return DropdownMenuItem(
                           value: specialist,
                           child: Text(
@@ -283,7 +292,8 @@ class DoctorAddressCredentials extends StatelessWidget {
                         _doctor_appointment_1_controller.refresh();
                       },
                       onChanged: (SpecialistModel? newValue) {
-                        _doctor_appointment_1_controller.selectedSpecialist.value = newValue!;
+                        _doctor_appointment_1_controller
+                            .selectedSpecialist.value = newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -324,9 +334,11 @@ class DoctorAddressCredentials extends StatelessWidget {
                 press: () {
                   _doctorListController.doctorListApi();
                   _doctorListController.update();
-                 Get.to(DoctorListUser());
+                  _doctor_appointment_1_controller.update();
+                  _doctor_appointment_1_controller.doctorcheck1();
+                  //Get.to(DoctorListUser());
                   //this is not required in detail list
-                 ///Get.to(CatagaryDetails());
+                  ///Get.to(CatagaryDetails());
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

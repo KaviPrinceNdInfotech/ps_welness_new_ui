@@ -35,15 +35,24 @@
 // }
 //
 // ///todo from here checkout model value..............
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter_platform_interface/src/types/marker.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
-class AmbulancegetController extends GetxController {
+import '../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
 
-  final GlobalKey<FormState> Chooseambulancevehicletypekey = GlobalKey<FormState>();
+class AmbulancegetController extends GetxController {
+  final GlobalKey<FormState> Chooseambulancevehicletypekey =
+      GlobalKey<FormState>();
+  RxBool isLoading = true.obs;
+
   ///ambulancde catagary Id...........
 
   Rx<Vehicle?> selectedambCatagary = (null as Vehicle?).obs;
@@ -55,13 +64,6 @@ class AmbulancegetController extends GetxController {
   RxList<VehicleDetaile> vhicletypes = <VehicleDetaile>[].obs;
 
   ///ambulancde catagary Id...........
-
-  // var selectedambCatagary = (null as Vehicle?).obs;
-  //   //final selectedambCatagary = < as Vehicle>[].obs;
-  //   late var ambulancvecatagarys = <Vehicle>[].obs;
-  //   //RxList<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
-
-  ///get ambulance catagary api.........
 
   void ambulancecatagaryyApi() async {
     ambulancvecatagarys = (await ApiProvider.getambulancecatagaryApi())!;
@@ -78,34 +80,62 @@ class AmbulancegetController extends GetxController {
     print(vhicletypes);
   }
 
+  ///todo: google book ambulance api post Api...........2 may 2023.....
 
-  // late TextEditingController pinController,
-  //     clinicnameController,
-  //     passwordController,
-  //     confirmpasswordController,
-  //     mobileController;
-  //
-  // var clinic_name = '';
-  // var email = '';
-  // var password = '';
-  // var confirmpassword = '';
-  // var mobile = '';
+  void postAmbulancerequestApi(Set<Marker> markers) async {
+    final startLat = markers.first.position.latitude;
+    final startLong = markers.first.position.longitude;
 
+    final endLat = markers.last.position.latitude;
+    final endLong = markers.last.position.longitude;
+    CallLoader.loader();
+    http.Response r = await ApiProvider.GooglebookambulanceApi(
+      startLat.toDouble(),
+      startLong.toDouble(),
+      endLat.toDouble(),
+      endLong.toDouble(),
+      patientidcontroller.text,
+      selectedambCatagary.value?.id.toString(),
+      selectedvhicleCatagary.value?.id.toString(),
+    );
+
+    if (r.statusCode == 200) {
+      Get.snackbar('message', r.body);
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      Get.to(UserHomePage());
+    }
+  }
+
+  late TextEditingController latiudecontroller,
+      longitudecontroller,
+      patientidcontroller;
+
+  var lat = '';
+  var lang = '';
+  var id = '';
+
+  ///todo:user complain...........
 
   @override
   void onInit() {
-
     super.onInit();
 
     ambulancecatagaryyApi();
+    latiudecontroller = TextEditingController();
+    longitudecontroller = TextEditingController();
+    patientidcontroller = TextEditingController();
     selectedambCatagary.listen((p0) {
       if (p0 != null) {
         getvehicletype("${p0.id}");
       }
     });
-   // getTestNameeApi();
-  }
 
+    // getTestNameeApi();
+  }
 
   @override
   void onReady() {
@@ -114,8 +144,8 @@ class AmbulancegetController extends GetxController {
 
   @override
   void onClose() {
-   // clinicnameController.dispose();
-   // mobileController.dispose();
+    // clinicnameController.dispose();
+    // mobileController.dispose();
   }
 
   String? validClinicname(String value) {
@@ -136,12 +166,11 @@ class AmbulancegetController extends GetxController {
     return null;
   }
 
-  void checkambulance2() {
-    final isValid = Chooseambulancevehicletypekey.currentState!.validate();
-    if (!isValid) {
-      return;
-    }
-    Chooseambulancevehicletypekey.currentState!.save();
-    //Get.to(() => HomePage());
+  void googlerequestambulance(Set<Marker> markers) {
+    postAmbulancerequestApi(markers);
+
+    // if (Chooseambulancevehicletypekey.currentState!.validate()) {
+    // }
+    // Chooseambulancevehicletypekey.currentState!.save();
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_lists/nurse_list_appointment.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/nurse_location_model/nurse_location_models.dart';
@@ -21,7 +21,6 @@ import '../../../../../model/1_user_model/nurse_type_model/nurse_type_model.dart
 import '../../../../../widgets/circular_loader.dart';
 import '../../../../../widgets/widgets/neumorphic_text_field_container.dart';
 import '../../../../../widgets/widgets/rectangular_button.dart';
-import '../../appointment_history_nurse/nurse_history_appointment.dart';
 
 class Nursebooking1Credentials extends StatelessWidget {
   Nursebooking1Credentials({Key? key}) : super(key: key);
@@ -115,7 +114,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                   child: Obx(
-                        () => DropdownButtonFormField<NurseModels>(
+                    () => DropdownButtonFormField<NurseModels>(
                         value: _nurseBooking1Controller.selectedNurse.value,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -126,8 +125,8 @@ class Nursebooking1Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select Nurse'),
-                        items:
-                        _nurseBooking1Controller.nurse.map((NurseModels nurse) {
+                        items: _nurseBooking1Controller.nurse
+                            .map((NurseModels nurse) {
                           return DropdownMenuItem(
                             value: nurse,
                             child: Text(
@@ -140,8 +139,9 @@ class Nursebooking1Credentials extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (NurseModels? newValue) {
-                          _nurseBooking1Controller.selectedNurse.value = newValue!;
-                         // _nurseBooking1Controller.selectedCity.value = null;
+                          _nurseBooking1Controller.selectedNurse.value =
+                              newValue!;
+                          // _nurseBooking1Controller.selectedCity.value = null;
                           // _hospital_2_controller.states.value =
                           //     newValue! as List<String>;
                           // _hospital_2_controller.selectedCity.value = null;
@@ -507,7 +507,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                       //color: Colors.white,
                     ),
                     child: InkWell(
-                      onTap: () =>_nurseBooking1Controller.selectedshift.value,
+                      onTap: () => _nurseBooking1Controller.selectedshift.value,
                       child: Column(
                         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -527,8 +527,8 @@ class Nursebooking1Credentials extends StatelessWidget {
 
                               // title: Text("Male"),
                               value:
-                              //_nurseBooking1Controller.selectedshift.value,
-                              "Day",
+                                  //_nurseBooking1Controller.selectedshift.value,
+                                  "Day",
                               groupValue:
                                   _nurseBooking1Controller.selectedshift.value,
                               onChanged: (value) {
@@ -537,7 +537,6 @@ class Nursebooking1Credentials extends StatelessWidget {
                                 //   gender = value.toString();
                                 // });
                               },
-
                             ),
                           ),
                           Obx(
@@ -555,8 +554,8 @@ class Nursebooking1Credentials extends StatelessWidget {
                               ),
                               // title: Text("Male"),
                               value:
-                              //_nurseBooking1Controller.selectedshift.value,
-                              "Night",
+                                  //_nurseBooking1Controller.selectedshift.value,
+                                  "Night",
                               groupValue:
                                   _nurseBooking1Controller.selectedshift.value,
                               onChanged: (value) {
@@ -581,8 +580,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                                 vertical: VisualDensity.minimumDensity,
                               ),
                               // title: Text("Male"),
-                              value:
-                              "Both",
+                              value: "Both",
                               //_nurseBooking1Controller.selectedshift.value,
 
                               groupValue:
@@ -615,43 +613,43 @@ class Nursebooking1Credentials extends StatelessWidget {
                   color: MyTheme.blueww,
                 ),
               ),
+
               ///........................
 
               NeumorphicTextFieldContainer(
                 child: Obx(
-                      () => (_nurseBooking1Controller.isLoading.value)
+                  () => (_nurseBooking1Controller.isLoading.value)
                       ? Center(child: CircularProgressIndicator())
                       : TextFormField(
-                    controller:
-                    _nurseBooking1Controller.appointmentController1,
-                    onTap: () {
-                      _nurseBooking1Controller.chooseDate();
-                    },
+                          controller:
+                              _nurseBooking1Controller.appointmentController1,
+                          onTap: () {
+                            _nurseBooking1Controller.chooseDate();
+                          },
 
-                    cursorColor: Colors.black,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      hintText: 'Select date',
-                      helperStyle: TextStyle(
-                        color: black.withOpacity(0.7),
-                        fontSize: 18,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.calendar_today_outlined,
-                        color: black.withOpacity(0.7),
-                        size: 20,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 1,
-                    autofocus: true,
-                    //obscureText: true,
-                    //controller: _loginpasswordController.mobileController,
-                  ),
+                          cursorColor: Colors.black,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'Select date',
+                            helperStyle: TextStyle(
+                              color: black.withOpacity(0.7),
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Icon(
+                              Icons.calendar_today_outlined,
+                              color: black.withOpacity(0.7),
+                              size: 20,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 1,
+                          autofocus: true,
+                          //obscureText: true,
+                          //controller: _loginpasswordController.mobileController,
+                        ),
                 ),
               ),
-
 
               SizedBox(
                 height: size.height * 0.02,
@@ -670,36 +668,36 @@ class Nursebooking1Credentials extends StatelessWidget {
 
               NeumorphicTextFieldContainer(
                 child: Obx(
-                      () => (_nurseBooking1Controller.isLoading.value)
+                  () => (_nurseBooking1Controller.isLoading.value)
                       ? Center(child: CircularProgressIndicator())
                       : TextFormField(
-                    controller:
-                    _nurseBooking1Controller.appointmentController2,
-                    onTap: () {
-                      _nurseBooking1Controller.chooseDate2();
-                    },
+                          controller:
+                              _nurseBooking1Controller.appointmentController2,
+                          onTap: () {
+                            _nurseBooking1Controller.chooseDate2();
+                          },
 
-                    cursorColor: Colors.black,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      hintText: 'Select date',
-                      helperStyle: TextStyle(
-                        color: black.withOpacity(0.7),
-                        fontSize: 18,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.calendar_today_outlined,
-                        color: black.withOpacity(0.7),
-                        size: 20,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 1,
-                    autofocus: true,
-                    //obscureText: true,
-                    //controller: _loginpasswordController.mobileController,
-                  ),
+                          cursorColor: Colors.black,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'Select date',
+                            helperStyle: TextStyle(
+                              color: black.withOpacity(0.7),
+                              fontSize: 18,
+                            ),
+                            prefixIcon: Icon(
+                              Icons.calendar_today_outlined,
+                              color: black.withOpacity(0.7),
+                              size: 20,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 1,
+                          autofocus: true,
+                          //obscureText: true,
+                          //controller: _loginpasswordController.mobileController,
+                        ),
                 ),
               ),
               SizedBox(
@@ -770,8 +768,9 @@ class Nursebooking1Credentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                   child: Obx(
-                        () => DropdownButtonFormField<NurseLocationModel>(
-                        value: _nurseBooking1Controller.selectedNurseLocation.value,
+                    () => DropdownButtonFormField<NurseLocationModel>(
+                        value: _nurseBooking1Controller
+                            .selectedNurseLocation.value,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.place,
@@ -781,13 +780,13 @@ class Nursebooking1Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select Nurse'),
-                        items:
-                        _nurseBooking1Controller.locations.map((NurseLocationModel locations) {
+                        items: _nurseBooking1Controller.locations
+                            .map((NurseLocationModel locations) {
                           return DropdownMenuItem(
                             value: locations,
                             child: SizedBox(
-                              height: size.height*0.06,
-                              width: size.width*0.65,
+                              height: size.height * 0.06,
+                              width: size.width * 0.65,
                               child: Text(
                                 locations.locationName,
                                 style: TextStyle(
@@ -799,7 +798,8 @@ class Nursebooking1Credentials extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (NurseLocationModel? newValue) {
-                          _nurseBooking1Controller.selectedNurseLocation.value = newValue!;
+                          _nurseBooking1Controller.selectedNurseLocation.value =
+                              newValue!;
                           // _nurseBooking1Controller.selectedCity.value = null;
                           // _hospital_2_controller.states.value =
                           //     newValue! as List<String>;
@@ -973,7 +973,6 @@ class Nursebooking1Credentials extends StatelessWidget {
                     _nurseBooking1Controller.checkNurse1();
                     //Get.to(()=>NurseListUser());
                     //Get.to(NurseAppointmentHistory());
-
 
                     //_loginpasswordController.checkLoginpassword();
                   })

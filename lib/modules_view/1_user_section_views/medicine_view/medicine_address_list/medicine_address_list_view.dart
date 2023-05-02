@@ -377,7 +377,7 @@ class Medicineaddresslist extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(100),
                                         child: InkWell(
                                           onTap: () {
-                                            Get.to(CheckOutMedicine());
+                                            Get.off(CheckOutMedicine());
 
                                           },
                                           child: Container(

@@ -20,12 +20,12 @@ class NurseHistoryController extends GetxController {
   void nursehistoryApi() async {
     isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
-    if (
-    nurseappointmentdetail?.nurseAppointments != null
-    //appointmentdetail != null
-    //getcatagartlist!.result!.isNotEmpty
-    ) {
+    if (nurseappointmentdetail?.nurseAppointments != null
+        //appointmentdetail != null
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
       isLoading(false);
+      foundNurse.value = nurseappointmentdetail!.nurseAppointments!;
     }
   }
 
@@ -37,14 +37,9 @@ class NurseHistoryController extends GetxController {
 
   late TextEditingController appointmentController1;
 
-
-
   ///this is for State....................................
 
-
   //radio.........
-
-
 
   //this is for City.................................
   Rx<String?> selectedState = (null as String?).obs;
@@ -58,7 +53,6 @@ class NurseHistoryController extends GetxController {
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "DD-MM-YYYY";
-
   }
 
   @override
@@ -102,8 +96,6 @@ class NurseHistoryController extends GetxController {
     // }
   }
 
-
-
   void checklabhistory1() {
     final isValid = NurseHistoryformkey.currentState!.validate();
     if (!isValid) {
@@ -111,5 +103,22 @@ class NurseHistoryController extends GetxController {
     }
     NurseHistoryformkey.currentState!.save();
     //Get.to(() => HomePage());
+  }
+
+  RxList<NurseAppointment> foundNurse = RxList<NurseAppointment>([]);
+  void filterNurse(String searchnurseName) {
+    List<NurseAppointment>? finalResult = [];
+    if (searchnurseName.isEmpty) {
+      finalResult = nurseappointmentdetail!.nurseAppointments;
+    } else {
+      finalResult = nurseappointmentdetail!.nurseAppointments!
+          .where((element) => element.nurseName
+              .toString()
+              .toLowerCase()
+              .contains(searchnurseName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundNurse.value = finalResult!;
   }
 }
