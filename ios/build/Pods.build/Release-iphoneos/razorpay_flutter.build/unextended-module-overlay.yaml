@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/ndinfotech/Desktop/ps_welness_new_ui/build/ios/Release-iphoneos/razorpay_flutter/razorpay_flutter.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/ndinfotech/Desktop/ps_welness_new_ui/ios/build/Pods.build/Release-iphoneos/razorpay_flutter.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/ndinfotech/Desktop/ps_welness_new_ui/build/ios/Release-iphoneos/razorpay_flutter/razorpay_flutter.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "razorpay_flutter-Swift.h",
+      'external-contents': "/Users/ndinfotech/Desktop/ps_welness_new_ui/ios/build/Pods.build/Release-iphoneos/razorpay_flutter.build/unextended-interface-header.h",
+    }]
+    }]
+}

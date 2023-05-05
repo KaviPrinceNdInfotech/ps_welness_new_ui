@@ -1,0 +1,18 @@
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ arm64-ios ]
+flags:           [ not_app_extension_safe ]
+install-name:    '@rpath/geolocator_apple.framework/geolocator_apple'
+exports:
+  - targets:         [ arm64-ios ]
+    symbols:         [ _GeolocatorErrorLocationServicesDisabled, _GeolocatorErrorLocationSubscriptionActive, 
+                       _GeolocatorErrorLocationUpdateFailure, _GeolocatorErrorPermissionDefinitionsNotFound, 
+                       _GeolocatorErrorPermissionDenied, _GeolocatorErrorPermissionRequestInProgress, 
+                       _geolocator_appleVersionNumber, _geolocator_appleVersionString, 
+                       _kMaxLocationLifeTimeInSeconds ]
+    objc-classes:    [ ActivityTypeMapper, AuthorizationStatusMapper, GeolocationHandler, 
+                       GeolocatorPlugin, LocationAccuracyHandler, LocationAccuracyMapper, 
+                       LocationDistanceMapper, LocationMapper, LocationServiceStreamHandler, 
+                       PermissionHandler, PermissionUtils, PodsDummy_geolocator_apple, 
+                       PositionStreamHandler ]
+...

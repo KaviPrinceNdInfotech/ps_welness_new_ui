@@ -1,0 +1,72 @@
+Target dependency graph (20 targets)
+Flutter in Pods, no dependencies
+GoogleMaps in Pods, no dependencies
+Toast in Pods, no dependencies
+flutter_keyboard_visibility in Pods, depends on:
+Flutter in Pods (explicit)
+fluttertoast in Pods, depends on:
+Flutter in Pods (explicit)
+Toast in Pods (explicit)
+geocoding in Pods, depends on:
+Flutter in Pods (explicit)
+geolocator_apple in Pods, depends on:
+Flutter in Pods (explicit)
+google_maps_flutter_ios in Pods, depends on:
+Flutter in Pods (explicit)
+GoogleMaps in Pods (explicit)
+image_picker_ios in Pods, depends on:
+Flutter in Pods (explicit)
+location in Pods, depends on:
+Flutter in Pods (explicit)
+open_file in Pods, depends on:
+Flutter in Pods (explicit)
+package_info_plus in Pods, depends on:
+Flutter in Pods (explicit)
+path_provider_foundation in Pods, depends on:
+Flutter in Pods (explicit)
+permission_handler_apple in Pods, depends on:
+Flutter in Pods (explicit)
+razorpay-pod in Pods, no dependencies
+razorpay_flutter in Pods, depends on:
+Flutter in Pods (explicit)
+razorpay-pod in Pods (explicit)
+shared_preferences_foundation in Pods, depends on:
+Flutter in Pods (explicit)
+url_launcher_ios in Pods, depends on:
+Flutter in Pods (explicit)
+Pods-Runner in Pods, depends on:
+Flutter in Pods (explicit)
+GoogleMaps in Pods (explicit)
+Toast in Pods (explicit)
+flutter_keyboard_visibility in Pods (explicit)
+fluttertoast in Pods (explicit)
+geocoding in Pods (explicit)
+geolocator_apple in Pods (explicit)
+google_maps_flutter_ios in Pods (explicit)
+image_picker_ios in Pods (explicit)
+location in Pods (explicit)
+open_file in Pods (explicit)
+package_info_plus in Pods (explicit)
+path_provider_foundation in Pods (explicit)
+permission_handler_apple in Pods (explicit)
+razorpay-pod in Pods (explicit)
+razorpay_flutter in Pods (explicit)
+shared_preferences_foundation in Pods (explicit)
+url_launcher_ios in Pods (explicit)
+Runner in Runner, depends on:
+Pods-Runner in Pods (implicit dependency via file 'Pods_Runner.framework' in build phase 'Link Binary')
+Toast in Pods (implicit dependency via options '-framework Toast' in build setting 'OTHER_LDFLAGS')
+flutter_keyboard_visibility in Pods (implicit dependency via options '-framework flutter_keyboard_visibility' in build setting 'OTHER_LDFLAGS')
+fluttertoast in Pods (implicit dependency via options '-framework fluttertoast' in build setting 'OTHER_LDFLAGS')
+geocoding in Pods (implicit dependency via options '-framework geocoding' in build setting 'OTHER_LDFLAGS')
+geolocator_apple in Pods (implicit dependency via options '-framework geolocator_apple' in build setting 'OTHER_LDFLAGS')
+google_maps_flutter_ios in Pods (implicit dependency via options '-framework google_maps_flutter_ios' in build setting 'OTHER_LDFLAGS')
+image_picker_ios in Pods (implicit dependency via options '-framework image_picker_ios' in build setting 'OTHER_LDFLAGS')
+location in Pods (implicit dependency via options '-framework location' in build setting 'OTHER_LDFLAGS')
+open_file in Pods (implicit dependency via options '-framework open_file' in build setting 'OTHER_LDFLAGS')
+package_info_plus in Pods (implicit dependency via options '-framework package_info_plus' in build setting 'OTHER_LDFLAGS')
+path_provider_foundation in Pods (implicit dependency via options '-framework path_provider_foundation' in build setting 'OTHER_LDFLAGS')
+permission_handler_apple in Pods (implicit dependency via options '-framework permission_handler_apple' in build setting 'OTHER_LDFLAGS')
+razorpay_flutter in Pods (implicit dependency via options '-framework razorpay_flutter' in build setting 'OTHER_LDFLAGS')
+shared_preferences_foundation in Pods (implicit dependency via options '-framework shared_preferences_foundation' in build setting 'OTHER_LDFLAGS')
+url_launcher_ios in Pods (implicit dependency via options '-framework url_launcher_ios' in build setting 'OTHER_LDFLAGS')

@@ -1,0 +1,10 @@
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ arm64-ios ]
+flags:           [ not_app_extension_safe ]
+install-name:    '@rpath/geocoding.framework/geocoding'
+exports:
+  - targets:         [ arm64-ios ]
+    symbols:         [ _geocodingVersionNumber, _geocodingVersionString ]
+    objc-classes:    [ GeocodingHandler, GeocodingPlugin, PodsDummy_geocoding ]
+...

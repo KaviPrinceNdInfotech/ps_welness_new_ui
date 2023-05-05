@@ -1,0 +1,10 @@
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ arm64-ios ]
+flags:           [ not_app_extension_safe ]
+install-name:    '@rpath/flutter_keyboard_visibility.framework/flutter_keyboard_visibility'
+exports:
+  - targets:         [ arm64-ios ]
+    symbols:         [ _flutter_keyboard_visibilityVersionNumber, _flutter_keyboard_visibilityVersionString ]
+    objc-classes:    [ FlutterKeyboardVisibilityPlugin, PodsDummy_flutter_keyboard_visibility ]
+...

@@ -1,0 +1,10 @@
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ arm64-ios ]
+flags:           [ not_app_extension_safe ]
+install-name:    '@rpath/url_launcher_ios.framework/url_launcher_ios'
+exports:
+  - targets:         [ arm64-ios ]
+    symbols:         [ _url_launcher_iosVersionNumber, _url_launcher_iosVersionString ]
+    objc-classes:    [ FLTURLLaunchSession, FLTURLLauncherPlugin, PodsDummy_url_launcher_ios ]
+...

@@ -1,0 +1,40 @@
+dependencies: \
+  /Users/ndinfotech/Desktop/ps_welness_new_ui/ios/build/Pods.build/Release-iphoneos/permission_handler_apple.build/module.modulemap \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/PermissionManager.m \
+  /Users/ndinfotech/Desktop/ps_welness_new_ui/ios/Pods/Target\ Support\ Files/permission_handler_apple/permission_handler_apple-prefix.pch \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/PermissionManager.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Modules/module.modulemap \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/Flutter.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterAppDelegate.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterMacros.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPlugin.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterBinaryMessenger.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterChannels.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterCodecs.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPlatformViews.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterTexture.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterCallbackCache.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterDartProject.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterEngine.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterEngineGroup.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterHeadlessDartRunner.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterViewController.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/AudioVideoPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/PermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/PermissionHandlerEnums.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/UnknownPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/AppTrackingTransparencyPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/BluetoothPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/ContactPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/EventPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/LocationPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/MediaLibraryPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/PhonePermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/PhotoPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/SensorPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/SpeechPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/StoragePermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/NotificationPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/strategies/CriticalAlertsPermissionStrategy.h \
+  /Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_apple-9.0.7/ios/Classes/util/Codec.h

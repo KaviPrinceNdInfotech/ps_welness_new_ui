@@ -1,0 +1,34 @@
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ arm64-ios ]
+flags:           [ not_app_extension_safe ]
+install-name:    '@rpath/razorpay_flutter.framework/razorpay_flutter'
+swift-abi-version: 7
+exports:
+  - targets:         [ arm64-ios ]
+    symbols:         [ '_$s16razorpay_flutter16RazorpayDelegateC13pendingResult33_D398B1622358CAD4A1EE2D65450D3308LLyypSgcSgvpfi', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC14onPaymentError_11description7andDatays5Int32V_SSSDys11AnyHashableVypGSgtF', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC14onPaymentError_11description7andDatays5Int32V_SSSDys11AnyHashableVypGSgtFTq', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC16onPaymentSuccess_7andDataySS_SDys11AnyHashableVypGSgtF', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC16onPaymentSuccess_7andDataySS_SDys11AnyHashableVypGSgtFTq', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC24onExternalWalletSelected_15withPaymentDataySS_SDys11AnyHashableVypGSgtF', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC24onExternalWalletSelected_15withPaymentDataySS_SDys11AnyHashableVypGSgtFTq', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC4open7options6resultySDySSypG_yypSgctF', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC4open7options6resultySDySSypG_yypSgctFTq', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC6resync6resultyyypSgc_tF', 
+                       '_$s16razorpay_flutter16RazorpayDelegateC6resync6resultyyypSgc_tFTq', 
+                       '_$s16razorpay_flutter16RazorpayDelegateCACycfC', '_$s16razorpay_flutter16RazorpayDelegateCACycfc', 
+                       '_$s16razorpay_flutter16RazorpayDelegateCMa', '_$s16razorpay_flutter16RazorpayDelegateCMn', 
+                       '_$s16razorpay_flutter16RazorpayDelegateCN', '_$s16razorpay_flutter16RazorpayDelegateCfD', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginC0A8Delegate33_CD71700BE6EAE0B541DE23304B7ABCADLLAA0dG0Cvpfi', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginC6handle_6resultySo0E10MethodCallC_yypSgctF', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginC6handle_6resultySo0E10MethodCallC_yypSgctFTq', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginC8register4withySo0eF9Registrar_p_tFZ', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginCACycfC', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginCACycfc', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginCMa', '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginCMn', 
+                       '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginCN', '_$s16razorpay_flutter26SwiftRazorpayFlutterPluginCfD', 
+                       _Swift51Overrides, _razorpay_flutterVersionNumber, _razorpay_flutterVersionString ]
+    objc-classes:    [ PodsDummy_razorpay_flutter, RazorpayFlutterPlugin, _TtC16razorpay_flutter16RazorpayDelegate, 
+                       _TtC16razorpay_flutter26SwiftRazorpayFlutterPlugin ]
+...
