@@ -10,20 +10,13 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_user_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/about_us/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_user_detail_page.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart'; //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
-
 import '../../../constants/my_theme.dart';
 import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
-import '../../9_doctor_section_view/drawer_view/drower_pages/about_us/about_us.dart';
-import '../../9_doctor_section_view/drawer_view/drower_pages/supports/support_view.dart';
+import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../../sign_in/sigin_screen.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'drawer_pages_user/medicine_history/medicine_history_page.dart';

@@ -5,28 +5,24 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_cont
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
-import 'package:ps_welness_new_ui/controllers/4_nurse_controller/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_payment_controller/doctor_payment_detail_controller.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/patient_list_controller.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/patient_report_view_controller.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/skils_controller/skils_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_complain_controller/nurse_complain_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_drawer_controllers/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile/rwa_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_signup_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_update_profile/doctor_updateprofile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_report_view_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/complaint_controller/complaint_controller.dart';
-import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
+//import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
+import 'package:ps_welness_new_ui/controllers/nurses_controllers_RRR_signuppp/nurses_controller2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
-
-//import 'package:ps_welness/controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
-//import 'package:ps_welness/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
-//import 'package:ps_welness/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
-//import 'package:ps_welness/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
-//import 'package:ps_welness/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
-//import 'package:ps_welness/controllers/4_nurse_controller/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
-//import 'package:ps_welness/controllers/9_doctor_controllers/doctor_payment_controller/doctor_payment_detail_controller.dart';
-//import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
-//import 'package:ps_welness/controllers/9_doctor_controllers/patient_report_view_controller.dart';
-//import 'package:ps_welness/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
-//import 'package:ps_welness/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
 
 import '../controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
@@ -41,10 +37,10 @@ import '../controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_l
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
-import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
-import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
+//import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
+//import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
-import '../controllers/9_doctor_controllers/doctor_drawer_controllers/doctor_profile_controller.dart';
+import '../controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_complain_controller/doctor_complain_controllers.dart';
 import '../controllers/profile_u_controller/profile_update_controller.dart';
 import '../controllers/user_controller/user_controller_1.dart';
 
@@ -55,7 +51,6 @@ class ControllerBinding extends Bindings {
     //Get.put(IntroVideoBoxController());
     Get.put(FranchiesSpecialistController());
     Get.put(DoctorProfileControllers());
-    Get.put(DoctorProfileController());
     Get.put(DoctorPatientReportControllers());
     Get.put(DoctorPaymentViewControllers());
     Get.put(LabListController());
@@ -79,8 +74,9 @@ class ControllerBinding extends Bindings {
     Get.put(FranchiseHomepagContreoller());
     Get.put(LabHomepagContreoller());
     Get.put(DriverHomepagContreoller());
-    Get.put(NurseHomepagContreoller());
-    Get.put(RwaHomepagContreoller());
+    //Get.put(NurseHomepagContreoller());
+    //Get.put(RwaHomepagContreoller());
+    Get.put(RwaBannerController());
     Get.put(ChemistHomepagContreoller());
     Get.put(ComplaintController());
     Get.put(ProfileController());
@@ -93,6 +89,15 @@ class ControllerBinding extends Bindings {
     Get.put(LabListController());
     Get.put(RozarPayLabController());
     Get.put(AmbulancegetController());
+
+    Get.put(NurseProfileController()); // Rahul
+    Get.put(NurseComplaintController()); // Rahul
+    Get.put(DriverProfileController()); // Rahul
+    Get.put(DoctorUpdateProfileController()); // Rahul
+    Get.put(Nurses_2_Controller()); // Rahul
+    Get.put(ComplaintController()); // Rahul
+    Get.put(RwaProfileController()); // Rahul
+    Get.put(RWASignupController()); // Rahul
     //Get.put(GoogleMapController());
 
     //Get.put(CatagaryByIdController());

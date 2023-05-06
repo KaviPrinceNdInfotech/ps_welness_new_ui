@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 
-import '../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../servicess_api/api_services_all_api.dart';
-//import 'package:ps_welness/modules_view/9_doctor_section_view/home_page_view/home_page.dart';
-//import 'package:ps_welness/modules_view/circular_loader/circular_loaders.dart';
-//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 class Doctor_1_Controller extends GetxController {
   final GlobalKey<FormState> doctor1formkey = GlobalKey<FormState>();
@@ -74,7 +71,7 @@ class Doctor_1_Controller extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(HomePage());
+      Get.to(DoctorHomePage());
     }
   }
 

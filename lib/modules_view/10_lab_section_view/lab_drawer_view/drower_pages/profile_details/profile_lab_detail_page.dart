@@ -7,9 +7,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 
 class LapDetailProfile extends StatelessWidget {
   const LapDetailProfile({Key? key}) : super(key: key);

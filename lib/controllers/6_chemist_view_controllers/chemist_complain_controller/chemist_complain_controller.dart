@@ -1,14 +1,12 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
 import '../../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
-//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
-
 
 class ChemistComplaintController extends GetxController {
   final GlobalKey<FormState> chemistcomplaintformkey = GlobalKey<FormState>();
@@ -95,6 +93,7 @@ class ChemistComplaintController extends GetxController {
     }
     return null;
   }
+
   String? validsubject(String value) {
     if (value.length < 2) {
       return "This is required field.";

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/complaint_controller/complaint_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -45,38 +45,6 @@ class ComplaintCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ///Todo: email.....................
-            // NeumorphicTextFieldContainer(
-            //   child: TextFormField(
-            //     autofillHints: [AutofillHints.email],
-            //     controller: _profileController.emailController,
-            //     onSaved: (value) {
-            //       _profileController.email = value!;
-            //     },
-            //     validator: (value) {
-            //       return _profileController.validEmail(value!);
-            //     },
-            //     cursorColor: Colors.black,
-            //     obscureText: false,
-            //     decoration: InputDecoration(
-            //       hintText: 'Email',
-            //       helperStyle: TextStyle(
-            //         color: black.withOpacity(0.7),
-            //         fontSize: 18,
-            //       ),
-            //       prefixIcon: Icon(
-            //         Icons.email,
-            //         color: black.withOpacity(0.7),
-            //         size: 20,
-            //       ),
-            //       border: InputBorder.none,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.02,
-            // ),
-
             ///Todo: state............................
 
             NeumorphicTextFieldContainer(

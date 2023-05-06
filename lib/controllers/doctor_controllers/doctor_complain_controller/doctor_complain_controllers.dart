@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
+//import '../../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
+import '../../../modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
-//import 'package:ps_welness/modules_view/9_doctor_section_view/home_page_view/home_page.dart';
+//mport 'package:ps_welness/modules_view/9_doctor_section_view/home_page_view/home_page.dart';
 //import 'package:ps_welness/modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
@@ -39,7 +40,7 @@ class DoctorComplaintController extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to doctor page.....................................
-      Get.to(HomePage());
+      Get.to(DoctorHomePage());
     }
   }
 

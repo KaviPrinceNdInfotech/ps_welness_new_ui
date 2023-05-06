@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_drawer_controllers/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
-// //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
-import '../../../../../../controllers/4_nurse_controller/nurse_drawer_controllers/nurse_profile_controller.dart';
+//import '../../../../../../controllers/4_nurse_controller/nurse_drawer_controllers/nurse_profile_controller.dart';
 
 class NurseProfileCredentials extends StatelessWidget {
   NurseProfileCredentials({Key? key}) : super(key: key);
@@ -47,38 +43,6 @@ class NurseProfileCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ///Todo: email.....................
-            // NeumorphicTextFieldContainer(
-            //   child: TextFormField(
-            //     autofillHints: [AutofillHints.email],
-            //     controller: _profileController.emailController,
-            //     onSaved: (value) {
-            //       _profileController.email = value!;
-            //     },
-            //     validator: (value) {
-            //       return _profileController.validEmail(value!);
-            //     },
-            //     cursorColor: Colors.black,
-            //     obscureText: false,
-            //     decoration: InputDecoration(
-            //       hintText: 'Email',
-            //       helperStyle: TextStyle(
-            //         color: black.withOpacity(0.7),
-            //         fontSize: 18,
-            //       ),
-            //       prefixIcon: Icon(
-            //         Icons.email,
-            //         color: black.withOpacity(0.7),
-            //         size: 20,
-            //       ),
-            //       border: InputBorder.none,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.02,
-            // ),
-
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -86,7 +50,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _nurseprofileController.mobileController,
                 onSaved: (value) {
-                  _nurseprofileController.mobile = value!;
+                  // _nurseprofileController.mobile = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validPhone(value!);
@@ -119,7 +83,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.name],
                 controller: _nurseprofileController.nameController,
                 onSaved: (value) {
-                  _nurseprofileController.name = value!;
+                  //_nurseprofileController.name = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validName(value!);
@@ -242,9 +206,9 @@ class NurseProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _nurseprofileController.locatoionController,
+                //controller: _nurseprofileController.locatoionController,
                 onSaved: (value) {
-                  _nurseprofileController.location = value!;
+                  // _nurseprofileController.location = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validLocation(value!);
@@ -274,9 +238,9 @@ class NurseProfileCredentials extends StatelessWidget {
             ///Todo: fees..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _nurseprofileController.feesController,
+                //controller: _nurseprofileController.feesController,
                 onSaved: (value) {
-                  _nurseprofileController.fees = value!;
+                  //_nurseprofileController.fees = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validFees(value!);
@@ -312,7 +276,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.password],
                 controller: _nurseprofileController.pinController,
                 onSaved: (value) {
-                  _nurseprofileController.pin = value!;
+                  /// _nurseprofileController.pin = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validPin(value!);
@@ -357,7 +321,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _nurseprofileController.accountnoController,
                 onSaved: (value) {
-                  _nurseprofileController.account = value!;
+                  //_nurseprofileController.account = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validAccount(value!);
@@ -391,7 +355,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _nurseprofileController.ifscController,
                 onSaved: (value) {
-                  _nurseprofileController.ifsc = value!;
+                  //_nurseprofileController.ifsc = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validIfsc(value!);
@@ -423,9 +387,9 @@ class NurseProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _nurseprofileController.branchController,
+                //controller: _nurseprofileController.branchController,
                 onSaved: (value) {
-                  _nurseprofileController.branch = value!;
+                  // _nurseprofileController.branch = value!;
                 },
                 validator: (value) {
                   return _nurseprofileController.validBranch(value!);

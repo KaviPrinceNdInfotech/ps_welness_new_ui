@@ -60,11 +60,12 @@ import '../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import '../model/1_user_model/states_model/state_modells.dart';
 import '../model/1_user_model/time_slots_common_model/time_slots_common.dart';
-import '../model/9_doctors_model/doctor_payment_history.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
-import '../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
+//mport '../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/9_doctors_model/view_patient_report_model.dart';
+import '../model/9_prince_doctors_model/doctor_payment_history.dart';
+import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
 

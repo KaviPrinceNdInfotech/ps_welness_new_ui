@@ -6,15 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/driver_controller/driver_controller_2.dart';
 import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/controllers/driver_controller/driver_controller_2.dart';
-// import 'package:ps_welness/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-// import 'package:ps_welness/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
 class Driver2Credentials extends StatelessWidget {
   Driver2Credentials({Key? key}) : super(key: key);

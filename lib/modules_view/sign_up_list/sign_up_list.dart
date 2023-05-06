@@ -10,6 +10,8 @@ import 'package:ps_welness_new_ui/modules_view/franchies_view/franchies_1_view/f
 import 'package:ps_welness_new_ui/modules_view/nurses_view/nurses_signup1/nurses_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup1/rwa_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
+
+//import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
 // //import 'package:ps_welness/modules_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
@@ -21,7 +23,8 @@ import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
 // import 'package:ps_welness/modules_view/user_views/user_sign_up.dart';
 
 import '../10_lab_section_view/lab_center/lab_signup1/lab_center.dart';
-import '../9_doctor_section_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
+import '../9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
+//import '../9_doctor_section_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 
 class SignUpList extends StatelessWidget {
   const SignUpList({Key? key}) : super(key: key);
@@ -177,6 +180,7 @@ class SignUpList extends StatelessWidget {
                                 Get.to(() => LabSignup1());
                               } else if (index == 3) {
                                 Get.to(() => DoctorSignup1());
+                                //DoctorSignup1());
                                 // Get.to(() => DriverSignup1());
 
                                 // whatsAppOpen();
@@ -501,6 +505,5 @@ class SignUpList extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

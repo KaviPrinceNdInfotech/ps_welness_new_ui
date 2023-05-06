@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
+//import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 class UpdateBankController extends GetxController {
   final GlobalKey<FormState> updatebankformkey = GlobalKey<FormState>();
@@ -12,28 +16,53 @@ class UpdateBankController extends GetxController {
   Rx<String?> selectedState = (null as String?).obs;
   RxList<String> states = <String>[].obs;
 
-  late TextEditingController accountnoController,
+  late TextEditingController idController,
+      LoginIdController,
+      accountnoController,
       ifscController,
-      branchController,
+      branchNameController,
       branchaddressController,
-      accountholderController;
+      holderNameController,
+      mobileNumberController;
 
   var account = '';
   var ifsc = '';
   var branch = '';
   var branchaddress = '';
   var accountholdername = '';
+  RxBool isLoading = true.obs;
+  void driverUpdateBankDetailApi() async {
+    isLoading(true);
+    // CallLoader.loader();
+    http.Response r = await ApiProvider.DriverUpdateBankDetail(
+        idController.text,
+        LoginIdController.text,
+        accountnoController.text,
+        ifscController.text,
+        branchNameController.text,
+        branchaddressController.text,
+        holderNameController.text,
+        mobileNumberController.text);
+    if (r.statusCode == 200) {
+      isLoading(false);
+      // CallLoader.hideLoader();
+    } else {
+      isLoading(false);
+      // CallLoader.hideLoader();
+    }
+  }
 
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
-
+    idController = TextEditingController(text: '1');
+    LoginIdController = TextEditingController(text: '1024');
     accountnoController = TextEditingController(text: '9898666666');
     ifscController = TextEditingController(text: '999ONSBI');
-    branchController = TextEditingController(text: 'SBI');
+    branchNameController = TextEditingController(text: 'SBI');
     branchaddressController = TextEditingController(text: 'Noida sector 15');
-    accountholderController = TextEditingController(text: 'Kumar Prince');
+    holderNameController = TextEditingController(text: 'Kumar Prince');
+    mobileNumberController = TextEditingController(text: '6398028236');
   }
 
   @override
@@ -43,11 +72,14 @@ class UpdateBankController extends GetxController {
 
   @override
   void onClose() {
+    idController.dispose();
+    LoginIdController.dispose();
     accountnoController.dispose();
     ifscController.dispose();
-    branchController.dispose();
+    branchNameController.dispose();
     branchaddressController.dispose();
-    accountholderController.dispose();
+    holderNameController.dispose();
+    mobileNumberController.dispose();
   }
 
   String? validAccount(String value) {
@@ -100,12 +132,12 @@ class UpdateBankController extends GetxController {
     return null;
   }
 
-  void checkBankDetail() {
+  void checkDriverUpdateBankDetail() {
     final isValid = updatebankformkey.currentState!.validate();
+    driverUpdateBankDetailApi();
     if (!isValid) {
       return;
     }
     updatebankformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

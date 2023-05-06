@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -31,8 +30,8 @@ class ComplaintCredentials extends StatelessWidget {
     'Item 5',
   ];
 
-
-  FranchisesComplaintController _franchiesComplaintController = Get.put(FranchisesComplaintController());
+  FranchisesComplaintController _franchiesComplaintController =
+      Get.put(FranchisesComplaintController());
 
   //ComplaintController _complaintController = Get.put(ComplaintController());
   //
@@ -97,11 +96,13 @@ class ComplaintCredentials extends StatelessWidget {
             //   height: size.height * 0.02,
             // ),
             ///Subject..........
-            Text('Subject',style: TextStyle(
-              fontSize: size.height*0.015,
-              fontWeight: FontWeight.bold,
-
-            ),),
+            Text(
+              'Subject',
+              style: TextStyle(
+                fontSize: size.height * 0.015,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
 
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -176,11 +177,13 @@ class ComplaintCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Text('Others',style: TextStyle(
-              fontSize: size.height*0.015,
-              fontWeight: FontWeight.bold,
-
-            ),),
+            Text(
+              'Others',
+              style: TextStyle(
+                fontSize: size.height * 0.015,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
 
             ///todo: other value..........
             NeumorphicTextFieldContainer(
@@ -220,11 +223,13 @@ class ComplaintCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Text('Write your complain',style: TextStyle(
-              fontSize: size.height*0.015,
-              fontWeight: FontWeight.bold,
-
-            ),),
+            Text(
+              'Write your complain',
+              style: TextStyle(
+                fontSize: size.height * 0.015,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
 
             ///todo: location value..........
             NeumorphicTextFieldContainer(

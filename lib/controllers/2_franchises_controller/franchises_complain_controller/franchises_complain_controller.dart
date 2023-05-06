@@ -1,17 +1,17 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
-import '../../../modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
-
 class FranchisesComplaintController extends GetxController {
-  final GlobalKey<FormState> franchisescomplaintformkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> franchisescomplaintformkey =
+      GlobalKey<FormState>();
 
   ///this is for State....................................
   Rx<String?> selectedCity = (null as String?).obs;
@@ -37,6 +37,7 @@ class FranchisesComplaintController extends GetxController {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
+
       /// we can navigate to user page.....................................
       Get.to(FranchiesHomePage());
     }
@@ -94,6 +95,7 @@ class FranchisesComplaintController extends GetxController {
     }
     return null;
   }
+
   String? validsubject(String value) {
     if (value.length < 2) {
       return "This is required field.";

@@ -7,7 +7,9 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
+
+import '../../../../../controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+//import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
 

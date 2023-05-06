@@ -8,7 +8,8 @@ import 'package:intl/intl.dart';
 
 import '../../../model/1_user_model/hlthchkp_detail_model/healthchkp_detail_model.dart';
 import '../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
-import '../../../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
+// import '../../../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
+import '../../../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../../../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
 import '../../../modules_view/1_user_section_views/doctorss/doctor_checkout/doctor_checkout.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';

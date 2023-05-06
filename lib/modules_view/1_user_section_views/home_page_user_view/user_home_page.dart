@@ -6,24 +6,14 @@ import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
 
-//import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/google_map/new_map/new_g_map.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/map_page_user/google_map_2.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/map_page_user/map_page_google_map.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/nursess/book_nurse_appointment1/nurse_booking_1.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/user_drawer.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-
 import '../../../constants/constants/constants.dart';
 import '../../../constants/my_theme.dart';
 import '../../../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
-import '../../9_doctor_section_view/drawer_view/drower_pages/supports/support_view.dart';
 //import '../../4_nurse_section_view/nurse_drawer_view/drower_pages/supports/support_view.dart';
+import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../doctorss/doctor_address/doctor_address.dart';
 import '../health_checkup/health_checkup_addresss/health_checkupp_address.dart';
 import '../medicine_view/search_section/search_medicine.dart';
@@ -63,7 +53,6 @@ class UserHomePage extends StatelessWidget {
       // 'service 7',
       // 'service 8',
     ];
-
     final List<String> underprocess = [
       '',
       '',
@@ -144,7 +133,6 @@ class UserHomePage extends StatelessWidget {
                   ],
                 ),
               ),
-
               // Text(
               //   'PS WELLNESS',
               //   style: GoogleFonts.alatsi(
