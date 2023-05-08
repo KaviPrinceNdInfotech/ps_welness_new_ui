@@ -33,6 +33,7 @@ import '../controllers/1_user_view_controller/medicine_controllers/add_delivery_
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
+import '../controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
 import '../controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_lab_controller.dart';
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
@@ -97,7 +98,9 @@ class ControllerBinding extends Bindings {
     Get.put(Nurses_2_Controller()); // Rahul
     Get.put(ComplaintController()); // Rahul
     Get.put(RwaProfileController()); // Rahul
-    Get.put(RWASignupController()); // Rahul
+    Get.put(RWASignupController());
+    Get.put(NurseUserListController());
+    Get.put(MedicineCartListController()); // Rahul
     //Get.put(GoogleMapController());
 
     //Get.put(CatagaryByIdController());

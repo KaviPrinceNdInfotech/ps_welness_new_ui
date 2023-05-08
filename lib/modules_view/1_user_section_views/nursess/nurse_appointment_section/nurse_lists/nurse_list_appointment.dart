@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_detail_and_schedule/nurse_details_schedules.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/my_theme.dart';
+import '../../../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_section/detail_and_schedule/details_schedules.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/appointment_section/detail_and_schedule/details_schedules.dart';
 
 class NurseListUser extends StatelessWidget {
   NurseListUser({Key? key}) : super(key: key);
+  NurseUserListController _nurseUserListController =
+      Get.put(NurseUserListController());
   final NurseAppointmentDetailController _nurseAppointmentDetailController =
       Get.put(NurseAppointmentDetailController());
+  // final NurseAppointmentDetailController _nurseAppointmentDetailController =
+  //     Get.put(NurseAppointmentDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class NurseListUser extends StatelessWidget {
     return Scaffold(
       //backgroundColor: Color(0xff11f2ec),
       body: Obx(
-        () => (_nurseAppointmentDetailController.isLoading.value)
+        () => (_nurseUserListController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
             //     : _nurseAppointmentDetailController.nurseappointmentdetail != null
             // ? Center(
@@ -91,9 +97,8 @@ class NurseListUser extends StatelessWidget {
                                 data: Theme.of(context)
                                     .copyWith(splashColor: Colors.transparent),
                                 child: TextField(
-                                  onChanged: (value) =>
-                                      _nurseAppointmentDetailController
-                                          .filterNurse(value),
+                                  onChanged: (value) => _nurseUserListController
+                                      .filterNurse(value),
                                   autofocus: false,
                                   style: TextStyle(
                                       fontSize: 15.0, color: MyTheme.blueww),
@@ -122,7 +127,7 @@ class NurseListUser extends StatelessWidget {
                         ),
                       ),
                     ),
-                    _nurseAppointmentDetailController.foundNurses.value.isEmpty
+                    _nurseUserListController.foundNurses.value.isEmpty
                         // Obx(
                         //   ()=> (_nurseAppointmentDetailController.isLoading.value)
                         //   ? Center(child: CircularProgressIndicator())
@@ -134,8 +139,8 @@ class NurseListUser extends StatelessWidget {
                         : SizedBox(
                             height: size.height * 0.73,
                             child: ListView.builder(
-                                itemCount: _nurseAppointmentDetailController
-                                    .foundNurses.length,
+                                itemCount:
+                                    _nurseUserListController.foundNurses.length,
 
                                 ///shrinkWrap: true,
                                 // itemCount: _nurseAppointmentDetailController
@@ -199,7 +204,7 @@ class NurseListUser extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       " Fees:₹"
-                                                      "${_nurseAppointmentDetailController.foundNurses[index].fee}",
+                                                      "${_nurseUserListController.foundNurses[index].fee}",
                                                       //     "${_nurseAppointmentDetailController
                                                       //     .nurseappointmentdetail
                                                       // !.result![index].totalFee
@@ -231,7 +236,7 @@ class NurseListUser extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "${_nurseAppointmentDetailController.foundNurses[index].nurseName}",
+                                                      "${_nurseUserListController.foundNurses[index].nurseName}",
                                                       // _nurseAppointmentDetailController
                                                       //     .nurseappointmentdetail
                                                       //     !.result![index].patientName.toString(),
@@ -250,7 +255,7 @@ class NurseListUser extends StatelessWidget {
                                                       ),
                                                     ),
                                                     Text(
-                                                      "${_nurseAppointmentDetailController.foundNurses[index].nurseTypeName}",
+                                                      "${_nurseUserListController.foundNurses[index].nurseTypeName}",
 
                                                       // _nurseAppointmentDetailController
                                                       //     .nurseappointmentdetail
@@ -272,7 +277,7 @@ class NurseListUser extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       'Experenced: '
-                                                      '${_nurseAppointmentDetailController.foundNurses[index].experience} yr',
+                                                      '${_nurseUserListController.foundNurses[index].experience} yr',
                                                       //doctorcatagary[index],
                                                       maxLines: 1,
                                                       overflow:
@@ -295,7 +300,20 @@ class NurseListUser extends StatelessWidget {
                                                           BorderRadius.circular(
                                                               20),
                                                       child: InkWell(
-                                                        onTap: () {
+                                                        ///from here save id through share preference
+                                                        onTap: () async {
+                                                          SharedPreferences
+                                                              prefs =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          prefs.setString(
+                                                              "NurseuserListId",
+                                                              "${_nurseUserListController.foundNurses[index].id.toString()}");
+                                                          _nurseAppointmentDetailController
+                                                              .nurseappointmentApi();
+                                                          _nurseAppointmentDetailController
+                                                              .update();
+                                                          //nurseappointmentApi
                                                           Get.to(() =>
                                                               NurseDetailsSchedulePage());
                                                           //Get.to(() => AppointmentCheckout());

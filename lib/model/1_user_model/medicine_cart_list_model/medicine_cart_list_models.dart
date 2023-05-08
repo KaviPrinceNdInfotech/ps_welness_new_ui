@@ -1,4 +1,3 @@
-// To parse this JSON data, do
 //
 //     final medicineCartListModel = medicineCartListModelFromJson(jsonString);
 
@@ -11,71 +10,61 @@ String medicineCartListModelToJson(MedicineCartListModel data) =>
     json.encode(data.toJson());
 
 class MedicineCartListModel {
-  MedicineCartListModel({
-    required this.medicineCartDetail,
-  });
+  List<Datum>? data;
+  num? totalPrice;
+  num? quantity;
+  num? status;
+  String? message;
 
-  MedicineCartDetail medicineCartDetail;
+  MedicineCartListModel({
+    this.data,
+    this.totalPrice,
+    this.quantity,
+    this.status,
+    this.message,
+  });
 
   factory MedicineCartListModel.fromJson(Map<String, dynamic> json) =>
       MedicineCartListModel(
-        medicineCartDetail:
-            MedicineCartDetail.fromJson(json["MedicineCartDetail"]),
+        data: json["data"] == null
+            ? []
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+        totalPrice: json["TotalPrice"],
+        quantity: json["Quantity"],
+        status: json["status"],
+        message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
-        "MedicineCartDetail": medicineCartDetail.toJson(),
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "TotalPrice": totalPrice,
+        "Quantity": quantity,
+        "status": status,
+        "message": message,
       };
 }
 
-class MedicineCartDetail {
-  MedicineCartDetail({
-    required this.totalProductsInCart,
-    required this.grandTotal,
-    required this.medicineCart,
+class Datum {
+  int? id;
+  String? medicineName;
+  String? brandName;
+  num? quantity;
+  double? unitPrice;
+  double? totalPrice;
+
+  Datum({
+    this.id,
+    this.medicineName,
+    this.brandName,
+    this.quantity,
+    this.unitPrice,
+    this.totalPrice,
   });
 
-  int totalProductsInCart;
-  double grandTotal;
-  List<MedicineCart> medicineCart;
-
-  factory MedicineCartDetail.fromJson(Map<String, dynamic> json) =>
-      MedicineCartDetail(
-        totalProductsInCart: json["TotalProductsInCart"],
-        grandTotal: json["GrandTotal"],
-        medicineCart: List<MedicineCart>.from(
-            json["MedicineCart"].map((x) => MedicineCart.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "TotalProductsInCart": totalProductsInCart,
-        "GrandTotal": grandTotal,
-        "MedicineCart": List<dynamic>.from(medicineCart.map((x) => x.toJson())),
-      };
-}
-
-class MedicineCart {
-  MedicineCart({
-    required this.cartId,
-    required this.medicineId,
-    required this.medicineName,
-    required this.brandName,
-    required this.quantity,
-    required this.unitPrice,
-    required this.totalPrice,
-  });
-
-  int cartId;
-  int medicineId;
-  String medicineName;
-  String brandName;
-  int quantity;
-  double unitPrice;
-  double totalPrice;
-
-  factory MedicineCart.fromJson(Map<String, dynamic> json) => MedicineCart(
-        cartId: json["CartId"],
-        medicineId: json["Medicine_Id"],
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
         medicineName: json["MedicineName"],
         brandName: json["BrandName"],
         quantity: json["Quantity"],
@@ -84,8 +73,7 @@ class MedicineCart {
       );
 
   Map<String, dynamic> toJson() => {
-        "CartId": cartId,
-        "Medicine_Id": medicineId,
+        "id": id,
         "MedicineName": medicineName,
         "BrandName": brandName,
         "Quantity": quantity,

@@ -9,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/splash_screen/splash_screen.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 
@@ -24,7 +23,9 @@ import 'controllers/1_user_view_controller/lab_controller/choose_lab_controller/
 import 'controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
 import 'controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
+import 'controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
+import 'controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
 import 'controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_lab_controller.dart';
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
@@ -35,6 +36,7 @@ import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chem
 import 'controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'controllers/complaint_controller/complaint_controller.dart';
 import 'controllers/profile_u_controller/profile_update_controller.dart';
+import 'modules_view/splash_screen/splash_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -66,6 +68,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => LabListController());
     Get.lazyPut(() => RozarPayLabController());
     Get.lazyPut(() => AmbulancegetController());
+    Get.lazyPut(() => NurseUserListController());
+    Get.lazyPut(() => MedicineCartListController());
     // AmbulancegetController _ambulancegetController =
     // Get.put(AmbulancegetController());
 
@@ -115,6 +119,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:
+          //LabHomePage(),
           //RwaHomePage(),
           //NurseHomePage()
           //DriverHomePage()

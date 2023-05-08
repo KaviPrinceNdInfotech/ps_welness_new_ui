@@ -21,6 +21,7 @@ import '../../sign_in/sigin_screen.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'drawer_pages_user/medicine_history/medicine_history_page.dart';
 import 'drawer_pages_user/nurse_history/nurse_history_page.dart';
+import 'drawer_pages_user/privecy_policy_page/privacy_policy.dart';
 import 'drawer_pages_user/profile_page_view/profile_view.dart';
 import 'drawer_pages_user/walet_user/wallet_user.dart';
 
@@ -481,6 +482,36 @@ class UserMainDrawer extends StatelessWidget {
                 Get.offNamed('/AboutUsView');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/PrivacyPolicyView'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => PrivacyPolicyView());
+              },
+            ),
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -546,6 +577,50 @@ class UserMainDrawer extends StatelessWidget {
                 Get.to(() => ChangePassword());
                 Get.offNamed('/ChangePassword');
               },
+            ),
+
+            ListTile(
+              leading: Icon(
+                Icons.delete_forever_outlined,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Delete Account',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              onTap: () {
+                Get.defaultDialog(
+                  title: "Welcome To PS Wellness",
+                  middleText: "You content goes here...",
+                  content: getContent(),
+                  barrierDismissible: true,
+                  radius: 20.0,
+                  confirm: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: confirmBtn(),
+                  ),
+                  cancel: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: cancelBtn(),
+                  ),
+                );
+
+                //Get.to(() => CupponsPage());
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Wollet()));
+              }, //PersonalDetails
             ),
 
             ListTile(
@@ -762,6 +837,54 @@ class UserMainDrawer extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget confirmBtn() {
+    return ElevatedButton(
+        onPressed: () {
+          Get.back();
+        },
+        style: ElevatedButton.styleFrom(
+            primary: Colors.red,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+        child: Text("Confirm"));
+  }
+
+  Widget cancelBtn() {
+    return ElevatedButton(
+        onPressed: () {
+          Get.back();
+        },
+        style: ElevatedButton.styleFrom(
+            primary: Colors.green,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+        child: Text("Cancel"));
+  }
+
+  Widget getContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "If Yow want to remove your account,",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+        Text(
+          "Then you please click confirm button",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+        Text(
+          "Your data will erase if you press confirm.",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+        Text(
+          "If you don't want to delete press cancel",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+      ],
     );
   }
 }

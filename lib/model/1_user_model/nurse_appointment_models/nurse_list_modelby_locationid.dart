@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-NurseListbycityId nurseListbycityIdFromJson(String str) => NurseListbycityId.fromJson(json.decode(str));
+NurseListbycityId nurseListbycityIdFromJson(String str) =>
+    NurseListbycityId.fromJson(json.decode(str));
 
-String nurseListbycityIdToJson(NurseListbycityId data) => json.encode(data.toJson());
+String nurseListbycityIdToJson(NurseListbycityId data) =>
+    json.encode(data.toJson());
 
 class NurseListbycityId {
   NurseListbycityId({
@@ -15,13 +17,19 @@ class NurseListbycityId {
 
   List<GetNurse>? getNurse;
 
-  factory NurseListbycityId.fromJson(Map<String, dynamic> json) => NurseListbycityId(
-    getNurse: json["getNurse"] == null ? [] : List<GetNurse>.from(json["getNurse"]!.map((x) => GetNurse.fromJson(x))),
-  );
+  factory NurseListbycityId.fromJson(Map<String, dynamic> json) =>
+      NurseListbycityId(
+        getNurse: json["getNurse"] == null
+            ? []
+            : List<GetNurse>.from(
+                json["getNurse"]!.map((x) => GetNurse.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "getNurse": getNurse == null ? [] : List<dynamic>.from(getNurse!.map((x) => x.toJson())),
-  };
+        "getNurse": getNurse == null
+            ? []
+            : List<dynamic>.from(getNurse!.map((x) => x.toJson())),
+      };
 }
 
 class GetNurse {
@@ -42,20 +50,23 @@ class GetNurse {
   String? nurseTypeName;
 
   factory GetNurse.fromJson(Map<String, dynamic> json) => GetNurse(
-    id: json["Id"],
-    nurseName: json["NurseName"],
-    experience: json["Experience"],
-    fee: json["Fee"],
-    about: json["About"],
-    nurseTypeName: json["NurseTypeName"],
-  );
+        id: json["Id"],
+        nurseName: json["NurseName"],
+        experience: json["Experience"],
+        fee: json["Fee"],
+        about: json["About"],
+        nurseTypeName: json["NurseTypeName"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "Id": id,
-    "NurseName": nurseName,
-    "Experience": experience,
-    "Fee": fee,
-    "About": about,
-    "NurseTypeName": nurseTypeName,
-  };
+        "Id": id,
+        "NurseName": nurseName,
+        "Experience": experience,
+        "Fee": fee,
+        "About": about,
+        "NurseTypeName": nurseTypeName,
+      };
 }
+
+///.....new_model.....for nurse list ....
+///

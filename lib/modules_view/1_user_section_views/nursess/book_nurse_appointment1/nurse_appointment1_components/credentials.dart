@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -779,7 +780,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                           enabledBorder: InputBorder.none,
                           border: InputBorder.none,
                         ),
-                        hint: Text('Select Nurse'),
+                        hint: Text('Select Locations'),
                         items: _nurseBooking1Controller.locations
                             .map((NurseLocationModel locations) {
                           return DropdownMenuItem(
@@ -800,160 +801,11 @@ class Nursebooking1Credentials extends StatelessWidget {
                         onChanged: (NurseLocationModel? newValue) {
                           _nurseBooking1Controller.selectedNurseLocation.value =
                               newValue!;
-                          // _nurseBooking1Controller.selectedCity.value = null;
-                          // _hospital_2_controller.states.value =
-                          //     newValue! as List<String>;
-                          // _hospital_2_controller.selectedCity.value = null;
-                          // _hospital_2_controller.cities.clear();
-                          // _hospital_2_controller.cities
-                          //     .addAll(stateCityMap[newvalue]!);
                         }),
                   ),
                 ),
               ),
-              // NeumorphicTextFieldContainer(
-              //   child: TextFormField(
-              //     autofillHints: [AutofillHints.addressCityAndState],
-              //     controller: _nurseBooking1Controller.addressController,
-              //     onSaved: (value) {
-              //       _nurseBooking1Controller.address = value!;
-              //     },
-              //     validator: (value) {
-              //       return _nurseBooking1Controller.validAddress(value!);
-              //     },
-              //     cursorColor: Colors.black,
-              //     obscureText: false,
-              //     decoration: InputDecoration(
-              //       hintText: 'Location',
-              //       helperStyle: TextStyle(
-              //         color: black.withOpacity(0.7),
-              //         fontSize: 18,
-              //       ),
-              //       prefixIcon: Icon(
-              //         Icons.location_city_outlined,
-              //         color: black.withOpacity(0.7),
-              //         size: 20,
-              //       ),
-              //       border: InputBorder.none,
-              //     ),
-              //   ),
-              // ),
 
-              // ///Todo: state............................
-              // SizedBox(
-              //   height: size.height * 0.02,
-              // ),
-              //
-              // NeumorphicTextFieldContainer(
-              //   child: Padding(
-              //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-              //     child: Obx(
-              //       () => DropdownButtonFormField(
-              //           value: _nurseBooking1Controller.selectedState.value,
-              //           decoration: InputDecoration(
-              //             prefixIcon: Icon(
-              //               Icons.real_estate_agent,
-              //               color: Colors.black,
-              //             ),
-              //             enabledBorder: InputBorder.none,
-              //             border: InputBorder.none,
-              //           ),
-              //           hint: Text('Select State'),
-              //           items: items.map((String items) {
-              //             return DropdownMenuItem(
-              //               value: items,
-              //               child: Text(
-              //                 items,
-              //                 style: TextStyle(
-              //                   fontWeight: FontWeight.w600,
-              //                   fontSize: size.height * 0.015,
-              //                 ),
-              //               ),
-              //             );
-              //           }).toList(),
-              //           onChanged: (String? newValue) {
-              //             _nurseBooking1Controller.selectedState.value =
-              //                 newValue!;
-              //             // _hospital_2_controller.states.value =
-              //             //     newValue! as List<String>;
-              //             // _hospital_2_controller.selectedCity.value = null;
-              //             // _hospital_2_controller.cities.clear();
-              //             // _hospital_2_controller.cities
-              //             //     .addAll(stateCityMap[newvalue]!);
-              //           }),
-              //     ),
-              //   ),
-              // ),
-              //
-              // ///Todo: city.....................................
-              //
-              // SizedBox(
-              //   height: size.height * 0.02,
-              // ),
-              //
-              // NeumorphicTextFieldContainer(
-              //   child: Padding(
-              //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-              //     child: Obx(
-              //       () => DropdownButtonFormField(
-              //           //icon: Icon(Icons.location_city),
-              //           value: _nurseBooking1Controller.selectedCity.value,
-              //           decoration: InputDecoration(
-              //             prefixIcon: Icon(
-              //               Icons.location_city,
-              //               color: Colors.black,
-              //             ),
-              //             enabledBorder: InputBorder.none,
-              //             border: InputBorder.none,
-              //           ),
-              //           hint: Text('Selected City'),
-              //           items: items.map((String items) {
-              //             return DropdownMenuItem(
-              //               value: items,
-              //               child: Text(
-              //                 items,
-              //                 style: TextStyle(
-              //                   fontWeight: FontWeight.w600,
-              //                   fontSize: size.height * 0.015,
-              //                 ),
-              //               ),
-              //             );
-              //           }).toList(),
-              //           onChanged: (String? newValue) {
-              //             _nurseBooking1Controller.selectedCity.value = newValue!;
-              //             // _hospital_2_controller.states.value =
-              //             //     newValue! as List<String>;
-              //             // _hospital_2_controller.selectedCity.value = null;
-              //             // _hospital_2_controller.cities.clear();
-              //             // _hospital_2_controller.cities
-              //             //     .addAll(stateCityMap[newvalue]!);
-              //           }),
-              //     ),
-              //   ),
-              // ),
-              ///
-              // child: DropdownButton(
-              //     value: _hospital_2_controller.selectedState.value,
-              //     menuMaxHeight: size.height * 0.3,
-              //     items: items.map((String items) {
-              //       return DropdownMenuItem(
-              //         value: items,
-              //         child: Text(items),
-              //       );
-              //     }).toList(),
-              //     // _hospital_2_controller.states.map((String value) {
-              //     //   return DropdownMenuItem(
-              //     //     value: value,
-              //     //
-              //     //   )
-              //     onChanged: (String? newValue) {
-              //       _hospital_2_controller.states.value =
-              //           newValue! as List<String>;
-              //       _hospital_2_controller.selectedCity.value = null;
-              //       _hospital_2_controller.cities.clear();
-              //       _hospital_2_controller.cities
-              //           .addAll(stateCityMap[newvalue]!);
-              //     })),
               SizedBox(
                 height: size.height * 0.00,
               ),
@@ -968,7 +820,11 @@ class Nursebooking1Credentials extends StatelessWidget {
               ),
               RectangularButton(
                   text: 'Book',
-                  press: () {
+                  press: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString("nurseLocationId",
+                        "${_nurseBooking1Controller.selectedNurseLocation.value?.id.toString()}");
                     CallLoader.loader();
                     _nurseBooking1Controller.checkNurse1();
                     //Get.to(()=>NurseListUser());

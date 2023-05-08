@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 //import 'package:ps_welness/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 //import 'package:ps_welness/model/1_user_model/nurse_location_model/nurse_location_models.dart';
 //import 'package:ps_welness/model/1_user_model/nurse_type_model/nurse_type_model.dart';
@@ -11,12 +10,12 @@ import 'package:intl/intl.dart';
 //import 'package:ps_welness/modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
 
 import '../../../model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import '../../../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../../../model/1_user_model/nurse_type_model/nurse_type_model.dart';
-import '../../../modules_view/1_user_section_views/nursess/appointment_history_nurse/nurse_history_appointment.dart';
-import '../../../modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_detail_and_schedule/nurse_details_schedules.dart';
 import '../../../modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_lists/nurse_list_appointment.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
@@ -24,6 +23,8 @@ import '../../../servicess_api/api_services_all_api.dart';
 //import '../../../modules_view/1_user_section_views/nursess/nurse_type_model/nurse_type_model.dart';
 
 class NurseBooking1Controller extends GetxController {
+  NurseUserListController _nurseUserListController =
+      Get.put(NurseUserListController());
   final GlobalKey<FormState> NurseBookingformkey = GlobalKey<FormState>();
   RxBool isLoading = true.obs;
 
@@ -47,7 +48,8 @@ class NurseBooking1Controller extends GetxController {
   List<NurseModels> nurse = <NurseModels>[].obs;
 
   //this is for nurse type.................................
-  Rx<NurseLocationModel?> selectedNurseLocation = (null as NurseLocationModel?).obs;
+  Rx<NurseLocationModel?> selectedNurseLocation =
+      (null as NurseLocationModel?).obs;
   List<NurseLocationModel> locations = <NurseLocationModel>[].obs;
 
   var selectedServicee = ''.obs;
@@ -113,7 +115,7 @@ class NurseBooking1Controller extends GetxController {
 
   var Id = '';
 
-///todo: nurse booking..............27 april 2023..
+  ///todo: nurse booking..............27 april 2023..
   void nurseBooking1Api() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.Nursesebooking1Api(
@@ -133,8 +135,10 @@ class NurseBooking1Controller extends GetxController {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
-      //Get.off(NurseListUser());
-      Get.to(NurseDetailsSchedulePage());
+      _nurseUserListController.update();
+      _nurseUserListController.nurselistsuserApi();
+      Get.to(NurseListUser());
+      //Get.to(NurseDetailsSchedulePage());
 
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());
@@ -171,15 +175,13 @@ class NurseBooking1Controller extends GetxController {
   //   }
   // }
 
-  late TextEditingController
-
-  patientIdController,
-  //selectedNurse.value?.id.toString(),
-  serviceTypeController,
-  serviceTimeController,
-  startDateController,
-  endDateController,
-  mobileNumberController;
+  late TextEditingController patientIdController,
+      //selectedNurse.value?.id.toString(),
+      serviceTypeController,
+      serviceTimeController,
+      startDateController,
+      endDateController,
+      mobileNumberController;
 
   ///todo new user nurse booking 1.....
 
@@ -204,7 +206,7 @@ class NurseBooking1Controller extends GetxController {
     serviceTimeController = TextEditingController();
     patientIdController = TextEditingController();
     serviceTypeController = TextEditingController();
-    serviceTimeController= TextEditingController();
+    serviceTimeController = TextEditingController();
     startDateController = TextEditingController();
     endDateController = TextEditingController();
     mobileNumberController = TextEditingController();
@@ -226,8 +228,6 @@ class NurseBooking1Controller extends GetxController {
     serviceTypeController.dispose();
     serviceTimeController.dispose();
     patientIdController.dispose();
-
-
   }
 
   chooseDate() async {

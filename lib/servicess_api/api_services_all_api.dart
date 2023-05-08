@@ -19,6 +19,7 @@ import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_det
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/model/1_user_model/health_checkup_list/health_checkup_list.dart';
 //import 'package:ps_welness/model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
@@ -67,6 +68,7 @@ import '../model/9_doctors_model/view_patient_report_model.dart';
 import '../model/9_prince_doctors_model/doctor_payment_history.dart';
 import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
+import '../modules_view/1_user_section_views/nursess/nurse_list_userrrr/nurse_list_user_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
 
 class ApiProvider {
@@ -373,6 +375,29 @@ class ApiProvider {
         NurseListbycityId? nurseListbycityId =
             nurseListbycityIdFromJson(r.body);
         return nurseListbycityId;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo nurse list detail...8 may 2023....after api it will change in future it will based on location id...18 april 2023...................
+  static NursListUserrApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var nurseLocationId = preferences.getString("nurseLocationId");
+    print("nurseLocationId: ${nurseLocationId}");
+    var url =
+        "http://test.pswellness.in/api/NurseAPI/getNurseList?Loc_id=$nurseLocationId";
+
+    //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("nurseLocationIdUrl: ${url}");
+        NurseListbylocationId? nurseListbylocationId =
+            nurseListbylocationIdFromJson(r.body);
+        return nurseListbylocationId;
       }
     } catch (error) {
       return;
@@ -1783,7 +1808,9 @@ class ApiProvider {
     final PatientId = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&okoko:${Id}');
     var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineCart?patientId=$PatientId";
+        "http://test.pswellness.in/api/PatientMedicine/MedicineDetails?PatientId=$PatientId";
+    //"http://test.pswellness.in/api/PatientMedicine/MedicineCart?patientId=$PatientId";
+    //"http://test.pswellness.in/api/PatientMedicine/MedicineDetails?PatientId=$PatientId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1791,8 +1818,10 @@ class ApiProvider {
         var MedicineCartListModel = medicineCartListModelFromJson(r.body);
         return MedicineCartListModel;
       }
-      //print('&&&&&&&&&&&&&&&&&&&&&&okokouuuuu:${Id}');
+      print('&&&&&&&&&&&&&&&&&&&&&&okokouuuuucartlist:${r.body}');
     } catch (error) {
+      print('&&&&&&&&&&&&&&&&&&&&&&okokouuuuucartlisterror:${error}');
+
       return;
     }
   }
