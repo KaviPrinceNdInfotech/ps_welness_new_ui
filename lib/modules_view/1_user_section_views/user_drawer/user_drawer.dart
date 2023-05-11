@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/my_theme.dart';
 import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
+import '../../../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../../sign_in/sigin_screen.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
@@ -32,6 +33,7 @@ class UserMainDrawer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     DoctorHistoryController _doctorHistoryController =
         Get.put(DoctorHistoryController());
+    UserProfileControllers _userprofile = Get.put(UserProfileControllers());
     return SafeArea(
       child: Drawer(
         backgroundColor: MyTheme.ContainerUnSelectedColor,
@@ -308,11 +310,13 @@ class UserMainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
-                print(Get.currentRoute);
+                // print(Get.currentRoute);
                 Get.back();
+                _userprofile.update();
+                _userprofile.userprofileApi();
                 //UserDetailProfile
                 Get.to(() => UserDetailProfile());
-                Get.offNamed('/ProfilePage');
+                //Get.offNamed('/ProfilePage');
               },
             ),
 

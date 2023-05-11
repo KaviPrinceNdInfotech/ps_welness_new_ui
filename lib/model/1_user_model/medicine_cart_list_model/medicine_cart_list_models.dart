@@ -47,7 +47,7 @@ class MedicineCartListModel {
 }
 
 class Datum {
-  int? id;
+  num? id;
   String? medicineName;
   String? brandName;
   num? quantity;

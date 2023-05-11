@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 
 import 'complaint_components/credentials.dart';
@@ -7,8 +8,8 @@ import 'complaint_components/head_text.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_components/credentials.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_components/head_text.dart';
 
-class ComplaintPage extends StatelessWidget {
-  const ComplaintPage({Key? key}) : super(key: key);
+class ComplaintLabPage extends StatelessWidget {
+  const ComplaintLabPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
 
 import '../../sign_in/sigin_screen.dart';
-import 'drower_pages/complaint_page/complaint_page.dart';
+import 'drower_pages/complaint_page/complaint_lab_page.dart';
 import 'drower_pages/profile_page_view/lab_profile.dart';
 import 'drower_pages/supports/support_view.dart';
 
@@ -236,7 +236,7 @@ class LabMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => ComplaintPage());
+                Get.to(() => ComplaintLabPage());
                 Get.offNamed('/ComplaintPage');
               },
             ),

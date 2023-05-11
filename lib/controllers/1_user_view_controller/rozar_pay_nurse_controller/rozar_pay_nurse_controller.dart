@@ -57,17 +57,17 @@ class RozarPayNurseController extends GetxController {
           100,
       'name':
           //'Kavi Singh',
-          _userrsProfileControllers.userProfile!.patientName.toString(),
+          _userrsProfileControllers.userProfile?.patientName.toString(),
       'timeout': 60 * 5,
       'description': 'Do Payment',
       'prefill': {
         'contact':
-            _userrsProfileControllers.userProfile!.mobileNumber.toString(),
+            _userrsProfileControllers.userProfile?.mobileNumber.toString(),
 
         //'7877663456',
         //_getProfileController.getprofileModel!.result!.mobileNo.toString(),
         //'7019380053',
-        'email': _userrsProfileControllers.userProfile!.emailId.toString(),
+        'email': _userrsProfileControllers.userProfile?.emailId.toString(),
 
         //'kp@gmail.com',
         // _getProfileController.getprofileModel!.result!.emailId.toString(),
@@ -95,11 +95,11 @@ class RozarPayNurseController extends GetxController {
     _postOrderNurseController.postOrdernurseonlineApi().then((statusCode) {
       if (statusCode == 200) {
         ///This is the main thing to provide updated list history...
+        _nurseHistoryController.update();
         _nurseHistoryController.nursehistoryApi();
 
         ///nov 14....................................
-        Get.to(NurseHistoryUser());
-        _nurseHistoryController.update();
+        Get.off(NurseHistoryUser());
       } else {
         // SHow
       }

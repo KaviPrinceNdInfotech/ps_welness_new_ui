@@ -1,48 +1,40 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-import '../../../model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import '../../../model/10_lab_module/lab_appointment_history/lab_appointment_history.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 //import 'package:intl/intl.dart';
 
-class LabpaymentController extends GetxController {
-  var selectedTime = TimeOfDay.now().obs;
-  var selectedDate = DateTime.now().obs;
-  RxInt selectedIndex = 0.obs;
-  var newpickedDate = DateTime.now().obs;
+class LabpaymenttController extends GetxController {
   RxBool isLoading = true.obs;
 
-  //RxBool isLoading = true.obs;
+  LabpaymentModel? labpaymentModel;
 
-  NurseAppointmentDetail? nurseappointmentdetail;
+  // NurseAppointmentDetail? nurseappointmentdetail;
 
   //all catagary list .........
 
-  void nursehistoryApi() async {
+  void labhistoryApi() async {
     isLoading(true);
-    nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
-    if (
-    nurseappointmentdetail?.nurseAppointments != null
-    //appointmentdetail != null
-    //getcatagartlist!.result!.isNotEmpty
-    ) {
+    labpaymentModel = await ApiProvider.LabpaymenthistoryApi();
+    if (labpaymentModel?.labPayHis != null
+        //appointmentdetail != null
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
       isLoading(false);
+      foundlabProducts.value = labpaymentModel!.labPayHis!;
     }
   }
 
-  late TextEditingController appointmentController;
+  // late TextEditingController appointmentController;
 
   var appointment = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    nursehistoryApi();
-    appointmentController = TextEditingController();
-    appointmentController.text = "DD-MM-YYYY";
+    labhistoryApi();
   }
 
   @override
@@ -52,48 +44,32 @@ class LabpaymentController extends GetxController {
 
   @override
   void onClose() {
-
     super.onClose();
     //TextEditingController.dispose();
   }
-  chooseDate() async {
-    DateTime? newpickedDate = await showDatePicker(
-      context: Get.context!,
-      initialDate: selectedDate.value,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
-      initialEntryMode: DatePickerEntryMode.input,
-      initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
-      cancelText: 'Close',
-      confirmText: 'Confirm',
-      errorFormatText: 'Enter valid date',
 
-      errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
-      //fieldHintText: 'Month/Date/Year',
-      //selectableDayPredicate: disableDate,
-    );
-    if (newpickedDate != null) {
-      selectedDate.value = newpickedDate;
-      appointmentController
-        ..text = DateFormat.yMMMd().format(selectedDate.value).toString()
-        ..selection = TextSelection.fromPosition(TextPosition(
-            offset: appointmentController.text.length,
-            affinity: TextAffinity.upstream));
+  RxList<LabPayHi> foundlabProducts = RxList<LabPayHi>([]);
+
+  void filterLabProducts(String searchlab) {
+    List<LabPayHi> finalResults = [];
+    if (searchlab.isEmpty) {
+      finalResults = labpaymentModel!.labPayHis!;
+    } else {
+      finalResults = labpaymentModel!.labPayHis!
+          .where((element) =>
+              // print(element.productName);
+              // print(productName);
+              // print(element.productName
+              //     .toString()
+              //     .toLowerCase()
+              //     .contains(productName.toString().toLowerCase().trim()));
+              element.patientName
+                  .toString()
+                  .toLowerCase()
+                  .contains(searchlab.toString().toLowerCase().trim()))
+          .toList();
     }
-    // if (pickedDate != null && pickedDate != selectedDate) {
-    //   selectedDate.value = pickedDate;
-    //   appointmentController.text =
-    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
-    // }
+    print(finalResults.length);
+    foundlabProducts.value = finalResults;
   }
-
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
 }

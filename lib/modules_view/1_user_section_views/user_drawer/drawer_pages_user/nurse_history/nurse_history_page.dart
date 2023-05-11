@@ -20,7 +20,7 @@ class NurseHistoryUser extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: Obx(
-        () => (_nurseHistoryController.isLoading.isFalse)
+        () => (_nurseHistoryController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
             : SafeArea(
                 child: Column(
@@ -347,13 +347,9 @@ class NurseHistoryUser extends StatelessWidget {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        _nurseHistoryController
-                                                            .nurseappointmentdetail!
-                                                            .nurseAppointments![
-                                                                index]
-                                                            .nurseName
-                                                            .toString(),
+                                                        "${_nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].nurseName.toString()}"
                                                         // 'okokokokok',
+                                                        ,
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors

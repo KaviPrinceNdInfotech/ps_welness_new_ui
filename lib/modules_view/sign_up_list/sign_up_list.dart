@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 import 'package:ps_welness_new_ui/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulace_1/driver_registation_1.dart';
 import 'package:ps_welness_new_ui/modules_view/franchies_view/franchies_1_view/franchies_signup_part1.dart';
@@ -23,7 +24,6 @@ import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
 // import 'package:ps_welness/modules_view/user_views/user_sign_up.dart';
 
 import '../10_lab_section_view/lab_center/lab_signup1/lab_center.dart';
-import '../9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 //import '../9_doctor_section_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 
 class SignUpList extends StatelessWidget {
@@ -37,6 +37,8 @@ class SignUpList extends StatelessWidget {
       '  USER    ',
       '  FRANCHISE ',
       '  DIAGNOSTIC CENTRE',
+
+      ///todo:this is edited by 11 may 2023 kumar prince..
       //'  HOSPITAL',
       '  DOCTOR  ',
       'DRIVER/AMBULANCE OPERATOR',
@@ -52,7 +54,9 @@ class SignUpList extends StatelessWidget {
       'lib/assets/image/icons8-user-64.png',
       'lib/assets/icons/franchise1.png',
       'lib/assets/icons/diagnostic.png',
-      //'lib/assets/image/icons8-hospital-64.png',
+
+      ///todo: this is added by 11 may.....
+      // 'lib/assets/image/icons8-hospital-64.png',
       'lib/assets/image/icons8-doctor-64.png',
       'lib/assets/image/icons8-driver-58.png',
       'lib/assets/image/icons8-nurse-94.png',
@@ -179,6 +183,8 @@ class SignUpList extends StatelessWidget {
                               } else if (index == 2) {
                                 Get.to(() => LabSignup1());
                               } else if (index == 3) {
+                                //Get.to(() => HospitalSignup1());
+                                ///edited by 11 may 2023.... doctor should be here
                                 Get.to(() => DoctorSignup1());
                                 //DoctorSignup1());
                                 // Get.to(() => DriverSignup1());

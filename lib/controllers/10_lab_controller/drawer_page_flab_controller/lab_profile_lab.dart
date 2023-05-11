@@ -1,50 +1,119 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
-class DraweerLabProfileController extends GetxController {
-  final GlobalKey<FormState> drawerlabprofileformkey = GlobalKey<FormState>();
+import '../../../model/1_user_model/city_model/city_modelss.dart';
+import '../../../model/1_user_model/states_model/state_modells.dart';
+import '../../../modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
+import '../../../modules_view/circular_loader/circular_loaders.dart';
+import '../../../servicess_api/api_services_all_api.dart';
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
+class LabProfileUpdateController extends GetxController {
+  final GlobalKey<FormState> labprofileupdateformkey = GlobalKey<FormState>();
 
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  ///this is for state.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
 
-  late TextEditingController nameController,
-      emailController,
-      mobileController,
-      locatoionController,
-      feesController,
-      pinController,
-      accountnoController,
-      ifscController,
-      branchController;
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
 
-  var name = '';
-  var email = '';
-  var mobile = '';
-  var location = '';
-  var fees = '';
+  ///todo:state get drop down...api..
+  ///get state api.........
+
+  void getStateLabApi() async {
+    states = await ApiProvider.getSatesApi();
+    print('Prince state  list');
+    print(states);
+  }
+
+  ///get cities api...........
+  void getCityByStateIDLab(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+    print("Prince cities of $stateID");
+    print(cities);
+  }
+
+  ///user update profile.......26 april 2023....
+  void labupdateApi() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.Labprofileupdate(
+      idController.text,
+      labNameController.text,
+      MobileNumberController.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      LocationController.text,
+      PinCodeController.text,
+      adminLogin_idController.text,
+      AccountNoController.text,
+      IFSCCodeController.text,
+      BranchNameController.text,
+    );
+
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      Get.to(LabHomePage());
+    }
+  }
+
+  ///
+
+  late TextEditingController idController,
+      labNameController,
+      //emailController,
+      MobileNumberController,
+      LocationController,
+      PinCodeController,
+      adminLogin_idController,
+      AccountNoController,
+      IFSCCodeController,
+      BranchNameController;
+
+// var id = '';
+  //var adminLogin_id = '';
+  var labName = '';
+  // var email = '';
+  var MobileNumber = '';
+  var Location = '';
+  var PinCode = '';
   var pin = '';
-  var account = '';
-  var ifsc = '';
-  var branch = '';
+  var AccountNo = '';
+  var IFSCCode = '';
+  var BranchName = '';
 
   @override
   void onInit() {
-    states.refresh();
+    //states.refresh();
     super.onInit();
-    nameController = TextEditingController(text: 'Mrs Ak Singh');
-    emailController = TextEditingController();
-    mobileController = TextEditingController(text: '9888776655');
-    locatoionController = TextEditingController(text: 'Palam');
-    feesController = TextEditingController(text: '2000');
-    pinController = TextEditingController(text: '119999');
-    accountnoController = TextEditingController(text: '4898666666');
-    ifscController = TextEditingController(text: '149ONSBI');
-    branchController = TextEditingController(text: 'IDBI');
+    idController = TextEditingController();
+    labNameController = TextEditingController(text: 'Mrs Ak Singh');
+    //emailController = TextEditingController();
+    MobileNumberController = TextEditingController(text: '9888776655');
+    LocationController = TextEditingController(text: 'Palam');
+    //feesController = TextEditingController(text: '2000');
+    PinCodeController = TextEditingController(text: '119999');
+    AccountNoController = TextEditingController(text: '4898666666');
+    IFSCCodeController = TextEditingController(text: '149ONSBI');
+    BranchNameController = TextEditingController(text: 'IDBI');
+    adminLogin_idController = TextEditingController();
+
+    getStateLabApi();
+
+    //states.refresh();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDLab("${p0.id}");
+      }
+    });
   }
 
   @override
@@ -54,15 +123,15 @@ class DraweerLabProfileController extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    mobileController.dispose();
-    locatoionController.dispose();
-    feesController.dispose();
-    pinController.dispose();
-    accountnoController.dispose();
-    ifscController.dispose();
-    branchController.dispose();
+    labNameController.dispose();
+    //emailController.dispose();
+    MobileNumberController.dispose();
+    LocationController.dispose();
+    // feesController.dispose();
+    PinCodeController.dispose();
+    AccountNoController.dispose();
+    IFSCCodeController.dispose();
+    BranchNameController.dispose();
   }
 
   String? validName(String value) {
@@ -151,12 +220,10 @@ class DraweerLabProfileController extends GetxController {
     return null;
   }
 
-  void checkProfilee() {
-    final isValid = drawerlabprofileformkey.currentState!.validate();
-    if (!isValid) {
-      return;
+  void checkLAbProfilee() {
+    if (labprofileupdateformkey.currentState!.validate()) {
+      labupdateApi();
     }
-    drawerlabprofileformkey.currentState!.save();
-    //Get.to(() => HomePage());
+    labprofileupdateformkey.currentState!.save();
   }
 }

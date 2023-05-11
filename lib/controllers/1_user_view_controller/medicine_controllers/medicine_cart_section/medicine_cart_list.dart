@@ -8,6 +8,8 @@ import '../../../../modules_view/1_user_section_views/medicine_view/medicine_car
 import '../../../../servicess_api/api_services_all_api.dart';
 
 class MedicineCartListController extends GetxController {
+  // MedicineCartListController _medicineCartListController =
+  // Get.put(MedicineCartListController());
   RxBool isLoading = true.obs;
   String MedicineId = "";
   var cartId = "";
@@ -26,10 +28,7 @@ class MedicineCartListController extends GetxController {
     }
   }
 
-  ///add to cart...api................
-
-  //var Id = '';
-
+  ///add to cart...api........abhibhiaya
   void addtocartApi(MedicineId, Quantity) async {
     //CallLoader.loader();
     isLoading(true);
@@ -42,21 +41,20 @@ class MedicineCartListController extends GetxController {
       cartmdedicineListApi();
 
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
-      Get.to(
+      Get.off(
         () => MedicineCart(
             // cartId: 88, medicineId: MedicineId,
             // medicineName: "nm123", quantity: Quantity,
             // brandName: 'asd', unitPrice:12.0, totalPrice: 432.0
             ), //next page class
         duration: Duration(
-            milliseconds: 300), //duration of transitions, default 1 sec
+            milliseconds: 400), //duration of transitions, default 1 sec
         transition:
             // Transition.leftToRight //transition effect
             // Transition.fadeIn
             //Transition.size
             Transition.zoom,
       );
-
       //CallLoader.hideLoader();
       //isLoading(false);
     }
@@ -78,6 +76,8 @@ class MedicineCartListController extends GetxController {
     //isLoading(false);
   }
 
+  ///todo: add to cart Medicine api........princecart---10may 2023...
+
   @override
   void onInit() {
     super.onInit();
@@ -86,14 +86,14 @@ class MedicineCartListController extends GetxController {
 
   @override
   void onClose() {
-    medicinecartlistmodel = null;
+    medicinecartlistmodel != null;
 
     super.onClose();
   }
 
   @override
   void dispose() {
-    medicinecartlistmodel = null;
+    medicinecartlistmodel != null;
 
     super.dispose();
   }

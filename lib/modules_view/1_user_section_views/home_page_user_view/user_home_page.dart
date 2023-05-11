@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
@@ -29,6 +30,8 @@ UserHomepagContreoller _userHomepagContreoller =
     Get.put(UserHomepagContreoller());
 AmbulancegetController _ambulancegetController =
     Get.put(AmbulancegetController());
+MedicineCartListController _medicineCartListController =
+    Get.put(MedicineCartListController());
 
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());

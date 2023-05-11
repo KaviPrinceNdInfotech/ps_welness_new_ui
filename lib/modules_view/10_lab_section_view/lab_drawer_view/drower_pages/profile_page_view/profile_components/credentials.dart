@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
-import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
+import '../../../../../../controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
+import '../../../../../../model/1_user_model/city_model/city_modelss.dart';
+import '../../../../../../model/1_user_model/states_model/state_modells.dart';
+import '../../../../../../widgets/circular_loader.dart';
 
 class LabProfileCredentials extends StatelessWidget {
   LabProfileCredentials({Key? key}) : super(key: key);
@@ -14,8 +17,10 @@ class LabProfileCredentials extends StatelessWidget {
   // Hospital_1_Controller _hospital_1_controller =
   //     Get.put(Hospital_1_Controller());
 //DraweerLabProfileController
-  DraweerFranchiesProfileController _labrofileController =
-      Get.put(DraweerFranchiesProfileController());
+  LabProfileUpdateController _labProfileUpdateController =
+      Get.put(LabProfileUpdateController());
+  // DraweerFranchiesProfileController _labrofileController =
+  //     Get.put(DraweerFranchiesProfileController());
 
   var items = [
     'Item 1',
@@ -34,7 +39,7 @@ class LabProfileCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _labrofileController.drawerfranchiesprofileformkey,
+      key: _labProfileUpdateController.labprofileupdateformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -46,12 +51,12 @@ class LabProfileCredentials extends StatelessWidget {
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
-                controller: _labrofileController.mobileController,
+                controller: _labProfileUpdateController.MobileNumberController,
                 onSaved: (value) {
-                  _labrofileController.mobile = value!;
+                  _labProfileUpdateController.MobileNumber = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validPhone(value!);
+                  return _labProfileUpdateController.validPhone(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -79,12 +84,12 @@ class LabProfileCredentials extends StatelessWidget {
               child: TextFormField(
                 //initialValue: "I am smart",
                 autofillHints: [AutofillHints.name],
-                controller: _labrofileController.nameController,
+                controller: _labProfileUpdateController.labNameController,
                 onSaved: (value) {
-                  _labrofileController.name = value!;
+                  _labProfileUpdateController.labName = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validName(value!);
+                  return _labProfileUpdateController.validName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -107,15 +112,15 @@ class LabProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///Todo: state............................
-
+            ///todo: state...............
+            ///
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      value: _labrofileController.selectedState.value,
-                      decoration: InputDecoration(
+                  () => DropdownButtonFormField<StateModel>(
+                      value: _labProfileUpdateController.selectedState.value,
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
                           color: Colors.black,
@@ -123,12 +128,13 @@ class LabProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
-                      items: items.map((String items) {
+                      hint: const Text('Select State'),
+                      items: _labProfileUpdateController.states
+                          .map((StateModel state) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: state,
                           child: Text(
-                            items,
+                            state.stateName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -136,8 +142,10 @@ class LabProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                        _labrofileController.selectedState.value = newValue!;
+                      onChanged: (StateModel? newValue) {
+                        _labProfileUpdateController.selectedState.value =
+                            newValue!;
+                        _labProfileUpdateController.selectedCity.value = null;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -159,10 +167,10 @@ class LabProfileCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
+                  () => DropdownButtonFormField<City>(
                       //icon: Icon(Icons.location_city),
-                      value: _labrofileController.selectedCity.value,
-                      decoration: InputDecoration(
+                      value: _labProfileUpdateController.selectedCity.value,
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
                           color: Colors.black,
@@ -170,12 +178,13 @@ class LabProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
-                      items: items.map((String items) {
+                      hint: const Text('Selected City'),
+                      items:
+                          _labProfileUpdateController.cities.map((City city) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: city,
                           child: Text(
-                            items,
+                            city.cityName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -183,8 +192,12 @@ class LabProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                        _labrofileController.selectedCity.value = newValue!;
+                      onTap: () {
+                        _labProfileUpdateController.refresh();
+                      },
+                      onChanged: (City? newValue) {
+                        _labProfileUpdateController.selectedCity.value =
+                            newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -204,12 +217,12 @@ class LabProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _labrofileController.locatoionController,
+                controller: _labProfileUpdateController.LocationController,
                 onSaved: (value) {
-                  _labrofileController.location = value!;
+                  _labProfileUpdateController.Location = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validLocation(value!);
+                  return _labProfileUpdateController.validLocation(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -233,36 +246,36 @@ class LabProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///Todo: fees..............
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _labrofileController.feesController,
-                onSaved: (value) {
-                  _labrofileController.fees = value!;
-                },
-                validator: (value) {
-                  return _labrofileController.validFees(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Fees',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.currency_rupee,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // ///Todo: fees..............
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     controller: _labrofileController.feesController,
+            //     onSaved: (value) {
+            //       _labrofileController.fees = value!;
+            //     },
+            //     validator: (value) {
+            //       return _labrofileController.validFees(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Fees',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.currency_rupee,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
 
             SizedBox(
               height: size.height * 0.02,
@@ -272,12 +285,12 @@ class LabProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.password],
-                controller: _labrofileController.pinController,
+                controller: _labProfileUpdateController.PinCodeController,
                 onSaved: (value) {
-                  _labrofileController.pin = value!;
+                  _labProfileUpdateController.pin = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validPin(value!);
+                  return _labProfileUpdateController.validPin(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -317,12 +330,12 @@ class LabProfileCredentials extends StatelessWidget {
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _labrofileController.accountnoController,
+                controller: _labProfileUpdateController.AccountNoController,
                 onSaved: (value) {
-                  _labrofileController.account = value!;
+                  _labProfileUpdateController.AccountNo = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validAccount(value!);
+                  return _labProfileUpdateController.validAccount(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -351,12 +364,12 @@ class LabProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _labrofileController.ifscController,
+                controller: _labProfileUpdateController.IFSCCodeController,
                 onSaved: (value) {
-                  _labrofileController.ifsc = value!;
+                  _labProfileUpdateController.IFSCCode = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validIfsc(value!);
+                  return _labProfileUpdateController.validIfsc(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -385,12 +398,12 @@ class LabProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _labrofileController.branchController,
+                controller: _labProfileUpdateController.BranchNameController,
                 onSaved: (value) {
-                  _labrofileController.branch = value!;
+                  _labProfileUpdateController.BranchName = value!;
                 },
                 validator: (value) {
-                  return _labrofileController.validBranch(value!);
+                  return _labProfileUpdateController.validBranch(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -422,7 +435,9 @@ class LabProfileCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'UPDATE',
                 press: () {
-                  Get.to(NurseHomePage());
+                  CallLoader.loader();
+                  _labProfileUpdateController.checkLAbProfilee();
+                  //Get.to(NurseHomePage());
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

@@ -19,8 +19,8 @@ class UserProfileControllers extends GetxController {
     isLoading(true);
     userProfile = await ApiProvider.UserProfileApi();
     if (userProfile != null
-    //getcatagartlist!.result!.isNotEmpty
-    ) {
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
       isLoading(false);
     }
   }
