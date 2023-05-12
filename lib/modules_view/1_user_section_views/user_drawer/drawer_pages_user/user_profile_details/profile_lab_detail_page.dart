@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constants/my_theme.dart';
+import '../../../../../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 
 class LapDetailProfile extends StatelessWidget {
-  const LapDetailProfile({Key? key}) : super(key: key);
+  LapDetailProfile({Key? key}) : super(key: key);
+  LabprofiledetailController _labprofiledetailController =
+      Get.put(LabprofiledetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,262 +30,289 @@ class LapDetailProfile extends StatelessWidget {
       //   ),
       //   centerTitle: true,
       // ),
-      body: SafeArea(
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              children: [
-                Container(
-                  height: size.height * 0.25,
-                  width: size.width,
-                  color: MyTheme.ThemeColors,
-                ),
-                SizedBox(
-                  height: size.height * 0.1,
-                ),
-                PhysicalModel(
-                  color: Colors.cyan,
-                  shadowColor: Colors.cyan,
-                  elevation: 10,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Container(
-                      height: size.height * 0.4,
-                      width: size.width * 0.8,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                'https://images.unsplash.com/photo-1654633147734-19458b964f6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-                              ),
-                              fit: BoxFit.fill)),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.person,
-                                  color: Colors.red,
-                                ),
+      body: Obx(
+        () => (_labprofiledetailController.isLoading.value)
+            ? Center(child: CircularProgressIndicator())
+            : SafeArea(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          height: size.height * 0.25,
+                          width: size.width,
+                          color: MyTheme.ThemeColors,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.1,
+                        ),
+                        PhysicalModel(
+                          color: Colors.cyan,
+                          shadowColor: Colors.cyan,
+                          elevation: 10,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Container(
+                              height: size.height * 0.4,
+                              width: size.width * 0.8,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        'https://images.unsplash.com/photo-1654633147734-19458b964f6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
+                                      ),
+                                      fit: BoxFit.fill)),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.person,
+                                          color: Colors.red,
+                                        ),
 
-                                // Text(
-                                //   'Name:',
-                                //   style: GoogleFonts.alatsi(
-                                //     fontSize: size.height * 0.022,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.solidMessage,
-                                  color: Colors.red,
-                                ),
-                                // Text(
-                                //   'Email:',
-                                //   style: GoogleFonts.alatsi(
-                                //     fontSize: size.height * 0.022,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.phone,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.addressCard,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.city,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.locationPinLock,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.sortNumericAsc,
-                                  color: Colors.red,
-                                ),
-                              ],
+                                        // Text(
+                                        //   'Name:',
+                                        //   style: GoogleFonts.alatsi(
+                                        //     fontSize: size.height * 0.022,
+                                        //     fontWeight: FontWeight.bold,
+                                        //   ),
+                                        // ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.solidMessage,
+                                          color: Colors.red,
+                                        ),
+                                        // Text(
+                                        //   'Email:',
+                                        //   style: GoogleFonts.alatsi(
+                                        //     fontSize: size.height * 0.022,
+                                        //     fontWeight: FontWeight.bold,
+                                        //   ),
+                                        // ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.phone,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.addressCard,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.city,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.locationPinLock,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.sortNumericAsc,
+                                          color: Colors.red,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${_labprofiledetailController?.labprofileModel?.labName.toString()}"
+                                          //'Ram Singh',
+                                          ,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: MyTheme.blueww,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.6,
+                                          height: size.height * 0.04,
+                                          child: Text(
+                                            "${_labprofiledetailController?.labprofileModel?.emailId.toString()}"
+
+                                            //'ramsingh@gmail.com',
+                                            ,
+                                            style: GoogleFonts.poppins(
+                                              fontSize: size.height * 0.016,
+                                              fontWeight: FontWeight.w600,
+                                              color: MyTheme.blueww,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          "${_labprofiledetailController?.labprofileModel?.mobileNumber.toString()}"
+
+                                          //'9089776632',
+                                          ,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: MyTheme.blueww,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          "${_labprofiledetailController?.labprofileModel?.location.toString()}"
+
+                                          //'Sector 2,C53',
+                                          ,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: MyTheme.blueww,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          "${_labprofiledetailController?.labprofileModel?.cityName.toString()}"
+
+                                          //'Noida',
+                                          ,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: MyTheme.blueww,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          "${_labprofiledetailController?.labprofileModel?.stateName.toString()}",
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: MyTheme.blueww,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          "${_labprofiledetailController?.labprofileModel?.pinCode.toString()}",
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: MyTheme.blueww,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Ram Singh',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Text(
-                                  'ramsingh@gmail.com',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Text(
-                                  '9089776632',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Text(
-                                  'Sector 2,C53',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Text(
-                                  'Noida',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Text(
-                                  'UP',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Text(
-                                  '110096',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: size.height * 0.018,
-                                    fontWeight: FontWeight.w600,
-                                    color: MyTheme.blueww,
-                                  ),
-                                ),
-                              ],
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      top: size.height * 0.012,
+                      left: size.width * 0.0,
+                      //right: size.width * 0.0,
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              height: size.height * 0.04,
+                              width: size.width * 0.12,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.arrow_back_ios_outlined,
+                                size: size.height * 0.023,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.02,
+                          ),
+                          Text(
+                            'Lab Profile Details',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: size.height * 0.024,
+                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            Positioned(
-              top: size.height * 0.012,
-              left: size.width * 0.0,
-              //right: size.width * 0.0,
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: size.height * 0.04,
-                      width: size.width * 0.12,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: size.height * 0.023,
+                    Positioned(
+                      top: size.height * 0.08,
+                      left: size.width * 0.0,
+                      right: size.width * 0.0,
+                      child: PhysicalModel(
+                        color: MyTheme.ThemeColors,
+                        shadowColor: MyTheme.ThemeColors,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: size.height * 0.16,
+                            width: size.width * 0.12,
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                  'lib/assets/image/ps_welness2.png',
+                                ))),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Text(
-                    'Lab Profile Details',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: size.height * 0.024,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: size.height * 0.08,
-              left: size.width * 0.0,
-              right: size.width * 0.0,
-              child: PhysicalModel(
-                color: MyTheme.ThemeColors,
-                shadowColor: MyTheme.ThemeColors,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: size.height * 0.16,
-                    width: size.width * 0.12,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage(
-                          'lib/assets/image/ps_welness2.png',
-                        ))),
-                  ),
+                  ],
                 ),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

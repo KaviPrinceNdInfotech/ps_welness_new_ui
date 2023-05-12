@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/10_lab_module/lab_appointment_details/lab_appointment_detailsss.dart';
 
 import '../../../model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
 import '../../../servicess_api/api_services_all_api.dart';
@@ -19,6 +20,10 @@ class LabAppointmentDetailController extends GetxController {
 
   HealthCheckupListss? healthCheckupListss;
 
+  LabappointmentdetailsModel? labappointmentdetailsModel;
+
+  // HealthCheckupListss? healthCheckupListss;
+
   void labappointmentListApi() async {
     isLoading(true);
     healthCheckupListss = await ApiProvider.LabHistoryApi();
@@ -27,6 +32,21 @@ class LabAppointmentDetailController extends GetxController {
     if (healthCheckupListss != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
+      //Get.to(()=>Container());
+    }
+  }
+
+  ///todo: lab appointment details...12 may 2023...prince....
+  ///
+  void labappointmentdetailApi() async {
+    isLoading(true);
+    labappointmentdetailsModel = await ApiProvider.LabapointmentdetailApi();
+    print('Prince lab list');
+    print(labappointmentdetailsModel);
+    if (labappointmentdetailsModel != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(false);
+      foundpatientlab.value = labappointmentdetailsModel!.labAd!;
       //Get.to(()=>Container());
     }
   }
@@ -55,6 +75,7 @@ class LabAppointmentDetailController extends GetxController {
 
     //TextEditingController.dispose();
   }
+
   @override
   void dispose() {
     healthCheckupListss = null;
@@ -94,4 +115,20 @@ class LabAppointmentDetailController extends GetxController {
     // }
   }
 
+  RxList<LabAd> foundpatientlab = RxList<LabAd>([]);
+  void filterPatients(String searchpatientlabName) {
+    List<LabAd>? finalResult = [];
+    if (searchpatientlabName.isEmpty) {
+      finalResult = labappointmentdetailsModel!.labAd;
+    } else {
+      finalResult = labappointmentdetailsModel!.labAd!
+          .where((element) => element.patientName
+              .toString()
+              .toLowerCase()
+              .contains(searchpatientlabName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundpatientlab.value = finalResult!;
+  }
 }

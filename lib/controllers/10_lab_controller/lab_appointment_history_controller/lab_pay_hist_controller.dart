@@ -2,18 +2,11 @@ import 'package:get/get.dart';
 
 import '../../../model/10_lab_module/lab_appointment_history/lab_appointment_history.dart';
 import '../../../servicess_api/api_services_all_api.dart';
-//import 'package:ps_welness/model/4_nurse_all_models/nurse_appointment_details_list.dart';
-//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
-//import 'package:intl/intl.dart';
 
 class LabpaymenttController extends GetxController {
   RxBool isLoading = true.obs;
 
   LabpaymentModel? labpaymentModel;
-
-  // NurseAppointmentDetail? nurseappointmentdetail;
-
-  //all catagary list .........
 
   void labhistoryApi() async {
     isLoading(true);
@@ -26,8 +19,6 @@ class LabpaymenttController extends GetxController {
       foundlabProducts.value = labpaymentModel!.labPayHis!;
     }
   }
-
-  // late TextEditingController appointmentController;
 
   var appointment = ''.obs;
 

@@ -14,9 +14,12 @@ import '../../modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.d
 import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
 import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import '../../utils/models/account_model.dart';
+import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 
 class LoginpasswordController extends GetxController {
   final GlobalKey<FormState> loginpasswordformkey = GlobalKey<FormState>();
+  LabprofiledetailController _labprofiledetailController =
+      Get.put(LabprofiledetailController());
   var Id = '';
 
   void emailApi() async {
@@ -49,6 +52,9 @@ class LoginpasswordController extends GetxController {
           Get.to(FranchiesHomePage());
           break;
         case 'lab':
+          _labprofiledetailController.update();
+          _labprofiledetailController.labprofileApi();
+
           Get.to(LabHomePage());
           break;
         case 'doctor':
@@ -82,6 +88,12 @@ class LoginpasswordController extends GetxController {
     super.onInit();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<LoginpasswordController>();
+    super.dispose();
   }
 
   @override

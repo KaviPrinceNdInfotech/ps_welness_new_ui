@@ -28,6 +28,7 @@ import '../controllers/10_lab_controller/drawer_page_flab_controller/complain_la
 import '../controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
 import '../controllers/10_lab_controller/lab_appointment_history_controller/lab_pay_hist_controller.dart';
 import '../controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
+import '../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import '../controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import '../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
@@ -47,6 +48,7 @@ import '../controllers/3_driver_view_controllers/driver_home_page_controller/dri
 //import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import '../controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_complain_controller/doctor_complain_controllers.dart';
+import '../controllers/login_email/login_email_controller.dart';
 import '../controllers/profile_u_controller/profile_update_controller.dart';
 import '../controllers/user_controller/user_controller_1.dart';
 
@@ -110,7 +112,10 @@ class ControllerBinding extends Bindings {
     Get.put(UserProfileControllers());
     Get.put(ComplaintLabController());
     Get.put(LabProfileUpdateController());
-    Get.put(LabpaymenttController()); // Rahul
+    Get.put(LabpaymenttController());
+    Get.put(LoginpasswordController());
+    Get.put(LabprofiledetailController());
+    // Rahul
     //Get.put(GoogleMapController());
 
     //Get.put(CatagaryByIdController());

@@ -16,11 +16,14 @@ import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
 import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 //import '../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
 import '../../modules_view/onboardonds/onboarding_screens.dart';
+import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 
 class SplashScreenViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
+  LabprofiledetailController _labprofiledetailController =
+      Get.put(LabprofiledetailController());
 
   @override
   void onInit() {
@@ -45,6 +48,8 @@ class SplashScreenViewModel extends GetxController
                 Get.to(FranchiesHomePage());
                 break;
               case 'lab':
+                _labprofiledetailController.update();
+                _labprofiledetailController.labprofileApi();
                 Get.to(LabHomePage());
                 break;
               case 'doctor':

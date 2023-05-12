@@ -217,7 +217,8 @@ class Lab1Credentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _lab_1_controller.addressController,
+
+                ///controller: _lab_1_controller.addressController,
                 onSaved: (value) {
                   _lab_1_controller.address = value!;
                 },
@@ -252,7 +253,7 @@ class Lab1Credentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField(
-                      value: _lab_1_controller.selectedState.value,
+                      // value: _lab_1_controller.selectedState.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
@@ -275,7 +276,7 @@ class Lab1Credentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
-                        _lab_1_controller.selectedState.value = newValue!;
+                        //_lab_1_controller.selectedState.value = newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;
@@ -299,7 +300,7 @@ class Lab1Credentials extends StatelessWidget {
                 child: Obx(
                   () => DropdownButtonFormField(
                       //icon: Icon(Icons.location_city),
-                      value: _lab_1_controller.selectedCity.value,
+                      //value: _lab_1_controller.selectedCity.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
@@ -322,7 +323,7 @@ class Lab1Credentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
-                        _lab_1_controller.selectedCity.value = newValue!;
+                        //_lab_1_controller.selectedCity.value = newValue!;
                         // _hospital_2_controller.states.value =
                         //     newValue! as List<String>;
                         // _hospital_2_controller.selectedCity.value = null;

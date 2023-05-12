@@ -47,23 +47,7 @@ class Nurses_2_Controller extends GetxController {
     final localList = await ApiProvider.getCitiesApi(stateID);
     cities.addAll(localList);
   }
-  // ///this is for State....................................
-  // Rx<String?> selectedCity = (null as String?).obs;
-  // RxList<String> cities = <String>[].obs;
-  //
-  // //this is for City.................................
-  // Rx<String?> selectedState = (null as String?).obs;
-  // RxList<String> states = <String>[].obs;
 
-  // late TextEditingController pinController,
-  //     certificateController,
-  //     addressController;
-  //
-  // var pin = '';
-  // var address = '';
-  // var certificateno = '';
-
-  //get stateCitymap => null;
   TextEditingController? NurseType_IdController,
       CertificateNumberController,
       CityNameController,

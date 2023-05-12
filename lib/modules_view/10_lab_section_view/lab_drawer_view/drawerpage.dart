@@ -16,12 +16,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_view.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
 
+import '../../../controllers/10_lab_controller/lab_about_us_controller/lab_about_us_controllers.dart';
+import '../../../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/complaint_page/complaint_lab_page.dart';
 import 'drower_pages/profile_page_view/lab_profile.dart';
 import 'drower_pages/supports/support_view.dart';
 
 class LabMainDrawer extends StatelessWidget {
+  LabprofiledetailController _labprofiledetailController =
+      Get.put(LabprofiledetailController());
+  LabAboutusController _labAboutusController = Get.put(LabAboutusController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,19 +59,24 @@ class LabMainDrawer extends StatelessWidget {
                       )),
                     ),
                     SizedBox(
-                      height: size.height * 0.01,
+                      height: size.height * 0.00,
                     ),
                     Text(
-                      'Ram Singh',
+                      "${_labprofiledetailController.labprofileModel?.labName.toString()}"
+                      // 'Ram Singh',
+                      ,
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.023,
+                          fontSize: size.height * 0.02,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      'ram@gmail.com',
+                      "${_labprofiledetailController.labprofileModel?.emailId.toString()}"
+
+                      // 'ram@gmail.com',
+                      ,
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.020,
+                          fontSize: size.height * 0.016,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
@@ -269,6 +279,8 @@ class LabMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _labprofiledetailController.update();
+                _labprofiledetailController.labprofileApi();
                 //LapDetailProfile
                 Get.to(() => LapDetailProfile());
                 Get.offNamed('/LapDetailProfile');
@@ -303,6 +315,8 @@ class LabMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _labAboutusController.update();
+                _labAboutusController.lababoutusApi();
                 Get.to(() => AboutUsLabView());
                 Get.offNamed('/AboutUsView');
               },

@@ -10,19 +10,31 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_slider.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_payment_history/lab_payment_history.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/modules_view/10_lab_section_view/lab_drawer_view/drawerpage.dart';
 // import 'package:ps_welness/modules_view/10_lab_section_view/lab_payment_history/lab_payment_history.dart';
 
+import '../../../controllers/10_lab_controller/lab_appointment_detail_controller/lab_appointment_detailsss.dart';
+import '../../../controllers/10_lab_controller/lab_appointment_history_controller/lab_pay_hist_controller.dart';
+import '../../../controllers/10_lab_controller/lab_appointment_history_controllerrs/lab_appointments_history_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
 import '../lab_appointment_details/lab_appointment_details.dart';
 import '../lab_appointment_history_view/appointment_history_view.dart';
+import '../lab_report_list/lab_report_list.dart';
+import '../lab_upload_report_post/lab_upload_report_post.dart';
 
 //import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/user_drawHomePage({Key? key}) : super(key: key);
 
 AppointmentUserController _appointmentUserController =
     Get.put(AppointmentUserController());
+LabpaymenttController _labpaymentController = Get.put(LabpaymenttController());
+LabAppointmentDetailController _appointmentDetailController =
+    Get.put(LabAppointmentDetailController());
+LabAppointmentHistoryyController _labAppointmentHistoryyController =
+    Get.put(LabAppointmentHistoryyController());
 
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());
@@ -239,11 +251,17 @@ class LabHomePage extends StatelessWidget {
                                 InkWell(
                                   onTap: () {
                                     if (index == 0) {
+                                      _appointmentDetailController
+                                          .labappointmentdetailApi();
+                                      _appointmentDetailController.update();
                                       Get.to(() => LabAppointmentDetail());
                                     } else if (index == 1) {
-                                      //Get.to(() => DoctorAddress());
+                                      Get.to(() => LabUploadReports());
                                       //Get.to(() => CatagaryDetails());
                                     } else if (index == 2) {
+                                      Get.back();
+                                      _labpaymentController.update();
+                                      _labpaymentController.labhistoryApi();
                                       Get.to(() => LabPaymentHistory());
                                       //Get.to(() => NursePaymentHistory());
                                       // Get.defaultDialog(
@@ -579,6 +597,10 @@ class LabHomePage extends StatelessWidget {
                                       // Get.to(() => ComplainList());
                                       //Get.to(() => Profoile());
                                     } else if (index == 3) {
+                                      _labAppointmentHistoryyController
+                                          .update();
+                                      _labAppointmentHistoryyController
+                                          .labappointmenthistoryApi();
                                       Get.to(() => LabAppointmentHistory());
 
                                       ///
@@ -586,150 +608,14 @@ class LabHomePage extends StatelessWidget {
 
                                       //Get.to(() => CarouselDemo());
                                     } else if (index == 4) {
+                                      Get.to(LabViewReport());
                                       //Get.to(() => HealthCheckup1());
                                       //Get.defaultDialog(
                                       //barrierDismissible: true,
 
                                     } else if (index == 5) {
-                                      //Get.to(() => SearchMedicine());
-                                      // Get.defaultDialog(
-                                      //     barrierDismissible: true,
-                                      //     backgroundColor: MyTheme.t1containercolor,
-                                      //     title: '',
-                                      //     content: Column(
-                                      //       mainAxisSize: MainAxisSize.min,
-                                      //       children: [
-                                      //         Directionality(
-                                      //           textDirection: TextDirection.ltr,
-                                      //           child: Center(
-                                      //             child: Padding(
-                                      //               padding:
-                                      //                   const EdgeInsets.all(0.0),
-                                      //               child: TextFormField(
-                                      //                 decoration: InputDecoration(
-                                      //                   filled: true,
-                                      //
-                                      //                   fillColor: MyTheme
-                                      //                       .t1bacgroundcolors1,
-                                      //                   hintText:
-                                      //                       'Enter Service Name',
-                                      //                   contentPadding:
-                                      //                       const EdgeInsets.only(
-                                      //                           left: 14.0,
-                                      //                           bottom: 4.0,
-                                      //                           top: 16.0),
-                                      //                   focusedBorder:
-                                      //                       OutlineInputBorder(
-                                      //                     borderSide: new BorderSide(
-                                      //                         color: Colors.green),
-                                      //                     borderRadius:
-                                      //                         new BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   enabledBorder:
-                                      //                       UnderlineInputBorder(
-                                      //                     borderSide: new BorderSide(
-                                      //                         color:
-                                      //                             Colors.transparent),
-                                      //                     borderRadius:
-                                      //                         new BorderRadius
-                                      //                             .circular(10.0),
-                                      //                   ),
-                                      //                   //focusedBorder: InputBorder.none,
-                                      //                   //enabledBorder: InputBorder.none,
-                                      //                   // errorBorder: InputBorder.none,
-                                      //                   // border: InputBorder.none,
-                                      //
-                                      //                   border: OutlineInputBorder(
-                                      //                     borderSide: BorderSide(
-                                      //                         color: Colors.red,
-                                      //                         width: 2.0),
-                                      //                     borderRadius:
-                                      //                         BorderRadius.circular(
-                                      //                             10),
-                                      //                   ),
-                                      //                   // labelText: "Password",
-                                      //                   prefixIcon: Padding(
-                                      //                     padding:
-                                      //                         EdgeInsets.symmetric(
-                                      //                             vertical:
-                                      //                                 size.height *
-                                      //                                     0.012,
-                                      //                             horizontal:
-                                      //                                 size.width *
-                                      //                                     0.02),
-                                      //                     child: Image.asset(
-                                      //                       'lib/assets/images/profile.png',
-                                      //                       color:
-                                      //                           MyTheme.t1Iconcolor,
-                                      //                       height: 10,
-                                      //                       width: 10,
-                                      //                     ),
-                                      //                   ),
-                                      //                 ),
-                                      //                 keyboardType: TextInputType
-                                      //                     .visiblePassword,
-                                      //                 //obscureText: true,
-                                      //                 // controller:
-                                      //                 // _registerComplainController.nameController,
-                                      //                 // onSaved: (value) {
-                                      //                 //   _registerComplainController.name = value!;
-                                      //                 // },
-                                      //                 // validator: (value) {
-                                      //                 //   return _registerComplainController
-                                      //                 //       .validateName(value!);
-                                      //                 // },
-                                      //               ),
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //         // TextField(
-                                      //         //   //controller: settingsScreenController.categoryNameController,
-                                      //         //   keyboardType: TextInputType.text,
-                                      //         //   maxLines: 1,
-                                      //         //   decoration: InputDecoration(
-                                      //         //       labelText: 'Service name',
-                                      //         //       hintMaxLines: 1,
-                                      //         //       border: OutlineInputBorder(
-                                      //         //           borderSide: BorderSide(
-                                      //         //               color: Colors.green,
-                                      //         //               width: 4.0))),
-                                      //         // ),
-                                      //         SizedBox(
-                                      //           height: 30.0,
-                                      //         ),
-                                      //         PhysicalModel(
-                                      //           color: Colors.white,
-                                      //           shadowColor: Colors.grey,
-                                      //           elevation: 4,
-                                      //           borderRadius:
-                                      //               BorderRadius.circular(10),
-                                      //           child: Padding(
-                                      //             padding: const EdgeInsets.all(3.0),
-                                      //             child: Container(
-                                      //               height: size.height * 0.04,
-                                      //               width: size.width * 0.4,
-                                      //               decoration: BoxDecoration(
-                                      //                 color: MyTheme.t1Iconcolor,
-                                      //                 borderRadius:
-                                      //                     BorderRadius.circular(10),
-                                      //               ),
-                                      //               child: Center(
-                                      //                 child: Text(
-                                      //                   'ADD SERVICE',
-                                      //                   style: TextStyle(
-                                      //                       color: Colors.white,
-                                      //                       fontSize: 14.0,
-                                      //                       fontWeight:
-                                      //                           FontWeight.w600),
-                                      //                 ),
-                                      //               ),
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //       ],
-                                      //     ),
-                                      //     radius: 10.0);
+                                      Get.to(SupportView());
+
                                       ///
                                       //Get.to(() => ServicesPage());
                                     } else if (index == 6) {
