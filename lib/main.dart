@@ -20,6 +20,8 @@ import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 import 'controllers/10_lab_controller/lab_appointment_history_controller/lab_pay_hist_controller.dart';
 import 'controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
 import 'controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
+import 'controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
+import 'controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import 'controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import 'controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
@@ -42,6 +44,7 @@ import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver
 import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import 'controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'controllers/complaint_controller/complaint_controller.dart';
+import 'controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 import 'controllers/login_email/login_email_controller.dart';
 import 'controllers/profile_u_controller/profile_update_controller.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
@@ -86,6 +89,10 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => LabpaymenttController());
     Get.lazyPut(() => LoginpasswordController());
     Get.lazyPut(() => LabprofiledetailController());
+    Get.lazyPut(() => Lab_1_Controller());
+    Get.lazyPut(() => LabUploadReportController());
+    Get.lazyPut(() => LabreportviewController());
+
     //Get.lazyPut(() => MedicineCartListController());
     // AmbulancegetController _ambulancegetController =
     // Get.put(AmbulancegetController());
@@ -117,7 +124,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: ControllerBinding(),
       debugShowCheckedModeBanner: false,
-
       // getPages: [
       //   GetPage(name: TodoScreen.id, page: () => TodoScreen()),
       //   GetPage(name: AddSkilsScreen.id, page: () => AddSkilsScreen()),

@@ -65,16 +65,21 @@ class UserMainDrawer extends StatelessWidget {
                       height: size.height * 0.0,
                     ),
                     Text(
-                      'Kumar Prince',
+                      "${_userprofile.userProfile?.patientName.toString()}"
+                      //'Kumar Prince',
+                      ,
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.023,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      'prince@gmail.com',
+                      "${_userprofile.userProfile?.emailId.toString()}"
+
+                      //'prince@gmail.com',
+                      ,
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.020,
+                          fontSize: size.height * 0.016,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),

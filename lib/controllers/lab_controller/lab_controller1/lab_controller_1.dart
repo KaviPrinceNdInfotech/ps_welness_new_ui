@@ -10,6 +10,13 @@ import '../../../servicess_api/api_services_all_api.dart';
 class Lab_1_Controller extends GetxController {
   final GlobalKey<FormState> lab1formkey = GlobalKey<FormState>();
 
+  var selectedTime = TimeOfDay.now().obs;
+  var selectedTime2 = TimeOfDay.now().obs;
+  var selectedDate = DateTime.now().obs;
+  RxInt selectedIndex = 0.obs;
+  var newpickedDate = DateTime.now().obs;
+  RxBool isLoading = false.obs;
+
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
@@ -39,6 +46,58 @@ class Lab_1_Controller extends GetxController {
     }
   }
 
+  var selectedImagepath1 = ''.obs;
+
+  void getImage1(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedImagepath.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+
+  chooseTime() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedTime.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+
+    if (pickedTime != null && pickedTime != selectedTime.value) {
+      selectedTime.value = pickedTime;
+    }
+  }
+
+  ///time 2...................
+
+  chooseTime2() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedTime2.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+    if (pickedTime != null && pickedTime != selectedTime2.value) {
+      selectedTime2.value = pickedTime;
+    }
+  }
+
   TextEditingController? nameController,
       emailController,
       passwordController,
@@ -46,7 +105,6 @@ class Lab_1_Controller extends GetxController {
       mobileController,
       phoneController,
       locationController,
-      pinController,
       StateMaster_IdController,
       CityMaster_IdController,
       LicenceNumberController,
@@ -57,47 +115,72 @@ class Lab_1_Controller extends GetxController {
       StartTimeController,
       EndTimeController,
       GSTNumberController,
-      AadharNumberController;
+      AadharNumberController,
+      pinController;
+
+  ///lab_signup Api....15 may 2023...
 
   void labSignupApi() async {
     http.Response r = await ApiProvider.LabSignupApi(
-      nameController?.text,
-      emailController?.text,
-      passwordController?.text,
-      confirmpasswordController?.text,
-      mobileController?.text,
-      phoneController?.text,
-      locationController?.text,
-      pinController?.text,
-      StateMaster_IdController?.text,
-      CityMaster_IdController?.text,
-      LicenceNumberController?.text,
-      LicenceImageController?.text,
-      LicenceImageBase64Controller?.text,
-      PanImageController?.text,
-      PanImageBase64Controller?.text,
-      StartTimeController?.text,
-      LicenceImageController?.text,
-      EndTimeController?.text,
-      GSTNumberController?.text,
-      //AadharNumberController?.text,
-    );
+        nameController?.text,
+        emailController?.text,
+        passwordController?.text,
+        confirmpasswordController?.text,
+        mobileController?.text,
+        phoneController?.text,
+        locationController?.text,
+        StateMaster_IdController?.text,
+        CityMaster_IdController?.text,
+        LicenceNumberController?.text,
+        LicenceImageController?.text,
+        LicenceImageBase64Controller?.text,
+        PanImageController?.text,
+        PanImageBase64Controller?.text,
+        StartTimeController?.text,
+        EndTimeController?.text,
+        GSTNumberController?.text,
+        AadharNumberController?.text,
+        pinController?.text
+
+        ///
+        );
     if (r.statusCode == 200) {
+      ///todo: from here we have new thing to provide the main ....
+      //Get.to(LabHomePage());
     } else {}
   }
 
-  var name = '';
-  var email = '';
+  var labName = '';
+  var emailId = '';
   var password = '';
-  var confirmpassword = '';
-  var mobile = '';
-  var address = '';
-  var pin = '';
+  var confirmPassword = '';
+  var mobileNumber = '';
+  var phoneNumber = '';
+  var location = '';
+  var stateMaster_Id = '';
+  var cityMaster_Id = '';
+  var licenceNumber = '';
+  var licenceImage = '';
+  var licenceImageBase64 = '';
+  var panImage = '';
+  var panImageBase64 = '';
+  var startTime = '';
+  var endTime = '';
+  var gSTNumber = '';
+  var aadharNumber = '';
+  var pinCode = '';
 
   @override
   void onInit() {
+    getStateApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateID("${p0.id}");
+      }
+    });
     //states.refresh();
     super.onInit();
+
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -105,11 +188,9 @@ class Lab_1_Controller extends GetxController {
     mobileController = TextEditingController();
     phoneController = TextEditingController();
     locationController = TextEditingController();
-    pinController = TextEditingController();
     StateMaster_IdController = TextEditingController();
     CityMaster_IdController = TextEditingController();
     LicenceNumberController = TextEditingController();
-
     LicenceImageController = TextEditingController();
     LicenceImageBase64Controller = TextEditingController();
     PanImageController = TextEditingController();
@@ -118,6 +199,9 @@ class Lab_1_Controller extends GetxController {
     EndTimeController = TextEditingController();
     GSTNumberController = TextEditingController();
     AadharNumberController = TextEditingController();
+    pinController = TextEditingController();
+    super.onInit();
+
     //nameController = TextEditingController()
   }
 
@@ -160,12 +244,12 @@ class Lab_1_Controller extends GetxController {
   }
 
   String? validPassword(String value) {
-    confirmpassword = value;
+    confirmPassword = value;
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -174,9 +258,9 @@ class Lab_1_Controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
-    } else if (value != confirmpassword) {
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
+    } else if (value != confirmPassword) {
       return "              Password must be same as above";
     } else {
       return null;
@@ -210,12 +294,27 @@ class Lab_1_Controller extends GetxController {
     return null;
   }
 
-  void checkUser1() {
-    final isValid = lab1formkey.currentState!.validate();
-    if (!isValid) {
-      return;
+  String? validaadhar(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 16) {
+      return '              A valid aadhaar should be of 16 digits';
+    }
+    return null;
+  }
+
+  String? validcertificate(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+  void checklab1() {
+    if (lab1formkey.currentState!.validate()) {
+      labSignupApi();
     }
     lab1formkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

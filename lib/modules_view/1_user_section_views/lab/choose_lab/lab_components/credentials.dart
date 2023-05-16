@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 // import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
@@ -18,7 +19,6 @@ import '../../../../../controllers/1_user_view_controller/lab_controller/choose_
 import '../../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../../model/1_user_model/test_name_model/test_name_modells.dart';
 import '../../../../../widgets/widgets/rectangular_button.dart';
-import '../../lab_catagary/choose_catagary.dart';
 
 class LabCredentials extends StatelessWidget {
   LabCredentials({Key? key}) : super(key: key);
@@ -220,14 +220,6 @@ class LabCredentials extends StatelessWidget {
                         }).toList(),
                         onChanged: (TestModel? newValue) {
                           _chooseLabController.selectedTest.value = newValue!;
-                          //_chooseLabController.selectedTest.value= null;
-                          //_chooseLabController.selectedCity2.value = newValue!;
-                          // _hospital_2_controller.states.value =
-                          //     newValue! as List<String>;
-                          // _hospital_2_controller.selectedCity.value = null;
-                          // _hospital_2_controller.cities.clear();
-                          // _hospital_2_controller.cities
-                          //     .addAll(stateCityMap[newvalue]!);
                         }),
                   ),
                 ),
@@ -299,7 +291,7 @@ class LabCredentials extends StatelessWidget {
                   press: () {
                     CallLoader.loader();
                     _chooseLabController.checklab1();
-                   // Get.to(LabCatagaryDetails());
+                    // Get.to(LabCatagaryDetails());
                     // LabListPage());
                     //_loginpasswordController.checkLoginpassword();
                   })

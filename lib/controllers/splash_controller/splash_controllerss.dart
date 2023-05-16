@@ -17,6 +17,8 @@ import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page
 //import '../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
 import '../../modules_view/onboardonds/onboarding_screens.dart';
 import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
+import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
+import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 
 class SplashScreenViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -24,6 +26,9 @@ class SplashScreenViewModel extends GetxController
   late Animation<double> animation;
   LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
+  LabUploadReportController _labUploadReportController =
+      Get.put(LabUploadReportController());
+  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 
   @override
   void onInit() {
@@ -38,6 +43,8 @@ class SplashScreenViewModel extends GetxController
           } else {
             switch (accountData.role) {
               case 'patient':
+                _userprofile.userprofileApi();
+                _userprofile.update();
 
                 /// we can navigate to user page.....................................
                 Get.to(UserHomePage());
@@ -48,6 +55,8 @@ class SplashScreenViewModel extends GetxController
                 Get.to(FranchiesHomePage());
                 break;
               case 'lab':
+                _labUploadReportController.getlabpatientApi();
+                _labUploadReportController.update();
                 _labprofiledetailController.update();
                 _labprofiledetailController.labprofileApi();
                 Get.to(LabHomePage());

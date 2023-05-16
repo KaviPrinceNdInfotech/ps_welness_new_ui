@@ -15,11 +15,17 @@ import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
 import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import '../../utils/models/account_model.dart';
 import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
+import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
+import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 
 class LoginpasswordController extends GetxController {
   final GlobalKey<FormState> loginpasswordformkey = GlobalKey<FormState>();
   LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
+  LabUploadReportController _labUploadReportController =
+      Get.put(LabUploadReportController());
+  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+
   var Id = '';
 
   void emailApi() async {
@@ -38,6 +44,8 @@ class LoginpasswordController extends GetxController {
 
       switch (accountData.role) {
         case 'patient':
+          _userprofile.userprofileApi();
+          _userprofile.update();
 
           /// we can navigate to user page.....................................
           Get.to(const UserHomePage());
@@ -54,6 +62,8 @@ class LoginpasswordController extends GetxController {
         case 'lab':
           _labprofiledetailController.update();
           _labprofiledetailController.labprofileApi();
+          _labUploadReportController.getlabpatientApi();
+          _labUploadReportController.update();
 
           Get.to(LabHomePage());
           break;

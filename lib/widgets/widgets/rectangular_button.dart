@@ -36,7 +36,7 @@ class RectangularButton extends StatelessWidget {
                   color: darkShadow,
                 ),
                 BoxShadow(
-                  offset: Offset(-5, -5),
+                  offset: Offset(-3, -2),
                   spreadRadius: 1,
                   blurRadius: 4,
                   color: lightShadow,

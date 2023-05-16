@@ -6,10 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-import 'package:ps_welness_new_ui/controllers/lab_controller/lab_zcontroller2/lab_controller_2.dart';
-import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
+import '../../../../../controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/controllers/hospital2_controller/hospital2_sighup_controller.dart';
@@ -20,8 +21,9 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 class Lab2Credentials extends StatelessWidget {
   Lab2Credentials({Key? key}) : super(key: key);
+  Lab_1_Controller _lab_1_controller = Get.put(Lab_1_Controller());
 
-  Lab_2_Controller _lab_2_controller = Get.put(Lab_2_Controller());
+  //Lab_2_Controller _lab_2_controller = Get.put(Lab_2_Controller());
 
   var items = [
     'Item 1',
@@ -41,7 +43,7 @@ class Lab2Credentials extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-        key: _lab_2_controller.lab2formkey,
+        key: _lab_1_controller.lab1formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
@@ -57,7 +59,7 @@ class Lab2Credentials extends StatelessWidget {
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _lab_2_controller.getImage(ImageSource.gallery);
+                    _lab_1_controller.getImage(ImageSource.gallery);
                   },
                   child: NeumorphicTextFieldContainer(
                     child: Container(
@@ -116,12 +118,12 @@ class Lab2Credentials extends StatelessWidget {
               NeumorphicTextFieldContainer(
                 child: TextFormField(
                   autofillHints: [AutofillHints.name],
-                  controller: _lab_2_controller.certificateController,
+                  controller: _lab_1_controller.LicenceNumberController,
                   onSaved: (value) {
-                    _lab_2_controller.certificateno = value!;
+                    _lab_1_controller.licenceNumber = value!;
                   },
                   validator: (value) {
-                    return _lab_2_controller.validcertificate(value!);
+                    return _lab_1_controller.validcertificate(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -149,12 +151,12 @@ class Lab2Credentials extends StatelessWidget {
                 child: TextFormField(
                   keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.addressCityAndState],
-                  controller: _lab_2_controller.addressController,
+                  controller: _lab_1_controller.GSTNumberController,
                   onSaved: (value) {
-                    _lab_2_controller.address = value!;
+                    _lab_1_controller.gSTNumber = value!;
                   },
                   validator: (value) {
-                    return _lab_2_controller.validAddress(value!);
+                    return _lab_1_controller.validAddress(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -183,12 +185,12 @@ class Lab2Credentials extends StatelessWidget {
               NeumorphicTextFieldContainer(
                 child: TextFormField(
                   autofillHints: [AutofillHints.password],
-                  controller: _lab_2_controller.aadhaarController,
+                  controller: _lab_1_controller.AadharNumberController,
                   onSaved: (value) {
-                    _lab_2_controller.aadhar = value!;
+                    _lab_1_controller.aadharNumber = value!;
                   },
                   validator: (value) {
-                    return _lab_2_controller.validaadhar(value!);
+                    return _lab_1_controller.validaadhar(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -217,7 +219,7 @@ class Lab2Credentials extends StatelessWidget {
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _lab_2_controller.getImage1(ImageSource.gallery);
+                    _lab_1_controller.getImage1(ImageSource.gallery);
                   },
                   child: NeumorphicTextFieldContainer(
                     child: Container(
@@ -263,7 +265,7 @@ class Lab2Credentials extends StatelessWidget {
                 child: Obx(
                   () => InkWell(
                     onTap: () {
-                      _lab_2_controller.chooseTime();
+                      _lab_1_controller.chooseTime();
                     },
                     child: Container(
                       height: size.height * 0.06,
@@ -287,7 +289,7 @@ class Lab2Credentials extends StatelessWidget {
                               ),
                               //Spacer(),
                               Text(
-                                "${_lab_2_controller.selectedTime.value.hour}:${_lab_2_controller.selectedTime.value.minute}",
+                                "${_lab_1_controller.selectedTime.value.hour}:${_lab_1_controller.selectedTime.value.minute}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.026,
                                 ),
@@ -320,7 +322,7 @@ class Lab2Credentials extends StatelessWidget {
                 child: Obx(
                   () => InkWell(
                     onTap: () {
-                      _lab_2_controller.chooseTime2();
+                      _lab_1_controller.chooseTime2();
                     },
                     child: Container(
                       height: size.height * 0.06,
@@ -344,7 +346,7 @@ class Lab2Credentials extends StatelessWidget {
                               ),
                               //Spacer(),
                               Text(
-                                "${_lab_2_controller.selectedTime2.value.hour}:${_lab_2_controller.selectedTime2.value.minute}",
+                                "${_lab_1_controller.selectedTime2.value.hour}:${_lab_1_controller.selectedTime2.value.minute}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.026,
                                 ),
@@ -361,7 +363,9 @@ class Lab2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                    Get.to(LabHomePage());
+                    _lab_1_controller.checklab1();
+
+                    Get.to(SignInScreen());
                     //_loginpasswordController.checkLoginpassword();
                   })
             ],

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_model_byId.dart';
+import 'package:ps_welness_new_ui/model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_appointment_history.dart';
@@ -21,33 +22,17 @@ import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//import 'package:ps_welness/model/1_user_model/health_checkup_list/health_checkup_list.dart';
-//import 'package:ps_welness/model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
-//import 'package:ps_welness/model/1_user_model/lab_list_models.dart';
-// import 'package:ps_welness/model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
-// import 'package:ps_welness/model/1_user_model/medicine_list_model/medicine_list_models.dart';
-// import 'package:ps_welness/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
-// import 'package:ps_welness/model/1_user_model/nurse_location_model/nurse_location_models.dart';
-// import 'package:ps_welness/model/1_user_model/nurse_type_model/nurse_type_model.dart';
-// import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
-// import 'package:ps_welness/model/1_user_model/test_name_model/test_name_modells.dart';
-// import 'package:ps_welness/model/4_nurse_all_models/nurse_appointment_details_list.dart';
-// import 'package:ps_welness/model/9_doctors_model/doctor_profile_model.dart';
-// import 'package:ps_welness/model/9_doctors_model/view_patient_report_model.dart';
-// import 'package:ps_welness/model/franchies_models/franchies_specialist.dart';
-// import 'package:ps_welness/modules_view/circular_loader/circular_loaders.dart';
-//import 'package:ps_welness/modules_view/1_user_section_views/nursess/nurse_type_model/nurse_type_model.dart';
-
 import '../model/10_lab_module/lab_about_us/lab_about_us_detail.dart';
 import '../model/10_lab_module/lab_appointment_details/lab_appointment_detailsss.dart';
 import '../model/10_lab_module/lab_appointment_history/lab_appointment_history.dart';
 import '../model/10_lab_module/lab_appointment_historyy_latest/lab_appointment_history_model.dart';
 import '../model/10_lab_module/lab_profile_detail_model/profile_details_model.dart';
+import '../model/10_lab_module/lab_report_view_model/lab_report_image.dart';
+import '../model/10_lab_module/lab_report_view_model/lab_report_view_model.dart';
 import '../model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import '../model/1_user_model/city_model/city_modelss.dart';
 import '../model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import '../model/1_user_model/doctor_appointment_history_model/user_doctor_apointment_history.dart';
-//import '../model/1_user_model/doctor_detail_model/doctor_detail_model.dart';
 import '../model/1_user_model/doctor_checkout_model/doctor_checkout_modell.dart';
 import '../model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
 import '../model/1_user_model/get_department_list_model/department_model.dart';
@@ -2823,6 +2808,7 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&princeprint:${url}');
         WalletModel? walletlist = walletModelFromJson(r.body);
         return walletlist;
       }
@@ -3085,7 +3071,7 @@ class ApiProvider {
       "EmailId": EmailId,
       "Password": Password,
       "ConfirmPassword": ConfirmPassword,
-      "MobileNumber": "345555555",
+      "MobileNumber": MobileNumber,
       "PhoneNumber": PhoneNumber,
       "Location": Location,
       "StateMaster_Id": "2",
@@ -3103,15 +3089,119 @@ class ApiProvider {
     };
 
     http.Response r = await http.post(Uri.parse(url), body: body);
-    print("Nurse Signup Api: ${body}");
+    print("Lab Signup Api: ${body}");
     if (r.statusCode == 200) {
       Get.snackbar('message', r.body);
       return r;
     } else {
       Get.snackbar('Error', r.body);
+      print("Errorlabsignup: ${r.body}");
       return r;
     }
   }
 
+  ///todo:this is the lab upload report api...26 april 2023...............
+  static labuploadreportApi(
+    var Patient_Id,
+    var Test,
+    var File,
+    var FileBase64,
+  ) async {
+    var body = {
+      "Patient_Id": Patient_Id,
+      "Test": Test,
+      "File": '$File',
+      "FileBase64": '$FileBase64',
+    };
+    try {
+      var url = baseUrl + 'api/LabApi/Lab_UploadReport';
+      var r = await http.post(Uri.parse(url), body: body);
+      if (r.statusCode == 200) {
+        print("###3###3####1: ${r.body}");
+        print("okokolanreport: ${body}");
+
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+    }
+  }
+
+  ///todo:upload report..user.of......getapidropdown...15 may...2023..
+  ///
+  static Future<List<PatientdropdownName>?> getlabpatientApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
+    print(userid);
+    var url = baseUrl + "api/CommonApi/Lab_report?Id=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var patienttypeData = uploadReportdropdownModelFromJson(r.body);
+        return patienttypeData.patientName;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      print("errorlabbbviewpatient:${error.toString()}");
+      return [];
+    }
+  }
+
+  ///todo:report view lab.................15 may 2023..
+
+  static Labreportview1Api() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
+    print(userid);
+    var url = "http://test.pswellness.in/api/LabApi/Lab_ViewReport?Id=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&labimageurl:${url}');
+        ViewreportModel? labreportModel = viewreportModelFromJson(r.body);
+        return labreportModel;
+      }
+    } catch (error) {
+      print("errorlabbbview:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view lab.................16 may 2023..
+  static LabreportimageApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var labreportlistId = preferences.getString("labreportlistId");
+    print("labreportlistlisttIdhh: ${labreportlistId}");
+
+    // var prefs = GetStorage();
+    // userid = prefs.read("Id").toString();
+    // print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
+    // print(userid);
+    var url =
+        "http://test.pswellness.in/api/LabApi/Lab_ViewReport_File?Id=$labreportlistId";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("labreportlistlistturl: ${url}");
+        LabReportimage? labreportimageModel = labReportimageFromJson(r.body);
+        return labreportimageModel;
+      }
+    } catch (error) {
+      print("errorlabbbviewimage:${error.toString()}");
+      return;
+    }
+  }
   //http://test.pswellness.in/api/LabApi/LabUpdateProfiledetail?Id=16
 }
+//$nurseLocationId

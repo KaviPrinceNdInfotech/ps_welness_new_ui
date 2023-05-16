@@ -7,6 +7,9 @@ import 'package:ps_welness_new_ui/controllers/lab_controller/lab_controller1/lab
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_center/lab_signup2/lab_signup_2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
+import '../../../../../model/1_user_model/city_model/city_modelss.dart';
+import '../../../../../model/1_user_model/states_model/state_modells.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 // import 'package:ps_welness/modules_view/10_lab_section_view/lab_center/lab_signup2/lab_signup_2.dart';
@@ -39,7 +42,7 @@ class Lab1Credentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _lab_1_controller.lab1formkey,
+      // key: _lab_1_controller.lab1formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -52,7 +55,7 @@ class Lab1Credentials extends StatelessWidget {
                 autofillHints: [AutofillHints.name],
                 controller: _lab_1_controller.nameController,
                 onSaved: (value) {
-                  _lab_1_controller.name = value!;
+                  _lab_1_controller.labName = value!;
                 },
                 validator: (value) {
                   return _lab_1_controller.validName(value!);
@@ -84,7 +87,7 @@ class Lab1Credentials extends StatelessWidget {
                 autofillHints: [AutofillHints.email],
                 controller: _lab_1_controller.emailController,
                 onSaved: (value) {
-                  _lab_1_controller.email = value!;
+                  _lab_1_controller.emailId = value!;
                 },
                 validator: (value) {
                   return _lab_1_controller.validEmail(value!);
@@ -146,7 +149,7 @@ class Lab1Credentials extends StatelessWidget {
               child: TextFormField(
                 controller: _lab_1_controller.confirmpasswordController,
                 onSaved: (value) {
-                  _lab_1_controller.confirmpassword = value!;
+                  _lab_1_controller.confirmPassword = value!;
                 },
                 validator: (value) {
                   return _lab_1_controller.validConfirmPassword(value!);
@@ -171,17 +174,18 @@ class Lab1Credentials extends StatelessWidget {
                 //controller: _loginpasswordController.mobileController,
               ),
             ),
+
             SizedBox(
               height: size.height * 0.02,
             ),
 
-            ///todo: phone number..........
+            ///todo: mobile number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _lab_1_controller.mobileController,
                 onSaved: (value) {
-                  _lab_1_controller.mobile = value!;
+                  _lab_1_controller.mobileNumber = value!;
                 },
                 validator: (value) {
                   return _lab_1_controller.validPhone(value!);
@@ -189,7 +193,7 @@ class Lab1Credentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Phone',
+                  hintText: 'Mobile',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -213,14 +217,46 @@ class Lab1Credentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            ///todo: teliphone number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _lab_1_controller.phoneController,
+                onSaved: (value) {
+                  _lab_1_controller.phoneNumber = value!;
+                },
+                validator: (value) {
+                  return _lab_1_controller.validPhone(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Phone',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///todo: address value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-
-                ///controller: _lab_1_controller.addressController,
+                controller: _lab_1_controller.locationController,
                 onSaved: (value) {
-                  _lab_1_controller.address = value!;
+                  _lab_1_controller.location = value!;
                 },
                 validator: (value) {
                   return _lab_1_controller.validAddress(value!);
@@ -252,9 +288,9 @@ class Lab1Credentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      // value: _lab_1_controller.selectedState.value,
-                      decoration: InputDecoration(
+                  () => DropdownButtonFormField<StateModel>(
+                      value: _lab_1_controller.selectedState.value,
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
                           color: Colors.black,
@@ -263,11 +299,11 @@ class Lab1Credentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select State'),
-                      items: items.map((String items) {
+                      items: _lab_1_controller.states.map((StateModel model) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: model,
                           child: Text(
-                            items,
+                            model.stateName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -275,14 +311,8 @@ class Lab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                        //_lab_1_controller.selectedState.value = newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
+                      onChanged: (StateModel? newValue) {
+                        _lab_1_controller.selectedState.value = newValue!;
                       }),
                 ),
               ),
@@ -298,9 +328,8 @@ class Lab1Credentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      //icon: Icon(Icons.location_city),
-                      //value: _lab_1_controller.selectedCity.value,
+                  () => DropdownButtonFormField<City>(
+                      value: _lab_1_controller.selectedCity.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
@@ -310,11 +339,11 @@ class Lab1Credentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Selected City'),
-                      items: items.map((String items) {
+                      items: _lab_1_controller.cities.map((City city) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: city,
                           child: Text(
-                            items,
+                            city.cityName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -322,14 +351,8 @@ class Lab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                        //_lab_1_controller.selectedCity.value = newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
+                      onChanged: (City? newValue) {
+                        _lab_1_controller.selectedCity.value = newValue!;
                       }),
                 ),
               ),
@@ -357,6 +380,7 @@ class Lab1Credentials extends StatelessWidget {
             //       _hospital_2_controller.cities
             //           .addAll(stateCityMap[newvalue]!);
             //     })),
+
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -367,7 +391,7 @@ class Lab1Credentials extends StatelessWidget {
                 autofillHints: [AutofillHints.password],
                 controller: _lab_1_controller.pinController,
                 onSaved: (value) {
-                  _lab_1_controller.pin = value!;
+                  _lab_1_controller.pinCode = value!;
                 },
                 validator: (value) {
                   return _lab_1_controller.validPin(value!);
