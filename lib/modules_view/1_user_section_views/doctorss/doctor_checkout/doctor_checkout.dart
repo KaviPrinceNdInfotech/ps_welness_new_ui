@@ -155,7 +155,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       Text(
                                         'Fees: ₹ '
                                         // '300'
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -186,7 +186,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         height: size.height * 0.022,
                                       ),
                                       Text(
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.doctorName}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.doctorName.toString()}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -197,7 +197,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.specialistName}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.specialistName.toString()}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -209,7 +209,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       ),
                                       Text(
                                         'Since: '
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.experience}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.experience.toString()}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -323,7 +323,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         Text(
                                           //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
                                           //'Jan 26, 2023',
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.appointmentDate}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.appointmentDate.toString()}",
 
                                           //doctorcatagary[index],
                                           maxLines: 1,
@@ -338,7 +338,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         Text(
                                           // _labListController.labCheckoutModel!.slotTime.toString(),
                                           // '17:30',
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.slotTime}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.slotTime.toString()}",
 
                                           //doctorcatagary[index],
                                           maxLines: 1,
@@ -468,7 +468,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       children: [
                                         Text(
                                           '₹ '
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}",
                                           //doctorcatagary[index],
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -491,7 +491,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         ),
                                         Text(
                                           '₹ '
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}",
                                           //doctorcatagary[index],
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,

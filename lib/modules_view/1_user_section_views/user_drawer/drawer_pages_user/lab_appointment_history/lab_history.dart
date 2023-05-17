@@ -19,79 +19,81 @@ class LabHistoryUser extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: Obx(
-            ()=> (_labHistoryController.isLoading.value)
+        () => (_labHistoryController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-        : SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.05, vertical: size.height * 0.02),
-                child: Row(
+            : SafeArea(
+                child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: size.width * 0.05,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.05,
+                          vertical: size.height * 0.02),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios_outlined,
+                              size: size.width * 0.05,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.03,
+                          ),
+                          Text(
+                            'Lab History',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: size.height * 0.02),
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: size.width * 0.03,
-                    ),
-                    Text(
-                      'Lab History',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: size.height * 0.02),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                decoration: new BoxDecoration(
-                    borderRadius:
-                    new BorderRadius.all(new Radius.circular(30.0)),
-                    color: Colors.white),
-                width: size.width * 0.9,
-                height: size.height * 0.06,
-                margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
-                padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
-                child: Theme(
-                  data: Theme.of(context)
-                      .copyWith(splashColor: Colors.transparent),
-                  child: TextField(
-                    onChanged: (value) =>_labHistoryController.filterLab(value),
-                    autofocus: false,
-                    style:
-                    TextStyle(fontSize: 15.0, color: MyTheme.blueww),
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Search Doctor..',
-                      contentPadding: const EdgeInsets.only(
-                          left: 10.0, bottom: 12.0, top: 6.0),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(25.7),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(25.7),
+                    Container(
+                      decoration: new BoxDecoration(
+                          borderRadius:
+                              new BorderRadius.all(new Radius.circular(30.0)),
+                          color: Colors.white),
+                      width: size.width * 0.9,
+                      height: size.height * 0.06,
+                      margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
+                      child: Theme(
+                        data: Theme.of(context)
+                            .copyWith(splashColor: Colors.transparent),
+                        child: TextField(
+                          onChanged: (value) =>
+                              _labHistoryController.filterLab(value),
+                          autofocus: false,
+                          style:
+                              TextStyle(fontSize: 15.0, color: MyTheme.blueww),
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Search Lab-name',
+                            contentPadding: const EdgeInsets.only(
+                                left: 10.0, bottom: 12.0, top: 6.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(25.7),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(25.7),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              _labHistoryController.foundLab.value.isEmpty
-              // Obx(
-              //   () => (_labHistoryController.isLoading.value)
-              //       ? Center(child: CircularProgressIndicator())
-              //       : _labHistoryController.labappointmentbyuserid ==
-              //               null
+                    _labHistoryController.foundLab.value.isEmpty
+                        // Obx(
+                        //   () => (_labHistoryController.isLoading.value)
+                        //       ? Center(child: CircularProgressIndicator())
+                        //       : _labHistoryController.labappointmentbyuserid ==
+                        //               null
                         ? Center(
                             child: Text('No List'),
                           )
@@ -99,7 +101,8 @@ class LabHistoryUser extends StatelessWidget {
                             height: size.height * 0.73,
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: _labHistoryController.foundLab.length,
+                                itemCount:
+                                    _labHistoryController?.foundLab?.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding: EdgeInsets.symmetric(
@@ -107,10 +110,11 @@ class LabHistoryUser extends StatelessWidget {
                                         vertical: size.height * 0.0005),
                                     child: Container(
                                       height: size.height * 0.35,
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 30 / 6),
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 30 / 6),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           gradient: LinearGradient(
                                               begin: Alignment.centerLeft,
                                               end: Alignment.centerRight,
@@ -165,7 +169,8 @@ class LabHistoryUser extends StatelessWidget {
                                             padding: EdgeInsets.all(8.0),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 SizedBox(
                                                   height: size.height * 0.2,
@@ -174,7 +179,8 @@ class LabHistoryUser extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         'Lab Name:',
@@ -183,8 +189,8 @@ class LabHistoryUser extends StatelessWidget {
                                                           color: MyTheme.text1,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize:
-                                                              size.width * 0.039,
+                                                          fontSize: size.width *
+                                                              0.039,
                                                         ),
                                                       ),
                                                       Text(
@@ -194,8 +200,8 @@ class LabHistoryUser extends StatelessWidget {
                                                           color: MyTheme.text1,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize:
-                                                              size.width * 0.039,
+                                                          fontSize: size.width *
+                                                              0.039,
                                                         ),
                                                       ),
                                                       Text(
@@ -205,8 +211,8 @@ class LabHistoryUser extends StatelessWidget {
                                                           color: MyTheme.text1,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize:
-                                                              size.width * 0.039,
+                                                          fontSize: size.width *
+                                                              0.039,
                                                         ),
                                                       ),
                                                       Text(
@@ -216,8 +222,8 @@ class LabHistoryUser extends StatelessWidget {
                                                           color: MyTheme.text1,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize:
-                                                              size.width * 0.039,
+                                                          fontSize: size.width *
+                                                              0.039,
                                                         ),
                                                       ),
                                                       Text(
@@ -227,8 +233,8 @@ class LabHistoryUser extends StatelessWidget {
                                                           color: MyTheme.text1,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize:
-                                                              size.width * 0.039,
+                                                          fontSize: size.width *
+                                                              0.039,
                                                         ),
                                                       ),
                                                     ],
@@ -241,31 +247,20 @@ class LabHistoryUser extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
-                                                        _labHistoryController.foundLab[index].labName.toString()
+                                                        "${_labHistoryController.foundLab[index]?.labName}"
+
+                                                        /// _labHistoryController.foundLab[index].labName.toString()
                                                         // _labHistoryController
                                                         //     .healthCheckupList!
                                                         //     .viewMoreHealth[index]
                                                         //     .labName
                                                         //     .toString(),
                                                         //'Vineet Mishra Lab     ',
-                                                       , style:
-                                                            GoogleFonts.raleway(
-                                                                color: Colors
-                                                                    .cyanAccent,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.039),
-                                                      ),
-                                                      Text(
-                                                          _labHistoryController.foundLab[index].testDate.toString(),
-
-                                                          // 'Nov 16,22     ',
+                                                        ,
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
@@ -278,7 +273,26 @@ class LabHistoryUser extends StatelessWidget {
                                                                         0.039),
                                                       ),
                                                       Text(
-                                                        _labHistoryController.foundLab[index].testName.toString(),
+                                                        "${_labHistoryController.foundLab[index]?.testDate}",
+
+                                                        // _labHistoryController.foundLab[index].testDate.toString(),
+
+                                                        // 'Nov 16,22     ',
+                                                        style:
+                                                            GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .cyanAccent,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.039),
+                                                      ),
+                                                      Text(
+                                                        "${_labHistoryController.foundLab[index].testName?.toString()}",
+
+                                                        // _labHistoryController.foundLab[index].testName.toString(),
 
                                                         //'Blood Test  ,   ',
                                                         style:
@@ -293,9 +307,12 @@ class LabHistoryUser extends StatelessWidget {
                                                                         0.039),
                                                       ),
                                                       Text(
-                                                        'Rs ${
-                                                            _labHistoryController.foundLab[index].testAmount?.toDouble()
-                                                        }',
+                                                        "₹"
+                                                        "${_labHistoryController.foundLab[index].testAmount?.toDouble()}",
+
+                                                        // 'Rs ${
+                                                        //     _labHistoryController.foundLab[index].testAmount?.toDouble()
+                                                        // }',
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
@@ -308,9 +325,11 @@ class LabHistoryUser extends StatelessWidget {
                                                                         0.039),
                                                       ),
                                                       Text(
-                                                         // _labHistoryController.foundLab[index].location.toString(),
+                                                        "${_labHistoryController.foundLab[index].location?.toString()}",
 
-                                                          'C53,Sec-2,Noida',
+                                                        // _labHistoryController.foundLab[index].location.toString(),
+
+                                                        // 'C53,Sec-2,Noida',
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
@@ -333,10 +352,10 @@ class LabHistoryUser extends StatelessWidget {
                                     ),
                                   );
                                 })),
-              //),
-            ],
-          ),
-        ),
+                    //),
+                  ],
+                ),
+              ),
       ),
     );
   }

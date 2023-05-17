@@ -5,8 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 
+import '../../../../../controllers/1_user_view_controller/doctor_sections/doctor_checkout_controller.dart';
 import '../../doctor_appointments_details/doctor_details_by_id/doctor_detail_credentials.dart';
-import '../../doctor_checkout/doctor_checkout.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/appointment_checkout/appointment_checkout.dart';
@@ -15,6 +15,8 @@ class DetailsSchedulePage extends StatelessWidget {
   DetailsSchedulePage({Key? key, this.bevel = 2.0}) : super(key: key);
   final double bevel;
   DoctorListController _doctorListController = Get.put(DoctorListController());
+  final DoctorCheckoutController _doctorappointmentcheckout =
+      Get.put(DoctorCheckoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -448,7 +450,9 @@ class DetailsSchedulePage extends StatelessWidget {
                           onPressed: () {
                             _doctorListController.update();
                             _doctorListController.checkdoctor2();
-                            Get.to(() => DoctorAppointmentCheckout());
+                            _doctorappointmentcheckout.doctoorcheckoutApi();
+                            _doctorappointmentcheckout.update();
+                            //Get.to(() => DoctorAppointmentCheckout());
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

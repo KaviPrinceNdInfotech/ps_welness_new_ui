@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_appointment_history.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_details_api.dart';
 
 import '../../../../model/1_user_model/health_checkup_list/health_checkup_list.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
@@ -56,7 +55,8 @@ class LabHistoryController extends GetxController {
   ///...........................userid.........
   void labHistorybyUserId() async {
     isLoading(true);
-    labappointmentbyuserid = await ApiProvider.LabappointmentshistorybyuserIdApi();
+    labappointmentbyuserid =
+        await ApiProvider.LabappointmentshistorybyuserIdApi();
     print('Prince lab appointment history ');
     print(labappointmentbyuserid);
     if (labappointmentbyuserid?.labModel != null) {
@@ -196,25 +196,27 @@ class LabHistoryController extends GetxController {
   //   return false;
   // }
 
-  void checklabhistory1() {
-    final isValid = labHistoryformkey.currentState!.validate();
-    if (!isValid) {
-      return;
-    }
-    labHistoryformkey.currentState!.save();
-    //Get.to(() => HomePage());
-  }
-
+  // void checklabhistory1() {
+  //   final isValid = labHistoryformkey.currentState!.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   labHistoryformkey.currentState!.save();
+  //   //Get.to(() => HomePage());
+  // }
 
   RxList<LabModel> foundLab = RxList<LabModel>([]);
-  void filterLab (String searchlabName) {
+  void filterLab(String searchlabName) {
     List<LabModel>? finalResult = [];
     if (searchlabName.isEmpty) {
       finalResult = labappointmentbyuserid!.labModel;
     } else {
-      finalResult = labappointmentbyuserid!.labModel!.where((element) => element.labName
-          .toString().toLowerCase().contains(searchlabName.toString().toLowerCase().trim())
-      ).toList();
+      finalResult = labappointmentbyuserid!.labModel!
+          .where((element) => element.labName
+              .toString()
+              .toLowerCase()
+              .contains(searchlabName.toString().toLowerCase().trim()))
+          .toList();
     }
     print(finalResult!.length);
     foundLab.value = finalResult!;

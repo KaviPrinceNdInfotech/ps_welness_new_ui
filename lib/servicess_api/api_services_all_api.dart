@@ -301,12 +301,18 @@ class ApiProvider {
 
   ///todo nurse list detail...2 april 2023....after api it will change in future it will based on location id...18 april 2023...................
   static DoctoercheckoutApi() async {
-    var url = "http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=145";
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorListId = preferences.getString("DoctorListId");
+    print("DoctorListId2222: ${DoctorListId}");
+    var url =
+        "http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=$DoctorListId";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print("doctorUrlcheckout: ${url}");
+        print("DoctorListId2222body: ${r.body}");
         DoctorCheckoutModel? doctorcheckout =
             doctorCheckoutModelFromJson(r.body);
         return doctorcheckout;
@@ -1834,8 +1840,19 @@ class ApiProvider {
 
   //doctor_list_api..........................
   static ViewDoctorListApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var doctorstateId = preferences.getString("doctorstateId");
+    print("doctorstateId: ${doctorstateId}");
+    var doctorcityId = preferences.getString("doctorcityId");
+    print("doctorcityId: ${doctorcityId}");
+    var doctordepartmentId = preferences.getString("doctordepartmentId");
+    print("doctordepartmentId: ${doctordepartmentId}");
+    var doctorspeacilistId = preferences.getString("doctorspeacilistId");
+    print("doctorspeacilistId: ${doctorspeacilistId}");
     var url =
-        "http://test.pswellness.in/api/DoctorApi/DoctorChooseDep?Department_id=1&Specialist_id=1&StateMaster_Id=33&CityMaster_Id=771";
+        "http://test.pswellness.in/api/DoctorApi/DoctorChooseDep?Department_id=$doctordepartmentId&Specialist_id=$doctorspeacilistId&StateMaster_Id=$doctorstateId&CityMaster_Id=$doctorcityId";
+
+    // "http://test.pswellness.in/api/DoctorApi/DoctorChooseDep?Department_id=1&Specialist_id=1&StateMaster_Id=33&CityMaster_Id=771";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1853,17 +1870,23 @@ class ApiProvider {
 
   ///todo: doctor details by Id 17 april 2023.............
   static ViewDoctorDetailApi() async {
-    var url = "http://test.pswellness.in/api/DoctorApi/DoctorDetails?id=145";
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorListId = preferences.getString("DoctorListId");
+    print("DoctorListId: ${DoctorListId}");
+    var url =
+        "http://test.pswellness.in/api/DoctorApi/DoctorDetails?id=$DoctorListId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print(url);
+        print(r.body);
+        print("okokokokdetaildoctorrbody:${r.body}");
+        print(r.statusCode);
+        print("okokokokdetaildoctorr:${url}");
         var GetDoctorDetailbyId = getDoctorDetailbyIdFromJson(r.body);
         return GetDoctorDetailbyId;
       }
-      print(url);
-      print(r.body);
-      print(r.statusCode);
     } catch (error) {
       return;
     }
@@ -2114,11 +2137,13 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineDetailsByPatient?PatientId=$userid";
+        "http://test.pswellness.in/api/PatientMedicine/MedicineDetailsByPatient?PatientId=137";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&usercartplususer:${url}');
+
         var MedicineOrderHistory = medicineOrderHistoryFromJson(r.body);
         return MedicineOrderHistory;
       }
@@ -2169,19 +2194,24 @@ class ApiProvider {
   ///todo: this is the api of labappointment history by userid....21april 2023....
 
   static LabappointmentshistorybyuserIdApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userlabhist:${userid}');
+    print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientApi/LabDetailsByPatient?PatientId=80";
+        "http://test.pswellness.in/api/PatientApi/LabDetailsByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&userlabhistrrr:${url}');
         var Labappointmentbyuserid = labappointmentbyuseridFromJson(r.body);
-        print(
-            '############43322: ${Labappointmentbyuserid.labModel?[0].labName}');
+        // print(
+        //     '############43322: ${Labappointmentbyuserid.labModel?[0].labName}');
         return Labappointmentbyuserid;
       }
     } catch (error) {
-      print("okokokocr8ytviuobipn:${error}");
+      print("okokokocr8ytviuobipnrr:${error}");
       return;
     }
   }

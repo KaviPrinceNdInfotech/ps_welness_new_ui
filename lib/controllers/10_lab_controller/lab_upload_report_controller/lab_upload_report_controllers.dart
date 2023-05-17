@@ -80,56 +80,6 @@ class LabUploadReportController extends GetxController {
     }
   }
 
-  // late TextEditingController selectedpatientController,
-  //     testcontroller,
-  //     fileController,
-  //     FileBase64Controller;
-  //
-  // var patientid = '';
-  // var testid = '';
-  // var file = '';
-  // var filebase64 = '';
-
-  ///todo:user complain...........
-
-  // void usercomplaintApi() async {
-  //   CallLoader.loader();
-  //   http.Response r = await ApiProvider.UserComplainApi(
-  //     loginidController.text,
-  //     subjectController.text,
-  //     complaintController.text,
-  //     isdeletedController.text,
-  //     isresolveController.text,
-  //     otherController.text,
-  //     doctorController.text,
-  //   );
-  //
-  //   if (r.statusCode == 200) {
-  //     var data = jsonDecode(r.body);
-  //
-  //     CallLoader.hideLoader();
-  //
-  //     /// we can navigate to user page.....................................
-  //     Get.to(UserHomePage());
-  //   }
-  // }
-  //
-  // late TextEditingController loginidController,
-  //     subjectController,
-  //     complaintController,
-  //     isdeletedController,
-  //     isresolveController,
-  //     otherController,
-  //     doctorController;
-  //
-  // var Login_Id = '';
-  // var Subjects = '';
-  // var complaint = '';
-  // var IsDeleted = '';
-  // var IsResolved = '';
-  // var Others = '';
-  // var Doctor = '';
-
   @override
   void onInit() {
     //states.refresh();
@@ -166,23 +116,6 @@ class LabUploadReportController extends GetxController {
   //image picker
   var selectedImagePath = ''.obs;
   var selectedImageSize = ''.obs;
-
-  ///todo:rahul...part..
-  // void getImage(ImageSource imageSource) async {
-  //   final pickedFile = await ImagePicker().getImage(source: imageSource);
-  //   if (pickedFile != null) {
-  //     selectedImagePath.value = pickedFile.path;
-  //     selectedImageSize.value =
-  //         ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
-  //                 .toStringAsFixed(2) +
-  //             " Mb";
-  //   } else {
-  //     Get.snackbar('Error', 'No Image Selected',
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         backgroundColor: Colors.red,
-  //         colorText: Colors.white);
-  //   }
-  // }
 
   void checklabreport() {
     //if (uploadlabformkey.currentState?.validate()) {

@@ -21,7 +21,7 @@ class DoctorCheckoutController extends GetxController {
     print(doctorCheckoutModel);
     if (
         //nurseappointmentdetail?.result != nulla
-        doctorCheckoutModel != null
+        doctorCheckoutModel?.doctorName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

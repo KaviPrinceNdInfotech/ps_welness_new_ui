@@ -7,6 +7,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sect
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
@@ -331,7 +332,17 @@ class DoctorAddressCredentials extends StatelessWidget {
 
             RectangularButton(
                 text: 'SUBMIT',
-                press: () {
+                press: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setString("doctorstateId",
+                      "${_doctor_appointment_1_controller.selectedState.value?.id.toString()}");
+                  prefs.setString("doctorcityId",
+                      "${_doctor_appointment_1_controller.selectedCity.value?.id.toString()}");
+                  prefs.setString("doctordepartmentId",
+                      "${_doctor_appointment_1_controller.selectedDepartment.value?.id.toString()}");
+                  prefs.setString("doctorspeacilistId",
+                      "${_doctor_appointment_1_controller.selectedSpecialist.value?.id.toString()}");
                   _doctorListController.doctorListApi();
                   _doctorListController.update();
                   _doctor_appointment_1_controller.update();

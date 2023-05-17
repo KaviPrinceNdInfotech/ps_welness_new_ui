@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/my_theme.dart';
 import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
+import '../../../controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../../sign_in/sigin_screen.dart';
@@ -34,6 +35,9 @@ class UserMainDrawer extends StatelessWidget {
     DoctorHistoryController _doctorHistoryController =
         Get.put(DoctorHistoryController());
     UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+    LabHistoryController _labHistoryController =
+        Get.put(LabHistoryController());
+
     return SafeArea(
       child: Drawer(
         backgroundColor: MyTheme.ContainerUnSelectedColor,
@@ -284,6 +288,8 @@ class UserMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _labHistoryController.update();
+                _labHistoryController.labHistorybyUserId();
                 Get.to(() => LabHistoryUser());
                 Get.offNamed('/LabHistoryUser');
               },
