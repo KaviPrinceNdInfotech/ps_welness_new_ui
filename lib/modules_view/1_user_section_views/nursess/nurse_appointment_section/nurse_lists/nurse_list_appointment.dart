@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_detail_and_schedule/nurse_details_schedules.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
+import '../../../../../utils/services/account_service.dart';
+import '../nurse_detail_and_schedule/nurse_details_schedules.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_section/detail_and_schedule/details_schedules.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/appointment_section/detail_and_schedule/details_schedules.dart';
@@ -161,7 +164,7 @@ class NurseListUser extends StatelessWidget {
                                         padding:
                                             EdgeInsets.all(size.height * 0.007),
                                         child: Container(
-                                          height: size.height * 0.15,
+                                          height: size.height * 0.174,
                                           width: size.width * 0.15,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: size.width * 0.006),
@@ -220,7 +223,7 @@ class NurseListUser extends StatelessWidget {
                                                             FontWeight.bold,
                                                         color: MyTheme.blueww,
                                                         fontSize:
-                                                            size.width * 0.035,
+                                                            size.width * 0.03,
                                                       ),
                                                     )
                                                   ],
@@ -252,6 +255,69 @@ class NurseListUser extends StatelessWidget {
                                                         color: MyTheme.blueww,
                                                         fontSize:
                                                             size.height * 0.022,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width * 0.4,
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            'Rating: ',
+
+                                                            //'${_doctorListController.foundDoctors[index].experience} yr',
+                                                            //doctorcatagary[index],
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color: Colors
+                                                                  .yellow
+                                                                  .shade900,
+
+                                                              //MyTheme
+                                                              //.containercolor2,
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.017,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '0.0',
+
+                                                            //'${_doctorListController.foundDoctors[index].experience} yr',
+                                                            //doctorcatagary[index],
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Colors
+                                                                  .red.shade600,
+
+                                                              //MyTheme
+                                                              //.containercolor2,
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.02,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: Colors.yellow
+                                                                .shade800,
+                                                            size: size.height *
+                                                                0.025,
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
                                                     Text(
@@ -310,12 +376,29 @@ class NurseListUser extends StatelessWidget {
                                                               "NurseuserListId",
                                                               "${_nurseUserListController.foundNurses[index].id.toString()}");
                                                           _nurseAppointmentDetailController
-                                                              .nurseappointmentApi();
+                                                              .nursedetailApi();
                                                           _nurseAppointmentDetailController
                                                               .update();
+
+                                                          ///from here we can go to next screen with some time ....
+                                                          accountService
+                                                              .getAccountData
+                                                              .then(
+                                                                  (accountData) {
+                                                            Timer(
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      200),
+                                                              () {
+                                                                Get.to(() =>
+                                                                    NurseDetailsSchedulePage());
+                                                                //Get.to((page))
+                                                                ///
+                                                              },
+                                                            );
+                                                          });
                                                           //nurseappointmentApi
-                                                          Get.to(() =>
-                                                              NurseDetailsSchedulePage());
+                                                          // Get.to(() => NurseDetailsSchedulePage());
                                                           //Get.to(() => AppointmentCheckout());
                                                         },
                                                         child: Container(

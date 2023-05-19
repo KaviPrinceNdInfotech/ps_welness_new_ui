@@ -1,26 +1,69 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../model/4_nurse_all_models_RRR/nurse_appointment_details_list.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import '../../../utils/services/account_service.dart';
 
 class NurseAppointmentDetailController extends GetxController {
   final GlobalKey<FormState> NurseBooking2formkey = GlobalKey<FormState>();
+  RxBool isLoading = false.obs;
+
+  RxInt selectedimg = 0.obs;
+  RxInt selectedprice = 0.obs;
+  //RxBool isLoading = true.obs;
+  RxBool rating1 = true.obs;
+  RxBool rating2 = false.obs;
+  RxBool rating3 = false.obs;
+  RxBool rating4 = false.obs;
+  RxBool rating5 = false.obs;
+
+  var ratings = 0.0.obs;
+  //var selectedPath = ''.obs;
+
+  addReview() {
+    Get.dialog(
+      RatingDialog(
+          title: Text("data"),
+          starColor: Colors.amber,
+          submitButtonText: "Post Review",
+          onSubmitted: (response) {
+            print(ratings.value);
+          }),
+    );
+  }
+
+  TextEditingController Name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController mobile = TextEditingController();
+  TextEditingController Description = TextEditingController();
+  TextEditingController title = TextEditingController();
+  TextEditingController imagePath = TextEditingController();
+  TextEditingController imagebase = TextEditingController();
+
+  ///this is the product detail controller.....product Id.........................
+  String pro_Id = '';
+
+  GlobalKey<FormState> reviewKey = GlobalKey<FormState>();
+
+  // var selectedPath = ''.obs;
 
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
-  RxBool isLoading = false.obs;
   //
   // late TextEditingController appointmentController;
 
@@ -45,7 +88,7 @@ class NurseAppointmentDetailController extends GetxController {
   //all catagary list .........
 
   void nurseappointmentApi() async {
-    //isLoading(true);
+    isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
     if (
         //nurseappointmentdetail?.result != null
@@ -86,7 +129,7 @@ class NurseAppointmentDetailController extends GetxController {
 
   ///todo from here we have get nurse list by location id...
   void nurselistsApi() async {
-    //isLoading(true);
+    isLoading(true);
     nurseListbycityId = await ApiProvider.NursListApi();
     print('Prince doctor list');
     print(nurseListbycityId);
@@ -103,7 +146,7 @@ class NurseAppointmentDetailController extends GetxController {
   ///todo: from here nurse detail.............18 april 2023...
 
   void nursedetailApi() async {
-    //isLoading(true);
+    isLoading(true);
     nursedetailbyId = await ApiProvider.NursDetailApi();
     print('Prince nurse detail..');
     print(nursedetailbyId);
@@ -118,14 +161,38 @@ class NurseAppointmentDetailController extends GetxController {
     }
   }
 
+  var selectedPath = ''.obs;
+
+  void getImage(ImageSource imageSource) async {
+    final pickedFiles = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFiles != null) {
+      selectedPath.value = pickedFiles.path;
+      print("File Path ${pickedFiles.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
-
     nurseappointmentApi();
     nurselistsApi();
     nursedetailApi();
     timeslotApi();
+
+    accountService.getAccountData.then((accountData) {
+      Timer(
+        const Duration(seconds: 4),
+        () {
+          //Get.to((page))
+          ///
+        },
+      );
+    });
+
     nurseidController = TextEditingController();
     appointmentController = TextEditingController();
     appointmentController.text = "YYY-MM-DD";
@@ -171,14 +238,6 @@ class NurseAppointmentDetailController extends GetxController {
     //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
     // }
   }
-
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
 
   RxList<GetNurse> foundNurses = RxList<GetNurse>([]);
   void filterNurse(String searchnursepatientName) {

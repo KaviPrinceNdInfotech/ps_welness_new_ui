@@ -33,16 +33,6 @@ class DoctorListController extends GetxController {
 
   GetDoctorListModel? doctorListUser;
   HealthCheckupcheDetail? healthCheckupcheDetail;
-  @override
-  void onInit() {
-    super.onInit();
-    doctorListApi();
-    timeslotApi();
-    doctordetailApi();
-    doctoridController = TextEditingController();
-    appointmentController = TextEditingController();
-    appointmentController.text = "DD-MM-YYYY";
-  }
 
   void doctorListApi() async {
     isLoading(true);
@@ -91,10 +81,7 @@ class DoctorListController extends GetxController {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
-      //Get.to(NurseListUser());
-      // Get.to(NurseDetailsSchedulePage());
-      //Get.to(() => AppointmentCheckout());
-      //Get.to(())DoctorAppointmentCheckout
+
       Get.to(DoctorAppointmentCheckout());
 
       /// we can navigate to user page.....................................
@@ -122,15 +109,26 @@ class DoctorListController extends GetxController {
   }
 
   @override
+  void onInit() {
+    super.onInit();
+    doctorListApi();
+    timeslotApi();
+    doctordetailApi();
+    doctoridController = TextEditingController();
+    appointmentController = TextEditingController();
+    appointmentController.text = "DD-MM-YYYY";
+  }
+
+  @override
   void onClose() {
-    doctorListUser = null;
-    super.onClose();
+    //doctorListUser = null;
+    //super.onClose();
   }
 
   @override
   void dispose() {
-    doctorListUser = null;
-    super.dispose();
+    //doctorListUser = null;
+    //super.dispose();
   }
 
   chooseDate() async {

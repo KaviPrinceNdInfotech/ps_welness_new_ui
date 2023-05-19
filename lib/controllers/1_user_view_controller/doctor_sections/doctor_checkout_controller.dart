@@ -7,7 +7,6 @@ class DoctorCheckoutController extends GetxController {
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
   RxBool isLoading = false.obs;
-
   // late TextEditingController appointmentController,
   //     nurseidController;
 
@@ -20,8 +19,9 @@ class DoctorCheckoutController extends GetxController {
     print('Prince doctor list');
     print(doctorCheckoutModel);
     if (
-        //nurseappointmentdetail?.result != nulla
-        doctorCheckoutModel?.doctorName != null
+        //nurseappointmentdetail?.result != null
+        //doctorCheckoutModel!.doctorName!.isNotEmpty
+        doctorCheckoutModel != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

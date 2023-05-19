@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
@@ -16,6 +17,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_containe
 
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
+import '../../../../../controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import '../../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../../model/1_user_model/test_name_model/test_name_modells.dart';
 import '../../../../../widgets/widgets/rectangular_button.dart';
@@ -24,6 +26,7 @@ class LabCredentials extends StatelessWidget {
   LabCredentials({Key? key}) : super(key: key);
 
   ChooseLabController _chooseLabController = Get.put(ChooseLabController());
+  LabListController _labListController = Get.put(LabListController());
 
   //Doctor_2_Controller _doctor_2_controller = Get.put(Doctor_2_Controller());
 
@@ -288,7 +291,17 @@ class LabCredentials extends StatelessWidget {
 
               RectangularButton(
                   text: 'SUBMIT',
-                  press: () {
+                  press: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString("labstateId",
+                        "${_chooseLabController.selectedState.value?.id.toString()}");
+                    prefs.setString("labcityId",
+                        "${_chooseLabController.selectedCity.value?.id.toString()}");
+                    prefs.setString("labtestId",
+                        "${_chooseLabController.selectedTest.value?.id.toString()}");
+                    _labListController.labListApi();
+                    _labListController.update();
                     CallLoader.loader();
                     _chooseLabController.checklab1();
                     // Get.to(LabCatagaryDetails());

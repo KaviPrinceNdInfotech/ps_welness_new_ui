@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controller/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
+import '../../../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_user_ratting_review_controller/nurse_user_rating_review_controller.dart';
 import '../../../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
@@ -16,13 +23,20 @@ import '../../../../../model/1_user_model/time_slots_common_model/time_slots_com
 
 class NurseDetailsSchedulePage extends StatelessWidget {
   NurseDetailsSchedulePage({Key? key, this.bevel = 2.0}) : super(key: key);
+  // String productId;
+  RxInt selectedimg = 0.obs;
+  RxInt selectedsingleimg = 0.obs;
+
   final NurseAppointmentDetailController _nurseAppointmentDetailController =
       Get.put(NurseAppointmentDetailController());
+  final NurseRatingReviewController _nurseRatingReviewController =
+      Get.put(NurseRatingReviewController());
 
   final double bevel;
 
   @override
   Widget build(BuildContext context) {
+    // var base = 'https://api.gyros.farm/Images/';
     Size size = MediaQuery.of(context).size;
     return Form(
       key: _nurseAppointmentDetailController.NurseBooking2formkey,
@@ -139,6 +153,87 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                       fontSize: size.height * 0.025,
                                     ),
                                   ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                        width: size.width * 0.4,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Rating: ',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.yellow.shade900,
+
+                                                //MyTheme
+                                                //.containercolor2,
+                                                fontSize: size.height * 0.017,
+                                              ),
+                                            ),
+                                            Text(
+                                              '0.0',
+                                              //'${_doctorListController.foundDoctors[index].experience} yr',
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red.shade600,
+
+                                                //MyTheme
+                                                //.containercolor2,
+                                                fontSize: size.height * 0.02,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.yellow.shade800,
+                                              size: size.height * 0.025,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    PhysicalModel(
+                                      color: Colors.black,
+                                      elevation: 5,
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: InkWell(
+                                        onTap: () {
+                                          addReview();
+                                        },
+                                        child: Container(
+                                          height: size.height * 0.036,
+                                          width: size.width * 0.22,
+                                          decoration: BoxDecoration(
+                                            color: Colors.cyanAccent.shade200,
+                                            //yellow.shade600,
+                                            border:
+                                                Border.all(color: Colors.black),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                              child: Text(
+                                            'Add Review',
+                                            style: GoogleFonts.nunitoSans(
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.height * 0.013),
+                                          )),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.009,
                                 ),
                                 SizedBox(
                                   height: size.height * 0.009,
@@ -573,56 +668,243 @@ class NurseDetailsSchedulePage extends StatelessWidget {
       ),
     );
   }
-}
 
-// Positioned(
-// bottom: size.height * 0.001,
-// left: size.width * 0.0,
-// right: size.width * 0.00,
-// child: Padding(
-// padding: EdgeInsets.symmetric(horizontal: size.width * 0.2),
-// child: ElevatedButton(
-// style: ElevatedButton.styleFrom(
-// shape: RoundedRectangleBorder(
-// borderRadius: new BorderRadius.circular(30.0),
-// ),
-// elevation: 0,
-// backgroundColor: Colors.white,
-// padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-// textStyle:
-// TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-// clipBehavior: Clip.none,
-// onPressed: () {},
-// child: Container(
-// height: 50.0,
-// //width: size.width * 0.9,
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(30),
-// ),
-// child: Container(
-// decoration: BoxDecoration(
-// gradient: LinearGradient(
-// colors: [Color(0xff374ABE), Color(0xff64B6FF)],
-// begin: Alignment.centerLeft,
-// end: Alignment.centerRight,
-// ),
-// borderRadius: BorderRadius.circular(30.0)),
-// child: Container(
-// constraints:
-// BoxConstraints(maxWidth: 900.0, minHeight: 50.0),
-// alignment: Alignment.center,
-// child: Text(
-// "Book Apointment",
-// textAlign: TextAlign.center,
-// style: TextStyle(
-// color: Colors.white,
-// fontSize: size.height * 0.016,
-// fontWeight: FontWeight.w800,
-// ),
-// ),
-// ),
-// ),
-// ),
-// ),
-// ),
-// ),
+  addReview() {
+    Get.dialog(
+      RatingDialog(
+          starSize: 30,
+          title: Text(""),
+          starColor: Colors.amber,
+          submitButtonText: "Post Review",
+          image: Container(
+            //color: Colors.green,
+            child: Column(
+              children: [
+                Container(
+                  height: 50,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: TextFormField(
+                      controller: _nurseRatingReviewController.name,
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Name"),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: TextFormField(
+                      controller: _nurseRatingReviewController.email,
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Email"),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: TextFormField(
+                      controller: _nurseRatingReviewController.title,
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Title"),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: TextFormField(
+                      controller: _nurseRatingReviewController.description,
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Description"),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                      controller: _nurseRatingReviewController.mobile,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Mobile Number"),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Obx(
+                  // () => _controller.selectedPath.value != ''
+                  () => _nurseRatingReviewController.selectedPath.value != ''
+                      ? Image.file(
+                          File(_nurseRatingReviewController.selectedPath.value))
+                      : Center(
+                          child: InkWell(
+                            onTap: (() {
+                              optionsImage();
+                            }),
+                            child: Container(
+                              height: 160,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  border: Border.all(
+                                      width: 50,
+                                      color:
+                                          Color.fromARGB(255, 58, 141, 208))),
+                              child: Center(
+                                child: Icon(
+                                  Icons.add_box,
+                                  color: Color.fromARGB(255, 58, 141, 208),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                )
+              ],
+            ),
+          ),
+          enableComment: false,
+          onSubmitted: (response) {
+            _nurseRatingReviewController.ratings.value = response.rating;
+            if (_nurseRatingReviewController.ratings.value == 1) {
+              _nurseRatingReviewController.rating1.value = true;
+            } else if (_nurseRatingReviewController.ratings.value == 2) {
+              _nurseRatingReviewController.rating1.value = true;
+              _nurseRatingReviewController.rating2.value = true;
+            } else if (_nurseRatingReviewController.ratings.value == 3) {
+              _nurseRatingReviewController.rating1.value = true;
+              _nurseRatingReviewController.rating2.value = true;
+              _nurseRatingReviewController.rating3.value = true;
+            } else if (_nurseRatingReviewController.ratings.value == 4) {
+              _nurseRatingReviewController.rating1.value = true;
+              _nurseRatingReviewController.rating2.value = true;
+              _nurseRatingReviewController.rating3.value = true;
+              _nurseRatingReviewController.rating4.value = true;
+            } else if (_nurseRatingReviewController.ratings.value == 4) {
+              _nurseRatingReviewController.rating1.value = true;
+              _nurseRatingReviewController.rating2.value = true;
+              _nurseRatingReviewController.rating3.value = true;
+              _nurseRatingReviewController.rating4.value = true;
+              _nurseRatingReviewController.rating5.value = true;
+            }
+
+            _nurseRatingReviewController.addProductReviewApi();
+          }),
+    );
+  }
+
+  void optionsImage() {
+    Get.defaultDialog(
+      title: "Selcet an option",
+      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      content: SizedBox(
+        width: 500,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                _nurseRatingReviewController.getImage(ImageSource.camera);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.camera_enhance,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 60,
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 60,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(
+              color: Color.fromARGB(255, 34, 126, 201),
+              endIndent: 120,
+              indent: 120,
+            ),
+            InkWell(
+              onTap: () {
+                _nurseRatingReviewController.getImage(ImageSource.gallery);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 60,
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    "Gallery",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 60,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

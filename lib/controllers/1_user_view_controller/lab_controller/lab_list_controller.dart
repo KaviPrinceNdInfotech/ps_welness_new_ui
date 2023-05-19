@@ -57,7 +57,7 @@ class LabListController extends GetxController {
     if (labListUser?.labBookings != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
-      foundProducts.value = labListUser!.labBookings!;
+      foundlabProducts.value = labListUser!.labBookings!;
       //Get.to(()=>Container());
     }
   }
@@ -65,10 +65,10 @@ class LabListController extends GetxController {
   ///lab_detail_api.....................18april....2023..
   void labdetailApi() async {
     isLoading(true);
-    labdetailsbyid = await ApiProvider.ViewLabdetailsApi();
+    labdetailsbyid = await ApiProvider.ViewLabdetailssApi();
     print('Prince lab sedule.........');
     print(labdetailsbyid);
-    if (labdetailsbyid?.year != null) {
+    if (labdetailsbyid != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
       //Get.to(()=>Container());
@@ -169,7 +169,7 @@ class LabListController extends GetxController {
     super.dispose();
   }
 
-  RxList<LabBooking> foundProducts = RxList<LabBooking>([]);
+  RxList<LabBooking> foundlabProducts = RxList<LabBooking>([]);
 
   void filterProduct(String searchlabName) {
     List<LabBooking>? finalResult = [];
@@ -184,7 +184,7 @@ class LabListController extends GetxController {
           .toList();
     }
     print(finalResult?.length);
-    foundProducts.value = finalResult!;
+    foundlabProducts.value = finalResult!;
   }
 
   ///.......................

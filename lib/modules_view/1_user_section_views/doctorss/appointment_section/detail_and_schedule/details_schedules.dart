@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 
-import '../../../../../controllers/1_user_view_controller/doctor_sections/doctor_checkout_controller.dart';
 import '../../doctor_appointments_details/doctor_details_by_id/doctor_detail_credentials.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
@@ -15,8 +15,8 @@ class DetailsSchedulePage extends StatelessWidget {
   DetailsSchedulePage({Key? key, this.bevel = 2.0}) : super(key: key);
   final double bevel;
   DoctorListController _doctorListController = Get.put(DoctorListController());
-  final DoctorCheckoutController _doctorappointmentcheckout =
-      Get.put(DoctorCheckoutController());
+  // final DoctorCheckoutController _doctorappointmentcheckout =
+  //     Get.put(DoctorCheckoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +125,78 @@ class DetailsSchedulePage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SizedBox(
+                                      width: size.width * 0.4,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Rating: ',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.yellow.shade900,
+
+                                              //MyTheme
+                                              //.containercolor2,
+                                              fontSize: size.height * 0.017,
+                                            ),
+                                          ),
+                                          Text(
+                                            '0.0',
+                                            //'${_doctorListController.foundDoctors[index].experience} yr',
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.red.shade600,
+
+                                              //MyTheme
+                                              //.containercolor2,
+                                              fontSize: size.height * 0.02,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Colors.yellow.shade800,
+                                            size: size.height * 0.025,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  PhysicalModel(
+                                    color: Colors.black,
+                                    elevation: 5,
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Container(
+                                      height: size.height * 0.036,
+                                      width: size.width * 0.22,
+                                      decoration: BoxDecoration(
+                                        color: Colors.cyanAccent.shade200,
+                                        //yellow.shade600,
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        'Add Review',
+                                        style: GoogleFonts.nunitoSans(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: size.height * 0.013),
+                                      )),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               SizedBox(
                                 height: size.height * 0.009,
                               ),
@@ -132,7 +204,6 @@ class DetailsSchedulePage extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   "${_doctorListController.doctordetailbyid?.departmentName.toString()}"
-
                                   //'Cardiologist'
                                   ,
                                   style: TextStyle(
@@ -157,6 +228,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
                               SizedBox(
                                 height: size.height * 0.01,
                               ),
@@ -443,15 +515,16 @@ class DetailsSchedulePage extends StatelessWidget {
                       bottom: size.height * 0.02,
                       left: size.width * 0.0,
                       right: size.width * 0.00,
+                      top: size.height * 0.82,
                       child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: size.width * 0.2),
                         child: ElevatedButton(
                           onPressed: () {
-                            _doctorListController.update();
+                            //_doctorListController.update();
                             _doctorListController.checkdoctor2();
-                            _doctorappointmentcheckout.doctoorcheckoutApi();
-                            _doctorappointmentcheckout.update();
+                            // _doctorappointmentcheckout.doctoorcheckoutApi();
+                            //_doctorappointmentcheckout.update();
                             //Get.to(() => DoctorAppointmentCheckout());
                           },
                           style: ElevatedButton.styleFrom(

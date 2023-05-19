@@ -155,7 +155,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       Text(
                                         'Fees: ₹ '
                                         // '300'
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -186,7 +186,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         height: size.height * 0.022,
                                       ),
                                       Text(
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.doctorName.toString()}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.doctorName}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -197,7 +197,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.specialistName.toString()}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.specialistName}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -209,7 +209,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       ),
                                       Text(
                                         'Since: '
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.experience.toString()}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.experience}",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -323,7 +323,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         Text(
                                           //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
                                           //'Jan 26, 2023',
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.appointmentDate.toString()}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.appointmentDate}",
 
                                           //doctorcatagary[index],
                                           maxLines: 1,
@@ -338,7 +338,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         Text(
                                           // _labListController.labCheckoutModel!.slotTime.toString(),
                                           // '17:30',
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.slotTime.toString()}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.slotTime}",
 
                                           //doctorcatagary[index],
                                           maxLines: 1,
@@ -468,7 +468,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       children: [
                                         Text(
                                           '₹ '
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
                                           //doctorcatagary[index],
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -491,7 +491,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         ),
                                         Text(
                                           '₹ '
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}",
+                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
                                           //doctorcatagary[index],
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -688,49 +688,49 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                         ),
 
                                         ///Todo: COD method for order...........................................................cod...................
-                                        InkWell(
-                                          onTap: () {
-                                            _postOrderDoctorController
-                                                .postOrderDoctorofflineApi()
-                                                .then((statusCode) {
-                                              if (statusCode == 200) {
-                                                ///This is the main thing to provide updated list history...
-                                                _doctorHistoryController
-                                                    .doctorListHospitalApi();
-
-                                                ///nov 14....................................
-                                                //Get.to(LabHistoryUser());
-                                                _doctorHistoryController
-                                                    .update();
-
-                                                ///nov 14....................................
-                                                Get.to(DoctorHistoryUser());
-                                              } else {
-                                                Get.snackbar("Error123", "");
-                                              }
-                                            });
-                                          },
-                                          child: Container(
-                                            height: 50.0,
-                                            decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              border: new Border.all(
-                                                  color: Colors.white,
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      10.0),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Cash on delivery',
-                                                style: new TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        // InkWell(
+                                        //   onTap: () {
+                                        //     _postOrderDoctorController
+                                        //         .postOrderDoctorofflineApi()
+                                        //         .then((statusCode) {
+                                        //       if (statusCode == 200) {
+                                        //         ///This is the main thing to provide updated list history...
+                                        //         _doctorHistoryController
+                                        //             .doctorListHospitalApi();
+                                        //
+                                        //         ///nov 14....................................
+                                        //         //Get.to(LabHistoryUser());
+                                        //         _doctorHistoryController
+                                        //             .update();
+                                        //
+                                        //         ///nov 14....................................
+                                        //         Get.to(DoctorHistoryUser());
+                                        //       } else {
+                                        //         Get.snackbar("Error123", "");
+                                        //       }
+                                        //     });
+                                        //   },
+                                        //   child: Container(
+                                        //     height: 50.0,
+                                        //     decoration: BoxDecoration(
+                                        //       color: Colors.black,
+                                        //       border: new Border.all(
+                                        //           color: Colors.white,
+                                        //           width: 2.0),
+                                        //       borderRadius:
+                                        //           new BorderRadius.circular(
+                                        //               10.0),
+                                        //     ),
+                                        //     child: Center(
+                                        //       child: Text(
+                                        //         'Cash on delivery',
+                                        //         style: new TextStyle(
+                                        //             fontSize: 18.0,
+                                        //             color: Colors.white),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
                                         // InkWell(
                                         //   onTap: (){
                                         //     _postOrderController.postOrderApi().then((statusCode) {

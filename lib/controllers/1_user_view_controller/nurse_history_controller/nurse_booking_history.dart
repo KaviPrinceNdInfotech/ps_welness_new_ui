@@ -18,12 +18,11 @@ class NurseBookingHistoryController extends GetxController {
 
   void nursebookinghistoryApi() async {
     isLoading(true);
-    nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
-    if (
-    nurseappointmentdetail?.nurseAppointments != null
-    //appointmentdetail != null
-    //getcatagartlist!.result!.isNotEmpty
-    ) {
+    nurseappointmentdetail = await ApiProvider.NurseappointmentApibyuser();
+    if (nurseappointmentdetail?.nurseAppointments != null
+        //appointmentdetail != null
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
       isLoading(false);
     }
   }
@@ -36,14 +35,9 @@ class NurseBookingHistoryController extends GetxController {
 
   late TextEditingController appointmentController1;
 
-
-
   ///this is for State....................................
 
-
   //radio.........
-
-
 
   //this is for City.................................
   Rx<String?> selectedState = (null as String?).obs;
@@ -57,7 +51,6 @@ class NurseBookingHistoryController extends GetxController {
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "DD-MM-YYYY";
-
   }
 
   @override

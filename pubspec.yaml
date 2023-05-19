@@ -47,6 +47,8 @@ dependencies:
   intl: ^0.17.0
   flutter_svg: ^1.1.0
   neopop: ^1.0.2
+  rating_dialog: ^2.0.4
+
 
 
   pdf: ^3.8.4

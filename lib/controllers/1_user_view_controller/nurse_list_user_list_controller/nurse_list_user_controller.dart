@@ -82,7 +82,7 @@ class NurseUserListController extends GetxController {
 
   ///todo from here we have get nurse list by location id...
   void nurselistsuserApi() async {
-    //isLoading(true);
+    isLoading(true);
     nurseListbylocationId = await ApiProvider.NursListUserrApi();
     print('Prince doctor list');
     print(nurseListbylocationId);
@@ -118,6 +118,7 @@ class NurseUserListController extends GetxController {
   void onInit() {
     super.onInit();
     nurselistsuserApi();
+
     // nurseidController = TextEditingController();
     // appointmentController = TextEditingController();
     // appointmentController.text = "YYY-MM-DD";

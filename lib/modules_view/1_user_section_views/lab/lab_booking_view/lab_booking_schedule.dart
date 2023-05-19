@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
@@ -13,7 +14,6 @@ import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.
 import '../../../../constants/my_theme.dart';
 import '../../../../controllers/rozar_pay_controller/rozar_pay_controller.dart';
 import '../../health_checkup/book__schealthcheckup_shedule/book_lab_components/credentials.dart';
-import '../../home_page_user_view/user_home_page.dart';
 
 class LabSchedule1Page extends StatelessWidget {
   LabSchedule1Page({Key? key, this.bevel = 2.0}) : super(key: key);
@@ -126,8 +126,7 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  _labListController.labdetailsbyid!.labName
-                                      .toString(),
+                                  "${_labListController.labdetailsbyid?.labName.toString()}",
                                   // 'Vineet ji lab',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -136,14 +135,87 @@ class LabSchedule1Page extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: SizedBox(
+                                      width: size.width * 0.4,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Rating: ',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.yellow.shade900,
+
+                                              //MyTheme
+                                              //.containercolor2,
+                                              fontSize: size.height * 0.017,
+                                            ),
+                                          ),
+                                          Text(
+                                            '0.0',
+                                            //'${_doctorListController.foundDoctors[index].experience} yr',
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.red.shade600,
+
+                                              //MyTheme
+                                              //.containercolor2,
+                                              fontSize: size.height * 0.02,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Colors.yellow.shade800,
+                                            size: size.height * 0.025,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  PhysicalModel(
+                                    color: Colors.black,
+                                    elevation: 5,
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Container(
+                                      height: size.height * 0.036,
+                                      width: size.width * 0.22,
+                                      decoration: BoxDecoration(
+                                        color: Colors.cyanAccent.shade200,
+                                        //yellow.shade600,
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        'Add Review',
+                                        style: GoogleFonts.nunitoSans(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: size.height * 0.013),
+                                      )),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               SizedBox(
                                 height: size.height * 0.009,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  _labListController.labdetailsbyid!.labTypeName
-                                      .toString(),
+                                  "${_labListController.labdetailsbyid?.labTypeName.toString()}",
+
+                                  //_labListController.labdetailsbyid!.labTypeName
+                                  // .toString(),
                                   //'All type of test available',
                                   style: TextStyle(
                                     //fontWeight: FontWeight.bold,
@@ -158,8 +230,11 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  _labListController.labdetailsbyid!.location
-                                      .toString(),
+                                  "${_labListController.labdetailsbyid?.location.toString()}",
+
+                                  //
+                                  // _labListController.labdetailsbyid!.location
+                                  //     .toString(),
 
                                   //'Address: Noida sector 2 bloc C53 201301',
                                   style: TextStyle(
@@ -177,8 +252,10 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  _labListController.labdetailsbyid!.about
-                                      .toString(),
+                                  "${_labListController.labdetailsbyid?.about.toString()}",
+
+                                  // _labListController.labdetailsbyid!.about
+                                  // .toString(),
                                   // 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                                   maxLines: 9,
                                   style: TextStyle(
@@ -194,7 +271,7 @@ class LabSchedule1Page extends StatelessWidget {
                               ),
 
                               SizedBox(
-                                  height: size.height * 0.37,
+                                  height: size.height * 0.3,
                                   child: LabScheduleCredentials()),
 
                               // Align(
@@ -336,10 +413,10 @@ class LabSchedule1Page extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.2,
-                                    vertical: size.height * 0.06),
+                                    vertical: size.height * 0.00),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Get.to(() => UserHomePage());
+                                    //Get.to(() => UserHomePage());
                                   },
                                   style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(

@@ -143,13 +143,13 @@ class DoctorListUser extends StatelessWidget {
                                         vertical: size.height * 0.0),
                                     child: InkWell(
                                       onTap: () {
-                                        Get.to(() => DoctorListUser());
+                                        //Get.to(() => DoctorListUser());
                                       },
                                       child: Padding(
                                         padding:
                                             EdgeInsets.all(size.height * 0.007),
                                         child: Container(
-                                          height: size.height * 0.15,
+                                          height: size.height * 0.17,
                                           width: size.width * 0.15,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: size.width * 0.006),
@@ -231,6 +231,69 @@ class DoctorListUser extends StatelessWidget {
                                                         color: MyTheme.blueww,
                                                         fontSize:
                                                             size.height * 0.022,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width * 0.4,
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            'Rating: ',
+
+                                                            //'${_doctorListController.foundDoctors[index].experience} yr',
+                                                            //doctorcatagary[index],
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color: Colors
+                                                                  .yellow
+                                                                  .shade900,
+
+                                                              //MyTheme
+                                                              //.containercolor2,
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.017,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '0.0',
+
+                                                            //'${_doctorListController.foundDoctors[index].experience} yr',
+                                                            //doctorcatagary[index],
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Colors
+                                                                  .red.shade600,
+
+                                                              //MyTheme
+                                                              //.containercolor2,
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.02,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: Colors.yellow
+                                                                .shade800,
+                                                            size: size.height *
+                                                                0.025,
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
                                                     Text(
