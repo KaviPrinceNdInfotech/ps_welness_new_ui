@@ -41,6 +41,7 @@ import '../controllers/1_user_view_controller/medicine_controllers/medicine_chec
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import '../controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
+import '../controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
 import '../controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_lab_controller.dart';
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
@@ -121,6 +122,7 @@ class ControllerBinding extends Bindings {
     Get.put(Lab_1_Controller());
     Get.put(LabUploadReportController());
     Get.put(LabreportviewController());
+    Get.put(ReviewRatingNurseController());
     // Rahul
     //Get.put(GoogleMapController());
 

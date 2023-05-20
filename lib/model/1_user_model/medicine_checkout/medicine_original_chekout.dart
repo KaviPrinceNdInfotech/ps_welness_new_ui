@@ -38,8 +38,8 @@ class Data {
   String? cityName;
   String? stateName;
   String? pinCode;
-  double? totalPrice;
-  double? deliverycharge;
+  num? totalPrice;
+  num? deliverycharge;
 
   Data({
     this.name,

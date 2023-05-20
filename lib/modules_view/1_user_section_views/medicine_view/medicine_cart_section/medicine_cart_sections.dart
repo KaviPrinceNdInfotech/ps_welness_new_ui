@@ -324,6 +324,12 @@ class MedicineCart extends StatelessWidget {
                                                               InkWell(
                                                                 onTap: () {
                                                                   _medicineListController
+                                                                      .medicineListApi();
+                                                                  _medicineCartListController
+                                                                      .cartmdedicineListApi();
+                                                                  _medicineCartListController
+                                                                      .update();
+                                                                  _medicineListController
                                                                       .medicinepluscartApi(
                                                                           "${_medicineCartListController.medicinecartlistmodel?.data?[index].id.toString()}");
                                                                 },
@@ -391,6 +397,12 @@ class MedicineCart extends StatelessWidget {
                                                               ),
                                                               InkWell(
                                                                 onTap: () {
+                                                                  _medicineListController
+                                                                      .medicineListApi();
+                                                                  _medicineCartListController
+                                                                      .cartmdedicineListApi();
+                                                                  _medicineCartListController
+                                                                      .update();
                                                                   //medicineminuscartApi
                                                                   _medicineListController
                                                                       .medicineminuscartApi(

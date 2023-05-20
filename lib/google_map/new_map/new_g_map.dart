@@ -336,7 +336,6 @@ class _MapViewState extends State<MapView> {
 
   @override
   void initState() {
-    _getCurrentLocation();
     super.initState();
   }
 
@@ -389,6 +388,7 @@ class _MapViewState extends State<MapView> {
               onMapCreated: (GoogleMapController controller) {
                 mapController = controller;
                 newGoogleMapController = controller;
+                _getCurrentLocation();
               },
             ),
             // Positioned(
@@ -413,11 +413,11 @@ class _MapViewState extends State<MapView> {
             //   ),
             // ),
             Positioned(
-              bottom: size.height * 0.025,
+              bottom: size.height * 0.029,
               left: size.height * 0.00,
               right: size.width * 0,
               child: Container(
-                height: size.height * 0.22,
+                height: size.height * 0.23,
                 width: size.width,
                 decoration: BoxDecoration(
                   color: Colors.white30,
@@ -472,7 +472,7 @@ class _MapViewState extends State<MapView> {
                     ),
 
                     SizedBox(
-                      height: size.height * 0.001,
+                      height: size.height * 0.00,
                     ),
 
                     ///.........selected vhicle..by catagary id.....
@@ -527,7 +527,7 @@ class _MapViewState extends State<MapView> {
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.002,
+                      height: size.height * 0.00,
                     ),
                     PhysicalModel(
                       color: Colors.grey.shade300,

@@ -47,38 +47,46 @@ class LabUploadReports extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Obx(
-                      () => _labUploadReportController
-                                  .selectedImagePath.value !=
-                              ''
-                          ? Image.file(File(
-                              _labUploadReportController.selectedPath.value))
-                          : Center(
-                              child: InkWell(
-                                onTap: (() {
-                                  optionsImage();
-                                }),
-                                child: Container(
-                                  height: size.height * 0.35,
-                                  width: size.width * 0.9,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(12)),
-                                      border: Border.all(
-                                          width: 5,
-                                          color: Color.fromARGB(
-                                              255, 58, 141, 208))),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add_box,
-                                      color: Color.fromARGB(255, 58, 141, 208),
+                    Container(
+                      height: size.height * 0.3,
+                      width: size.width * 0.95,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _labUploadReportController.selectedPath.value !=
+                                ''
+                            ? Image.file(File(
+                                _labUploadReportController.selectedPath.value))
+                            : Center(
+                                child: InkWell(
+                                  onTap: (() {
+                                    optionsImage();
+                                  }),
+                                  child: Container(
+                                    height: size.height * 0.4,
+                                    width: size.width * 0.95,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12)),
+                                        border: Border.all(
+                                            width: 5,
+                                            color: Color.fromARGB(
+                                                255, 58, 141, 208))),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.add_box,
+                                        color:
+                                            Color.fromARGB(255, 58, 141, 208),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                      // Image.file(File(
-                      //         _labUploadReportController.selectedImagePath.value)),
+                        // Image.file(File(
+                        //         _labUploadReportController.selectedImagePath.value)),
+                      ),
                     ),
                     SizedBox(
                       height: 20,

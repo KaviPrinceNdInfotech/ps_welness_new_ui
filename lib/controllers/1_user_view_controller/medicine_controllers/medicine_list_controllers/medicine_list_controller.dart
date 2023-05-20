@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
@@ -6,6 +8,7 @@ import '../../../../model/1_user_model/medicine_list_model/medicine_list_models.
 import '../../../../modules_view/1_user_section_views/medicine_view/medicine_cart_section/medicine_cart_sections.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
+import '../../../../utils/services/account_service.dart';
 //import 'package:ps_welness/model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
 //import 'package:ps_welness/model/1_user_model/medicine_list_model/medicine_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -42,31 +45,59 @@ class MedicineListController extends GetxController {
     http.Response r = await ApiProvider.AddToCartMedicineApi(Id);
 
     if (r.statusCode == 200 || r.statusCode != 200) {
+      CallLoader.hideLoader();
       _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
       _medicineCartListController.refresh();
 
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
-      Get.off(
-        () => MedicineCart(), //next page class
-        duration: Duration(
-            milliseconds: 400), //duration of transitions, default 1 sec
-        transition:
-            // Transition.leftToRight //transition effect
-            // Transition.fadeIn
-            //Transition.size
-            Transition.zoom,
-      );
+      // Get.to(
+      //   () => MedicineCart(), //next page class
+      //   duration: Duration(
+      //       milliseconds: 400), //duration of transitions, default 1 sec
+      //   transition:
+      //       // Transition.leftToRight //transition effect
+      //       // Transition.fadeIn
+      //       //Transition.size
+      //       Transition.zoom,
+      // );
+
+      ///from here we can go to next screen with some time ....
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 300),
+          () {
+            Get.to(() => MedicineCart());
+            //Get.to((page))
+            ///
+          },
+        );
+      });
+    } else {
+      CallLoader.hideLoader();
     }
   }
 
   ///increment plus add to cart......post api........
 
   void medicinepluscartApi(var Id) async {
-    //CallLoader.loader();
+    CallLoader.loader();
     http.Response r = await ApiProvider.AddToCartPlusMedicineApi(Id);
 
     if (r.statusCode == 200) {
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 500),
+          () {
+            Get.offAll(() => MedicineCart());
+            //Get.to((page))
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+      //cartmdedicineListApi();
+      _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
       CallLoader.hideLoader();
 
@@ -77,12 +108,24 @@ class MedicineListController extends GetxController {
   ///minus add to cart......post api........
 
   void medicineminuscartApi(var Id) async {
-    //CallLoader.loader();
+    CallLoader.loader();
     http.Response r = await ApiProvider.AddToCartMinusMedicineApi(Id);
 
     if (r.statusCode == 200) {
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 500),
+          () {
+            Get.offAll(() => MedicineCart());
+            //Get.to((page))
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
-      CallLoader.hideLoader();
 
       //Get.to(() => Cartproducts());
     }
@@ -96,6 +139,8 @@ class MedicineListController extends GetxController {
 
   @override
   void dispose() {
+    Get.delete<MedicineListController>();
+
     medicinelistmodel = null;
     super.dispose();
   }

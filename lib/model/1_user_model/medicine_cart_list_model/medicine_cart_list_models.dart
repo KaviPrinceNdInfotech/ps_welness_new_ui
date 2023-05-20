@@ -1,3 +1,4 @@
+// To parse this JSON data, do
 //
 //     final medicineCartListModel = medicineCartListModelFromJson(jsonString);
 
@@ -13,7 +14,7 @@ class MedicineCartListModel {
   List<Datum>? data;
   num? totalPrice;
   num? quantity;
-  num? status;
+  int? status;
   String? message;
 
   MedicineCartListModel({
@@ -47,12 +48,12 @@ class MedicineCartListModel {
 }
 
 class Datum {
-  num? id;
+  int? id;
   String? medicineName;
   String? brandName;
   num? quantity;
-  double? unitPrice;
-  double? totalPrice;
+  num? unitPrice;
+  num? totalPrice;
 
   Datum({
     this.id,

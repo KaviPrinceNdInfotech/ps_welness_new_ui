@@ -1,92 +1,3 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:image_picker/image_picker.dart';
-// import '../apiProviderImage.dart';
-//
-// import '../models/productDetailsModel.dart';
-// import '../view/model_cart_practice/widgets/item_details_pageee/item_details_catagary.dart';
-// import '../widgets/circular_loader.dart';
-//
-//
-//
-// class ProductDetailController extends GetxController {
-//   RxInt selectedimg = 0.obs;
-//   RxInt selectedprice = 0.obs;
-//   RxBool isLoading = true.obs;
-//   RxBool rating1 = false.obs;
-//   RxBool rating2 = false.obs;
-//   RxBool rating3 = false.obs;
-//   RxBool rating4 = false.obs;
-//   RxBool rating5 = false.obs;
-//   var ratings = 0.0.obs;
-//
-//   void getImage(ImageSource imageSource) async {
-//     final pickedFiles = await ImagePicker().pickImage(source: imageSource);
-//     if (pickedFiles != null) {
-//       selectedPath.value = pickedFiles.path;
-//     } else {
-//       Get.snackbar("Error", "No image Selected",
-//           snackPosition: SnackPosition.BOTTOM,
-//           backgroundColor: Colors.blueGrey[100]);
-//     }
-//   }
-//
-//   TextEditingController name = TextEditingController();
-//   TextEditingController email = TextEditingController();
-//   TextEditingController mobile = TextEditingController();
-//   TextEditingController description = TextEditingController();
-//
-//   TextEditingController title = TextEditingController();
-//   GlobalKey<FormState> reviewKey = GlobalKey<FormState>();
-//   var selectedPath = ''.obs;
-//   GetProductDetailModel? getProductDetailModel;
-//   void getProductDetailsApi(var id) async {
-//     Get.to(() => ItemDetailss());
-//     isLoading(true);
-//     getProductDetailModel = await ApiProviders.getProductDetails(id);
-//     if (getProductDetailModel != null) {
-//       isLoading(false);
-//     }
-//   }
-//
-//   // ======== Add Review ========= //
-//   void addProductReviewApi(
-//       //     var name,
-//       // var email,
-//       // var title,
-//       // var description,
-//       // var mobile,
-//       // var rating1,
-//       // var rating2,
-//       // var rating3,
-//       // var rating4,
-//       // var rating5,
-//       // var imagePath
-//       )async {
-//     CallLoader.loader();
-//     http.Response r = await ApiProviders.postReview(
-//         name.text,
-//         email.text,
-//         title.text,
-//         description.text,
-//         mobile.text,
-//         rating1.value,
-//         rating2.value,
-//         rating3.value,
-//         rating4.value,
-//         rating5.value,
-//         selectedPath.value);
-//
-//     if (r.statusCode == 200) {
-//       CallLoader.hideLoader();
-//     } else {
-//       CallLoader.hideLoader();
-//     }
-//   }
-// }
-
-/// Todo
 import 'dart:convert';
 import 'dart:io';
 
@@ -110,6 +21,7 @@ class NurseRatingReviewController extends GetxController {
   RxBool rating5 = false.obs;
 
   var ratings = 0.0.obs;
+  //NurseRatingView? nurseviewreview;
 
   addReview() {
     Get.dialog(
@@ -127,12 +39,12 @@ class NurseRatingReviewController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController mobile = TextEditingController();
   TextEditingController description = TextEditingController();
-  TextEditingController title = TextEditingController();
+  TextEditingController Professional = TextEditingController();
   TextEditingController imagePath = TextEditingController();
   TextEditingController imagebase = TextEditingController();
 
   ///this is the product detail controller.....product Id.........................
-  String productId = '';
+  String pro_Id = '';
 
   GlobalKey<FormState> reviewKey = GlobalKey<FormState>();
 
@@ -142,7 +54,7 @@ class NurseRatingReviewController extends GetxController {
     final pickedFiles = await ImagePicker().pickImage(source: imageSource);
     if (pickedFiles != null) {
       selectedPath.value = pickedFiles.path;
-      print("File Path ${pickedFiles.path}");
+      print("File Path ${selectedPath.value}");
     } else {
       Get.snackbar("Error", "No image Selected",
           snackPosition: SnackPosition.BOTTOM,
@@ -193,11 +105,12 @@ class NurseRatingReviewController extends GetxController {
 
   ///add review 10 april 2023...............
   // ======== Add Review ========= ///
-  void addProductReviewApi() async {
+  void addNurseProductReviewApi() async {
     CallLoader.loader();
 
     final imageAsBase64 =
         base64Encode(await File(selectedPath.value).readAsBytes());
+    print("imagebaseeee644:${imageAsBase64}");
     http.Response r = await ApiProvider.postReviewRating(
       rating1.value,
       rating2.value,
@@ -206,10 +119,10 @@ class NurseRatingReviewController extends GetxController {
       rating5.value,
       name.text,
       description.text,
-      productId,
+      pro_Id,
       selectedPath.value.split('/').last,
       imageAsBase64,
-      title.text,
+      Professional.text,
     );
 
     if (r.statusCode == 200) {
@@ -219,9 +132,12 @@ class NurseRatingReviewController extends GetxController {
     }
   }
 
+  ///view review ratting controller.....
+
   @override
   void onInit() {
     super.onInit();
+    //nursereviewratingApi();
     // getreviewdetailApi();
     // getreviewdetailApi();
     //getProductDetailsApi();
@@ -233,7 +149,7 @@ class NurseRatingReviewController extends GetxController {
     super.dispose();
   }
 
-  var selectedImagePath = ''.obs;
-  //var selectedImagePath = ''.obs;
-  var selectedImageSize = ''.obs;
+  // var selectedImagePath = ''.obs;
+  // //var selectedImagePath = ''.obs;
+  // var selectedImageSize = ''.obs;
 }

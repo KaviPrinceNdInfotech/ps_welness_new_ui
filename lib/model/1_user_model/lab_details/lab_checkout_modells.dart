@@ -4,16 +4,18 @@
 
 import 'dart:convert';
 
-Labcheckoutmodel labcheckoutmodelFromJson(String str) => Labcheckoutmodel.fromJson(json.decode(str));
+Labcheckoutmodel labcheckoutmodelFromJson(String str) =>
+    Labcheckoutmodel.fromJson(json.decode(str));
 
-String labcheckoutmodelToJson(Labcheckoutmodel data) => json.encode(data.toJson());
+String labcheckoutmodelToJson(Labcheckoutmodel data) =>
+    json.encode(data.toJson());
 
 class Labcheckoutmodel {
-  int ?id;
-  String ?labName;
+  int? id;
+  String? labName;
   String? labTypeName;
   String? year;
-  num? fee;
+  double? fee;
   DateTime? testDate;
   String? slotTime;
 
@@ -27,23 +29,24 @@ class Labcheckoutmodel {
     this.slotTime,
   });
 
-  factory Labcheckoutmodel.fromJson(Map<String, dynamic> json) => Labcheckoutmodel(
-    id: json["Id"],
-    labName: json["LabName"],
-    labTypeName: json["LabTypeName"],
-    year: json["year"],
-    fee: json["Fee"],
-    testDate: DateTime.parse(json["TestDate"]),
-    slotTime: json["SlotTime"],
-  );
+  factory Labcheckoutmodel.fromJson(Map<String, dynamic> json) =>
+      Labcheckoutmodel(
+        id: json["Id"],
+        labName: json["LabName"],
+        labTypeName: json["LabTypeName"],
+        year: json["year"],
+        fee: json["Fee"],
+        testDate: DateTime.parse(json["TestDate"]),
+        slotTime: json["SlotTime"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "Id": id,
-    "LabName": labName,
-    "LabTypeName": labTypeName,
-    "year": year,
-    "Fee": fee,
-    "TestDate": testDate?.toIso8601String(),
-    "SlotTime": slotTime,
-  };
+        "Id": id,
+        "LabName": labName,
+        "LabTypeName": labTypeName,
+        "year": year,
+        "Fee": fee,
+        "TestDate": testDate?.toIso8601String(),
+        "SlotTime": slotTime,
+      };
 }

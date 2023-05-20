@@ -48,8 +48,7 @@ class RozarPayController extends GetxController {
       'key': 'rzp_test_aeRns0u8gPpOUK',
       'amount': int.parse(
           // '100'
-
-          '${_labListController.labCheckoutModel?.fee!.toInt()}') * 100,
+          '${_labListController.labCheckoutModel?.fee?.toInt()}') * 100,
       'name':
           //'Kavi Singh',
           _userrsProfileControllers.userProfile!.patientName.toString(),

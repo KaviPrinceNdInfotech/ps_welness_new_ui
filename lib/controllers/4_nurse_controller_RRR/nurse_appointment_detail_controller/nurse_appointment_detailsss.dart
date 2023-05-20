@@ -31,7 +31,23 @@ class NurseAppointmentDetailController extends GetxController {
   RxBool rating5 = false.obs;
 
   var ratings = 0.0.obs;
+
+  // NurseRatingView? nurseviewreview;
   //var selectedPath = ''.obs;
+
+  ///view review ratting controller.....
+
+  // void nursereviewratingApi() async {
+  //   isLoading(true);
+  //   nurseviewreview = await ApiProvider.ViewnursereviiewApi();
+  //   if (nurseviewreview?.rating != null
+  //   //appointmentdetail != null
+  //   //getcatagartlist!.result!.isNotEmpty
+  //   ) {
+  //     isLoading(false);
+  //     // foundlabviewProducts.value = labviewreport!.labViewReport!;
+  //   }
+  // }
 
   addReview() {
     Get.dialog(
