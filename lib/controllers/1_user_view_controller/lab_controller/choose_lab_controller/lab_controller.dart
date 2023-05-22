@@ -11,9 +11,11 @@ import '../../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../../model/1_user_model/test_name_model/test_name_modells.dart';
 import '../../../../modules_view/1_user_section_views/lab/lab_lists/lab_listpage.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
+import '../lab_list_controller.dart';
 
 class ChooseLabController extends GetxController {
   final GlobalKey<FormState> ChooseLabformkey = GlobalKey<FormState>();
+  LabListController _labListController = Get.put(LabListController());
 
   ///TODO: image picker.................
   ///
@@ -79,6 +81,8 @@ class ChooseLabController extends GetxController {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
+      _labListController.labListApi();
+      _labListController.update();
 
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());

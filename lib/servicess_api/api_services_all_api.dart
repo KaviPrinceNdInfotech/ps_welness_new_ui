@@ -51,6 +51,7 @@ import '../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import '../model/1_user_model/states_model/state_modells.dart';
 import '../model/1_user_model/time_slots_common_model/time_slots_common.dart';
+import '../model/1_user_model/view_doctor_review_ratting/view_doctor_review_ratting.dart';
 import '../model/1_user_model/view_review_model/nurse_view_review_model.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
@@ -58,6 +59,7 @@ import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
 import '../model/9_doctors_model/view_patient_report_model.dart';
 import '../model/9_prince_doctors_model/doctor_payment_history.dart';
 import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
+import '../model/lab_review_model/lab_view_review_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
 import '../modules_view/1_user_section_views/nursess/nurse_list_userrrr/nurse_list_user_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
@@ -3273,8 +3275,8 @@ class ApiProvider {
     }
   }
 
-  /// todo: providers: 19 may 2023 prince review ,,from here new 3 api and this is from previous api providers not provider
-
+  ///todo: providers: 19 may 2023 prince review ,,from here new 3 api and this is from previous api providers not provider
+  ///todo: this is the review rating post for nurse.....
   static postReviewRating(
     var Rating1,
     var Rating2,
@@ -3325,6 +3327,108 @@ class ApiProvider {
     }
   }
 
+  ///todo: this is the review rating post for doctor.....
+  static postDoctorReviewRating(
+    var Rating1,
+    var Rating2,
+    var Rating3,
+    var Rating4,
+    var Rating5,
+    var Name,
+    var Description,
+    var pro_Id,
+    var Image,
+    var ImageBase,
+    var Professional,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorListId = preferences.getString("DoctorListId");
+    print("DoctorListId: ${DoctorListId}");
+    var body = {
+      'Rating1': Rating1 ? "1" : "0",
+      'Rating2': Rating2 ? "1" : "0",
+      'Rating3': Rating3 ? "1" : "0",
+      'Rating4': Rating4 ? "1" : "0",
+      'Rating5': Rating5 ? "1" : "0",
+      'Name': '$Name',
+      'Description': '$Description',
+      'ImageBase': '$ImageBase',
+      'Image': '$Image',
+      'pro_Id': '$DoctorListId',
+      'Professional': "Doctor"
+    };
+
+    try {
+      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var r = await http.post(Uri.parse(url), body: body);
+      print("###3###3####1rrrererttdoctor: ${body}");
+      if (r.statusCode == 200) {
+        print("###3###3####1rrrddrr: ${r.body}");
+
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+      print("###3###3####1errordrr: ${e}");
+    }
+  }
+
+  ///todo: this is the review rating post for lab.....
+  static postLabReviewRating(
+    var Rating1,
+    var Rating2,
+    var Rating3,
+    var Rating4,
+    var Rating5,
+    var Name,
+    var Description,
+    var pro_Id,
+    var Image,
+    var ImageBase,
+    var Professional,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var LablistssId = preferences.getString("LablistssId");
+    print("LablistssId: ${LablistssId}");
+    var body = {
+      'Rating1': Rating1 ? "1" : "0",
+      'Rating2': Rating2 ? "1" : "0",
+      'Rating3': Rating3 ? "1" : "0",
+      'Rating4': Rating4 ? "1" : "0",
+      'Rating5': Rating5 ? "1" : "0",
+      'Name': '$Name',
+      'Description': '$Description',
+      'ImageBase': '$ImageBase',
+      'Image': '$Image',
+      'pro_Id': '$LablistssId',
+      'Professional': "Lab"
+    };
+
+    try {
+      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var r = await http.post(Uri.parse(url), body: body);
+      print("###3###3####1rrrererttdoctor: ${body}");
+      if (r.statusCode == 200) {
+        print("###3###3####1rrrddrr: ${r.body}");
+
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+      print("###3###3####1errordrr: ${e}");
+    }
+  }
+
   ///todo:view review nurse.....20 may 2023...
 
   static ViewnursereviiewApi() async {
@@ -3339,6 +3443,45 @@ class ApiProvider {
       }
     } catch (error) {
       print("errorlabdetailsshisnurse:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:view review doctor.....22 may 2023...
+
+  static ViewDoctorreviewApi() async {
+    var url =
+        "http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=Doctor";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("printdrbodydr:${r.body}");
+        DoctorRatingView? doctorRatingViewmodel =
+            doctorRatingViewFromJson(r.body);
+        return doctorRatingViewmodel;
+      }
+    } catch (error) {
+      print("errorlabdetailssdoctor:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:view review lab.....22 may 2023...
+
+  static ViewLabreviewApi() async {
+    var url =
+        "http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=Lab";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("printdrbodydrlab:${r.body}");
+        LabRatingView? labRatingViewmodel = labRatingViewFromJson(r.body);
+        return labRatingViewmodel;
+      }
+    } catch (error) {
+      print("errorlabdetailslabb:${error.toString()}");
       return;
     }
   }

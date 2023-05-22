@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,8 +10,14 @@ import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
+import '../../../../utils/services/account_service.dart';
+import '../../../modules_view/1_user_section_views/lab/lab_booking_view/lab_booking_schedule.dart';
+import 'lab_view_ratting_review.dart';
 
-class NurseRatingReviewController extends GetxController {
+class LabRatingReviewController extends GetxController {
+  ViewlabreviewController _viewlabreviewController =
+      Get.put(ViewlabreviewController());
+
   RxInt selectedimg = 0.obs;
   RxInt selectedprice = 0.obs;
   RxBool isLoading = true.obs;
@@ -64,54 +71,14 @@ class NurseRatingReviewController extends GetxController {
 
   RxInt star = 1.obs;
 
-  // ///............................view rating review..................
-  // GetProductReview? getProductreview;
-  //
-  // void getreviewdetailApi() async {
-  //   // var prefs = GetStorage();
-  //   //
-  //   // productid = prefs.read("Id").toString();
-  //   // print('&&&&&&&&&&&&&&&&&&&&&&Id:${productid}');
-  //   //productId = id;
-  //
-  //   isLoading(true);
-  //
-  //   getProductreview = await ApiProvider.viewreviewApi();
-  //   if (getProductreview != null) {
-  //     //Get.to(() => ItemDetailss());
-  //     isLoading(false);
-  //     var prefs = GetStorage();
-  //     //saved id..........
-  //     //prefs.write("Id".toString(), json.decode(r.body)['Id']);
-  //     // productid = prefs.read("Id").toString();
-  //     // print('&&&&&&&&&&&&&&&&&&&&&&:${productid}');
-  //     ///
-  //     // Get.to(
-  //     //       () => ItemDetailsss(productId: productid,), //next page class
-  //     //   duration: Duration(
-  //     //       milliseconds: 300), //duration of transitions, default 1 sec
-  //     //   transition:
-  //     //   // Transition.leftToRight //transition effect
-  //     //   // Transition.fadeIn
-  //     //   //Transition.size
-  //     //   Transition.zoom,
-  //     // );
-  //
-  //
-  //
-  //     //Get.to(()=>Container());
-  //   }
-  // }
-
   ///add review 10 april 2023...............
   // ======== Add Review ========= ///
-  void addNurseProductReviewApi() async {
+  void addLabProductReviewApi() async {
     CallLoader.loader();
-
     final imageAsBase64 =
         base64Encode(await File(selectedPath.value).readAsBytes());
     print("imagebaseeee644:${imageAsBase64}");
-    http.Response r = await ApiProvider.postReviewRating(
+    http.Response r = await ApiProvider.postLabReviewRating(
       rating1.value,
       rating2.value,
       rating3.value,
@@ -126,9 +93,25 @@ class NurseRatingReviewController extends GetxController {
     );
 
     if (r.statusCode == 200) {
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 100),
+          () {
+            _viewlabreviewController.labreviewratingApi();
+            _viewlabreviewController.update();
+            Get.snackbar(
+                'Add review Successfully', "Review Submitted. Thank-you."
+                // "${r.body}"
+                );
+            Get.to(() => LabSchedule1Page());
+            //Get.to((page))
+            ///
+          },
+        );
+      });
       CallLoader.hideLoader();
     } else {
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
     }
   }
 
@@ -137,15 +120,11 @@ class NurseRatingReviewController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //nursereviewratingApi();
-    // getreviewdetailApi();
-    // getreviewdetailApi();
-    //getProductDetailsApi();
   }
 
   @override
   void dispose() {
-    Get.delete<NurseRatingReviewController>();
+    Get.delete<LabRatingReviewController>();
     super.dispose();
   }
 

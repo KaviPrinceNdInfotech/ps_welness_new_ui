@@ -47,7 +47,8 @@ class NurseDetailsSchedulePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: MyTheme.ThemeColors,
         body: Obx(
-          () => (_nurseAppointmentDetailController.isLoading.value)
+          () => (_nurseAppointmentDetailController.isLoading.value &&
+                  _nurseviewssRatingReviewController.isLoading.value)
               ? Center(child: CircularProgressIndicator())
               // : _nurseAppointmentDetailController.nursedetailbyId != null
               // ? Center(
@@ -554,7 +555,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                                                       0.004),
                                                       child: Container(
                                                         height:
-                                                            size.height * 0.1,
+                                                            size.height * 0.11,
                                                         width: size.width * 0.9,
                                                         decoration:
                                                             BoxDecoration(
@@ -715,8 +716,8 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: size.height * 0.85,
-                        bottom: size.height * 0.01,
+                        top: size.height * 0.86,
+                        //bottom: size.height * 0.00,
                         left: size.width * 0.0,
                         right: size.width * 0.00,
                         child: Padding(

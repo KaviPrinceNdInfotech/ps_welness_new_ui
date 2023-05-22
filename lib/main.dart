@@ -22,10 +22,12 @@ import 'controllers/10_lab_controller/lab_profile_details_controller/lab_profile
 import 'controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import 'controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import 'controllers/1_user_view_controller/doctor_rating_review_controller/doctor_view_ratting_review.dart';
 import 'controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import 'controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import 'controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
+import 'controllers/1_user_view_controller/lab_rating_review_controller/lab_view_ratting_review.dart';
 import 'controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
 import 'controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import 'controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
@@ -95,6 +97,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => LabreportviewController());
     Get.lazyPut(() => DoctorListController());
     Get.lazyPut(() => ReviewRatingNurseController());
+    Get.lazyPut(() => ViewdoctorreviewController());
+    Get.lazyPut(() => ViewlabreviewController());
     //Get.lazyPut(() => NurseAppointmentDetailController());
 
     //Get.lazyPut(() => MedicineCartListController());

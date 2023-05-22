@@ -168,7 +168,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: size.height * 0.02,
+                            height: size.height * 0.01,
                           ),
 
                           ///todo:selected date starting...
@@ -242,7 +242,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
                           //   ),
                           // ),
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.004,
                           ),
                           SizedBox(
                             height: size.height * 0.08,
@@ -376,7 +376,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.00,
                           ),
 
                           NeumorphicTextFieldContainer(

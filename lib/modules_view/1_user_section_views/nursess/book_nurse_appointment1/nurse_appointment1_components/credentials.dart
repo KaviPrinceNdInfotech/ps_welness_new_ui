@@ -471,7 +471,7 @@ class Nursebooking1Credentials extends StatelessWidget {
               ),
 
               Container(
-                height: size.height * 0.154,
+                height: size.height * 0.16,
                 width: double.infinity,
                 margin: EdgeInsets.symmetric(vertical: 25 / 2),
                 decoration: BoxDecoration(
@@ -721,6 +721,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                 child: TextFormField(
                   autofillHints: [AutofillHints.telephoneNumber],
                   controller: _nurseBooking1Controller.mobileNumberController,
+                  keyboardType: TextInputType.number,
                   onSaved: (value) {
                     _nurseBooking1Controller.MobileNumber = value!;
                   },
@@ -752,7 +753,7 @@ class Nursebooking1Credentials extends StatelessWidget {
               // ),
 
               SizedBox(
-                height: size.height * 0.02,
+                height: size.height * 0.01,
               ),
 
               ///todo: address value..........
@@ -767,7 +768,7 @@ class Nursebooking1Credentials extends StatelessWidget {
               ),
               NeumorphicTextFieldContainer(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
                   child: Obx(
                     () => DropdownButtonFormField<NurseLocationModel>(
                         value: _nurseBooking1Controller
@@ -787,7 +788,7 @@ class Nursebooking1Credentials extends StatelessWidget {
                             value: locations,
                             child: SizedBox(
                               height: size.height * 0.06,
-                              width: size.width * 0.65,
+                              width: size.width * 0.55,
                               child: Text(
                                 locations.locationName,
                                 style: TextStyle(

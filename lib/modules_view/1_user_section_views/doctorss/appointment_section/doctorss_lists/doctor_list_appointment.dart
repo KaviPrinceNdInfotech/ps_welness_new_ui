@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/app
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/my_theme.dart';
+import '../../../../../utils/services/account_service.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_section/detail_and_schedule/details_schedules.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/appointment_section/detail_and_schedule/details_schedules.dart';
@@ -351,13 +354,24 @@ class DoctorListUser extends StatelessWidget {
                                                               .doctordetailApi();
                                                           _doctorListController
                                                               .update();
-                                                          //_nurseAppointmentDetailController
-                                                          //.nurseappointmentApi();
-                                                          // _nurseAppointmentDetailController
-                                                          // .update();
-                                                          Get.to(() =>
-                                                              DetailsSchedulePage());
-                                                          //Get.to(() => AppointmentCheckout());
+
+                                                          ///from here we can go to next screen with some time ....
+                                                          accountService
+                                                              .getAccountData
+                                                              .then(
+                                                                  (accountData) {
+                                                            Timer(
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              () {
+                                                                Get.to(() =>
+                                                                    DetailsSchedulePage());
+                                                                //Get.to((page))
+                                                                ///
+                                                              },
+                                                            );
+                                                          });
                                                         },
                                                         child: Container(
                                                           height: size.height *

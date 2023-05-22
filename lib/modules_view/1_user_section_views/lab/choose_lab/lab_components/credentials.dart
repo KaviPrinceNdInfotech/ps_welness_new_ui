@@ -228,66 +228,10 @@ class LabCredentials extends StatelessWidget {
                 ),
               ),
 
-              // child: DropdownButton(
-              //     value: _hospital_2_controller.selectedState.value,
-              //     menuMaxHeight: size.height * 0.3,
-              //     items: items.map((String items) {
-              //       return DropdownMenuItem(
-              //         value: items,
-              //         child: Text(items),
-              //       );
-              //     }).toList(),
-              //     // _hospital_2_controller.states.map((String value) {
-              //     //   return DropdownMenuItem(
-              //     //     value: value,
-              //     //
-              //     //   )
-              //     onChanged: (String? newValue) {
-              //       _hospital_2_controller.states.value =
-              //           newValue! as List<String>;
-              //       _hospital_2_controller.selectedCity.value = null;
-              //       _hospital_2_controller.cities.clear();
-              //       _hospital_2_controller.cities
-              //           .addAll(stateCityMap[newvalue]!);
-              //     })),
-
               SizedBox(
                 height: size.height * 0.018,
                 //appPadding / 2,
               ),
-
-              // GetBuilder<Hospital_2_Controller>(
-              //   // specify type as Controller
-              //   init: Hospital_2_Controller(), // intialize with the Controller
-              //   builder: (value) => InkWell(
-              //     onTap: () {
-              //       _doctor_2_controller.getImage(ImageSource.gallery);
-              //     },
-              //     child: NeumorphicTextFieldContainer(
-              //       child: Container(
-              //         height: size.height * 0.07,
-              //         //width: size.width * 0.5,
-              //         child: Padding(
-              //           padding:
-              //               EdgeInsets.symmetric(horizontal: size.width * 0.1),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //             children: [
-              //               Text(
-              //                 'Authorise Letter Image',
-              //                 style: TextStyle(
-              //                   fontSize: size.width * 0.03,
-              //                   fontWeight: FontWeight.w700,
-              //                 ),
-              //               ),
-              //               Icon(Icons.camera),
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
 
               RectangularButton(
                   text: 'SUBMIT',

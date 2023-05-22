@@ -16,8 +16,11 @@ import '../../../model/1_user_model/get_department_list_model/department_model.d
 import '../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../modules_view/1_user_section_views/doctorss/appointment_section/doctorss_lists/doctor_list_appointment.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
+import 'get_doctor_list_controller.dart';
 
 class Doctor_appointment_1_Controller extends GetxController {
+  DoctorListController _doctorListController = Get.put(DoctorListController());
+
   final GlobalKey<FormState> doctorappointment1key = GlobalKey<FormState>();
 
   ///this is for state.................................
@@ -86,7 +89,9 @@ class Doctor_appointment_1_Controller extends GetxController {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
-
+      _doctorListController.update();
+      _doctorListController.doctorListApi();
+      //Get.to(NurseListUser());
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
       Get.to(DoctorListUser());
