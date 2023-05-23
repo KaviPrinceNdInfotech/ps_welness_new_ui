@@ -169,7 +169,7 @@ class HealthchkpScheduleCredentials extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: size.height * 0.02,
+                            height: size.height * 0.005,
                           ),
 
                           ///todo:selected date starting...
@@ -243,10 +243,10 @@ class HealthchkpScheduleCredentials extends StatelessWidget {
                           //   ),
                           // ),
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.00,
                           ),
                           SizedBox(
-                            height: size.height * 0.08,
+                            height: size.height * 0.073,
                             width: size.width,
                             child: Container(
                               width: double.infinity,
@@ -377,7 +377,7 @@ class HealthchkpScheduleCredentials extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.0,
                           ),
 
                           NeumorphicTextFieldContainer(

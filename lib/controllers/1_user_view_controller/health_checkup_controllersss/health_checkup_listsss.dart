@@ -88,15 +88,13 @@ class HealthCheckupController extends GetxController {
       checkupidController.text,
       appointmentController.text,
       selectedTimeslot.value?.slotid.toString(),
+
       //selectedState.value?.id.toString(),
       // selectedCity.value?.id.toString(),
     );
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
       CallLoader.hideLoader();
-      //Get.to(NurseListUser());
-      // Get.to(NurseDetailsSchedulePage());
-      // Get.to(() => LabAppointmentCheckout());
 
       /// we can navigate to user page.....................................
       Get.to(HealthCheckupAppointmentCheckout());

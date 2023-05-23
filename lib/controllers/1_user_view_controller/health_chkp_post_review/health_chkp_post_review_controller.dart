@@ -11,14 +11,12 @@ import 'package:rating_dialog/rating_dialog.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
 import '../../../../utils/services/account_service.dart';
-import '../../../modules_view/1_user_section_views/lab/lab_booking_view/lab_booking_schedule.dart';
-import '../lab_controller/lab_list_controller.dart';
-import 'lab_view_ratting_review.dart';
+import '../../../modules_view/1_user_section_views/health_checkup/book__schealthcheckup_shedule/book_checkup_schedule.dart';
+import '../health_chkp_view_review/health_chkp_view_review.dart';
 
-class LabRatingReviewController extends GetxController {
-  ViewlabreviewController _viewlabreviewController =
-      Get.put(ViewlabreviewController());
-  LabListController _labListController = Get.put(LabListController());
+class HealthchkpRatingReviewController extends GetxController {
+  ViewhealthchkpreviewController _viewhealthchkpreviewController =
+      Get.put(ViewhealthchkpreviewController());
 
   RxInt selectedimg = 0.obs;
   RxInt selectedprice = 0.obs;
@@ -75,12 +73,12 @@ class LabRatingReviewController extends GetxController {
 
   ///add review 10 april 2023...............
   // ======== Add Review ========= ///
-  void addLabProductReviewApi() async {
+  void addHealthchkpReviewApi() async {
     CallLoader.loader();
     final imageAsBase64 =
         base64Encode(await File(selectedPath.value).readAsBytes());
     print("imagebaseeee644:${imageAsBase64}");
-    http.Response r = await ApiProvider.postLabReviewRating(
+    http.Response r = await ApiProvider.postHealthchkpReviewRating(
       rating1.value,
       rating2.value,
       rating3.value,
@@ -97,17 +95,15 @@ class LabRatingReviewController extends GetxController {
     if (r.statusCode == 200) {
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 500),
           () {
+            _viewhealthchkpreviewController.healthreviewratingApi();
+            _viewhealthchkpreviewController.update();
             Get.snackbar(
                 'Add review Successfully', "Review Submitted. Thank-you."
                 // "${r.body}"
                 );
-            Get.to(() => LabSchedule1Page());
-            _viewlabreviewController.labreviewratingApi();
-            _viewlabreviewController.update();
-            _labListController.labdetailApi();
-            _labListController.update();
+            Get.to(() => CheckupSchedulePage());
             //Get.to((page))
             ///
           },
@@ -128,7 +124,7 @@ class LabRatingReviewController extends GetxController {
 
   @override
   void dispose() {
-    Get.delete<LabRatingReviewController>();
+    Get.delete<HealthchkpRatingReviewController>();
     super.dispose();
   }
 

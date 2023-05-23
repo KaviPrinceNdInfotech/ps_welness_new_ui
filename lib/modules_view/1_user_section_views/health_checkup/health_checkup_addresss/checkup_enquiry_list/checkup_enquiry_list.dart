@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
@@ -445,9 +449,39 @@ class HealthChkpEnquiryList extends StatelessWidget {
                                                         Radius.circular(10),
                                                   ),
                                                   child: InkWell(
-                                                    onTap: () {
-                                                      Get.to(() =>
-                                                          CheckupSchedulePage());
+                                                    onTap: () async {
+                                                      SharedPreferences prefs =
+                                                          await SharedPreferences
+                                                              .getInstance();
+                                                      prefs.setString(
+                                                          "HealthchkpListId",
+                                                          "${_healthCheckupController.foundCheckupcenter[index].id.toString()}");
+                                                      _healthCheckupController
+                                                          .healthdetailApi();
+                                                      _healthCheckupController
+                                                          .update();
+
+                                                      ///from here we can go to next screen with some time ....
+                                                      accountService
+                                                          .getAccountData
+                                                          .then((accountData) {
+                                                        Timer(
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  500),
+                                                          () {
+                                                            Get.to(() =>
+                                                                CheckupSchedulePage());
+                                                            //Get.to((page))
+                                                            ///
+                                                          },
+                                                        );
+                                                      });
+
+                                                      // accountService.getAccountData
+
+                                                      // Get.to(() =>
+                                                      // CheckupSchedulePage());
                                                     },
                                                     child: Container(
                                                         height:

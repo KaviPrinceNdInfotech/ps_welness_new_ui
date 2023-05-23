@@ -52,6 +52,7 @@ import '../model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import '../model/1_user_model/states_model/state_modells.dart';
 import '../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../model/1_user_model/view_doctor_review_ratting/view_doctor_review_ratting.dart';
+import '../model/1_user_model/view_healthchkp_review/healthchkp_review_view.dart';
 import '../model/1_user_model/view_review_model/nurse_view_review_model.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
@@ -364,7 +365,13 @@ class ApiProvider {
 
   ///todo health checkout...1_may 2023....after api it will change in future it will based on location id...18 april 2023...................
   static HealthchkupcheckoutApi() async {
-    var url = '${baseUrl}api/HealthCheckUpApi/HealthAptmt?Test_Id=1';
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var HealthchkpListId = preferences.getString("HealthchkpListId");
+    print("HealthchkpListId: ${HealthchkpListId}");
+    var url =
+        '${baseUrl}api/HealthCheckUpApi/HealthAptmt?Test_Id=$HealthchkpListId';
+
+    //'${baseUrl}api/HealthCheckUpApi/HealthAptmt?Test_Id=1';
     // "http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=16";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -1332,10 +1339,13 @@ class ApiProvider {
     var TestDate,
     var Slotid,
   ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var HealthchkpListId = preferences.getString("HealthchkpListId");
+    print("HealthchkpListId: ${HealthchkpListId}");
     var url = baseUrl + 'api/LabApi/Booknow';
 
     var body = {
-      "Test_Id": 1,
+      "Test_Id": "$HealthchkpListId",
       "TestDate": TestDate,
       "Slotid": Slotid,
     };
@@ -1346,16 +1356,6 @@ class ApiProvider {
     );
     print(r.body);
     if (r.statusCode == 200) {
-      var prefs = GetStorage();
-      //saved id..........
-      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
-      Id = prefs.read("Id").toString();
-      // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
-      ///
-      // //saved token.........
-      // prefs.write("token".toString(), json.decode(r.body)['token']);
-      // token = prefs.read("token").toString();
-      // print(token);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -1844,8 +1844,12 @@ class ApiProvider {
 
   ///todo: doctor_detail_api...................1 may--2023
   static ViewdetailhlthchkpApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var HealthchkpListId = preferences.getString("HealthchkpListId");
+    print("HealthchkpListId: ${HealthchkpListId}");
+    //HealthchkpListId
     var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/ViewMore?HealthId=1";
+        "http://test.pswellness.in/api/HealthCheckUpApi/ViewMore?HealthId=$HealthchkpListId";
     try {
       http.Response r = await http.get(Uri.parse(url));
 
@@ -2276,12 +2280,23 @@ class ApiProvider {
 
   ///checkup_history_3...........................22 april....2023
   static HealthcheckuplistApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var healthchkpstateId = preferences.getString("healthchkpstateId");
+    print("healthchkpstateId: ${healthchkpstateId}");
+    var healthchkpcityId = preferences.getString("healthchkpcityId");
+    print("healthchkpcityId: ${healthchkpcityId}");
+    var healthchkptestId = preferences.getString("healthchkptestId");
+    print("healthchkptestId: ${healthchkptestId}");
+
     var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/HCheckUpList?StateId=2&CityId=66&testId=1";
+        "http://test.pswellness.in/api/HealthCheckUpApi/HCheckUpList?StateId=$healthchkpstateId&CityId=$healthchkpcityId&testId=$healthchkptestId";
+
+    //"http://test.pswellness.in/api/HealthCheckUpApi/HCheckUpList?StateId=2&CityId=66&testId=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print("okokurlchkp:${url}");
         var HealthCheckupListss = healthCheckupListssFromJson(r.body);
         return HealthCheckupListss;
       }
@@ -3429,6 +3444,59 @@ class ApiProvider {
     }
   }
 
+  ///...post_health_chkp...api......
+
+  ///todo: this is the review rating post for lab.....
+  static postHealthchkpReviewRating(
+    var Rating1,
+    var Rating2,
+    var Rating3,
+    var Rating4,
+    var Rating5,
+    var Name,
+    var Description,
+    var pro_Id,
+    var Image,
+    var ImageBase,
+    var Professional,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var HealthchkpListId = preferences.getString("HealthchkpListId");
+    print("HealthchkpListId: ${HealthchkpListId}");
+    var body = {
+      'Rating1': Rating1 ? "1" : "0",
+      'Rating2': Rating2 ? "1" : "0",
+      'Rating3': Rating3 ? "1" : "0",
+      'Rating4': Rating4 ? "1" : "0",
+      'Rating5': Rating5 ? "1" : "0",
+      'Name': '$Name',
+      'Description': '$Description',
+      'ImageBase': '$ImageBase',
+      'Image': '$Image',
+      'pro_Id': '$HealthchkpListId',
+      'Professional': "HealthCheckup"
+    };
+
+    try {
+      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var r = await http.post(Uri.parse(url), body: body);
+      print("###3###3####1rrrererttdoctor: ${body}");
+      if (r.statusCode == 200) {
+        print("###3###3####1rrrddrr: ${r.body}");
+
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+      print("###3###3####1errordrr: ${e}");
+    }
+  }
+
   ///todo:view review nurse.....20 may 2023...
 
   static ViewnursereviiewApi() async {
@@ -3482,6 +3550,26 @@ class ApiProvider {
       }
     } catch (error) {
       print("errorlabdetailslabb:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:view review doctor.....23 may 2023...
+
+  static ViewHealthchkpreviewApi() async {
+    var url =
+        "http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=HealthCheckup";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("printdrbodyhealth:${r.body}");
+        HealthchkpRatingView? healthchkpRatingViewmodel =
+            healthchkpRatingViewFromJson(r.body);
+        return healthchkpRatingViewmodel;
+      }
+    } catch (error) {
+      print("errorlabdetailshealthchkp:${error.toString()}");
       return;
     }
   }

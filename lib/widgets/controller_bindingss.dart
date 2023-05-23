@@ -35,6 +35,7 @@ import '../controllers/1_user_view_controller/ambulance/get_ambulancetype_contro
 import '../controllers/1_user_view_controller/doctor_rating_review_controller/doctor_view_ratting_review.dart';
 import '../controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import '../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
+import '../controllers/1_user_view_controller/health_chkp_view_review/health_chkp_view_review.dart';
 import '../controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import '../controllers/1_user_view_controller/lab_rating_review_controller/lab_view_ratting_review.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
@@ -127,6 +128,7 @@ class ControllerBinding extends Bindings {
     Get.put(ReviewRatingNurseController());
     Get.put(ViewdoctorreviewController());
     Get.put(ViewlabreviewController());
+    Get.put(ViewhealthchkpreviewController());
     // Rahul
     //Get.put(GoogleMapController());
 

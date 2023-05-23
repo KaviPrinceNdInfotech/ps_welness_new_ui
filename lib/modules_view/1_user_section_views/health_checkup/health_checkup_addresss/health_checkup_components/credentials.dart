@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
@@ -14,6 +15,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_m
 // import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
 import '../../../../../constants/my_theme.dart';
+import '../../../../../controllers/1_user_view_controller/health_checkup_controllersss/health_checkup_listsss.dart';
 import '../../../../../controllers/1_user_view_controller/health_checkup_controllersss/health_chkp_post_controller.dart';
 import '../../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../../model/1_user_model/states_model/state_modells.dart';
@@ -29,6 +31,8 @@ class HealthCheckupCredentials extends StatelessWidget {
 
   ChooseHealthchkpsCenterController _chooseHealthchkpsCenterController =
       Get.put(ChooseHealthchkpsCenterController());
+  final HealthCheckupController _healthCheckupController =
+      Get.put(HealthCheckupController());
 
   var items = [
     'Item 1',
@@ -243,7 +247,17 @@ class HealthCheckupCredentials extends StatelessWidget {
 
               RectangularButton(
                   text: 'SUBMIT',
-                  press: () {
+                  press: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString("healthchkpstateId",
+                        "${_chooseHealthchkpsCenterController.selectedState.value?.id.toString()}");
+                    prefs.setString("healthchkpcityId",
+                        "${_chooseHealthchkpsCenterController.selectedCity.value?.id.toString()}");
+                    prefs.setString("healthchkptestId",
+                        "${_chooseHealthchkpsCenterController.selectedTest.value?.id.toString()}");
+                    _healthCheckupController.HealthcheckupApi();
+                    _healthCheckupController.update();
                     CallLoader.loader();
                     _chooseHealthchkpsCenterController.checkhealthbooking1();
 

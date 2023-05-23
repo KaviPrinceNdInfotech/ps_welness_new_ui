@@ -725,62 +725,44 @@ class HealthCheckupAppointmentCheckout extends StatelessWidget {
                                         ),
 
                                         ///Todo: COD method for order...........................................................cod...................
-                                        InkWell(
-                                          onTap: () {
-                                            _postOrderHealthchkpController
-                                                .postOrderhealthchkpofflineApi()
-                                                .then((statusCode) {
-                                              if (statusCode == 200) {
-                                                ///This is the main thing to provide updated list history...
-                                                _labHistoryController
-                                                    .labHistorybyUserId();
-                                                _labHistoryController.update();
-
-                                                ///nov 14....................................
-                                                Get.to(LabHistoryUser());
-                                              } else {
-                                                Get.snackbar("Error123", "");
-                                              }
-                                            });
-                                          },
-                                          child: Container(
-                                            height: 50.0,
-                                            decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              border: new Border.all(
-                                                  color: Colors.white,
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      10.0),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Cash on delivery',
-                                                style: new TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
                                         // InkWell(
-                                        //   onTap: (){
-                                        //     _postOrderController.postOrderApi().then((statusCode) {
+                                        //   onTap: () {
+                                        //     _postOrderHealthchkpController
+                                        //         .postOrderhealthchkpofflineApi()
+                                        //         .then((statusCode) {
                                         //       if (statusCode == 200) {
                                         //         ///This is the main thing to provide updated list history...
-                                        //         _getProfileController.OrderHistoryApi();
-                                        //         _getProfileController.update();
+                                        //         _labHistoryController
+                                        //             .labHistorybyUserId();
+                                        //         _labHistoryController.update();
                                         //
                                         //         ///nov 14....................................
-                                        //         Get.to(OrderConfirmationPage());
+                                        //         Get.to(LabHistoryUser());
                                         //       } else {
-                                        //         Get.snackbar("Error", "");
+                                        //         Get.snackbar("Error123", "");
                                         //       }
                                         //     });
-                                        //
                                         //   },
-                                        //     child: Text("COD")
+                                        //   child: Container(
+                                        //     height: 50.0,
+                                        //     decoration: BoxDecoration(
+                                        //       color: Colors.black,
+                                        //       border: new Border.all(
+                                        //           color: Colors.white,
+                                        //           width: 2.0),
+                                        //       borderRadius:
+                                        //           new BorderRadius.circular(
+                                        //               10.0),
+                                        //     ),
+                                        //     child: Center(
+                                        //       child: Text(
+                                        //         'Cash on delivery',
+                                        //         style: new TextStyle(
+                                        //             fontSize: 18.0,
+                                        //             color: Colors.white),
+                                        //       ),
+                                        //     ),
+                                        //   ),
                                         // ),
                                       ],
                                     ),
