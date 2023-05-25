@@ -242,10 +242,10 @@ class DoctorScheduleCredentials extends StatelessWidget {
                           //   ),
                           // ),
                           SizedBox(
-                            height: size.height * 0.004,
+                            height: size.height * 0.003,
                           ),
                           SizedBox(
-                            height: size.height * 0.08,
+                            height: size.height * 0.083,
                             width: size.width,
                             child: Container(
                               width: double.infinity,

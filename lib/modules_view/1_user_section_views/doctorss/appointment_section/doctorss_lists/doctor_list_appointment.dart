@@ -119,6 +119,7 @@ class DoctorListUser extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     //Obx(
                     // ()=> (_doctorListController.isLoading.value)
                     // ? Center(child: CircularProgressIndicator())
@@ -127,6 +128,7 @@ class DoctorListUser extends StatelessWidget {
                     //   child: Text('No data'),
                     // )
                     // :
+
                     _doctorListController.foundDoctors.value.isEmpty
                         ? Center(
                             child: Text("No Doctor Found"),

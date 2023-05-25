@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -5,12 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
+import '../../../../modules_view/1_user_section_views/nursess/nurse_appointment_section/nurse_detail_and_schedule/nurse_details_schedules.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
+import '../../../../utils/services/account_service.dart';
 
 class NurseRatingReviewController extends GetxController {
+  //final NurseAppointmentDetailController _nurseAppointmentDetailController =
+  // Get.put(NurseAppointmentDetailController());
+  ////final NurseRatingReviewController _nurseRatingReviewController =
+  //Get.put(NurseRatingReviewController());
+  //ReviewRatingNurseController _nurseviewssRatingReviewController =
+  //Get.put(ReviewRatingNurseController());
+
+  NurseAppointmentDetailController _nurseAppointmentDetailController =
+      Get.put(NurseAppointmentDetailController());
+  ReviewRatingNurseController _nurseviewssRatingReviewController =
+      Get.put(ReviewRatingNurseController());
   RxInt selectedimg = 0.obs;
   RxInt selectedprice = 0.obs;
   RxBool isLoading = true.obs;
@@ -64,45 +80,6 @@ class NurseRatingReviewController extends GetxController {
 
   RxInt star = 1.obs;
 
-  // ///............................view rating review..................
-  // GetProductReview? getProductreview;
-  //
-  // void getreviewdetailApi() async {
-  //   // var prefs = GetStorage();
-  //   //
-  //   // productid = prefs.read("Id").toString();
-  //   // print('&&&&&&&&&&&&&&&&&&&&&&Id:${productid}');
-  //   //productId = id;
-  //
-  //   isLoading(true);
-  //
-  //   getProductreview = await ApiProvider.viewreviewApi();
-  //   if (getProductreview != null) {
-  //     //Get.to(() => ItemDetailss());
-  //     isLoading(false);
-  //     var prefs = GetStorage();
-  //     //saved id..........
-  //     //prefs.write("Id".toString(), json.decode(r.body)['Id']);
-  //     // productid = prefs.read("Id").toString();
-  //     // print('&&&&&&&&&&&&&&&&&&&&&&:${productid}');
-  //     ///
-  //     // Get.to(
-  //     //       () => ItemDetailsss(productId: productid,), //next page class
-  //     //   duration: Duration(
-  //     //       milliseconds: 300), //duration of transitions, default 1 sec
-  //     //   transition:
-  //     //   // Transition.leftToRight //transition effect
-  //     //   // Transition.fadeIn
-  //     //   //Transition.size
-  //     //   Transition.zoom,
-  //     // );
-  //
-  //
-  //
-  //     //Get.to(()=>Container());
-  //   }
-  // }
-
   ///add review 10 april 2023...............
   // ======== Add Review ========= ///
   void addNurseProductReviewApi() async {
@@ -123,9 +100,33 @@ class NurseRatingReviewController extends GetxController {
       selectedPath.value.split('/').last,
       imageAsBase64,
       Professional.text,
+      //Patient_Id,
     );
 
     if (r.statusCode == 200) {
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 200),
+          () {
+            Get.snackbar(
+                'Add review Successfully', "Review Submitted. Thank-you."
+                // "${r.body}"
+                );
+            Get.to(() => NurseDetailsSchedulePage());
+            _nurseviewssRatingReviewController.nursereviewratingApi();
+            _nurseviewssRatingReviewController.update();
+            _nurseAppointmentDetailController.nursedetailApi();
+            _nurseAppointmentDetailController.update();
+            //Get.to(() => NurseDetailsSchedulePage());
+            //_nurseviewssRatingReviewController.nursereviewratingApi();
+            //_nurseviewssRatingReviewController.update();
+            //_nurseAppointmentDetailController.nursedetailApi();
+            //_nurseAppointmentDetailController.update();
+            //Get.to((page))
+            ///
+          },
+        );
+      });
       CallLoader.hideLoader();
     } else {
       CallLoader.hideLoader();

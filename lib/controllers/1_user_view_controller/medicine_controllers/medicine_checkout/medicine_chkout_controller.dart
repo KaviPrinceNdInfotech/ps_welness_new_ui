@@ -8,21 +8,7 @@ class CheckoutMedicineController extends GetxController {
 
   String addressid = '';
 
-  //AdressbyidModel? getaddressbyid;
   CheckoutmedicineModel? medicinecheckoutModel;
-
-  // void addressidApi() async {
-  //   isLoading(true);
-  //
-  //   getaddressbyid = await ApiProvider.getaddressIdApi(addressid.toString());
-  //   if (getaddressbyid != null) {
-  //
-  //     Get.to(() => TotalPrice());
-  //     isLoading(false);
-  //
-  //     //Get.to(()=>Container());
-  //   }
-  // }
 
   ///todo from here checkout model value..............
 
@@ -33,8 +19,6 @@ class CheckoutMedicineController extends GetxController {
     if (medicinecheckoutModel != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
-
-      //Get.to(()=>Container());
     }
   }
 

@@ -9,6 +9,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_list_
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/my_theme.dart';
+import '../../../../../controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
 import '../../../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import '../../../../../utils/services/account_service.dart';
 import '../nurse_detail_and_schedule/nurse_details_schedules.dart';
@@ -22,6 +23,8 @@ class NurseListUser extends StatelessWidget {
       Get.put(NurseUserListController());
   final NurseAppointmentDetailController _nurseAppointmentDetailController =
       Get.put(NurseAppointmentDetailController());
+  ReviewRatingNurseController _nurseviewssRatingReviewController =
+      Get.put(ReviewRatingNurseController());
   // final NurseAppointmentDetailController _nurseAppointmentDetailController =
   //     Get.put(NurseAppointmentDetailController());
 
@@ -396,6 +399,10 @@ class NurseListUser extends StatelessWidget {
                                                                 .nursedetailApi();
                                                             _nurseAppointmentDetailController
                                                                 .update();
+                                                            _nurseviewssRatingReviewController
+                                                                .nursereviewratingApi();
+                                                            _nurseviewssRatingReviewController
+                                                                .update();
 
                                                             ///from here we can go to next screen with some time ....
                                                             accountService
@@ -405,7 +412,7 @@ class NurseListUser extends StatelessWidget {
                                                               Timer(
                                                                 const Duration(
                                                                     milliseconds:
-                                                                        500),
+                                                                        700),
                                                                 () {
                                                                   Get.to(() =>
                                                                       NurseDetailsSchedulePage());

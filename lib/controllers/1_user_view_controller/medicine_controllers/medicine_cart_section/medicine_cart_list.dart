@@ -44,7 +44,7 @@ class MedicineCartListController extends GetxController {
       cartmdedicineListApi();
 
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
-      Get.off(
+      Get.to(
         () => MedicineCart(
             // cartId: 88, medicineId: MedicineId,
             // medicineName: "nm123", quantity: Quantity,

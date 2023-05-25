@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medeicine_address_add/add_address_medicine.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_checkout/medicine_checkout.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
@@ -15,6 +18,8 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_vie
 import '../../../../constants/constants/constants.dart';
 import '../../../../constants/my_theme.dart';
 import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
+import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_checkout/medicine_chkout_controller.dart';
+import '../../../../utils/services/account_service.dart';
 
 class Medicineaddresslist extends StatelessWidget {
   Medicineaddresslist({Key? key}) : super(key: key);
@@ -24,6 +29,8 @@ class Medicineaddresslist extends StatelessWidget {
 
   medicine_addresssList_Controller _medicine_addresslist_controller =
       Get.put(medicine_addresssList_Controller());
+  CheckoutMedicineController _medicinecheckoutController =
+      Get.put(CheckoutMedicineController());
 
   @override
   Widget build(BuildContext context) {
@@ -186,15 +193,7 @@ class Medicineaddresslist extends StatelessWidget {
                                             ],
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                    'https://images.unsplash.com/photo-1628771065518-0d82f1938462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                                    //'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzd8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                    // 'https://images.unsplash.com/photo-1515350540008-a3f566782a3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                                    //  'https://images.unsplash.com/photo-1563213126-a4273aed2016?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                    //'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                                    //'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bWVkaWNpbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
-                                                    //'https://images.unsplash.com/photo-1576073719676-aa95576db207?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1673&q=80'
-                                                    // 'lib/assets/background_stack_png/patient3_history.png'
-                                                    ),
+                                                    'https://images.unsplash.com/photo-1628771065518-0d82f1938462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
                                                 fit: BoxFit.cover)),
                                         child: Row(
                                           mainAxisAlignment:
@@ -389,10 +388,6 @@ class Medicineaddresslist extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                    //"${_medicineListController.foundProducts[index].mrp}",
-
-                                                    // _medicineListController.medicinelistmodel!.data[index].mrp.toString(),
-                                                    // 'Palam'
                                                     _medicine_addresslist_controller
                                                         .medicineaddresslistmodel!
                                                         .addAddressMediciness![
@@ -439,7 +434,31 @@ class Medicineaddresslist extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(100),
                                               child: InkWell(
-                                                onTap: () {
+                                                onTap: () async {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  prefs.setString(
+                                                      "MedicineaddresslistssId",
+                                                      "${_medicine_addresslist_controller.medicineaddresslistmodel!.addAddressMediciness![index].id.toString()}");
+                                                  _medicinecheckoutController
+                                                      .getmedicinecheckoutApi();
+                                                  _medicinecheckoutController
+                                                      .update();
+                                                  accountService.getAccountData
+                                                      .then((accountData) {
+                                                    Timer(
+                                                      const Duration(
+                                                          milliseconds: 200),
+                                                      () {
+                                                        Get.off(
+                                                            CheckOutMedicine());
+                                                        //Get.to((page))
+                                                        ///
+                                                      },
+                                                    );
+                                                  });
+
                                                   ///address add api........prince 10 may 2023...
 
                                                   ///..........................................new..............
@@ -450,7 +469,6 @@ class Medicineaddresslist extends StatelessWidget {
                                                   ///..........................................new..............
                                                   // _checkoutController.getcheckoutApi();
                                                   // _checkoutController.update();
-                                                  Get.off(CheckOutMedicine());
                                                 },
                                                 child: Container(
                                                   height: size.height * 0.06,

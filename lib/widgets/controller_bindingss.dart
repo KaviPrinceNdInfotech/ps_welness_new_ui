@@ -53,6 +53,14 @@ import '../controllers/3_driver_view_controllers/driver_home_page_controller/dri
 //import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
 //import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
+import '../controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemistManageProfile_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_complain_controller/chemist_complain_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import '../controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_complain_controller/doctor_complain_controllers.dart';
 import '../controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 import '../controllers/login_email/login_email_controller.dart';
@@ -129,6 +137,14 @@ class ControllerBinding extends Bindings {
     Get.put(ViewdoctorreviewController());
     Get.put(ViewlabreviewController());
     Get.put(ViewhealthchkpreviewController());
+    Get.put(ChemistOrderController()); //Rahul
+    Get.put(ChemispaymentController()); // Rahul
+    Get.put(ChemistProfileDetailController()); // Rahul
+    Get.put(ChemistPayoutController()); //  Rahul
+    Get.put(ChemistUpdateProfileController()); // Rahul
+    Get.put(ChemistManageProfileController()); // Rahul
+    Get.put(ChemistComplaintController()); //Rahul
+    Get.put(ChemistBannerController());
     // Rahul
     //Get.put(GoogleMapController());
 

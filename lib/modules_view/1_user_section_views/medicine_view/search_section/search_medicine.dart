@@ -393,7 +393,6 @@ class SearchMedicine extends StatelessWidget {
                                                             );
 
                                                             ///
-
                                                             // Get.to(() =>
                                                             //     MedicineCart());
                                                           },

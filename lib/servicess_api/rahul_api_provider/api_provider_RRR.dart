@@ -47,6 +47,11 @@ import '../../model/5_RWA_controller_RRR/rwa_patient_list_model.dart';
 import '../../model/5_RWA_controller_RRR/rwa_payment_report_model.dart';
 import '../../model/5_RWA_controller_RRR/rwa_payout_report_model.dart';
 import '../../model/5_RWA_controller_RRR/rwa_profile_detail_model.dart';
+import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_bannerModel.dart';
+import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_order_historyModel.dart';
+import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payment_historyModel.dart';
+import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payoutModel.dart';
+import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_profile_detailModel.dart';
 import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
 import '../../model/9_doctors_model_RRR/doctor_profile_model.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
@@ -68,6 +73,10 @@ class ApiProvider {
   //static String orderid = '';
   static String Id = ''.toString();
   static String MedicineId = ''.toString();
+  static String adminId = ''.toString();
+  static String userid = ''.toString();
+  static String StatemasterId = ''.toString();
+  static String CitymasterId = ''.toString();
 
   //static String cartlistid = '';
   //static String addressid = '';
@@ -150,6 +159,33 @@ class ApiProvider {
       prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+      ///....
+      //saved id..........
+      prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      userid = prefs.read("Id").toString();
+      print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+//adminId
+      //StatemasterId = ''.toString();
+      //   static String CitymasterId
+      ///todo: save state id........
+      prefs.write("StateMaster_Id".toString(),
+          json.decode(r.body)['data']['StateMaster_Id']);
+      StatemasterId = prefs.read("StateMaster_Id").toString();
+      print('&&&&statemasterId:${StatemasterId}');
+
+      ///todo: save city id........
+      prefs.write("CityMaster_Id".toString(),
+          json.decode(r.body)['data']['CityMaster_Id']);
+      CitymasterId = prefs.read("CityMaster_Id").toString();
+      print('&&citymasterId:${CitymasterId}');
+
+      ///var prefs = GetStorage();
+      //savid..........
+      prefs.write("AdminLogin_Id".toString(),
+          json.decode(r.body)['data']['AdminLogin_Id']);
+      adminId = prefs.read("AdminLogin_Id").toString();
+      print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
 
       //saved token.........
       // prefs.write("token".toString(), json.decode(r.body)['token']);
@@ -1823,54 +1859,265 @@ class ApiProvider {
     }
   }
 
-//todo:test banner........................
+  ///
+//todo Chemist///////////..
+  /// todo Chemist Order History
+  static chemistOrderHistoryApi() async {
+    var url = '${baseUrl}api/ChemistApi/chemisthistory';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final chemistOrderHistory = chemistOrderHistoryFromJson(r.body);
+        print(
+            "ChemistOrderHistoryRRR: ${chemistOrderHistory.chmi1?[0].id.toString()}");
+        return chemistOrderHistory;
+      }
+    } catch (error) {
+      print('ChemistOrderHistoryRRRError: ${error}');
+      return;
+    }
+  }
 
-// static SliderBannerApi() async {
-//   var url = "https://api.gyros.farm/api/AdminApi/BannerImage";
-//   try {
-//     http.Response r = await http.get(Uri.parse(url));
-//     print(r.body.toString());
-//     if (r.statusCode == 200) {
-//       SliderListModel sliderbanerlist = sliderListModelFromJson(r.body);
-//       return sliderbanerlist;
-//     }
-//   } catch (error) {
-//     return;
-//   }
-// }
+  // todo Chemist Payment History
+  static chemistPaymentHistoryApi() async {
+    var url = '${baseUrl}api/ChemistApi/paymenthistory';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final chemistPaymentHistory = chemistPaymentHistoryFromJson(r.body);
+        print(
+            "ChemistOrderHistoryRRR: ${chemistPaymentHistory.pay?[0].amount}");
+        return chemistPaymentHistory;
+      }
+    } catch (error) {
+      print('ChemistOrderHistoryRRRError: ${error}');
+      return;
+    }
+  }
 
-// static ViewLabApi() async {
-//    var url = "http://pswellness.in/api/LabApi/LabsList?CityId=786";
-//    try {
-//      http.Response r = await http.get(Uri.parse(url));
-//      print(r.body.toString());
-//      if (r.statusCode == 200) {
-//        var LabListUser = labListUserFromJson(r.body);
-//        return LabListUser;
-//      }
-//    }
-//       catch (error) {
-//      return;
-//
-//       }
-//    }
+  // todo Chemist Profile Detail
+  static chemistProfileDetailApi() async {
+    var url = '${baseUrl}api/ChemistApi/chemistprofiledetail?id=22';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final chemistProfileDetail = chemistProfileDetailFromJson(r.body);
+        print("ChemistProfileDetail: ${chemistProfileDetail.chemistName}");
+        return chemistProfileDetail;
+      }
+    } catch (error) {
+      print('ChemistProfileDetailRRRError: ${error}');
+      return;
+    }
+  }
+
+  // todo Chemist Payout History
+  static chemistPayoutHistoryApi() async {
+    var url = '${baseUrl}api/ChemistApi/payouthistory';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final chemistPayout = chemistPayoutFromJson(r.body);
+        print('ChemistPayoutSuccess: ${chemistPayout.payout?[0].chemistName}');
+        return chemistPayout;
+      }
+    } catch (error) {
+      print('ChemistPayoutRRRError: ${error}');
+      return;
+    }
+  }
+
+  /// todo Chemist Update Profile ............Rahul
+  static ChemistUpdateProfileApi(
+      var Id,
+      var ChemistName,
+      var MobileNumber,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var Location,
+      var AdminLogin_Id,
+      var PinCode,
+      var AccountNo,
+      var IFSCCode,
+      var BranchName) async {
+    var url = '${baseUrl}api/ChemistApi/UpdateProfilebyChemist';
+    var body = {
+      "id": Id,
+      "ChemistName": ChemistName,
+      "MobileNumber": MobileNumber,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "Location": Location,
+      "AdminLogin_Id": PinCode,
+      "PinCode": AdminLogin_Id,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName
+    };
+    print("ChemistBody: ${body}");
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("ChemistUpdateProfileSuccess: ${body}");
+      print("ChemistUpdateProfileSuccess: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo Chemist Manage Profile ............Rahul
+  static ChemistManageProfileApi(
+      var Id,
+      var ChemistName,
+      var ShopName,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var Location,
+      var GSTNumber,
+      var LicenceNumber,
+      var LicenceImage,
+      var LicenceImageBase64) async {
+    var url = '${baseUrl}api/ChemistApi/ManageProfile';
+    var body = {
+      "Id": Id,
+      "ChemistName": ChemistName,
+      "ShopName": ShopName,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "Location": Location,
+      "GSTNumber": GSTNumber,
+      "LicenceNumber": LicenceNumber,
+      "LicenceImage": LicenceImage,
+      "LicenceImageBase64": "$LicenceImageBase64"
+    };
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("bodychemist:${body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo Chemist Update bank Detail............Rahul
+  static ChemistUpdateBankDetailApi(
+      var Login_Id, var AccountNo, var IFSCCode, var BranchName) async {
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&eee:${adminId}');
+    var url = '${baseUrl}api/ComplaintApi/CHUpdateBank';
+    var body = {
+      "Login_Id": userid,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName
+    };
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo Chemist Complain............Rahul
+  static ChemistComplainApi(var Subject, var Other, var Complain) async {
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&rr:${adminId}');
+    var url = '${baseUrl}api/ComplaintApi/Chemist_Complaint';
+    var body = {
+      "patsubid": Subject,
+      "Others": Other,
+      "Complaints": Complain,
+      "Login_Id": adminId
+    };
+    print("ChemistComplainBody: ${body}");
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("ChemistComplainApi: ${body}");
+      print("ChemistComplainApiSuccess: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo Chemist Banner Api ...........Rahul
+  static ChemistBannnerApi() async {
+    var url = '${baseUrl}api/SignupApi/getBanner?id=8';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final chemistBannerModel = chemistBannerModelFromJson(r.body);
+        return chemistBannerModel;
+      }
+    } catch (error) {
+      print('ChemistBannerRRRError: ${error}');
+      return;
+    }
+  }
+
+  /// todo Chemist SignUp............Rahul
+  static ChemistSignupApi(
+      var ChemistName,
+      var ShopName,
+      var EmailId,
+      var Password,
+      var ConfirmPassword,
+      var MobileNumber,
+      var Location,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var Certificateimg,
+      var Certificateimgbase64,
+      var LicenceNumber,
+      var LicenseValidity,
+      var PinCode) async {
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+
+    //userid
+    var url = '${baseUrl}api/SignupApi/ChemistRegistration';
+    var body = {
+      "ChemistName": ChemistName,
+      "ShopName": ShopName,
+      "EmailId": EmailId,
+      "Password": Password,
+      "ConfirmPassword": ConfirmPassword,
+      "MobileNumber": MobileNumber,
+      "Location": Location,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "Certificateimg": '$Certificateimg',
+      "Certificateimgbase64": '$Certificateimgbase64',
+      "LicenceNumber": LicenceNumber,
+      "LicenseValidity": LicenseValidity,
+      "PinCode": PinCode,
+    };
+    print("ChemistComplainBody: ${body}");
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("ChemistSignupApi: ${body}");
+      print("ChemistSignupApiSuccess: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
 }
-
-///Todo: from here we can do dynamic id in the url............
-// static Future<List<SpecialistModel>> getSpeaclistbyIdApi(String depId) async {
-// var url =
-// "http://test.pswellness.in/api/CommonApi/GetSpecialist?depId=$depId";
-// //"http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
-// try {
-// http.Response r = await http.get(Uri.parse(url));
-// print(r.body.toString());
-// if (r.statusCode == 200) {
-// var speclistData = getspecialistdeptbyIdFromJson(r.body);
-// return speclistData.specialist;
-// } else {
-// return [];
-// }
-// } catch (error) {
-// return [];
-// }
-// }

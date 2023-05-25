@@ -8,7 +8,7 @@ import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers/chemist
 //import 'package:ps_welness_new_ui/controllers/5_rwa_controller/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -107,6 +107,7 @@ class RwaProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             /// todo Landline number..................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -136,6 +137,7 @@ class RwaProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: state............................
             NeumorphicTextFieldContainer(
               child: Padding(
@@ -152,7 +154,8 @@ class RwaProfileCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select State'),
-                      items: _rwaProfileController.states.map((StateModel model) {
+                      items:
+                          _rwaProfileController.states.map((StateModel model) {
                         return DropdownMenuItem(
                           value: model,
                           child: Text(
@@ -170,6 +173,7 @@ class RwaProfileCredentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: city.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -210,6 +214,7 @@ class RwaProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: location value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -283,7 +288,7 @@ class RwaProfileCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'UPDATE',
                 press: () {
-                 _rwaProfileController.checkRWAProfilee();
+                  _rwaProfileController.checkRWAProfilee();
                 })
           ],
         ),

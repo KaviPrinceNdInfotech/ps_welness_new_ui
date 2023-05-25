@@ -22,16 +22,6 @@ class CheckOutMedicine extends StatelessWidget {
   //CartController controller = Get.find();
   RozarPayController _rozarPayController = Get.put(RozarPayController());
 
-  // CheckoutController _checkoutController = Get.put(CheckoutController());
-  //  AddressListController _addressListController =
-  //  Get.put(AddressListController());
-  //final CartController controller = Get.put(CartController());
-  //
-  //  HomePageController _homePageController = Get.find();
-  //  GetProfileController _getProfileController = Get.put(GetProfileController());
-  //  PostOrderController _postOrderController = Get.put(PostOrderController());
-  //  WalletPostController _walletPostController = Get.put(WalletPostController());
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -75,22 +65,9 @@ class CheckOutMedicine extends StatelessWidget {
                     width: size.width * 0.9,
                     child: ListView.builder(
                         itemCount: 1,
-                        //_medicinecheckoutController.medicinecheckoutModel.data.length
-                        //1,
-                        // _medicinecheckoutController?.medicinecheckoutModel!.lenght,
-                        // _checkoutController.getaddressbyid!.result!.length,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
-                          return
-                              // Obx(
-                              //     () => (_checkoutController.isLoading.value)
-                              //     ? Center(child: CircularProgressIndicator())
-                              //     : _checkoutController.getaddressbyid!.result!.isEmpty
-                              //     ? Center(
-                              //   child: Text('No data'),
-                              // )
-                              //     :
-                              Column(
+                          return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
@@ -106,37 +83,6 @@ class CheckOutMedicine extends StatelessWidget {
                                         fontSize: 15,
                                         fontWeight: FontWeight.w700),
                                   ),
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     // _addressListController.catid = _homePageController
-                                  //     //     .getcatagartlist!.result!.id.toString()
-                                  //     //     .toString();
-                                  //     // _addressListController
-                                  //     //     .addresListApi();
-                                  //     //Get.to(() => AddressList());
-                                  //   },
-                                  //   child:
-                                  //   Material(
-                                  //     elevation: 5,
-                                  //     child: Container(
-                                  //       height: size.height * 0.04,
-                                  //       width: size.width * 0.20,
-                                  //       decoration: BoxDecoration(
-                                  //         gradient: MyTheme.gradient3,
-                                  //       ),
-                                  //       child: Center(
-                                  //         child: Text(
-                                  //           'Add Address',
-                                  //           style: TextStyle(
-                                  //             fontSize: 8,
-                                  //             color: Colors.white,
-                                  //             fontWeight: FontWeight.w600,
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // )
                                 ],
                               ),
                               SizedBox(height: 15),
@@ -266,6 +212,7 @@ class CheckOutMedicine extends StatelessWidget {
                                         //     .result![index]
                                         //     .mobile
                                         //     .toString(),
+
                                         style: TextStyle(
                                           color: AppColors.primarySwatch,
                                           fontSize: 13,
@@ -426,7 +373,7 @@ class CheckOutMedicine extends StatelessWidget {
                                   ),
                                   Text(
                                     '₹ '
-                                    "${_medicinecheckoutController.medicinecheckoutModel?.data?.totalPrice}",
+                                    "${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice}",
                                     //${_checkoutController.checkoutModel?.result?.totalCost.toString()}',
                                     style: TextStyle(
                                       fontSize: 20,

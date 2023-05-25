@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 // //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
@@ -15,6 +16,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 import '../../../../controllers/2_franchises_controller/franchies_profile_controller/franchieses_profile_controller.dart';
 import '../../../../controllers/6_chemist_view_controllers/chemist_profile_controller/chemist_profile_controller.dart';
+import '../../../6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 
 class franchiesProfileCredentials extends StatelessWidget {
   franchiesProfileCredentials({Key? key}) : super(key: key);

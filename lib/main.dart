@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemistManageProfile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
@@ -42,10 +43,15 @@ import 'controllers/1_user_view_controller/user_home_page_controller/user_home_p
 import 'controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
-//import 'controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
-//import 'controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
 import 'controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
+import 'controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_complain_controller/chemist_complain_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'controllers/complaint_controller/complaint_controller.dart';
 import 'controllers/lab_controller/lab_controller1/lab_controller_1.dart';
@@ -56,8 +62,6 @@ import 'modules_view/splash_screen/splash_screen.dart';
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    // Get.lazyPut(() => AllProductModel());
-    //Get.lazyPut(() => GiftcardModel());
     Get.lazyPut(() => NurseBooking1Controller());
     Get.lazyPut(() => Doctor_appointment_1_Controller());
     Get.lazyPut(() => SkillsListController());
@@ -68,8 +72,6 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => FranchiseHomepagContreoller());
     Get.lazyPut(() => LabHomepagContreoller());
     Get.lazyPut(() => DriverHomepagContreoller());
-    //Get.lazyPut(() => NurseHomepagContreoller());
-    //Get.lazyPut(() => RwaHomepagContreoller());
     Get.lazyPut(() => RwaBannerController());
     Get.lazyPut(() => ChemistHomepagContreoller());
     Get.lazyPut(() => ComplaintController());
@@ -101,13 +103,14 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => ViewdoctorreviewController());
     Get.lazyPut(() => ViewlabreviewController());
     Get.lazyPut(() => ViewhealthchkpreviewController());
-    //Get.lazyPut(() => NurseAppointmentDetailController());
-
-    //Get.lazyPut(() => MedicineCartListController());
-    // AmbulancegetController _ambulancegetController =
-    // Get.put(AmbulancegetController());
-
-    //Get.lazyPut(() => GoogleMapController());
+    Get.lazyPut(() => ChemistOrderController());
+    Get.lazyPut(() => ChemispaymentController());
+    Get.lazyPut(() => ChemistProfileDetailController());
+    Get.lazyPut(() => ChemistPayoutController());
+    Get.lazyPut(() => ChemistUpdateProfileController());
+    Get.lazyPut(() => ChemistManageProfileController());
+    Get.lazyPut(() => ChemistComplaintController());
+    Get.lazyPut(() => ChemistBannerController());
 
     return super.createHttpClient(context)
       ..badCertificateCallback =
@@ -127,17 +130,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: ControllerBinding(),
       debugShowCheckedModeBanner: false,
-      // getPages: [
-      //   GetPage(name: TodoScreen.id, page: () => TodoScreen()),
-      //   GetPage(name: AddSkilsScreen.id, page: () => AddSkilsScreen()),
-      // ],
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -152,6 +149,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:
+          //ChemistHomePage(),
           //LabHomePage(),
           //RwaHomePage(),
           //NurseHomePage()

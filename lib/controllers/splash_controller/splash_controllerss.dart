@@ -4,6 +4,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
@@ -13,7 +14,7 @@ import '../../modules_view/2_franchies_section_view/franchies_home/franchises_ho
 import '../../modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 import '../../modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
-import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+//import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 //import '../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
 import '../../modules_view/onboardonds/onboarding_screens.dart';
 import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';

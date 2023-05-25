@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
@@ -17,6 +18,7 @@ import 'doctor_view_ratting_review.dart';
 class DoctorRatingReviewController extends GetxController {
   ViewdoctorreviewController _viewdoctorreviewController =
       Get.put(ViewdoctorreviewController());
+  DoctorListController _doctorListController = Get.put(DoctorListController());
 
   RxInt selectedimg = 0.obs;
   RxInt selectedprice = 0.obs;
@@ -95,7 +97,7 @@ class DoctorRatingReviewController extends GetxController {
     if (r.statusCode == 200) {
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 100),
+          const Duration(milliseconds: 200),
           () {
             _viewdoctorreviewController.doctorreviewratingApi();
             _viewdoctorreviewController.update();
@@ -104,6 +106,11 @@ class DoctorRatingReviewController extends GetxController {
                 // "${r.body}"
                 );
             Get.to(() => DetailsSchedulePage());
+            _doctorListController.doctordetailApi();
+            _doctorListController.update();
+            _viewdoctorreviewController.doctorreviewratingApi();
+            _viewdoctorreviewController.update();
+
             //Get.to((page))
             ///
           },

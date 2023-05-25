@@ -97,7 +97,7 @@ class LabRatingReviewController extends GetxController {
     if (r.statusCode == 200) {
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 200),
           () {
             Get.snackbar(
                 'Add review Successfully', "Review Submitted. Thank-you."

@@ -276,7 +276,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                 height: size.height * 0.0,
                               ),
                               SizedBox(
-                                  height: size.height * 0.22,
+                                  height: size.height * 0.23,
                                   child: DoctorScheduleCredentials()),
                               SizedBox(
                                 height: size.height * 0.0,
@@ -294,7 +294,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: size.height * 0.13,
+                                height: size.height * 0.14,
                                 width: size.width * 0.95,
                                 child: ListView.builder(
                                     shrinkWrap: true,
@@ -741,7 +741,7 @@ class DetailsSchedulePage extends StatelessWidget {
                       bottom: size.height * 0.0,
                       left: size.width * 0.0,
                       right: size.width * 0.00,
-                      top: size.height * 0.86,
+                      top: size.height * 0.865,
                       child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: size.width * 0.2),
