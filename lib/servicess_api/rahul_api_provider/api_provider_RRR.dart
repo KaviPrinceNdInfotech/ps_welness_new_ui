@@ -51,7 +51,6 @@ import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_bannerModel.da
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_order_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payment_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payoutModel.dart';
-import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_profile_detailModel.dart';
 import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
 import '../../model/9_doctors_model_RRR/doctor_profile_model.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
@@ -1868,6 +1867,7 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         final chemistOrderHistory = chemistOrderHistoryFromJson(r.body);
+        print('ChemistOrderHistor: ${r.body}');
         print(
             "ChemistOrderHistoryRRR: ${chemistOrderHistory.chmi1?[0].id.toString()}");
         return chemistOrderHistory;
@@ -1895,21 +1895,29 @@ class ApiProvider {
     }
   }
 
-  // todo Chemist Profile Detail
-  static chemistProfileDetailApi() async {
-    var url = '${baseUrl}api/ChemistApi/chemistprofiledetail?id=22';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final chemistProfileDetail = chemistProfileDetailFromJson(r.body);
-        print("ChemistProfileDetail: ${chemistProfileDetail.chemistName}");
-        return chemistProfileDetail;
-      }
-    } catch (error) {
-      print('ChemistProfileDetailRRRError: ${error}');
-      return;
-    }
-  }
+  /// todo Chemist Profile Detail..........
+  // static chemistProfileDetailApi() async {
+  //   var prefs = GetStorage();
+  //   adminId = prefs.read("AdminLogin_Id").toString();
+  //   userid = prefs.read("userid").toString();
+  //   print('&&&&&&&&&&&&&&&&&&&&&&eee:${adminId}');
+  //   print('&&&&&&&&&&&&&&&&&&&&&&eeedddeee:${userid}');
+  //
+  //   var url = '${baseUrl}api/ChemistApi/chemistprofiledetail?id=$userid';
+  //   //'$userid'; //22
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     if (r.statusCode == 200) {
+  //       print("urrllllrrr:${url}");
+  //       final chemistProfileDetail = chemistProfileDetailFromJson(r.body);
+  //       print("ChemistProfileDetail: ${chemistProfileDetail.chemistName}");
+  //       return chemistProfileDetail;
+  //     }
+  //   } catch (error) {
+  //     print('ChemistProfileDetailRRRErrorrr: ${error}');
+  //     return;
+  //   }
+  // }
 
   // todo Chemist Payout History
   static chemistPayoutHistoryApi() async {
@@ -1929,27 +1937,34 @@ class ApiProvider {
 
   /// todo Chemist Update Profile ............Rahul
   static ChemistUpdateProfileApi(
-      var Id,
-      var ChemistName,
+      // var id,
+      var ShopName,
       var MobileNumber,
       var StateMaster_Id,
       var CityMaster_Id,
       var Location,
-      var AdminLogin_Id,
+      //var AdminLogin_Id,
       var PinCode,
       var AccountNo,
       var IFSCCode,
       var BranchName) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&cemist:${userid}');
+    print(userid);
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&cemist:${userid}');
+    print(userid);
     var url = '${baseUrl}api/ChemistApi/UpdateProfilebyChemist';
     var body = {
-      "id": Id,
-      "ChemistName": ChemistName,
+      "id": userid,
+      "ShopName": ShopName,
       "MobileNumber": MobileNumber,
       "StateMaster_Id": StateMaster_Id,
       "CityMaster_Id": CityMaster_Id,
       "Location": Location,
-      "AdminLogin_Id": PinCode,
-      "PinCode": AdminLogin_Id,
+      "AdminLogin_Id": adminId,
+      "PinCode": PinCode,
       "AccountNo": AccountNo,
       "IFSCCode": IFSCCode,
       "BranchName": BranchName
@@ -1967,7 +1982,7 @@ class ApiProvider {
     }
   }
 
-  /// todo Chemist Manage Profile ............Rahul
+  /// todo Chemist Manage Profile ............Rahul.....
   static ChemistManageProfileApi(
       var Id,
       var ChemistName,
@@ -1979,9 +1994,13 @@ class ApiProvider {
       var LicenceNumber,
       var LicenceImage,
       var LicenceImageBase64) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&update:${userid}');
+    print(userid);
     var url = '${baseUrl}api/ChemistApi/ManageProfile';
     var body = {
-      "Id": Id,
+      "Id": userid,
       "ChemistName": ChemistName,
       "ShopName": ShopName,
       "StateMaster_Id": StateMaster_Id,
@@ -2003,13 +2022,13 @@ class ApiProvider {
     }
   }
 
-  /// todo Chemist Update bank Detail............Rahul
+  /// todo Chemist Update bank Detail............Rahul......
   static ChemistUpdateBankDetailApi(
-      var Login_Id, var AccountNo, var IFSCCode, var BranchName) async {
+      var AccountNo, var IFSCCode, var BranchName) async {
     var prefs = GetStorage();
-    adminId = prefs.read("AdminLogin_Id").toString();
-    userid = prefs.read("userid").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&eee:${adminId}');
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&backdetailchemist:${userid}');
+    print(userid);
     var url = '${baseUrl}api/ComplaintApi/CHUpdateBank';
     var body = {
       "Login_Id": userid,
@@ -2018,7 +2037,10 @@ class ApiProvider {
       "BranchName": BranchName
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
+    print("yyyyuuuuurrree:${body}");
     if (r.statusCode == 200) {
+      print("urrllll:${url}");
+      print("yyyyuuuuu:${body}");
       Get.snackbar("Success", "${r.body}");
       return r;
     } else {
@@ -2118,6 +2140,21 @@ class ApiProvider {
     } else {
       Get.snackbar("Failed", r.body);
       return r;
+    }
+  }
+
+  /// todo Chemist about Api ...........Rahul
+  static ChemistAboutApi() async {
+    var url = '${baseUrl}api/SignupApi/getBanner?id=8';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final chemistBannerModel = chemistBannerModelFromJson(r.body);
+        return chemistBannerModel;
+      }
+    } catch (error) {
+      print('ChemistBannerRRRError: ${error}');
+      return;
     }
   }
 }

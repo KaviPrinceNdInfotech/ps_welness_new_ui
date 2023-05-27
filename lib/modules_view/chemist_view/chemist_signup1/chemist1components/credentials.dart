@@ -426,7 +426,7 @@ class Chemist1Credentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _chemist_1_controller.chemist1formkey,
+      //key: _chemist_1_controller.chemist1formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),

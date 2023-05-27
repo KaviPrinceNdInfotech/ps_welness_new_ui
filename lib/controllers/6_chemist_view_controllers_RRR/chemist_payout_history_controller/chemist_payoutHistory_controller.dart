@@ -21,7 +21,10 @@ class ChemistPayoutController extends GetxController {
   ChemistPayoutModel? getChemistPayoutModel;
   void chemistPayoutHistoryApi() async {
     getChemistPayoutModel = await ApiProvider.chemistPayoutHistoryApi();
-    if (getChemistPayoutModel?.payout != null) {}
+    if (getChemistPayoutModel?.payout != null) {
+      isLoading(false);
+      foundPayout.value = getChemistPayoutModel!.payout!;
+    }
   }
 
   @override
@@ -65,5 +68,22 @@ class ChemistPayoutController extends GetxController {
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
     }
+  }
+
+  RxList<Payout> foundPayout = RxList<Payout>([]);
+  void filterPayoutChemist(String searchpayoutName) {
+    List<Payout>? finalResult = [];
+    if (searchpayoutName.isEmpty) {
+      finalResult = getChemistPayoutModel!.payout!;
+    } else {
+      finalResult = getChemistPayoutModel!.payout!
+          .where((element) => element.chemistName
+              .toString()
+              .toLowerCase()
+              .contains(searchpayoutName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundPayout.value = finalResult!;
   }
 }

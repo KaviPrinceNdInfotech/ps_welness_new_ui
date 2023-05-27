@@ -18,9 +18,13 @@ class ChemispaymentController extends GetxController {
   var appointment = ''.obs;
   ChemistPaymentHistoryModel? getChemistPaymentHistoryModel;
   void chemistPaymentHistoryApi() async {
+    isLoading(true);
     getChemistPaymentHistoryModel =
         await ApiProvider.chemistPaymentHistoryApi();
-    if (getChemistPaymentHistoryModel?.pay != null) {}
+    if (getChemistPaymentHistoryModel?.pay != null) {
+      isLoading(false);
+      foundPaymentHistory.value = getChemistPaymentHistoryModel!.pay!;
+    }
   }
 
   @override
@@ -64,5 +68,23 @@ class ChemispaymentController extends GetxController {
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
     }
+  }
+
+  RxList<Pay> foundPaymentHistory = RxList<Pay>([]);
+  void filterpaymentChemist(String searchchemisthistoryName) {
+    List<Pay>? finalResult = [];
+    if (searchchemisthistoryName.isEmpty) {
+      finalResult = getChemistPaymentHistoryModel!.pay!;
+    } else {
+      finalResult = getChemistPaymentHistoryModel!.pay!
+          .where((element) => element.chemistName
+              .toString()
+              .toLowerCase()
+              .contains(
+                  searchchemisthistoryName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundPaymentHistory.value = finalResult!;
   }
 }

@@ -266,13 +266,20 @@ class ChemistProfileCredentials extends StatelessWidget {
               height: 20,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    width: size.width * 0.2,
-                    child: Text("Upload Licence Image")),
+                    width: size.width * 0.5,
+                    child: Text(
+                      "Upload Licence Image:",
+                      style: TextStyle(
+                        fontSize: size.height * 0.017,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
                 Container(
                   height: size.height * 0.1,
-                  width: size.width * 0.2,
+                  width: size.width * 0.3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.cyanAccent, width: 2),
@@ -299,7 +306,7 @@ class ChemistProfileCredentials extends StatelessWidget {
                                             Color.fromARGB(255, 58, 141, 208))),
                                 child: Center(
                                   child: Icon(
-                                    Icons.add_box,
+                                    Icons.camera_enhance_rounded,
                                     color: Color.fromARGB(255, 58, 141, 208),
                                   ),
                                 ),

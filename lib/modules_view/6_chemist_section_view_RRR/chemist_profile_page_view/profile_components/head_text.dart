@@ -31,7 +31,7 @@ class ChemistProfileHeadText extends StatelessWidget {
                 width: size.width * 0.03,
               ),
               Text(
-                'Update Profile',
+                'Chemist Manage Profile',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: size.width * 0.05,

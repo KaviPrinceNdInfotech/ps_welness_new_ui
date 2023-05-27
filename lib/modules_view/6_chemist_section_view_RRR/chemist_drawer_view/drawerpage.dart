@@ -17,12 +17,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_view.dart';
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
 
+import '../../../controllers/6_chemist_view_controllers_RRR/chemist_aboutus_controller.dart';
+import '../../../controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'drower_pages/about_us/about_us.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_page_view/chemist_updateProfile.dart';
 import 'drower_pages/supports/support_view.dart';
 
 class ChemistMainDrawer extends StatelessWidget {
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
+  ChemistAboutusController _chemistAboutusController =
+      Get.put(ChemistAboutusController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,14 +65,16 @@ class ChemistMainDrawer extends StatelessWidget {
                       height: size.height * 0.0,
                     ),
                     Text(
-                      'Ahuja Pharmacy',
+                      "${_chemistProfileDetailController.getChemistProfileDetailModel?.chemistName.toString()}",
+                      //'Ahuja Pharmacy',
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.020,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      'Ah@gmail.com',
+                      "${_chemistProfileDetailController.getChemistProfileDetailModel?.emailId.toString()}",
+                      //'Ah@gmail.com',
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.015,
                           fontWeight: FontWeight.w700,
@@ -103,7 +112,8 @@ class ChemistMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                // Get.to(() => AboutUs());
+
+                Get.to(() => AboutUsView());
                 Get.offNamed('/AboutUs');
               },
             ),
@@ -200,8 +210,10 @@ class ChemistMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _chemistProfileDetailController.chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
                 Get.to(() => ChemistDetailProfile());
-                Get.offNamed('/ChemistDetailProfile');
+                //Get.offNamed('/ChemistDetailProfile');
               },
             ),
             ListTile(
@@ -231,6 +243,8 @@ class ChemistMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _chemistAboutusController.chemistaboutusApi();
+                _chemistAboutusController.update();
                 Get.to(() => AboutUsView());
                 Get.offNamed('/AboutUsView');
               },

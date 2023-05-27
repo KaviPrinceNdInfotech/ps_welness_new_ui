@@ -55,6 +55,7 @@ import '../controllers/3_driver_view_controllers/driver_home_page_controller/dri
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import '../controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemistManageProfile_controller.dart';
+import '../controllers/6_chemist_view_controllers_RRR/chemist_aboutus_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemist_complain_controller/chemist_complain_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
@@ -145,6 +146,7 @@ class ControllerBinding extends Bindings {
     Get.put(ChemistManageProfileController()); // Rahul
     Get.put(ChemistComplaintController()); //Rahul
     Get.put(ChemistBannerController());
+    Get.put(ChemistAboutusController());
     // Rahul
     //Get.put(GoogleMapController());
 

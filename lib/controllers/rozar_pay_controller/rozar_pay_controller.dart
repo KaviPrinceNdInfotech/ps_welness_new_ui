@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_checkout/medicine_chkout_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/post_medicine_order_controller/post_medicine_order_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/medicine_history/medicine_history_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../1_user_view_controller/drawer_contoller/medicine_history_controller/medicine_history_controller.dart';
-import '../1_user_view_controller/lab_controller/post_lab_order_controller/post_lab_order_controller.dart';
+//import '../1_user_view_controller/lab_controller/post_lab_order_controller/post_lab_order_controller.dart';
 import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 
 class RozarPayController extends GetxController {
   //get isLoading => null;
 
   RxBool isLoading = false.obs;
-  LabListController _labListController = Get.put(LabListController());
+  //LabListController _labListController = Get.put(LabListController());
   UserProfileControllers _userrsProfileControllers =
       Get.put(UserProfileControllers());
   MedicineHistoryController _medicineHistoryController =
       Get.put(MedicineHistoryController());
+  PostOrderChemistController _postmedicineordercontroller =
+      Get.put(PostOrderChemistController());
+  CheckoutMedicineController _medicinecheckoutController =
+      Get.put(CheckoutMedicineController());
 
   //final CartController controller = Get.put(CartController());
   //GetProfileController _getProfileController = Get.put(GetProfileController());
   //CheckoutController _checkoutController = Get.put(CheckoutController());
-  PostOrderController _postOrderController = Get.put(PostOrderController());
+  //PostOrderController _postOrderController = Get.put(PostOrderController());
   LabHistoryController _labHistoryController = Get.put(LabHistoryController());
 
   @override
@@ -47,8 +52,9 @@ class RozarPayController extends GetxController {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
       'amount': int.parse(
-          // '100'
-          '${_labListController.labCheckoutModel?.fee?.toInt()}') * 100,
+              // '100'
+              '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}') *
+          100,
       'name':
           //'Kavi Singh',
           _userrsProfileControllers.userProfile!.patientName.toString(),
@@ -86,7 +92,7 @@ class RozarPayController extends GetxController {
     Get.snackbar("SUCCESS", "ID: ${response.paymentId}");
     print('payment sucess');
 
-    _postOrderController.postOrderApi().then((statusCode) {
+    _postmedicineordercontroller.postOrderApi().then((statusCode) {
       if (statusCode == 200) {
         ///This is the main thing to provide updated list history...
         _medicineHistoryController.medicineorderhistoryApi();

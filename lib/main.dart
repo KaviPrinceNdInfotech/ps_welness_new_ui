@@ -46,6 +46,7 @@ import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver
 import 'controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import 'controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
+import 'controllers/6_chemist_view_controllers_RRR/chemist_aboutus_controller.dart';
 import 'controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
 import 'controllers/6_chemist_view_controllers_RRR/chemist_complain_controller/chemist_complain_controller.dart';
 import 'controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
@@ -111,6 +112,9 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => ChemistManageProfileController());
     Get.lazyPut(() => ChemistComplaintController());
     Get.lazyPut(() => ChemistBannerController());
+    Get.lazyPut(() => ChemistAboutusController());
+
+    //ChemistAboutusController
 
     return super.createHttpClient(context)
       ..badCertificateCallback =

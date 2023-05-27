@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
@@ -72,6 +73,7 @@ class ChemistManageProfileController extends GetxController {
       imageAsBase64,
     );
     if (r.statusCode == 200) {
+      Get.to(ChemistHomePage());
     } else {}
   }
 
@@ -84,13 +86,13 @@ class ChemistManageProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    Id = TextEditingController(text: '18');
-    ChemistName = TextEditingController(text: 'madhu rajput');
-    ShopName = TextEditingController(text: 'accd');
-    Location = TextEditingController(text: 'danpur');
-    GSTNumber = TextEditingController(text: 'csdf45');
-    LicenceNumber = TextEditingController(text: '4567878');
-    LicenceImage = TextEditingController(text: 'stampn.png');
+    Id = TextEditingController(text: '');
+    ChemistName = TextEditingController(text: '');
+    ShopName = TextEditingController(text: '');
+    Location = TextEditingController(text: '');
+    GSTNumber = TextEditingController(text: '');
+    LicenceNumber = TextEditingController(text: '');
+    LicenceImage = TextEditingController(text: '');
   }
 
   @override

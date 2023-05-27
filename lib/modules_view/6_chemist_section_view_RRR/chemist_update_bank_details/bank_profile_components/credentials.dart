@@ -62,7 +62,7 @@ class UpdateBankCredentials extends StatelessWidget {
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _updateBankController.accountnoController,
+                controller: _updateBankController.AccountNo,
                 onSaved: (value) {
                   _updateBankController.account = value!;
                 },
@@ -96,7 +96,7 @@ class UpdateBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _updateBankController.ifscController,
+                controller: _updateBankController.IFSCCode,
                 onSaved: (value) {
                   _updateBankController.ifsc = value!;
                 },
@@ -129,7 +129,7 @@ class UpdateBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _updateBankController.branchNameController,
+                controller: _updateBankController.BranchName,
                 onSaved: (value) {
                   _updateBankController.branch = value!;
                 },

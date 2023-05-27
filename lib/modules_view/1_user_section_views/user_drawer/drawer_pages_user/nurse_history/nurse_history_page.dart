@@ -74,7 +74,7 @@ class NurseHistoryUser extends StatelessWidget {
                             prefixIcon: Icon(Icons.search),
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Search Doctor..',
+                            hintText: 'Search Nurse..',
                             contentPadding: const EdgeInsets.only(
                                 left: 10.0, bottom: 12.0, top: 6.0),
                             focusedBorder: OutlineInputBorder(
@@ -169,10 +169,8 @@ class NurseHistoryUser extends StatelessWidget {
                             height: size.height * 0.73,
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: _nurseHistoryController
-                                    .nurseappointmentdetail
-                                    ?.nurseAppointments
-                                    ?.length,
+                                itemCount:
+                                    _nurseHistoryController.foundNurse?.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding: EdgeInsets.symmetric(
@@ -347,7 +345,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        "${_nurseHistoryController.nurseappointmentdetail!.nurseAppointments![index].nurseName.toString()}"
+                                                        "${_nurseHistoryController.foundNurse![index].nurseName.toString()}"
                                                         // 'okokokokok',
                                                         ,
                                                         style:
@@ -368,9 +366,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                             size.height * 0.025,
                                                         child: Text(
                                                           _nurseHistoryController
-                                                              .nurseappointmentdetail!
-                                                              .nurseAppointments![
-                                                                  index]
+                                                              .foundNurse[index]
                                                               .location
                                                               .toString(),
                                                           // 'okokokokok',
@@ -388,9 +384,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         _nurseHistoryController
-                                                            .nurseappointmentdetail!
-                                                            .nurseAppointments![
-                                                                index]
+                                                            .foundNurse[index]
                                                             .startDate
                                                             .toString(),
                                                         //'Nov 16,22',
@@ -407,9 +401,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         _nurseHistoryController
-                                                            .nurseappointmentdetail!
-                                                            .nurseAppointments![
-                                                                index]
+                                                            .foundNurse[index]
                                                             .endDate
                                                             .toString(),
 
@@ -427,9 +419,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         _nurseHistoryController
-                                                            .nurseappointmentdetail!
-                                                            .nurseAppointments![
-                                                                index]
+                                                            .foundNurse[index]
                                                             .paymentDate
                                                             .toString(),
                                                         // 'okokokokok',
@@ -446,9 +436,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         _nurseHistoryController
-                                                            .nurseappointmentdetail!
-                                                            .nurseAppointments![
-                                                                index]
+                                                            .foundNurse[index]
                                                             .totalFee
                                                             .toString(),
 
@@ -466,9 +454,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         _nurseHistoryController
-                                                            .nurseappointmentdetail!
-                                                            .nurseAppointments![
-                                                                index]
+                                                            .foundNurse[index]
                                                             .totaNumberofdays
                                                             .toString(),
                                                         //'12',

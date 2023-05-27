@@ -20,12 +20,12 @@ class NurseHistoryController extends GetxController {
   void nursehistoryApi() async {
     isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApibyuser();
-    if (nurseappointmentdetail?.nurseAppointments != null
+    if (nurseappointmentdetail?.data != null
         //appointmentdetail != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
-      foundNurse.value = nurseappointmentdetail!.nurseAppointments!;
+      foundNurse.value = nurseappointmentdetail!.data!;
     }
   }
 
@@ -105,13 +105,13 @@ class NurseHistoryController extends GetxController {
     //Get.to(() => HomePage());
   }
 
-  RxList<NurseAppointment> foundNurse = RxList<NurseAppointment>([]);
+  RxList<Datum> foundNurse = RxList<Datum>([]);
   void filterNurse(String searchnurseName) {
-    List<NurseAppointment>? finalResult = [];
+    List<Datum>? finalResult = [];
     if (searchnurseName.isEmpty) {
-      finalResult = nurseappointmentdetail!.nurseAppointments;
+      finalResult = nurseappointmentdetail!.data;
     } else {
-      finalResult = nurseappointmentdetail!.nurseAppointments!
+      finalResult = nurseappointmentdetail!.data!
           .where((element) => element.nurseName
               .toString()
               .toLowerCase()

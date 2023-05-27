@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+//import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_order_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_order_historyModel.dart';
 import '../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/model/chemist_model/chemist_order_historyModel.dart';
@@ -17,14 +18,18 @@ class ChemistOrderController extends GetxController {
   var appointment = ''.obs;
   ChemistOrderHistoryModel? getChemistOrderHistory;
 
-  void chemistOrderHistoryApi() async {
+  void chemistOrderHistorysApi() async {
+    isLoading(true);
     getChemistOrderHistory = await ApiProvider.chemistOrderHistoryApi();
-    if (getChemistOrderHistory?.chmi1 != null) {}
+    if (getChemistOrderHistory?.chmi1 != null) {
+      isLoading(false);
+      foundOrder.value = getChemistOrderHistory!.chmi1!;
+    }
   }
 
   @override
   void onInit() {
-    chemistOrderHistoryApi();
+    chemistOrderHistorysApi();
     super.onInit();
     appointmentController = TextEditingController();
     appointmentController.text = "DD-MM-YYYY";
@@ -37,6 +42,7 @@ class ChemistOrderController extends GetxController {
 
   @override
   void onClose() {}
+
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
@@ -60,5 +66,22 @@ class ChemistOrderController extends GetxController {
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
     }
+  }
+
+  RxList<Chmi1> foundOrder = RxList<Chmi1>([]);
+  void filterOrderChemist(String searchorderName) {
+    List<Chmi1>? finalResult = [];
+    if (searchorderName.isEmpty) {
+      finalResult = getChemistOrderHistory!.chmi1!;
+    } else {
+      finalResult = getChemistOrderHistory!.chmi1!
+          .where((element) => element.chemistName
+              .toString()
+              .toLowerCase()
+              .contains(searchorderName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundOrder.value = finalResult!;
   }
 }

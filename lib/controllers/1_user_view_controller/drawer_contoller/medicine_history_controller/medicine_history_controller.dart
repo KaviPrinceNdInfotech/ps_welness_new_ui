@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/medicine_order/medicine_order_history.dart';
+
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 import '../../../../model/1_user_model/medicine_list_model/medicine_list_models.dart';
@@ -9,7 +10,6 @@ import '../../../../servicess_api/api_services_all_api.dart';
 
 class MedicineHistoryController extends GetxController {
   final GlobalKey<FormState> MedicineHistoryformkey = GlobalKey<FormState>();
-
 
   RxBool isLoading = true.obs;
 
@@ -66,7 +66,6 @@ class MedicineHistoryController extends GetxController {
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "DD-MM-YYYY";
-
   }
 
   @override
@@ -110,8 +109,6 @@ class MedicineHistoryController extends GetxController {
     // }
   }
 
-
-
   void checkUser1() {
     final isValid = MedicineHistoryformkey.currentState!.validate();
     if (!isValid) {
@@ -120,18 +117,22 @@ class MedicineHistoryController extends GetxController {
     MedicineHistoryformkey.currentState!.save();
     //Get.to(() => HomePage());
   }
+
   ///.................................medicinelist
 
   RxList<Datum> foundMedicine = RxList<Datum>([]);
 
-  void filterMedicine (String searchMedicine) {
+  void filterMedicine(String searchMedicine) {
     List<Datum>? finalResult = [];
     if (searchMedicine.isEmpty) {
       finalResult = medicinelistmodel!.data;
-    }else {
-      finalResult = medicinelistmodel!.data.where((element) => element.medicineName
-          .toString().toLowerCase().contains(searchMedicine.toString().toLowerCase().trim())
-      ).toList();
+    } else {
+      finalResult = medicinelistmodel!.data
+          .where((element) => element.medicineName
+              .toString()
+              .toLowerCase()
+              .contains(searchMedicine.toString().toLowerCase().trim()))
+          .toList();
     }
     print(finalResult.length);
     foundMedicine.value = finalResult;
@@ -141,14 +142,17 @@ class MedicineHistoryController extends GetxController {
 
   RxList<PaMedicine> foundMedicinehistory = RxList<PaMedicine>([]);
 
-  void filterMedicinehistory (String searchMedicinehistory) {
+  void filterMedicinehistory(String searchMedicinehistory) {
     List<PaMedicine>? finalResult = [];
     if (searchMedicinehistory.isEmpty) {
       finalResult = medicineOrderHistory!.paMedicine;
-    }else {
-      finalResult = medicineOrderHistory!.paMedicine?.where((element) => element.medicineName
-          .toString().toLowerCase().contains(searchMedicinehistory.toString().toLowerCase().trim())
-      ).toList();
+    } else {
+      finalResult = medicineOrderHistory!.paMedicine
+          ?.where((element) => element.medicineName
+              .toString()
+              .toLowerCase()
+              .contains(searchMedicinehistory.toString().toLowerCase().trim()))
+          .toList();
     }
     print(finalResult?.length);
     foundMedicinehistory.value = finalResult!;

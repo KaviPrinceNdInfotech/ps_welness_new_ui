@@ -125,16 +125,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+//import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modelldart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 import '../../modules_view/circular_loader/circular_loaders.dart';
+import '../../modules_view/sign_in/sigin_screen.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart'
 
 class Chemist_1_Controller extends GetxController {
   final GlobalKey<FormState> chemist1formkey = GlobalKey<FormState>();
   var selectedPath = ''.obs;
+  var selectedTime = TimeOfDay.now().obs;
+  var selectedDate = DateTime.now().obs;
+  RxInt selectedIndex = 0.obs;
+  var newpickedDate = DateTime.now().obs;
+
+  var appointment = ''.obs;
 
   void getImage(ImageSource imageSource) async {
     final pickedFiles = await ImagePicker().pickImage(source: imageSource);
@@ -197,9 +206,10 @@ class Chemist_1_Controller extends GetxController {
         selectedPath.value.split('/').last,
         imageAsBase64,
         LicenceNumber?.text,
-        LicenseValidity?.text,
+        appointmentController?.text,
         PinCode?.text);
     if (r.statusCode == 200) {
+      Get.to(SignInScreen());
       var data = jsonDecode(r.body);
     }
   }
@@ -224,9 +234,10 @@ class Chemist_1_Controller extends GetxController {
   // var name = '';
   // var shopname = '';
   // var email = '';
-  // var password = '';
-  // var confirmpassword = '';
+  var password = '';
+  var confirmpassword = '';
   // var mobile = '';
+  late TextEditingController appointmentController;
 
   @override
   void onInit() {
@@ -237,24 +248,58 @@ class Chemist_1_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    ChemistName = TextEditingController(text: 'madhu');
-    ShopName = TextEditingController(text: 'abc');
-    EmailId = TextEditingController(text: 'm1@gmail.com');
-    Password = TextEditingController(text: '12345');
-    ConfirmPassword = TextEditingController(text: '12345');
-    MobileNumber = TextEditingController(text: '845923459023');
-    Location = TextEditingController(text: 'noida');
-    GSTNumber = TextEditingController(text: '4356789657');
-    AdminLogin_Id = TextEditingController(text: '1024');
-    Certificateimg = TextEditingController(text: 'stampn.png');
-    LicenceNumber = TextEditingController(text: '12345678');
-    LicenseValidity = TextEditingController(text: '17/05/2023');
-    PinCode = TextEditingController(text: '20301');
+    ChemistName = TextEditingController(text: '');
+    ShopName = TextEditingController(text: '');
+    EmailId = TextEditingController(text: '');
+    Password = TextEditingController(text: '');
+    ConfirmPassword = TextEditingController(text: '');
+    MobileNumber = TextEditingController(text: '');
+    Location = TextEditingController(text: '');
+    GSTNumber = TextEditingController(text: '');
+    AdminLogin_Id = TextEditingController(text: '');
+    Certificateimg = TextEditingController(text: '');
+    LicenceNumber = TextEditingController(text: '');
+    LicenseValidity = TextEditingController(text: '');
+    PinCode = TextEditingController(text: '');
+    appointmentController = TextEditingController();
+    appointmentController.text = "YYY-MM-DD";
   }
 
   @override
   void onReady() {
     super.onReady();
+  }
+
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2018),
+      lastDate: DateTime(2025),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select DOB',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'DOB',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      appointmentController
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: appointmentController.text.length,
+            affinity: TextAffinity.upstream));
+    }
+    // if (pickedDate != null && pickedDate != selectedDate) {
+    //   selectedDate.value = pickedDate;
+    //   appointmentController.text =
+    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
+    // }
   }
 
   @override
@@ -294,8 +339,8 @@ class Chemist_1_Controller extends GetxController {
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -304,15 +349,14 @@ class Chemist_1_Controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     }
-    // else if (value != confirmpassword) {
+    //else if (value != confirmpassword) {
     //   return "              Password must be same as above";
+    // } else {
+    //   return null;
     // }
-    else {
-      return null;
-    }
   }
 
   String? validPhone(String value) {
@@ -328,6 +372,7 @@ class Chemist_1_Controller extends GetxController {
   void checkChemistSignup() {
     final isValid = chemist1formkey.currentState!.validate();
     chemistSignupApi();
+    print("dateforchemist${selectedDate}");
     if (!isValid) {
       return;
     }

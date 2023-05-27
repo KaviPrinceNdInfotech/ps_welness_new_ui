@@ -20,6 +20,7 @@ import '../../modules_view/onboardonds/onboarding_screens.dart';
 import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
+import '../6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 
 class SplashScreenViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -30,6 +31,8 @@ class SplashScreenViewModel extends GetxController
   LabUploadReportController _labUploadReportController =
       Get.put(LabUploadReportController());
   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
 
   @override
   void onInit() {
@@ -75,6 +78,8 @@ class SplashScreenViewModel extends GetxController
                 Get.to(RwaHomePage());
                 break;
               case 'chemist':
+                _chemistProfileDetailController.chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
                 Get.to(ChemistHomePage());
                 break;
               default:

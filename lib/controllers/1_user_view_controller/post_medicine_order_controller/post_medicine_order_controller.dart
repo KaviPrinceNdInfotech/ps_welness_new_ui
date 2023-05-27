@@ -5,9 +5,10 @@ import 'package:http/http.dart' as http;
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
 
-class PostOrderController extends GetxController {
+class PostOrderChemistController extends GetxController {
   RxBool isLoading = true.obs;
-  GlobalKey<FormState> postorderforms = GlobalKey(debugLabel: "postqueryforms");
+  GlobalKey<FormState> postordermedicineforms =
+      GlobalKey(debugLabel: "postqueryforms");
 
   var Id = '';
 
@@ -15,14 +16,12 @@ class PostOrderController extends GetxController {
     //isLoading(true);
     CallLoader.loader();
     //print(ProductName.text);
-    http.Response r = await ApiProvider.LabpaynowOnlineApi();
+    http.Response r = await ApiProvider.MedicinepaynowOnlineApi();
     if (r.statusCode == 200) {
       //Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage()));
       //Get.to(()=> LoginPage());
       CallLoader.hideLoader();
-
       isLoading(false);
-
       // Get.to(() => NavBar());
       //_timeController.email = Email.text;
       //_timeController.phoneNumber = OrderNo.text;
@@ -30,8 +29,7 @@ class PostOrderController extends GetxController {
     return r.statusCode;
   }
 
-  //from here
-  // add member and add patient both ccontroller function ..............
+  //from here add member and add patient both ccontroller function ..............
 
   // TextEditingController ProductName = TextEditingController();
   // TextEditingController Total_Item = TextEditingController();
@@ -91,9 +89,9 @@ class PostOrderController extends GetxController {
   // }
 
   void checkPostQuery() {
-    if (postorderforms.currentState!.validate()) {
+    if (postordermedicineforms.currentState!.validate()) {
       postOrderApi();
     }
-    postorderforms.currentState!.save();
+    postordermedicineforms.currentState!.save();
   }
 }

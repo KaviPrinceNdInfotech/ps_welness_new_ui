@@ -59,10 +59,10 @@ class LabHistoryController extends GetxController {
         await ApiProvider.LabappointmentshistorybyuserIdApi();
     print('Prince lab appointment history ');
     print(labappointmentbyuserid);
-    if (labappointmentbyuserid?.labModel != null) {
+    if (labappointmentbyuserid?.kk != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
-      foundLab.value = labappointmentbyuserid!.labModel!;
+      foundLab.value = labappointmentbyuserid!.kk!;
       //Get.to(()=>Container());
     }
   }
@@ -205,13 +205,13 @@ class LabHistoryController extends GetxController {
   //   //Get.to(() => HomePage());
   // }
 
-  RxList<LabModel> foundLab = RxList<LabModel>([]);
+  RxList<Kk> foundLab = RxList<Kk>([]);
   void filterLab(String searchlabName) {
-    List<LabModel>? finalResult = [];
+    List<Kk>? finalResult = [];
     if (searchlabName.isEmpty) {
-      finalResult = labappointmentbyuserid!.labModel;
+      finalResult = labappointmentbyuserid!.kk;
     } else {
-      finalResult = labappointmentbyuserid!.labModel!
+      finalResult = labappointmentbyuserid!.kk!
           .where((element) => element.labName
               .toString()
               .toLowerCase()

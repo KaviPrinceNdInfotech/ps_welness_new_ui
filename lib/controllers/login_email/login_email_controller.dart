@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
@@ -26,6 +27,8 @@ class LoginpasswordController extends GetxController {
   LabUploadReportController _labUploadReportController =
       Get.put(LabUploadReportController());
   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
 
   var Id = '';
 
@@ -81,6 +84,8 @@ class LoginpasswordController extends GetxController {
           Get.to(RwaHomePage());
           break;
         case 'chemist':
+          _chemistProfileDetailController.chemistProfileDetailsApi();
+          _chemistProfileDetailController.update();
           Get.to(ChemistHomePage());
           break;
         default:

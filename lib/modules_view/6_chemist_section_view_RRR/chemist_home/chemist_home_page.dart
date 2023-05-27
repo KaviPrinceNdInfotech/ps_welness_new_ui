@@ -8,6 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payment_history/chemist_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payout_history/chemist_payout_histories.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_update_bank_details/bank_update_view.dart';
@@ -18,7 +21,13 @@ import '../chemist_drawer_view/drawerpage.dart';
 import '../chemist_profile_page_view/profile_view.dart';
 
 class ChemistHomePage extends StatelessWidget {
-  const ChemistHomePage({Key? key}) : super(key: key);
+  ChemistHomePage({Key? key}) : super(key: key);
+  ChemistOrderController _chemistOrderController =
+      Get.put(ChemistOrderController());
+  ChemispaymentController _chemispaymentController =
+      Get.put(ChemispaymentController());
+  ChemistPayoutController _chemistPayoutController =
+      Get.put(ChemistPayoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +210,19 @@ class ChemistHomePage extends StatelessWidget {
                                     } else if (index == 1) {
                                       Get.to(() => UpdateBankDetail());
                                     } else if (index == 2) {
+                                      _chemistOrderController
+                                          .chemistOrderHistorysApi();
+                                      _chemistOrderController.update();
                                       Get.to(() => ChemistOrderHistory());
                                     } else if (index == 3) {
+                                      _chemispaymentController
+                                          .chemistPaymentHistoryApi();
+                                      _chemispaymentController.update();
                                       Get.to(() => ChemistPaymentHistory());
                                     } else if (index == 4) {
+                                      _chemistPayoutController
+                                          .chemistPayoutHistoryApi();
+                                      _chemistPayoutController.update();
                                       Get.to(() => ChemistPayoutHistory());
                                     } else if (index == 5) {
                                       Get.to(() => SupportView());
@@ -300,62 +318,73 @@ class Mycrusial extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Container(
-          height: size.height * 0.28,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              color: MyTheme.ThemeColors,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: CarouselSlider.builder(
-                key: _sliderKey,
-                unlimitedMode: true,
-                autoSliderTransitionTime: Duration(seconds: 1),
-                slideBuilder: (index) {
-                  var item = _chemistBannerController
-                      .getChemistBannerModel?.bannerImageList;
-                  return Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Material(
-                      elevation: 12,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        height: size.height * 38,
-                        width: size.width,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
+      body: Obx(
+        () => (_chemistBannerController.isLoading.value)
+            ? Center(child: CircularProgressIndicator())
+            : _chemistBannerController.getChemistBannerModel?.bannerImageList ==
+                    null
+                ? Center(
+                    child: Text('No data'),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: size.height * 0.28,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: MyTheme.ThemeColors,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.white, width: 3),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  '$image${item?[index].bannerPath}' ?? ''),
-                              fit: BoxFit.fill),
+                          elevation: 0,
+                          child: CarouselSlider.builder(
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime: Duration(seconds: 1),
+                            slideBuilder: (index) {
+                              var item = _chemistBannerController
+                                  .getChemistBannerModel?.bannerImageList;
+                              return Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Material(
+                                  elevation: 12,
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.white, width: 3),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              '$image${item?[index].bannerPath}' ??
+                                                  ''),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 2,
+                              indicatorRadius: 4,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              padding: EdgeInsets.only(bottom: 0),
+                            ),
+                            itemCount: _chemistBannerController
+                                .getChemistBannerModel!.bannerImageList!.length,
+                            enableAutoSlider: true,
+                          ),
                         ),
                       ),
                     ),
-                  );
-                },
-                slideTransform: DefaultTransform(),
-                slideIndicator: CircularSlideIndicator(
-                  indicatorBorderWidth: 2,
-                  indicatorRadius: 4,
-                  itemSpacing: 15,
-                  currentIndicatorColor: Colors.white,
-                  padding: EdgeInsets.only(bottom: 0),
-                ),
-                itemCount: _chemistBannerController
-                    .getChemistBannerModel!.bannerImageList!.length,
-                enableAutoSlider: true,
-              ),
-            ),
-          ),
-        ),
+                  ),
       ),
     );
   }

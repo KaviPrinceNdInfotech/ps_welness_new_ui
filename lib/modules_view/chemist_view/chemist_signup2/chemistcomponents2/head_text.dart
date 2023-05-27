@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
@@ -19,6 +20,13 @@ class Chemist2HeadText extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: size.height * 0.05),
+          InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(Icons.arrow_circle_left)),
+          SizedBox(height: size.height * 0.02),
+
           RichText(
             text: TextSpan(
               children: <TextSpan>[

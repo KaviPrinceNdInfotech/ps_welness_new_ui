@@ -54,6 +54,8 @@ import '../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../model/1_user_model/view_doctor_review_ratting/view_doctor_review_ratting.dart';
 import '../model/1_user_model/view_healthchkp_review/healthchkp_review_view.dart';
 import '../model/1_user_model/view_review_model/nurse_view_review_model.dart';
+import '../model/6_chemist_model_RRR/chemist_model_RRR/chemist_aboutus_model.dart';
+import '../model/6_chemist_model_RRR/chemist_model_RRR/chemist_profile_detailModel.dart';
 import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
 //mport '../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
@@ -823,6 +825,44 @@ class ApiProvider {
     print("LablistssId: ${LablistssId}");
     var body = {
       "Lab_Id": "$LablistssId",
+      //Lab_Id,
+      "Patient_Id": userid,
+      "IsPaid": "true",
+    };
+    // print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    // print(r.body);
+    if (r.statusCode == 200) {
+//adminId
+      print("gvhjbknlolabonline:${r.body}");
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error1088', r.body);
+      return r;
+    }
+  }
+
+  ///medicine_paynow.ONLINE.....api..of...user.......29_may....2023...........
+
+  static MedicinepaynowOnlineApi() async {
+    var url = '$baseUrl/api/PatientMedicine/MedicinePayNow';
+    var prefs = GetStorage();
+    // adminId = prefs.read("AdminLogin_Id").toString();
+    // print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var LablistssId = preferences.getString("LablistssId");
+    print("LablistssId: ${LablistssId}");
+    var body = {
+      //"Lab_Id": "$LablistssId",
       //Lab_Id,
       "Patient_Id": userid,
       "IsPaid": "true",
@@ -2204,12 +2244,12 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineDetailsByPatient?PatientId=137";
+        "http://test.pswellness.in/api/PatientMedicine/MedicineDetailsByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        print('&&&&&&&&&&&&&&&&&&&&&&usercartplususer:${url}');
+        print('&&&&&&&&&&&&&&&&&&&&&&usercartplususerrr:${url}');
 
         var MedicineOrderHistory = medicineOrderHistoryFromJson(r.body);
         return MedicineOrderHistory;
@@ -3152,6 +3192,29 @@ class ApiProvider {
     }
   }
 
+  ///todo: chemist aboutus history.......by lab Id.......27 may 2023...prince..
+
+  static ChemistboutusApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&chemistaboutus:${userid}');
+    print(userid);
+    var url =
+        "http://test.pswellness.in/api/ChemistApi/ChemistAbout?Id=$userid";
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        Chemistaboutus? chemistapaboutusmodel = chemistaboutusFromJson(r.body);
+        return chemistapaboutusmodel;
+      }
+    } catch (error) {
+      print("errorlabdetailsshis:${error.toString()}");
+      return;
+    }
+  }
+
   /// todo LAb Signup api..........rahul .............
   static LabSignupApi(
     var LabName,
@@ -3628,6 +3691,30 @@ class ApiProvider {
       }
     } catch (error) {
       print("errorlabdetailshealthchkp:${error.toString()}");
+      return;
+    }
+  }
+
+  ///.....chemist...
+
+  static chemistProfileDetailApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labappointmenthistory:${userid}');
+    print(userid);
+
+    var url = '${baseUrl}api/ChemistApi/chemistprofiledetail?id=${userid}';
+    //'$userid'; //22
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("urrllllrrr:${url}");
+        final chemistProfileDetail = chemistProfileDetailFromJson(r.body);
+        print("ChemistProfileDetail: ${chemistProfileDetail.chemistName}");
+        return chemistProfileDetail;
+      }
+    } catch (error) {
+      print('ChemistProfileDetailRRRErrorrr: ${error}');
       return;
     }
   }

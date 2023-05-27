@@ -8,18 +8,16 @@ import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class UpdateBankController extends GetxController {
   final GlobalKey<FormState> updatebankformkey = GlobalKey<FormState>();
-  TextEditingController? idController,
-      LoginIdController,
-      accountnoController,
+  TextEditingController? accountnoController,
       ifscController,
       branchNameController,
       branchaddressController,
       holderNameController,
       mobileNumberController;
-  TextEditingController? Login_Id, AccountNo, IFSCCode, BranchName;
+  TextEditingController? AccountNo, IFSCCode, BranchName;
   void chemistUpdateBankDetailApi() async {
     http.Response r = await ApiProvider.ChemistUpdateBankDetailApi(
-        Login_Id?.text, AccountNo?.text, IFSCCode?.text, BranchName?.text);
+        AccountNo?.text, IFSCCode?.text, BranchName?.text);
     if (r.statusCode == 200) {
       Get.to(ChemistHomePage());
     } else {
@@ -44,10 +42,10 @@ class UpdateBankController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Login_Id = TextEditingController(text: '1106');
-    AccountNo = TextEditingController(text: '1157678678685');
-    IFSCCode = TextEditingController(text: 'uco9977');
-    BranchName = TextEditingController(text: 'UCO');
+    //Login_Id = TextEditingController(text: '');
+    AccountNo = TextEditingController(text: '');
+    IFSCCode = TextEditingController(text: '');
+    BranchName = TextEditingController(text: '');
   }
 
   @override
@@ -108,11 +106,8 @@ class UpdateBankController extends GetxController {
   }
 
   void checkUpdateBankDetail() {
-    final isValid = updatebankformkey.currentState!.validate();
-    // driverUpdateBankDetailApi();
-    chemistUpdateBankDetailApi();
-    if (!isValid) {
-      return;
+    if (updatebankformkey.currentState!.validate()) {
+      chemistUpdateBankDetailApi();
     }
     updatebankformkey.currentState!.save();
   }

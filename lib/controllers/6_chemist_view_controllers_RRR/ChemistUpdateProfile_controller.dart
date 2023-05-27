@@ -27,26 +27,27 @@ class ChemistUpdateProfileController extends GetxController {
     cities.addAll(localList);
   }
 
-  TextEditingController? idController,
+  TextEditingController?
+      //idController,
       nameController,
       mobileController,
       locationController,
       pinController,
-      adminLoginIdController,
+      //adminLoginIdController,
       accountnoController,
       ifscController,
       branchNameController;
 
   void chemistUpdateProfileApi() async {
     http.Response r = await ApiProvider.ChemistUpdateProfileApi(
-        idController?.text,
+        // idController?.text,
         nameController?.text,
         mobileController?.text,
         selectedState.value?.id.toString(),
         selectedCity.value?.id.toString(),
         locationController?.text,
         pinController?.text,
-        adminLoginIdController?.text,
+        //adminLoginIdController?.text,
         accountnoController?.text,
         ifscController?.text,
         branchNameController?.text);
@@ -65,15 +66,15 @@ class ChemistUpdateProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    idController = TextEditingController(text: '18');
-    nameController = TextEditingController(text: 'madhu');
-    mobileController = TextEditingController(text: '6388164545');
-    locationController = TextEditingController(text: 'danpur');
-    pinController = TextEditingController(text: '456734');
-    adminLoginIdController = TextEditingController(text: '1024');
-    accountnoController = TextEditingController(text: '1511008965433');
-    ifscController = TextEditingController(text: 'punb66666');
-    branchNameController = TextEditingController(text: 'pnb');
+    //idController = TextEditingController(text: '');
+    nameController = TextEditingController(text: '');
+    mobileController = TextEditingController(text: '');
+    locationController = TextEditingController(text: '');
+    pinController = TextEditingController(text: '');
+    //adminLoginIdController = TextEditingController(text: '');
+    accountnoController = TextEditingController(text: '');
+    ifscController = TextEditingController(text: '');
+    branchNameController = TextEditingController(text: '');
   }
 
   @override

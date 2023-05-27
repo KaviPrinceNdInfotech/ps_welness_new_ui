@@ -500,6 +500,200 @@ class Chemist2Credentials extends StatelessWidget {
                 //appPadding / 2,
               ),
 
+              ///TODO: licence no.......................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  autofillHints: [AutofillHints.name],
+                  controller: _chemist_1_controller.LicenceNumber,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Licence no',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.offline_pin_rounded,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
+              ///TODO: licence validation.......................
+              // NeumorphicTextFieldContainer(
+              //   child: TextFormField(
+              //     autofillHints: [AutofillHints.creditCardNumber],
+              //     controller: _chemist_1_controller.LicenseValidity,
+              //     cursorColor: Colors.black,
+              //     obscureText: false,
+              //     decoration: InputDecoration(
+              //       hintText: 'Licence validity',
+              //       helperStyle: TextStyle(
+              //         color: black.withOpacity(0.7),
+              //         fontSize: 18,
+              //       ),
+              //       prefixIcon: Icon(
+              //         Icons.videogame_asset_sharp,
+              //         color: black.withOpacity(0.7),
+              //         size: 20,
+              //       ),
+              //       border: InputBorder.none,
+              //     ),
+              //   ),
+              // ),
+              SizedBox(
+                height: size.height * 0.078,
+                width: size.width,
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(vertical: 30 / 3),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            lightPrimary,
+                            darkPrimary,
+                          ]),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(-1, -1),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          color: Colors.white,
+                        ),
+                        BoxShadow(
+                          offset: Offset(2, 2),
+                          spreadRadius: 1,
+                          blurRadius: 0,
+                          color: Colors.cyanAccent,
+                        ),
+                      ]),
+                  child: TextFormField(
+                    textAlign: TextAlign.left,
+                    // decoration: InputDecoration(
+                    //   hintText: 'Enter Something',
+                    //   contentPadding: EdgeInsets.all(20.0),
+                    // ),
+
+                    controller: _chemist_1_controller.appointmentController,
+                    onTap: () {
+                      _chemist_1_controller.chooseDate();
+                    },
+
+                    cursorColor: Colors.black,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(17.0),
+                      hintText: 'Select date',
+                      helperStyle: TextStyle(
+                        color: black.withOpacity(0.7),
+                        fontSize: 18,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.calendar_today_outlined,
+                        color: black.withOpacity(0.7),
+                        size: 20,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 1,
+                    autofocus: true,
+                    //obscureText: true,
+                    //controller: _loginpasswordController.mobileController,
+                  ),
+                ),
+                // ListView.builder(
+                //     shrinkWrap: true,
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: 32,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       return Padding(
+                //         padding: const EdgeInsets.all(3.0),
+                //         child: PhysicalModel(
+                //           color: MyTheme.white,
+                //           borderRadius: BorderRadius.circular(5),
+                //           elevation: 20,
+                //           child: Padding(
+                //             padding: EdgeInsets.symmetric(
+                //                 horizontal: size.width * 0.01,
+                //                 vertical: size.height * 0.004),
+                //             child: Container(
+                //               //height: size.height * 0.025,
+                //               width: size.width * 0.17,
+                //               decoration: BoxDecoration(
+                //                 color: MyTheme.ThemeColors,
+                //                 borderRadius: BorderRadius.circular(5),
+                //               ),
+                //               child: Column(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.center,
+                //                 children: [
+                //                   Text(
+                //                     'MAR',
+                //                     style: TextStyle(
+                //                       fontSize: size.height * 0.015,
+                //                       fontWeight: FontWeight.w600,
+                //                       color: Colors.white,
+                //                     ),
+                //                   ),
+                //                   SizedBox(
+                //                     height: size.height * 0.01,
+                //                   ),
+                //                   Text(
+                //                     '${index}',
+                //                     style: TextStyle(
+                //                       fontSize: size.height * 0.016,
+                //                       fontWeight: FontWeight.w600,
+                //                       color: Colors.white,
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       );
+                //     }),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
+              ///TODO: Pin.......................................................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  autofillHints: [AutofillHints.password],
+                  controller: _chemist_1_controller.PinCode,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Pin',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.pin,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+
               ///todo certificate image............
               // GetBuilder<Hospital_2_Controller>(
               //   // specify type as Controller
@@ -534,124 +728,59 @@ class Chemist2Credentials extends StatelessWidget {
               //   ),
               // ),
               ///
-              Container(
-                height: size.height * 0.3,
-                width: size.width * 0.95,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.cyanAccent, width: 2),
-                ),
-                child: Obx(
-                  () => _chemist_1_controller.selectedPath.value != ''
-                      ? Image.file(
-                          File(_chemist_1_controller.selectedPath.value))
-                      : Center(
-                          child: InkWell(
-                            onTap: (() {
-                              optionsImage();
-                            }),
-                            child: Container(
-                              height: size.height * 0.4,
-                              width: size.width * 0.95,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  border: Border.all(
-                                      width: 5,
-                                      color:
-                                          Color.fromARGB(255, 58, 141, 208))),
-                              child: Center(
-                                child: Icon(
-                                  Icons.add_box,
-                                  color: Color.fromARGB(255, 58, 141, 208),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Upload Your certificate image:",
+                    style: TextStyle(
+                      fontSize: size.height * 0.015,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    height: size.height * 0.1,
+                    width: size.width * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.cyanAccent, width: 2),
+                    ),
+                    child: Obx(
+                      () => _chemist_1_controller.selectedPath.value != ''
+                          ? Image.file(
+                              File(_chemist_1_controller.selectedPath.value))
+                          : Center(
+                              child: InkWell(
+                                onTap: (() {
+                                  optionsImage();
+                                }),
+                                child: Container(
+                                  height: size.height * 0.4,
+                                  width: size.width * 0.95,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(12)),
+                                      border: Border.all(
+                                          width: 5,
+                                          color: Color.fromARGB(
+                                              255, 58, 141, 208))),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.camera_enhance_rounded,
+                                      color: Color.fromARGB(255, 58, 141, 208),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                  // Image.file(File(
-                  //         _labUploadReportController.selectedImagePath.value)),
-                ),
+                      // Image.file(File(
+                      //         _labUploadReportController.selectedImagePath.value)),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: size.height * 0.02,
-              ),
-
-              ///TODO: licence no.......................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autofillHints: [AutofillHints.name],
-                  controller: _chemist_1_controller.LicenceNumber,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Licence no',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.offline_pin_rounded,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
-              ///TODO: licence validation.......................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.creditCardNumber],
-                  controller: _chemist_1_controller.LicenseValidity,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Licence validity',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.videogame_asset_sharp,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
-              ///TODO: Pin.......................................................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autofillHints: [AutofillHints.password],
-                  controller: _chemist_1_controller.PinCode,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Pin',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.pin,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
               ),
               RectangularButton(
                   text: 'SUBMIT',
@@ -672,7 +801,7 @@ class Chemist2Credentials extends StatelessWidget {
       title: "Selcet an option",
       titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
       content: SizedBox(
-        width: 780,
+        //width: 780,
         child: Column(
           children: [
             InkWell(
