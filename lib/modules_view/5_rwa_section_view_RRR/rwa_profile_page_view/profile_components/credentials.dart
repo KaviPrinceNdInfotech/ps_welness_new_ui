@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers/chemist_profile_controller/chemist_profile_controller.dart';
 //import 'package:ps_welness_new_ui/controllers/5_rwa_controller/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
@@ -85,7 +86,10 @@ class RwaProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _rwaProfileController.nameController,
                 onSaved: (value) {
-                  _rwaProfileController.mobile = value!;
+                  _rwaProfileController.name = value!;
+                },
+                validator: (value) {
+                  return _rwaProfileController.validName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -114,13 +118,16 @@ class RwaProfileCredentials extends StatelessWidget {
                 keyboardType: TextInputType.name,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _rwaProfileController.LandlineNumber,
+                onSaved: (value) {
+                  _rwaProfileController.mobile = value!;
+                },
                 validator: (value) {
                   return _rwaProfileController.validPhone(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Landline number',
+                  hintText: 'Phone number',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -247,49 +254,134 @@ class RwaProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
             SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.0,
               //appPadding / 2,
             ),
-            GetBuilder<ChemistProfileController>(
-              // specify type as Controller
-              init: ChemistProfileController(), // intialize with the Controller
-              builder: (value) => InkWell(
-                onTap: () {
-                  _rwaProfileController.getImage(ImageSource.gallery);
-                },
-                child: NeumorphicTextFieldContainer(
-                  child: Container(
-                    height: size.height * 0.07,
-                    //width: size.width * 0.5,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Certificate Image',
-                            style: TextStyle(
-                              fontSize: size.width * 0.03,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Icon(Icons.camera_alt),
-                        ],
-                      ),
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Certificate Image:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.width * 0.04,
                   ),
                 ),
-              ),
+                Container(
+                  height: size.height * 0.13,
+                  width: size.width * 0.4,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 3)),
+                  child: Obx(
+                    () => _rwaProfileController.selectedPath.value != ''
+                        ? Image.file(
+                            File(_rwaProfileController.selectedPath.value))
+                        : Center(
+                            child: InkWell(
+                              onTap: (() {
+                                optionsImage();
+                              }),
+                              child: Container(
+                                height: size.height * 0.2,
+                                width: size.width * 0.7,
+                                child: NeumorphicTextFieldContainer(
+                                  child: SizedBox(
+                                    height: size.height * 0.05,
+                                    width: size.width * 0.5,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.1),
+                                      child: Icon(Icons.camera_alt),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                ),
+              ],
             ),
+
             SizedBox(
-              height: size.height * 0.036,
+              height: size.height * 0.0,
             ),
             RectangularButton(
                 text: 'UPDATE',
                 press: () {
                   _rwaProfileController.checkRWAProfilee();
                 })
+          ],
+        ),
+      ),
+    );
+  }
+
+  void optionsImage() {
+    Get.defaultDialog(
+      title: "Selcet an option",
+      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      content: SizedBox(
+        width: 780,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                _rwaProfileController.getImage(ImageSource.camera);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.camera_enhance,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(
+              color: Color.fromARGB(255, 34, 126, 201),
+              endIndent: 70,
+              indent: 70,
+            ),
+            InkWell(
+              onTap: () {
+                _rwaProfileController.getImage(ImageSource.gallery);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Gallery",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

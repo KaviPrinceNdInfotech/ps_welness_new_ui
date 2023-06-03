@@ -21,9 +21,10 @@ class RwaPatientListController extends GetxController {
   RwaPatientListModel? getRwaPatientList;
   void RWAPatientListApi() async {
     isLoading(true);
-   getRwaPatientList = await ApiProvider.RWAPatientListApi();
+    getRwaPatientList = await ApiProvider.RWAPatientListApi();
     if (getRwaPatientList != null) {
       isLoading(false);
+      foundPatient.value = getRwaPatientList!.patient!;
     }
   }
 
@@ -77,11 +78,20 @@ class RwaPatientListController extends GetxController {
     // }
   }
 
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
+  RxList<Patient> foundPatient = RxList<Patient>([]);
+  void filterpatientrwa(String searchpatientname) {
+    List<Patient>? finalResult = [];
+    if (searchpatientname.isEmpty) {
+      finalResult = getRwaPatientList?.patient;
+    } else {
+      finalResult = getRwaPatientList?.patient!
+          .where((element) => element.patientName
+              .toString()
+              .toLowerCase()
+              .contains(searchpatientname.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult?.length);
+    foundPatient.value = finalResult!;
+  }
 }

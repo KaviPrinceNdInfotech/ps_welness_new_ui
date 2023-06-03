@@ -392,7 +392,7 @@ class LabViewReport extends StatelessWidget {
                                                           height: size.height *
                                                               0.02,
                                                           child: Text(
-                                                            "${_labreportviewController.foundlabviewProducts[index].testDate}",
+                                                            "${_labreportviewController.foundlabviewProducts[index].testName.toString()}",
 
                                                             //'12-12-2023',
                                                             // Date,

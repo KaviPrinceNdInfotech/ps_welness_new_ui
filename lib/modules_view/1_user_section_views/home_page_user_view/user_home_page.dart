@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -6,12 +8,16 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_co
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants/constants.dart';
 import '../../../constants/my_theme.dart';
 import '../../../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import '../../../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+import '../../../utils/services/account_service.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 //import '../../4_nurse_section_view/nurse_drawer_view/drower_pages/supports/support_view.dart';
 import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
@@ -32,6 +38,10 @@ AmbulancegetController _ambulancegetController =
     Get.put(AmbulancegetController());
 MedicineCartListController _medicineCartListController =
     Get.put(MedicineCartListController());
+final MedicineListController _medicineListController =
+    Get.put(MedicineListController());
+
+///
 
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());
@@ -64,7 +74,8 @@ class UserHomePage extends StatelessWidget {
       '',
       '',
       '',
-      '     Coming Soon..',
+      '',
+      //'     Coming Soon..',
 
       // 'service 7',
       // 'service 8',
@@ -332,7 +343,7 @@ class UserHomePage extends StatelessWidget {
                                                               child: Container(
                                                                 height:
                                                                     size.height *
-                                                                        0.06,
+                                                                        0.063,
                                                                 width:
                                                                     size.width,
                                                                 decoration:
@@ -353,18 +364,43 @@ class UserHomePage extends StatelessWidget {
                                                                           Icons
                                                                               .arrow_circle_right_rounded,
                                                                           size: size.width *
-                                                                              0.09,
+                                                                              0.07,
                                                                         ),
                                                                         onPressed:
-                                                                            () {
-                                                                          _ambulancegetController
-                                                                              .update();
+                                                                            () async {
+                                                                          SharedPreferences
+                                                                              prefs =
+                                                                              await SharedPreferences.getInstance();
+                                                                          prefs.setString(
+                                                                              "AmbulancelistssId",
+                                                                              "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
+
                                                                           _ambulancegetController
                                                                               .selectedvhicleCatagary();
+                                                                          _ambulancegetController
+                                                                              .ambulancecatagaryyApi();
+                                                                          _ambulancegetController
+                                                                              .update();
+                                                                          accountService
+                                                                              .getAccountData
+                                                                              .then((accountData) {
+                                                                            CallLoader.loader();
+                                                                            Timer(
+                                                                              const Duration(seconds: 2),
+                                                                              () {
+                                                                                Get.offAll(MapView());
+                                                                                //Get.to((MapView));
+
+                                                                                ///
+                                                                              },
+                                                                            );
+                                                                            //CallLoader.hideLoader();
+                                                                          });
+
                                                                           //Get.off(() => MapUser());
 
-                                                                          Get.offAll(() =>
-                                                                              MapView());
+                                                                          // Get.offAll(() =>
+                                                                          //     MapView());
                                                                         },
                                                                       ),
                                                                       // Text(
@@ -381,7 +417,7 @@ class UserHomePage extends StatelessWidget {
                                                                             color: Colors
                                                                                 .indigo,
                                                                             fontSize:
-                                                                                17,
+                                                                                14,
                                                                             fontWeight:
                                                                                 FontWeight.bold),
                                                                         // "List item $index"
@@ -839,6 +875,9 @@ class UserHomePage extends StatelessWidget {
                                               //Get.defaultDialog(
                                               //barrierDismissible: true,
                                             } else if (index == 5) {
+                                              _medicineListController
+                                                  .medicineListApi();
+                                              _medicineListController.update();
                                               Get.to(() => SearchMedicine());
                                               // Get.defaultDialog(
                                               //     barrierDismissible: true,

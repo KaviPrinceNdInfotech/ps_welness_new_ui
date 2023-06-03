@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 
-class Rwa1HeadText extends StatelessWidget {
-  const Rwa1HeadText({Key? key}) : super(key: key);
+class RwaaddHeadText extends StatelessWidget {
+  const RwaaddHeadText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class Rwa1HeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'ADD +',
+                  text: 'Patient ',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,
@@ -55,7 +55,7 @@ class Rwa1HeadText extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: '',
+                  text: ' ADD +',
                   style: GoogleFonts.alatsi(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -77,7 +77,7 @@ class Rwa1HeadText extends StatelessWidget {
           // ),
 
           Text(
-            'PATIENT!',
+            'RWA!',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,

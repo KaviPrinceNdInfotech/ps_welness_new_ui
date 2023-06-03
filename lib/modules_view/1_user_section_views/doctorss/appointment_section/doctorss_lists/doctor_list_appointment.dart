@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_rating_review_controller/doctor_view_ratting_review.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_section/detail_and_schedule/details_schedules.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,8 @@ class DoctorListUser extends StatelessWidget {
   DoctorListUser({Key? key}) : super(key: key);
 
   DoctorListController _doctorListController = Get.put(DoctorListController());
+  ViewdoctorreviewController _viewdoctorreviewController =
+      Get.put(ViewdoctorreviewController());
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +271,9 @@ class DoctorListUser extends StatelessWidget {
                                                             ),
                                                           ),
                                                           Text(
-                                                            '0.0',
+                                                            "${_doctorListController.foundDoctors[index].rating}",
+
+                                                            // '0.0',
 
                                                             //'${_doctorListController.foundDoctors[index].experience} yr',
                                                             //doctorcatagary[index],
@@ -365,8 +370,13 @@ class DoctorListUser extends StatelessWidget {
                                                             Timer(
                                                               const Duration(
                                                                   milliseconds:
-                                                                      500),
+                                                                      700),
                                                               () {
+                                                                _viewdoctorreviewController
+                                                                    .doctorreviewratingApi();
+                                                                _viewdoctorreviewController
+                                                                    .update();
+
                                                                 Get.to(() =>
                                                                     DetailsSchedulePage());
                                                                 //Get.to((page))

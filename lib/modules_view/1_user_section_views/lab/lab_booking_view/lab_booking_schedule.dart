@@ -107,7 +107,7 @@ class LabSchedule1Page extends StatelessWidget {
                               height: size.height * 0.007,
                             ),
                             Text(
-                              'Since ${_labListController.labdetailsbyid?.year}',
+                              'Since ${_labListController.labdetailsbyid?.data?.year}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: size.height * 0.016,
@@ -135,7 +135,7 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "${_labListController.labdetailsbyid?.labName.toString()}",
+                                  "${_labListController.labdetailsbyid?.data?.labName.toString()}",
                                   // 'Vineet ji lab',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -168,7 +168,9 @@ class LabSchedule1Page extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            '0.0',
+                                            "${_labListController.labdetailsbyid?.data?.rating?.toString()}",
+
+                                            //'0.0',
                                             //'${_doctorListController.foundDoctors[index].experience} yr',
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -231,7 +233,7 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "${_labListController.labdetailsbyid?.labTypeName.toString()}",
+                                  "${_labListController.labdetailsbyid?.data?.labTypeName.toString()}",
 
                                   //_labListController.labdetailsbyid!.labTypeName
                                   // .toString(),
@@ -249,7 +251,7 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "${_labListController.labdetailsbyid?.location.toString()}",
+                                  "${_labListController.labdetailsbyid?.data?.location.toString()}",
 
                                   //
                                   // _labListController.labdetailsbyid!.location
@@ -263,7 +265,6 @@ class LabSchedule1Page extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
                               SizedBox(
                                 height: size.height * 0.0,
                               ),
@@ -271,7 +272,7 @@ class LabSchedule1Page extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "${_labListController.labdetailsbyid?.about.toString()}",
+                                  "${_labListController.labdetailsbyid?.data?.about.toString()}",
 
                                   // _labListController.labdetailsbyid!.about
                                   // .toString(),
@@ -853,7 +854,7 @@ class LabSchedule1Page extends StatelessWidget {
               _labRatingReviewController.rating2.value = true;
               _labRatingReviewController.rating3.value = true;
               _labRatingReviewController.rating4.value = true;
-            } else if (_labRatingReviewController.ratings.value == 4) {
+            } else if (_labRatingReviewController.ratings.value == 5) {
               _labRatingReviewController.rating1.value = true;
               _labRatingReviewController.rating2.value = true;
               _labRatingReviewController.rating3.value = true;

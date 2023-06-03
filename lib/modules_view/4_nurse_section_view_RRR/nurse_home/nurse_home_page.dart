@@ -7,6 +7,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_details/nurse_appointment_details.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
@@ -16,7 +19,13 @@ import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_re
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_upload_report/nurse_upload_report.dart';
 
 class NurseHomePage extends StatelessWidget {
-  const NurseHomePage({Key? key}) : super(key: key);
+  NurseHomePage({Key? key}) : super(key: key);
+  NursePaymentHistoryControllerss _nursePaymentHistoryController =
+      Get.put(NursePaymentHistoryControllerss());
+  NurseUploadReportController _nursdeUploadReportController =
+      Get.put(NurseUploadReportController());
+  NursereportviewController _nursereportviewController =
+      Get.put(NursereportviewController());
 
   @override
   Widget build(BuildContext context) {
@@ -199,12 +208,23 @@ class NurseHomePage extends StatelessWidget {
                                     if (index == 0) {
                                       Get.to(() => NurseeAppointmentDetail());
                                     } else if (index == 1) {
+                                      // _nursdeUploadReportController
+                                      //.getnursepatientApi();
+                                      _nursdeUploadReportController
+                                          .postUploadreportApi();
+                                      _nursdeUploadReportController.update();
                                       Get.to(() => NurseUploadReport());
                                     } else if (index == 2) {
+                                      _nursePaymentHistoryController
+                                          .nursePaymentHistoryApi();
+                                      _nursePaymentHistoryController.update();
                                       Get.to(() => NursePaymentHistory());
                                     } else if (index == 3) {
                                       Get.to(() => NurseeAppointmentHistory());
                                     } else if (index == 4) {
+                                      _nursereportviewController
+                                          .nursereportviewApi();
+                                      _nursereportviewController.update();
                                       Get.to(NurseReportView());
                                     } else if (index == 5) {
                                       Get.to(() => SupportView());

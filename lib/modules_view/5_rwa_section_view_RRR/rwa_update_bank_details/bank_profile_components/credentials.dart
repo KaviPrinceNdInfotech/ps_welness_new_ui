@@ -53,6 +53,13 @@ class UpdateRwaBankCredentials extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _rwaUpdateBankDetailController.AccountNo,
+                onSaved: (value) {
+                  _rwaUpdateBankDetailController.accountNo = value!;
+                },
+                validator: (value) {
+                  return _rwaUpdateBankDetailController
+                      .validbankaccount(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -80,6 +87,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _rwaUpdateBankDetailController.IFSCCode,
+                onSaved: (value) {
+                  _rwaUpdateBankDetailController.iFSCCode = value!;
+                },
+                validator: (value) {
+                  return _rwaUpdateBankDetailController.validifsc(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -107,6 +120,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
                 controller: _rwaUpdateBankDetailController.BranchName,
+                onSaved: (value) {
+                  _rwaUpdateBankDetailController.branchName = value!;
+                },
+                validator: (value) {
+                  return _rwaUpdateBankDetailController.validbranch(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -134,6 +153,13 @@ class UpdateRwaBankCredentials extends StatelessWidget {
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
                 controller: _rwaUpdateBankDetailController.BranchAddress,
+                onSaved: (value) {
+                  _rwaUpdateBankDetailController.branchAddress = value!;
+                },
+                validator: (value) {
+                  return _rwaUpdateBankDetailController
+                      .validbranchaddress(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -161,6 +187,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
                 controller: _rwaUpdateBankDetailController.HolderName,
+                onSaved: (value) {
+                  _rwaUpdateBankDetailController.accountNo = value!;
+                },
+                validator: (value) {
+                  return _rwaUpdateBankDetailController.validname(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -181,6 +213,35 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.018,
               //appPadding / 2,
+            ),
+
+            ///TODO:  mobile no .......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.newPassword],
+                controller: _rwaUpdateBankDetailController.MobileNumber,
+                onSaved: (value) {
+                  _rwaUpdateBankDetailController.mobileNumber = value!;
+                },
+                validator: (value) {
+                  return _rwaUpdateBankDetailController.validmobile(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Valid Mobile no',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
             ),
             SizedBox(
               height: size.height * 0.00,

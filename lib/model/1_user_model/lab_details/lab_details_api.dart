@@ -62,6 +62,22 @@ Labdetailbyid labdetailbyidFromJson(String str) =>
 String labdetailbyidToJson(Labdetailbyid data) => json.encode(data.toJson());
 
 class Labdetailbyid {
+  Data? data;
+
+  Labdetailbyid({
+    this.data,
+  });
+
+  factory Labdetailbyid.fromJson(Map<String, dynamic> json) => Labdetailbyid(
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": data?.toJson(),
+      };
+}
+
+class Data {
   int? id;
   String? labName;
   String? about;
@@ -70,8 +86,9 @@ class Labdetailbyid {
   String? location;
   String? workingDay;
   num? fee;
+  num? rating;
 
-  Labdetailbyid({
+  Data({
     this.id,
     this.labName,
     this.about,
@@ -80,9 +97,10 @@ class Labdetailbyid {
     this.location,
     this.workingDay,
     this.fee,
+    this.rating,
   });
 
-  factory Labdetailbyid.fromJson(Map<String, dynamic> json) => Labdetailbyid(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["Id"],
         labName: json["LabName"],
         about: json["About"],
@@ -91,6 +109,7 @@ class Labdetailbyid {
         location: json["Location"],
         workingDay: json["WorkingDay"],
         fee: json["Fee"],
+        rating: json["Rating"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -102,5 +121,6 @@ class Labdetailbyid {
         "Location": location,
         "WorkingDay": workingDay,
         "Fee": fee,
+        "Rating": rating,
       };
 }

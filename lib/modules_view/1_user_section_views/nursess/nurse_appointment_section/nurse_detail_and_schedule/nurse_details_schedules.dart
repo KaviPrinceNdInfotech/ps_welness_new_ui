@@ -120,7 +120,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                               Text(
                                 'Overall '
                                 '${_nurseAppointmentDetailController.nursedetailbyId?.experience}'
-                                'years of experience',
+                                ' years of experience',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: size.height * 0.016,
@@ -183,7 +183,9 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                '0.0',
+                                                "${_nurseAppointmentDetailController.nursedetailbyId?.rating}",
+
+                                                //'0.0',
                                                 //'${_doctorListController.foundDoctors[index].experience} yr',
                                                 //doctorcatagary[index],
                                                 maxLines: 1,
@@ -943,7 +945,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
               _nurseRatingReviewController.rating2.value = true;
               _nurseRatingReviewController.rating3.value = true;
               _nurseRatingReviewController.rating4.value = true;
-            } else if (_nurseRatingReviewController.ratings.value == 4) {
+            } else if (_nurseRatingReviewController.ratings.value == 5) {
               _nurseRatingReviewController.rating1.value = true;
               _nurseRatingReviewController.rating2.value = true;
               _nurseRatingReviewController.rating3.value = true;

@@ -3,10 +3,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
+
+import '../../../../controllers/5_rwa_controller_RRR/rwa_profile/rwa_profile_controller.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class RwaProfileHeadText extends StatelessWidget {
-  const RwaProfileHeadText({Key? key}) : super(key: key);
+  RwaProfileHeadText({Key? key}) : super(key: key);
+  RwaProfileController _rwaProfileController = Get.put(RwaProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,11 @@ class RwaProfileHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(RwaHomePage());
+                    _rwaProfileController.update();
+                    _rwaProfileController.rwaProfileApi();
+
+                    //Get.back();
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(

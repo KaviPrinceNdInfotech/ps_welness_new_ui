@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_address_list/medicine_address_list_view.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/search_section/search_medicine.dart';
 
 import '../../../../constants/constants/constants.dart';
 import '../../../../constants/my_theme.dart';
@@ -44,7 +45,10 @@ class MedicineCart extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                Get.back();
+                                _medicineListController.update();
+                                _medicineListController.medicineListApi();
+                                //  Get.back();
+                                Get.offAll(SearchMedicine());
                               },
                               child: Icon(
                                 Icons.arrow_back_ios_outlined,

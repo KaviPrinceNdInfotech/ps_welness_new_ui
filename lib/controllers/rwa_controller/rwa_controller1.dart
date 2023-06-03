@@ -1,22 +1,68 @@
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
-class Rwa_1_controller extends GetxController {
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
+
+import '../../modules_view/circular_loader/circular_loaders.dart';
+
+class Rwa_11_controller extends GetxController {
   final GlobalKey<FormState> rwa1formkey = GlobalKey<FormState>();
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
+  RxInt selectedimg = 0.obs;
+  var selectedPath = ''.obs;
+  //var selectedPath = ''.obs;
 
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  void getImage(ImageSource imageSource) async {
+    final pickedFiles = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFiles != null) {
+      selectedPath.value = pickedFiles.path;
+      print("File Path ${pickedFiles.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
+  ///this is for state.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
 
   var selectedDrowpdown = 'abc';
   List dropdownText = ['abc', 'def', 'ghi'];
 
   var selectedServicee = ''.obs;
   var selectedplan = ''.obs;
+
+  ///get state api.........
+
+  void getStateRwaApi() async {
+    states = await ApiProvider.getSatesApi();
+    print('Prince state  list');
+    print(states);
+  }
+
+  ///get cities api...........
+  void getCityByStateIDRwa(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+    print("Prince cities of $stateID");
+    print(cities);
+  }
 
   //radio.........
 
@@ -31,25 +77,105 @@ class Rwa_1_controller extends GetxController {
   }
 
   late TextEditingController nameController,
+      phoneController,
+      stateController,
+      cityController,
+      locationController,
       emailController,
       passwordController,
       confirmpasswordController,
-      mobileController;
+      pinController,
+      landlineController,
+      certificateNoController;
 
   var name = '';
+  var phone = '';
+  var state = '';
+  var city = '';
+  var location = '';
   var email = '';
   var password = '';
   var confirmpassword = '';
   var mobile = '';
+  var pin = '';
+  var address = '';
+  var certificate = '';
+
+  var landlineno = '';
+
+  ///signup rwa..........
+  void signupRwaApi() async {
+    CallLoader.loader();
+    final imageAsBase64 =
+        base64Encode(await File(selectedPath.value).readAsBytes());
+    print("imagebaseeee644:${imageAsBase64}");
+    http.Response r = await ApiProvider.RwaSignupApi(
+      nameController.text,
+      phoneController.text,
+      emailController.text,
+      passwordController.text,
+      confirmpasswordController.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      locationController.text,
+      landlineController.text,
+      pinController.text,
+      certificateNoController.text,
+      selectedPath.value.split('/').last,
+      imageAsBase64,
+    );
+
+    if (r.statusCode == 200) {
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 200),
+          () {
+            //  _viewdoctorreviewController.doctorreviewratingApi();
+            //_viewdoctorreviewController.update();
+            Get.snackbar(
+                'Add review Successfully', "Review Submitted. Thank-you."
+                // "${r.body}"
+                );
+
+            ///Get.to(() => DetailsSchedulePage());
+            // _doctorListController.doctordetailApi();
+            // _doctorListController.update();
+            // _viewdoctorreviewController.doctorreviewratingApi();
+            // _viewdoctorreviewController.update();
+
+            //Get.to((page))
+            ///
+          },
+        );
+      });
+      CallLoader.hideLoader();
+    } else {
+      //CallLoader.hideLoader();
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
     nameController = TextEditingController();
+    phoneController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmpasswordController = TextEditingController();
-    mobileController = TextEditingController();
+    stateController = TextEditingController();
+    cityController = TextEditingController();
+    locationController = TextEditingController();
+    pinController = TextEditingController();
+    certificateNoController = TextEditingController();
+    landlineController = TextEditingController();
+
+    getStateRwaApi();
+    //getdepartmentApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDRwa("${p0.id}");
+      }
+    });
   }
 
   @override
@@ -63,7 +189,13 @@ class Rwa_1_controller extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     confirmpasswordController.dispose();
-    mobileController.dispose();
+    phoneController.dispose();
+    stateController.dispose();
+    cityController.dispose();
+    locationController.dispose();
+    pinController.dispose();
+    certificateNoController.dispose();
+    landlineController.dispose();
   }
 
   String? validName(String value) {
@@ -93,8 +225,8 @@ class Rwa_1_controller extends GetxController {
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -103,8 +235,8 @@ class Rwa_1_controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != confirmpassword) {
       return "              Password must be same as above";
     } else {
@@ -122,10 +254,48 @@ class Rwa_1_controller extends GetxController {
     return null;
   }
 
-  void checkRwa1() {
-    final isValid = rwa1formkey.currentState!.validate();
-    if (!isValid) {
-      return;
+  String? validPin(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 6) {
+      return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validAddress(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+  String? validlandline(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+  String? validcertificate(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+  // void checkRwa1() {
+  //   final isValid = rwa1formkey.currentState!.validate();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   rwa1formkey.currentState!.save();
+  // }
+
+  void checkRwa11() {
+    if (rwa1formkey.currentState!.validate()) {
+      signupRwaApi();
     }
     rwa1formkey.currentState!.save();
   }

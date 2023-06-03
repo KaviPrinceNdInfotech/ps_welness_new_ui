@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer_view/drower_pages/profile_page_view/profile_components/credentials.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer_view/drower_pages/profile_page_view/profile_components/head_text.dart';
 
 class NurseProfilePage extends StatelessWidget {
@@ -57,7 +56,7 @@ class NurseProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     NurseProfileHeadText(),
-                    NurseProfileCredentials(),
+                    // NurseProfileCredentials(),
                     //HospitalSocial(),
                     //Spacer(),
                   ],

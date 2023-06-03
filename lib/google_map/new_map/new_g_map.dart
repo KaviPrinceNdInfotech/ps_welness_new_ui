@@ -428,14 +428,14 @@ class _MapViewState extends State<MapView> {
                     NeumorphicTextFieldContainer(
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                            EdgeInsets.symmetric(horizontal: size.width * 0.03),
                         child: Obx(
                           () => DropdownButtonFormField<Vehicle>(
                               value: _ambulancegetController
                                   .selectedambCatagary.value,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(
-                                  Icons.warning_amber,
+                                  Icons.bus_alert,
                                   color: Colors.black,
                                 ),
                                 enabledBorder: InputBorder.none,
@@ -450,7 +450,7 @@ class _MapViewState extends State<MapView> {
                                     ambulancvecatagarys.categoryName.toString(),
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.015,
+                                      fontSize: size.height * 0.012,
                                     ),
                                   ),
                                 );
@@ -459,7 +459,7 @@ class _MapViewState extends State<MapView> {
                                 _ambulancegetController
                                     .selectedambCatagary.value = newValue!;
                                 _ambulancegetController
-                                    .selectedambCatagary.value = null;
+                                    .selectedvhicleCatagary.value = null;
                                 // _hospital_2_controller.states.value =
                                 //     newValue! as List<String>;
                                 // _hospital_2_controller.selectedCity.value = null;
@@ -526,16 +526,14 @@ class _MapViewState extends State<MapView> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: size.height * 0.00,
-                    ),
+
                     PhysicalModel(
                       color: Colors.grey.shade300,
                       elevation: 2,
                       shadowColor: Colors.grey.shade900,
                       borderRadius: BorderRadius.circular(10),
                       child: Padding(
-                        padding: EdgeInsets.all(4.0),
+                        padding: EdgeInsets.all(2.0),
                         child: InkWell(
                           onTap: () {
                             // _ambulancegetController.update();
@@ -544,6 +542,8 @@ class _MapViewState extends State<MapView> {
                             CallLoader.loader();
                             _ambulancegetController
                                 .googlerequestambulance(markers);
+
+                            //_ambulancegetController.googlerequestambulance();
                           },
                           child: Container(
                             height: size.height * 0.035,
@@ -569,6 +569,7 @@ class _MapViewState extends State<MapView> {
                         ),
                       ),
                     ),
+                    Spacer(),
                   ],
                 ),
               ),

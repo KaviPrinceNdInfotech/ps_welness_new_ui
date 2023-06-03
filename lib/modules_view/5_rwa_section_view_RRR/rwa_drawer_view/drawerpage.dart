@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/aboutus_rwa.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer_view/drower_pages/rwa_profile_details/profile_rwa_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profile_page_view/profile_view.dart';
 //import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_drawer_view/drower_pages/rwa_profile_details/profile_rwa_detail_page.dart';
@@ -24,6 +26,13 @@ import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/supports/support_view.dart';
 
 class RwaMainDrawer extends StatelessWidget {
+  RwaMainDrawer({super.key});
+  RwaProfileDetailController _rwaProfileDetailController =
+      Get.put(RwaProfileDetailController());
+  RwaAboutusController _rwaAboutusController = Get.put(RwaAboutusController());
+  //RwaProfileController _rwaProfileController = Get.put(RwaProfileController());
+  //RwaProfileDetailController _rwaProfileDetailController = Get.put(RwaProfileDetailController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,27 +60,40 @@ class RwaMainDrawer extends StatelessWidget {
                         padding: EdgeInsets.all(size.height * 0.02),
                         child: Image.asset(
                           'lib/assets/image/ps_welness2.png',
-                          height: size.height * 0.05,
+                          height: size.height * 0.045,
                         ),
                       )),
                     ),
                     SizedBox(
-                      height: size.height * 0.01,
+                      height: size.height * 0.00,
                     ),
-                    Text(
-                      'Ps Foundation',
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.023,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
-                    ),
-                    Text(
-                      'ps@gmail.com',
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.020,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
-                    ),
+                    SizedBox(
+                        height: size.height * 0.045,
+                        child: ListView.builder(
+                            itemCount: 1,
+                            itemBuilder: (context, index) {
+                              final item = _rwaProfileDetailController
+                                  .getRwaProfileDetail?.rwaProfileDetails;
+                              return Column(
+                                children: [
+                                  Text(
+                                    '${item?[index].authorityName}',
+                                    // 'Ps Foundation',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: size.height * 0.02,
+                                        fontWeight: FontWeight.w700,
+                                        color: MyTheme.blueww),
+                                  ),
+                                  Text(
+                                    '${item?[index].emailId}',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: size.height * 0.017,
+                                        fontWeight: FontWeight.w700,
+                                        color: MyTheme.blueww),
+                                  ),
+                                ],
+                              );
+                            })),
                   ],
                 ),
               ),
@@ -138,6 +160,7 @@ class RwaMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+
                 Get.to(() => RwaProfilePage());
                 Get.offNamed('/RwaProfilePage');
               },
@@ -165,14 +188,14 @@ class RwaMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/ComplaintPage'
+              tileColor: Get.currentRoute == '/RWAComplaintPage'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
                 Get.to(() => RWAComplaintPage());
-                Get.offNamed('/ComplaintPage');
+                Get.offNamed('/RWAComplaintPage');
               },
             ),
 
@@ -204,6 +227,8 @@ class RwaMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _rwaProfileDetailController.RwaProfileDetailApi();
+                _rwaProfileDetailController.update();
                 Get.to(() => RwaDetailProfile());
                 Get.offNamed('/RwaDetailProfile');
               },
@@ -237,6 +262,8 @@ class RwaMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _rwaAboutusController.update();
+                _rwaAboutusController.rwaaboutusApi();
                 Get.to(() => AboutUsView());
                 Get.offNamed('/AboutUsView');
               },

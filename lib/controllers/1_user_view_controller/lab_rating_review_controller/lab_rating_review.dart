@@ -23,7 +23,7 @@ class LabRatingReviewController extends GetxController {
   RxInt selectedimg = 0.obs;
   RxInt selectedprice = 0.obs;
   RxBool isLoading = true.obs;
-  RxBool rating1 = false.obs;
+  RxBool rating1 = true.obs;
   RxBool rating2 = false.obs;
   RxBool rating3 = false.obs;
   RxBool rating4 = false.obs;

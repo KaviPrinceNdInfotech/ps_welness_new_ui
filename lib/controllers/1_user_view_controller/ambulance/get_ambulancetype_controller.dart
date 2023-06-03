@@ -106,7 +106,10 @@ class AmbulancegetController extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(UserHomePage());
+      Get.offAll(UserHomePage());
+      //Get.offAll(() => UserHomePage());
+      ambulancecatagaryyApi();
+      //getvehicletype(markers);
     }
   }
 

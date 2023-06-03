@@ -6,10 +6,15 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_control
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_complain_controller/nurse_complain_controller.dart';
-import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_drawer_controllers/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/aboutus_rwa.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
+//import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_drawer_controllers/nurse_profilert';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_signup_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
@@ -22,6 +27,7 @@ import 'package:ps_welness_new_ui/controllers/complaint_controller/complaint_con
 //import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/controllers/nurses_controllers_RRR_signuppp/nurses_controller2.dart';
+import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
 
 import '../controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
@@ -52,6 +58,8 @@ import '../controllers/2_franchises_controller/franchies_home_page_controller/fr
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 //import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
 //import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
+import '../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
+import '../controllers/5_rwa_controller_RRR/rwa_complain_controller/rwa_complain_controller.dart';
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import '../controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemistManageProfile_controller.dart';
@@ -147,6 +155,15 @@ class ControllerBinding extends Bindings {
     Get.put(ChemistComplaintController()); //Rahul
     Get.put(ChemistBannerController());
     Get.put(ChemistAboutusController());
+    Get.put(Rwa_11_controller());
+    Get.put(RwaComplaintController());
+    Get.put(NurseAppointmentNurseDetailController());
+    Get.put(NursePaymentHistoryControllerss());
+    Get.put(RwaAboutusController());
+    Get.put(NurseComplaintController());
+    Get.put(NurseUploadReportController());
+    Get.put(NursereportviewController());
+    //Get.put(RwaBannerController());
     // Rahul
     //Get.put(GoogleMapController());
 

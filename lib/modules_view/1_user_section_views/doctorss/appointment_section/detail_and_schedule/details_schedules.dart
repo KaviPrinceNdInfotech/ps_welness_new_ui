@@ -166,7 +166,9 @@ class DetailsSchedulePage extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            '0.0',
+                                            "${_doctorListController.doctordetailbyid?.rating.toString()}",
+
+                                            //'0.0',
                                             //'${_doctorListController.foundDoctors[index].experience} yr',
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -246,7 +248,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   'Fees: ₹'
-                                  "${_doctorListController.doctordetailbyid?.fee.toDouble()}",
+                                  "${_doctorListController.doctordetailbyid?.fee?.toDouble()}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.height * 0.02,
@@ -922,7 +924,7 @@ class DetailsSchedulePage extends StatelessWidget {
               _doctorRatingReviewController.rating2.value = true;
               _doctorRatingReviewController.rating3.value = true;
               _doctorRatingReviewController.rating4.value = true;
-            } else if (_doctorRatingReviewController.ratings.value == 4) {
+            } else if (_doctorRatingReviewController.ratings.value == 5) {
               _doctorRatingReviewController.rating1.value = true;
               _doctorRatingReviewController.rating2.value = true;
               _doctorRatingReviewController.rating3.value = true;

@@ -19,6 +19,7 @@ import '../../utils/models/account_model.dart';
 import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
+import '../5_rwa_controller_RRR/rwaBanner_controller.dart';
 
 class LoginpasswordController extends GetxController {
   final GlobalKey<FormState> loginpasswordformkey = GlobalKey<FormState>();
@@ -29,6 +30,7 @@ class LoginpasswordController extends GetxController {
   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
   ChemistProfileDetailController _chemistProfileDetailController =
       Get.put(ChemistProfileDetailController());
+  RwaBannerController _rwaBannerController = Get.put(RwaBannerController());
 
   var Id = '';
 
@@ -81,6 +83,8 @@ class LoginpasswordController extends GetxController {
           Get.to(NurseHomePage());
           break;
         case 'RWA':
+          _rwaBannerController.RwaBannerApi();
+          _rwaBannerController.update();
           Get.to(RwaHomePage());
           break;
         case 'chemist':

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 import 'complaint_components/credentials.dart';
@@ -29,7 +30,6 @@ class ComplaintPage extends StatelessWidget {
               children: [
                 Positioned(
                   top: size.height * 0.014,
-
                   right: -size.width * 0.006,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
@@ -52,7 +52,7 @@ class ComplaintPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ComplaintHeadText(),
-                    ComplaintCredentials(),
+                    nurseComplaintssCredentials(),
                   ],
                 ),
               ],

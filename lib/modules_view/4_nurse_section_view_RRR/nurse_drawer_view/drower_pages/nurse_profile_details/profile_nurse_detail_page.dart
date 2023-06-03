@@ -7,8 +7,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-
-import '../../../../../controllers/4_nurse_controller_RRR/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 
 class NurseDetailProfile extends StatelessWidget {
   const NurseDetailProfile({Key? key}) : super(key: key);
@@ -178,7 +177,7 @@ class NurseDetailProfile extends StatelessWidget {
                                         ),
                                         Text(
                                           _nurseprofileContrller
-                                              .getNurseProfile!.state
+                                              .getNurseProfile!.stateName
                                               .toString(),
                                           style: GoogleFonts.poppins(
                                             fontSize: size.height * 0.018,

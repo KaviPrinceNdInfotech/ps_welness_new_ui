@@ -6,14 +6,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+//import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/nurse_profile_details/profile_nurse_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_page.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_view.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
 
 import 'drower_pages/about_us/about_us.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
@@ -22,6 +18,8 @@ import 'drower_pages/profile_page_view/nurse_profile.dart';
 import 'drower_pages/supports/support_view.dart';
 
 class NurseMainDrawer extends StatelessWidget {
+  // NurseComplaintController _nurseComplaintController =
+  // Get.put(NurseComplaintController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,19 +52,19 @@ class NurseMainDrawer extends StatelessWidget {
                       )),
                     ),
                     SizedBox(
-                      height: size.height * 0.01,
+                      height: size.height * 0.0,
                     ),
                     Text(
                       'Mrs.Ak Singh',
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.023,
+                          fontSize: size.height * 0.02,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
                       'Ak@gmail.com',
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.020,
+                          fontSize: size.height * 0.015,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
@@ -126,14 +124,14 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/NurseProfilePage'
+              tileColor: Get.currentRoute == '/NurseEditProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
                 Get.to(() => NurseEditProfilePage());
-                Get.offNamed('/NurseProfilePage');
+                Get.offNamed('/NurseEditProfilePage');
               },
             ),
 
@@ -200,6 +198,8 @@ class NurseMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                // _nurseComplaintController.getNurseTypeApi();
+                //_nurseComplaintController.update();
                 Get.to(() => ComplaintPage());
                 Get.offNamed('/ComplaintPage');
               },

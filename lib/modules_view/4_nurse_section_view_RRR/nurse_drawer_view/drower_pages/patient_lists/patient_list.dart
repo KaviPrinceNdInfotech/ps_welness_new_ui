@@ -88,7 +88,7 @@ class PatientListNurse extends StatelessWidget {
                             child: CircularProgressIndicator(),
                           )
                         : SizedBox(
-                            height: size.height * 0.8,
+                            height: size.height * 0.73,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: _nursePatientListController

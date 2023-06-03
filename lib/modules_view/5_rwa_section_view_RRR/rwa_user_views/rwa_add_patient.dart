@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/rwa_user_components/credentials.dart';
-import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/rwa_user_components/head_text.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/add_patient_rwa/credentials.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/add_patient_rwa/head_text.dart';
+//import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/rwa_user_components/credentials.dart';
+//import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/rwa_user_components/head_text.dart';
 //import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_user_views/rwa_user_components/head_text.dart';
 
-class RwaAddPatient extends StatelessWidget {
+class RwaaaAddPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,7 +50,7 @@ class RwaAddPatient extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Rwa1HeadText(),
+                    RwaaddHeadText(),
                     RwaAddPatientCredentials(),
                   ],
                 ),

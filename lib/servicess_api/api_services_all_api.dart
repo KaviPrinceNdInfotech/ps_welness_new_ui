@@ -16,6 +16,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_m
 import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/wallet_model/wallet_section_model.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import 'package:ps_welness_new_ui/model/5_RWA_controller_RRR/rwa_aboutus_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
@@ -192,23 +193,30 @@ class ApiProvider {
   static deliverymedicineAddressApi(
     var Name,
     var Email,
+    //var Password,
     var MobileNumber,
-    var Password,
     var StateMasterId,
     var CityMasterId,
     var DeliveryAddress,
     var PinCode,
+    //var Patient_Id,
   ) async {
     var url = baseUrl + 'api/PatientApi/MedicineAddress';
+    //saved id..........
+    var prefs = GetStorage();
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
     var body = {
       "Name": Name,
       "Email": Email,
+      //"Password": "12345",
       "MobileNumber": MobileNumber,
-      "Password": "12345",
       "StateMaster_Id": StateMasterId,
       "CityMaster_Id": CityMasterId,
       "DeliveryAddress": DeliveryAddress,
       "PinCode": PinCode,
+      "Patient_Id": userid,
     };
     http.Response r = await http.post(
       Uri.parse(url), body: body,
@@ -553,6 +561,7 @@ class ApiProvider {
     }
   }
 
+  ///googleapipost
   ///todo: google post ambulance api on .......2 may 2023.......,,,,,,.....................
 
   static GooglebookambulanceApi(
@@ -564,6 +573,9 @@ class ApiProvider {
     var AmbulanceType_id,
     var VehicleType_id,
   ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var AmbulancelistssId = preferences.getString("AmbulancelistssId");
+    print("AmbulancelistssId: ${AmbulancelistssId}");
     var url = baseUrl + 'api/DriverApi/AddAmbulance';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -575,7 +587,7 @@ class ApiProvider {
       "end_Long": start_Lat.toString(),
       "end_Lat": start_Long.toString(),
       "Patient_Id": userid,
-      "AmbulanceType_id": "1",
+      "AmbulanceType_id": "$AmbulanceType_id",
       //AmbulanceType_id,
       "VehicleType_id": VehicleType_id
     };
@@ -635,6 +647,7 @@ class ApiProvider {
   }
 
   ///todo:this is the Labcomplain api...11 may 2023...............
+
   static LabComplainpi(
     var Complaints,
     var Login_Id,
@@ -652,6 +665,43 @@ class ApiProvider {
       "Complaints": Complaints,
       "Login_Id": adminId,
       "Subjects": Subjects,
+      "Others": Others,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo:this is the Labcomplain api...11 may 2023...............
+  static RwaComplainpi(
+    var Subjects,
+    var Complaints,
+    var Others,
+  ) async {
+    var url = baseUrl + 'api/PatientApi/Add_RWAComplaint';
+    var prefs = GetStorage();
+    //saved id..........
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+
+    var body = {
+      "RWA_Id": userid,
+      "Subjects": Subjects,
+      "Complaints": Complaints,
       "Others": Others,
     };
     print(body);
@@ -1973,7 +2023,6 @@ class ApiProvider {
     print("DoctorListId: ${DoctorListId}");
     var url =
         //"http://test.pswellness.in/api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=$DoctorListId";
-
         "http://test.pswellness.in/api/DoctorApi/DoctorDetails?id=$DoctorListId";
     // http://test.pswellness.in/api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=13
     try {
@@ -2222,13 +2271,18 @@ class ApiProvider {
 
   /// user medicine_address_list_api..........................28april..2023.......
   static MedicineaddresslistApi() async {
-    var url = "http://test.pswellness.in/api/PatientApi/GetMedicineAddress";
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
+    print(userid);
+    var url =
+        "http://test.pswellness.in/api/PatientApi/GetMedicineAddress?Patient_id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        print('&&&&&&&&&&&&&&&&&&&&&&okaddress:${url}');
-        print('&&&&&&&&&&&&&&&&&&&&&&okaddress:${r.body}');
+        print('&&&&&&&&&&&&&&&&&&&&&&okaddressrrr:${url}');
+        print('&&&&&&&&&&&&&&&&&&&&&&okaddressreww:${r.body}');
         var MedicineAddresslist = medicineAddressModelFromJson(r.body);
         return MedicineAddresslist;
       }
@@ -2436,12 +2490,21 @@ class ApiProvider {
   //     return;
   //   }
   // }
+
   static Future<List<Vehicle>?> getambulancecatagaryApi() async {
-    var url = "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=1";
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var AmbulancelistssId = preferences.getString("AmbulancelistssId");
+    print("AmbulancelistssId: ${AmbulancelistssId}");
+    var url =
+        "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=$AmbulancelistssId";
+    //"1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print("AmbulancelistssIdsuccess: ${AmbulancelistssId}");
+        print("AmbulancelistssIdurl: ${url}");
+
         var ambulanceData = ambulancecatagarybyIdFromJson(r.body);
         return ambulanceData.vehicle;
       } else {
@@ -3192,6 +3255,29 @@ class ApiProvider {
     }
   }
 
+  ///todo: aboutus.Rwa..........by lab Id.......3 june 2023...prince..
+
+  static RwaaboutusApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labappointmenthistory:${userid}');
+    print(userid);
+    var url = "http://test.pswellness.in/api/PatientApi/RWA_About?Id=$userid";
+    //http://test.pswellness.in/api/PatientApi/RWA_About?Id=12
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        RwaaboutusModel? rwaapaboutusmodel = rwaaboutusModelFromJson(r.body);
+        return rwaapaboutusmodel;
+      }
+    } catch (error) {
+      print("errorlabdetailsshisfdfd:${error.toString()}");
+      return;
+    }
+  }
+
   ///todo: chemist aboutus history.......by lab Id.......27 may 2023...prince..
 
   static ChemistboutusApi() async {
@@ -3279,7 +3365,12 @@ class ApiProvider {
     var File,
     var FileBase64,
   ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
+    print(userid);
     var body = {
+      "Lab_Id": userid,
       "Patient_Id": Patient_Id,
       "Test": Test,
       "File": '$File',
@@ -3290,7 +3381,7 @@ class ApiProvider {
       var r = await http.post(Uri.parse(url), body: body);
       if (r.statusCode == 200) {
         print("###3###3####1: ${r.body}");
-        print("okokolanreport: ${body}");
+        print("okokolanreportii: ${body}");
 
         return r;
       } else {
@@ -3312,6 +3403,29 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
     print(userid);
     var url = baseUrl + "api/CommonApi/Lab_report?Id=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var patienttypeData = uploadReportdropdownModelFromJson(r.body);
+        return patienttypeData.patientName;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      print("errorlabbbviewpatient:${error.toString()}");
+      return [];
+    }
+  }
+
+  ///todo:upload report..user.of......getapidropdown...3..june...2023..
+  ///
+  static Future<List<PatientdropdownName>?> getnursepatientApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
+    print(userid);
+    var url = baseUrl + "api/CommonApi/Lab_report?Id=16";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3349,6 +3463,28 @@ class ApiProvider {
     }
   }
 
+  ///todo:report view lab.................3june---2023..
+
+  static Nursereportview1Api() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
+    print(userid);
+    var url = "http://test.pswellness.in/api/LabApi/Lab_ViewReport?Id=16";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&labimageurl:${url}');
+        ViewreportModel? labreportModel = viewreportModelFromJson(r.body);
+        return labreportModel;
+      }
+    } catch (error) {
+      print("errorlabbbview:${error.toString()}");
+      return;
+    }
+  }
+
   ///todo:report view lab.................16 may 2023..
   static LabreportimageApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -3360,6 +3496,30 @@ class ApiProvider {
     // print(userid);
     var url =
         "http://test.pswellness.in/api/LabApi/Lab_ViewReport_File?Id=$labreportlistId";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("labreportlistlistturl: ${url}");
+        LabReportimage? labreportimageModel = labReportimageFromJson(r.body);
+        return labreportimageModel;
+      }
+    } catch (error) {
+      print("errorlabbbviewimage:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view nurse.................3 june may 2023..
+  static nursereportimageApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var labreportlistId = preferences.getString("labreportlistId");
+    print("labreportlistlisttIdhh: ${labreportlistId}");
+    // var prefs = GetStorage();
+    // userid = prefs.read("Id").toString();
+    // print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
+    // print(userid);
+    var url = "http://test.pswellness.in/api/LabApi/Lab_ViewReport_File?Id=61";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3533,6 +3693,7 @@ class ApiProvider {
       var r = await http.post(Uri.parse(url), body: body);
       print("###3###3####1rrrererttdoctor: ${body}");
       if (r.statusCode == 200) {
+        print("###3###3####ttdoctor: ${body}");
         print("###3###3####1rrrddrr: ${r.body}");
 
         return r;

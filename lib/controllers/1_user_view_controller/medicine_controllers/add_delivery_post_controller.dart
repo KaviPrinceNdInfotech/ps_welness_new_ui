@@ -10,7 +10,6 @@ import '../../../modules_view/1_user_section_views/medicine_view/medicine_addres
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 
-
 class MedicineAddressController extends GetxController {
   final GlobalKey<FormState> medicineaddressformmkey = GlobalKey<FormState>();
 
@@ -46,7 +45,6 @@ class MedicineAddressController extends GetxController {
       nameController.text,
       emailController.text,
       mobileController.text,
-      passwordController.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
       deliveryaddressController.text,
@@ -65,7 +63,7 @@ class MedicineAddressController extends GetxController {
 
   late TextEditingController nameController,
       emailController,
-  // confirmpasswordController,
+      // confirmpasswordController,
       mobileController,
       passwordController,
       StateController,
@@ -75,7 +73,6 @@ class MedicineAddressController extends GetxController {
 
   var name = '';
   var email = '';
-  var password = '';
   var mobile = '';
   var state = '';
   var city = '';
@@ -89,7 +86,7 @@ class MedicineAddressController extends GetxController {
     nameController = TextEditingController();
     emailController = TextEditingController();
     mobileController = TextEditingController();
-    passwordController = TextEditingController();
+    // passwordController = TextEditingController();
     StateController = TextEditingController();
     CityController = TextEditingController();
     deliveryaddressController = TextEditingController();
@@ -112,7 +109,7 @@ class MedicineAddressController extends GetxController {
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();
-    passwordController.dispose();
+    //passwordController.dispose();
     StateController.dispose();
     CityController.dispose();
     deliveryaddressController.dispose();
@@ -164,7 +161,6 @@ class MedicineAddressController extends GetxController {
   //     return null;
   //   }
   // }
-
 
   String? validPhone(String value) {
     if (value.isEmpty) {

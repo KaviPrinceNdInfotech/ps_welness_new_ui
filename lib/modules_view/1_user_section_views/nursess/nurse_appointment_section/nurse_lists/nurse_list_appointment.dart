@@ -301,7 +301,9 @@ class NurseListUser extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              '0.0',
+                                                              "${_nurseUserListController.foundNurses[index].rating}",
+
+                                                              //'0.0',
 
                                                               //'${_doctorListController.foundDoctors[index].experience} yr',
                                                               //doctorcatagary[index],
@@ -361,7 +363,7 @@ class NurseListUser extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         'Experenced: '
-                                                        '${_nurseUserListController.foundNurses[index].experience} yr',
+                                                        '${_nurseUserListController.foundNurses[index].experience} (in year)',
                                                         //doctorcatagary[index],
                                                         maxLines: 1,
                                                         overflow: TextOverflow

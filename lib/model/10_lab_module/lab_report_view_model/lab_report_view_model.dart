@@ -35,49 +35,49 @@ class ViewreportModel {
 class LabViewReport {
   int? id;
   String? patientName;
-  TestName? testName;
-  DateTime? testDate;
+  String? testName;
+  //DateTime? testDate;
   String? file;
 
   LabViewReport({
     this.id,
     this.patientName,
     this.testName,
-    this.testDate,
+    //this.testDate,
     this.file,
   });
 
   factory LabViewReport.fromJson(Map<String, dynamic> json) => LabViewReport(
         id: json["Id"],
         patientName: json["PatientName"],
-        testName: testNameValues.map[json["TestName"]]!,
-        testDate:
-            json["TestDate"] == null ? null : DateTime.parse(json["TestDate"]),
+        testName: json["TestName"],
+        //testDate:
+        // json["TestDate"] == null ? null : DateTime.parse(json["TestDate"]),
         file: json["File"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
         "PatientName": patientName,
-        "TestName": testNameValues.reverse[testName],
-        "TestDate": testDate?.toIso8601String(),
+        "TestName": testName,
+        //"TestDate": testDate?.toIso8601String(),
         "File": file,
       };
 }
 
-enum TestName { HAEMATOLOGY, ACT }
-
-final testNameValues =
-    EnumValues({"ACT": TestName.ACT, "HAEMATOLOGY": TestName.HAEMATOLOGY});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
-}
+// enum TestName { HAEMATOLOGY, ACT }
+//
+// final testNameValues =
+//     EnumValues({"ACT": TestName.ACT, "HAEMATOLOGY": TestName.HAEMATOLOGY});
+//
+// class EnumValues<T> {
+//   Map<String, T> map;
+//   late Map<T, String> reverseMap;
+//
+//   EnumValues(this.map);
+//
+//   Map<T, String> get reverse {
+//     reverseMap = map.map((k, v) => MapEntry(v, k));
+//     return reverseMap;
+//   }
+// }

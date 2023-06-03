@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-
-import '../../../../../../controllers/4_nurse_controller_RRR/nurse_drawer_controllers/nurse_profile_controller.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
 // //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
@@ -44,32 +43,32 @@ class NurseProfileCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///todo: Id..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _nurseprofileController.idController,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // ///todo: Id..........
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.telephoneNumber],
+            //     controller: _nurseprofileController.idController,
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Id',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.phone_android_outlined,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
 
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
@@ -113,7 +112,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Clinic Name',
+                  hintText: 'Nurse Name',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -303,15 +302,15 @@ class NurseProfileCredentials extends StatelessWidget {
             /// todo ClinicName
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                autofillHints: [AutofillHints.password],
-                controller: _nurseprofileController.pinController,
+                autofillHints: [AutofillHints.name],
+                controller: _nurseprofileController.clinicNameController,
                 validator: (value) {
-                  return _nurseprofileController.validPin(value!);
+                  return _nurseprofileController.validName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Clinic Name',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -325,36 +324,36 @@ class NurseProfileCredentials extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.01,
-              //appPadding / 2,
-            ),
-
-            /// todo Admin login id
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.password],
-                controller: _nurseprofileController.pinController,
-                validator: (value) {
-                  return _nurseprofileController.validPin(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Pin',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.pin,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   height: size.height * 0.01,
+            //   //appPadding / 2,
+            // ),
+            //
+            // /// todo Admin login id
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.password],
+            //     controller: _nurseprofileController.pinController,
+            //     validator: (value) {
+            //       return _nurseprofileController.validPin(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Pin',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.pin,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: size.height * 0.01,
               //appPadding / 2,

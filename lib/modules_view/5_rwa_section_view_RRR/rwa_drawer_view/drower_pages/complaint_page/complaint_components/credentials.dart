@@ -2,24 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
+import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_complain_controller/rwa_complain_controller.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
-import '../../../../../../constants/constants/constants.dart';
-import '../../../../../../controllers/complaint_controller/complaint_controller.dart';
-import '../../../../../../widgets/widgets/neumorphic_text_field_container.dart';
-import '../../../../../../widgets/widgets/rectangular_button.dart';
+import '../../../../../../model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 
 class RWAComplaintCredentials extends StatelessWidget {
   RWAComplaintCredentials({Key? key}) : super(key: key);
+  RwaComplaintController _rwaComplaintController =
+      Get.put(RwaComplaintController());
 
-  ComplaintController _complaintController = Get.put(ComplaintController());
+  // ComplaintController _complaintController = Get.put(ComplaintController());
   // get newvalue => null!;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _complaintController.complaintformkey,
+      key: _rwaComplaintController.rwacomplaintformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -32,7 +34,7 @@ class RWAComplaintCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<Complaint41Patient>(
-                      value: _complaintController.selectedSubject.value,
+                      value: _rwaComplaintController.selectedSubject.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.subject,
@@ -42,7 +44,7 @@ class RWAComplaintCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: const Text('Select Subject'),
-                      items: _complaintController.subject
+                      items: _rwaComplaintController.subject
                           .map((Complaint41Patient model) {
                         return DropdownMenuItem(
                           value: model,
@@ -56,7 +58,8 @@ class RWAComplaintCredentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (Complaint41Patient? newValue) {
-                        _complaintController.selectedSubject.value = newValue!;
+                        _rwaComplaintController.selectedSubject.value =
+                            newValue!;
                       }),
                 ),
               ),
@@ -65,17 +68,48 @@ class RWAComplaintCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            ///todo: other value..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                maxLines: 1,
+                autofillHints: [AutofillHints.addressCityAndState],
+                controller: _rwaComplaintController.otherController,
+                onSaved: (value) {
+                  _rwaComplaintController.Others = value!;
+                },
+                validator: (value) {
+                  return _rwaComplaintController.validothers(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  hintText: 'Other',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  // prefixIcon: Icon(
+                  //   Icons.comment_bank_outlined,
+                  //   color: black.withOpacity(0.7),
+                  //   size: 20,
+                  // ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
             ///todo: location value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 maxLines: 5,
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _complaintController.complainController,
+                controller: _rwaComplaintController.complaintController,
                 onSaved: (value) {
-                  _complaintController.Complaints = value!;
+                  _rwaComplaintController.complaint = value!;
                 },
                 validator: (value) {
-                  return _complaintController.validAddress(value!);
+                  return _rwaComplaintController.validAddress(value!);
                 },
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
@@ -98,7 +132,7 @@ class RWAComplaintCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'SUBMIT',
                 press: () {
-                  _complaintController.checkUser3();
+                  _rwaComplaintController.checkrwa3();
                 })
           ],
         ),

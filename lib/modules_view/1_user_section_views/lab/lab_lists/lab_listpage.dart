@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_rating_review_controller/lab_view_ratting_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/constants/constants/constants.dart';
@@ -19,6 +20,8 @@ import '../lab_booking_view/lab_booking_schedule.dart';
 class LabListPage extends StatelessWidget {
   LabListPage({Key? key}) : super(key: key);
   LabListController _labListController = Get.put(LabListController());
+  ViewlabreviewController _viewlabreviewController =
+      Get.put(ViewlabreviewController());
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +100,7 @@ class LabListPage extends StatelessWidget {
                                   fillColor: Colors.white,
                                   hintText: 'Search lab..',
                                   contentPadding: const EdgeInsets.only(
-                                      left: 10.0, bottom: 12.0, top: 0.0),
+                                      left: 10.0, bottom: 12.0, top: 4.0),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                     borderRadius: BorderRadius.circular(25.7),
@@ -261,7 +264,12 @@ class LabListPage extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  '0.0',
+                                                                  _labListController
+                                                                      .foundlabProducts[
+                                                                          index]
+                                                                      .rating
+                                                                      .toString(),
+                                                                  //'0.0',
 
                                                                   //'${_doctorListController.foundDoctors[index].experience} yr',
                                                                   //doctorcatagary[index],
@@ -583,6 +591,10 @@ class LabListPage extends StatelessWidget {
                                                                 .labdetailApi();
                                                             _labListController
                                                                 .update();
+                                                            _viewlabreviewController
+                                                                .labreviewratingApi();
+                                                            _viewlabreviewController
+                                                                .update();
                                                             accountService
                                                                 .getAccountData
                                                                 .then(
@@ -592,8 +604,13 @@ class LabListPage extends StatelessWidget {
                                                                     milliseconds:
                                                                         200),
                                                                 () {
+                                                                  _viewlabreviewController
+                                                                      .labreviewratingApi();
+                                                                  _viewlabreviewController
+                                                                      .update();
                                                                   Get.to(() =>
                                                                       LabSchedule1Page());
+
                                                                   //Get.to((page))
                                                                   ///
                                                                 },

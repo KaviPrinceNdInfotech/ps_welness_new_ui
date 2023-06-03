@@ -423,17 +423,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-//import 'package:ps_welness_new_ui/controllers/5_rwa_controller/rwa_addPatient_controller.dart';
-import 'package:ps_welness_new_ui/controllers/user_controller/user_controller_1.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 import '../../../../controllers/5_rwa_controller_RRR/rwa_addPatient_controller.dart';
 
 class RwaAddPatientCredentials extends StatelessWidget {
-  RWAAddPatientController _rwaAddPatientController = Get.put(RWAAddPatientController());
- // User_1_Controller _user_1_controller = Get.put(User_1_Controller());
+  RWAAddPatientController _rwaAddPatientController =
+      Get.put(RWAAddPatientController());
+  // User_1_Controller _user_1_controller = Get.put(User_1_Controller());
 
   var items = [
     'UP',
@@ -448,42 +446,24 @@ class RwaAddPatientCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
+      key: _rwaAddPatientController.rwaaddformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Todo: Id.........................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _rwaAddPatientController.AdminLogin_Id,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.person_outline_sharp,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
             ///TODO: Name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _rwaAddPatientController.PatientName,
+                controller: _rwaAddPatientController.PatientNameController,
+                onSaved: (value) {
+                  _rwaAddPatientController.name = value!;
+                },
+                validator: (value) {
+                  return _rwaAddPatientController.validName(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -504,11 +484,18 @@ class RwaAddPatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.email],
-                controller: _rwaAddPatientController.EmailId,
+                controller: _rwaAddPatientController.EmailIdController,
+                onSaved: (value) {
+                  _rwaAddPatientController.email = value!;
+                },
+                validator: (value) {
+                  return _rwaAddPatientController.validEmail(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -529,35 +516,44 @@ class RwaAddPatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-            ///Todo: password..............
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _rwaAddPatientController.Password,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+
+            // ///Todo: password..............
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     controller: _rwaAddPatientController.Password,
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Password',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.lock,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                //maxLength: 10,
                 autofillHints: [AutofillHints.telephoneNumber],
-                controller: _rwaAddPatientController.MobileNumber,
+                controller: _rwaAddPatientController.MobileNumberController,
+                onSaved: (value) {
+                  _rwaAddPatientController.phone = value!;
+                },
+                validator: (value) {
+                  return _rwaAddPatientController.validPhone(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -578,11 +574,18 @@ class RwaAddPatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: address value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _rwaAddPatientController.Location,
+                controller: _rwaAddPatientController.LocationController,
+                onSaved: (value) {
+                  _rwaAddPatientController.location = value!;
+                },
+                validator: (value) {
+                  return _rwaAddPatientController.validAddress(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -603,11 +606,18 @@ class RwaAddPatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: Pin.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.password],
-                controller: _rwaAddPatientController.PinCode,
+                controller: _rwaAddPatientController.PinCodeController,
+                onSaved: (value) {
+                  _rwaAddPatientController.pin = value!;
+                },
+                validator: (value) {
+                  return _rwaAddPatientController.validPin(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -632,7 +642,7 @@ class RwaAddPatientCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'Submit',
                 press: () {
-                  _rwaAddPatientController.rwaAddPatientApi();
+                  _rwaAddPatientController.checkadd11();
                 })
           ],
         ),

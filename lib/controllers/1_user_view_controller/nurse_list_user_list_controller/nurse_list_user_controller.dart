@@ -173,9 +173,9 @@ class NurseUserListController extends GetxController {
 //   return false;
 // }
 
-  RxList<NurseListuser> foundNurses = RxList<NurseListuser>([]);
+  RxList<NurseListlucationid> foundNurses = RxList<NurseListlucationid>([]);
   void filterNurse(String searchnursepatientName) {
-    List<NurseListuser>? finalResult = [];
+    List<NurseListlucationid>? finalResult = [];
     if (searchnursepatientName.isEmpty) {
       finalResult = nurseListbylocationId!.nurseLists!;
     } else {

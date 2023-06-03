@@ -8,9 +8,14 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/aboutus_rwa.dart';
+//import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_histrt';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemistManageProfile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
+import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 
@@ -43,7 +48,11 @@ import 'controllers/1_user_view_controller/user_home_page_controller/user_home_p
 import 'controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
+import 'controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
+import 'controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
+import 'controllers/4_nurse_controllerRRR33344new/nurse_upload_report/nurseUploadReportController.dart';
 import 'controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
+import 'controllers/5_rwa_controller_RRR/rwa_complain_controller/rwa_complain_controller.dart';
 import 'controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
 import 'controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
 import 'controllers/6_chemist_view_controllers_RRR/chemist_aboutus_controller.dart';
@@ -113,6 +122,17 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => ChemistComplaintController());
     Get.lazyPut(() => ChemistBannerController());
     Get.lazyPut(() => ChemistAboutusController());
+    Get.lazyPut(() => RwaBannerController());
+    Get.lazyPut(() => Rwa_11_controller());
+    Get.lazyPut(() => RwaComplaintController());
+    Get.lazyPut(() => NurseAppointmentNurseDetailController());
+    Get.lazyPut(() => NursePaymentHistoryControllerss());
+    Get.lazyPut(() => RwaAboutusController());
+    Get.lazyPut(() => NurseComplaintController());
+    Get.lazyPut(() => NurseUploadReportController());
+    Get.lazyPut(() => NursereportviewController());
+
+    //Get.lazyPut(() => ChemistComplaintController());
 
     //ChemistAboutusController
 

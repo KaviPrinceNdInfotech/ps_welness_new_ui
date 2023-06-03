@@ -45,7 +45,7 @@ class MedicineListController extends GetxController {
     http.Response r = await ApiProvider.AddToCartMedicineApi(Id);
 
     if (r.statusCode == 200 || r.statusCode != 200) {
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
       _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
       _medicineCartListController.refresh();

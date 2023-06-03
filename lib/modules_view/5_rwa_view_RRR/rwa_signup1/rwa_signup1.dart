@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/rwa_user_components/head_text.dart';
+//import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_user_views/rwa_user_components/head_text.dart';
 import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup1/rwacomponents/credentials.dart';
+
+import '../../rwa_view/rwa_signup1/rwacomponents/head_text.dart';
 
 class RwaSignup1 extends StatelessWidget {
   const RwaSignup1({Key? key}) : super(key: key);

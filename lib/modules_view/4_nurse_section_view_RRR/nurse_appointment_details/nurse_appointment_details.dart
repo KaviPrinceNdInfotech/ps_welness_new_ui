@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
 
-import '../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
+//import '../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 
@@ -15,8 +17,8 @@ import '../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_con
 class NurseeAppointmentDetail extends StatelessWidget {
   NurseeAppointmentDetail({Key? key}) : super(key: key);
 
-  NurseAppointmentDetailController _nurseappointmentdetailController =
-      Get.put(NurseAppointmentDetailController());
+  NurseAppointmentNurseDetailController _nurseappointmentnursedetailController =
+      Get.put(NurseAppointmentNurseDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,418 +29,458 @@ class NurseeAppointmentDetail extends StatelessWidget {
       width: size.width,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                top: -size.height * 0.08,
-                right: -size.width * 0.12,
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Container(
-                    height: size.height * 0.22,
-                    width: size.width * 0.58,
-                    decoration: const BoxDecoration(
-                        //color: Colors.,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20),
-                        ),
-                        image: DecorationImage(
-                            image: AssetImage(
-                              'lib/assets/user_assets/appointment_nurse.png',
-                            ),
-                            fit: BoxFit.cover)),
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: size.width * 0.03,
-                        vertical: size.height * 0.01),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios_outlined,
-                            size: size.height * 0.026,
-                            color: MyTheme.blueww,
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
-                        Text(
-                          'Appointment Details',
-                          style: GoogleFonts.alatsi(
-                              fontSize: size.height * 0.029,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff023382)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
+        body: Obx(
+          () => (_nurseappointmentnursedetailController.isLoading.value)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SafeArea(
+                  child: Stack(
+                    clipBehavior: Clip.none,
                     children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0)),
-                            color: Colors.white),
-                        width: size.width * 0.72,
-                        height: size.height * 0.06,
-                        margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                        padding: const EdgeInsets.fromLTRB(5, 8, 8, 8),
-                        child: Theme(
-                          data: Theme.of(context)
-                              .copyWith(splashColor: Colors.transparent),
-                          child: TextField(
-                            controller: _nurseappointmentdetailController
-                                .appointmentController,
-                            onTap: () {
-                              _nurseappointmentdetailController.chooseDate();
-                            },
-                            autofocus: false,
-                            style: TextStyle(
-                                fontSize: 15.0, color: MyTheme.blueww),
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.search),
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'dd-mm-yyyy',
-                              contentPadding: const EdgeInsets.only(
-                                  left: 10.0, bottom: 12.0, top: 0.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(25.7),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(25.7),
-                              ),
+                      Positioned(
+                        top: -size.height * 0.08,
+                        right: -size.width * 0.12,
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            height: size.height * 0.22,
+                            width: size.width * 0.58,
+                            decoration: const BoxDecoration(
+                                //color: Colors.,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                ),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                      'lib/assets/user_assets/appointment_nurse.png',
+                                    ),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.03,
+                                vertical: size.height * 0.012),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back_ios_outlined,
+                                    size: size.height * 0.026,
+                                    color: MyTheme.blueww,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.03,
+                                ),
+                                Text(
+                                  'Appointment Details',
+                                  style: GoogleFonts.alatsi(
+                                      fontSize: size.height * 0.029,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xff023382)),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                      ),
-                      Container(
-                        height: size.height * 0.06,
-                        width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                          //color: MyTheme.blueww,
-                          gradient: MyTheme.gradient10,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                            child: Text(
-                          'Search',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: size.width * 0.035,
-                            fontWeight: FontWeight.bold,
+                          Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30.0)),
+                                  //color: Colors.white,
+                                  gradient: MyTheme.gradient7,
+                                  //gradient10
+                                ),
+                                width: size.width * 0.72,
+                                height: size.height * 0.06,
+                                margin:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                padding: const EdgeInsets.fromLTRB(5, 8, 8, 8),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      splashColor: Colors.transparent),
+                                  child: TextField(
+                                    // controller: _nurseappointmentnursedetailController
+                                    //     .appointmentController,
+                                    // onTap: () {
+                                    //   _nurseappointmentnursedetailController
+                                    //       .chooseDate();
+                                    // },
+                                    onChanged: (value) =>
+                                        _nurseappointmentnursedetailController
+                                            .filterAppointNurse(value),
+
+                                    autofocus: false,
+                                    style: TextStyle(
+                                        fontSize: 15.0, color: MyTheme.blueww),
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.search),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: 'Search Name...',
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 10.0, bottom: 12.0, top: 6.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius:
+                                            BorderRadius.circular(25.7),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius:
+                                            BorderRadius.circular(25.7),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: size.height * 0.075,
+                                width: size.width * 0.2,
+                                decoration: BoxDecoration(
+                                  //color: Colors.white30,
+                                  //gradient: MyTheme.gradient10,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Lottie.asset(
+                                  'lib/assets/image/70361-searching.zip',
+                                  width: 400,
+                                  height: 400,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ],
                           ),
-                        )),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Obx(
-                    () => (_nurseappointmentdetailController.isLoading.value)
-                        ? Center(child: CircularProgressIndicator())
-                        : SizedBox(
-                            height: size.height * 0.71,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: _nurseappointmentdetailController
-                                    .nurseappointmentdetail?.result?.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final item = _nurseappointmentdetailController
-                                      .nurseappointmentdetail?.result;
-                                  return Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: size.width * 0.03,
-                                            vertical: size.height * 0.0005),
-                                        child: Container(
-                                          height: size.height * 0.25,
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 30 / 5),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            gradient: const LinearGradient(
-                                                begin: Alignment.centerLeft,
-                                                end: Alignment.centerRight,
-                                                colors: [
-                                                  lightPrimary2,
-                                                  darkPrimary2,
-                                                ]),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: Offset(-0, -0),
-                                                spreadRadius: 0,
-                                                blurRadius: 0,
-                                                color: Colors.red.shade300,
-                                              ),
-                                              BoxShadow(
-                                                offset: Offset(4, 4),
-                                                spreadRadius: 0,
-                                                blurRadius: 0,
-                                                color: Colors.red.shade300,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Stack(
-                                            //clipBehavior: Clip.none,
-                                            children: [
-                                              Positioned(
-                                                top: -60,
-                                                left: -125,
-                                                child: Material(
-                                                  shadowColor:
-                                                      Colors.transparent,
-                                                  color: Colors.transparent,
-                                                  // color: Colors.tra
+                          SizedBox(
+                            height: size.height * 0.0,
+                          ),
+                          _nurseappointmentnursedetailController
+                                  .foundAppointmentnurse.value.isEmpty
+                              ? Center(child: Text('No List'))
+                              : SizedBox(
+                                  height: size.height * 0.725,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          _nurseappointmentnursedetailController
+                                              .nurseappointmentdetail
+                                              ?.result
+                                              ?.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final item =
+                                            _nurseappointmentnursedetailController
+                                                .nurseappointmentdetail?.result;
+                                        return Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: size.width * 0.03,
+                                                  vertical:
+                                                      size.height * 0.0005),
+                                              child: Container(
+                                                height: size.height * 0.25,
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 30 / 5),
+                                                decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          900),
-                                                  //shape: BoxShape.circle,
-                                                  elevation: 10,
-
-                                                  //borderRadius
-
-                                                  //shape: BoxShape.circle,
-                                                  child: Container(
-                                                    height: size.height * 0.39,
-                                                    width: size.width * 0.77,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      //borderRadius: BorderRadius.circular(100),
-                                                      //color: Colors.blueGrey,
-                                                      gradient:
-                                                          MyTheme.gradient81,
+                                                      BorderRadius.circular(20),
+                                                  gradient:
+                                                      const LinearGradient(
+                                                          begin: Alignment
+                                                              .centerLeft,
+                                                          end: Alignment
+                                                              .centerRight,
+                                                          colors: [
+                                                        lightPrimary2,
+                                                        darkPrimary2,
+                                                      ]),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      offset: Offset(-0, -0),
+                                                      spreadRadius: 0,
+                                                      blurRadius: 0,
+                                                      color:
+                                                          Colors.red.shade300,
                                                     ),
-                                                  ),
+                                                    BoxShadow(
+                                                      offset: Offset(4, 4),
+                                                      spreadRadius: 0,
+                                                      blurRadius: 0,
+                                                      color:
+                                                          Colors.red.shade300,
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
+                                                child: Stack(
+                                                  //clipBehavior: Clip.none,
                                                   children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          'Patient Name:',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Patient Mobile :',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Paid Amount:',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Patient Address:',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Duration:',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Working Shift :',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          //"${_nurseappointmentdetailController.nurseappointmentdetail!.result![index].contactNumber}.toString()"
-                                                          '${item?[index]?.patientName}'
-                                                              .toString(),
+                                                    Positioned(
+                                                      top: -60,
+                                                      left: -125,
+                                                      child: Material(
+                                                        shadowColor:
+                                                            Colors.transparent,
+                                                        color:
+                                                            Colors.transparent,
+                                                        // color: Colors.tra
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(900),
+                                                        //shape: BoxShape.circle,
+                                                        elevation: 10,
 
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
+                                                        //borderRadius
+
+                                                        //shape: BoxShape.circle,
+                                                        child: Container(
+                                                          height: size.height *
+                                                              0.39,
+                                                          width:
+                                                              size.width * 0.77,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            //borderRadius: BorderRadius.circular(100),
+                                                            //color: Colors.blueGrey,
+                                                            gradient: MyTheme
+                                                                .gradient81,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Patient Name:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].contactNumber}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Patient Mobile :',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '₹ ${'${item?[index].totalFee}'}'
-                                                              .toString(),
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Paid Amount:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index]}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Patient Address:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].rDate}',
-                                                          // '20 dec 2023-28 jan 2023',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Duration:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '24 hours',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Working Shift :',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                      ],
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                //"${_nurseappointmentdetailController.nurseappointmentdetail!.result![index].contactNumber}.toString()"
+                                                                '${item?[index]?.patientName}'
+                                                                    .toString(),
+
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade800,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.035),
+                                                              ),
+                                                              Text(
+                                                                '${item?[index].contactNumber}',
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade800,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.035),
+                                                              ),
+                                                              Text(
+                                                                '₹ ${'${item?[index].totalFee}'}'
+                                                                    .toString(),
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade800,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.035),
+                                                              ),
+                                                              Text(
+                                                                '${item?[index]}',
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade800,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.035),
+                                                              ),
+                                                              Text(
+                                                                '${item?[index].paymentDate}',
+                                                                // '20 dec 2023-28 jan 2023',
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade800,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.035),
+                                                              ),
+                                                              Text(
+                                                                '24 hours',
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade800,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.035),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                })),
+                                            ),
+                                          ],
+                                        );
+                                      })),
+                          //),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
         ),
       ),
     );

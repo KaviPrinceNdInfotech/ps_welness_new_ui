@@ -19,7 +19,7 @@ class LabReportView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan,
-        title: Text("Lab Report View"),
+        title: Text("Report View"),
       ),
       body: Obx(
         () => (_labreportviewController.isLoading.value)

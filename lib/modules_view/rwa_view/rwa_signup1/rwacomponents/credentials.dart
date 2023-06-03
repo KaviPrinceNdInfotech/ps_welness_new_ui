@@ -16,7 +16,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 class Rwa1Credentials extends StatelessWidget {
   Rwa1Credentials({Key? key}) : super(key: key);
 
-  Rwa_1_controller _rwa_1_controller = Get.put(Rwa_1_controller());
+  Rwa_11_controller _rwa_11_controller = Get.put(Rwa_11_controller());
 
   // LoginpasswordController _loginpasswordController =
   //     Get.put(LoginpasswordController());
@@ -25,7 +25,7 @@ class Rwa1Credentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _rwa_1_controller.rwa1formkey,
+      //key: _rwa_1_controller.rwa1formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -36,12 +36,12 @@ class Rwa1Credentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _rwa_1_controller.nameController,
+                controller: _rwa_11_controller.nameController,
                 onSaved: (value) {
-                  _rwa_1_controller.name = value!;
+                  _rwa_11_controller.name = value!;
                 },
                 validator: (value) {
-                  return _rwa_1_controller.validName(value!);
+                  return _rwa_11_controller.validName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -68,12 +68,12 @@ class Rwa1Credentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.email],
-                controller: _rwa_1_controller.emailController,
+                controller: _rwa_11_controller.emailController,
                 onSaved: (value) {
-                  _rwa_1_controller.email = value!;
+                  _rwa_11_controller.email = value!;
                 },
                 validator: (value) {
-                  return _rwa_1_controller.validEmail(value!);
+                  return _rwa_11_controller.validEmail(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -99,12 +99,12 @@ class Rwa1Credentials extends StatelessWidget {
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _rwa_1_controller.passwordController,
+                controller: _rwa_11_controller.passwordController,
                 onSaved: (value) {
-                  _rwa_1_controller.password = value!;
+                  _rwa_11_controller.password = value!;
                 },
                 validator: (value) {
-                  return _rwa_1_controller.validPassword(value!);
+                  return _rwa_11_controller.validPassword(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -130,12 +130,12 @@ class Rwa1Credentials extends StatelessWidget {
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _rwa_1_controller.confirmpasswordController,
+                controller: _rwa_11_controller.confirmpasswordController,
                 onSaved: (value) {
-                  _rwa_1_controller.confirmpassword = value!;
+                  _rwa_11_controller.confirmpassword = value!;
                 },
                 validator: (value) {
-                  return _rwa_1_controller.validConfirmPassword(value!);
+                  return _rwa_11_controller.validConfirmPassword(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -165,12 +165,12 @@ class Rwa1Credentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.telephoneNumber],
-                controller: _rwa_1_controller.mobileController,
+                controller: _rwa_11_controller.phoneController,
                 onSaved: (value) {
-                  _rwa_1_controller.mobile = value!;
+                  _rwa_11_controller.mobile = value!;
                 },
                 validator: (value) {
-                  return _rwa_1_controller.validPhone(value!);
+                  return _rwa_11_controller.validPhone(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
