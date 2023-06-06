@@ -4,6 +4,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
@@ -33,6 +34,8 @@ class SplashScreenViewModel extends GetxController
   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
   ChemistProfileDetailController _chemistProfileDetailController =
       Get.put(ChemistProfileDetailController());
+  NurseProfileControllers _nurseprofileContrller =
+      Get.put(NurseProfileControllers());
 
   @override
   void onInit() {
@@ -72,6 +75,8 @@ class SplashScreenViewModel extends GetxController
                 Get.to(DriverHomePage());
                 break;
               case 'nurse':
+                _nurseprofileContrller.nurseprofileApi();
+                _nurseprofileContrller.update();
                 Get.to(NurseHomePage());
                 break;
               case 'RWA':

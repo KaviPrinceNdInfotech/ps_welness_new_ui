@@ -432,6 +432,15 @@ class CheckOutMedicine extends StatelessWidget {
                                       children: [
                                         new InkWell(
                                           onTap: () {
+                                            /// todo start payment......feess,,,,,...
+
+                                            // SharedPreferences prefs =
+                                            //     await SharedPreferences
+                                            //     .getInstance();
+                                            //prefs.setString("MedicineFee",
+                                            //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+
+                                            ///todo: end the fees.........
                                             _rozarPayController.openCheckout();
                                             // _addressListController.update();
                                           },

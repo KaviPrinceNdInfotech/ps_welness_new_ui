@@ -36,14 +36,14 @@ class LabViewReport {
   int? id;
   String? patientName;
   String? testName;
-  //DateTime? testDate;
+  DateTime? testDate;
   String? file;
 
   LabViewReport({
     this.id,
     this.patientName,
     this.testName,
-    //this.testDate,
+    this.testDate,
     this.file,
   });
 
@@ -51,8 +51,8 @@ class LabViewReport {
         id: json["Id"],
         patientName: json["PatientName"],
         testName: json["TestName"],
-        //testDate:
-        // json["TestDate"] == null ? null : DateTime.parse(json["TestDate"]),
+        testDate:
+            json["TestDate"] == null ? null : DateTime.parse(json["TestDate"]),
         file: json["File"],
       );
 

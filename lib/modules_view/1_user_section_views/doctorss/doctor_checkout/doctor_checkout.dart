@@ -148,8 +148,10 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       Image.asset(
                                         //catimage[index], height: size.height * 0.08,
                                         //productimage[index],
-                                        "lib/assets/background_stack_png/lab1.png",
-                                        height: size.height * 0.143,
+                                        "lib/assets/background_stack_png/doctor20.png",
+                                        //"lib/assets/background_stack_png/lab1.png",
+                                        height: size.height * 0.148,
+                                        //width: size.width * 0.8,
                                       ),
                                       //Spacer(),
                                       Text(
@@ -209,7 +211,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       ),
                                       Text(
                                         'Since: '
-                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.experience}",
+                                        "${_doctorappointmentcheckout.doctorCheckoutModel?.experience} Yr",
                                         //doctorcatagary[index],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -274,7 +276,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    width: size.width * 0.55,
+                                    width: size.width * 0.5,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -288,7 +290,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.blueww,
-                                            fontSize: size.height * 0.022,
+                                            fontSize: size.height * 0.017,
                                           ),
                                         ),
                                         Spacer(),
@@ -300,7 +302,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.containercolor14,
-                                            fontSize: size.height * 0.021,
+                                            fontSize: size.height * 0.017,
                                           ),
                                         ),
                                         SizedBox(
@@ -313,25 +315,28 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    width: size.width * 0.30,
+                                    width: size.width * 0.36,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
-                                          //'Jan 26, 2023',
-                                          "${_doctorappointmentcheckout.doctorCheckoutModel?.appointmentDate}",
+                                        SizedBox(
+                                          width: size.width * 0.2,
+                                          child: Text(
+                                            //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
+                                            //'Jan 26, 2023',
+                                            "${_doctorappointmentcheckout.doctorCheckoutModel?.appointmentDate}",
 
-                                          //doctorcatagary[index],
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w600,
-                                            color: MyTheme.blueww,
-                                            fontSize: size.height * 0.015,
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            //overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: MyTheme.blueww,
+                                              fontSize: size.height * 0.015,
+                                            ),
                                           ),
                                         ),
 
@@ -342,7 +347,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
 
                                           //doctorcatagary[index],
                                           maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                          //overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.containercolor14,
@@ -427,7 +432,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          'Session Fees for full checkup.',
+                                          'Session Fees for doctor',
                                           //doctorcatagary[index],
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -554,6 +559,15 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       children: [
                                         InkWell(
                                           onTap: () {
+                                            /// todo start payment......feess,,,,,...
+
+                                            // SharedPreferences prefs =
+                                            //     await SharedPreferences
+                                            //     .getInstance();
+                                            //prefs.setString("DoctorFee",
+                                            //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+
+                                            ///todo: end the fees.........
                                             _rozarPaydoctorController
                                                 .openCheckout();
                                             // _addressListController.update();

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/lab_booking_view/lab_booking_schedule.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -100,7 +101,8 @@ class LabAppointmentCheckout extends StatelessWidget {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        Get.back();
+                                        Get.off(LabSchedule1Page());
+                                        //Get.back();
                                       },
                                       child: Icon(
                                         Icons.arrow_back_ios_outlined,
@@ -299,7 +301,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    width: size.width * 0.55,
+                                    width: size.width * 0.5,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -313,7 +315,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.blueww,
-                                            fontSize: size.height * 0.022,
+                                            fontSize: size.height * 0.017,
                                           ),
                                         ),
                                         Spacer(),
@@ -325,7 +327,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.containercolor14,
-                                            fontSize: size.height * 0.021,
+                                            fontSize: size.height * 0.016,
                                           ),
                                         ),
                                         SizedBox(
@@ -345,18 +347,21 @@ class LabAppointmentCheckout extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
-                                          //'Jan 26, 2023',
-                                          "${_labListController.labCheckoutModel?.testDate}",
+                                        SizedBox(
+                                          width: size.width * 0.235,
+                                          child: Text(
+                                            //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
+                                            //'Jan 26, 2023',
+                                            "${_labListController.labCheckoutModel?.testDate}",
 
-                                          //doctorcatagary[index],
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w600,
-                                            color: MyTheme.blueww,
-                                            fontSize: size.height * 0.015,
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: MyTheme.blueww,
+                                              fontSize: size.height * 0.015,
+                                            ),
                                           ),
                                         ),
 
@@ -371,7 +376,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.containercolor14,
-                                            fontSize: size.height * 0.01,
+                                            fontSize: size.height * 0.012,
                                           ),
                                         ),
                                         // SizedBox(
@@ -582,6 +587,15 @@ class LabAppointmentCheckout extends StatelessWidget {
                                       children: [
                                         InkWell(
                                           onTap: () {
+                                            /// todo start payment......feess,,,,,...
+
+                                            // SharedPreferences prefs =
+                                            //     await SharedPreferences
+                                            //     .getInstance();
+                                            //prefs.setString("LabFee",
+                                            //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+
+                                            ///todo: end the fees.........
                                             _rozarPayLabController
                                                 .openCheckout();
                                             // _addressListController.update();

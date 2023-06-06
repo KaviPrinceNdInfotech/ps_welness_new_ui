@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_user_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
-import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/about_us/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -487,14 +487,14 @@ class UserMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AboutUsView'
+              tileColor: Get.currentRoute == '/UserAboutUsView'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => AboutUsView());
-                Get.offNamed('/AboutUsView');
+                Get.to(() => UserAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
             ListTile(

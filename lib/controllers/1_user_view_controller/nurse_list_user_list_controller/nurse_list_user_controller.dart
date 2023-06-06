@@ -53,28 +53,6 @@ class NurseUserListController extends GetxController {
   // }
 
   ///todo: nurse schedule api by the help of list Id of nurse....
-  // void nurseBooking2Api() async {
-  //   CallLoader.loader();
-  //   http.Response r = await ApiProvider.Nursesebooking2Api(
-  //     nurseidController.text,
-  //     appointmentController.text,
-  //     selectedTimeslot.value?.slotid.toString(),
-  //     //selectedState.value?.id.toString(),
-  //     // selectedCity.value?.id.toString(),
-  //   );
-  //   if (r.statusCode == 200) {
-  //     var data = jsonDecode(r.body);
-  //
-  //     CallLoader.hideLoader();
-  //     //Get.to(NurseListUser());
-  //     // Get.to(NurseDetailsSchedulePage());
-  //     Get.to(() => AppointmentCheckout());
-  //
-  //     /// we can navigate to user page.....................................
-  //     //Get.to(NurseAppointmentHistory());
-  //
-  //   }
-  // }
 
   late TextEditingController appointmentController, nurseidController;
   //selectedNurse.value?.id.toString(),

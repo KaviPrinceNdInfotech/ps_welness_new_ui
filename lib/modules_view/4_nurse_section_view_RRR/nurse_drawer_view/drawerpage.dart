@@ -6,12 +6,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/about_us/about_us.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/nurse_profile_details/profile_nurse_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'drower_pages/about_us/about_us.dart';
+//import 'drower_pages/about_us/about_us.dart';
+import '../../../controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/patient_lists/patient_list.dart';
 import 'drower_pages/profile_page_view/nurse_profile.dart';
@@ -23,6 +26,10 @@ class NurseMainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    NurseAboutusController _nurseAboutusController =
+        Get.put(NurseAboutusController());
+    NurseProfileControllers _nurseprofileContrller =
+        Get.put(NurseProfileControllers());
 
     return SafeArea(
       child: Drawer(
@@ -55,14 +62,19 @@ class NurseMainDrawer extends StatelessWidget {
                       height: size.height * 0.0,
                     ),
                     Text(
-                      'Mrs.Ak Singh',
+                      "${_nurseprofileContrller.getNurseProfile?.nurseName.toString()}"
+                      //'Mrs.Ak Singh'
+                      ,
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.02,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      'Ak@gmail.com',
+                      "${_nurseprofileContrller.getNurseProfile?.emailId.toString()}"
+
+                      //'Ak@gmail.com',
+                      ,
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.015,
                           fontWeight: FontWeight.w700,
@@ -231,6 +243,8 @@ class NurseMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                // _nurseAboutusController.NurseaboutusApi();
+                // _nurseAboutusController.update();
                 Get.to(() => NurseDetailProfile());
                 Get.offNamed('/NurseDetailProfile');
               },
@@ -257,14 +271,16 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AboutUsView'
+              tileColor: Get.currentRoute == '/NurseAboutUsView'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => AboutUsView());
-                Get.offNamed('/AboutUsView');
+                _nurseAboutusController.NurseaboutusApi();
+                _nurseAboutusController.update();
+                Get.to(() => NurseAboutUsView());
+                Get.offNamed('/NurseAboutUsView');
               },
             ),
 

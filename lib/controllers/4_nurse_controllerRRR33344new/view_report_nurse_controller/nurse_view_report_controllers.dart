@@ -1,32 +1,32 @@
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_view_imagereport.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_view_report.dart';
 
-import '../../../model/10_lab_module/lab_report_view_model/lab_report_image.dart';
-import '../../../model/10_lab_module/lab_report_view_model/lab_report_view_model.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 
 class NursereportviewController extends GetxController {
   RxBool isLoading = true.obs;
-  ViewreportModel? labviewreport;
-  LabReportimage? labreportimage;
+  NurseViewReportModel? nurseviewreport;
+  NurseImageviewModel? nursereportimage;
 
   //LabpaymentModel? labpaymentModel;
 
   void nursereportviewApi() async {
     isLoading(true);
-    labviewreport = await ApiProvider.Nursereportview1Api();
-    if (labviewreport?.labViewReport != null
+    nurseviewreport = await ApiProvider.Nursereportview1Api();
+    if (nurseviewreport?.nurseViewReport != null
         //appointmentdetail != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
-      foundlabviewProducts.value = labviewreport!.labViewReport!;
+      foundNurseviewProducts.value = nurseviewreport!.nurseViewReport!;
     }
   }
 
   void nursereportimageApi() async {
     isLoading(true);
-    labreportimage = await ApiProvider.nursereportimageApi();
-    if (labreportimage?.labViewReportFile != null
+    nursereportimage = await ApiProvider.nursereportimageApi();
+    if (nursereportimage?.nurseViewReportFile != null
         //appointmentdetail != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
@@ -55,14 +55,14 @@ class NursereportviewController extends GetxController {
     //TextEditingController.dispose();
   }
 
-  RxList<LabViewReport> foundlabviewProducts = RxList<LabViewReport>([]);
+  RxList<NurseViewReport> foundNurseviewProducts = RxList<NurseViewReport>([]);
 
-  void filterLabPatient(String searchlabview) {
-    List<LabViewReport> finalResults = [];
-    if (searchlabview.isEmpty) {
-      finalResults = labviewreport!.labViewReport!;
+  void filterNursePatient(String searchnurseview) {
+    List<NurseViewReport> finalResults = [];
+    if (searchnurseview.isEmpty) {
+      finalResults = nurseviewreport!.nurseViewReport!;
     } else {
-      finalResults = labviewreport!.labViewReport!
+      finalResults = nurseviewreport!.nurseViewReport!
           .where((element) =>
               // print(element.productName);
               // print(productName);
@@ -73,10 +73,10 @@ class NursereportviewController extends GetxController {
               element.patientName
                   .toString()
                   .toLowerCase()
-                  .contains(searchlabview.toString().toLowerCase().trim()))
+                  .contains(searchnurseview.toString().toLowerCase().trim()))
           .toList();
     }
     print(finalResults.length);
-    foundlabviewProducts.value = finalResults;
+    foundNurseviewProducts.value = finalResults;
   }
 }

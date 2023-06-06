@@ -658,6 +658,9 @@ class LabSchedule1Page extends StatelessWidget {
                                       onTap: () {
                                         CallLoader.loader();
                                         _labListController.checkLab2();
+                                        _labListController.labcheckoutApi();
+                                        _labListController.update();
+
                                         //_rozarPayController.openCheckout();
                                         //print('okokokopayment');
 

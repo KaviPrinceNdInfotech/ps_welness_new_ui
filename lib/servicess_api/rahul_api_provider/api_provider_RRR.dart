@@ -1824,49 +1824,56 @@ class ApiProvider {
 
   ///nurse_serctio_prince....
   ///
-  ///todo: nurse booking 2 api........27 april 2023...
+  ///todo: nurse booking 2 api........27 april 2023...it will comment on 6 june...kumar prince
 //
-  static Nursesebooking2Api(
-    var NurseId,
-    var ServiceDate,
-    var Slotid,
-  ) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var NurseuserListId = preferences.getString("NurseuserListId");
-    print("nurseuserlistId: ${NurseuserListId}");
-    var url = baseUrl + 'api/NurseServices/NurseBookings';
-
-    var body = {
-      "Nurse_Id": "${NurseuserListId}",
-      "ServiceDate": ServiceDate,
-      "Slotid": Slotid,
-    };
-    print(body);
-    http.Response r = await http.post(
-      Uri.parse(url), body: body,
-      //headers: headers
-    );
-    print(r.body);
-    if (r.statusCode == 200) {
-      print("nurseeeaa:${body}");
-      // var prefs = GetStorage();
-      //saved id..........
-      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
-      // Id = prefs.read("Id").toString();
-      // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
-      ///
-      // //saved token.........
-      // prefs.write("token".toString(), json.decode(r.body)['token']);
-      // token = prefs.read("token").toString();
-      // print(token);
-      return r;
-    } else if (r.statusCode == 401) {
-      Get.snackbar('message', r.body);
-    } else {
-      Get.snackbar('Error', r.body);
-      return r;
-    }
-  }
+//   static Nursesebooking2Api(
+//     var NurseId,
+//     var ServiceDate,
+//     var Slotid,
+//   ) async {
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     var NurseuserListId = preferences.getString("NurseuserListId");
+//     print("nurseuserlistId: ${NurseuserListId}");
+//
+//     var prefs = GetStorage();
+//     //prefs.write(
+//         //"nursebooking_Id".toString(), json.decode(r.body)['NurseBookingId']);
+//     nursebooking_Id = prefs.read("nursebooking_Id").toString();
+//     print('&&&&&&&&&&&&&&&&&nurse:${nursebooking_Id}’);
+//     var url = baseUrl + 'api/NurseServices/NurseBookings';
+//
+//     var body = {
+//       "Nurse_Id": "${NurseuserListId}",
+//       "ServiceDate": ServiceDate,
+//       "Slotid": Slotid,
+//     };
+//     print(body);
+//     http.Response r = await http.post(
+//       Uri.parse(url), body: body,
+//       //headers: headers
+//     );
+//     print(r.body);
+//     if (r.statusCode == 200) {
+//       print("nurseeeaa:${body}");
+//       // var prefs = GetStorage();
+//       //saved id..........
+//       //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+//       // Id = prefs.read("Id").toString();
+//       // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
+//       ///
+//       // //saved token.........
+//       // prefs.write("token".toString(), json.decode(r.body)['token']);
+//       // token = prefs.read("token").toString();
+//       // print(token);
+//       return r;
+//     } else if (r.statusCode == 401) {
+//       Get.snackbar('message', r.body);
+//     } else {
+//       Get.snackbar('Error', r.body);
+//       return r;
+//     }
+//   }
+  ///
 
   ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
   static NursListApi() async {

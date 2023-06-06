@@ -9,12 +9,14 @@ import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
+//import 'package:ps_welness_new_ui/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/nursess/appointment_checkout/appointment_checkout.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../model/4_nurse_all_models_RRR/nurse_appointment_details_list.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
-import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
+//import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import '../../../servicess_api/api_services_all_api.dart';
 import '../../../utils/services/account_service.dart';
 
 class NurseAppointmentDetailController extends GetxController {
@@ -103,17 +105,17 @@ class NurseAppointmentDetailController extends GetxController {
 
   //all catagary list .........
 
-  void nurseappointmentApi() async {
-    isLoading(true);
-    nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
-    if (
-        //nurseappointmentdetail?.result != null
-        nurseappointmentdetail != null
-        //getcatagartlist!.result!.isNotEmpty
-        ) {
-      isLoading(false);
-    }
-  }
+  // void nurseappointmentApi() async {
+  //   isLoading(true);
+  //   nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
+  //   if (
+  //       //nurseappointmentdetail?.result != null
+  //       nurseappointmentdetail != null
+  //       //getcatagartlist!.result!.isNotEmpty
+  //       ) {
+  //     isLoading(false);
+  //   }
+  // }
 
   ///todo: nurse schedule api by the help of list Id of nurse....
   void nurseBooking2Api() async {
@@ -194,7 +196,7 @@ class NurseAppointmentDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    nurseappointmentApi();
+    //nurseappointmentApi();
     nurselistsApi();
     nursedetailApi();
     timeslotApi();

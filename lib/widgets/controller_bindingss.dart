@@ -4,8 +4,10 @@ import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
@@ -163,7 +165,8 @@ class ControllerBinding extends Bindings {
     Get.put(NurseComplaintController());
     Get.put(NurseUploadReportController());
     Get.put(NursereportviewController());
-    //Get.put(RwaBannerController());
+    Get.put(NurseAboutusController());
+    Get.put(UserAboutusController());
     // Rahul
     //Get.put(GoogleMapController());
 

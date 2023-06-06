@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import '../../../model/1_user_model/time_slots_common_model/time_slots_common.da
 import '../../../modules_view/1_user_section_views/lab/lab_appointment_checkout/lab_appointment_checkout.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
+import '../../../utils/services/account_service.dart';
 
 //import 'package:ps_welness/model/1_user_model/lab_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -99,9 +101,22 @@ class LabListController extends GetxController {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
+
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // labcheckoutApi();
+            Get.offAll(() => LabAppointmentCheckout());
+
+            //Get.to((page))
+            ///
+          },
+        );
+      });
       //Get.to(NurseListUser());
       // Get.to(NurseDetailsSchedulePage());
-      Get.to(() => LabAppointmentCheckout());
+      //Get.to(() => LabAppointmentCheckout());
 
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());

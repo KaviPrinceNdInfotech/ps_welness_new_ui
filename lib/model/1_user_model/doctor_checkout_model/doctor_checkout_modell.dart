@@ -54,7 +54,58 @@
 // To parse this JSON data, do
 //
 //     final doctorCheckoutModel = doctorCheckoutModelFromJson(jsonString);
+///
 
+// import 'dart:convert';
+//
+// DoctorCheckoutModel doctorCheckoutModelFromJson(String str) =>
+//     DoctorCheckoutModel.fromJson(json.decode(str));
+//
+// String doctorCheckoutModelToJson(DoctorCheckoutModel data) =>
+//     json.encode(data.toJson());
+//
+// class DoctorCheckoutModel {
+//   int? id;
+//   String? doctorName;
+//   String? specialistName;
+//   num? experience;
+//   num? fee;
+//   dynamic appointmentDate;
+//   String? slotTime;
+//
+//   DoctorCheckoutModel({
+//     this.id,
+//     this.doctorName,
+//     this.specialistName,
+//     this.experience,
+//     this.fee,
+//     this.appointmentDate,
+//     this.slotTime,
+//   });
+//
+//   factory DoctorCheckoutModel.fromJson(Map<String, dynamic> json) =>
+//       DoctorCheckoutModel(
+//         id: json["Id"],
+//         doctorName: json["DoctorName"],
+//         specialistName: json["SpecialistName"],
+//         experience: json["Experience"],
+//         fee: json["Fee"],
+//         appointmentDate: json["AppointmentDate"],
+//         slotTime: json["SlotTime"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Id": id,
+//         "DoctorName": doctorName,
+//         "SpecialistName": specialistName,
+//         "Experience": experience,
+//         "Fee": fee,
+//         "AppointmentDate": appointmentDate,
+//         "SlotTime": slotTime,
+//       };
+// }
+///
+///
 import 'dart:convert';
 
 DoctorCheckoutModel doctorCheckoutModelFromJson(String str) =>
@@ -67,9 +118,10 @@ class DoctorCheckoutModel {
   int? id;
   String? doctorName;
   String? specialistName;
-  num? experience;
+  int? experience;
   num? fee;
-  dynamic appointmentDate;
+  num? totalFee;
+  DateTime? appointmentDate;
   String? slotTime;
 
   DoctorCheckoutModel({
@@ -78,6 +130,7 @@ class DoctorCheckoutModel {
     this.specialistName,
     this.experience,
     this.fee,
+    this.totalFee,
     this.appointmentDate,
     this.slotTime,
   });
@@ -89,7 +142,10 @@ class DoctorCheckoutModel {
         specialistName: json["SpecialistName"],
         experience: json["Experience"],
         fee: json["Fee"],
-        appointmentDate: json["AppointmentDate"],
+        totalFee: json["TotalFee"],
+        appointmentDate: json["AppointmentDate"] == null
+            ? null
+            : DateTime.parse(json["AppointmentDate"]),
         slotTime: json["SlotTime"],
       );
 
@@ -99,7 +155,8 @@ class DoctorCheckoutModel {
         "SpecialistName": specialistName,
         "Experience": experience,
         "Fee": fee,
-        "AppointmentDate": appointmentDate,
+        "TotalFee": totalFee,
+        "AppointmentDate": appointmentDate?.toIso8601String(),
         "SlotTime": slotTime,
       };
 }

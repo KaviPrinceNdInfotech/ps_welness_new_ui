@@ -8,6 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/aboutus_rwa.dart';
@@ -44,6 +45,7 @@ import 'controllers/1_user_view_controller/nurse_appointment_controller/nurse_bo
 import 'controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
 import 'controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
 import 'controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_lab_controller.dart';
+import 'controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import 'controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
@@ -131,6 +133,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => NurseComplaintController());
     Get.lazyPut(() => NurseUploadReportController());
     Get.lazyPut(() => NursereportviewController());
+    Get.lazyPut(() => NurseAboutusController());
+    Get.lazyPut(() => UserAboutusController());
 
     //Get.lazyPut(() => ChemistComplaintController());
 

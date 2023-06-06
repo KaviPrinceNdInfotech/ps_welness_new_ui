@@ -211,7 +211,7 @@ class NurseHomePage extends StatelessWidget {
                                       // _nursdeUploadReportController
                                       //.getnursepatientApi();
                                       _nursdeUploadReportController
-                                          .postUploadreportApi();
+                                          .postnurseUploadreportApi();
                                       _nursdeUploadReportController.update();
                                       Get.to(() => NurseUploadReport());
                                     } else if (index == 2) {

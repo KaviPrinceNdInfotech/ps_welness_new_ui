@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 
 import '../../../model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
 import '../../../model/1_user_model/test_name_model/test_name_modells.dart';
-import '../../../modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
 
@@ -50,23 +50,22 @@ class NurseUploadReportController extends GetxController {
     print(patient);
   }
 
-  ///lab test api class.................
-  void getTestNameApi() async {
-    tests = await ApiProvider.getTestNameApi();
-    print('Prince lab test  list');
-    print(tests);
-  }
+  // ///lab test api class.................
+  // void getTestNameApi() async {
+  //   tests = await ApiProvider.getTestNameApi();
+  //   print('Prince lab test  list');
+  //   print(tests);
+  // }
 
   ///todo:  upload report lab post Api...........15 may 2023.....
 
-  void postUploadreportApi() async {
+  void postnurseUploadreportApi() async {
     CallLoader.loader();
     final imageAsBase64 =
         base64Encode(await File(selectedPath.value).readAsBytes());
-    http.Response r = await ApiProvider.labuploadreportApi(
+    http.Response r = await ApiProvider.nurseuploadreportApi(
         //selectedpatient.value?.subid.toString(),
         selectedpatient.value?.id.toString(),
-        selectedTest.value?.id.toString(),
         selectedPath.value.split('/').last,
         imageAsBase64);
 
@@ -74,7 +73,7 @@ class NurseUploadReportController extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(LabHomePage());
+      Get.to(NurseHomePage());
     } else {
       CallLoader.hideLoader();
     }
@@ -86,7 +85,7 @@ class NurseUploadReportController extends GetxController {
     //subject.refresh();
     super.onInit();
     getnursepatientApi();
-    getTestNameApi();
+    //getTestNameApi();
     //getcomplainTypeeApi();
     //selectedpatientController = TextEditingController();
     //testcontroller = TextEditingController();

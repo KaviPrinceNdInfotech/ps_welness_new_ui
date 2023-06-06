@@ -5,17 +5,22 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_model_byId.dart';
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/about_us_user_model/user_aboutus_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_appointment_history.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_details_api.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/medicine_order/medicine_order_history.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/wallet_model/wallet_section_model.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_aboutus_model.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_view_imagereport.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_view_report.dart';
 import 'package:ps_welness_new_ui/model/5_RWA_controller_RRR/rwa_aboutus_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
@@ -85,6 +90,10 @@ class ApiProvider {
   static String StatemasterId = ''.toString();
   static String CitymasterId = ''.toString();
   static String LabtestId = ''.toString();
+  static String nursebooking_Id = ''.toString();
+  static String labbooking_Id = ''.toString();
+  static String doctorbooking_Id = ''.toString();
+
   // static String ImageBase64 =
   //     "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vc3dpcGVyQDgvc3dpcGVyLWJ1bmRsZS5taW4uY3NzIiAvPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1OdW5pdG8rU2Fuczo0MDAsNDAwaSw3MDAsOTAwJmRpc3BsYXk9c3dhcCIgcmVsPSJzdHlsZXNoZWV0Ij4KICA8bWV0YSBodHRwLWVxdWl2PSJYLVVBLUNvbXBhdGlibGUiIGNvbnRlbnQ9IklFPWVkZ2UiPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL3N3aXBlckA4L3N3aXBlci1idW5kbGUubWluLmpzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCIKICAgIGludGVncml0eT0ic2hhMzg0LTFCbUU0a1dCcTc4aVloRmxkdkt1aGZUQVU2YXVVOHRUOTRXckhmdGpEYnJDRVhTVTFvQm9xeWwyUXZaNmpJVzMiIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL3R3aXR0ZXItYm9vdHN0cmFwLzQuMy4xL2Nzcy9ib290c3RyYXAubWluLmNzcyIgcmVsPSJzdHlsZXNoZWV0IiAvPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2NoZWNrb3V0LnJhem9ycGF5LmNvbS92MS9jaGVja291dC5qcyI+PC9zY3JpcHQ+CiAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJpbmRleC5jc3MiIHR5cGU9InRleHQvY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzLwpmb250LWF3ZXNvbWUvNS4xNS4yL2Nzcy9hbGwubWluLmNzcyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9TWF0ZXJpYWwrSWNvbnN8Um9ib3RvOjQwMCw1MDAsNzAwfFNvdXJjZStDb2RlK1BybyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvbWxhdXJzZW4vcmVhY3QtbWRANS4xLjQvdGhlbWVzL3JlYWN0LW1kLnRlYWwtcGluay0yMDAtbGlnaHQubWluLmNzcyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAuYnVuZGxlLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LWthN1NrMEdsbjRnbXR6Mk1sUW5pa1Qxd1hnWXNPZytPTWh1UCtJbFJIOXNFTkJPMExSbjVxKzhuYlRvdjQrMXAiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9AcG9wcGVyanMvY29yZUAyLjEwLjIvZGlzdC91bWQvcG9wcGVyLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LTcrekNOai9JcUo5NXdvMTZvTXRmc0tiWjljY0VoMzFlT3oxSEd5RHVDUTZ3Z255Sk5TWWRyUGEwM3J0UjF6ZEIiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAubWluLmpzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtUUpIdHZHaG1yOVhPSXBJNllWdXRHKzJRT0s5VCtabk40a3pGTjFSdEszekVGRUlzeGhsbVdsNS9ZRVN2cFoxMyIKICAgIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPjwvc2NyaXB0PgoKICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii8vY29kZS5qcXVlcnkuY29tL3VpLzEuMTMuMi90aGVtZXMvYmFzZS9qcXVlcnktdWkuY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9yZXNvdXJjZXMvZGVtb3Mvc3R5bGUuY3NzIj4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vanF1ZXJ5LTMuNi4wLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vdWkvMS4xMy4yL2pxdWVyeS11aS5qcyI+PC9zY3JpcHQ+CgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8zLjYuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KCgoKICA8c2NyaXB0IHNyYz0iLy9jZG4uanNkZWxpdnIubmV0L25wbS9zd2VldGFsZXJ0MkAxMSI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIiA+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvZm9udC1hd2Vzb21lLzUuMTMuMC9jc3MvYWxsLm1pbi5jc3MiIC8+CgoKCiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9hbHBpbmVqcy9hbHBpbmVAdjIueC54L2Rpc3QvYWxwaW5lLm1pbi5qcyIgZGVmZXI+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC40LjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtVmtvbzh4NENHc08zK0hoeHY4VC9RNVBhWHRrS3R1NnVnNVRPZU5WNmdCaUZlV1BHRk45TXVoT2YyM1E5SWZqaCIgY3Jvc3NPcmlnaW49ImFub255bW91cyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4udGFpbHdpbmRjc3MuY29tIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iLy9jZG4uY2tlZGl0b3IuY29tLzQuNi4xL2Jhc2ljL2NrZWRpdG9yLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvanMvYm9vdHN0cmFwLmJ1bmRsZS5taW4uanMiPjwvc2NyaXB0PgogIDxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9ImpzL3NjcmlwdC5qcyI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Ii4vaW1hZ2VzL2xvZ28ucG5nIiBzaXplcz0iOTZweCo5NnB4IiB0eXBlPSJpbWFnZS9wbmciIC8+CiAgPHRpdGxlPkd5cm9zIC0gTGV0J3MgVHVybiB0byBOYXR1cmUgZm9yIEhlYWx0aHkgRnV0dXJlPC90aXRsZT4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtR241Mzg0eHFRMWFvV1hBKzA1OFJYUHhQZzZmeTRJV3ZUTmgwRTI2M1htRmNKbFNBd2lHZ0ZBVy9kQWlTNkpYbSIgY3Jvc3NvcmlnaW49ImFub255bW91cyI+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvanMvYm9vdHN0cmFwLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LUpaUjZTcGVqaDRVMDJkOGpPdDZ2TEVIZmUvSlFHaVJSU1FReFNmRldwaTFNcXVWZEF5alVhcjUrNzZQVkNtWWwiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiIC8+CiAgPG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiMwMDAwMDAiIC8+CiAgPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IldlYiBzaXRlIGNyZWF0ZWQgdXNpbmcgY3JlYXRlLXJlYWN0LWFwcCIgLz4KICA8IS0tIDxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iL2xvZ28xOTIucG5nIiAvPiAtLT4KCiAgPGxpbmsgcmVsPSJtYW5pZmVzdCIgaHJlZj0iL21hbmlmZXN0Lmpzb24iIC8+CgoKICA8IS0tbW9iaWxlIHZpZXcgbGluay0tPgogIDwhLS0galF1ZXJ5IC0tPgoKPCEtLSBGb250IEF3ZXNvbWUgNC0tPgo8bGluayBocmVmPSJodHRwczovL3N0YWNrcGF0aC5ib290c3RyYXBjZG4uY29tL2ZvbnQtYXdlc29tZS80LjcuMC9jc3MvZm9udC1hd2Vzb21lLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCI+Cgo8c2NyaXB0IHNyYz0ianMvc2lkZWJhci1hY2NvcmRpb24uanMiPjwvc2NyaXB0PgoKICA8IS0tbW9iaWxlIC0tPgoKCgogIDwhLS1oZ2ZoZmhnamhnamdoai0tPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8yLjIuNC9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvbW9kZXJuaXpyLzIuOC4zL21vZGVybml6ci5qcyI+PC9zY3JpcHQ+CiAgPHN0eWxlPgogICAgLm5vLWpzICNsb2FkZXIgewogICAgICBkaXNwbGF5OiBub25lOwogICAgfQoKICAgIC5qcyAjbG9hZGVyIHsKICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICAgICAgbGVmdDogMTAwcHg7CiAgICAgIHRvcDogMDsKICAgIH0KCiAgICAuc2UtcHJlLWNvbiB7CiAgICAgIHBvc2l0aW9uOiBmaXhlZDsKICAgICAgbGVmdDogMHB4OwogICAgICB0b3A6IDBweDsKICAgICAgd2lkdGg6IDEwMCU7CiAgICAgIGhlaWdodDogMTAwJTsKICAgICAgei1pbmRleDogOTk5OTsKICAgICAgIGJhY2tncm91bmQ6IHVybCgpIGNlbnRlciBuby1yZXBlYXQgI2ZmZjsgCiAgICAgIGJhY2tncm91bmQtc2l6ZTogMTAwJSAxMDAlOwogICAgfQogIDwvc3R5bGU+CiAgPHNjcmlwdD4kKHdpbmRvdykubG9hZChmdW5jdGlvbiAoKSB7CiAgICAgIC8vIEFuaW1hdGUgbG9hZGVyIG9mZiBzY3JlZW4KICAgICAgJCgiLnNlLXByZS1jb24iKS5mYWRlT3V0KCJzbG93Iik7OwogICAgfSk7PC9zY3JpcHQ+CgoKCgo8L2hlYWQ+Cgo8Ym9keT4KICA8bm9zY3JpcHQ+WW91IG5lZWQgdG8gZW5hYmxlIEphdmFTY3JpcHQgdG8gcnVuIHRoaXMgYXBwLjwvbm9zY3JpcHQ+CgogIDxkaXYgaWQ9InJvb3QiPjwvZGl2PgogIDwhLS0gPGRpdiBjbGFzcz0ic3Bpbm5lci13cmFwcGVyIj4KICAgCiAgICA8ZGl2IGNsYXNzPSJzcGlubmVyIj48L2Rpdj4gLS0+CgogIDxkaXYgY2xhc3M9InNlLXByZS1jb24iPjwvZGl2PgogIDwvZGl2PgogIDxzY3JpcHQ+CiAgICB2YXIgdXJsID0gJ2h0dHBzOi8vd2F0aS1pbnRlZ3JhdGlvbi1zZXJ2aWNlLmNsYXJlLmFpL1Nob3BpZnlXaWRnZXQvc2hvcGlmeVdpZGdldC5qcz80NDAzJzsKICAgIHZhciBzID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CiAgICBzLnR5cGUgPSAndGV4dC9qYXZhc2NyaXB0JzsKICAgIHMuYXN5bmMgPSB0cnVlOwogICAgcy5zcmMgPSB1cmw7CiAgICB2YXIgb3B0aW9ucyA9IHsKICAgICAgImVuYWJsZWQiOiB0cnVlLAogICAgICAiY2hhdEJ1dHRvblNldHRpbmciOiB7CiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjNGRjMjQ3IiwKICAgICAgICAiY3RhVGV4dCI6ICIiLAogICAgICAgICJib3JkZXJSYWRpdXMiOiAiMjUiLAogICAgICAgICJtYXJnaW5MZWZ0IjogIjAiLAogICAgICAgICJtYXJnaW5Cb3R0b20iOiAiNTAiLAogICAgICAgICJtYXJnaW5SaWdodCI6ICI1MCIsCiAgICAgICAgInBvc2l0aW9uIjogInJpZ2h0IgogICAgICB9LAogICAgICAiYnJhbmRTZXR0aW5nIjogewogICAgICAgICJicmFuZE5hbWUiOiAiR3lyb3MiLAogICAgICAgICJicmFuZFN1YlRpdGxlIjogIlR5cGljYWxseSByZXBsaWVzIHdpdGhpbiBhIGRheSIsCiAgICAgICAgImJyYW5kSW1nIjogImh0dHBzOi8vZ3lyb3MuZmFybS9zdGF0aWMvbWVkaWEvbG9nby5mZGRiYjRmNC5wbmciLAogICAgICAgICJ3ZWxjb21lVGV4dCI6ICJIaSB0aGVyZSFcbkhvdyBjYW4gSSBoZWxwIHlvdT8iLAogICAgICAgICJtZXNzYWdlVGV4dCI6ICJIZWxsbywgSSBoYXZlIGEgcXVlc3Rpb24gYWJvdXQge3twYWdlX2xpbmt9fSIsCiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjMGE1ZjU0IiwKICAgICAgICAiY3RhVGV4dCI6ICJTdGFydCBDaGF0IiwKICAgICAgICAiYm9yZGVyUmFkaXVzIjogIjI1IiwKICAgICAgICAiYXV0b1Nob3ciOiBmYWxzZSwKICAgICAgICAicGhvbmVOdW1iZXIiOiAiOTE4OTUwODAwNjMzIgogICAgICB9CiAgICB9OwogICAgcy5vbmxvYWQgPSBmdW5jdGlvbiAoKSB7CiAgICAgIENyZWF0ZVdoYXRzYXBwQ2hhdFdpZGdldChvcHRpb25zKTsKICAgIH07CiAgICB2YXIgeCA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCdzY3JpcHQnKVswXTsKICAgIHgucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUocywgeCk7CiAgPC9zY3JpcHQ+CgogIDxzY3JpcHQ+CiAgICAkKGRvY3VtZW50KS5yZWFkeShmdW5jdGlvbiAoKSB7CiAgICAgIC8vUHJlbG9hZGVyCiAgICAgIHByZWxvYWRlckZhZGVPdXRUaW1lID0gMTAwMDAwOwogICAgICBmdW5jdGlvbiBoaWRlUHJlbG9hZGVyKCkgewogICAgICAgIHZhciBwcmVsb2FkZXIgPSAkKCcuc3Bpbm5lci13cmFwcGVyJyk7CiAgICAgICAgcHJlbG9hZGVyLmZhZGVPdXQocHJlbG9hZGVyRmFkZU91dFRpbWUpOwogICAgICB9CiAgICAgIGhpZGVQcmVsb2FkZXIoKTsKCgogICAgfSk7CiAgPC9zY3JpcHQ+CgoKCiAgPHNjcmlwdD4KICAgICQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uICgpIHsKICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICQoIiNwMyIpLmhpZGUoKTsKICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAkKCIjcDUiKS5oaWRlKCk7CgogICAgICAkKCIjdDEiKS5zaG93KCk7CiAgICAgICQoIi5idXQxIikuY2xpY2soZnVuY3Rpb24gKCkgewogICAgICAgICQoIiNwMSIpLnNob3coKTsKICAgICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICAgJCgiI3AzIikuaGlkZSgpOwogICAgICAgICQoIiNwNCIpLmhpZGUoKTsKICAgICAgICAkKCIjcDUiKS5oaWRlKCk7CiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDIiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLnNob3coKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDMiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5zaG93KCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwoKICAgICAgICAkKCIjdDEiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1IikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDQiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0Iikuc2hvdygpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDUiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CgogICAgICAgICQoIiN0MSIpLmhpZGUoKTsKICAgICAgICAkKCIjcDQiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1Iikuc2hvdygpOwogICAgICB9KTsKICAgIH0pOwogIDwvc2NyaXB0Pgo8c2NyaXB0IHNyYz0iL3N0YXRpYy9qcy9idW5kbGUuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzLzIuY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzL21haW4uY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvbWFpbi4wZDViNDIyYjZhMTg5YzM0OTAzZi5ob3QtdXBkYXRlLmpzIj48L3NjcmlwdD48L2JvZHk+Cgo8L2h0bWw+"
   //         .toString();
@@ -305,8 +314,15 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistId: ${NurseuserListId}");
+
+    var prefs = GetStorage();
+    // prefs.write("nursebooking_Id".toString(), json.decode(r.body)['NurseBookingId']);
+    nursebooking_Id = prefs.read("nursebooking_Id").toString();
+    // print('&&&&&&&&&&&&&&&&&nurse:${nursebooking_Id}’),
+
     var url =
-        "http://test.pswellness.in/api/NurseServices/NurseAptmt?Nurse_Id=$NurseuserListId";
+        "http://test.pswellness.in/api/NurseServices/NurseAptmt?Nurse_Id=$NurseuserListId&NurseBookingId=$nursebooking_Id";
+    // "http://test.pswellness.in/api/NurseServices/NurseAptmt?Nurse_Id=$NurseuserListId";//56 // 650
     // "$NurseuserListId";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
@@ -331,8 +347,15 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId2222: ${DoctorListId}");
+    var prefs = GetStorage();
+
+    ///todo:doctorbookingid.........6...june 2023....
+    // prefs.write("doctorbooking_Id".toString(), json.decode(r.body)['Id']);
+    doctorbooking_Id = prefs.read("doctorbooking_Id").toString();
+    print('&&&&&&&&&&&&&&doctor:${doctorbooking_Id}');
     var url =
-        "http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=$DoctorListId";
+        //http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=145&PA_Id=1232
+        "http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=$DoctorListId&PA_Id=$doctorbooking_Id";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -355,9 +378,22 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var LablistssId = preferences.getString("LablistssId");
     print("LablistssId: ${LablistssId}");
+
+    var prefs = GetStorage();
+
+    ///todo:labbookingid_use.........5  june 2023....
+    //prefs.write("labbooking_Id".toString(), json.decode(r.body)['BookingId']);
+    labbooking_Id = prefs.read("labbooking_Id").toString();
+    print('&&&&&&&&&&&&&&lab:${labbooking_Id}');
+
     var url =
-        //'${baseUrl}api/LabApi/LabAptmt?Lab_Id=$LablistssId';
-        "http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=16";
+        "http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=$LablistssId&Bookid=$labbooking_Id";
+
+    // "http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=16&Bookid=333";
+    //"http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=$LablistssId&Bookid=333";
+    //'${baseUrl}api/LabApi/LabAptmt?Lab_Id=$LablistssId';
+    //"http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=16";
+    print("okokklaburlll:${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -855,7 +891,7 @@ class ApiProvider {
     }
   }
 
-  ///lab_paynow.ONLINE.....api..of...user........29 april 2023...........
+  ///lab_paynow.ONLINE.lab....api..of...user........29 april 2023...........
 
   static LabpaynowOnlineApi(
       // var Lab_Id,
@@ -873,6 +909,9 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var LablistssId = preferences.getString("LablistssId");
     print("LablistssId: ${LablistssId}");
+    //doctor fees...
+//     var DoctorFee = preferences.getString("DoctorFee");
+//     print("Fee545454: ${DoctorFee}");
     var body = {
       "Lab_Id": "$LablistssId",
       //Lab_Id,
@@ -911,6 +950,9 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var LablistssId = preferences.getString("LablistssId");
     print("LablistssId: ${LablistssId}");
+    //doctor fees...
+//     var DoctorFee = preferences.getString("DoctorFee");
+//     print("Fee545454: ${DoctorFee}");
     var body = {
       //"Lab_Id": "$LablistssId",
       //Lab_Id,
@@ -943,15 +985,22 @@ class ApiProvider {
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistIdrriview: ${NurseuserListId}");
 
+    ///.....
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseFee = preferences.getString("NurseFee");
+    print("Fee545454: ${NurseFee}");
+
     ///
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labusereportlvv:${userid}');
     print(userid);
     var body = {
-      "Id": userid,
-      //Lab_Id,
       "Nurse_Id": "$NurseuserListId",
+      "Patient_Id": userid,
+      // "Id": userid,
+      //Lab_Id,
+      "TotalFee": "$NurseFee",
       "IsPaid": "true",
     };
     // print(body);
@@ -961,7 +1010,7 @@ class ApiProvider {
     );
     // print(r.body);
     if (r.statusCode == 200) {
-      print("okokolllll:${body}");
+      print("okokolllllnursee:${body}");
 //adminId
       print("gvhjbknnurseonline:${r.body}");
 
@@ -980,6 +1029,9 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId: ${DoctorListId}");
+//doctor fees...
+//     var DoctorFee = preferences.getString("DoctorFee");
+//     print("Fee545454: ${DoctorFee}");
 
     ///
     var prefs = GetStorage();
@@ -1292,11 +1344,17 @@ class ApiProvider {
     );
     print(r.body);
     if (r.statusCode == 200) {
+      ///todo:nursebookingid.........5  june 2023....
       var prefs = GetStorage();
-      //saved id..........
-      //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+      prefs.write(
+          "nursebooking_Id".toString(), json.decode(r.body)['NurseBookingId']);
+      nursebooking_Id = prefs.read("nursebooking_Id").toString();
+      print('&&&&&&&&&&&&&&&&&nurse:${nursebooking_Id}');
+
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&nursebookingId:${Id}');
+
+      print("nursebooking1:${body}");
 
       ///
       // //saved token.........
@@ -1314,15 +1372,66 @@ class ApiProvider {
 
   ///todo: nurse booking 2 api........27 april 2023...
 
+  // static Nursesebooking2Api(
+  //   var NurseId,
+  //   var ServiceDate,
+  //   var Slotid,
+  // ) async {
+  //   var url = baseUrl + 'api/NurseServices/NurseBookings';
+  //
+  //   var body = {
+  //     "Nurse_Id": "55",
+  //     "ServiceDate": ServiceDate,
+  //     "Slotid": Slotid,
+  //   };
+  //   print(body);
+  //   http.Response r = await http.post(
+  //     Uri.parse(url), body: body,
+  //     //headers: headers
+  //   );
+  //   print(r.body);
+  //   if (r.statusCode == 200) {
+  //     var prefs = GetStorage();
+  //     //saved id..........
+  //     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+  //     Id = prefs.read("Id").toString();
+  //     // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
+  //     ///
+  //     // //saved token.........
+  //     // prefs.write("token".toString(), json.decode(r.body)['token']);
+  //     // token = prefs.read("token").toString();
+  //     // print(token);
+  //     return r;
+  //   } else if (r.statusCode == 401) {
+  //     Get.snackbar('message', r.body);
+  //   } else {
+  //     Get.snackbar('Error', r.body);
+  //     return r;
+  //   }
+  // }
+
+  ///
+  ///todo: nurse booking 2 api........27 april 2023...
+//
   static Nursesebooking2Api(
     var NurseId,
     var ServiceDate,
     var Slotid,
   ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseuserListId = preferences.getString("NurseuserListId");
+    print("nurseuserlistId: ${NurseuserListId}");
+
+    var prefs = GetStorage();
+    //prefs.write(
+    //"nursebooking_Id".toString(), json.decode(r.body)['NurseBookingId']);
+    nursebooking_Id = prefs.read("nursebooking_Id").toString();
+    // print('&&&&&&&&&&&&&&&&&nurse:${nursebooking_Id}’);
     var url = baseUrl + 'api/NurseServices/NurseBookings';
 
     var body = {
-      "Nurse_Id": "55",
+      "Id": "${nursebooking_Id}",
+      "Nurse_Id": "${NurseuserListId}",
       "ServiceDate": ServiceDate,
       "Slotid": Slotid,
     };
@@ -1333,10 +1442,11 @@ class ApiProvider {
     );
     print(r.body);
     if (r.statusCode == 200) {
-      var prefs = GetStorage();
+      print("nurseeeaa:${body}");
+      // var prefs = GetStorage();
       //saved id..........
       //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
-      Id = prefs.read("Id").toString();
+      // Id = prefs.read("Id").toString();
       // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
       ///
       // //saved token.........
@@ -1352,6 +1462,66 @@ class ApiProvider {
     }
   }
 
+  ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
+  // static NursListApi() async {
+  //   var url = "http://test.pswellness.in/api/NurseAPI/getNurseList?cityid=67";
+  //   //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       NurseListbycityId? nurseListbycityId =
+  //       nurseListbycityIdFromJson(r.body);
+  //       return nurseListbycityId;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
+
+  ///todo: nurse......details........18 april....
+
+  static NursDetailApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseuserListId = preferences.getString("NurseuserListId");
+    print("nurseuserlistId: ${NurseuserListId}");
+    var url =
+        "http://test.pswellness.in/api/NurseAPI/NurseDetails?id=$NurseuserListId";
+    //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        // NursedetailbyId? nursedetailbyId =
+        // nursedetailbyIdFromJson(r.body);
+        var nursedetailbyId = nursedetailbyIdFromJson(r.body);
+        print('############nurse123: ${nursedetailbyId.nurseName}');
+        return nursedetailbyId;
+      }
+    } catch (error) {
+      print("okokokocnurseeee:${error}");
+      return;
+    }
+  }
+
+  ///time slots Api get...........................26 april 2023.....slot........
+
+  static Future<List<TimeSlot>?> gettimeslotApi() async {
+    var url = "http://test.pswellness.in/api/CommonApi/TimeSlot";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var timeslotData = timeSlotsFromJson(r.body);
+        return timeslotData.timeSlots;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
   ///todo: lab booking 2 api........27 april 2023...
 
   static Labbooking2Api(
@@ -1359,10 +1529,18 @@ class ApiProvider {
     var TestDate,
     var Slotid,
   ) async {
+    //LablistssId
     var url = baseUrl + 'api/LabApi/Booknow';
 
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var LablistssId = preferences.getString("LablistssId");
+    print("LablistssIdoooo: ${LablistssId}");
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusereportdr:${userid}');
+
     var body = {
-      "Lab_Id": "16",
+      "Lab_Id": "$LablistssId",
       "TestDate": TestDate,
       "Slotid": Slotid,
     };
@@ -1371,12 +1549,21 @@ class ApiProvider {
       Uri.parse(url), body: body,
       //headers: headers
     );
+
     print(r.body);
     if (r.statusCode == 200) {
       var prefs = GetStorage();
+
+      ///todo:labbookingid.........5  june 2023....
+      prefs.write("labbooking_Id".toString(), json.decode(r.body)['BookingId']);
+      labbooking_Id = prefs.read("labbooking_Id").toString();
+      print('&&&&&&&&&&&&&&lab:${labbooking_Id}');
       //saved id..........
       //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
+
+      print("labbbbodyy:${r.body}");
+
       // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
       ///
       // //saved token.........
@@ -1415,18 +1602,19 @@ class ApiProvider {
       Uri.parse(url), body: body,
       //headers: headers
     );
+
     print(r.body);
     if (r.statusCode == 200) {
       var prefs = GetStorage();
+
+      ///todo:doctorbookingid.........6...june 2023....
+      prefs.write("doctorbooking_Id".toString(), json.decode(r.body)['Id']);
+      doctorbooking_Id = prefs.read("doctorbooking_Id").toString();
+      print('&&&&&&&&&&&&&&doctor:${doctorbooking_Id}');
       //saved id..........
       //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
-      // print('&&&&&&&&&&&&&&nursebookingId:${Id}');
-      ///
-      // //saved token.........
-      // prefs.write("token".toString(), json.decode(r.body)['token']);
-      // token = prefs.read("token").toString();
-      // print(token);
+
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -2459,21 +2647,21 @@ class ApiProvider {
 
   ///time slots Api get...........................26 april 2023.....slot........
 
-  static Future<List<TimeSlot>?> gettimeslotApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TimeSlot";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      print(r.body.toString());
-      if (r.statusCode == 200) {
-        var timeslotData = timeSlotsFromJson(r.body);
-        return timeslotData.timeSlots;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      return [];
-    }
-  }
+  // static Future<List<TimeSlot>?> gettimeslotApi() async {
+  //   var url = "http://test.pswellness.in/api/CommonApi/TimeSlot";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       var timeslotData = timeSlotsFromJson(r.body);
+  //       return timeslotData.timeSlots;
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (error) {
+  //     return [];
+  //   }
+  // }
 
   ///ambulance catagary Api get...........................24 april 2023......yuibubu
   // static Future<List<Vehicle>> getambulancecatagaryApi() async {
@@ -3233,7 +3421,7 @@ class ApiProvider {
     }
   }
 
-  ///todo: lab appointment history..........by lab Id.......12 may 2023...prince..
+  ///todo: lab about us..........by lab Id.......12 may 2023...prince..
 
   static LababoutusApi() async {
     var prefs = GetStorage();
@@ -3251,6 +3439,51 @@ class ApiProvider {
       }
     } catch (error) {
       print("errorlabdetailsshis:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo: nurse about us..........by nurse Id.......5...june.. 2023...prince..
+
+  static NurseaboutusApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&nurseabout:${userid}');
+    print(userid);
+    var url = "http://test.pswellness.in/api/NurseAPI/Nurse_About?Id=$userid";
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        NurseaboutusModel nurseapaboutusmodel =
+            nurseaboutusModelFromJson(r.body);
+        return nurseapaboutusmodel;
+      }
+    } catch (error) {
+      print("errornursedetailsshis:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo: user about us.................6..june.. 2023...prince..
+
+  static UseraboutusApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&nurseabout:${userid}');
+    print(userid);
+    var url = "http://test.pswellness.in/api/PatientApi/User_About";
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        UseraboutusModel userapaboutusmodel = useraboutusModelFromJson(r.body);
+        return userapaboutusmodel;
+      }
+    } catch (error) {
+      print("userabout:${error.toString()}");
       return;
     }
   }
@@ -3395,6 +3628,41 @@ class ApiProvider {
     }
   }
 
+  ///todo:this is the nurse  upload report api...5  2023...............
+  static nurseuploadreportApi(
+    var Patient_Id,
+    var File,
+    var FileBase64,
+  ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
+    print(userid);
+    var body = {
+      "Nurse_Id": userid,
+      "Patient_Id": Patient_Id,
+      "File": '$File',
+      "FileBase64": '$FileBase64',
+    };
+    try {
+      var url = baseUrl + 'api/NurseAPI/Nurse_UploadReport';
+      var r = await http.post(Uri.parse(url), body: body);
+      if (r.statusCode == 200) {
+        print("###3###3####1: ${r.body}");
+        print("okokolanreportii: ${body}");
+
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+    }
+  }
+
   ///todo:upload report..user.of......getapidropdown...15 may...2023..
   ///
   static Future<List<PatientdropdownName>?> getlabpatientApi() async {
@@ -3470,17 +3738,20 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/LabApi/Lab_ViewReport?Id=16";
+
+    var url =
+        "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        print('&&&&&&&&&&&&&&&&&&&&&&labimageurl:${url}');
-        ViewreportModel? labreportModel = viewreportModelFromJson(r.body);
-        return labreportModel;
+        print('&&&&&&&&&&&&&&&&&&&&&&nurseimageurl:${url}');
+        NurseViewReportModel nursereportModel =
+            nurseViewReportModelFromJson(r.body);
+        return nursereportModel;
       }
     } catch (error) {
-      print("errorlabbbview:${error.toString()}");
+      print("errornurseview:${error.toString()}");
       return;
     }
   }
@@ -3510,23 +3781,27 @@ class ApiProvider {
     }
   }
 
-  ///todo:report view nurse.................3 june may 2023..
+  ///todo:report view nurse.................5 june may 2023..
   static nursereportimageApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var labreportlistId = preferences.getString("labreportlistId");
-    print("labreportlistlisttIdhh: ${labreportlistId}");
+    var nursereportlistId = preferences.getString("nursereportlistId");
+    print("nursereportlistId: ${nursereportlistId}");
     // var prefs = GetStorage();
     // userid = prefs.read("Id").toString();
     // print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
     // print(userid);
-    var url = "http://test.pswellness.in/api/LabApi/Lab_ViewReport_File?Id=61";
+    var url =
+        "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport_File?Id=$nursereportlistId";
+    //"$nursereportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print("nurseimagereport: ${r.body}");
         print("labreportlistlistturl: ${url}");
-        LabReportimage? labreportimageModel = labReportimageFromJson(r.body);
-        return labreportimageModel;
+        NurseImageviewModel? nursereportimageModel =
+            nurseImageviewModelFromJson(r.body);
+        return nursereportimageModel;
       }
     } catch (error) {
       print("errorlabbbviewimage:${error.toString()}");

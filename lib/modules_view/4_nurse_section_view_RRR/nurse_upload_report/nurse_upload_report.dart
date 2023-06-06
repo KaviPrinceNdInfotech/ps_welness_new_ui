@@ -154,8 +154,6 @@ import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurs
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
 
-//import '../../../model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
-import '../../../model/1_user_model/test_name_model/test_name_modells.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 import '../../../widgets/widgets/rectangular_button.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controller/nurse_upload_report/nurseUploadReportController.dart';
@@ -236,7 +234,7 @@ class NurseUploadReport extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     NeumorphicTextFieldContainer(
                       child: Padding(
@@ -284,45 +282,45 @@ class NurseUploadReport extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.00),
-                        child: Obx(
-                          () => DropdownButtonFormField(
-                              // menuMaxHeight: size.height * 0.06,
-                              //icon: Icon(Icons.location_city),
-                              value: _nursdeUploadReportController
-                                  .selectedTest.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.text_snippet_outlined,
-                                  color: Colors.black,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Selected Test'),
-                              items: _nursdeUploadReportController.tests
-                                  .map((TestModel test) {
-                                return DropdownMenuItem(
-                                  value: test,
-                                  child: Text(
-                                    test.testName,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.010,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (TestModel? newValue) {
-                                _nursdeUploadReportController
-                                    .selectedTest.value = newValue!;
-                              }),
-                        ),
-                      ),
-                    ),
+                    // NeumorphicTextFieldContainer(
+                    //   child: Padding(
+                    //     padding:
+                    //         EdgeInsets.symmetric(horizontal: size.width * 0.00),
+                    //     child: Obx(
+                    //       () => DropdownButtonFormField(
+                    //           // menuMaxHeight: size.height * 0.06,
+                    //           //icon: Icon(Icons.location_city),
+                    //           value: _nursdeUploadReportController
+                    //               .selectedTest.value,
+                    //           decoration: InputDecoration(
+                    //             prefixIcon: Icon(
+                    //               Icons.text_snippet_outlined,
+                    //               color: Colors.black,
+                    //             ),
+                    //             enabledBorder: InputBorder.none,
+                    //             border: InputBorder.none,
+                    //           ),
+                    //           hint: Text('Selected Test'),
+                    //           items: _nursdeUploadReportController.tests
+                    //               .map((TestModel test) {
+                    //             return DropdownMenuItem(
+                    //               value: test,
+                    //               child: Text(
+                    //                 test.testName,
+                    //                 style: TextStyle(
+                    //                   fontWeight: FontWeight.w600,
+                    //                   fontSize: size.height * 0.010,
+                    //                 ),
+                    //               ),
+                    //             );
+                    //           }).toList(),
+                    //           onChanged: (TestModel? newValue) {
+                    //             _nursdeUploadReportController
+                    //                 .selectedTest.value = newValue!;
+                    //           }),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
@@ -332,7 +330,8 @@ class NurseUploadReport extends StatelessWidget {
                           //CallLoader.loader();
 
                           ///todo: calling api....
-                          _nursdeUploadReportController.postUploadreportApi();
+                          _nursdeUploadReportController
+                              .postnurseUploadreportApi();
                           // Get.to(LabCatagaryDetails());
                           // LabListPage());
                           //_loginpasswordController.checkLoginpassword();

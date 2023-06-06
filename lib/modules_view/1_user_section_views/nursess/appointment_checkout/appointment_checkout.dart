@@ -310,7 +310,7 @@ class AppointmentCheckout extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    width: size.width * 0.55,
+                                    width: size.width * 0.4,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -324,7 +324,7 @@ class AppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.blueww,
-                                            fontSize: size.height * 0.022,
+                                            fontSize: size.height * 0.017,
                                           ),
                                         ),
                                         Spacer(),
@@ -336,7 +336,7 @@ class AppointmentCheckout extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.containercolor14,
-                                            fontSize: size.height * 0.021,
+                                            fontSize: size.height * 0.017,
                                           ),
                                         ),
                                         SizedBox(
@@ -349,42 +349,48 @@ class AppointmentCheckout extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                    width: size.width * 0.30,
+                                    width: size.width * 0.4,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
-                                          //'Jan 26, 2023',
-                                          "${_nurseappointmentcheckout.nurseCheckoutModel?.serviceDate}",
+                                        SizedBox(
+                                          width: size.width * 0.22,
+                                          child: Text(
+                                            //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
+                                            //'Jan 26, 2023',
+                                            "${_nurseappointmentcheckout.nurseCheckoutModel?.serviceDate}",
 
-                                          //"${_labListController.labCheckoutModel?.testDate}",
+                                            //"${_labListController.labCheckoutModel?.testDate}",
 
-                                          //doctorcatagary[index],
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w600,
-                                            color: MyTheme.blueww,
-                                            fontSize: size.height * 0.015,
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            // overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: MyTheme.blueww,
+                                              fontSize: size.height * 0.016,
+                                            ),
                                           ),
                                         ),
 
-                                        Text(
-                                          // _labListController.labCheckoutModel!.slotTime.toString(),
-                                          // '17:30',
-                                          "${_nurseappointmentcheckout.nurseCheckoutModel?.slotTime}",
+                                        SizedBox(
+                                          width: size.width * 0.37,
+                                          child: Text(
+                                            // _labListController.labCheckoutModel!.slotTime.toString(),
+                                            // '17:30',
+                                            "${_nurseappointmentcheckout.nurseCheckoutModel?.slotTime}",
 
-                                          //doctorcatagary[index],
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w600,
-                                            color: MyTheme.containercolor14,
-                                            fontSize: size.height * 0.015,
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            //overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: MyTheme.containercolor14,
+                                              fontSize: size.height * 0.015,
+                                            ),
                                           ),
                                         ),
                                         // SizedBox(
@@ -465,7 +471,7 @@ class AppointmentCheckout extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          'Session Fees for full checkup.',
+                                          'Session Fees for Nurse.',
                                           //doctorcatagary[index],
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -594,7 +600,16 @@ class AppointmentCheckout extends StatelessWidget {
                                       //  crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                          onTap: () {
+                                          ///todo: this is for api checkout fees.....6 june 2023...fees
+                                          onTap: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            prefs.setString("NurseFee",
+                                                "${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+
+                                            ///todo: end the fees.........
+
                                             _rozarPayNurseController
                                                 .openCheckout();
                                             // _addressListController.update();

@@ -46,10 +46,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_report_view/nurse_report_image_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/circular_loader.dart';
-import '../../10_lab_section_view/lab_report_list/lab_report_viewss.dart';
 
 class NurseReportView extends StatelessWidget {
   NurseReportView({Key? key}) : super(key: key);
@@ -172,7 +172,7 @@ class NurseReportView extends StatelessWidget {
                                     TextField(
                                   onChanged: (value) =>
                                       _nursereportviewController
-                                          .filterLabPatient(value),
+                                          .filterNursePatient(value),
                                   // controller: _driverPayoutController.appointmentController,
                                   onTap: () {
                                     // _driverPayoutController.chooseDate();
@@ -204,7 +204,7 @@ class NurseReportView extends StatelessWidget {
                             ),
                           ),
                           _nursereportviewController
-                                  .foundlabviewProducts.value.isEmpty
+                                  .foundNurseviewProducts.value.isEmpty
                               ? Center(
                                   child: Text("No List"),
                                 )
@@ -215,7 +215,7 @@ class NurseReportView extends StatelessWidget {
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _nursereportviewController
-                                          .foundlabviewProducts.length,
+                                          .foundNurseviewProducts.length,
                                       // _driverPayoutHistoryController
                                       //     .getDriverPayoutHistory?.length,
                                       itemBuilder:
@@ -310,15 +310,17 @@ class NurseReportView extends StatelessWidget {
                                                             await SharedPreferences
                                                                 .getInstance();
                                                         prefs.setString(
-                                                            "labreportlistId",
-                                                            "${_nursereportviewController.foundlabviewProducts[index].id.toString()}");
+                                                            "nursereportlistId",
+                                                            "${_nursereportviewController.foundNurseviewProducts[index].id.toString()}");
+
                                                         _nursereportviewController
                                                             .nursereportimageApi();
                                                         _nursereportviewController
                                                             .update();
                                                         CallLoader.hideLoader();
 
-                                                        Get.to(LabReportView());
+                                                        Get.to(
+                                                            NurseReportImageView());
                                                       },
                                                       child: Container(
                                                         height:
@@ -329,7 +331,7 @@ class NurseReportView extends StatelessWidget {
                                                             EdgeInsets.all(8),
                                                         child: Image.network(
                                                           base +
-                                                              '${_nursereportviewController.foundlabviewProducts[index].file.toString()}',
+                                                              '${_nursereportviewController.foundNurseviewProducts[index].file.toString()}',
                                                           //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                                           fit: BoxFit.fill,
                                                           errorBuilder:
@@ -393,7 +395,7 @@ class NurseReportView extends StatelessWidget {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "${_nursereportviewController.foundlabviewProducts[index].patientName}",
+                                                          "${_nursereportviewController.foundNurseviewProducts[index].patientName}",
                                                           //'Ram Kumar',
                                                           // '\u{20B9}${_driverPayoutHistoryController.getDriverPayoutHistory?[index].paidAmount}',
                                                           style: GoogleFonts
@@ -407,52 +409,52 @@ class NurseReportView extends StatelessWidget {
                                                                 MyTheme.blueww,
                                                           ),
                                                         ),
-                                                        SizedBox(
-                                                          height: size.height *
-                                                              0.01,
-                                                        ),
-                                                        Text(
-                                                          "${_nursereportviewController.foundlabviewProducts[index].testName}",
-
-                                                          //'blood test',
-                                                          // Date,
-                                                          style: GoogleFonts
-                                                              .roboto(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.04,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Colors.red,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: size.height *
-                                                              0.01,
-                                                        ),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.3,
-                                                          height: size.height *
-                                                              0.02,
-                                                          child: Text(
-                                                            "${_nursereportviewController.foundlabviewProducts[index].testName.toString()}",
-
-                                                            //'12-12-2023',
-                                                            // Date,
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              fontSize:
-                                                                  size.width *
-                                                                      0.034,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                          ),
-                                                        ),
+                                                        // SizedBox(
+                                                        //   height: size.height *
+                                                        //       0.01,
+                                                        // ),
+                                                        // Text(
+                                                        //   "${_nursereportviewController.foundNurseviewProducts[index].patientName}",
+                                                        //
+                                                        //   //'blood test',
+                                                        //   // Date,
+                                                        //   style: GoogleFonts
+                                                        //       .roboto(
+                                                        //     fontSize:
+                                                        //         size.width *
+                                                        //             0.04,
+                                                        //     fontWeight:
+                                                        //         FontWeight.w600,
+                                                        //     color: Colors.red,
+                                                        //   ),
+                                                        // ),
+                                                        // SizedBox(
+                                                        //   height: size.height *
+                                                        //       0.01,
+                                                        // ),
+                                                        // SizedBox(
+                                                        //   width:
+                                                        //       size.width * 0.3,
+                                                        //   height: size.height *
+                                                        //       0.02,
+                                                        //   child: Text(
+                                                        //     "${_nursereportviewController.foundNurseviewProducts[index].patientName.toString()}",
+                                                        //
+                                                        //     //'12-12-2023',
+                                                        //     // Date,
+                                                        //     style: GoogleFonts
+                                                        //         .roboto(
+                                                        //       fontSize:
+                                                        //           size.width *
+                                                        //               0.034,
+                                                        //       fontWeight:
+                                                        //           FontWeight
+                                                        //               .w600,
+                                                        //       color:
+                                                        //           Colors.grey,
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
                                                       ],
                                                     ),
                                                     Column(
@@ -470,27 +472,24 @@ class NurseReportView extends StatelessWidget {
                                                           elevation: 4,
                                                           child: InkWell(
                                                             onTap: () async {
-                                                              // CallLoader.loader();
                                                               ///todo: from here share preference.........
                                                               SharedPreferences
                                                                   prefs =
                                                                   await SharedPreferences
                                                                       .getInstance();
                                                               prefs.setString(
-                                                                  "labreportlistId",
-                                                                  "${_nursereportviewController.foundlabviewProducts[index].id.toString()}");
+                                                                  "nursereportlistId",
+                                                                  "${_nursereportviewController.foundNurseviewProducts[index].id.toString()}");
 
                                                               _nursereportviewController
                                                                   .nursereportimageApi();
                                                               _nursereportviewController
                                                                   .update();
-                                                              // CallLoader
-                                                              //     .loader();
-                                                              Get.to(
-                                                                  LabReportView());
                                                               CallLoader
                                                                   .hideLoader();
-                                                              //Get.back();
+
+                                                              Get.to(
+                                                                  NurseReportImageView());
                                                             },
                                                             child: Container(
                                                               height:
