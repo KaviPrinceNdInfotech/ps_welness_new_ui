@@ -15,6 +15,8 @@ import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_histrt';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemistManageProfile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
@@ -135,8 +137,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => NursereportviewController());
     Get.lazyPut(() => NurseAboutusController());
     Get.lazyPut(() => UserAboutusController());
-
-    //Get.lazyPut(() => ChemistComplaintController());
+    Get.lazyPut(() => DoctorHomepageController());
+    Get.lazyPut(() => DoctorProfileControllers());
 
     //ChemistAboutusController
 

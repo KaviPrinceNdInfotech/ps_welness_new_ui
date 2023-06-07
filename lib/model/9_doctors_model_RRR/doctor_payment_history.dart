@@ -4,19 +4,43 @@
 
 import 'dart:convert';
 
-List<DoctorPaymentHistoryModel> doctorPaymentHistoryFromJson(String str) => List<DoctorPaymentHistoryModel>.from(json.decode(str).map((x) => DoctorPaymentHistoryModel.fromJson(x)));
+DoctorPaymentHistoryModel doctorPaymentHistoryModelFromJson(String str) =>
+    DoctorPaymentHistoryModel.fromJson(json.decode(str));
 
-String doctorPaymentHistoryToJson(List<DoctorPaymentHistoryModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String doctorPaymentHistoryModelToJson(DoctorPaymentHistoryModel data) =>
+    json.encode(data.toJson());
 
 class DoctorPaymentHistoryModel {
+  List<PaymentHistory>? paymentHistory;
+
+  DoctorPaymentHistoryModel({
+    this.paymentHistory,
+  });
+
+  factory DoctorPaymentHistoryModel.fromJson(Map<String, dynamic> json) =>
+      DoctorPaymentHistoryModel(
+        paymentHistory: json["PaymentHistory"] == null
+            ? []
+            : List<PaymentHistory>.from(
+                json["PaymentHistory"]!.map((x) => PaymentHistory.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "PaymentHistory": paymentHistory == null
+            ? []
+            : List<dynamic>.from(paymentHistory!.map((x) => x.toJson())),
+      };
+}
+
+class PaymentHistory {
   int? id;
   String? patientName;
   String? location;
-  num? amount;
+  double? amount;
   DateTime? paymentDate;
-  num? paymentId;
+  dynamic paymentId;
 
-  DoctorPaymentHistoryModel({
+  PaymentHistory({
     this.id,
     this.patientName,
     this.location,
@@ -25,21 +49,23 @@ class DoctorPaymentHistoryModel {
     this.paymentId,
   });
 
-  factory DoctorPaymentHistoryModel.fromJson(Map<String, dynamic> json) => DoctorPaymentHistoryModel(
-    id: json["Id"],
-    patientName: json["PatientName"],
-    location: json["Location"],
-    amount: json["Amount"],
-    paymentDate: json["PaymentDate"] == null ? null : DateTime.parse(json["PaymentDate"]),
-    paymentId: json["PaymentId"],
-  );
+  factory PaymentHistory.fromJson(Map<String, dynamic> json) => PaymentHistory(
+        id: json["Id"],
+        patientName: json["PatientName"],
+        location: json["Location"],
+        amount: json["Amount"],
+        paymentDate: json["PaymentDate"] == null
+            ? null
+            : DateTime.parse(json["PaymentDate"]),
+        paymentId: json["PaymentId"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "Id": id,
-    "PatientName": patientName,
-    "Location": location,
-    "Amount": amount,
-    "PaymentDate": paymentDate?.toIso8601String(),
-    "PaymentId": paymentId,
-  };
+        "Id": id,
+        "PatientName": patientName,
+        "Location": location,
+        "Amount": amount,
+        "PaymentDate": paymentDate?.toIso8601String(),
+        "PaymentId": paymentId,
+      };
 }

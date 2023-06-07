@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
 
@@ -19,8 +21,14 @@ import '../payment_historyy/payment_historiess.dart';
 class DoctorHomePage extends StatelessWidget {
   DoctorHomePage({Key? key}) : super(key: key);
 
+  //DoctorHomepageController _doctorHomepageController =
+  //Get.put(DoctorHomepageController());
   DoctorHomepageController _doctorHomepageController =
       Get.put(DoctorHomepageController());
+  final DoctorPaymentViewControllers _paymentViewControllers =
+      Get.put(DoctorPaymentViewControllers());
+  DoctorProfileControllers _doctorProfileControllers =
+      Get.put(DoctorProfileControllers());
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +102,8 @@ class DoctorHomePage extends StatelessWidget {
           ),
           onPressed: () {
             _key.currentState!.openDrawer();
+            _doctorProfileControllers.doctorprofileApi();
+            _doctorProfileControllers.update();
           },
         ),
       ),
@@ -164,12 +174,24 @@ class DoctorHomePage extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   if (index == 0) {
+                                    _doctorHomepageController
+                                        .doctorAppoinmentDetail();
+                                    _doctorHomepageController.update();
                                     Get.to(() => AppointmentDetails());
                                   } else if (index == 1) {
                                     Get.to(DoctorUploadReport());
                                   } else if (index == 2) {
+                                    _paymentViewControllers
+                                        .doctorPaymentHistoryApi();
+                                    _paymentViewControllers.update();
                                     Get.to(() => PaymentHistory());
                                   } else if (index == 3) {
+                                    _doctorHomepageController
+                                        .doctorAppoinmentHistory();
+                                    _doctorHomepageController.update();
+                                    // doctorHomepageController
+                                    //.doctorAppoinmentHistory();
+                                    //doctorHomepageController.update();
                                     Get.to(() => AppointmentHistory());
 
                                     ///Todo this is showing dark and white mode
@@ -266,67 +288,73 @@ class Mycrusial extends StatelessWidget {
         body: Obx(
       () => (_doctorHomepageController.isLoading.value)
           ? Center(child: CircularProgressIndicator())
-          // : _doctorHomepageController.getdoctorbannerlist?.bannerImageList == null
-          // ? Center(child: Text('No data'),)
-          : Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Container(
-                height: size.height * 0.28,
-                width: size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Material(
-                    color: MyTheme.ThemeColors,
-                    borderRadius: BorderRadius.circular(10),
-                    elevation: 0,
-                    child: CarouselSlider.builder(
-                      key: _sliderKey,
-                      unlimitedMode: true,
-                      autoSliderTransitionTime: Duration(seconds: 1),
-                      slideBuilder: (index) {
-                        final items = _doctorHomepageController
-                            .getdoctorbannerlist?.bannerImageList;
-                        return Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: Material(
-                            elevation: 12,
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              height: size.height * 38,
-                              width: size.width,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.white, width: 3),
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        '$imgpath${items?[index].bannerPath}' ??
-                                            ''),
-                                    fit: BoxFit.fill,
-                                  )),
-                            ),
+          : _doctorHomepageController.getdoctorbannerlist?.bannerImageList ==
+                  null
+              ? Center(
+                  child: Text('No data'),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    height: size.height * 0.28,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Material(
+                        color: MyTheme.ThemeColors,
+                        borderRadius: BorderRadius.circular(10),
+                        elevation: 0,
+                        child: CarouselSlider.builder(
+                          key: _sliderKey,
+                          unlimitedMode: true,
+                          autoSliderTransitionTime: Duration(seconds: 2),
+                          slideBuilder: (index) {
+                            final items = _doctorHomepageController
+                                .getdoctorbannerlist?.bannerImageList;
+                            return Padding(
+                              padding: const EdgeInsets.all(7.0),
+                              child: Material(
+                                elevation: 12,
+                                borderRadius: BorderRadius.circular(10),
+                                child: Container(
+                                  height: size.height * 38,
+                                  width: size.width,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.white, width: 3),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              '$imgpath${items?[index].bannerPath}' ??
+                                                  ''),
+                                          fit: BoxFit.fill,
+                                          onError: (error, stackTrace) {
+                                            Text("No Image Found");
+                                            // .log(error, stackTrace);
+                                          })),
+                                ),
+                              ),
+                            );
+                          },
+                          slideTransform: DefaultTransform(),
+                          slideIndicator: CircularSlideIndicator(
+                            indicatorBorderWidth: 2,
+                            indicatorRadius: 4,
+                            itemSpacing: 15,
+                            currentIndicatorColor: Colors.white,
+                            padding: EdgeInsets.only(bottom: 0),
                           ),
-                        );
-                      },
-                      slideTransform: DefaultTransform(),
-                      slideIndicator: CircularSlideIndicator(
-                        indicatorBorderWidth: 2,
-                        indicatorRadius: 4,
-                        itemSpacing: 15,
-                        currentIndicatorColor: Colors.white,
-                        padding: EdgeInsets.only(bottom: 0),
+                          itemCount: _doctorHomepageController
+                              .getdoctorbannerlist!.bannerImageList!.length,
+                          enableAutoSlider: true,
+                        ),
                       ),
-                      itemCount: _doctorHomepageController
-                          .getdoctorbannerlist!.bannerImageList!.length,
-                      enableAutoSlider: true,
                     ),
                   ),
                 ),
-              ),
-            ),
     ));
   }
 }

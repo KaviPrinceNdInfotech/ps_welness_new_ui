@@ -56,21 +56,23 @@ class MainDrawer extends StatelessWidget {
                       )),
                     ),
                     SizedBox(
-                      height: size.height * 0.01,
+                      height: size.height * 0.003,
                     ),
                     Text(
-                      _doctorProfileControllers.doctorProfile!.doctorName
+                      "${_doctorProfileControllers.doctorProfile?.doctorName.toString()}"
                           .toString(),
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.023,
+                          fontSize: size.height * 0.02,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      _doctorProfileControllers.doctorProfile!.emailId
+                      "${_doctorProfileControllers.doctorProfile?.emailId.toString()}"
+
+                          // _doctorProfileControllers.doctorProfile!.emailId
                           .toString(),
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.020,
+                          fontSize: size.height * 0.018,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
@@ -137,6 +139,8 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _doctorProfileControllers.doctorprofileApi();
+                _doctorProfileControllers.update();
                 Get.to(() => DoctorDetailProfile());
                 Get.offNamed('/DoctorDetailProfile');
               },

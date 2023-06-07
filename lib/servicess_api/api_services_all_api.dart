@@ -1924,12 +1924,17 @@ class ApiProvider {
 
   //doctor profile  api 2..........................
   static DoctorProfileApi() async {
-    var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=150';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&sdcfsdfdsuserid:${userid}');
+    var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
         DoctorProfile? doctorProfile = doctorProfileFromJson(r.body);
+        print("drprofileurl:${url}");
+        print("drprofileurl:${r.body}");
         return doctorProfile;
       }
     } catch (error) {
@@ -2069,7 +2074,7 @@ class ApiProvider {
   //patient_list_api..........................
   static ViewPatientsListApi() async {
     var url =
-        "http://test.pswellness.in/api/DoctorApi/ViewPatientList?DoctorId=151";
+        "http://test.pswellness.in/api/DoctorApi/ViewPatientList?DoctorId=146";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());

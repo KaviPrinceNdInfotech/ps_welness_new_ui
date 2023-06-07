@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
@@ -36,6 +37,8 @@ class SplashScreenViewModel extends GetxController
       Get.put(ChemistProfileDetailController());
   NurseProfileControllers _nurseprofileContrller =
       Get.put(NurseProfileControllers());
+  DoctorProfileControllers _doctorProfileControllers =
+      Get.put(DoctorProfileControllers());
 
   @override
   void onInit() {
@@ -69,6 +72,8 @@ class SplashScreenViewModel extends GetxController
                 Get.to(LabHomePage());
                 break;
               case 'doctor':
+                _doctorProfileControllers.doctorprofileApi();
+                _doctorProfileControllers.update();
                 Get.to(DoctorHomePage());
                 break;
               case 'driver':

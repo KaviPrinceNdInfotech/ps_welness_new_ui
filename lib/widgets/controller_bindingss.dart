@@ -19,6 +19,7 @@ import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwaBanner_con
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_drawer_controllers/nurse_profilert';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_signup_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_update_profile/doctor_updateprofile_controller.dart';
@@ -108,8 +109,8 @@ class ControllerBinding extends Bindings {
     Get.put(FranchiseHomepagContreoller());
     Get.put(LabHomepagContreoller());
     Get.put(DriverHomepagContreoller());
-    //Get.put(NurseHomepagContreoller());
-    //Get.put(RwaHomepagContreoller());
+    Get.put(DoctorHomepageController());
+    Get.put(DoctorProfileControllers());
     Get.put(RwaBannerController());
     Get.put(ChemistHomepagContreoller());
     Get.put(ComplaintController());

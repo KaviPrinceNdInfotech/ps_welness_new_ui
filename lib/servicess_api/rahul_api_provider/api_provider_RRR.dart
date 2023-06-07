@@ -600,16 +600,22 @@ class ApiProvider {
 
 //ViewPaymentHistoryApi()
   static DoctorPaymentHistoryApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&ddwduserid:${userid}');
     var url =
-        'http://test.pswellness.in/api/DoctorApi/DoctorpaymentHistory?Id=145';
+        'http://test.pswellness.in/api/DoctorApi/DoctorpaymentHistory?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print("DoctorPaymentHistory Response: ${r.toString()}");
       if (r.statusCode == 200) {
-        List<DoctorPaymentHistoryModel> doctorpaymenthistorymodel =
-            doctorPaymentHistoryFromJson(r.body);
-        print("DoctorPaymentHistory: ${doctorpaymenthistorymodel[0].amount}");
-        return doctorpaymenthistorymodel;
+        print("apointment${r.body}");
+        print("apointmenturl${url}");
+        DoctorPaymentHistoryModel? viewPatientpaymentReport =
+            doctorPaymentHistoryModelFromJson(r.body);
+        print(
+            "DoctorPaymentHistory: ${viewPatientpaymentReport.paymentHistory![0].amount}");
+        return viewPatientpaymentReport;
       }
     } catch (error) {
       print("DoctorPaymentHistoryError: ${error}");
@@ -1025,7 +1031,8 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         DoctorBannerModel doctorBannerModel = doctorBannerFromJson(r.body);
-        print("Doctorbanner: ${doctorBannerModel.bannerImageList?[0].id}");
+        print("doctorrrbaner:${r.body}");
+        // print("Doctorbanner: ${doctorBannerModel.bannerImageList?[0].id}");
         return doctorBannerModel;
       }
     } catch (error) {
@@ -1035,15 +1042,20 @@ class ApiProvider {
 
   ///todo doctor appoinment detail......Rahul
   static DoctorAppoinmentDetail() async {
-    var url = '${baseUrl}api/DoctorApi/GetAppointmentDetail?Id=142';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+    var url = '${baseUrl}api/DoctorApi/GetAppointmentDetail?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
-        List<DoctorAppoinmentDetailModel> doctorAppoinmentDetail =
-            doctorAppoinmentDetailFromJson(r.body);
-        print(
-            "doctorAppoinmentDetail: ${doctorAppoinmentDetail[0].doctorName}");
-        return doctorAppoinmentDetail;
+        var doctornewAppoinmentDetail =
+            doctorNewAppoinmentDetailModelFromJson(r.body);
+        print("drapt:${url}");
+        print("draptbody:${r.body}");
+        // print(
+        //"doctorAppoinmentDetail: ${doctorAppoinmentDetail?.doctorAppoinmentDetail..[0].doctorName}");
+        return doctornewAppoinmentDetail;
       }
     } catch (error) {
       print(":::::::::${error}");
@@ -1053,12 +1065,18 @@ class ApiProvider {
 
 //todo Doctor Appoinment History ........Rahul
   static DoctorAppoinmentHistory() async {
-    var url = '${baseUrl}api/DoctorApi/DoctorPatientList?id=145';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userassaid:${userid}');
+    var url = '${baseUrl}api/DoctorApi/DoctorPatientList?id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         DoctorAppoinmentHistoryModel doctorAppoinmentHistoryModel =
             doctorAppoinmentHistoryFromJson(r.body);
+
+        print("draptdddd:${url}");
+        print("draptbodywqdw:${r.body}");
         return doctorAppoinmentHistoryModel;
       }
     } catch (error) {

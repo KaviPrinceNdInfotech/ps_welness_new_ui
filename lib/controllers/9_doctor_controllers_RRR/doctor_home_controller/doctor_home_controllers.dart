@@ -11,7 +11,8 @@ class DoctorHomepageController extends GetxController {
   var cartId = "";
 
   DoctorBannerModel? getdoctorbannerlist;
-  List<DoctorAppoinmentDetailModel>? getdoctorAppoinmentDetailList;
+  DoctorNewAppoinmentDetailModel? doctorNewAppoinmentDetailModel;
+  //List<DoctorNewAppoinmentDetailModel>? getdoctorAppoinmentDetailList;
   DoctorAppoinmentHistoryModel? getdoctorAppoinmentHistory;
 
   void doctorBannerApi() async {
@@ -24,17 +25,20 @@ class DoctorHomepageController extends GetxController {
 
   void doctorAppoinmentDetail() async {
     isLoading(true);
-    getdoctorAppoinmentDetailList = await ApiProvider.DoctorAppoinmentDetail();
-    if (getdoctorAppoinmentDetailList == null) {
+    doctorNewAppoinmentDetailModel = await ApiProvider.DoctorAppoinmentDetail();
+    if (doctorNewAppoinmentDetailModel?.appointmentDetail != null) {
       isLoading(false);
+      founddoctoraptProducts.value =
+          doctorNewAppoinmentDetailModel!.appointmentDetail!;
     }
   }
 
   void doctorAppoinmentHistory() async {
     isLoading(true);
     getdoctorAppoinmentHistory = await ApiProvider.DoctorAppoinmentHistory();
-    if (getdoctorAppoinmentHistory?.patients?.length == null) {
+    if (getdoctorAppoinmentHistory?.patients != null) {
       isLoading(false);
+      founddrhistoryProducts.value = getdoctorAppoinmentHistory!.patients!;
     }
   }
 
@@ -51,20 +55,40 @@ class DoctorHomepageController extends GetxController {
     super.onClose();
   }
 
-  RxList<DoctorAppoinmentDetailModel> foundProducts =
-      RxList<DoctorAppoinmentDetailModel>([]);
-  void filterProducts(String searchproductName) {
-    List<DoctorAppoinmentDetailModel> finalResults = [];
+//appointment details.....
+  RxList<AppointmentDetail> founddoctoraptProducts =
+      RxList<AppointmentDetail>([]);
+  void filterdrApointmentProducts(String searchproductName) {
+    List<AppointmentDetail> finalResults = [];
     if (searchproductName.isEmpty) {
-      finalResults = getdoctorAppoinmentDetailList!;
+      finalResults = doctorNewAppoinmentDetailModel!.appointmentDetail!;
     } else {
-      finalResults = getdoctorAppoinmentDetailList!
+      finalResults = doctorNewAppoinmentDetailModel!.appointmentDetail!
           .where((element) => element.doctorName
               .toString()
               .toLowerCase()
               .contains(searchproductName.toString().toLowerCase().trim()))
           .toList();
     }
-    foundProducts.value = finalResults;
+    print(finalResults.length);
+    founddoctoraptProducts.value = finalResults;
+  }
+
+  ///payment....history.......
+  RxList<Patient> founddrhistoryProducts = RxList<Patient>([]);
+  void filterdrpaymengt(String searchphistoryName) {
+    List<Patient> finalResults = [];
+    if (searchphistoryName.isEmpty) {
+      finalResults = getdoctorAppoinmentHistory!.patients!;
+    } else {
+      finalResults = getdoctorAppoinmentHistory!.patients!
+          .where((element) => element.patientName
+              .toString()
+              .toLowerCase()
+              .contains(searchphistoryName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResults.length);
+    founddrhistoryProducts.value = finalResults;
   }
 }
