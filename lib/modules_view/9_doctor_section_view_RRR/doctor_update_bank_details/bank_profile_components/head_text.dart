@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
-class Doctor1HeadText extends StatelessWidget {
-  const Doctor1HeadText({Key? key}) : super(key: key);
+class UpdateDoctorBankHeadText extends StatelessWidget {
+  const UpdateDoctorBankHeadText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,40 +21,47 @@ class Doctor1HeadText extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-              height: size.height * 0.03,
-              width: size.width * 0.06,
-              decoration: BoxDecoration(
-                color: Colors.white70,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.arrow_back_ios_outlined,
-                  size: size.height * 0.024,
-                  color: Colors.blueAccent,
-                ),
-              ),
-            ),
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                  height: size.height * 0.03,
+                  width: size.width * 0.06,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white70,
+                  ),
+                  child: Center(
+                      child: Icon(
+                    Icons.arrow_back_ios_outlined,
+                    size: size.height * 0.023,
+                  )))),
+
+          SizedBox(
+            width: size.width * 0.0,
           ),
-          SizedBox(height: size.height * 0.05),
+          SizedBox(height: size.height * 0.01),
+          Text(
+            '+ DOCTOR\'S',
+            style: GoogleFonts.alatsi(
+                fontSize: 23,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff023382)),
+          ),
           RichText(
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'SIGN UP',
+                  text: 'Bank Details',
                   style: GoogleFonts.poppins(
-                    fontSize: 23,
+                    fontSize: 20,
                     color: Colors.black87,
                     fontWeight: FontWeight.w600,
                     //color: Color(0xff023382)
                   ),
                 ),
                 TextSpan(
-                  text: ' Step 1',
+                  text: '',
                   style: GoogleFonts.alatsi(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -73,13 +80,6 @@ class Doctor1HeadText extends StatelessWidget {
           //     //color: Color(0xff023382)
           //   ),
           // ),
-          Text(
-            'DOCTOR!',
-            style: GoogleFonts.alatsi(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff023382)),
-          ),
         ],
       ),
     );

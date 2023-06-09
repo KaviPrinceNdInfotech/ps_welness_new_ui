@@ -12,17 +12,6 @@ import 'package:ps_welness_new_ui/modules_view/nurses_view/nurses_signup1/nurses
 import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup1/rwa_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
 
-//import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
-// //import 'package:ps_welness/modules_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
-// import 'package:ps_welness/modules_view/driver_ambulance_view/driver_ambulace_1/driver_registation_1.dart';
-// import 'package:ps_welness/modules_view/franchies_view/franchies_1_view/franchies_signup_part1.dart';
-// //import 'package:ps_welness/modules_view/lab_center/lab_signup1/lab_center.dart';
-// import 'package:ps_welness/modules_view/nurses_view/nurses_signup1/nurses_signup1.dart';
-// import 'package:ps_welness/modules_view/rwa_view/rwa_signup1/rwa_signup1.dart';
-// import 'package:ps_welness/modules_view/user_views/user_sign_up.dart';
-
 import '../10_lab_section_view/lab_center/lab_signup1/lab_center.dart';
 //import '../9_doctor_section_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 
@@ -39,15 +28,11 @@ class SignUpList extends StatelessWidget {
       '  DIAGNOSTIC CENTRE',
 
       ///todo:this is edited by 11 may 2023 kumar prince..
-      //'  HOSPITAL',
       '  DOCTOR  ',
       'DRIVER/AMBULANCE OPERATOR',
       '  NURSE   ',
       '  RWA     ',
       '  CHEMIST/PHARMACIST ',
-      //'  PATIENT ',
-      // 'service 7',
-      // 'service 8',
     ];
 
     final List<String> productimage = [
@@ -56,17 +41,12 @@ class SignUpList extends StatelessWidget {
       'lib/assets/icons/diagnostic.png',
 
       ///todo: this is added by 11 may.....
-      // 'lib/assets/image/icons8-hospital-64.png',
       'lib/assets/image/icons8-doctor-64.png',
       'lib/assets/image/icons8-driver-58.png',
       'lib/assets/image/icons8-nurse-94.png',
       'lib/assets/image/icons8-raw-materials-64.png',
       'lib/assets/icons/chemisticon.png',
-      //'lib/assets/icons/coviddres1.png',
-      // 'service 7',
-      // 'service 8',
     ];
-
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: SafeArea(
@@ -136,16 +116,6 @@ class SignUpList extends StatelessWidget {
                                       fit: BoxFit.cover)),
                             ),
                           ),
-                          //         Lottie.asset(
-                          //   'lib/assets/image/114223-chat-wirth-doctor.zip',
-                          //   fit: BoxFit.fitHeight,
-                          //   //_controller.onboardingPages[index].imageAsset,
-                          //   height: 130.0,
-                          //   //width: 150.0,
-                          //   repeat: true,
-                          //   reverse: true,
-                          //   animate: true,
-                          // )
                         )),
                       ],
                     ),

@@ -1,24 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
-import '../../../../../constants/constants/constants.dart';
-import '../../../../../controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_controller1.dart';
-import '../../../../../widgets/widgets/neumorphic_text_field_container.dart';
-import '../../../../../widgets/widgets/rectangular_button.dart';
-//import 'package:ps_welness_new_ui/constants/constants/constantontroller1.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/controllers/doctor_controllers/doctor_controller1.dart';
-// import 'package:ps_welness/modules_view/9_doctor_section_view/home_page_view/home_page.dart';
-// import 'package:ps_welness/modules_view/circular_loader/circular_loaders.dart';
-// //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_controller1.dart';
+import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 class Doctor2Credentials extends StatelessWidget {
   Doctor2Credentials({Key? key}) : super(key: key);
-
   Doctor_1_Controller _doctor_1_controller = Get.find();
 
   var items = [
@@ -56,7 +53,7 @@ class Doctor2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_android_outlined,
+                      Icons.desk_rounded,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -66,7 +63,6 @@ class Doctor2Credentials extends StatelessWidget {
               ),
               SizedBox(
                 height: size.height * 0.00,
-                //appPadding / 2,
               ),
 
               ///todo : SpecialistId .................
@@ -83,7 +79,7 @@ class Doctor2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_android_outlined,
+                      Icons.spa,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -110,7 +106,7 @@ class Doctor2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_android_outlined,
+                      Icons.local_police,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -124,51 +120,45 @@ class Doctor2Credentials extends StatelessWidget {
               ),
 
               ///todo : Licence image .................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _doctor_1_controller.licenceImageController,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Licence image',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.00,
-                //appPadding / 2,
-              ),
-
-              ///todo : Licence image name .................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _doctor_1_controller.licenceImageNameController,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Licence image name',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
+              GetBuilder<Hospital_2_Controller>(
+                init: Hospital_2_Controller(), // intialize with the Controller
+                builder: (value) => InkWell(
+                  onTap: () {
+                    _doctor_1_controller.getImage(ImageSource.gallery);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Licence Image ',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Obx(
+                            () =>
+                                _doctor_1_controller.selectedImagepath.value ==
+                                        ''
+                                    ? const Center(child: Text("No Image"))
+                                    : Image.file(
+                                        File(_doctor_1_controller
+                                            .selectedImagepath.value),
+                                        fit: BoxFit.cover,
+                                      ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -191,7 +181,7 @@ class Doctor2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_android_outlined,
+                      Icons.pin,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -218,7 +208,7 @@ class Doctor2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_android_outlined,
+                      Icons.store,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -245,7 +235,7 @@ class Doctor2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_android_outlined,
+                      Icons.place,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -260,23 +250,36 @@ class Doctor2Credentials extends StatelessWidget {
 
               ///todo : State master id .................
               NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _doctor_1_controller.stateMaster_IdController,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'State masterId',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  child: Obx(
+                    () => DropdownButtonFormField<StateModel>(
+                        value: _doctor_1_controller.selectedState.value,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.real_estate_agent,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: Text('Select State'),
+                        items:
+                            _doctor_1_controller.states.map((StateModel items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items.stateName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.015,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (StateModel? newValue) {
+                          _doctor_1_controller.selectedState.value = newValue!;
+                        }),
                   ),
                 ),
               ),
@@ -287,23 +290,35 @@ class Doctor2Credentials extends StatelessWidget {
 
               ///todo : City master id .................
               NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _doctor_1_controller.cityMaster_IdController,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'City masterId',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  child: Obx(
+                    () => DropdownButtonFormField<City>(
+                        value: _doctor_1_controller.selectedCity.value,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.location_city,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: Text('Select City'),
+                        items: _doctor_1_controller.cities.map((City items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items.cityName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.015,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (City? newValue) {
+                          _doctor_1_controller.selectedCity.value = newValue!;
+                        }),
                   ),
                 ),
               ),
@@ -314,23 +329,43 @@ class Doctor2Credentials extends StatelessWidget {
 
               ///todo : End time .................
               NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _doctor_1_controller.endTimeController,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'End time',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
+                child: Obx(
+                  () => InkWell(
+                    onTap: () {
+                      _doctor_1_controller.chooseEndTime();
+                    },
+                    child: Container(
+                      height: size.height * 0.06,
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.1),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Choose end time",
+                                style: TextStyle(
+                                  fontSize: size.height * 0.017,
+                                  fontWeight: FontWeight.bold,
+                                  color: MyTheme.blueww,
+                                ),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.03,
+                              ),
+                              //Spacer(),
+                              Text(
+                                "${_doctor_1_controller.selectedEndTime.value.hour}:${_doctor_1_controller.selectedEndTime.value.minute}",
+                                style: TextStyle(
+                                  fontSize: size.height * 0.026,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
                   ),
                 ),
               ),

@@ -8,11 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_view_reportt/doctor_view_report.dart';
 
 import '../../../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
-import '../../../model/9_doctors_model_RRR/view_patient_report_model.dart';
 import '../appointment_history_view/appointment_history_view.dart';
 import '../doctor_appointment_details/doctor_catagary/doctor_catagary.dart';
 import '../drawer_view/drawerpage.dart';
@@ -29,6 +31,11 @@ class DoctorHomePage extends StatelessWidget {
       Get.put(DoctorPaymentViewControllers());
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
+  DoctorrUploadReportController _doctorrUploadReportController =
+      Get.put(DoctorrUploadReportController());
+
+  DoctorreportviewController _doctorreportviewController =
+      Get.put(DoctorreportviewController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,7 @@ class DoctorHomePage extends StatelessWidget {
       'Payment History',
       'Appointment History',
       'Report view',
-      'Contact Us',
+      'Add Bank',
     ];
 
     List<Color> colors = [
@@ -57,7 +64,8 @@ class DoctorHomePage extends StatelessWidget {
       'lib/assets/icons/history.png',
       'lib/assets/icons/date.png',
       'lib/assets/icons/report2.png',
-      'lib/assets/icons/contact33.png',
+      'lib/assets/icons/bank_update.png',
+      //'lib/assets/icons/contact33.png',
     ];
     return Scaffold(
       key: _key,
@@ -179,6 +187,11 @@ class DoctorHomePage extends StatelessWidget {
                                     _doctorHomepageController.update();
                                     Get.to(() => AppointmentDetails());
                                   } else if (index == 1) {
+                                    // _doctorrUploadReportController
+                                    // .getdoctorrpatientApi();
+                                    //.getlabpatientApi();
+                                    // _doctorrUploadReportController.update();
+
                                     Get.to(DoctorUploadReport());
                                   } else if (index == 2) {
                                     _paymentViewControllers
@@ -196,9 +209,13 @@ class DoctorHomePage extends StatelessWidget {
 
                                     ///Todo this is showing dark and white mode
                                   } else if (index == 4) {
-                                    Get.to(() => ViewPatientReport());
+                                    _doctorreportviewController
+                                        .doctorreportviewApi();
+                                    _doctorreportviewController.update();
+                                    Get.to(() => DoctorViewssReport());
                                   } else if (index == 5) {
-                                    Get.to(() => SupportView());
+                                    Get.to(() => UpdateDoctorBankDetail());
+                                    //Get.to(() => SupportView());
                                   }
                                 },
                                 child: Container(

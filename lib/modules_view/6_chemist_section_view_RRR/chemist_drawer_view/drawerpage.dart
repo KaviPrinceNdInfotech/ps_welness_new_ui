@@ -113,7 +113,7 @@ class ChemistMainDrawer extends StatelessWidget {
                 print(Get.currentRoute);
                 Get.back();
 
-                Get.to(() => AboutUsView());
+                //Get.to(() => AboutUsView());
                 Get.offNamed('/AboutUs');
               },
             ),

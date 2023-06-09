@@ -185,6 +185,106 @@
 
 ///...
 ///
+// import 'dart:convert';
+//
+// UserDoctorAppointmentHistory userDoctorAppointmentHistoryFromJson(String str) =>
+//     UserDoctorAppointmentHistory.fromJson(json.decode(str));
+//
+// String userDoctorAppointmentHistoryToJson(UserDoctorAppointmentHistory data) =>
+//     json.encode(data.toJson());
+//
+// class UserDoctorAppointmentHistory {
+//   List<Appointment>? appointment;
+//
+//   UserDoctorAppointmentHistory({
+//     this.appointment,
+//   });
+//
+//   factory UserDoctorAppointmentHistory.fromJson(Map<String, dynamic> json) =>
+//       UserDoctorAppointmentHistory(
+//         appointment: json["Appointment"] == null
+//             ? []
+//             : List<Appointment>.from(
+//                 json["Appointment"]!.map((x) => Appointment.fromJson(x))),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Appointment": appointment == null
+//             ? []
+//             : List<dynamic>.from(appointment!.map((x) => x.toJson())),
+//       };
+// }
+//
+// class Appointment {
+//   int? doctorId;
+//   String? doctorName;
+//   dynamic location;
+//   dynamic mobileNumber;
+//   DateTime? appointmentDate;
+//   dynamic specialistName;
+//   String? specility;
+//   String? appointedTime;
+//   int? patientId;
+//   double? totalFee;
+//   int? appointmentId;
+//   int? specialistId;
+//   bool? isCancelled;
+//   String? startTime;
+//
+//   Appointment({
+//     this.doctorId,
+//     this.doctorName,
+//     this.location,
+//     this.mobileNumber,
+//     this.appointmentDate,
+//     this.specialistName,
+//     this.specility,
+//     this.appointedTime,
+//     this.patientId,
+//     this.totalFee,
+//     this.appointmentId,
+//     this.specialistId,
+//     this.isCancelled,
+//     this.startTime,
+//   });
+//
+//   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
+//         doctorId: json["Doctor_Id"],
+//         doctorName: json["DoctorName"],
+//         location: json["Location"],
+//         mobileNumber: json["MobileNumber"],
+//         appointmentDate: json["AppointmentDate"] == null
+//             ? null
+//             : DateTime.parse(json["AppointmentDate"]),
+//         specialistName: json["SpecialistName"],
+//         specility: json["Specility"],
+//         appointedTime: json["AppointedTime"],
+//         patientId: json["Patient_Id"],
+//         totalFee: json["TotalFee"],
+//         appointmentId: json["AppointmentId"],
+//         specialistId: json["Specialist_Id"],
+//         isCancelled: json["IsCancelled"],
+//         startTime: json["StartTime"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Doctor_Id": doctorId,
+//         "DoctorName": doctorName,
+//         "Location": location,
+//         "MobileNumber": mobileNumber,
+//         "AppointmentDate": appointmentDate?.toIso8601String(),
+//         "SpecialistName": specialistName,
+//         "Specility": specility,
+//         "AppointedTime": appointedTime,
+//         "Patient_Id": patientId,
+//         "TotalFee": totalFee,
+//         "AppointmentId": appointmentId,
+//         "Specialist_Id": specialistId,
+//         "IsCancelled": isCancelled,
+//         "StartTime": startTime,
+//       };
+// }
+///
 import 'dart:convert';
 
 UserDoctorAppointmentHistory userDoctorAppointmentHistoryFromJson(String str) =>
@@ -216,71 +316,45 @@ class UserDoctorAppointmentHistory {
 }
 
 class Appointment {
-  int? doctorId;
   String? doctorName;
-  dynamic location;
-  dynamic mobileNumber;
   DateTime? appointmentDate;
-  dynamic specialistName;
-  String? specility;
-  String? appointedTime;
-  int? patientId;
+  String? specialistName;
+  DateTime? paymentDate;
+  String? location;
   double? totalFee;
-  int? appointmentId;
-  int? specialistId;
-  bool? isCancelled;
-  String? startTime;
+  String? slotTime;
 
   Appointment({
-    this.doctorId,
     this.doctorName,
-    this.location,
-    this.mobileNumber,
     this.appointmentDate,
     this.specialistName,
-    this.specility,
-    this.appointedTime,
-    this.patientId,
+    this.paymentDate,
+    this.location,
     this.totalFee,
-    this.appointmentId,
-    this.specialistId,
-    this.isCancelled,
-    this.startTime,
+    this.slotTime,
   });
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-        doctorId: json["Doctor_Id"],
         doctorName: json["DoctorName"],
-        location: json["Location"],
-        mobileNumber: json["MobileNumber"],
         appointmentDate: json["AppointmentDate"] == null
             ? null
             : DateTime.parse(json["AppointmentDate"]),
         specialistName: json["SpecialistName"],
-        specility: json["Specility"],
-        appointedTime: json["AppointedTime"],
-        patientId: json["Patient_Id"],
+        paymentDate: json["PaymentDate"] == null
+            ? null
+            : DateTime.parse(json["PaymentDate"]),
+        location: json["Location"],
         totalFee: json["TotalFee"],
-        appointmentId: json["AppointmentId"],
-        specialistId: json["Specialist_Id"],
-        isCancelled: json["IsCancelled"],
-        startTime: json["StartTime"],
+        slotTime: json["SlotTime"],
       );
 
   Map<String, dynamic> toJson() => {
-        "Doctor_Id": doctorId,
         "DoctorName": doctorName,
-        "Location": location,
-        "MobileNumber": mobileNumber,
         "AppointmentDate": appointmentDate?.toIso8601String(),
         "SpecialistName": specialistName,
-        "Specility": specility,
-        "AppointedTime": appointedTime,
-        "Patient_Id": patientId,
+        "PaymentDate": paymentDate?.toIso8601String(),
+        "Location": location,
         "TotalFee": totalFee,
-        "AppointmentId": appointmentId,
-        "Specialist_Id": specialistId,
-        "IsCancelled": isCancelled,
-        "StartTime": startTime,
+        "SlotTime": slotTime,
       };
 }

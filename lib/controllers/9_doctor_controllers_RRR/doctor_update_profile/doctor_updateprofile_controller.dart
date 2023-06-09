@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
@@ -40,7 +41,7 @@ class DoctorUpdateProfileController extends GetxController {
 
   void doctorUpdateProfileApi() async {
     http.Response r = await ApiProvider.DoctorUpdateProfile(
-        idEditText?.text,
+        // idEditText?.text,
         doctorNameEditText?.text,
         mobileNumberEditText?.text,
         selectedState.value?.id.toString(),
@@ -49,12 +50,13 @@ class DoctorUpdateProfileController extends GetxController {
         pinCodeEditText?.text,
         clinicNameEditText?.text,
         feeEditText?.text,
-        adminLogin_id?.text,
+        //adminLogin_id?.text,
         accountnoEditText?.text,
         ifscCodeEditText?.text,
         branchNameEditText?.text);
 
     if (r.statusCode == 200) {
+      Get.to(DoctorHomePage());
     } else {}
   }
 
@@ -67,7 +69,7 @@ class DoctorUpdateProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    idEditText = TextEditingController(text: '143');
+    //idEditText = TextEditingController(text: '143');
     doctorNameEditText = TextEditingController(text: 'Ram');
     mobileNumberEditText = TextEditingController(text: '6398028236');
     stateIdEditText = TextEditingController(text: '3');
@@ -76,7 +78,7 @@ class DoctorUpdateProfileController extends GetxController {
     pinCodeEditText = TextEditingController(text: '206122');
     clinicNameEditText = TextEditingController(text: 'rahul');
     feeEditText = TextEditingController(text: '500');
-    adminLogin_id = TextEditingController(text: '1024');
+    //adminLogin_id = TextEditingController(text: '1024');
     accountnoEditText = TextEditingController(text: '12345674567');
     ifscCodeEditText = TextEditingController(text: 'UCBO005654');
     branchNameEditText = TextEditingController(text: 'UCO');

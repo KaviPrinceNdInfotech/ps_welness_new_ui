@@ -1,27 +1,37 @@
 import 'dart:convert';
 
-DoctorAppoinmentHistoryModel doctorAppoinmentHistoryFromJson(String str) => DoctorAppoinmentHistoryModel.fromJson(json.decode(str));
+DoctorAppoinmentHistorydetailModel doctorAppoinmentHistoryFromJson(
+        String str) =>
+    DoctorAppoinmentHistorydetailModel.fromJson(json.decode(str));
 
-String doctorAppoinmentHistoryToJson(DoctorAppoinmentHistoryModel data) => json.encode(data.toJson());
+String doctorAppoinmentHistoryToJson(DoctorAppoinmentHistorydetailModel data) =>
+    json.encode(data.toJson());
 
-class DoctorAppoinmentHistoryModel {
-  DoctorAppoinmentHistoryModel({
+class DoctorAppoinmentHistorydetailModel {
+  DoctorAppoinmentHistorydetailModel({
     this.patients,
   });
 
-  List<Patient>? patients;
+  List<PatientAppoitntment>? patients;
 
-  factory DoctorAppoinmentHistoryModel.fromJson(Map<String, dynamic> json) => DoctorAppoinmentHistoryModel(
-    patients: json["patients"] == null ? [] : List<Patient>.from(json["patients"]!.map((x) => Patient.fromJson(x))),
-  );
+  factory DoctorAppoinmentHistorydetailModel.fromJson(
+          Map<String, dynamic> json) =>
+      DoctorAppoinmentHistorydetailModel(
+        patients: json["patients"] == null
+            ? []
+            : List<PatientAppoitntment>.from(
+                json["patients"]!.map((x) => PatientAppoitntment.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "patients": patients == null ? [] : List<dynamic>.from(patients!.map((x) => x.toJson())),
-  };
+        "patients": patients == null
+            ? []
+            : List<dynamic>.from(patients!.map((x) => x.toJson())),
+      };
 }
 
-class Patient {
-  Patient({
+class PatientAppoitntment {
+  PatientAppoitntment({
     this.patientName,
     this.emailId,
     this.mobileNumber,
@@ -39,23 +49,24 @@ class Patient {
   String? stateName;
   String? patientRegNo;
 
-  factory Patient.fromJson(Map<String, dynamic> json) => Patient(
-    patientName: json["PatientName"],
-    emailId: json["EmailId"],
-    mobileNumber: json["MobileNumber"],
-    location: json["Location"],
-    cityName: json["CityName"],
-    stateName: json["StateName"],
-    patientRegNo: json["PatientRegNo"],
-  );
+  factory PatientAppoitntment.fromJson(Map<String, dynamic> json) =>
+      PatientAppoitntment(
+        patientName: json["PatientName"],
+        emailId: json["EmailId"],
+        mobileNumber: json["MobileNumber"],
+        location: json["Location"],
+        cityName: json["CityName"],
+        stateName: json["StateName"],
+        patientRegNo: json["PatientRegNo"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "PatientName": patientName,
-    "EmailId": emailId,
-    "MobileNumber": mobileNumber,
-    "Location": location,
-    "CityName": cityName,
-    "StateName": stateName,
-    "PatientRegNo": patientRegNo,
-  };
+        "PatientName": patientName,
+        "EmailId": emailId,
+        "MobileNumber": mobileNumber,
+        "Location": location,
+        "CityName": cityName,
+        "StateName": stateName,
+        "PatientRegNo": patientRegNo,
+      };
 }

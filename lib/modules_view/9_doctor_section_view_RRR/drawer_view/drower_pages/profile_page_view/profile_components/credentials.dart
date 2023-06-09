@@ -37,32 +37,32 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///todo: id..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _doctorUpdateProfileController.idEditText,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                // validator: (value) {
-                //   return _doctorprofileController.validPhone(value!);
-                // },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // ///todo: id..........
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     controller: _doctorUpdateProfileController.idEditText,
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.telephoneNumber],
+            //     // validator: (value) {
+            //     //   return _doctorprofileController.validPhone(value!);
+            //     // },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Id',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.perm_identity,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
 
             ///TODO: DoctorName.......................
             NeumorphicTextFieldContainer(
@@ -88,6 +88,9 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
                   border: InputBorder.none,
                 ),
               ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
             ),
 
             ///todo: mobile number..........
@@ -115,9 +118,6 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
                   border: InputBorder.none,
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
             ),
             SizedBox(
               height: size.height * 0.02,
@@ -317,27 +317,27 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///Todo: adminLogin_id..............
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _doctorUpdateProfileController.adminLogin_id,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Adminlogin id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.login,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // ///Todo: adminLogin_id..............
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     controller: _doctorUpdateProfileController.adminLogin_id,
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Adminlogin id',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.login,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: size.height * 0.02,
             ),

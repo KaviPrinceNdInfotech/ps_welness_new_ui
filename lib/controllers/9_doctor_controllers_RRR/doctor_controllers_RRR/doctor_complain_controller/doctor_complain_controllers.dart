@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/complain_doctor_model.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 
 import '../../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
@@ -32,7 +33,9 @@ class DoctorComplaintController extends GetxController {
         selectedSubject.value?.subjectName,
         complaintController.text,
         otherController.text);
-    if (r.statusCode == 200) {}
+    if (r.statusCode == 200) {
+      Get.to(DoctorHomePage());
+    }
   }
 
   ////////driver complain

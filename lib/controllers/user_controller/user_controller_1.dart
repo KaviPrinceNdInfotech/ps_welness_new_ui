@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
@@ -10,7 +12,6 @@ import 'package:http/http.dart' as http;
 
 import '../../model/1_user_model/city_model/city_modelss.dart';
 import '../../model/1_user_model/states_model/state_modells.dart';
-import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../servicess_api/api_services_all_api.dart';
 
@@ -63,7 +64,7 @@ class User_1_Controller extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(UserHomePage());
+      Get.to(SignInScreen());
     }
   }
 
@@ -171,7 +172,6 @@ class User_1_Controller extends GetxController {
   //     return null;
   //   }
   // }
-
 
   String? validPhone(String value) {
     if (value.isEmpty) {

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/about_us_doctor_controller/doctor_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/add_skills/add_skills.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/complaint_page/complaint_page.dart';
@@ -23,6 +24,8 @@ import 'drower_pages/supports/support_view.dart';
 class MainDrawer extends StatelessWidget {
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
+  DoctorAboutusController _doctorAboutusController =
+      Get.put(DoctorAboutusController());
 
   @override
   Widget build(BuildContext context) {
@@ -330,6 +333,8 @@ class MainDrawer extends StatelessWidget {
                   : Colors.transparent,
               onTap: () {
                 Get.back();
+                _doctorAboutusController.update();
+                _doctorAboutusController.doctoraboutusApi();
                 Get.to(() => AboutUsView());
                 Get.offNamed('/AboutUsView');
               },

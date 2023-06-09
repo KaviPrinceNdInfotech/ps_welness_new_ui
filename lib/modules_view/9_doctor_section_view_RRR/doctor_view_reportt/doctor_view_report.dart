@@ -4,17 +4,17 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_image_view_report/doctor_image_view_reportss.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
 import '../../../widgets/circular_loader.dart';
-import 'lab_report_viewss.dart';
 
-class LabViewReport extends StatelessWidget {
-  LabViewReport({Key? key}) : super(key: key);
+class DoctorViewssReport extends StatelessWidget {
+  DoctorViewssReport({Key? key}) : super(key: key);
 
-  LabreportviewController _labreportviewController =
-      Get.put(LabreportviewController());
+  DoctorreportviewController _doctorreportviewController =
+      Get.put(DoctorreportviewController());
 
   // LabreportviewController _labreportviewController =
   // Get.put(LabreportviewController());
@@ -30,7 +30,7 @@ class LabViewReport extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Obx(
-          () => (_labreportviewController.isLoading.value)
+          () => (_doctorreportviewController.isLoading.value)
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -92,7 +92,7 @@ class LabViewReport extends StatelessWidget {
                                   width: size.width * 0.03,
                                 ),
                                 Text(
-                                  'Lab\'s Report View',
+                                  'Doctor\'s Report View',
                                   style: GoogleFonts.alatsi(
                                       fontSize: size.height * 0.032,
                                       fontWeight: FontWeight.w600,
@@ -123,8 +123,9 @@ class LabViewReport extends StatelessWidget {
                                     //       ? Center(child: CircularProgressIndicator())
                                     //       :
                                     TextField(
-                                  onChanged: (value) => _labreportviewController
-                                      .filterLabPatient(value),
+                                  onChanged: (value) =>
+                                      _doctorreportviewController
+                                          .filterDoctorPatient(value),
                                   // controller: _driverPayoutController.appointmentController,
                                   onTap: () {
                                     // _driverPayoutController.chooseDate();
@@ -155,8 +156,8 @@ class LabViewReport extends StatelessWidget {
                               ),
                             ),
                           ),
-                          _labreportviewController
-                                  .foundlabviewProducts.value.isEmpty
+                          _doctorreportviewController
+                                  .founddoctorviewProducts.value.isEmpty
                               ? Center(
                                   child: Text("No List"),
                                 )
@@ -166,8 +167,8 @@ class LabViewReport extends StatelessWidget {
                                   ///height: size.height,
                                   child: ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: _labreportviewController
-                                          .foundlabviewProducts.length,
+                                      itemCount: _doctorreportviewController
+                                          .founddoctorviewProducts.length,
                                       // _driverPayoutHistoryController
                                       //     .getDriverPayoutHistory?.length,
                                       itemBuilder:
@@ -262,15 +263,18 @@ class LabViewReport extends StatelessWidget {
                                                             await SharedPreferences
                                                                 .getInstance();
                                                         prefs.setString(
-                                                            "labreportlistId",
-                                                            "${_labreportviewController.foundlabviewProducts[index].id.toString()}");
-                                                        _labreportviewController
-                                                            .labreportimageApi();
-                                                        _labreportviewController
+                                                            "doctorreportlistId",
+                                                            "${_doctorreportviewController.founddoctorviewProducts[index].id.toString()}");
+                                                        _doctorreportviewController
+                                                            .doctorreportimageeApi();
+                                                        _doctorreportviewController
                                                             .update();
                                                         CallLoader.hideLoader();
 
-                                                        Get.to(LabReportView());
+                                                        ///
+
+                                                        Get.to(
+                                                            DoctorReportImageView());
                                                       },
                                                       child: Container(
                                                         height:
@@ -281,7 +285,7 @@ class LabViewReport extends StatelessWidget {
                                                             EdgeInsets.all(8),
                                                         child: Image.network(
                                                           base +
-                                                              '${_labreportviewController.foundlabviewProducts[index].file.toString()}',
+                                                              '${_doctorreportviewController.founddoctorviewProducts[index].image1.toString()}',
                                                           //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                                           fit: BoxFit.fill,
                                                           errorBuilder:
@@ -345,7 +349,7 @@ class LabViewReport extends StatelessWidget {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "${_labreportviewController.foundlabviewProducts[index].patientName}",
+                                                          "${_doctorreportviewController.founddoctorviewProducts[index].patientName}",
                                                           //'Ram Kumar',
                                                           // '\u{20B9}${_driverPayoutHistoryController.getDriverPayoutHistory?[index].paidAmount}',
                                                           style: GoogleFonts
@@ -364,7 +368,7 @@ class LabViewReport extends StatelessWidget {
                                                               0.01,
                                                         ),
                                                         Text(
-                                                          "${_labreportviewController.foundlabviewProducts[index].testName}",
+                                                          "${_doctorreportviewController.founddoctorviewProducts[index].patientName}",
 
                                                           //'blood test',
                                                           // Date,
@@ -388,7 +392,7 @@ class LabViewReport extends StatelessWidget {
                                                           height: size.height *
                                                               0.02,
                                                           child: Text(
-                                                            "${_labreportviewController.foundlabviewProducts[index].testName.toString()}",
+                                                            "${_doctorreportviewController.founddoctorviewProducts[index].patientName.toString()}",
 
                                                             //'12-12-2023',
                                                             // Date,
@@ -428,19 +432,15 @@ class LabViewReport extends StatelessWidget {
                                                                   prefs =
                                                                   await SharedPreferences
                                                                       .getInstance();
-                                                              // labreportlistId
                                                               prefs.setString(
-                                                                  "labreportlistId",
-                                                                  "${_labreportviewController.foundlabviewProducts[index].id.toString()}");
-
-                                                              _labreportviewController
-                                                                  .labreportimageApi();
-                                                              _labreportviewController
+                                                                  "doctorreportlistId",
+                                                                  "${_doctorreportviewController.founddoctorviewProducts[index].id.toString()}");
+                                                              _doctorreportviewController
+                                                                  .doctorreportimageeApi();
+                                                              _doctorreportviewController
                                                                   .update();
-                                                              // CallLoader
-                                                              //     .loader();
                                                               Get.to(
-                                                                  LabReportView());
+                                                                  DoctorReportImageView());
                                                               CallLoader
                                                                   .hideLoader();
                                                               //Get.back();

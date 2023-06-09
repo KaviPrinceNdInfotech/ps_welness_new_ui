@@ -9,7 +9,7 @@ import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_pa
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../servicess_api/api_services_all_api.dart';
 
-class Doctor_1_Controller extends GetxController {
+class Doctor_3_Controller extends GetxController {
   final GlobalKey<FormState> doctor1formkey = GlobalKey<FormState>();
 
   ///TODO: image picker.................

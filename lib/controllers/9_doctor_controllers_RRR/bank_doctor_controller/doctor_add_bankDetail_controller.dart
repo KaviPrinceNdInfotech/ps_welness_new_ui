@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
-import '../../../modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
-import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
+class DoctorUpdateBankDetailController extends GetxController {
+  final GlobalKey<FormState> rwabankformkey = GlobalKey<FormState>();
 
-class UpdateBankController extends GetxController {
-  final GlobalKey<FormState> updatebankformkey = GlobalKey<FormState>();
   TextEditingController? AccountNo,
       IFSCCode,
       BranchName,
@@ -23,7 +23,7 @@ class UpdateBankController extends GetxController {
   var holderName = '';
   var mobileNumber = '';
 
-  void chemistUpdateBankDetailApi() async {
+  void doctorUpdateBankDetailApi() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.DoctoraddBankDetailApi(
       AccountNo?.text,
@@ -37,7 +37,7 @@ class UpdateBankController extends GetxController {
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(ChemistHomePage());
+      Get.to(DoctorHomePage());
     } else {}
   }
 
@@ -55,77 +55,58 @@ class UpdateBankController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
   String? validbankaccount(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    if (value.length < 9) {
-      return '              Provide valid account no.';
+    if (value.length < 2) {
+      return "This is required field.";
     }
     return null;
   }
 
   String? validifsc(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    if (value.length < 4) {
-      return '              Provide valid IFSC code.';
+    if (value.length < 2) {
+      return "     This is required field.";
     }
     return null;
   }
 
   String? validbranch(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return "This is required field.";
     }
     return null;
   }
 
   String? validbranchaddress(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return "This is required field.";
     }
     return null;
   }
 
   String? validname(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return "This is required field.";
     }
     return null;
   }
 
   String? validmobile(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return "This is required field.";
     }
     return null;
   }
 
-  void checkUpdateBankDetail() {
-    if (updatebankformkey.currentState!.validate()) {
-      chemistUpdateBankDetailApi();
+  void checkrwabank3() {
+    if (rwabankformkey.currentState!.validate()) {
+      doctorUpdateBankDetailApi();
     }
-    updatebankformkey.currentState!.save();
+    rwabankformkey.currentState!.save();
+    // final isValid = complaintformkey.currentState!.validate();
+    // if (!isValid) {
+    //   return;
+    // }
+    //complaintformkey.currentState!.save();
+    //Get.to(() => HomePage());
   }
 }

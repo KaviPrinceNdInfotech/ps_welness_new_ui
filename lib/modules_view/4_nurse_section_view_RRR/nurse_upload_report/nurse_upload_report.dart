@@ -151,8 +151,8 @@ import 'package:get/get.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
-import 'package:ps_welness_new_ui/model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
-import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/dropdown_list_patient_nurse.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 import '../../../widgets/widgets/rectangular_button.dart';
@@ -174,7 +174,7 @@ class NurseUploadReport extends StatelessWidget {
       appBar: AppBar(
         leading: InkWell(
             onTap: () {
-              Get.to(LabHomePage());
+              Get.to(NurseHomePage());
             },
             child: Icon(Icons.arrow_circle_left)),
         title: Text("Upload Patient Report"),
@@ -241,9 +241,9 @@ class NurseUploadReport extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: size.width * 0.01),
                         child: Obx(
-                          () => DropdownButtonFormField<PatientdropdownName>(
+                          () => DropdownButtonFormField<PatientNameNurse>(
                               value: _nursdeUploadReportController
-                                  .selectedpatient.value,
+                                  .selectedpatients.value,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.person,
@@ -253,8 +253,8 @@ class NurseUploadReport extends StatelessWidget {
                                 border: InputBorder.none,
                               ),
                               hint: Text('Select Patient'),
-                              items: _nursdeUploadReportController.patient
-                                  .map((PatientdropdownName patients) {
+                              items: _nursdeUploadReportController.patientss
+                                  .map((PatientNameNurse patients) {
                                 return DropdownMenuItem(
                                   value: patients,
                                   child: Text(
@@ -266,9 +266,9 @@ class NurseUploadReport extends StatelessWidget {
                                   ),
                                 );
                               }).toList(),
-                              onChanged: (PatientdropdownName? newValue) {
+                              onChanged: (PatientNameNurse? newValue) {
                                 _nursdeUploadReportController
-                                    .selectedpatient.value = newValue!;
+                                    .selectedpatients.value = newValue!;
                                 // _hospital_2_controller.states.value =
                                 //     newValue! as List<String>;
                                 // _hospital_2_controller.selectedCity.value = null;

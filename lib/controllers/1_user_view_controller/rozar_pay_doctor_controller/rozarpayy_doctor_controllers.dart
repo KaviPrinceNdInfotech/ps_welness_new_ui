@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../../modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
@@ -23,6 +24,8 @@ class RozarPayDoctorController extends GetxController {
   PostOrderDoctorController _postOrderDoctorController =
       Get.put(PostOrderDoctorController());
   LabHistoryController _labHistoryController = Get.put(LabHistoryController());
+  DoctorHistoryController _doctorHistoryController =
+      Get.put(DoctorHistoryController());
 
   @override
   void onInit() {
@@ -95,6 +98,8 @@ class RozarPayDoctorController extends GetxController {
         ///nov 14....................................
         Get.to(DoctorHistoryUser());
         _doctorappointmentcheckout.update();
+        _doctorHistoryController.update();
+        _doctorHistoryController.doctorListHospitalApi();
       } else {
         // SHow
       }

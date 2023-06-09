@@ -13,7 +13,7 @@ class DoctorHomepageController extends GetxController {
   DoctorBannerModel? getdoctorbannerlist;
   DoctorNewAppoinmentDetailModel? doctorNewAppoinmentDetailModel;
   //List<DoctorNewAppoinmentDetailModel>? getdoctorAppoinmentDetailList;
-  DoctorAppoinmentHistoryModel? getdoctorAppoinmentHistory;
+  DoctorAppoinmentHistorydetailModel? getdoctorAppoinmentHistory;
 
   void doctorBannerApi() async {
     isLoading(true);
@@ -75,9 +75,10 @@ class DoctorHomepageController extends GetxController {
   }
 
   ///payment....history.......
-  RxList<Patient> founddrhistoryProducts = RxList<Patient>([]);
+  RxList<PatientAppoitntment> founddrhistoryProducts =
+      RxList<PatientAppoitntment>([]);
   void filterdrpaymengt(String searchphistoryName) {
-    List<Patient> finalResults = [];
+    List<PatientAppoitntment> finalResults = [];
     if (searchphistoryName.isEmpty) {
       finalResults = getdoctorAppoinmentHistory!.patients!;
     } else {

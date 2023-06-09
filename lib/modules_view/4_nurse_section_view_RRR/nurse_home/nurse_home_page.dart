@@ -210,9 +210,10 @@ class NurseHomePage extends StatelessWidget {
                                     } else if (index == 1) {
                                       // _nursdeUploadReportController
                                       //.getnursepatientApi();
-                                      _nursdeUploadReportController
-                                          .postnurseUploadreportApi();
-                                      _nursdeUploadReportController.update();
+                                      //_nursdeUploadReportController
+                                      //.getnursepatientssApi();
+                                      //.postnurseUploadreportApi();
+                                      //_nursdeUploadReportController.update();
                                       Get.to(() => NurseUploadReport());
                                     } else if (index == 2) {
                                       _nursePaymentHistoryController

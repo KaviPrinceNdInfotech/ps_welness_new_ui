@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_profile_components/head_text.dart';
 
-//import 'package:ps_welness/constants/constants/constants.dart';
+import 'bank_profile_components/credentials.dart';
 
-import 'complaint_components/credentials.dart';
-import 'complaint_components/head_text.dart';
-
-class ComplaintPageDoctor extends StatelessWidget {
-  const ComplaintPageDoctor({Key? key}) : super(key: key);
+class UpdateDoctorBankDetail extends StatelessWidget {
+  UpdateDoctorBankDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -29,20 +27,22 @@ class ComplaintPageDoctor extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Positioned(
-                  top: size.height * 0.014,
-                  right: -size.width * 0.006,
+                  top: size.height * 0.016,
+                  //bottom: size.height * 0.64,
+                  //left: -30,
+                  right: size.width * 0.04,
                   child: Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: size.height * 0.200,
-                      width: size.width * 0.47,
+                      height: size.height * 0.22,
+                      width: size.width * 0.45,
                       decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                           ),
                           image: DecorationImage(
                               image: AssetImage(
-                                'lib/assets/icons/doctor1.png',
+                                'lib/assets/icons/rwabank1.png',
                               ),
                               fit: BoxFit.cover)),
                     ),
@@ -51,8 +51,10 @@ class ComplaintPageDoctor extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ComplaintHeadText(),
-                    ComplaintCredentials(),
+                    UpdateDoctorBankHeadText(),
+                    UpdateDoctorBankCredentials(),
+                    //HospitalSocial(),
+                    //Spacer(),
                   ],
                 ),
               ],

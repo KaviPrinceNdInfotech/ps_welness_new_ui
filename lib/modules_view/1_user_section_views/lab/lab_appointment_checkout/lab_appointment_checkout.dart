@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/lab_booking_view/lab_booking_schedule.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -101,8 +100,8 @@ class LabAppointmentCheckout extends StatelessWidget {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        Get.off(LabSchedule1Page());
-                                        //Get.back();
+                                        //Get.off(LabSchedule1Page());
+                                        Get.back();
                                       },
                                       child: Icon(
                                         Icons.arrow_back_ios_outlined,
@@ -586,14 +585,14 @@ class LabAppointmentCheckout extends StatelessWidget {
                                       //  crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                          onTap: () {
+                                          onTap: () async {
                                             /// todo start payment......feess,,,,,...
 
-                                            // SharedPreferences prefs =
-                                            //     await SharedPreferences
-                                            //     .getInstance();
-                                            //prefs.setString("LabFee",
-                                            //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            prefs.setString("LabFee",
+                                                "${_labListController.labCheckoutModel?.fee.toString()}");
 
                                             ///todo: end the fees.........
                                             _rozarPayLabController

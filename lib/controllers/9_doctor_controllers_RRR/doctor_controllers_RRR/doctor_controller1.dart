@@ -1,12 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
-
-import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
-//import '../../modules_view/circular_loader/circular_loaders.dart';
-//import '../../servicess_api/api_services_all_api.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class Doctor_1_Controller extends GetxController {
   final GlobalKey<FormState> doctor11formkey = GlobalKey<FormState>();
@@ -14,6 +17,9 @@ class Doctor_1_Controller extends GetxController {
   ///TODO: image picker.................
   ///
   var selectedImagepath = ''.obs;
+  var selectedStartTime = TimeOfDay.now().obs;
+  var selectedEndTime = TimeOfDay.now().obs;
+  var selectedSlotTime = TimeOfDay.now().obs;
 
   TextEditingController? idController,
       doctorNameController,
@@ -71,17 +77,26 @@ class Doctor_1_Controller extends GetxController {
   }
 
   ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+  void getStateLabApi() async {
+    states = await ApiProvider.getSatesApi();
+  }
 
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  ///get cities api...........
+  void getCityByStateIDLab(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+  }
+
   void doctorSignupApi() async {
     CallLoader.loader();
+    final licenceImageAsBase64 =
+        base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.signDoctorUpApi(
-        //22
-        idController?.text,
         doctorNameController?.text,
         emailIdController?.text,
         passwordController?.text,
@@ -89,21 +104,21 @@ class Doctor_1_Controller extends GetxController {
         mobileNumberController?.text,
         feeController?.text,
         phoneNumberController?.text,
-        startTimeController?.text,
-        slotTimingController?.text,
+        selectedStartTime.value.toString(),
+        selectedSlotTime.value.hour,
         departmentIdController?.text,
         specialistIdController?.text,
         licenceNumberController?.text,
-        licenceImageController?.text,
-        licenceImageNameController?.text,
+        selectedImagepath.value.split('/').last,
         pinCodeController?.text,
         clinicNameController?.text,
         locationController?.text,
-        stateMaster_IdController?.text,
-        cityMaster_IdController?.text,
-        endTimeController?.text,
-        licenceBase64Controller?.text);
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
+        selectedEndTime.value.hour,
+        licenceImageAsBase64);
     if (r.statusCode == 200) {
+      Get.to(SignInScreen());
       CallLoader.hideLoader();
     } else {
       CallLoader.hideLoader();
@@ -113,8 +128,12 @@ class Doctor_1_Controller extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    states.refresh();
-    //22 textfield
+    getStateLabApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDLab("${p0.id}");
+      }
+    });
     idController = TextEditingController(text: '143');
     doctorNameController = TextEditingController(text: 'ramkkkkkkkssssingh');
     emailIdController = TextEditingController(text: 'ram@gmail.com');
@@ -225,6 +244,66 @@ class Doctor_1_Controller extends GetxController {
       return '              A valid phone number should be of 10 digits';
     }
     return null;
+  }
+
+  chooseEndTime() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedEndTime.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+
+    if (pickedTime != null && pickedTime != selectedEndTime.value) {
+      selectedEndTime.value = pickedTime;
+    }
+  }
+
+  chooseStartTime() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedStartTime.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+
+    if (pickedTime != null && pickedTime != selectedStartTime.value) {
+      selectedStartTime.value = pickedTime;
+    }
+  }
+
+  chooseSlotTime() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedSlotTime.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+
+    if (pickedTime != null && pickedTime != selectedSlotTime.value) {
+      selectedSlotTime.value = pickedTime;
+    }
   }
 
   void checkDoctor1() {

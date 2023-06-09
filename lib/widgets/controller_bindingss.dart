@@ -23,6 +23,7 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_ho
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_update_profile/doctor_updateprofile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_report_view_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
@@ -168,8 +169,7 @@ class ControllerBinding extends Bindings {
     Get.put(NursereportviewController());
     Get.put(NurseAboutusController());
     Get.put(UserAboutusController());
-    // Rahul
-    //Get.put(GoogleMapController());
+    Get.put(DoctorreportviewController());
 
     //Get.put(CatagaryByIdController());
   }

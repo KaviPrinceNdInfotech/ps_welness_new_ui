@@ -428,11 +428,10 @@ class ApiProvider {
     }
   }
 
-  ///Todo: from here doctor 9 section.................
+  ///Todo: from here doctor 9 section...9 june 2023..............
   ///
   //sign up  Api doctor Api 1........................................................
   static signDoctorUpApi(
-    var Id,
     var DoctorName,
     var EmailId,
     var Password,
@@ -446,7 +445,6 @@ class ApiProvider {
     var Specialist_Id,
     var LicenceNumber,
     var LicenceImage,
-    var LicenceImageName,
     var PinCode,
     var ClinicName,
     var Location,
@@ -458,7 +456,7 @@ class ApiProvider {
     try {
       var url = '${baseUrl}api/SignupApi/DoctorRegistration';
       var body = {
-        "Id": "$Id",
+        "Id": "143",
         "DoctorName": "$DoctorName",
         "EmailId": "$EmailId",
         "Password": "$Password",
@@ -466,28 +464,29 @@ class ApiProvider {
         "MobileNumber": "$MobileNumber",
         "Fee": "$Fee",
         "PhoneNumber": "$PhoneNumber",
-        "StartTime": "$StartTime",
-        "SlotTiming": "$SlotTiming",
+        "StartTime": "14:27:00.0000000", //"$StartTime",
+        "SlotTiming": "5", //"$SlotTiming",
         "Department_Id": "$Department_Id",
         "Specialist_Id": "$Specialist_Id",
         "LicenceNumber": "$LicenceNumber",
         "LicenceImage": "$LicenceImage",
-        "LicenceImageName": "$LicenceImageName",
         "PinCode": "$PinCode",
         "ClinicName": "$ClinicName",
         "Location": "$Location",
         "StateMaster_Id": "$StateMaster_Id",
         "CityMaster_Id": "$CityMaster_Id",
-        "EndTime": "$EndTime",
-        "LicenceBase64": base64Code
+        "EndTime": "14:27:00.0000000", //"$EndTime",
+        "LicenceBase64": "$LicenceBase64"
       };
       print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%: ${body}");
+      print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%Time: ${StartTime}");
       http.Response r = await http.post(
         Uri.parse(url),
         body: body,
       );
       if (r.statusCode == 200) {
         print("Success123: ${r.body}");
+        Get.snackbar("Success", "${r.body}");
         return r;
       } else {
         print("Doctor registration failed: ${r.statusCode}");
@@ -1068,15 +1067,15 @@ class ApiProvider {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userassaid:${userid}');
-    var url = '${baseUrl}api/DoctorApi/DoctorPatientList?id=$userid';
+    var url = '${baseUrl}api/DoctorApi/GetAppointmentDetail?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
-        DoctorAppoinmentHistoryModel doctorAppoinmentHistoryModel =
+        DoctorAppoinmentHistorydetailModel doctorAppoinmentHistoryModel =
             doctorAppoinmentHistoryFromJson(r.body);
 
         print("draptdddd:${url}");
-        print("draptbodywqdw:${r.body}");
+        print("draptbodywqdwrr:${r.body}");
         return doctorAppoinmentHistoryModel;
       }
     } catch (error) {
@@ -1086,7 +1085,7 @@ class ApiProvider {
 
   /// todo doctor update profile.............Rahul
   static DoctorUpdateProfile(
-      var ID,
+      //var ID,
       var DoctorName,
       var MobileNumber,
       var StateMaster_Id,
@@ -1095,13 +1094,18 @@ class ApiProvider {
       var PinCode,
       var ClinicName,
       var Fee,
-      var adminLogin_id,
+      //var adminLogin_id,
       var accountnoEditText,
       var ifscCodeEditText,
       var branchNameEditText) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
     var url = baseUrl + 'api/DoctorApi/UpdateProfile';
     var body = {
-      "ID": ID,
+      "ID": userid,
       "DoctorName": DoctorName,
       "MobileNumber": MobileNumber,
       "StateMaster_Id": StateMaster_Id,
@@ -1110,7 +1114,7 @@ class ApiProvider {
       "PinCode": PinCode,
       "ClinicName": ClinicName,
       "Fee": Fee,
-      "adminLogin_id": adminLogin_id,
+      "adminLogin_id": adminId,
       "AccountNo": accountnoEditText,
       "IFSCCode": ifscCodeEditText,
       "BranchName": branchNameEditText
@@ -1697,6 +1701,41 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       print("BankDetailSuccesss: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo doctor add Bank Detail............Rahul
+  static DoctoraddBankDetailApi(
+    var AccountNo,
+    var IFSCCode,
+    var BranchName,
+    var BranchAddress,
+    var HolderName,
+    var MobileNumber,
+  ) async {
+    var url = '${baseUrl}api/DoctorApi/Doctor_AddBankDetail';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    var body = {
+      "Login_Id": adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName,
+      "BranchAddress": BranchAddress,
+      "HolderName": HolderName,
+      "MobileNumber": MobileNumber,
+    };
+    print('AddPatientBodygg: ${body}');
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("BankDetailSuccessstt: ${r.body}");
       Get.snackbar("Success", "${r.body}");
       return r;
     } else {

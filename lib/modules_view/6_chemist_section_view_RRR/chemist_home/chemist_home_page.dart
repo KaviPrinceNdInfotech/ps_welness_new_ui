@@ -36,7 +36,7 @@ class ChemistHomePage extends StatelessWidget {
 
     final List<String> productname = [
       'Manage Profile',
-      'Update Bank Details',
+      'Add Bank Details',
       'Order History',
       'My Payment History',
       'My Payout history',

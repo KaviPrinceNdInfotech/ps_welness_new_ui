@@ -18,11 +18,14 @@ import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_m
 import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/wallet_model/wallet_section_model.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/dropdown_list_patient_nurse.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_aboutus_model.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_view_imagereport.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_view_report.dart';
 import 'package:ps_welness_new_ui/model/5_RWA_controller_RRR/rwa_aboutus_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_homepage_model/doctor_report_image_view.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_homepage_model/doctor_view_report11_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,6 +69,8 @@ import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
 //mport '../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/9_doctors_model/view_patient_report_model.dart';
+import '../model/9_doctors_model_RRR/doctor_homepage_model/about_us_model/about_us_model.dart';
+import '../model/9_doctors_model_RRR/doctor_homepage_model/dropdown_patient_list_model/dropdown_patient_list_model.dart';
 import '../model/9_prince_doctors_model/doctor_payment_history.dart';
 import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/lab_review_model/lab_view_review_model.dart';
@@ -906,16 +911,24 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
 
+    labbooking_Id = prefs.read("labbooking_Id").toString();
+    print('&&&&&&&&&&&&&&lab:${labbooking_Id}');
+    //saved id..........
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    Id = prefs.read("Id").toString();
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var LablistssId = preferences.getString("LablistssId");
     print("LablistssId: ${LablistssId}");
     //doctor fees...
-//     var DoctorFee = preferences.getString("DoctorFee");
-//     print("Fee545454: ${DoctorFee}");
+    var LabFee = preferences.getString("DoctorFee");
+    print("Fee545454: ${LabFee}");
+
     var body = {
+      "Id": "$labbooking_Id",
       "Lab_Id": "$LablistssId",
-      //Lab_Id,
       "Patient_Id": userid,
+      "Amount": "$LabFee",
       "IsPaid": "true",
     };
     // print(body);
@@ -993,13 +1006,13 @@ class ApiProvider {
     ///
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&labusereportlvv:${userid}');
-    print(userid);
+    print('&&&&&&&&&&&&&&&&&&&&&&labusdoctorr:${userid}');
+    nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
     var body = {
+      "Id": nursebooking_Id,
       "Nurse_Id": "$NurseuserListId",
       "Patient_Id": userid,
-      // "Id": userid,
-      //Lab_Id,
       "TotalFee": "$NurseFee",
       "IsPaid": "true",
     };
@@ -1029,19 +1042,24 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId: ${DoctorListId}");
+
 //doctor fees...
-//     var DoctorFee = preferences.getString("DoctorFee");
-//     print("Fee545454: ${DoctorFee}");
+    var DoctorFee = preferences.getString("DoctorFee");
+    print("Fee545454eeedrr: ${DoctorFee}");
 
     ///
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labusereportdr:${userid}');
+    doctorbooking_Id = prefs.read("doctorbooking_Id").toString();
+    print('&&&&&&&&&&&&&&doctor:${doctorbooking_Id}');
     var body = {
+      "Id": "$doctorbooking_Id",
       "Doctor_Id": "$DoctorListId",
       //Lab_Id,
       "Patient_Id": userid,
-      "IsPaid": "true",
+      "TotalFee": "$DoctorFee",
+      "IsPaid": "true"
     };
     // print(body);
     http.Response r = await http.post(
@@ -1315,7 +1333,7 @@ class ApiProvider {
   ///todo: nurse booking 1 api........27 april 2023...
 
   static Nursesebooking1Api(
-    var PatientId,
+    //var PatientId,
     var NurseTypeId,
     var ServiceType,
     var ServiceTime,
@@ -1324,10 +1342,15 @@ class ApiProvider {
     var MobileNumber,
     var LocationId,
   ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusdoctorr:${userid}');
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
     var url = baseUrl + 'api/NurseServices/NurseServices';
 
     var body = {
-      "Patient_Id": Id,
+      "Patient_Id": "$userid",
       "NurseTypeId": NurseTypeId,
       "ServiceType": ServiceType,
       "NurseType_Id": NurseTypeId,
@@ -1354,7 +1377,7 @@ class ApiProvider {
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&nursebookingId:${Id}');
 
-      print("nursebooking1:${body}");
+      print("nursebooking1:${r.body}");
 
       ///
       // //saved token.........
@@ -3448,6 +3471,29 @@ class ApiProvider {
     }
   }
 
+  ///todo: lab about us..........by lab Id.......12 may 2023...prince..
+
+  static DoctoraboutusApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&drr:${userid}');
+    print(userid);
+    var url = "http://test.pswellness.in/api/DoctorApi/DoctorAbout?Id=$userid";
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        AboutUsModelDoctor? doctorapaboutusmodel =
+            aboutUsModelDoctorFromJson(r.body);
+        return doctorapaboutusmodel;
+      }
+    } catch (error) {
+      print("errordeeeedrfrrr:${error.toString()}");
+      return;
+    }
+  }
+
   ///todo: nurse about us..........by nurse Id.......5...june.. 2023...prince..
 
   static NurseaboutusApi() async {
@@ -3668,6 +3714,41 @@ class ApiProvider {
     }
   }
 
+  ///todo:this is the doctor  upload report api...5  2023...............
+  static doctorruploadreportApi(
+    var Patient_Id,
+    var Image1,
+    var Image1Base64,
+  ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&doctorusereport:${userid}');
+    print(userid);
+    var body = {
+      "Doctor_Id": userid,
+      "Patient_Id": Patient_Id,
+      "Image1": '$Image1',
+      "Image1Base64": '$Image1Base64',
+    };
+    try {
+      var url = baseUrl + 'api/DoctorApi/Doctor_UploadReport';
+      var r = await http.post(Uri.parse(url), body: body);
+      if (r.statusCode == 200) {
+        print("###3###3####1: ${r.body}");
+        print("okokolanreportii: ${body}");
+
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+    }
+  }
+
   ///todo:upload report..user.of......getapidropdown...15 may...2023..
   ///
   static Future<List<PatientdropdownName>?> getlabpatientApi() async {
@@ -3691,20 +3772,48 @@ class ApiProvider {
     }
   }
 
-  ///todo:upload report..user.of......getapidropdown...3..june...2023..
+  ///todo:upload report.doctor.of......getapidropdown...8 june...2023..
   ///
-  static Future<List<PatientdropdownName>?> getnursepatientApi() async {
+  static Future<List<PatientDropdownDoctorName>?> getdoctorpatientApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
+    print('&&&&&&&&&&&&&&&doctorereport:${userid}');
     print(userid);
-    var url = baseUrl + "api/CommonApi/Lab_report?Id=16";
+    var url = baseUrl + "api/DoctorApi/DoctorPatientList?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        var patienttypeData = uploadReportdropdownModelFromJson(r.body);
+        var patienttypeData = patientlistDoctorModelFromJson(r.body);
         return patienttypeData.patientName;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      print("errorlabbbxdasdviewpatient:${error.toString()}");
+      return [];
+    }
+  }
+
+  ///todo:upload report.nurse.user.of......getapidropdown...3..june...2023..
+  ///
+  static Future<List<PatientNameNurse>?> getnursepatientApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&doctorereport:${userid}');
+    print(userid);
+    var url = baseUrl + "api/NurseAPI/NursePatientList?Id=$userid";
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("bodynursurl:${url}");
+
+      if (r.statusCode == 200) {
+        var patientdropdownnurse = patientlistNurseModelFromJson(r.body);
+        print("bodynurseeee:${r.body}");
+
+        return patientdropdownnurse.patientName;
       } else {
         return [];
       }
@@ -3736,7 +3845,7 @@ class ApiProvider {
     }
   }
 
-  ///todo:report view lab.................3june---2023..
+  ///todo:report view nurse.................3june---2023..
 
   static Nursereportview1Api() async {
     var prefs = GetStorage();
@@ -3761,15 +3870,35 @@ class ApiProvider {
     }
   }
 
+  ///todo:report view doctor.................3june---2023..
+  static Doctorreportview1Api() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
+    print(userid);
+    var url =
+        //'http://test.pswellness.in/api/DoctorApi/Doctor_ViewReport?Id=146'
+        "http://test.pswellness.in/api/DoctorApi/Doctor_ViewReport?Id=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&nurseimageurl:${url}');
+        DoctorViewReportModel doctorreportModel =
+            doctorViewReportModelFromJson(r.body);
+        return doctorreportModel;
+      }
+    } catch (error) {
+      print("errornurseview:${error.toString()}");
+      return;
+    }
+  }
+
   ///todo:report view lab.................16 may 2023..
   static LabreportimageApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var labreportlistId = preferences.getString("labreportlistId");
     print("labreportlistlisttIdhh: ${labreportlistId}");
-    // var prefs = GetStorage();
-    // userid = prefs.read("Id").toString();
-    // print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
-    // print(userid);
     var url =
         "http://test.pswellness.in/api/LabApi/Lab_ViewReport_File?Id=$labreportlistId";
     try {
@@ -3791,10 +3920,6 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var nursereportlistId = preferences.getString("nursereportlistId");
     print("nursereportlistId: ${nursereportlistId}");
-    // var prefs = GetStorage();
-    // userid = prefs.read("Id").toString();
-    // print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
-    // print(userid);
     var url =
         "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport_File?Id=$nursereportlistId";
     //"$nursereportlistId";
@@ -3810,6 +3935,30 @@ class ApiProvider {
       }
     } catch (error) {
       print("errorlabbbviewimage:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view doctor...............8 june may 2023..
+  static doctorreportimageApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var doctorreportlistId = preferences.getString("doctorreportlistId");
+    print("doctorreportlistId: ${doctorreportlistId}");
+    var url =
+        "http://test.pswellness.in/api/DoctorApi/Doctor_ViewReport_File?Id=$doctorreportlistId";
+    //"$nursereportlistId";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("drrimagereport: ${r.body}");
+        print("drrreportlistlistturl: ${url}");
+        DoctorImageviewModel? doctorreportimageModel =
+            doctorImageviewModelFromJson(r.body);
+        return doctorreportimageModel;
+      }
+    } catch (error) {
+      print("errordrrbbviewimage:${error.toString()}");
       return;
     }
   }

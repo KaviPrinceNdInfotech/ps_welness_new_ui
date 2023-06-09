@@ -262,6 +262,17 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         ),
                                                       ),
                                                       Text(
+                                                        'Specialist:',
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          color: MyTheme.text1,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: size.width *
+                                                              0.039,
+                                                        ),
+                                                      ),
+                                                      Text(
                                                         'Service Date:',
                                                         style:
                                                             GoogleFonts.poppins(
@@ -273,7 +284,18 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'Service Time:',
+                                                        'Time Slot:',
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          color: MyTheme.text1,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: size.width *
+                                                              0.039,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Payment Date:',
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: MyTheme.text1,
@@ -310,6 +332,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                 ),
                                                 SizedBox(
                                                   height: size.height * 0.2,
+                                                  width: size.width * 0.45,
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -337,9 +360,27 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                     size.width *
                                                                         0.039),
                                                       ),
+                                                      Text(
+                                                        _doctorHistoryController
+                                                            .getdoctorhospitalmodele!
+                                                            .appointment![index]
+                                                            .specialistName
+                                                            .toString(),
+                                                        //'22:37',
+                                                        style:
+                                                            GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .cyanAccent,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.039),
+                                                      ),
                                                       SizedBox(
-                                                        height:
-                                                            size.height * 0.015,
+                                                        //height:
+                                                        //size.height * 0.014,
                                                         width:
                                                             size.width * 0.24,
                                                         child: Center(
@@ -370,15 +411,28 @@ class DoctorHistoryUser extends StatelessWidget {
                                                           ),
                                                         ),
                                                       ),
-                                                      Text(
-                                                        _doctorHistoryController
-                                                            .getdoctorhospitalmodele!
-                                                            .appointment![index]
-                                                            .appointedTime
-                                                            .toString(),
-                                                        //'22:37',
-                                                        style:
-                                                            GoogleFonts.raleway(
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.02,
+                                                        width:
+                                                            size.width * 0.41,
+                                                        child: Center(
+                                                          child: Text(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .visible,
+                                                            _doctorHistoryController
+                                                                .foundDoctor[
+                                                                    index]
+                                                                .slotTime
+                                                                .toString(),
+                                                            // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].appointmentDate.toString(),
+                                                            maxLines: 1,
+                                                            textScaleFactor:
+                                                                1.0,
+
+                                                            // 'Nov 16,22 - Nov 20,22',
+                                                            style: GoogleFonts.raleway(
                                                                 color: Colors
                                                                     .cyanAccent,
                                                                 fontWeight:
@@ -387,6 +441,41 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                 fontSize:
                                                                     size.width *
                                                                         0.039),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.015,
+                                                        width:
+                                                            size.width * 0.24,
+                                                        child: Center(
+                                                          child: Text(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .visible,
+                                                            _doctorHistoryController
+                                                                .foundDoctor[
+                                                                    index]
+                                                                .paymentDate
+                                                                .toString(),
+                                                            // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].appointmentDate.toString(),
+                                                            maxLines: 1,
+                                                            textScaleFactor:
+                                                                1.0,
+
+                                                            // 'Nov 16,22 - Nov 20,22',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .cyanAccent,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.039),
+                                                          ),
+                                                        ),
                                                       ),
                                                       Text(
                                                         "₹ ${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].totalFee.toString()},",

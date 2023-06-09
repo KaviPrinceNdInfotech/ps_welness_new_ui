@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
@@ -37,6 +38,9 @@ class LoginpasswordController extends GetxController {
       Get.put(NurseProfileControllers());
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
+
+  NurseUploadReportController _nursdeUploadReportController =
+      Get.put(NurseUploadReportController());
 
   var Id = '';
 
@@ -88,6 +92,8 @@ class LoginpasswordController extends GetxController {
           Get.to(DriverHomePage());
           break;
         case 'nurse':
+          _nursdeUploadReportController.getnursepatientssApi();
+          _nursdeUploadReportController.update();
           _nurseprofileContrller.nurseprofileApi();
           _nurseprofileContrller.update();
           Get.to(NurseHomePage());

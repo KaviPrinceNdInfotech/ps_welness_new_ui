@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_controller1.dart';
+import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_controller1.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/controllers/doctor_controllers/doctor_controller1.dart';
 // //import 'package:ps_welness/modules_view/doctor_views/doctor_sigup_part2/doctor_signup_part2.dart';
@@ -22,38 +24,13 @@ class Doctor1Credentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-     // key: _doctor_1_controller.doctor11formkey,
+      // key: _doctor_1_controller.doctor11formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///TODO: Id.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _doctor_1_controller.idController,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Doctor Name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.person_outline_sharp,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
             ///TODO: Name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -85,6 +62,7 @@ class Doctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -116,6 +94,7 @@ class Doctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -146,6 +125,7 @@ class Doctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -177,6 +157,7 @@ class Doctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: mobile number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -209,6 +190,7 @@ class Doctor1Credentials extends StatelessWidget {
               height: size.height * 0.00,
               //appPadding / 2,
             ),
+
             ///todo : Fee .................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -223,7 +205,7 @@ class Doctor1Credentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.currency_rupee,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -235,6 +217,7 @@ class Doctor1Credentials extends StatelessWidget {
               height: size.height * 0.00,
               //appPadding / 2,
             ),
+
             ///todo : Phone number .................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -249,7 +232,7 @@ class Doctor1Credentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.call_rounded,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -261,25 +244,46 @@ class Doctor1Credentials extends StatelessWidget {
               height: size.height * 0.00,
               //appPadding / 2,
             ),
+
             ///todo : start Timing .................
             NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _doctor_1_controller.startTimeController,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Start Timing',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
+              child: Obx(
+                () => InkWell(
+                  onTap: () {
+                    _doctor_1_controller.chooseStartTime();
+                  },
+                  child: Container(
+                    height: size.height * 0.06,
+                    child: Center(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Choose Start time",
+                              style: TextStyle(
+                                fontSize: size.height * 0.017,
+                                fontWeight: FontWeight.bold,
+                                color: MyTheme.blueww,
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.03,
+                            ),
+                            //Spacer(),
+                            Text(
+                              "${_doctor_1_controller.selectedStartTime.value.hour}:${_doctor_1_controller.selectedStartTime.value.minute}",
+                              style: TextStyle(
+                                fontSize: size.height * 0.026,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
                 ),
               ),
             ),
@@ -287,25 +291,46 @@ class Doctor1Credentials extends StatelessWidget {
               height: size.height * 0.00,
               //appPadding / 2,
             ),
+
             ///todo : Slot Timing .................
             NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _doctor_1_controller.slotTimingController,
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Slot Timing',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
+              child: Obx(
+                () => InkWell(
+                  onTap: () {
+                    _doctor_1_controller.chooseSlotTime();
+                  },
+                  child: Container(
+                    height: size.height * 0.06,
+                    child: Center(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Choose Slot time",
+                              style: TextStyle(
+                                fontSize: size.height * 0.017,
+                                fontWeight: FontWeight.bold,
+                                color: MyTheme.blueww,
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.03,
+                            ),
+                            //Spacer(),
+                            Text(
+                              "${_doctor_1_controller.selectedSlotTime.value.hour}:${_doctor_1_controller.selectedSlotTime.value.minute}",
+                              style: TextStyle(
+                                fontSize: size.height * 0.026,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
                 ),
               ),
             ),

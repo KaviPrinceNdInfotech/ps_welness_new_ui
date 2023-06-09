@@ -558,14 +558,14 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                       //  crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                          onTap: () {
+                                          onTap: () async {
                                             /// todo start payment......feess,,,,,...
 
-                                            // SharedPreferences prefs =
-                                            //     await SharedPreferences
-                                            //     .getInstance();
-                                            //prefs.setString("DoctorFee",
-                                            //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            prefs.setString("DoctorFee",
+                                                "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}");
 
                                             ///todo: end the fees.........
                                             _rozarPaydoctorController
