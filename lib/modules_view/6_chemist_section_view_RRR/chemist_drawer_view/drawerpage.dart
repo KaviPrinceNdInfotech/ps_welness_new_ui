@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
 //import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
@@ -19,7 +22,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/6_chemist_view_controllers_RRR/chemist_aboutus_controller.dart';
 import '../../../controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
-import 'drower_pages/about_us/about_us.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_page_view/chemist_updateProfile.dart';
 import 'drower_pages/supports/support_view.dart';
@@ -29,6 +31,9 @@ class ChemistMainDrawer extends StatelessWidget {
       Get.put(ChemistProfileDetailController());
   ChemistAboutusController _chemistAboutusController =
       Get.put(ChemistAboutusController());
+
+  UserAboutusController _userAboutusController =
+      Get.put(UserAboutusController());
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +145,7 @@ class ChemistMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/NurseProfilePage'
+              tileColor: Get.currentRoute == '/ChemistUpdateProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
@@ -150,6 +155,39 @@ class ChemistMainDrawer extends StatelessWidget {
                 //  Get.offNamed('/NurseProfilePage');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => UpdateBankSeperateDetail());
+                Get.offNamed('/UpdateBankSeperateDetail');
+              },
+            ),
+            //UpdateBankSeperateDetail
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -237,16 +275,18 @@ class ChemistMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AboutUsView'
+              tileColor: Get.currentRoute == '/UserAboutUsView'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _chemistAboutusController.chemistaboutusApi();
-                _chemistAboutusController.update();
-                Get.to(() => AboutUsView());
-                Get.offNamed('/AboutUsView');
+                _userAboutusController.update();
+                _userAboutusController.useraboutusApi();
+                //_chemistAboutusController.chemistaboutusApi();
+                //_chemistAboutusController.update();
+                Get.to(() => UserAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
 

@@ -47,19 +47,20 @@ class NurseProfileController extends GetxController {
 
   void nurseEditProfileApi() async {
     http.Response r = await ApiProvider.NurseEditProfileApi(
-        //idController?.text,
-        nameController?.text,
-        mobileController?.text,
-        selectedStatee.value?.id.toString(),
-        selectedCityy.value?.id.toString(),
-        locationController?.text,
-        pinController?.text,
-        clinicNameController?.text,
-        feeController?.text,
-        //adminLoginIdController?.text,
-        accountnoController?.text,
-        ifscController?.text,
-        branchNameController?.text);
+      //idController?.text,
+      nameController?.text,
+      mobileController?.text,
+      selectedStatee.value?.id.toString(),
+      selectedCityy.value?.id.toString(),
+      locationController?.text,
+      pinController?.text,
+      clinicNameController?.text,
+      feeController?.text,
+      //adminLoginIdController?.text,
+      // accountnoController?.text,
+      // ifscController?.text,
+      // branchNameController?.text
+    );
     if (r.statusCode == 200) {
       Get.to(NurseHomePage());
     } else {

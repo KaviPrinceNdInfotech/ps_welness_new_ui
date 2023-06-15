@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/doctors_report_page.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/health_checkup_report_page.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/lab_report_page.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/doctors_report_page.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/health_checkup_report_page.dart';
-// import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/lab_report_page.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_controller/doctor_report_user_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_controller/lab_report_user_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_controller/nurse_report_user_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/doctor_report_listtts.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/lab_user_report_page.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/nurse_report_list_user.dart';
 
 //import 'package:ps_welness/lib/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/health_checkup_report_page.dart';
 
@@ -18,6 +17,13 @@ import '../../../../constants/constants/constants.dart';
 
 class ReportLists extends StatelessWidget {
   ReportLists({Key? key}) : super(key: key);
+  LabreportuserviewController _labreportuserviewController =
+      Get.put(LabreportuserviewController());
+  DoctorreportuserviewController _doctorreportuserviewController =
+      Get.put(DoctorreportuserviewController());
+
+  NursereportuserviewController _nursereportuserviewController =
+      Get.put(NursereportuserviewController());
 
   //Wallet_2_Controller _wallet_2_controller = Get.put(Wallet_2_Controller());
 
@@ -109,7 +115,11 @@ class ReportLists extends StatelessWidget {
                                 vertical: size.height * 0.0),
                             child: InkWell(
                               onTap: () {
-                                Get.to(() => HealthCheckupPdf());
+                                _nursereportuserviewController
+                                    .nurseuserreportviewApi();
+                                _nursereportuserviewController.update();
+
+                                Get.to(() => NurseUserreportList());
 
                                 //Get.to(()=>HealthCheckupPdf());
                               },
@@ -151,7 +161,7 @@ class ReportLists extends StatelessWidget {
                                       children: [
                                         Icon(Icons.health_and_safety),
                                         Text(
-                                          'Health Checkup Report',
+                                          'Nurse Report',
                                           style: TextStyle(
                                             fontSize: size.height * 0.018,
                                             fontWeight: FontWeight.bold,
@@ -165,14 +175,18 @@ class ReportLists extends StatelessWidget {
                                     ),
                                   ))),
                             )),
-
                         Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.height * 0.014,
                                 vertical: size.height * 0.0),
                             child: InkWell(
                               onTap: () {
-                                Get.to(() => LabReportPdf());
+                                _labreportuserviewController
+                                    .labuserreportviewApi();
+                                _labreportuserviewController.update();
+
+                                Get.to(() => LabUserreportList());
+                                // Get.to(() => LabReportPdf());
                               },
                               child: Container(
                                   height: size.height * 0.04,
@@ -232,7 +246,12 @@ class ReportLists extends StatelessWidget {
                                 vertical: size.height * 0.0),
                             child: InkWell(
                               onTap: () {
-                                Get.to(() => DoctorsReportPdf());
+                                // _doctorreportuserviewController
+                                //.doctorusrreportimageApi();
+                                _doctorreportuserviewController.update();
+                                _doctorreportuserviewController
+                                    .doctoruserreportviewApi();
+                                Get.to(() => DoctorUserreportList());
                               },
                               child: Container(
                                   height: size.height * 0.04,

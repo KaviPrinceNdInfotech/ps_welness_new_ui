@@ -22,7 +22,6 @@ import '../payment_historyy/payment_historiess.dart';
 
 class DoctorHomePage extends StatelessWidget {
   DoctorHomePage({Key? key}) : super(key: key);
-
   //DoctorHomepageController _doctorHomepageController =
   //Get.put(DoctorHomepageController());
   DoctorHomepageController _doctorHomepageController =

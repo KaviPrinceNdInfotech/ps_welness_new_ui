@@ -6,15 +6,17 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/about_us_doctor_controller/doctor_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/add_skills/add_skills.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'drower_pages/about_us/about_us.dart';
 //import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/patient_lists/patient_list.dart';
 import 'drower_pages/profile_page_view/doctor_profile_view.dart';
@@ -26,6 +28,8 @@ class MainDrawer extends StatelessWidget {
       Get.put(DoctorProfileControllers());
   DoctorAboutusController _doctorAboutusController =
       Get.put(DoctorAboutusController());
+  UserAboutusController _userAboutusController =
+      Get.put(UserAboutusController());
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +150,38 @@ class MainDrawer extends StatelessWidget {
                 _doctorProfileControllers.update();
                 Get.to(() => DoctorDetailProfile());
                 Get.offNamed('/DoctorDetailProfile');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => UpdateBankSeperateDetail());
+                Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
             ListTile(
@@ -272,7 +308,7 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => const DoctorUpdateProfilePage());
+                Get.to(() => DoctorUpdateProfilePage());
                 Get.offNamed('/DoctorProfilePage');
               },
             ),
@@ -333,10 +369,13 @@ class MainDrawer extends StatelessWidget {
                   : Colors.transparent,
               onTap: () {
                 Get.back();
-                _doctorAboutusController.update();
-                _doctorAboutusController.doctoraboutusApi();
-                Get.to(() => AboutUsView());
-                Get.offNamed('/AboutUsView');
+                _userAboutusController.update();
+                _userAboutusController.useraboutusApi();
+                //_doctorAboutusController.update();
+                //_doctorAboutusController.doctoraboutusApi();
+                // Get.to(() => AboutUsView());
+                Get.to(() => UserAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
             ListTile(

@@ -358,106 +358,106 @@ class NurseProfileCredentials extends StatelessWidget {
               height: size.height * 0.01,
               //appPadding / 2,
             ),
-            Text(
-              'Bank Details:',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
-            ),
-            SizedBox(
-              height: size.height * 0.01,
-              //appPadding / 2,
-            ),
-
-            ///TODO: bankAc  no.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.creditCardNumber],
-                controller: _nurseprofileController.accountnoController,
-                validator: (value) {
-                  return _nurseprofileController.validAccount(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Bank Account No.',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_balance_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.018,
-              //appPadding / 2,
-            ),
-
-            ///TODO: IFSC.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.creditCardNumber],
-                controller: _nurseprofileController.ifscController,
-                validator: (value) {
-                  return _nurseprofileController.validIfsc(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'IFSC Code',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.qr_code,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.018,
-              //appPadding / 2,
-            ),
-
-            ///TODO:  bank name.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _nurseprofileController.branchNameController,
-                validator: (value) {
-                  return _nurseprofileController.validBranch(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Branch name.',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_balance_rounded,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.018,
-              //appPadding / 2,
-            ),
+            // Text(
+            //   'Bank Details:',
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.01,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///TODO: bankAc  no.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.creditCardNumber],
+            //     controller: _nurseprofileController.accountnoController,
+            //     validator: (value) {
+            //       return _nurseprofileController.validAccount(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Bank Account No.',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.account_balance_outlined,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.018,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///TODO: IFSC.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.creditCardNumber],
+            //     controller: _nurseprofileController.ifscController,
+            //     validator: (value) {
+            //       return _nurseprofileController.validIfsc(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'IFSC Code',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.qr_code,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.018,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///TODO:  bank name.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.name],
+            //     controller: _nurseprofileController.branchNameController,
+            //     validator: (value) {
+            //       return _nurseprofileController.validBranch(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Branch name.',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.account_balance_rounded,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.018,
+            //   //appPadding / 2,
+            // ),
             SizedBox(
               height: size.height * 0.00,
               //appPadding / 2,

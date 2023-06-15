@@ -14,6 +14,12 @@ import 'package:ps_welness_new_ui/model/1_user_model/medicine_order/medicine_ord
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/doctor_userrr_model/doctor_report_model_listss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/doctor_userrr_model/doctor_view_report_modell.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/lab_userr_model/lab_report_model_list.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/lab_userr_model/lab_report_view_models.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/nurse_userrr_model/nursee_report_model_listss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/nurse_userrr_model/nurseee_view_report_modell.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/wallet_model/wallet_section_model.dart';
@@ -766,17 +772,17 @@ class ApiProvider {
   ///here profile api of user.............24 april 2023...
 
   static Userprofileupdate(
-    var Id,
+    // var Id,
     var patientName,
     var MobileNumber,
     var StateMasterId,
     var CityMasterId,
     var Location,
     var PinCode,
-    var adminLoginId,
-    var AccountNo,
-    var IFSCCode,
-    var BranchName,
+    //var adminLoginId,
+    // var AccountNo,
+    //var IFSCCode,
+    //var BranchName,
   ) async {
     //var a= int.parse(State).toString();
     //var b= int.parse(City).toString();
@@ -804,10 +810,10 @@ class ApiProvider {
       "adminLogin_id":
           //1222,
           adminId,
-      "AccountNo": AccountNo,
-      "IFSCCode": IFSCCode,
-      "Location": Location,
-      "BranchName": BranchName,
+      //"AccountNo": AccountNo,
+      //"IFSCCode": IFSCCode,
+      //"Location": Location,
+      //"BranchName": BranchName,
     };
 
     // print(body);
@@ -3845,6 +3851,80 @@ class ApiProvider {
     }
   }
 
+  ///todo:report view lab.................15 june 2023..
+
+  static Labreportuserview1Api() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
+    print(userid);
+    var url =
+        "http://test.pswellness.in/api/PatientApi/ViewLabReportByPatient?PatientId=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&labimageurl:${url}');
+        LabReportUserList? labuserreportModel =
+            labReportUserListFromJson(r.body);
+        return labuserreportModel;
+      }
+    } catch (error) {
+      print("errorlabbbview:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view lab.................15 june 2023..
+
+  static Nurseportuserview1Api() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&nurseuserrrview:${userid}');
+    print(userid);
+    var url =
+        "http://test.pswellness.in/api/PatientApi/NurseViewReportByPatient?PatientId=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&nurseimageurl:${url}');
+        NurseReportUserListView? nurseeuserreportModel =
+            nurseReportUserListViewFromJson(r.body);
+        return nurseeuserreportModel;
+      }
+    } catch (error) {
+      print("errornursebview:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view doctor.................15 june 2023....
+
+  static Doctorreportuserview1Api() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&doctoruserrrview:${userid}');
+    print(userid);
+    var url =
+        "http://test.pswellness.in/api/PatientApi/DoctorViewReportByPatient?PatientId=$userid";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print('&&&&&&&&&&&&&&&&&&&&&&doctorimageurl:${url}');
+        print('&&&&&&&&&&&&&&&&&&&&&&doctorimagebdy:${r.body}');
+
+        DoctorReportUserList? doctoruserreportModel =
+            doctorReportUserListFromJson(r.body);
+        return doctoruserreportModel;
+      }
+    } catch (error) {
+      print("errordoctorbbview:${error.toString()}");
+      return;
+    }
+  }
+
   ///todo:report view nurse.................3june---2023..
 
   static Nursereportview1Api() async {
@@ -3894,7 +3974,7 @@ class ApiProvider {
     }
   }
 
-  ///todo:report view lab.................16 may 2023..
+  ///todo:report view user lab.................16 june 2023..
   static LabreportimageApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var labreportlistId = preferences.getString("labreportlistId");
@@ -3911,6 +3991,76 @@ class ApiProvider {
       }
     } catch (error) {
       print("errorlabbbviewimage:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view lab.................15 jun 2023..
+  static LabuserreportimageApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var labuserreportlistId = preferences.getString("labuserreportlistId");
+    print("labuserreportlistId: ${labuserreportlistId}");
+    //http://test.pswellness.in/api/PatientApi/LabReport_File?Id=21
+    var url =
+        "http://test.pswellness.in/api/PatientApi/LabReport_File?Id=$labuserreportlistId";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("labreportlistlistturleee44: ${url}");
+        LabReportUserImage? labuserreportimageModel =
+            labReportUserImageFromJson(r.body);
+        return labuserreportimageModel;
+      }
+    } catch (error) {
+      print("errorlabbbviewimage3:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view nurse.................15 jun 2023..
+  static NurseuserreportimageApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var nurseuserreportlistId = preferences.getString("nurseuserreportlistId");
+    print("nurseuserreportlistId: ${nurseuserreportlistId}");
+    //http://test.pswellness.in/api/PatientApi/LabReport_File?Id=21
+    var url =
+        "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport_File?Id=$nurseuserreportlistId";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("nursereportlistlistturleee44: ${url}");
+        NurseReportUserImageView? nurseuserreportimageModel =
+            nurseReportUserImageViewFromJson(r.body);
+        return nurseuserreportimageModel;
+      }
+    } catch (error) {
+      print("errornursebbviewimage3:${error.toString()}");
+      return;
+    }
+  }
+
+  ///todo:report view lab.................15 june 2023..
+  static DoctoruserreportimageApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var doctoruserreportlistId =
+        preferences.getString("doctoruserreportlistId");
+    print("doctoruserreportlistId: ${doctoruserreportlistId}");
+    //http://test.pswellness.in/api/PatientApi/LabReport_File?Id=21
+    var url =
+        "http://test.pswellness.in/api/PatientApi/DoctorViewReportFile?Id=$doctoruserreportlistId";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        print("labreportlistlistturleee4334: ${url}");
+        DoctorReportUserImageView? doctoruserreportimageModel =
+            doctorReportUserImageViewFromJson(r.body);
+        return doctoruserreportimageModel;
+      }
+    } catch (error) {
+      print("errorlabbbviewimage333:${error.toString()}");
       return;
     }
   }

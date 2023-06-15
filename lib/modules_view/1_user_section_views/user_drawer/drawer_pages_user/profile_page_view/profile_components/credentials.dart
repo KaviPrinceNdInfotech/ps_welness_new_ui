@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/profile_u_controller/profile_update_controller.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
-import '../../../../../../controllers/complaint_controller/complaint_controller.dart';
 import '../../../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../../../../widgets/circular_loader.dart';
-import '../../../../home_page_user_view/user_home_page.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/controllers/profile_u_controller/profile_update_controller.dart';
 // import 'package:ps_welness/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
@@ -27,8 +25,9 @@ class ProfileCredentials extends StatelessWidget {
   //     Get.put(Hospital_1_Controller());
 
   ProfileController _profileController = Get.put(ProfileController());
- // ComplaintController _complaintController = Get.put(ComplaintController());
+  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 
+  // ComplaintController _complaintController = Get.put(ComplaintController());
 
   var items = [
     'Item 1',
@@ -90,7 +89,7 @@ class ProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 keyboardType: TextInputType.number,
-               // autofillHints: [AutofillHints.telephoneNumber],
+                // autofillHints: [AutofillHints.telephoneNumber],
                 controller: _profileController.MobileNumberController,
                 onSaved: (value) {
                   _profileController.MobileNumber = value!;
@@ -201,7 +200,7 @@ class ProfileCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<StateModel>(
+                  () => DropdownButtonFormField<StateModel>(
                       value: _profileController.selectedState.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
@@ -212,8 +211,7 @@ class ProfileCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: const Text('Select State'),
-                      items:
-                      _profileController.states.map((StateModel state) {
+                      items: _profileController.states.map((StateModel state) {
                         return DropdownMenuItem(
                           value: state,
                           child: Text(
@@ -249,8 +247,8 @@ class ProfileCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<City>(
-                    //icon: Icon(Icons.location_city),
+                  () => DropdownButtonFormField<City>(
+                      //icon: Icon(Icons.location_city),
                       value: _profileController.selectedCity.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
@@ -353,9 +351,6 @@ class ProfileCredentials extends StatelessWidget {
             //     ),
             //   ),
             // ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
 
             SizedBox(
               height: size.height * 0.02,
@@ -394,121 +389,117 @@ class ProfileCredentials extends StatelessWidget {
               height: size.height * 0.01,
               //appPadding / 2,
             ),
-            Text(
-              'Bank Details:',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
-            ),
+            // Text(
+            //   'Bank Details:',
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
+            // ),
+            //
+            // SizedBox(
+            //   height: size.height * 0.01,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///TODO: bankAc  no.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.creditCardNumber],
+            //     controller: _profileController.AccountNoController,
+            //     onSaved: (value) {
+            //       _profileController.AccountNo = value!;
+            //     },
+            //     validator: (value) {
+            //       return _profileController.validAccount(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Bank Account No.',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.account_balance_outlined,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            //
+            // SizedBox(
+            //   height: size.height * 0.018,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///TODO: IFSC.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.creditCardNumber],
+            //     controller: _profileController.IFSCCodeController,
+            //     onSaved: (value) {
+            //       _profileController.IFSCCode = value!;
+            //     },
+            //     validator: (value) {
+            //       return _profileController.validIfsc(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'IFSC Code',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.qr_code,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            //
+            // SizedBox(
+            //   height: size.height * 0.018,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///TODO:  bank name.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.name],
+            //     controller: _profileController.BranchNameController,
+            //     onSaved: (value) {
+            //       _profileController.BranchName = value!;
+            //     },
+            //     validator: (value) {
+            //       return _profileController.validBranch(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Branch name.',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.account_balance_rounded,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
 
             SizedBox(
               height: size.height * 0.01,
-              //appPadding / 2,
-            ),
-
-            ///TODO: bankAc  no.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.creditCardNumber],
-                controller: _profileController.AccountNoController,
-                onSaved: (value) {
-                  _profileController.AccountNo = value!;
-                },
-                validator: (value) {
-                  return _profileController.validAccount(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Bank Account No.',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_balance_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: size.height * 0.018,
-              //appPadding / 2,
-            ),
-
-            ///TODO: IFSC.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.creditCardNumber],
-                controller: _profileController.IFSCCodeController,
-                onSaved: (value) {
-                  _profileController.IFSCCode = value!;
-                },
-                validator: (value) {
-                  return _profileController.validIfsc(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'IFSC Code',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.qr_code,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: size.height * 0.018,
-              //appPadding / 2,
-            ),
-
-            ///TODO:  bank name.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _profileController.BranchNameController,
-                onSaved: (value) {
-                  _profileController.BranchName = value!;
-                },
-                validator: (value) {
-                  return _profileController.validBranch(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Branch name.',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_balance_rounded,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: size.height * 0.018,
-              //appPadding / 2,
-            ),
-            SizedBox(
-              height: size.height * 0.00,
               //appPadding / 2,
             ),
 
@@ -517,6 +508,8 @@ class ProfileCredentials extends StatelessWidget {
                 press: () {
                   CallLoader.loader();
                   _profileController.checkProfilee();
+                  _userprofile.update();
+                  _userprofile.userprofileApi();
 
                   //_loginpasswordController.checkLoginpassword();
                 })

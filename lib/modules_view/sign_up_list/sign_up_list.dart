@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 import 'package:ps_welness_new_ui/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulace_1/driver_registation_1.dart';
@@ -16,7 +17,9 @@ import '../10_lab_section_view/lab_center/lab_signup1/lab_center.dart';
 //import '../9_doctor_section_view/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 
 class SignUpList extends StatelessWidget {
-  const SignUpList({Key? key}) : super(key: key);
+  SignUpList({Key? key}) : super(key: key);
+  AmbulancegetController _ambulancegetController =
+      Get.put(AmbulancegetController());
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +149,6 @@ class SignUpList extends StatelessWidget {
                                 //SignInScreen
                                 //MyDropDownPage
                                 Get.to(() => UserSignup1());
-
                                 //Get.to(() => UserSignup1());
                               } else if (index == 1) {
                                 Get.to(() => FranchiesSignup1());
@@ -158,13 +160,13 @@ class SignUpList extends StatelessWidget {
                                 Get.to(() => DoctorSignup1());
                                 //DoctorSignup1());
                                 // Get.to(() => DriverSignup1());
-
                                 // whatsAppOpen();
                                 // _launchWhatsapp();
-
                                 //Get.to(() => ComplainList());
 
                               } else if (index == 4) {
+                                _ambulancegetController.ambulancecatagaryyApi();
+                                _ambulancegetController.update();
                                 Get.to(() => DriverSignup1());
 
                                 //Get.to(() => NursesSignup1());

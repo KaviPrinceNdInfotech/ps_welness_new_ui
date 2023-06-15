@@ -253,7 +253,6 @@ class _MapViewState extends State<MapView> {
           100.0,
         ),
       );
-
       // Calculating the distance between the start and the end positions
       // with a straight path, without considering any route
       // double distanceInMeters = await Geolocator.bearingBetween(
@@ -262,7 +261,6 @@ class _MapViewState extends State<MapView> {
       //   destinationLatitude,
       //   destinationLongitude,
       // );
-
       await _createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
 
@@ -413,11 +411,11 @@ class _MapViewState extends State<MapView> {
             //   ),
             // ),
             Positioned(
-              bottom: size.height * 0.029,
+              bottom: size.height * 0.04,
               left: size.height * 0.00,
               right: size.width * 0,
               child: Container(
-                height: size.height * 0.23,
+                // height: size.height * 0.23,
                 width: size.width,
                 decoration: BoxDecoration(
                   color: Colors.white30,
@@ -469,10 +467,6 @@ class _MapViewState extends State<MapView> {
                               }),
                         ),
                       ),
-                    ),
-
-                    SizedBox(
-                      height: size.height * 0.00,
                     ),
 
                     ///.........selected vhicle..by catagary id.....
@@ -533,7 +527,7 @@ class _MapViewState extends State<MapView> {
                       shadowColor: Colors.grey.shade900,
                       borderRadius: BorderRadius.circular(10),
                       child: Padding(
-                        padding: EdgeInsets.all(2.0),
+                        padding: EdgeInsets.all(1.0),
                         child: InkWell(
                           onTap: () {
                             // _ambulancegetController.update();
@@ -546,7 +540,7 @@ class _MapViewState extends State<MapView> {
                             //_ambulancegetController.googlerequestambulance();
                           },
                           child: Container(
-                            height: size.height * 0.035,
+                            height: size.height * 0.045,
                             width: size.width * 0.6,
                             decoration: BoxDecoration(
                               color: Colors.indigo,
@@ -569,7 +563,7 @@ class _MapViewState extends State<MapView> {
                         ),
                       ),
                     ),
-                    Spacer(),
+                    // Spacer(),
                   ],
                 ),
               ),

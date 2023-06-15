@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/user_controller/user_controller_1.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
@@ -38,29 +41,6 @@ class DriverProfileCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///todo: Id..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.IdEditText,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -80,7 +60,7 @@ class DriverProfileCredentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.people,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -134,7 +114,7 @@ class DriverProfileCredentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.car_crash_sharp,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -241,7 +221,7 @@ class DriverProfileCredentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.place,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -268,7 +248,7 @@ class DriverProfileCredentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.dataset_linked,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -281,171 +261,169 @@ class DriverProfileCredentials extends StatelessWidget {
             ),
 
             ///todo: Dl image.........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.DlImageEditText,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Dl image',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                    width: size.width * 0.5,
+                    child: Text(
+                      "Upload DL Image:",
+                      style: TextStyle(
+                        fontSize: size.height * 0.017,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
+                Container(
+                  height: size.height * 0.1,
+                  width: size.width * 0.3,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.cyanAccent, width: 2),
                   ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
+                  child: Obx(
+                    () => _driverProfileController.selectedPath.value != ''
+                        ? Image.file(
+                            File(_driverProfileController.selectedPath.value))
+                        : Center(
+                            child: InkWell(
+                              onTap: (() {
+                                optionsImage();
+                              }),
+                              child: Container(
+                                height: size.height * 0.4,
+                                width: size.width * 0.95,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12)),
+                                    border: Border.all(
+                                        width: 5,
+                                        color:
+                                            Color.fromARGB(255, 58, 141, 208))),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.camera_enhance_rounded,
+                                    color: Color.fromARGB(255, 58, 141, 208),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                    // Image.file(File(
+                    //         _labUploadReportController.selectedImagePath.value)),
                   ),
-                  border: InputBorder.none,
                 ),
-              ),
+              ],
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
 
             ///todo: Dl image name.........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.DlImageNameEditText,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Dl image name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     controller: _driverProfileController.DlImageNameEditText,
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.telephoneNumber],
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Dl image name',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.phone_android_outlined,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
 
-            ///todo: Admin login id.........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.adminLogin_idEditTxt,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Adminlogin id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
             SizedBox(
-              height: size.height * 0.02,
-            ),
-
-            ///todo: Account no.........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.AccountNoEditTxt,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Account no',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
-            ///todo: Ifsc code.........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.IFSCCodeEditTxt,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Ifsc code',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
-            ///todo: Branch Name.........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _driverProfileController.BranchName,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Branch name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.0,
             ),
             RectangularButton(
                 text: 'UPDATE',
                 press: () {
                   _driverProfileController.checkDriverUpdateProfile();
                 })
+          ],
+        ),
+      ),
+    );
+  }
+
+  void optionsImage() {
+    Get.defaultDialog(
+      title: "Selcet an option",
+      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      content: SizedBox(
+        width: 780,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                _driverProfileController.getImage(ImageSource.camera);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.camera_enhance,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(
+              color: Color.fromARGB(255, 34, 126, 201),
+              endIndent: 70,
+              indent: 70,
+            ),
+            InkWell(
+              onTap: () {
+                _driverProfileController.getImage(ImageSource.gallery);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Gallery",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

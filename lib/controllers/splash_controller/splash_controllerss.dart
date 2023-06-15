@@ -4,6 +4,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
@@ -42,6 +43,8 @@ class SplashScreenViewModel extends GetxController
       Get.put(DoctorProfileControllers());
   NurseUploadReportController _nursdeUploadReportController =
       Get.put(NurseUploadReportController());
+  DriverProfileDetailController _driverprofile =
+      Get.put(DriverProfileDetailController());
 
   @override
   void onInit() {
@@ -80,6 +83,8 @@ class SplashScreenViewModel extends GetxController
                 Get.to(DoctorHomePage());
                 break;
               case 'driver':
+                _driverprofile.driverProfileDetailApi();
+                _driverprofile.update();
                 Get.to(DriverHomePage());
                 break;
               case 'nurse':

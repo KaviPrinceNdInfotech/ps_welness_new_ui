@@ -1,0 +1,88 @@
+import 'package:get/get.dart';
+//import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/lab_userr_model/lab_report_model_list.dart';
+//import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/lab_userr_model/lab_report_view_models.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/nurse_userrr_model/nursee_report_model_listss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/nurse_userrr_model/nurseee_view_report_modell.dart';
+
+//import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/lab_report_model_list.dart';
+//import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/lab_report_view_models.dart';
+
+import '../../../servicess_api/api_services_all_api.dart';
+
+class NursereportuserviewController extends GetxController {
+  RxBool isLoading = true.obs;
+  //ViewreportModel? labviewreport;
+  // LabReportimage? labreportimage;
+  NurseReportUserListView? nurseReportUserList;
+  NurseReportUserImageView? nurseReportUserImage;
+
+  //LabpaymentModel? labpaymentModel;
+
+  void nurseuserreportviewApi() async {
+    isLoading(true);
+    nurseReportUserList = await ApiProvider.Nurseportuserview1Api();
+    if (nurseReportUserList?.nurseViewReport != null
+        //appointmentdetail != null
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
+      isLoading(false);
+      foundnurseuserviewProducts.value = nurseReportUserList!.nurseViewReport!;
+    }
+  }
+
+  void nurseusrreportimageApi() async {
+    isLoading(true);
+    nurseReportUserImage = await ApiProvider.NurseuserreportimageApi();
+    if (nurseReportUserImage?.nurseViewReportFile != null
+        //appointmentdetail != null
+        //getcatagartlist!.result!.isNotEmpty
+        ) {
+      isLoading(false);
+      // foundlabviewProducts.value = labviewreport!.labViewReport!;
+    }
+  }
+
+  var appointment = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    nurseuserreportviewApi();
+    nurseusrreportimageApi();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    //TextEditingController.dispose();
+  }
+
+  RxList<NurseViewssReport> foundnurseuserviewProducts =
+      RxList<NurseViewssReport>([]);
+
+  void filterNursePatient(String searchnurseeuserview) {
+    List<NurseViewssReport> finalResults = [];
+    if (searchnurseeuserview.isEmpty) {
+      finalResults = nurseReportUserList!.nurseViewReport!;
+    } else {
+      finalResults = nurseReportUserList!.nurseViewReport!
+          .where((element) =>
+              // print(element.productName);
+              // print(productName);
+              // print(element.productName
+              //     .toString()
+              //     .toLowerCase()
+              //     .contains(productName.toString().toLowerCase().trim()));
+              element.nurseName.toString().toLowerCase().contains(
+                  searchnurseeuserview.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResults.length);
+    foundnurseuserviewProducts.value = finalResults;
+  }
+}

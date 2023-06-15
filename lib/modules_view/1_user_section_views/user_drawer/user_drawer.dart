@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_user_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -189,6 +190,39 @@ class UserMainDrawer extends StatelessWidget {
                 Get.back();
                 Get.to(() => ProfilePage());
                 Get.offNamed('/ProfilePage');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => UpdateBankSeperateDetail());
+                Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 

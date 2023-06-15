@@ -23,9 +23,9 @@ class DoctorUpdateBankDetailController extends GetxController {
   var holderName = '';
   var mobileNumber = '';
 
-  void doctorUpdateBankDetailApi() async {
+  void doctorAddBankDetailApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.DoctoraddBankDetailApi(
+    http.Response r = await ApiProvider.AddAllBankDetailApi(
       AccountNo?.text,
       IFSCCode?.text,
       BranchName?.text,
@@ -99,7 +99,7 @@ class DoctorUpdateBankDetailController extends GetxController {
 
   void checkrwabank3() {
     if (rwabankformkey.currentState!.validate()) {
-      doctorUpdateBankDetailApi();
+      doctorAddBankDetailApi();
     }
     rwabankformkey.currentState!.save();
     // final isValid = complaintformkey.currentState!.validate();

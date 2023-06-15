@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
+
+import '../../servicess_api/api_services_all_api.dart';
 
 class Driver_1_Controller extends GetxController {
   final GlobalKey<FormState> driver1formkey = GlobalKey<FormState>();
+
+  ///ambulancde catagary Id...........
+
+  Rx<Vehicle?> selectedambCatagary = (null as Vehicle?).obs;
+  List<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
+
+  ///vehicle by catagary Id...........
+  ///
+  Rx<VehicleDetaile?> selectedvhicleCatagary = (null as VehicleDetaile?).obs;
+  RxList<VehicleDetaile> vhicletypes = <VehicleDetaile>[].obs;
+
+  ///ambulancde catagary Id...........
+
+  void ambulancecatagaryyApi() async {
+    ambulancvecatagarys = (await ApiProvider.getambulancecatagaryApi())!;
+    print('Prince ambulance catagary list');
+    print(ambulancvecatagarys);
+  }
 
   late TextEditingController nameController,
       emailController,
@@ -19,6 +41,7 @@ class Driver_1_Controller extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    ambulancecatagaryyApi();
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();

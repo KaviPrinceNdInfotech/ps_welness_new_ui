@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
-class NurseProfileHeadText extends StatelessWidget {
-  const NurseProfileHeadText({Key? key}) : super(key: key);
+class ChemistProfileHeadText extends StatelessWidget {
+  const ChemistProfileHeadText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class NurseProfileHeadText extends StatelessWidget {
                 width: size.width * 0.03,
               ),
               Text(
-                'Update Nurse Profile',
+                'Update Chemist Profile',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: size.width * 0.04,
@@ -42,7 +42,7 @@ class NurseProfileHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Text(
-            'Mrs AK Singh',
+            'CHEMIST',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class NurseProfileHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'ak@gmail.com',
+                  text: '',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,

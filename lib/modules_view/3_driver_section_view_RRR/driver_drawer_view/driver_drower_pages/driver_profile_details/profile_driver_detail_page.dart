@@ -18,13 +18,14 @@ class DriverDetailProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     // DoctorProfileControllers _doctorProfileControllers = Get.put(DoctorProfileControllers());
-    DriverProfileDetailController _d = Get.put(DriverProfileDetailController());
+    DriverProfileDetailController _driverprofile =
+        Get.put(DriverProfileDetailController());
     return Scaffold(
       backgroundColor: MyTheme.white,
       body: Obx(
-        () => (_d.isLoading.value)
+        () => (_driverprofile.isLoading.value)
             ? const Center(child: CircularProgressIndicator())
-            : _d.getDriverProfileDetail == null
+            : _driverprofile.getDriverProfileDetail == null
                 ? const Center(
                     child: Text('No Data'),
                   )
@@ -129,7 +130,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              '${_d.getDriverProfileDetail?.driverName}',
+                                              '${_driverprofile.getDriverProfileDetail?.driverName}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -140,7 +141,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_d.getDriverProfileDetail?.emailId.toString()}',
+                                              '${_driverprofile.getDriverProfileDetail?.emailId.toString()}',
                                               // 'gaurav@gmail.com',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
@@ -152,7 +153,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_d.getDriverProfileDetail?.mobileNumber.toString()}',
+                                              '${_driverprofile.getDriverProfileDetail?.mobileNumber.toString()}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -163,7 +164,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_d.getDriverProfileDetail?.city}',
+                                              '${_driverprofile.getDriverProfileDetail?.city}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -174,7 +175,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_d.getDriverProfileDetail?.state}',
+                                              '${_driverprofile.getDriverProfileDetail?.state}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -185,7 +186,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_d.getDriverProfileDetail?.location}',
+                                              '${_driverprofile.getDriverProfileDetail?.location}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -196,7 +197,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_d.getDriverProfileDetail?.pinCode}',
+                                              '${_driverprofile.getDriverProfileDetail?.pinCode}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,

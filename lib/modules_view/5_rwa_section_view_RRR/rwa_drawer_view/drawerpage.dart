@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/aboutus_rwa.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_detail_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer_view/drower_pages/rwa_profile_details/profile_rwa_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profile_page_view/profile_view.dart';
 //import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_drawer_view/drower_pages/rwa_profile_details/profile_rwa_detail_page.dart';
@@ -16,12 +18,6 @@ import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_passw
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/complaint_page/complaint_page.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_view.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/supports/support_view.dart';
-
-import 'drower_pages/about_us/about_us.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/supports/support_view.dart';
 
@@ -30,6 +26,8 @@ class RwaMainDrawer extends StatelessWidget {
   RwaProfileDetailController _rwaProfileDetailController =
       Get.put(RwaProfileDetailController());
   RwaAboutusController _rwaAboutusController = Get.put(RwaAboutusController());
+  UserAboutusController _userAboutusController =
+      Get.put(UserAboutusController());
   //RwaProfileController _rwaProfileController = Get.put(RwaProfileController());
   //RwaProfileDetailController _rwaProfileDetailController = Get.put(RwaProfileDetailController());
 
@@ -262,10 +260,12 @@ class RwaMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _rwaAboutusController.update();
-                _rwaAboutusController.rwaaboutusApi();
-                Get.to(() => AboutUsView());
-                Get.offNamed('/AboutUsView');
+                _userAboutusController.update();
+                _userAboutusController.useraboutusApi();
+                //_rwaAboutusController.update();
+                // _rwaAboutusController.rwaaboutusApi();
+                Get.to(() => UserAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
 

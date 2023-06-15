@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/about_lab_us/about_us.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_lab_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +27,8 @@ import 'drower_pages/supports/support_view.dart';
 class LabMainDrawer extends StatelessWidget {
   LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
+  UserAboutusController _userAboutusController =
+      Get.put(UserAboutusController());
   LabAboutusController _labAboutusController = Get.put(LabAboutusController());
   @override
   Widget build(BuildContext context) {
@@ -315,10 +318,12 @@ class LabMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _labAboutusController.update();
-                _labAboutusController.lababoutusApi();
-                Get.to(() => AboutUsLabView());
-                Get.offNamed('/AboutUsView');
+                _userAboutusController.update();
+                _userAboutusController.useraboutusApi();
+                //_labAboutusController.update();
+                //_labAboutusController.lababoutusApi();
+                Get.to(() => UserAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
 

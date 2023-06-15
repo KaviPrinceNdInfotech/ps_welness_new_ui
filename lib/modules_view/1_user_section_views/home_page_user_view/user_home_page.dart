@@ -8,6 +8,8 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_co
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +24,6 @@ import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 //import '../../4_nurse_section_view/nurse_drawer_view/drower_pages/supports/support_view.dart';
 import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../doctorss/doctor_address/doctor_address.dart';
-import '../health_checkup/health_checkup_addresss/health_checkupp_address.dart';
 import '../medicine_view/search_section/search_medicine.dart';
 import '../nursess/book_nurse_appointment1/nurse_booking_1.dart';
 import '../user_drawer/user_drawer.dart';
@@ -58,10 +59,14 @@ class UserHomePage extends StatelessWidget {
       'Book Doctor',
       'Book Ambulance',
       'Lab',
-      'Complete Health Checkup',
+      'Your Report',
+
+      //'Complete Health Checkup',
       'Buy Medicine',
       'Contact US',
-      'Funeral Service',
+      'Add Bank',
+
+      //'Funeral Service',
 
       // 'service 7',
       // 'service 8',
@@ -97,7 +102,8 @@ class UserHomePage extends StatelessWidget {
       'lib/assets/user_assets/16checkup.png',
       'lib/assets/user_assets/18medicine.png',
       'lib/assets/icons/contact44.png',
-      'lib/assets/user_assets/20funeral.png',
+      'lib/assets/icons/bank_update.png',
+      //'lib/assets/user_assets/20funeral.png',
       // 'service 7',
       // 'service 8',
     ];
@@ -304,7 +310,7 @@ class UserHomePage extends StatelessWidget {
                                                     )
                                                   ],
                                                   content: Container(
-                                                    height: size.height * 0.29,
+                                                    height: size.height * 0.32,
                                                     width: size.width * 0.7,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -332,9 +338,9 @@ class UserHomePage extends StatelessWidget {
                                                             child:
                                                                 NeumorphicTextFieldContainer(
                                                               child: Container(
-                                                                height:
-                                                                    size.height *
-                                                                        0.063,
+                                                                // height:
+                                                                //     size.height *
+                                                                //         0.05,
                                                                 width:
                                                                     size.width,
                                                                 decoration:
@@ -408,7 +414,7 @@ class UserHomePage extends StatelessWidget {
                                                                             color: Colors
                                                                                 .indigo,
                                                                             fontSize:
-                                                                                14,
+                                                                                13,
                                                                             fontWeight:
                                                                                 FontWeight.bold),
                                                                         // "List item $index"
@@ -856,15 +862,160 @@ class UserHomePage extends StatelessWidget {
                                               //Get.to(() => Profoile());
                                             } else if (index == 3) {
                                               Get.to(() => ChooseLab());
+                                              //Get.to(() => ReportList());
 
                                               ///
                                               //Get.to(() => TheJwelleryStore());
 
-                                              //Get.to(() => CarouselDemo());
-                                            } else if (index == 4) {
-                                              Get.to(() => HealthCheckup1());
+                                              //Get.to(() => CarouselDReportList());
+                                              //HealthCheckup1());
                                               //Get.defaultDialog(
                                               //barrierDismissible: true,
+                                            } else if (index == 4) {
+                                              // _medicineListController
+                                              //     .medicineListApi();
+                                              // _medicineListController.update();
+                                              Get.to(() => ReportList());
+                                              // Get.defaultDialog(
+                                              //     barrierDismissible: true,
+                                              //     backgroundColor: MyTheme.t1containercolor,
+                                              //     title: '',
+                                              //     content: Column(
+                                              //       mainAxisSize: MainAxisSize.min,
+                                              //       children: [
+                                              //         Directionality(
+                                              //           textDirection: TextDirection.ltr,
+                                              //           child: Center(
+                                              //             child: Padding(
+                                              //               padding:
+                                              //                   const EdgeInsets.all(0.0),
+                                              //               child: TextFormField(
+                                              //                 decoration: InputDecoration(
+                                              //                   filled: true,
+                                              //
+                                              //                   fillColor: MyTheme
+                                              //                       .t1bacgroundcolors1,
+                                              //                   hintText:
+                                              //                       'Enter Service Name',
+                                              //                   contentPadding:
+                                              //                       const EdgeInsets.only(
+                                              //                           left: 14.0,
+                                              //                           bottom: 4.0,
+                                              //                           top: 16.0),
+                                              //                   focusedBorder:
+                                              //                       OutlineInputBorder(
+                                              //                     borderSide: new BorderSide(
+                                              //                         color: Colors.green),
+                                              //                     borderRadius:
+                                              //                         new BorderRadius
+                                              //                             .circular(10),
+                                              //                   ),
+                                              //                   enabledBorder:
+                                              //                       UnderlineInputBorder(
+                                              //                     borderSide: new BorderSide(
+                                              //                         color:
+                                              //                             Colors.transparent),
+                                              //                     borderRadius:
+                                              //                         new BorderRadius
+                                              //                             .circular(10.0),
+                                              //                   ),
+                                              //                   //focusedBorder: InputBorder.none,
+                                              //                   //enabledBorder: InputBorder.none,
+                                              //                   // errorBorder: InputBorder.none,
+                                              //                   // border: InputBorder.none,
+                                              //
+                                              //                   border: OutlineInputBorder(
+                                              //                     borderSide: BorderSide(
+                                              //                         color: Colors.red,
+                                              //                         width: 2.0),
+                                              //                     borderRadius:
+                                              //                         BorderRadius.circular(
+                                              //                             10),
+                                              //                   ),
+                                              //                   // labelText: "Password",
+                                              //                   prefixIcon: Padding(
+                                              //                     padding:
+                                              //                         EdgeInsets.symmetric(
+                                              //                             vertical:
+                                              //                                 size.height *
+                                              //                                     0.012,
+                                              //                             horizontal:
+                                              //                                 size.width *
+                                              //                                     0.02),
+                                              //                     child: Image.asset(
+                                              //                       'lib/assets/images/profile.png',
+                                              //                       color:
+                                              //                           MyTheme.t1Iconcolor,
+                                              //                       height: 10,
+                                              //                       width: 10,
+                                              //                     ),
+                                              //                   ),
+                                              //                 ),
+                                              //                 keyboardType: TextInputType
+                                              //                     .visiblePassword,
+                                              //                 //obscureText: true,
+                                              //                 // controller:
+                                              //                 // _registerComplainController.nameController,
+                                              //                 // onSaved: (value) {
+                                              //                 //   _registerComplainController.name = value!;
+                                              //                 // },
+                                              //                 // validator: (value) {
+                                              //                 //   return _registerComplainController
+                                              //                 //       .validateName(value!);
+                                              //                 // },
+                                              //               ),
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //         // TextField(
+                                              //         //   //controller: settingsScreenController.categoryNameController,
+                                              //         //   keyboardType: TextInputType.text,
+                                              //         //   maxLines: 1,
+                                              //         //   decoration: InputDecoration(
+                                              //         //       labelText: 'Service name',
+                                              //         //       hintMaxLines: 1,
+                                              //         //       border: OutlineInputBorder(
+                                              //         //           borderSide: BorderSide(
+                                              //         //               color: Colors.green,
+                                              //         //               width: 4.0))),
+                                              //         // ),
+                                              //         SizedBox(
+                                              //           height: 30.0,
+                                              //         ),
+                                              //         PhysicalModel(
+                                              //           color: Colors.white,
+                                              //           shadowColor: Colors.grey,
+                                              //           elevation: 4,
+                                              //           borderRadius:
+                                              //               BorderRadius.circular(10),
+                                              //           child: Padding(
+                                              //             padding: const EdgeInsets.all(3.0),
+                                              //             child: Container(
+                                              //               height: size.height * 0.04,
+                                              //               width: size.width * 0.4,
+                                              //               decoration: BoxDecoration(
+                                              //                 color: MyTheme.t1Iconcolor,
+                                              //                 borderRadius:
+                                              //                     BorderRadius.circular(10),
+                                              //               ),
+                                              //               child: Center(
+                                              //                 child: Text(
+                                              //                   'ADD SERVICE',
+                                              //                   style: TextStyle(
+                                              //                       color: Colors.white,
+                                              //                       fontSize: 14.0,
+                                              //                       fontWeight:
+                                              //                           FontWeight.w600),
+                                              //                 ),
+                                              //               ),
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ],
+                                              //     ),
+                                              //     radius: 10.0);
+                                              ///
+                                              //Get.to(() => ServicesPage());
                                             } else if (index == 5) {
                                               _medicineListController
                                                   .medicineListApi();
@@ -1013,6 +1164,8 @@ class UserHomePage extends StatelessWidget {
                                             } else if (index == 6) {
                                               Get.to(() => SupportView());
                                             } else if (index == 7) {
+                                              Get.to(() => AddBankDetail());
+
                                               //Get.to(() => TermsMemberPage());
                                             }
                                           },

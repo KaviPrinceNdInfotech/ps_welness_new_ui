@@ -250,7 +250,7 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'Add',
                 press: () {
-                  _doctorUpdateBankDetailController.doctorUpdateBankDetailApi();
+                  _doctorUpdateBankDetailController.doctorAddBankDetailApi();
                 })
           ],
         ),

@@ -11,9 +11,11 @@ import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/che
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payment_history/chemist_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payout_history/chemist_payout_histories.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_update_bank_details/bank_update_view.dart';
+
+//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_update_bank_details/bank_add_view.dart';
 
 import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
 import '../chemist_appointment_history_view/chemist_order_history.dart';
@@ -208,7 +210,7 @@ class ChemistHomePage extends StatelessWidget {
                                     if (index == 0) {
                                       Get.to(() => ChemistProfilePage());
                                     } else if (index == 1) {
-                                      Get.to(() => UpdateBankDetail());
+                                      Get.to(() => AddBankDetail());
                                     } else if (index == 2) {
                                       _chemistOrderController
                                           .chemistOrderHistorysApi();

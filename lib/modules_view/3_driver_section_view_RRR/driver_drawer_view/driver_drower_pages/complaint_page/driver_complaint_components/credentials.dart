@@ -69,7 +69,7 @@ class DriverComplaintCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///todo: location value..........
+            ///todo: subject value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 maxLines: 5,
@@ -83,6 +83,33 @@ class DriverComplaintCredentials extends StatelessWidget {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20.0),
                   hintText: 'Enter Your Complaint.',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo: others value..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                maxLines: 1,
+                autofillHints: [AutofillHints.addressCityAndState],
+                controller: _doctorComplaintController.otherController,
+                validator: (value) {
+                  return _doctorComplaintController.validAddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20.0),
+                  hintText: 'Others',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,

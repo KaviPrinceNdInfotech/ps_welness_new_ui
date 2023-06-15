@@ -11,7 +11,7 @@ import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/profile_driver_page_view/driver_profile.dart';
-import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_update_bank_details/bank_update_view.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -216,7 +216,8 @@ class DriverHomePage extends StatelessWidget {
                                     if (index == 0) {
                                       Get.to(() => DriverProfilePage());
                                     } else if (index == 1) {
-                                      Get.to(() => UpdateDriverBankDetail());
+                                      Get.to(() => AddBankDetail());
+                                      //UpdateDriverBankDetail());
                                     } else if (index == 2) {
                                       Get.to(() => DriverOrderHistory());
                                     } else if (index == 3) {

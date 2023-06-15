@@ -100,7 +100,6 @@ class MedicineListController extends GetxController {
       _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
       CallLoader.hideLoader();
-
       //Get.to(() => Cartproducts());
     }
   }

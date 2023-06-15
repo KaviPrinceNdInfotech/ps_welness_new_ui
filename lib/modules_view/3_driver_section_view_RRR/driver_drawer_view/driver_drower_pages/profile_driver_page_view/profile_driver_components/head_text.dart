@@ -31,7 +31,7 @@ class DriverProfileHeadText extends StatelessWidget {
                 width: size.width * 0.03,
               ),
               Text(
-                'Update Driver Profile',
+                'Update Profile',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: size.width * 0.04,
@@ -40,9 +40,9 @@ class DriverProfileHeadText extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: size.height * 0.05),
+          SizedBox(height: size.height * 0.03),
           Text(
-            'Mr Ram Singh',
+            'DRIVER',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class DriverProfileHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'rm@gmail.com',
+                  text: '',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,

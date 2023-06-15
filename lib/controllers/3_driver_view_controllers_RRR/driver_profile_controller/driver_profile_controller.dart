@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +13,20 @@ import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class DriverProfileController extends GetxController {
   final GlobalKey<FormState> driverrprofileformkey = GlobalKey<FormState>();
+
+  var selectedPath = ''.obs;
+
+  void getImage(ImageSource imageSource) async {
+    final pickedFiles = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFiles != null) {
+      selectedPath.value = pickedFiles.path;
+      print("File Path ${selectedPath.value}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
 
   var selectedImagepath = ''.obs;
   TextEditingController? IdEditText,
@@ -28,14 +45,14 @@ class DriverProfileController extends GetxController {
       IFSCCodeEditTxt,
       BranchName;
 
-  void getImage(ImageSource imageSource) async {
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
-    if (pickedFile != null) {
-      selectedImagepath.value = pickedFile.path;
-    } else {
-      print('No image selected');
-    }
-  }
+  // void getImage(ImageSource imageSource) async {
+  //   final pickedFile = await ImagePicker().pickImage(source: imageSource);
+  //   if (pickedFile != null) {
+  //     selectedImagepath.value = pickedFile.path;
+  //   } else {
+  //     print('No image selected');
+  //   }
+  // }
 
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
@@ -53,22 +70,20 @@ class DriverProfileController extends GetxController {
   }
 
   void driverUpdateProfileApi() async {
+    final imageAsBase64 =
+        base64Encode(await File(selectedPath.value).readAsBytes());
+    print("imagebaseeee64467:${imageAsBase64}");
     http.Response r = await ApiProvider.DriverUpdateProfile(
-        IdEditText?.text,
-        DriverNameEditText?.text,
-        PhoneEditText?.text,
-        VehicleNameEditText?.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        LocationEditText?.text,
-        DlNumberEditText?.text,
-        DlImageEditText?.text,
-        DlImageNameEditText?.text,
-        DlBase64ImageEditText?.text,
-        adminLogin_idEditTxt?.text,
-        AccountNoEditTxt?.text,
-        IFSCCodeEditTxt?.text,
-        BranchName?.text);
+      DriverNameEditText?.text,
+      PhoneEditText?.text,
+      VehicleNameEditText?.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      LocationEditText?.text,
+      DlNumberEditText?.text,
+      selectedPath.value.split('/').last,
+      imageAsBase64,
+    );
     if (r.statusCode == 200) {
     } else {}
   }
@@ -82,18 +97,18 @@ class DriverProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    IdEditText = TextEditingController(text: '88');
-    DriverNameEditText = TextEditingController(text: 'anchal');
-    PhoneEditText = TextEditingController(text: '1234567890');
-    VehicleNameEditText = TextEditingController(text: 'car');
-    LocationEditText = TextEditingController(text: 'auraiya');
-    DlNumberEditText = TextEditingController(text: 'UP2120090022847');
-    DlImageEditText = TextEditingController(text: 'ujpg');
-    DlImageNameEditText = TextEditingController(text: 'ujpg');
-    adminLogin_idEditTxt = TextEditingController(text: '1024');
-    AccountNoEditTxt = TextEditingController(text: '98986666123');
-    IFSCCodeEditTxt = TextEditingController(text: 'ucoooo3098');
-    BranchName = TextEditingController(text: 'UCO');
+    // IdEditText = TextEditingController(text: '88');
+    DriverNameEditText = TextEditingController(text: '');
+    PhoneEditText = TextEditingController(text: '');
+    VehicleNameEditText = TextEditingController(text: '');
+    LocationEditText = TextEditingController(text: '');
+    DlNumberEditText = TextEditingController(text: '');
+    DlImageEditText = TextEditingController(text: '');
+    DlImageNameEditText = TextEditingController(text: '');
+    adminLogin_idEditTxt = TextEditingController(text: '');
+    AccountNoEditTxt = TextEditingController(text: '');
+    IFSCCodeEditTxt = TextEditingController(text: '');
+    BranchName = TextEditingController(text: '');
   }
 
   @override

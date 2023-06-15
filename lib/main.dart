@@ -8,6 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
@@ -140,6 +141,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => DoctorHomepageController());
     Get.lazyPut(() => DoctorProfileControllers());
     Get.lazyPut(() => DoctorreportviewController());
+    Get.lazyPut(() => Driver_1_Controller());
     //NurseUploadReportController
     // Get.lazyPut(() => NurseUploadReportController());
 

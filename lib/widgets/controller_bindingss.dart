@@ -6,6 +6,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_control
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
@@ -170,6 +171,7 @@ class ControllerBinding extends Bindings {
     Get.put(NurseAboutusController());
     Get.put(UserAboutusController());
     Get.put(DoctorreportviewController());
+    Get.put(Driver_1_Controller());
 
     //Get.put(CatagaryByIdController());
   }

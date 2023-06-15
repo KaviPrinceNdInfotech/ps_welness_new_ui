@@ -15,7 +15,8 @@ class DoctorUpdateProfileController extends GetxController {
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
   List<StateModel> states = <StateModel>[].obs;
 
-  TextEditingController? idEditText,
+  TextEditingController?
+      //idEditText,
       doctorNameEditText,
       mobileNumberEditText,
       stateIdEditText,
@@ -23,11 +24,11 @@ class DoctorUpdateProfileController extends GetxController {
       locationEditText,
       pinCodeEditText,
       clinicNameEditText,
-      feeEditText,
-      adminLogin_id,
-      accountnoEditText,
-      ifscCodeEditText,
-      branchNameEditText;
+      feeEditText;
+  // adminLogin_id
+  // accountnoEditText,
+  // ifscCodeEditText,
+  // branchNameEditText;
   /////////dropdown dependent state city
   void getStateApi() async {
     states = await ApiProvider.getSatesApi();
@@ -49,11 +50,12 @@ class DoctorUpdateProfileController extends GetxController {
         locationEditText?.text,
         pinCodeEditText?.text,
         clinicNameEditText?.text,
-        feeEditText?.text,
+        feeEditText?.text
         //adminLogin_id?.text,
-        accountnoEditText?.text,
-        ifscCodeEditText?.text,
-        branchNameEditText?.text);
+        //accountnoEditText?.text,
+        //ifscCodeEditText?.text,
+        //branchNameEditText?.text
+        );
 
     if (r.statusCode == 200) {
       Get.to(DoctorHomePage());
@@ -70,18 +72,18 @@ class DoctorUpdateProfileController extends GetxController {
       }
     });
     //idEditText = TextEditingController(text: '143');
-    doctorNameEditText = TextEditingController(text: 'Ram');
-    mobileNumberEditText = TextEditingController(text: '6398028236');
-    stateIdEditText = TextEditingController(text: '3');
-    cityIdEditText = TextEditingController(text: '4');
-    locationEditText = TextEditingController(text: 'noida');
-    pinCodeEditText = TextEditingController(text: '206122');
-    clinicNameEditText = TextEditingController(text: 'rahul');
-    feeEditText = TextEditingController(text: '500');
+    doctorNameEditText = TextEditingController(text: '');
+    mobileNumberEditText = TextEditingController(text: '');
+    stateIdEditText = TextEditingController(text: '');
+    cityIdEditText = TextEditingController(text: '');
+    locationEditText = TextEditingController(text: '');
+    pinCodeEditText = TextEditingController(text: '');
+    clinicNameEditText = TextEditingController(text: '');
+    feeEditText = TextEditingController(text: '');
     //adminLogin_id = TextEditingController(text: '1024');
-    accountnoEditText = TextEditingController(text: '12345674567');
-    ifscCodeEditText = TextEditingController(text: 'UCBO005654');
-    branchNameEditText = TextEditingController(text: 'UCO');
+    //accountnoEditText = TextEditingController(text: '12345674567');
+    //ifscCodeEditText = TextEditingController(text: 'UCBO005654');
+    //branchNameEditText = TextEditingController(text: 'UCO');
   }
 
   @override

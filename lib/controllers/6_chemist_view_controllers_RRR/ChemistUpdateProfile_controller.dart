@@ -32,11 +32,11 @@ class ChemistUpdateProfileController extends GetxController {
       nameController,
       mobileController,
       locationController,
-      pinController,
-      //adminLoginIdController,
-      accountnoController,
-      ifscController,
-      branchNameController;
+      pinController;
+  //adminLoginIdController,
+  // accountnoController,
+  // ifscController,
+  // branchNameController;
 
   void chemistUpdateProfileApi() async {
     http.Response r = await ApiProvider.ChemistUpdateProfileApi(
@@ -46,11 +46,12 @@ class ChemistUpdateProfileController extends GetxController {
         selectedState.value?.id.toString(),
         selectedCity.value?.id.toString(),
         locationController?.text,
-        pinController?.text,
+        pinController?.text
         //adminLoginIdController?.text,
-        accountnoController?.text,
-        ifscController?.text,
-        branchNameController?.text);
+        // accountnoController?.text,
+        // ifscController?.text,
+        // branchNameController?.text
+        );
     if (r.statusCode == 200) {
       Get.to(ChemistHomePage());
     } else {}
@@ -72,9 +73,9 @@ class ChemistUpdateProfileController extends GetxController {
     locationController = TextEditingController(text: '');
     pinController = TextEditingController(text: '');
     //adminLoginIdController = TextEditingController(text: '');
-    accountnoController = TextEditingController(text: '');
-    ifscController = TextEditingController(text: '');
-    branchNameController = TextEditingController(text: '');
+    //accountnoController = TextEditingController(text: '');
+    //ifscController = TextEditingController(text: '');
+    ///branchNameController = TextEditingController(text: '');
   }
 
   @override

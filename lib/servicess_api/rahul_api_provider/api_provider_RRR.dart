@@ -537,10 +537,18 @@ class ApiProvider {
     }
   }
 
-  /// todo driver complain register............Rahul
-  static driverComplainApi(var Subjects, var Complaints) async {
+  /// todo driver complain register......modified
+  static driverComplainApi(var Subjects, var Complaints, var Others) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&ddwduseridEEE:${userid}');
     var url = baseUrl + 'api/ComplaintApi/DriverComplaints';
-    var body = {"Subjects": Subjects, "Complaints": Complaints};
+    var body = {
+      "Login_Id": userid,
+      "Subjects": Subjects,
+      "Complaints": Complaints,
+      "Others": Others,
+    };
     print("DriverComplainApi: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
@@ -1085,19 +1093,20 @@ class ApiProvider {
 
   /// todo doctor update profile.............Rahul
   static DoctorUpdateProfile(
-      //var ID,
-      var DoctorName,
-      var MobileNumber,
-      var StateMaster_Id,
-      var CityMaster_Id,
-      var Location,
-      var PinCode,
-      var ClinicName,
-      var Fee,
-      //var adminLogin_id,
-      var accountnoEditText,
-      var ifscCodeEditText,
-      var branchNameEditText) async {
+    //var ID,
+    var DoctorName,
+    var MobileNumber,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    var PinCode,
+    var ClinicName,
+    var Fee,
+    //var adminLogin_id,
+    //var accountnoEditText,
+    //var ifscCodeEditText,
+    // var branchNameEditText
+  ) async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
@@ -1115,9 +1124,9 @@ class ApiProvider {
       "ClinicName": ClinicName,
       "Fee": Fee,
       "adminLogin_id": adminId,
-      "AccountNo": accountnoEditText,
-      "IFSCCode": ifscCodeEditText,
-      "BranchName": branchNameEditText
+      // "AccountNo": accountnoEditText,
+      //"IFSCCode": ifscCodeEditText,
+      //"BranchName": branchNameEditText
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
@@ -1131,41 +1140,37 @@ class ApiProvider {
 
   /// todo driver update profile..............Rahul
   static DriverUpdateProfile(
-      var Id,
-      var DriverName,
-      var Phone,
-      var VehicleName,
-      var StateMaster_Id,
-      var CityMaster_Id,
-      var Location,
-      var DlNumber,
-      var DlImage,
-      var DlImageName,
-      var DlBase64Image,
-      var adminLogin_idEditTxt,
-      var AccountNoEditTxt,
-      var IFSCCodeEditTxt,
-      var BranchName) async {
+    var DriverName,
+    var MobileNumber,
+    var VehicleName,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    var DlNumber,
+    var DlImage,
+    var DlBase64Image,
+  ) async {
     var url = '${baseUrl}api/DriverApi/UpdateProfile';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
     var body = {
-      "Id": Id.toString(),
+      "Id": userid,
       "DriverName": DriverName.toString(),
-      "MobileNumber": Phone.toString(),
+      "MobileNumber": MobileNumber.toString(),
       "VehicleName": VehicleName.toString(),
       "StateMaster_Id": StateMaster_Id,
       "CityMaster_Id": CityMaster_Id,
       "Location": Location.toString(),
       "DlNumber": DlNumber.toString(),
       "DlImage": DlImage.toString(),
-      "DlImageName": DlImageName.toString(),
-      "DlBase64Image": base64Code,
-      "adminLogin_id": adminLogin_idEditTxt,
-      "AccountNo": AccountNoEditTxt,
-      "IFSCCode": IFSCCodeEditTxt,
-      "BranchName": BranchName
+      "DlBase64Image": "$DlBase64Image",
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
+    print("DriverUpdateProfil: ${body}");
     if (r.statusCode == 200) {
+      print("DriverUpdateProfil200: ${body}");
+
       print("DriverUpdateProfilSuccess############################: ${r.body}");
       Get.snackbar("Success", r.body);
       return r;
@@ -1346,7 +1351,10 @@ class ApiProvider {
 
   /// todo Driver Profile detail.....................Rahul
   static DriverProfileDetailApi() async {
-    var url = '${baseUrl}api/DriverApi/GetDriverProfile?Id=168';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid55:${Id}');
+    var url = '${baseUrl}api/DriverApi/GetDriverProfile?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1453,21 +1461,21 @@ class ApiProvider {
 
   /// todo Nurse Profile api..........rahul .............
   static NurseEditProfileApi(
+    /// var idController,
+    var nameController,
+    var mobileController,
+    var selectedStatee,
+    var selectedCityy,
+    var locationController,
+    var pinController,
+    var clinicNameController,
+    var feeController,
 
-      /// var idController,
-      var nameController,
-      var mobileController,
-      var selectedStatee,
-      var selectedCityy,
-      var locationController,
-      var pinController,
-      var clinicNameController,
-      var feeController,
-
-      ///var adminLoginIdController,
-      var accountnoController,
-      var ifscController,
-      var branchNameController) async {
+    ///var adminLoginIdController,
+    // var accountnoController,
+    // var ifscController,
+    // var branchNameController
+  ) async {
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     userid = prefs.read("Id").toString();
@@ -1484,9 +1492,9 @@ class ApiProvider {
       "ClinicName": clinicNameController,
       "Fee": feeController,
       "adminLogin_id": adminId,
-      "AccountNo": accountnoController,
-      "IFSCCode": ifscController,
-      "BranchName": branchNameController
+      // "AccountNo": accountnoController,
+      //"IFSCCode": ifscController,
+      //"BranchName": branchNameController
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("bodyyyeeee:${body}");
@@ -1709,8 +1717,8 @@ class ApiProvider {
     }
   }
 
-  /// todo doctor add Bank Detail............Rahul
-  static DoctoraddBankDetailApi(
+  /// todo all add Bank Detail...............alll bank.....
+  static AddAllBankDetailApi(
     var AccountNo,
     var IFSCCode,
     var BranchName,
@@ -1736,6 +1744,37 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       print("BankDetailSuccessstt: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  ///todo: all update Bank Detail...........12 june 2023
+  static ChemistBankSeperateDetailApi(
+    var AccountNo,
+    var IFSCCode,
+    var BranchName,
+  ) async {
+    var url = 'http://test.pswellness.in/api/CommonApi/UpdateBank';
+    //http://test.pswellness.in/api/CommonApi/UpdateBank
+    //var url = '${baseUrl}api/ComplaintApi/CHUpdateBank';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    var body = {
+      "Login_Id": adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName,
+    };
+    print('AddPatientBodyggdd: ${body}');
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("BankDetailSuccessstdddt: ${r.body}");
       Get.snackbar("Success", "${r.body}");
       return r;
     } else {
@@ -2071,17 +2110,18 @@ class ApiProvider {
 
   /// todo Chemist Update Profile ............Rahul
   static ChemistUpdateProfileApi(
-      // var id,
-      var ShopName,
-      var MobileNumber,
-      var StateMaster_Id,
-      var CityMaster_Id,
-      var Location,
-      //var AdminLogin_Id,
-      var PinCode,
-      var AccountNo,
-      var IFSCCode,
-      var BranchName) async {
+    // var id,
+    var ShopName,
+    var MobileNumber,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    //var AdminLogin_Id,
+    var PinCode,
+    // var AccountNo,
+    // var IFSCCode,
+    // var BranchName
+  ) async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&cemist:${userid}');
@@ -2099,9 +2139,9 @@ class ApiProvider {
       "Location": Location,
       "AdminLogin_Id": adminId,
       "PinCode": PinCode,
-      "AccountNo": AccountNo,
-      "IFSCCode": IFSCCode,
-      "BranchName": BranchName
+      //"AccountNo": AccountNo,
+      //"IFSCCode": IFSCCode,
+      //"BranchName": BranchName
     };
     print("ChemistBody: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -2224,7 +2264,7 @@ class ApiProvider {
     }
   }
 
-  /// todo Chemist SignUp............Rahul
+  /// todo Chemist SignUp............
   static ChemistSignupApi(
       var ChemistName,
       var ShopName,
@@ -2333,6 +2373,71 @@ class ApiProvider {
       if (r.statusCode == 200) {
         print("###3###3####1rwwwrr: ${r.body}");
         print('&&&&&&&&&&&&&&&&&&&&&&rwausewwwreportrerer:${userid}');
+        //print("####userid: ${r.Patient_Id}");
+        return r;
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+    } catch (e) {
+      print('Error');
+      print(e.toString());
+      print("###3###3####1error: ${e}");
+    }
+  }
+
+  ///driver signup.........
+  static DriverSignupApi(
+    var CityName,
+    var PinCode,
+    var MobileNumber,
+    var EmailId,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    var DriverImage,
+    var DlImage,
+    var DlImage1,
+    var DlImage2,
+    var DlImage3,
+    var DlNumber,
+    var DlValidity,
+    var Password,
+    var ConfirmPassword,
+    var DlBase64Image,
+    var VehicleType_Id,
+    //var Patient_Id,
+  ) async {
+    var body = {
+      "CityName": "Delhi",
+      "PinCode": "206122",
+      "DriverName": "ravi",
+      "MobileNumber": "7957568767",
+      "EmailId": "an787723@gmail.com",
+      "StateMaster_Id": "33",
+      "CityMaster_Id": "771",
+      "Location": "Auraiya",
+      "DriverImage": "dr1.jpg",
+      "DlImage": "dr1.jpg",
+      "DlImage1": "dr1.jpg",
+      "DlImage2": "dr1.jpg",
+      "DlImage3": "dr1.jpg",
+      "DlNumber": "UP75252500009",
+      "DlValidity": "2023-03-21 00:00:00.000",
+      "Password": "12345",
+      "ConfirmPassword": "12345",
+      "DlBase64Image": "DlBase64Image",
+      "VehicleType_Id": "1",
+    };
+    try {
+      var url = 'http://test.pswellness.in/api/SignupApi/DriverRegistration';
+      var r = await http.post(Uri.parse(url), body: body);
+      print("nlmknmkmkdriver:${r.body}");
+      print("###3###3####1rrrererttrrrrrrttt: ${body}");
+      if (r.statusCode == 200) {
+        print("###3###3####1drriver: ${r.body}");
+        print('&&&&&&&&&&&&&&&&&&&&&driverr:${userid}');
         //print("####userid: ${r.Patient_Id}");
         return r;
       } else {

@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/about_us/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/driver_profile_details/profile_driver_detail_page.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +26,8 @@ import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/suppor
 class DriverMainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DriverProfileDetailController _driverprofile =
+        Get.put(DriverProfileDetailController());
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Drawer(
@@ -36,7 +40,7 @@ class DriverMainDrawer extends StatelessWidget {
                 color: MyTheme.ThemeColors,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 1.70),
+                padding: EdgeInsets.symmetric(vertical: 1.70),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -56,14 +60,16 @@ class DriverMainDrawer extends StatelessWidget {
                       height: size.height * 0.01,
                     ),
                     Text(
-                      'Kumar Gaurav',
+                      "${_driverprofile.getDriverProfileDetail?.driverName.toString()}",
+                      //'Kumar Gaurav',
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.023,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      'kumar@gmail.com',
+                      "${_driverprofile.getDriverProfileDetail?.emailId.toString()}",
+                      //'kumar@gmail.com',
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.020,
                           fontWeight: FontWeight.w700,
@@ -136,6 +142,38 @@ class DriverMainDrawer extends StatelessWidget {
                 Get.offNamed('/ComplaintPage');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => UpdateBankSeperateDetail());
+                Get.offNamed('/UpdateBankSeperateDetail');
+              },
+            ),
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -198,6 +236,8 @@ class DriverMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _driverprofile.driverProfileDetailApi();
+                _driverprofile.update();
                 Get.to(() => DriverDetailProfile());
                 Get.offNamed('/ComplaintPage');
               },

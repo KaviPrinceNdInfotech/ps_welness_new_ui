@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
-import '../../../modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
-class UpdateBankController extends GetxController {
+class AdddBankController extends GetxController {
   final GlobalKey<FormState> updatebankformkey = GlobalKey<FormState>();
   TextEditingController? AccountNo,
       IFSCCode,
@@ -23,9 +22,9 @@ class UpdateBankController extends GetxController {
   var holderName = '';
   var mobileNumber = '';
 
-  void chemistUpdateBankDetailApi() async {
+  void addchemistBankDetailApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.DoctoraddBankDetailApi(
+    http.Response r = await ApiProvider.AddAllBankDetailApi(
       AccountNo?.text,
       IFSCCode?.text,
       BranchName?.text,
@@ -35,9 +34,10 @@ class UpdateBankController extends GetxController {
     );
     if (r.statusCode == 200) {
       CallLoader.hideLoader();
+      //Get.back();
 
       /// we can navigate to user page.....................................
-      Get.to(ChemistHomePage());
+      //Get.to(ChemistHomePage());
     } else {}
   }
 
@@ -122,9 +122,9 @@ class UpdateBankController extends GetxController {
     return null;
   }
 
-  void checkUpdateBankDetail() {
+  void checkAddddBankDetail() {
     if (updatebankformkey.currentState!.validate()) {
-      chemistUpdateBankDetailApi();
+      addchemistBankDetailApi();
     }
     updatebankformkey.currentState!.save();
   }

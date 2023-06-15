@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/about_us/about_us.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/nurse_profile_details/profile_nurse_detail_page.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +32,9 @@ class NurseMainDrawer extends StatelessWidget {
         Get.put(NurseAboutusController());
     NurseProfileControllers _nurseprofileContrller =
         Get.put(NurseProfileControllers());
+
+    UserAboutusController _userAboutusController =
+        Get.put(UserAboutusController());
 
     return SafeArea(
       child: Drawer(
@@ -105,14 +110,15 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AboutUs'
+              tileColor: Get.currentRoute == '/UserAboutUsView'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+
                 // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                Get.offNamed('/UserAboutUsView');
               },
             ),
             ListTile(
@@ -144,6 +150,39 @@ class NurseMainDrawer extends StatelessWidget {
                 Get.back();
                 Get.to(() => NurseEditProfilePage());
                 Get.offNamed('/NurseEditProfilePage');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => UpdateBankSeperateDetail());
+                Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 
@@ -271,16 +310,21 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/NurseAboutUsView'
+              tileColor: Get.currentRoute == '/UserAboutUsView'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _nurseAboutusController.NurseaboutusApi();
-                _nurseAboutusController.update();
-                Get.to(() => NurseAboutUsView());
-                Get.offNamed('/NurseAboutUsView');
+
+                // _nurseAboutusController.NurseaboutusApi();
+                // _nurseAboutusController.update();
+
+                _userAboutusController.update();
+                _userAboutusController.useraboutusApi();
+                Get.to(() => UserAboutUsView());
+                //  Get.to(() => NurseAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
 
