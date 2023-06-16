@@ -16,6 +16,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nu
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
+import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/complain_nurse_model.dart';
 //import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/complain_doctor_model.dart';
@@ -796,6 +797,25 @@ class ApiProvider {
       if (r.statusCode == 200) {
         var citiesData = cityModelFromJson(r.body);
         return citiesData.cities;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///state Api get........15june 2023.................driver..vehicle registration
+  static Future<List<VehicleTypeElement>?> getvehicledriverApi() async {
+    var url = "http://test.pswellness.in/api/DriverApi/GetVehicleTypeDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var vehicleData = vehicleTypeFromJson(r.body);
+        print('&&&driverokoko:${r.body}');
+
+        return vehicleData.vehicleType;
       } else {
         return [];
       }
@@ -2387,57 +2407,65 @@ class ApiProvider {
     }
   }
 
-  ///driver signup.........
+  ///driver signup.........16 june....
   static DriverSignupApi(
-    var CityName,
+    var DriverName,
     var PinCode,
     var MobileNumber,
     var EmailId,
     var StateMaster_Id,
     var CityMaster_Id,
     var Location,
-    var DriverImage,
-    var DlImage,
-    var DlImage1,
-    var DlImage2,
-    var DlImage3,
     var DlNumber,
     var DlValidity,
     var Password,
     var ConfirmPassword,
-    var DlBase64Image,
+    var DriverImage,
+    var DriverImageBase64,
+    var DlImage1,
+    var DlImage1Base64,
+    var DlImage2,
+    var DlImage2Base64,
+    var AadharImage,
+    var AadharImageBase64,
+    var AadharImage2,
+    var AadharImage2Base64,
     var VehicleType_Id,
+
     //var Patient_Id,
   ) async {
     var body = {
-      "CityName": "Delhi",
-      "PinCode": "206122",
-      "DriverName": "ravi",
-      "MobileNumber": "7957568767",
-      "EmailId": "an787723@gmail.com",
-      "StateMaster_Id": "33",
-      "CityMaster_Id": "771",
-      "Location": "Auraiya",
-      "DriverImage": "dr1.jpg",
-      "DlImage": "dr1.jpg",
-      "DlImage1": "dr1.jpg",
-      "DlImage2": "dr1.jpg",
-      "DlImage3": "dr1.jpg",
-      "DlNumber": "UP75252500009",
-      "DlValidity": "2023-03-21 00:00:00.000",
-      "Password": "12345",
-      "ConfirmPassword": "12345",
-      "DlBase64Image": "DlBase64Image",
-      "VehicleType_Id": "1",
+      "DriverName": DriverName,
+      "PinCode": PinCode,
+      "MobileNumber": MobileNumber,
+      "EmailId": EmailId,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "Location": Location,
+      "DlNumber": DlNumber,
+      "DlValidity": DlValidity,
+      "Password": Password,
+      "ConfirmPassword": ConfirmPassword,
+      "DriverImage": "$DriverImage",
+      "DriverImageBase64": "$DriverImageBase64",
+      "DlImage1": "$DlImage1",
+      "DlImage1Base64": "$DlImage1Base64",
+      "DlImage2": "$DlImage2",
+      "DlImage2Base64": "$DlImage2Base64",
+      "AadharImage": "$AadharImage",
+      "AadharImageBase64": "$AadharImageBase64",
+      "AadharImage2": "$AadharImage2",
+      "AadharImage2Base64": "$AadharImage2Base64",
+      "VehicleType_Id": "$VehicleType_Id"
     };
     try {
       var url = 'http://test.pswellness.in/api/SignupApi/DriverRegistration';
       var r = await http.post(Uri.parse(url), body: body);
-      print("nlmknmkmkdriver:${r.body}");
+      print("nlmknmkmkdriveree:${r.body}");
       print("###3###3####1rrrererttrrrrrrttt: ${body}");
       if (r.statusCode == 200) {
-        print("###3###3####1drriver: ${r.body}");
-        print('&&&&&&&&&&&&&&&&&&&&&driverr:${userid}');
+        print("###3###3####1drriver22: ${r.body}");
+        print('&&&&&&&&&&&&&&&&&&&&&driverrsq:${userid}');
         //print("####userid: ${r.Patient_Id}");
         return r;
       } else {

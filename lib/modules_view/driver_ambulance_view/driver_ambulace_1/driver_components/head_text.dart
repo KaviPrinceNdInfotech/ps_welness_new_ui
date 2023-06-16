@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
@@ -18,7 +20,12 @@ class Driver1HeadText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: size.height * 0.05),
+          InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(Icons.arrow_back_ios_new_outlined)),
+          SizedBox(height: size.height * 0.03),
           RichText(
             text: TextSpan(
               children: <TextSpan>[

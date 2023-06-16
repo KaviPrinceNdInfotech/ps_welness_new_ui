@@ -171,7 +171,7 @@ class ControllerBinding extends Bindings {
     Get.put(NurseAboutusController());
     Get.put(UserAboutusController());
     Get.put(DoctorreportviewController());
-    Get.put(Driver_1_Controller());
+    Get.put(Driver_1111_Controller());
 
     //Get.put(CatagaryByIdController());
   }

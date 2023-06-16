@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 import 'package:ps_welness_new_ui/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulace_1/driver_registation_1.dart';
@@ -20,6 +21,8 @@ class SignUpList extends StatelessWidget {
   SignUpList({Key? key}) : super(key: key);
   AmbulancegetController _ambulancegetController =
       Get.put(AmbulancegetController());
+  Driver_1111_Controller _driver_1111_controller =
+      Get.put(Driver_1111_Controller());
 
   @override
   Widget build(BuildContext context) {
@@ -165,8 +168,10 @@ class SignUpList extends StatelessWidget {
                                 //Get.to(() => ComplainList());
 
                               } else if (index == 4) {
-                                _ambulancegetController.ambulancecatagaryyApi();
-                                _ambulancegetController.update();
+                                //_ambulancegetController.ambulancecatagaryyApi();
+                                //_ambulancegetController.update();
+                                /// _driver_1111_controller.ambulancecatagaryyApi();
+                                _driver_1111_controller.update();
                                 Get.to(() => DriverSignup1());
 
                                 //Get.to(() => NursesSignup1());

@@ -1,36 +1,176 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
-import '../../servicess_api/api_services_all_api.dart';
+//import '../../servicess_api/api_services_all_api.dart';
+import '../../utils/services/account_service.dart';
 
-class Driver_1_Controller extends GetxController {
-  final GlobalKey<FormState> driver1formkey = GlobalKey<FormState>();
+class Driver_1111_Controller extends GetxController {
+  final GlobalKey<FormState> driver1111formkey = GlobalKey<FormState>();
+
+  var selectedDate = DateTime.now().obs;
+
+  //RxInt selectedimg = 0.obs;
+  var selectedPath = ''.obs;
+
+  RxInt selectedimg1 = 0.obs;
+  var selectedPath1 = ''.obs;
+
+  RxInt selectedimg2 = 0.obs;
+  var selectedPath2 = ''.obs;
+
+  RxInt selectedimg3 = 0.obs;
+  var selectedPath3 = ''.obs;
+
+  RxInt selectedimg4 = 0.obs;
+  var selectedPath4 = ''.obs;
+  //var selectedPath = ''.obs;
+
+  void getImage(ImageSource imageSource) async {
+    final pickedFiles = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFiles != null) {
+      selectedPath.value = pickedFiles.path;
+      print("File Path ${pickedFiles.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
+  //2
+  void getImage1(ImageSource imageSource1) async {
+    final pickedFiles1 = await ImagePicker().pickImage(source: imageSource1);
+    if (pickedFiles1 != null) {
+      selectedPath1.value = pickedFiles1.path;
+      print("File Path ${pickedFiles1.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
+  ///3
+  void getImage2(ImageSource imageSource2) async {
+    final pickedFiles2 = await ImagePicker().pickImage(source: imageSource2);
+    if (pickedFiles2 != null) {
+      selectedPath2.value = pickedFiles2.path;
+      print("File Path ${pickedFiles2.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
+  ///4
+  void getImage3(ImageSource imageSource3) async {
+    final pickedFiles3 = await ImagePicker().pickImage(source: imageSource3);
+    if (pickedFiles3 != null) {
+      selectedPath3.value = pickedFiles3.path;
+      print("File Path ${pickedFiles3.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
+  ///5
+  void getImage4(ImageSource imageSource4) async {
+    final pickedFiles4 = await ImagePicker().pickImage(source: imageSource4);
+    if (pickedFiles4 != null) {
+      selectedPath4.value = pickedFiles4.path;
+      print("File Path ${pickedFiles4.path}");
+    } else {
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
+    }
+  }
+
+  ///this is for state.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+
+  // ///ambulancde catagary Id...........
+  //
+  // Rx<Vehicle?> selectedambCatagary = (null as Vehicle?).obs;
+  // List<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
+  //
+  // ///vehicle by catagary Id...........
+  // ///
+  // Rx<VehicleDetaile?> selectedvhicleCatagary = (null as VehicleDetaile?).obs;
+  // RxList<VehicleDetaile> vhicletypes = <VehicleDetaile>[].obs;
 
   ///ambulancde catagary Id...........
-
-  Rx<Vehicle?> selectedambCatagary = (null as Vehicle?).obs;
-  List<Vehicle> ambulancvecatagarys = <Vehicle>[].obs;
-
-  ///vehicle by catagary Id...........
-  ///
-  Rx<VehicleDetaile?> selectedvhicleCatagary = (null as VehicleDetaile?).obs;
-  RxList<VehicleDetaile> vhicletypes = <VehicleDetaile>[].obs;
-
   ///ambulancde catagary Id...........
+
+  Rx<VehicleTypeElement?> selectevehicletype =
+      (null as VehicleTypeElement?).obs;
+  List<VehicleTypeElement> vehicletype = <VehicleTypeElement>[].obs;
 
   void ambulancecatagaryyApi() async {
-    ambulancvecatagarys = (await ApiProvider.getambulancecatagaryApi())!;
-    print('Prince ambulance catagary list');
-    print(ambulancvecatagarys);
+    vehicletype = (await ApiProvider.getvehicledriverApi())!;
+    print('Prince ambulance type list');
+    print("rfrfrfrfr${vehicletype}");
+  }
+
+  void getStateDriverApi() async {
+    states = await ApiProvider.getSatesApi();
+    print('Prince state  list');
+    print(states);
+  }
+
+  ///get cities api...........
+  void getCityByStateIDDriver(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+    print("Prince cities of $stateID");
+    print(cities);
   }
 
   late TextEditingController nameController,
+      pincontroller,
+      mobileController,
       emailController,
+      statecontroller,
+      citycontroller,
+      locationcontroller,
+      dlnumbercontroller,
+      dlvaliditycontroller,
       passwordController,
       confirmpasswordController,
-      mobileController;
+      driverimagecontroller,
+      driverimagebase64controller,
+      dlimagecontroller,
+      dlimage1controller,
+      dlimage1base64controller,
+      dlimage2controller,
+      dlimage2base64controller,
+      aadharimagecontroller,
+      aadharimagebase64controller,
+      aadharimage2controller,
+      aadharimage2base64controller,
+      vehicletypecontroller;
 
   var name = '';
   var email = '';
@@ -38,15 +178,179 @@ class Driver_1_Controller extends GetxController {
   var confirmpassword = '';
   var mobile = '';
 
+  var DriverName = '';
+  var PinCode = '';
+  var MobileNumber = '';
+  var EmailId = '';
+  var StateMaster_Id = '';
+  var CityMaster_Id = '';
+  var Location = '';
+  var DlNumber = '';
+  var DlValidity = '';
+  var Password = '';
+  var ConfirmPassword = '';
+  var DriverImage = '';
+  var DriverImageBase64 = '';
+  var DlImage = '';
+  var DlImage1 = '';
+  var DlImage1Base64 = '';
+  var DlImage2 = '';
+  var DlImage2Base64 = '';
+  var AadharImage = '';
+  var AadharImageBase64 = '';
+  var AadharImage2 = '';
+  var AadharImage2Base64 = '';
+  var VehicleType_Id = '';
+
+  ///signup driver.............
+  void driverSignupApi() async {
+    CallLoader.loader();
+    final imageAsBase64 =
+        base64Encode(await File(selectedPath.value).readAsBytes());
+    print("imagebaseeee644:${imageAsBase64}");
+    final imageAsBase641 =
+        base64Encode(await File(selectedPath1.value).readAsBytes());
+    print("imagebaseeee6441:${imageAsBase641}");
+
+    final imageAsBase642 =
+        base64Encode(await File(selectedPath2.value).readAsBytes());
+    print("imagebaseeee6442:${imageAsBase642}");
+
+    final imageAsBase643 =
+        base64Encode(await File(selectedPath3.value).readAsBytes());
+    print("imagebaseeee6443:${imageAsBase643}");
+
+    final imageAsBase644 =
+        base64Encode(await File(selectedPath4.value).readAsBytes());
+    print("imagebaseeee6444:${imageAsBase644}");
+    http.Response r = await ApiProvider.DriverSignupApi(
+        nameController.text,
+        pincontroller.text,
+        mobileController.text,
+        emailController.text,
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
+        locationcontroller.text,
+        dlnumbercontroller.text,
+        dlvaliditycontroller.text,
+        passwordController.text,
+        confirmpasswordController.text,
+        selectedPath.value.split('/').last,
+        imageAsBase64,
+        selectedPath1.value.split('/').last,
+        imageAsBase641,
+        selectedPath2.value.split('/').last,
+        imageAsBase642,
+        selectedPath3.value.split('/').last,
+        imageAsBase643,
+        selectedPath3.value.split('/').last,
+        imageAsBase644,
+        selectevehicletype.value?.id.toString()
+        // selectedPath.value.split('/').last,
+        //imageAsBase64,
+        );
+
+    if (r.statusCode == 200) {
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 200),
+          () {
+            //  _viewdoctorreviewController.doctorreviewratingApi();
+            //_viewdoctorreviewController.update();
+            Get.snackbar('Registration Successfully',
+                "You are registered and wait for approval"
+                // "${r.body}"
+                );
+            Get.to(SignInScreen());
+
+            // Get.to(() => DriverHomePage());
+            // _doctorListController.doctordetailApi();
+            // _doctorListController.update();
+            // _viewdoctorreviewController.doctorreviewratingApi();
+            // _viewdoctorreviewController.update();
+
+            //Get.to((page))
+            ///
+          },
+        );
+      });
+      CallLoader.hideLoader();
+    } else {
+      //CallLoader.hideLoader();
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
     ambulancecatagaryyApi();
+
+    /// ambulancecatagaryyApi();
+
     nameController = TextEditingController();
+    pincontroller = TextEditingController();
+    mobileController = TextEditingController();
     emailController = TextEditingController();
+    statecontroller = TextEditingController();
+    citycontroller = TextEditingController();
+    locationcontroller = TextEditingController();
+    dlnumbercontroller = TextEditingController();
     passwordController = TextEditingController();
     confirmpasswordController = TextEditingController();
-    mobileController = TextEditingController();
+    driverimagecontroller = TextEditingController();
+    driverimagebase64controller = TextEditingController();
+    dlimagecontroller = TextEditingController();
+    dlimage1controller = TextEditingController();
+    dlimage1base64controller = TextEditingController();
+    dlimage2controller = TextEditingController();
+    dlimage2base64controller = TextEditingController();
+    aadharimagecontroller = TextEditingController();
+    aadharimagebase64controller = TextEditingController();
+    aadharimage2controller = TextEditingController();
+    aadharimage2base64controller = TextEditingController();
+    vehicletypecontroller = TextEditingController();
+    dlvaliditycontroller = TextEditingController();
+    dlvaliditycontroller.text = "YYY-MM-DD";
+
+    getStateDriverApi();
+    //getdepartmentApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDDriver("${p0.id}");
+      }
+    });
+  }
+
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2018),
+      lastDate: DateTime(2025),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select DOB',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'DOB',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      dlvaliditycontroller
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: dlvaliditycontroller.text.length,
+            affinity: TextAffinity.upstream));
+    }
+    // if (pickedDate != null && pickedDate != selectedDate) {
+    //   selectedDate.value = pickedDate;
+    //   appointmentController.text =
+    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
+    // }
   }
 
   @override
@@ -90,8 +394,8 @@ class Driver_1_Controller extends GetxController {
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -100,8 +404,8 @@ class Driver_1_Controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != confirmpassword) {
       return "              Password must be same as above";
     } else {
@@ -119,12 +423,42 @@ class Driver_1_Controller extends GetxController {
     return null;
   }
 
-  void checkDriver1() {
-    final isValid = driver1formkey.currentState!.validate();
-    if (!isValid) {
-      return;
+  String? validPin(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
     }
-    driver1formkey.currentState!.save();
-    //Get.to(() => HomePage());
+    if (value.length != 6) {
+      return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validAddress(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+  String? validlandline(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+  String? validcertificate(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    return null;
+  }
+
+//DriverSignupApi
+  void checkDriver1111() {
+    if (driver1111formkey.currentState!.validate()) {
+      //driverSignupApi();
+    }
+    driver1111formkey.currentState!.save();
   }
 }

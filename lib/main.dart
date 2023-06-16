@@ -141,7 +141,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => DoctorHomepageController());
     Get.lazyPut(() => DoctorProfileControllers());
     Get.lazyPut(() => DoctorreportviewController());
-    Get.lazyPut(() => Driver_1_Controller());
+    Get.lazyPut(() => Driver_1111_Controller());
     //NurseUploadReportController
     // Get.lazyPut(() => NurseUploadReportController());
 
