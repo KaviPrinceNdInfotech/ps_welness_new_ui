@@ -9,6 +9,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/about_us_doctor_controller/doctor_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/add_skills/add_skills.dart';
@@ -30,6 +31,7 @@ class MainDrawer extends StatelessWidget {
       Get.put(DoctorAboutusController());
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
+  SkillsListController _skillsListController = Get.put(SkillsListController());
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +214,7 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => PatientList());
+                Get.to(() => PatientListDoctor());
                 Get.offNamed('/PatientList');
               },
             ),
@@ -244,6 +246,8 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _skillsListController.skillsListApi();
+                _skillsListController.update();
                 Get.to(() => SkillsListScreen());
                 Get.offNamed('/SkillsListScreen');
               },

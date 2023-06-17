@@ -52,6 +52,32 @@ class SkillsListController extends GetxController {
     }
   }
 
+  ///
+  //doctorSkillDeleteApi
+  void deleteskillsApi() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.doctorSkillDeleteApi();
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+      CallLoader.hideLoader();
+      skillsListApi();
+      Get.to(
+        () => SkillsListScreen(), //next page class
+        duration: Duration(
+            milliseconds: 400), //duration of transitions, default 1 sec
+        transition:
+            // Transition.leftToRight //transition effect
+            // Transition.fadeIn
+            //Transition.size
+            Transition.zoom,
+      );
+
+      //Get.back();
+      //Get.offAll(() => AddSkilsScreen());
+
+    }
+  }
+
   late TextEditingController doctoridController, skillsnameController;
 
   var Doctor_Id = '';

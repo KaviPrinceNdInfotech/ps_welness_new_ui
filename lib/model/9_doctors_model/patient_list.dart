@@ -43,7 +43,8 @@
 
 import 'dart:convert';
 
-PatientList patientListFromJson(String str) => PatientList.fromJson(json.decode(str));
+PatientList patientListFromJson(String str) =>
+    PatientList.fromJson(json.decode(str));
 
 String patientListToJson(PatientList data) => json.encode(data.toJson());
 
@@ -54,21 +55,26 @@ class PatientList {
   });
 
   String? message;
-  List<Response>? response;
+  List<PatientListss>? response;
 
   factory PatientList.fromJson(Map<String, dynamic> json) => PatientList(
-    message: json["Message"],
-    response: json["response"] == null ? [] : List<Response>.from(json["response"]!.map((x) => Response.fromJson(x))),
-  );
+        message: json["Message"],
+        response: json["response"] == null
+            ? []
+            : List<PatientListss>.from(
+                json["response"]!.map((x) => PatientListss.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "Message": message,
-    "response": response == null ? [] : List<dynamic>.from(response!.map((x) => x.toJson())),
-  };
+        "Message": message,
+        "response": response == null
+            ? []
+            : List<dynamic>.from(response!.map((x) => x.toJson())),
+      };
 }
 
-class Response {
-  Response({
+class PatientListss {
+  PatientListss({
     this.doctorId,
     this.patientId,
     this.patientName,
@@ -80,17 +86,17 @@ class Response {
   String? patientName;
   String? patientRegNo;
 
-  factory Response.fromJson(Map<String, dynamic> json) => Response(
-    doctorId: json["DoctorId"],
-    patientId: json["PatientId"],
-    patientName: json["PatientName"],
-    patientRegNo: json["PatientRegNo"],
-  );
+  factory PatientListss.fromJson(Map<String, dynamic> json) => PatientListss(
+        doctorId: json["DoctorId"],
+        patientId: json["PatientId"],
+        patientName: json["PatientName"],
+        patientRegNo: json["PatientRegNo"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "DoctorId": doctorId,
-    "PatientId": patientId,
-    "PatientName": patientName,
-    "PatientRegNo": patientRegNo,
-  };
+        "DoctorId": doctorId,
+        "PatientId": patientId,
+        "PatientName": patientName,
+        "PatientRegNo": patientRegNo,
+      };
 }

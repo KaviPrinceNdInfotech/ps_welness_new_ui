@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/add_skills/add_skills.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SkillsListScreen extends StatelessWidget {
   SkillsListScreen({Key? key}) : super(key: key);
@@ -153,9 +157,76 @@ class SkillsListScreen extends StatelessWidget {
                                 leading: Text(_skillsListController
                                     .viewSkilsReport!.skills[index].skillName
                                     .toString()),
-                                trailing: Icon(
-                                  Icons.delete_forever_outlined,
-                                  color: Colors.red,
+                                trailing: InkWell(
+                                  onTap: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    prefs.setString("SkilsId",
+                                        "${_skillsListController.viewSkilsReport!.skills[index].id.toString()}");
+                                    Get.dialog(
+                                      AlertDialog(
+                                        title: const Text('Skills'),
+                                        content: const Text(
+                                            'You Want To delete your Skills?'),
+                                        actions: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              TextButton(
+                                                child: const Text(
+                                                  "Close",
+                                                  style: TextStyle(
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                                onPressed: () => Get.back(),
+                                              ),
+                                              TextButton(
+                                                  child: const Text(
+                                                    "Confirm",
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                  onPressed: () =>
+                                                      accountService
+                                                          .getAccountData
+                                                          .then((accountData) {
+                                                        Timer(
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  200),
+                                                          () {
+                                                            _skillsListController
+                                                                .skillsListApi();
+                                                            _skillsListController
+                                                                .update();
+
+                                                            ///calling delete api...
+                                                            _skillsListController
+                                                                .deleteskillsApi();
+                                                            Get.to(() =>
+                                                                SkillsListScreen());
+                                                            Get.back();
+
+                                                            //Get.to((page))
+                                                            ///
+                                                          },
+                                                        );
+                                                      })
+                                                  //Get.back(),
+                                                  ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.delete_forever_outlined,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                               Divider(

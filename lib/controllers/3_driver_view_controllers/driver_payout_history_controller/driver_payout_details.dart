@@ -42,7 +42,6 @@ class DriverPayoutController extends GetxController {
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
-
       errorInvalidText: 'Enter valid date range',
       fieldLabelText: 'DOB',
       //fieldHintText: 'Month/Date/Year',
@@ -51,7 +50,7 @@ class DriverPayoutController extends GetxController {
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController
-        ..text = DateFormat.yMMMd().format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));

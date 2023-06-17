@@ -14,6 +14,7 @@ class DriverPaymentHistoryController extends GetxController {
     getDriverPaymentHistory = await ApiProvider.DriverPaymentHistory();
     if (getDriverPaymentHistory != null) {
       isLoading(false);
+      foundpaymenthistorydriver.value = getDriverPaymentHistory!;
     }
   }
 
@@ -31,5 +32,26 @@ class DriverPaymentHistoryController extends GetxController {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  RxList<DriverPaymentHistoryModel> foundpaymenthistorydriver =
+      RxList<DriverPaymentHistoryModel>([]);
+  void filterdriverpaymenthistory(String searchpaymenthistorydriverName) {
+    List<DriverPaymentHistoryModel>? finalResult = [];
+    if (searchpaymenthistorydriverName.isEmpty) {
+      finalResult = getDriverPaymentHistory!;
+    } else {
+      finalResult = getDriverPaymentHistory!
+          .where((element) => element.driverName
+              .toString()
+              .toLowerCase()
+              .contains(searchpaymenthistorydriverName
+                  .toString()
+                  .toLowerCase()
+                  .trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundpaymenthistorydriver.value = finalResult!;
   }
 }

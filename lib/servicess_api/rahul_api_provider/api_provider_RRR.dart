@@ -1245,14 +1245,18 @@ class ApiProvider {
     }
   }
 
-  /// todo driver appointment details............Rahul
+  /// todo driver appointment details............
   static DriverAppointmentDetails() async {
-    var url = '${baseUrl}api/DriverApi/getAppointmentDetail/?Id=88';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid434:${userid}');
+    var url = '${baseUrl}api/DriverApi/getAppointmentDetail/?Id=$userid';
+    //88
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
-        List<DriverAppoinmentDetailModel> driverAppoinmentDetail =
-            driverAppoinmentDetailFromJson(r.body);
+        DriverAppoinmentDetailModel driverAppoinmentDetail =
+            driverAppoinmentDetailModelFromJson(r.body);
         return driverAppoinmentDetail;
       }
     } catch (error) {
@@ -1260,14 +1264,18 @@ class ApiProvider {
     }
   }
 
-  /// todo driverPaymentHistory...................Rahul
+  /// todo driverPaymentHistory...................
   static DriverPaymentHistory() async {
-    var url = '${baseUrl}api/DriverApi/PaymentHistory?Id=176';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
+    var url = '${baseUrl}api/DriverApi/PaymentHistory?Id=$userid';
+    //176
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         List<DriverPaymentHistoryModel> driverPaymentHistoryModel =
-            driverPaymentHistoryFromJson(r.body);
+            driverPaymentHistoryModelFromJson(r.body);
         return driverPaymentHistoryModel;
       }
     } catch (error) {
@@ -1275,14 +1283,20 @@ class ApiProvider {
     }
   }
 
-  /// todo driver Booking History............Rahul
+  /// todo driver Booking History............
+  /// /
+
   static DriverBookingHistory() async {
-    var url = '${baseUrl}api/DriverApi/BookingHistory?Id=170';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid455:${userid}');
+    var url = '${baseUrl}api/DriverApi/BookingHistory?DriverId=$userid';
+    //var url = '${baseUrl}api/DriverApi/BookingHistory?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
-        List<DriverBookingHistoryModel> driverBookingHistory =
-            driverBookingHistoryFromJson(r.body);
+        DriverBookingHistoryModel driverBookingHistory =
+            driverBookingHistoryModelFromJson(r.body);
 
         return driverBookingHistory;
       }
@@ -1291,9 +1305,14 @@ class ApiProvider {
     }
   }
 
-  /// todo driver payout history.............Rahul
+  /// todo driver payout history.............
   static DriverPayoutHistoryApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid455ee:${userid}');
     var url = '${baseUrl}api/DriverApi/PayoutHistory?id=169';
+    //'$userid';
+    //169
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {

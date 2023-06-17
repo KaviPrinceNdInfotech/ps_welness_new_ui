@@ -7,12 +7,13 @@ import '../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class DriverBookingHistoryController extends GetxController {
   RxBool isLoading = true.obs;
-  List<DriverBookingHistoryModel>? getDriverBookingHistory;
+  DriverBookingHistoryModel? getDriverBookingHistory;
   void driverBookingHistoryApi() async {
     isLoading(true);
     getDriverBookingHistory = await ApiProvider.DriverBookingHistory();
-    if (getDriverBookingHistory != null) {
+    if (getDriverBookingHistory?.bookingHistory != null) {
       isLoading(false);
+      foundhistorydriver.value = getDriverBookingHistory!.bookingHistory!;
     }
   }
 
@@ -25,5 +26,23 @@ class DriverBookingHistoryController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  RxList<BookingHistory> foundhistorydriver = RxList<BookingHistory>([]);
+  void filterdriverhistory(String searchhistorydriverName) {
+    List<BookingHistory>? finalResult = [];
+    if (searchhistorydriverName.isEmpty) {
+      finalResult = getDriverBookingHistory!.bookingHistory!;
+    } else {
+      finalResult = getDriverBookingHistory!.bookingHistory!
+          .where((element) => element.patientName
+              .toString()
+              .toLowerCase()
+              .contains(
+                  searchhistorydriverName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundhistorydriver.value = finalResult!;
   }
 }

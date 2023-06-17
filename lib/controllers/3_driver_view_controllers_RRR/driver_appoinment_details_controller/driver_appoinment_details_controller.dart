@@ -8,13 +8,15 @@ import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class DriverAppoinmentDetailController extends GetxController {
   RxBool isLoading = true.obs;
-  List<DriverAppoinmentDetailModel>? getDriverAppointmentDetail;
+  DriverAppoinmentDetailModel? getDriverAppointmentDetail;
 
   void driverAppointmentDetailApi() async {
     isLoading(true);
     getDriverAppointmentDetail = await ApiProvider.DriverAppointmentDetails();
-    if (getDriverAppointmentDetail?[0].id != null) {
+    if (getDriverAppointmentDetail?.appointmentDetail != null) {
       isLoading(false);
+      founappointmentdriver.value =
+          getDriverAppointmentDetail!.appointmentDetail!;
     }
   }
 
@@ -32,5 +34,24 @@ class DriverAppoinmentDetailController extends GetxController {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  RxList<AppointmentDetail> founappointmentdriver =
+      RxList<AppointmentDetail>([]);
+  void filterdriverappointment(String searchappointmentdriverName) {
+    List<AppointmentDetail>? finalResult = [];
+    if (searchappointmentdriverName.isEmpty) {
+      finalResult = getDriverAppointmentDetail!.appointmentDetail!;
+    } else {
+      finalResult = getDriverAppointmentDetail!.appointmentDetail!
+          .where((element) => element.driverName
+              .toString()
+              .toLowerCase()
+              .contains(
+                  searchappointmentdriverName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    founappointmentdriver.value = finalResult!;
   }
 }

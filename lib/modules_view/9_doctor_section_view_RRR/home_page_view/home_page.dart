@@ -13,12 +13,14 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_vi
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_view_reportt/doctor_view_report.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/patient_lists/patient_list.dart';
 
 import '../../../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
-import '../appointment_history_view/appointment_history_view.dart';
+//import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/patient_lists/patient_list.dart';
 import '../doctor_appointment_details/doctor_catagary/doctor_catagary.dart';
 import '../drawer_view/drawerpage.dart';
 import '../payment_historyy/payment_historiess.dart';
+//import 'drower_pages/patient_lists/patient_list.dart';
 
 class DoctorHomePage extends StatelessWidget {
   DoctorHomePage({Key? key}) : super(key: key);
@@ -204,7 +206,8 @@ class DoctorHomePage extends StatelessWidget {
                                     // doctorHomepageController
                                     //.doctorAppoinmentHistory();
                                     //doctorHomepageController.update();
-                                    Get.to(() => AppointmentHistory());
+                                    //Get.to(() => AppointmentHistory());
+                                    Get.to(PatientListDoctor());
 
                                     ///Todo this is showing dark and white mode
                                   } else if (index == 4) {

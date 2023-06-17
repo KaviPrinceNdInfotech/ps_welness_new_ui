@@ -2798,8 +2798,13 @@ class ApiProvider {
   ///get_skils_api.....................
 
   static getSkillsApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
     var url =
-        'http://test.pswellness.in/api/DoctorApi/GetDoctorSkills?doctorId=111';
+        'http://test.pswellness.in/api/DoctorApi/GetDoctorSkills?doctorId=$userid';
+    //'111';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2888,15 +2893,58 @@ class ApiProvider {
     var DoctorId,
     var SkillName,
   ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+
     var url = baseUrl + 'api/DoctorApi/AddSkill';
 
     var body = {
-      "Doctor_Id": "111",
+      "Doctor_Id": "$userid",
       "SkillName": SkillName,
     };
     print(body);
     http.Response r = await http.post(
       Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      //Get.snackbar("Skills added",r.body);
+      var prefs = GetStorage();
+      //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete skills ......17 june....
+  static doctorSkillDeleteApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var SkilsId = preferences.getString("SkilsId");
+    print("SkilsId: ${SkilsId}");
+
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    var url = baseUrl + 'api/DoctorApi/RemoveSkill?id=$SkilsId';
+
+    http.Response r = await http.post(
+      Uri.parse(url),
       //headers: headers
     );
     print(r.body);

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
@@ -85,6 +86,7 @@ class DriverProfileController extends GetxController {
       imageAsBase64,
     );
     if (r.statusCode == 200) {
+      Get.to(DriverHomePage());
     } else {}
   }
 

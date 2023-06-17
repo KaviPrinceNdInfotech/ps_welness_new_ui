@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/user_controller/user_controller_1.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
@@ -20,6 +21,8 @@ class DriverProfileCredentials extends StatelessWidget {
   DriverProfileController _driverProfileController =
       Get.put(DriverProfileController());
   User_1_Controller _user_1_controller = Get.put(User_1_Controller());
+  DriverProfileDetailController _driverprofile =
+  Get.put(DriverProfileDetailController());
   var items = [
     'Item 1',
     'Item 2',
@@ -352,6 +355,9 @@ class DriverProfileCredentials extends StatelessWidget {
                 text: 'UPDATE',
                 press: () {
                   _driverProfileController.checkDriverUpdateProfile();
+                  _driverprofile.driverProfileDetailApi();
+                  _driverprofile.update();
+
                 })
           ],
         ),

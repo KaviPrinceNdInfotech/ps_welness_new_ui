@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_details/driver_appointment_details.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
@@ -29,6 +30,8 @@ import '../driver_payout_history/driver_payout_histories.dart';
 
 AppointmentUserController _appointmentUserController =
     Get.put(AppointmentUserController());
+DriverProfileController _driverProfileController =
+    Get.put(DriverProfileController());
 
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());
@@ -214,6 +217,7 @@ class DriverHomePage extends StatelessWidget {
                                 InkWell(
                                   onTap: () {
                                     if (index == 0) {
+                                      _driverProfileController.update();
                                       Get.to(() => DriverProfilePage());
                                     } else if (index == 1) {
                                       Get.to(() => AddBankDetail());

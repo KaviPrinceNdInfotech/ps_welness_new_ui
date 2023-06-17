@@ -63,7 +63,7 @@ class DriverMainDrawer extends StatelessWidget {
                       "${_driverprofile.getDriverProfileDetail?.driverName.toString()}",
                       //'Kumar Gaurav',
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.023,
+                          fontSize: size.height * 0.02,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
@@ -71,7 +71,7 @@ class DriverMainDrawer extends StatelessWidget {
                       "${_driverprofile.getDriverProfileDetail?.emailId.toString()}",
                       //'kumar@gmail.com',
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.020,
+                          fontSize: size.height * 0.015,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
