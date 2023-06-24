@@ -288,7 +288,7 @@ class Driver1Credentials extends StatelessWidget {
               width: size.width,
               child: Container(
                 width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 30 / 3),
+                margin: EdgeInsets.symmetric(vertical: 30 / 5),
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,

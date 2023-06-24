@@ -10,7 +10,6 @@ import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driv
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/about_us/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/driver_profile_details/profile_driver_detail_page.dart';
-import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/location_practice/location_practiceeee.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
@@ -23,6 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
 
 import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
+import 'driver_drower_pages/location_practice/location_practiceeee.dart';
 
 class DriverMainDrawer extends StatelessWidget {
   @override
@@ -47,7 +47,7 @@ class DriverMainDrawer extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.white,
-                      radius: size.width * 0.10,
+                      radius: size.width * 0.09,
                       child: Center(
                           child: Padding(
                         padding: EdgeInsets.all(size.height * 0.02),
@@ -64,15 +64,15 @@ class DriverMainDrawer extends StatelessWidget {
                       "${_driverprofile.getDriverProfileDetail?.driverName.toString()}",
                       //'Kumar Gaurav',
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.02,
-                          fontWeight: FontWeight.w700,
+                          fontSize: size.height * 0.019,
+                          fontWeight: FontWeight.w800,
                           color: MyTheme.blueww),
                     ),
                     Text(
                       "${_driverprofile.getDriverProfileDetail?.emailId.toString()}",
                       //'kumar@gmail.com',
                       style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.015,
+                          fontSize: size.height * 0.016,
                           fontWeight: FontWeight.w700,
                           color: MyTheme.blueww),
                     ),
@@ -347,7 +347,7 @@ class DriverMainDrawer extends StatelessWidget {
               // horizontalTitleGap: 10,
               leading: Icon(
                 Icons.location_on,
-                color: MyTheme.signUpButtonColor,
+                color: MyTheme.blueww,
                 size: size.height * 0.021,
               ),
               trailing: Icon(
@@ -359,7 +359,7 @@ class DriverMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'Location Practice',
+                'Update Location',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
@@ -371,10 +371,8 @@ class DriverMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => MyLocation(
-                    //title: '',
-                    // title: 'Current Location Practice',
-                    ));
+                //Get.to(() => DriverUpdateLocationView());
+                Get.to(() => MyLocation());
                 // Get.offNamed('/GetUserLocation');
               },
             ),

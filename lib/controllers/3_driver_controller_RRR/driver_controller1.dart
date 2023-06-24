@@ -170,7 +170,8 @@ class Driver_1111_Controller extends GetxController {
       aadharimagebase64controller,
       aadharimage2controller,
       aadharimage2base64controller,
-      vehicletypecontroller;
+      vehicletypecontroller,
+      paidamountcontroller;
 
   var name = '';
   var email = '';
@@ -201,6 +202,7 @@ class Driver_1111_Controller extends GetxController {
   var AadharImage2 = '';
   var AadharImage2Base64 = '';
   var VehicleType_Id = '';
+  var Paidamount = '';
 
   ///signup driver.............
   void driverSignupApi() async {
@@ -224,31 +226,32 @@ class Driver_1111_Controller extends GetxController {
         base64Encode(await File(selectedPath4.value).readAsBytes());
     print("imagebaseeee6444:${imageAsBase644}");
     http.Response r = await ApiProvider.DriverSignupApi(
-        nameController.text,
-        pincontroller.text,
-        mobileController.text,
-        emailController.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        locationcontroller.text,
-        dlnumbercontroller.text,
-        dlvaliditycontroller.text,
-        passwordController.text,
-        confirmpasswordController.text,
-        selectedPath.value.split('/').last,
-        imageAsBase64,
-        selectedPath1.value.split('/').last,
-        imageAsBase641,
-        selectedPath2.value.split('/').last,
-        imageAsBase642,
-        selectedPath3.value.split('/').last,
-        imageAsBase643,
-        selectedPath3.value.split('/').last,
-        imageAsBase644,
-        selectevehicletype.value?.id.toString()
-        // selectedPath.value.split('/').last,
-        //imageAsBase64,
-        );
+      nameController.text,
+      pincontroller.text,
+      mobileController.text,
+      emailController.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      locationcontroller.text,
+      dlnumbercontroller.text,
+      dlvaliditycontroller.text,
+      passwordController.text,
+      confirmpasswordController.text,
+      selectedPath.value.split('/').last,
+      imageAsBase64,
+      selectedPath1.value.split('/').last,
+      imageAsBase641,
+      selectedPath2.value.split('/').last,
+      imageAsBase642,
+      selectedPath3.value.split('/').last,
+      imageAsBase643,
+      selectedPath3.value.split('/').last,
+      imageAsBase644,
+      selectevehicletype.value?.id.toString(),
+      paidamountcontroller.text,
+      // selectedPath.value.split('/').last,
+      //imageAsBase64,
+    );
 
     if (r.statusCode == 200) {
       accountService.getAccountData.then((accountData) {
@@ -309,8 +312,9 @@ class Driver_1111_Controller extends GetxController {
     aadharimage2controller = TextEditingController();
     aadharimage2base64controller = TextEditingController();
     vehicletypecontroller = TextEditingController();
+    paidamountcontroller = TextEditingController();
     dlvaliditycontroller = TextEditingController();
-    dlvaliditycontroller.text = "YYY-MM-DD";
+    dlvaliditycontroller.text = "DL Validity";
 
     getStateDriverApi();
     //getdepartmentApi();
@@ -329,7 +333,7 @@ class Driver_1111_Controller extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select DL Validity',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
@@ -419,6 +423,16 @@ class Driver_1111_Controller extends GetxController {
     }
     if (value.length != 10) {
       return '              A valid phone number should be of 10 digits';
+    }
+    return null;
+  }
+
+  String? validFees(String value) {
+    if (value.isEmpty) {
+      return '              Enter your charge per KM';
+    }
+    if (value.length < 2) {
+      return '              maximum fees in 3 digits';
     }
     return null;
   }

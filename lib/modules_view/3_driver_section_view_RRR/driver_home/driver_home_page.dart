@@ -25,6 +25,7 @@ import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemis
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_update_view.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../driver_drawer_view/driver_drower_pages/location_practice/location_practiceeee.dart';
 import '../driver_payment_history/driver_payment_history.dart';
 import '../driver_payout_history/driver_payout_histories.dart';
 
@@ -95,15 +96,18 @@ class DriverHomePage extends StatelessWidget {
             children: [
               Container(
                   height: size.height * 0.045,
-                  width: size.width * 0.11,
-                  child: Image.asset('lib/assets/icons/drdriver.png')),
+                  //width: size.width * 0.11,
+                  child: Image.asset(
+                    'lib/assets/icons/drdriver.png',
+                    fit: BoxFit.fill,
+                  )),
               RichText(
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'PS WELLNESS',
+                      text: 'PS Wellness',
                       style: GoogleFonts.poppins(
-                        fontSize: 23,
+                        fontSize: size.height * 0.019,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         //color: Color(0xff023382)
@@ -112,7 +116,7 @@ class DriverHomePage extends StatelessWidget {
                     TextSpan(
                       text: ' DRIVER',
                       style: GoogleFonts.alatsi(
-                        fontSize: 20,
+                        fontSize: size.height * 0.022,
                         fontWeight: FontWeight.w600,
                         color: MyTheme.containercolor5,
                         //color: Color(0xff023382)
@@ -135,6 +139,80 @@ class DriverHomePage extends StatelessWidget {
               _key.currentState!.openDrawer();
             },
           ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.all(9.0),
+              child: Material(
+                elevation: 20,
+                shadowColor: Colors.white,
+                //surfaceTintColor: Colors.red,
+
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.white,
+                //Theme.of(context).bottomAppBarColor,
+                child: InkWell(
+                  splashColor: Colors.blueGrey,
+                  onTap: () {
+                    Get.to(MyLocation());
+                  },
+                  child: Container(
+                    height: size.height * 0.02,
+                    width: size.width * 0.20,
+                    padding: EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                        //color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.transparent,
+                            offset: Offset(4, 4),
+                            blurRadius: 4,
+                            spreadRadius: 1,
+                          ),
+                          BoxShadow(
+                            color: Colors.transparent,
+                            offset: Offset(-4, -4),
+                            blurRadius: 4,
+                            spreadRadius: 1,
+                          ),
+                        ]),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          """Update\nLocation""",
+                          // '\u{20B9}',
+                          //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                          style: GoogleFonts.actor(
+                            fontSize: size.width * 0.023,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.red,
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.00,
+                        ),
+                        Icon(
+                          Icons.place_rounded,
+                          color: Colors.red,
+                        ),
+                        // Text(
+                        //   'Location',
+                        //   //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                        //   style: GoogleFonts.roboto(
+                        //     fontSize: size.width * 0.028,
+                        //     fontWeight: FontWeight.w700,
+                        //     color: Colors.red.shade900,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         drawer: DriverMainDrawer(),
         body: SingleChildScrollView(
@@ -315,6 +393,8 @@ class Mycrusial extends StatelessWidget {
     Colors.indigo,
     Colors.purple,
   ];
+
+  ///
   final List<String> images = [
     'https://images.unsplash.com/photo-1600959907703-125ba1374a12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
         'https://images.unsplash.com/photo-1602021727931-f85e48d5ebaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
@@ -323,6 +403,7 @@ class Mycrusial extends StatelessWidget {
     'https://images.unsplash.com/photo-1631181231565-0dd0a45682cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
     'https://images.unsplash.com/photo-1630964046403-c6eda735e7c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
   ];
+
   final bool _isPlaying = true;
 
   @override
@@ -387,4 +468,5 @@ class Mycrusial extends StatelessWidget {
 }
 
 ///...........
+///
 ///

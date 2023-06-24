@@ -207,7 +207,7 @@ class UserHomePage extends StatelessWidget {
                             vertical: size.height * 0.001,
                             horizontal: size.width * 0.01),
                         child: Container(
-                          height: size.height * 0.585,
+                          height: size.height * 0.63,
                           decoration: BoxDecoration(
                               // color: Colors.white,
                               ),
@@ -298,7 +298,7 @@ class UserHomePage extends StatelessWidget {
                                                             color: Colors.white,
                                                             fontSize:
                                                                 size.width *
-                                                                    0.035,
+                                                                    0.04,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -310,7 +310,7 @@ class UserHomePage extends StatelessWidget {
                                                     )
                                                   ],
                                                   content: Container(
-                                                    height: size.height * 0.32,
+                                                    height: size.height * 0.34,
                                                     width: size.width * 0.7,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -372,10 +372,10 @@ class UserHomePage extends StatelessWidget {
                                                                               "AmbulancelistssId",
                                                                               "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
 
-                                                                          _ambulancegetController
-                                                                              .selectedvhicleCatagary();
-                                                                          _ambulancegetController
-                                                                              .ambulancecatagaryyApi();
+                                                                          //_ambulancegetController
+                                                                          //.selectedvhicleCatagary();
+                                                                          //_ambulancegetController
+                                                                          //.ambulancecatagaryyApi();
                                                                           _ambulancegetController
                                                                               .update();
                                                                           accountService

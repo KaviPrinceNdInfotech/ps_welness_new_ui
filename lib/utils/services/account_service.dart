@@ -3,17 +3,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService {
   static const String _accountKey = 'accountData';
-  Future<AccountModel?> get getAccountData async {
+  Future<Message?> get getAccountData async {
     final SharedPreferences getStorage = await SharedPreferences.getInstance();
 
     final String? accountDataEncoded = getStorage.get(_accountKey) as String?;
     if (accountDataEncoded == null) {
       return null;
     }
-    return accountModelFromJson(accountDataEncoded);
+    return driverListApiFromJson(accountDataEncoded);
   }
 
-  Future<void> setAccountData(AccountModel? accountData) async {
+  Future<void> setAccountData(Message? accountData) async {
     final SharedPreferences getStorage = await SharedPreferences.getInstance();
 
     print("WHILE SET ACCOUNT $accountData");

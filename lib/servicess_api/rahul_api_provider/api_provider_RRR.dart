@@ -2450,6 +2450,7 @@ class ApiProvider {
     var AadharImage2,
     var AadharImage2Base64,
     var VehicleType_Id,
+    var Paidamount,
 
     //var Patient_Id,
   ) async {
@@ -2475,7 +2476,8 @@ class ApiProvider {
       "AadharImageBase64": "$AadharImageBase64",
       "AadharImage2": "$AadharImage2",
       "AadharImage2Base64": "$AadharImage2Base64",
-      "VehicleType_Id": "$VehicleType_Id"
+      "VehicleType_Id": "$VehicleType_Id",
+      "Paidamount": "$Paidamount"
     };
     try {
       var url = 'http://test.pswellness.in/api/SignupApi/DriverRegistration';

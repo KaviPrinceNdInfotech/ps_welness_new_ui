@@ -51,7 +51,6 @@ class DoctorHomePage extends StatelessWidget {
       'Report view',
       'Add Bank',
     ];
-
     List<Color> colors = [
       Color(0xff11eae0),
       Color(0xffe68cf7),
@@ -349,7 +348,7 @@ class Mycrusial extends StatelessWidget {
                                           image: NetworkImage(
                                               '$imgpath${items?[index].bannerPath}' ??
                                                   ''),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                           onError: (error, stackTrace) {
                                             Text("No Image Found");
                                             // .log(error, stackTrace);

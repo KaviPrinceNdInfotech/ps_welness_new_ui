@@ -43,6 +43,7 @@ import '../controllers/10_lab_controller/lab_profile_details_controller/lab_prof
 import '../controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import '../controllers/1_user_view_controller/ambulance/near_driverlist_controller.dart';
 import '../controllers/1_user_view_controller/doctor_rating_review_controller/doctor_view_ratting_review.dart';
 import '../controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import '../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
@@ -172,6 +173,7 @@ class ControllerBinding extends Bindings {
     Get.put(UserAboutusController());
     Get.put(DoctorreportviewController());
     Get.put(Driver_1111_Controller());
+    Get.put(DriverlistnearController());
 
     //Get.put(CatagaryByIdController());
   }

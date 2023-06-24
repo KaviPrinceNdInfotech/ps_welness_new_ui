@@ -9,22 +9,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_update_location_controller/driver_update_location_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/secrets.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
-import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
-import '../../controllers/map_controllers/map_controller.dart';
-import '../../modules_view/circular_loader/circular_loaders.dart';
-//import 'package:ps_welness/controllers/map_controllers/map_controller.dart';
-//import 'package:ps_welness/google_map/new_map/secrets.dart';
-
-class MapView extends StatefulWidget {
+class DriverUpdateLocationView extends StatefulWidget {
   @override
-  _MapViewState createState() => _MapViewState();
+  _DriverUpdateLocationViewState createState() =>
+      _DriverUpdateLocationViewState();
 }
 
 var items = [
@@ -35,13 +29,13 @@ var items = [
   'Item 5',
 ];
 
-class _MapViewState extends State<MapView> {
+class _DriverUpdateLocationViewState extends State<DriverUpdateLocationView> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
 
   final startAddressController = TextEditingController();
   final destinationAddressController = TextEditingController();
-  AmbulancegetController _ambulancegetController =
-      Get.put(AmbulancegetController());
+  DriverUpdateLocationController _driverUpdateLocationController =
+      Get.put(DriverUpdateLocationController());
 
   final startAddressFocusNode = FocusNode();
   final desrinationAddressFocusNode = FocusNode();
@@ -173,7 +167,6 @@ class _MapViewState extends State<MapView> {
       // Use the retrieved coordinates of the current position,
       // instead of the address if the start position is user's
       // current position, as it results in better accuracy.
-      //
       double startLatitude = _startAddress == _currentAddress
           ? _currentPosition.latitude
           : startPlacemark[0].latitude;
@@ -423,105 +416,6 @@ class _MapViewState extends State<MapView> {
                 ),
                 child: Column(
                   children: [
-                    ///.......selected....ambulance catagary....
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.03),
-                        child: Obx(
-                          () => DropdownButtonFormField<Vehicle>(
-                              value: _ambulancegetController
-                                  .selectedambCatagary.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.bus_alert,
-                                  color: Colors.black,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Ambulance Catagary'),
-                              items: _ambulancegetController.ambulancvecatagarys
-                                  .map((Vehicle ambulancvecatagarys) {
-                                return DropdownMenuItem(
-                                  value: ambulancvecatagarys,
-                                  child: Text(
-                                    ambulancvecatagarys.categoryName.toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.012,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (Vehicle? newValue) {
-                                _ambulancegetController
-                                    .selectedambCatagary.value = newValue!;
-                                _ambulancegetController
-                                    .selectedvhicleCatagary.value = null;
-                                // _hospital_2_controller.states.value =
-                                //     newValue! as List<String>;
-                                // _hospital_2_controller.selectedCity.value = null;
-                                // _hospital_2_controller.cities.clear();
-                                // _hospital_2_controller.cities
-                                //     .addAll(stateCityMap[newvalue]!);
-                              }),
-                        ),
-                      ),
-                    ),
-
-                    ///.........selected vhicle..by catagary id.....
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.0),
-                        child: Obx(
-                          () => DropdownButtonFormField<VehicleDetaile>(
-                              //icon: Icon(Icons.location_city),
-                              value: _ambulancegetController
-                                  .selectedvhicleCatagary.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.car_crash_sharp,
-                                  color: Colors.black,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Vehicle Type'),
-                              items: _ambulancegetController.vhicletypes
-                                  .map((VehicleDetaile vhiclee) {
-                                return DropdownMenuItem(
-                                  value: vhiclee,
-                                  child: SizedBox(
-                                    width: size.width * 0.8,
-                                    child: Text(
-                                      vhiclee.vehicleTypeName.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.height * 0.015,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onTap: () {
-                                _ambulancegetController.refresh();
-                              },
-                              onChanged: (VehicleDetaile? newValue) {
-                                _ambulancegetController
-                                    .selectedvhicleCatagary.value = newValue!;
-                                // _hospital_2_controller.states.value =
-                                //     newValue! as List<String>;
-                                // _hospital_2_controller.selectedCity.value = null;
-                                // _hospital_2_controller.cities.clear();
-                                // _hospital_2_controller.cities
-                                //     .addAll(stateCityMap[newvalue]!);
-                              }),
-                        ),
-                      ),
-                    ),
-
                     PhysicalModel(
                       color: Colors.grey.shade300,
                       elevation: 2,
@@ -535,8 +429,9 @@ class _MapViewState extends State<MapView> {
                             // _ambulancegetController.ambulancecatagaryyApi();
 
                             CallLoader.loader();
-                            _ambulancegetController
-                                .googlerequestambulance(markers);
+                            _driverUpdateLocationController
+                                //.postDriverUpdateApi(markers);
+                                .googledriverupdate(markers);
 
                             //_ambulancegetController.googlerequestambulance();
                           },

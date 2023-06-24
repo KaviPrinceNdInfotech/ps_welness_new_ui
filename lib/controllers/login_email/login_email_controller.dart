@@ -297,7 +297,7 @@ class LoginpasswordController extends GetxController {
 
     if (r.statusCode == 200) {
       print("ACCOUNT ${r.body}");
-      final accountData = accountModelFromJson(r.body);
+      final accountData = driverListApiFromJson(r.body);
       print("ACCOUNT ${accountData.toJson()}");
       await accountService.setAccountData(accountData);
       CallLoader.hideLoader();
