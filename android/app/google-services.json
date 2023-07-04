@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "310066809059",
+    "project_id": "pswellnesspushnotification",
+    "storage_bucket": "pswellnesspushnotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310066809059:android:37fb41fd7722a861685dd6",
+        "android_client_info": {
+          "package_name": "com.ndinfotech.pswellnessapp.ps_welness_new_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310066809059-6d1lrjf36af5utj839hl8u66fd397t1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1tf6qFWt0Yu5ba0dXtOddjS2GwGZrvUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310066809059-6d1lrjf36af5utj839hl8u66fd397t1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
