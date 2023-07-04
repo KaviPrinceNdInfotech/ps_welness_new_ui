@@ -313,7 +313,7 @@ class NurseAppointmentHistory extends StatelessWidget {
                                                         _nursebookingHistoryController
                                                             .nurseappointmentdetail!
                                                             .data![index]
-                                                            .totaNumberofdays
+                                                            .totalNumberofdays
                                                             .toString(),
                                                         // '6',
                                                         style:

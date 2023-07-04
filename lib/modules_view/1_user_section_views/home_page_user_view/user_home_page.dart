@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -11,6 +12,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/constants/constants.dart';
@@ -20,6 +22,7 @@ import '../../../controllers/1_user_view_controller/medicine_controllers/medicin
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../../../utils/services/account_service.dart';
+import '../../../widgets/notification_fb_service.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 //import '../../4_nurse_section_view/nurse_drawer_view/drower_pages/supports/support_view.dart';
 import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
@@ -46,8 +49,75 @@ final MedicineListController _medicineListController =
 
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());
-class UserHomePage extends StatelessWidget {
+class UserHomePage extends StatefulWidget {
   const UserHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<UserHomePage> createState() => _UserHomePageState();
+}
+
+class _UserHomePageState extends State<UserHomePage> {
+  NotificationServices notificationServices = NotificationServices();
+
+  ///implement firebase....27...jun..2023
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.isTokenRefresh();
+    notificationServices.firebaseInit();
+
+    notificationServices.getDeviceToken().then((value) {
+      print('device token');
+      print(value);
+    });
+
+    /// 1. This method call when app in terminated state and you get a notification
+    /// when you click on notification app open from terminated state and you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+
+          ///you can call local notification....
+          LocalNotificationService.createanddisplaynotification(message);
+        }
+      },
+    );
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

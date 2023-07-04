@@ -357,6 +357,9 @@ class DoctorListUser extends StatelessWidget {
                                                           prefs.setString(
                                                               "DoctorListId",
                                                               "${_doctorListController.foundDoctors[index].id.toString()}");
+                                                          prefs.setString(
+                                                              "DoctorListFees",
+                                                              "${_doctorListController.foundDoctors[index].fee.toString()}");
                                                           _doctorListController
                                                               .doctordetailApi();
                                                           _doctorListController

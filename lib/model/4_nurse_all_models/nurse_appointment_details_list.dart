@@ -209,6 +209,89 @@
 //   }
 // }
 ///....
+///
+// import 'dart:convert';
+//
+// NurseAppointmentDetail nurseAppointmentDetailFromJson(String str) =>
+//     NurseAppointmentDetail.fromJson(json.decode(str));
+//
+// String nurseAppointmentDetailToJson(NurseAppointmentDetail data) =>
+//     json.encode(data.toJson());
+//
+// class NurseAppointmentDetail {
+//   List<Datum>? data;
+//
+//   NurseAppointmentDetail({
+//     this.data,
+//   });
+//
+//   factory NurseAppointmentDetail.fromJson(Map<String, dynamic> json) =>
+//       NurseAppointmentDetail(
+//         data: json["data"] == null
+//             ? []
+//             : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "data": data == null
+//             ? []
+//             : List<dynamic>.from(data!.map((x) => x.toJson())),
+//       };
+// }
+//
+// class Datum {
+//   int? id;
+//   String? nurseName;
+//   String? location;
+//   DateTime? startDate;
+//   DateTime? endDate;
+//   DateTime? paymentDate;
+//   double? fee;
+//   double? totalFee;
+//   num? TotalNumberofdays;
+//
+//   Datum({
+//     this.id,
+//     this.nurseName,
+//     this.location,
+//     this.startDate,
+//     this.endDate,
+//     this.paymentDate,
+//     this.fee,
+//     this.totalFee,
+//     this.TotalNumberofdays,
+//   });
+//
+//   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+//         id: json["ID"],
+//         nurseName: json["NurseName"],
+//         location: json["Location"],
+//         startDate: json["StartDate"] == null
+//             ? null
+//             : DateTime.parse(json["StartDate"]),
+//         endDate:
+//             json["EndDate"] == null ? null : DateTime.parse(json["EndDate"]),
+//         paymentDate: json["PaymentDate"] == null
+//             ? null
+//             : DateTime.parse(json["PaymentDate"]),
+//         fee: json["Fee"],
+//         totalFee: json["TotalFee"],
+//         TotalNumberofdays: json["TotaNumberofdays"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "ID": id,
+//         "NurseName": nurseName,
+//         "Location": location,
+//         "StartDate": startDate?.toIso8601String(),
+//         "EndDate": endDate?.toIso8601String(),
+//         "PaymentDate": paymentDate?.toIso8601String(),
+//         "Fee": fee,
+//         "TotalFee": totalFee,
+//         "TotaNumberofdays": TotalNumberofdays,
+//       };
+// }
+///
 import 'dart:convert';
 
 NurseAppointmentDetail nurseAppointmentDetailFromJson(String str) =>
@@ -245,9 +328,9 @@ class Datum {
   DateTime? startDate;
   DateTime? endDate;
   DateTime? paymentDate;
-  double? fee;
-  double? totalFee;
-  dynamic totaNumberofdays;
+  num? fee;
+  num? totalFee;
+  num? totalNumberofdays;
 
   Datum({
     this.id,
@@ -258,7 +341,7 @@ class Datum {
     this.paymentDate,
     this.fee,
     this.totalFee,
-    this.totaNumberofdays,
+    this.totalNumberofdays,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -275,7 +358,7 @@ class Datum {
             : DateTime.parse(json["PaymentDate"]),
         fee: json["Fee"],
         totalFee: json["TotalFee"],
-        totaNumberofdays: json["TotaNumberofdays"],
+        totalNumberofdays: json["TotalNumberofdays"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -287,34 +370,6 @@ class Datum {
         "PaymentDate": paymentDate?.toIso8601String(),
         "Fee": fee,
         "TotalFee": totalFee,
-        "TotaNumberofdays": totaNumberofdays,
+        "TotalNumberofdays": totalNumberofdays,
       };
 }
-
-// enum Location { KANPUR_NOIDA, JCJCJCJ, FGHGJ }
-//
-// final locationValues = EnumValues({
-//   "fghgj": Location.FGHGJ,
-//   "jcjcjcj": Location.JCJCJCJ,
-//   "kanpur noida": Location.KANPUR_NOIDA
-// });
-//
-// enum NurseName { GHN, TEST_NURSE, NURSETEST }
-//
-// final nurseNameValues = EnumValues({
-//   "ghn": NurseName.GHN,
-//   "Nursetest": NurseName.NURSETEST,
-//   "testNurse": NurseName.TEST_NURSE
-// });
-//
-// class EnumValues<T> {
-//   Map<String, T> map;
-//   late Map<T, String> reverseMap;
-//
-//   EnumValues(this.map);
-//
-//   Map<T, String> get reverse {
-//     reverseMap = map.map((k, v) => MapEntry(v, k));
-//     return reverseMap;
-//   }
-// }

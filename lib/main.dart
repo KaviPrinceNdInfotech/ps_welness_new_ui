@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,6 +76,13 @@ import 'controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 import 'controllers/login_email/login_email_controller.dart';
 import 'controllers/profile_u_controller/profile_update_controller.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
+import 'notificationservice/local_notification_service.dart';
+
+///firebase background services........function....27..jun..2023....
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -156,14 +165,40 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() {
-  ///todo: changes for map 11 jan 2023........
+void main() async {
+  ///firebase notification...old
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print("mytoken${fcmToken}");
+
+  ///other token...
+
+  ///call background function firebase....27...jun...2023..old
+  /// FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
+  ///you can call local notification......old
+  LocalNotificationService.initialize();
+
+  ///new_notification_services...new.
+  LocalNotificationService();
+
+  ///todo: changes for map 11 jan 2023........old
   if (defaultTargetPlatform == TargetPlatform.android) {
     AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   }
 
   ///..........
+  ///todo new for background message........
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
+}
+
+///without this you can't show notification in background..new
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print(message.notification!.title.toString());
 }
 
 class MyApp extends StatelessWidget {

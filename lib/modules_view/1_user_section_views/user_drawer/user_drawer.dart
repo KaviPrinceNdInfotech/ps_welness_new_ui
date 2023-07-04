@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
@@ -38,6 +39,8 @@ class UserMainDrawer extends StatelessWidget {
     UserProfileControllers _userprofile = Get.put(UserProfileControllers());
     LabHistoryController _labHistoryController =
         Get.put(LabHistoryController());
+    NurseHistoryController _nurseHistoryController =
+        Get.put(NurseHistoryController());
 
     return SafeArea(
       child: Drawer(
@@ -393,6 +396,8 @@ class UserMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                _nurseHistoryController.nursehistoryApi();
+                _nurseHistoryController.update();
                 Get.to(() => NurseHistoryUser());
                 Get.offNamed('/NurseHistoryUser');
               },

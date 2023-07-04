@@ -318,22 +318,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Start Time:',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  color: MyTheme
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.035,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                'End Time:',
+                                                                'Slot Time:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -432,7 +417,7 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                "${_labappointmentdetailController.foundpatientlab[index].startSlotTime.toString()}"
+                                                                "${_labappointmentdetailController.foundpatientlab[index].slotTime.toString()}"
 
                                                                 // '22 nov 2022-02 dec 2022',
                                                                 ,
@@ -446,30 +431,6 @@ class LabAppointmentDetail extends StatelessWidget {
                                                                     fontSize: size
                                                                             .width *
                                                                         0.035),
-                                                              ),
-                                                              SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.02,
-                                                                width:
-                                                                    size.width *
-                                                                        0.59,
-                                                                child: Text(
-                                                                  "${_labappointmentdetailController.foundpatientlab[index].endSlotTime.toString()}"
-
-                                                                  // '12 hours',
-                                                                  ,
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .shade800,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035),
-                                                                ),
                                                               ),
                                                             ],
                                                           ),

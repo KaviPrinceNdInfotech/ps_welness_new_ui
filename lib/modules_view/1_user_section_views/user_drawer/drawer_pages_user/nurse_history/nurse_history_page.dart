@@ -455,7 +455,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                       Text(
                                                         _nurseHistoryController
                                                             .foundNurse[index]
-                                                            .totaNumberofdays
+                                                            .totalNumberofdays
                                                             .toString(),
                                                         //'12',
                                                         style:

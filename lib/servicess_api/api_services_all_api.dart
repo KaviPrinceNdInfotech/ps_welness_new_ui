@@ -1128,23 +1128,14 @@ class ApiProvider {
 
   ///lab_paynow.ONLINE.lab....api..of...user........29 april 2023...........
 
-  static LabpaynowOnlineApi(
-      // var Lab_Id,
-      // var Patient_Id,
-      // var Amount,
-      // var IsPaid,
-      ) async {
+  static LabpaynowOnlineApi() async {
     var url = baseUrl + 'api/LabApi/LabPayNow';
     var prefs = GetStorage();
-    // adminId = prefs.read("AdminLogin_Id").toString();
-    // print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
 
     labbooking_Id = prefs.read("labbooking_Id").toString();
     print('&&&&&&&&&&&&&&lab:${labbooking_Id}');
-    //saved id..........
-    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
     Id = prefs.read("Id").toString();
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -1169,7 +1160,7 @@ class ApiProvider {
     // print(r.body);
     if (r.statusCode == 200) {
 //adminId
-      print("gvhjbknlolabonline:${r.body}");
+      print("gvhjbknlolabonline:${body}");
 
       return r;
     } else if (r.statusCode == 401) {
@@ -1183,6 +1174,10 @@ class ApiProvider {
   ///medicine_paynow.ONLINE.....api..of...user.......29_may....2023...........
 
   static MedicinepaynowOnlineApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var MedicineaddresslistssId =
+        preferences.getString("MedicineaddresslistssId");
+    print("MedicineaddresslistssId: ${MedicineaddresslistssId}");
     var url = '$baseUrl/api/PatientMedicine/MedicinePayNow';
     var prefs = GetStorage();
     // adminId = prefs.read("AdminLogin_Id").toString();
@@ -1190,9 +1185,6 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
 
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var LablistssId = preferences.getString("LablistssId");
-    print("LablistssId: ${LablistssId}");
     //doctor fees...
 //     var DoctorFee = preferences.getString("DoctorFee");
 //     print("Fee545454: ${DoctorFee}");
@@ -1201,6 +1193,7 @@ class ApiProvider {
       //Lab_Id,
       "Patient_Id": userid,
       "IsPaid": "true",
+      "shippingId": "$MedicineaddresslistssId"
     };
     // print(body);
     http.Response r = await http.post(
@@ -1211,6 +1204,7 @@ class ApiProvider {
     if (r.statusCode == 200) {
 //adminId
       print("gvhjbknlolabonline:${r.body}");
+      print("gvhjbknlolabonline44:${body}");
 
       return r;
     } else if (r.statusCode == 401) {
@@ -1273,9 +1267,14 @@ class ApiProvider {
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId: ${DoctorListId}");
 
-//doctor fees...
+//doctor fees...from...lab
     var DoctorFee = preferences.getString("DoctorFee");
     print("Fee545454eeedrr: ${DoctorFee}");
+
+    ///todo: DoctorListFees.....26/7/23.................
+    ///
+    var DoctorListFees = preferences.getString("DoctorListFees");
+    print("Fee545454eeedrrttt333: ${DoctorListFees}");
 
     ///
     var prefs = GetStorage();
@@ -1595,7 +1594,7 @@ class ApiProvider {
       Uri.parse(url), body: body,
       //headers: headers
     );
-    print(r.body);
+    //print(r.body);
     if (r.statusCode == 200) {
       ///todo:nursebookingid.........5  june 2023....
       var prefs = GetStorage();
@@ -1606,14 +1605,16 @@ class ApiProvider {
 
       Id = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&nursebookingId:${Id}');
-
+      print("nursebooking8:${body}");
       print("nursebooking1:${r.body}");
 
       ///
+
       // //saved token.........
       // prefs.write("token".toString(), json.decode(r.body)['token']);
       // token = prefs.read("token").toString();
       // print(token);
+
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -2042,17 +2043,24 @@ class ApiProvider {
     }
   }
 
-  ///Todo: from here nurse 3 section.................
+  ///Todo: from here nurse 3 section.................////
   // nurse appointment detail.............................
   static NurseappointmentApibyuser() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercart:${userid}');
+    print(userid);
+    // print(url);
     var url =
-        "http://test.pswellness.in/api/PatientApi/AppoinmentHistory?Id=137";
+        "http://test.pswellness.in/api/PatientApi/AppoinmentHistory?Id=$userid";
     // "http://test.pswellness.in/api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
+
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print(url);
         NurseAppointmentDetail? nurseAppointmentDetail =
             nurseAppointmentDetailFromJson(r.body);
         return nurseAppointmentDetail;
