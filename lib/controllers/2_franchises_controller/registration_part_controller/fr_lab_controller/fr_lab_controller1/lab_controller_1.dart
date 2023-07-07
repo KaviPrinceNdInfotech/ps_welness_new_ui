@@ -1,24 +1,31 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class Fr_Lab_1_Controller extends GetxController {
   final GlobalKey<FormState> frlab1formkey = GlobalKey<FormState>();
-
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
-
-  late TextEditingController nameController,
+ RxBool isLoading = false.obs;
+  var  selectedLicenceImagepath = ''.obs;
+  var selectedPanImagepath = ''.obs;
+  var selectedTime = TimeOfDay.now().obs;
+  var selectedTime2 = TimeOfDay.now().obs;
+   TextEditingController? nameController,
       emailController,
       passwordController,
       confirmpasswordController,
       mobileController,
       addressController,
-      pinController;
+      pinController,
+      aadhaarController,
+    certificateController,
+    gstNoController;
+
 
   var name = '';
   var email = '';
@@ -27,11 +34,79 @@ class Fr_Lab_1_Controller extends GetxController {
   var mobile = '';
   var address = '';
   var pin = '';
+  var aadhar = '';
+  var certificateno = '';
+
+  ///this is for State....................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+
+  void getStateLabApi() async {
+    states = await ApiProvider.getSatesApi();
+  }
+  ///get cities api...........
+  void getCityByStateIDLab(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+  }
+  void getLicenceImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedLicenceImagepath.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+  void getPanImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedPanImagepath.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+  void frenchiesRegisterLab()async{
+    isLoading(true);
+    final licenceimageAsBase64 = base64Encode(await File(selectedLicenceImagepath.value).readAsBytes());
+    final panimageAsBase64 = base64Encode(await File(selectedPanImagepath.value).readAsBytes());
+    http.Response r = await ApiProvider.FrenchiesRegisterLab(
+      nameController?.text,
+      emailController?.text,
+      passwordController?.text,
+      confirmpasswordController?.text,
+      mobileController?.text,
+      addressController?.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      pinController?.text,
+      certificateController?.text,
+      selectedLicenceImagepath.value.split('/').last,
+      licenceimageAsBase64,
+      selectedPanImagepath.value.split('/').last,
+      panimageAsBase64,
+      gstNoController?.text,
+      aadhaarController?.text,
+      selectedTime.value.toString(),
+      selectedTime2.value.toString()
+    );
+    if(r.statusCode == 200){
+      isLoading(false);
+    }
+  }
 
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
+    getStateLabApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDLab("${p0.id}");
+      }
+    }
+    );
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -39,6 +114,9 @@ class Fr_Lab_1_Controller extends GetxController {
     mobileController = TextEditingController();
     addressController = TextEditingController();
     pinController = TextEditingController();
+    aadhaarController = TextEditingController();
+    certificateController = TextEditingController();
+    gstNoController = TextEditingController();
   }
 
   @override
@@ -48,15 +126,53 @@ class Fr_Lab_1_Controller extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmpasswordController.dispose();
-    mobileController.dispose();
-    addressController.dispose();
-    pinController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    passwordController?.dispose();
+    confirmpasswordController?.dispose();
+    mobileController?.dispose();
+    addressController?.dispose();
+    pinController?.dispose();
   }
+  ///time 1........................
+  chooseTime() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedTime.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
 
+    if (pickedTime != null && pickedTime != selectedTime.value) {
+      selectedTime.value = pickedTime;
+    }
+  }
+  ///time 2...................
+  chooseTime2() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedTime2.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+    if (pickedTime != null && pickedTime != selectedTime2.value) {
+      selectedTime2.value = pickedTime;
+    }
+  }
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
@@ -130,8 +246,9 @@ class Fr_Lab_1_Controller extends GetxController {
     return null;
   }
 
-  void checkUser1() {
+  void checkLab() {
     final isValid = frlab1formkey.currentState!.validate();
+    frenchiesRegisterLab();
     if (!isValid) {
       return;
     }

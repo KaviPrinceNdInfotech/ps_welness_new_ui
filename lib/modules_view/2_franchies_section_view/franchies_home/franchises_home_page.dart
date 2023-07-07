@@ -8,11 +8,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/add_dept_spe.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drawerpage.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/slider_franchise.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/franchise_commission_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_payment_report/franchise_payment_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_historyy_report.dart';
@@ -47,7 +47,6 @@ import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_containe
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
-import '../../../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
 import '../franchise_payout_report/franchise_payout_report.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_chemist_details/chemist_detail.dart';
@@ -58,15 +57,7 @@ import '../my_y_m_w_d_reports_view_all/my_ymwd_nurse_details/nursees_detail.dart
 import '../my_y_m_w_d_reports_view_all/my_ymwd_vehicle_report/my_ymwd_vehicle_details/vehicle_detail.dart';
 import '../registration_view_part/fr_choose_registration_details/fr_choose_catagary.dart';
 
-//import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/user_drawHomePage({Key? key}) : super(key: key);
-
-AppointmentUserController _appointmentUserController =
-    Get.put(AppointmentUserController());
-
-// AppointmentController _appointmentController =
-//     Get.put(AppointmentController());
 class FranchiesHomePage extends StatelessWidget {
-  const FranchiesHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,23 +71,18 @@ class FranchiesHomePage extends StatelessWidget {
       'Gallery',
       'Add Gallery',
       'Add Test',
-
       'Add Spec & Dept',
       'Add Vehicle Type',
       'View Spe & Dpt',
       'View Dept & Spec',
       'Registration',
       'Registration Details',
-
       'My Y/M/W/D Report',
       'My Payment Report',
       'My Commission Report',
       'My Payout Report',
       'My TDS Report',
       'Contact US'
-
-      // 'service 7',
-      // 'service 8',
     ];
 
     final List<String> underprocess = [
@@ -120,11 +106,7 @@ class FranchiesHomePage extends StatelessWidget {
       '',
       '',
       '',
-
-      // 'service 7',
-      // 'service 8',
     ];
-
     List<Color> colors = [
       Color(0xff11eae0),
       Color(0xffe68cf7),
@@ -132,40 +114,29 @@ class FranchiesHomePage extends StatelessWidget {
       Colors.lightGreenAccent,
       Colors.lightGreen
     ];
-
     final List<String> productimage = [
       'lib/assets/icons/freditprofile.png',
       'lib/assets/icons/frbank1.png',
       'lib/assets/icons/frvehicle.png',
       'lib/assets/icons/fraddgalary.png',
-
       'lib/assets/icons/frgalary1.png',
-
-      // 'lib/assets/icons/frspaclist.png',
-      // 'lib/assets/icons/fraddcar.png',
       'lib/assets/icons/frtest.png',
-
       'lib/assets/icons/frspaclist.png',
       'lib/assets/icons/fradddcarr.png',
-
       ///
       'lib/assets/icons/frspecial.png',
       'lib/assets/icons/frspaclist.png',
       'lib/assets/icons/frregister.png',
       'lib/assets/icons/frregisterdetail.png',
-
       'lib/assets/icons/fryreport.png',
       'lib/assets/icons/frpayment.png',
       'lib/assets/icons/frcommission.png',
       'lib/assets/icons/frpayout.png',
       'lib/assets/icons/frtds.png',
       'lib/assets/icons/contact44.png',
-
-      // 'service 7',
-      // 'service 8',
     ];
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -184,7 +155,6 @@ class FranchiesHomePage extends StatelessWidget {
                   height: size.height * 0.045,
                   width: size.width * 0.11,
                   child: Image.asset(
-                      //'lib/assets/user_assets/12lab.png'
                       'lib/assets/icons/fr1.png')),
               RichText(
                 text: TextSpan(
@@ -195,35 +165,26 @@ class FranchiesHomePage extends StatelessWidget {
                         fontSize: 23,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        //color: Color(0xff023382)
                       ),
                     ),
                     TextSpan(
                       text: ' Franchises',
                       style: GoogleFonts.alatsi(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: MyTheme.containercolor5,
-                        //color: Color(0xff023382)
                       ),
                     ),
                   ],
                 ),
               ),
-              // Text(
-              //   'PS WELLNESS',
-              //   style: GoogleFonts.alatsi(
-              //     fontWeight: FontWeight.w500,
-              //     fontSize: 22,
-              //   ),
-              // ),
             ],
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
           //MyTheme.ThemeColors,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.dehaze_rounded,
               size: 23,
               color: Colors.white,
@@ -232,7 +193,6 @@ class FranchiesHomePage extends StatelessWidget {
               _key.currentState!.openDrawer();
             },
           ),
-          // leading: Icon(Icons.read_more_outlined),
         ),
         drawer: FranchiesisMainDrawer(),
         body: SingleChildScrollView(
@@ -247,7 +207,7 @@ class FranchiesHomePage extends StatelessWidget {
                     border: Border.all(color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(2),
-                  child: MyFranchiseSlider(),
+                  child: Mycrusial(),
                 ),
               ),
               SizedBox(
@@ -260,7 +220,6 @@ class FranchiesHomePage extends StatelessWidget {
                 child: Container(
                   height: size.height * 0.585,
                   decoration: BoxDecoration(
-                      // color: Colors.white,
                       ),
                   child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -274,21 +233,11 @@ class FranchiesHomePage extends StatelessWidget {
                       itemBuilder: (BuildContext ctx, index) {
                         return Container(
                           height: size.height * 0.08,
-                          //width: double.,
                           margin: EdgeInsets.symmetric(
                               vertical: size.height * 0.00131,
                               horizontal: size.width * 0.01),
                           decoration: BoxDecoration(
                               color: Color(0xff11eae0),
-                              //colors[index],
-                              // gradient: LinearGradient(
-                              //     begin: Alignment.centerLeft,
-                              //     end: Alignment.centerRight,
-                              //     colors: [
-                              //       Color(0xffffffff),
-                              //       Color(0xffffffff)
-                              //       //darkPrimary,
-                              //     ]),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
@@ -330,97 +279,30 @@ class FranchiesHomePage extends StatelessWidget {
                                       Get.to(() => FranchisesProfilePage());
                                     } else if (index == 1) {
                                       Get.to(() => FranchisesBankProfilePage());
-                                      //Get.to(() => DoctorAddress());
-                                      //Get.to(() => CatagaryDetails());
                                     } else if (index == 2) {
                                       Get.defaultDialog(
                                           backgroundColor: MyTheme.ThemeColors,
                                           title: 'Update Drivers',
                                           content: SingleChildScrollView(
                                             child: Column(
-                                              //mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    // Get.to(
-                                                    //     () => OldDriverView());
                                                   },
                                                   child: Container(
                                                       height:
                                                           size.height * 0.07,
                                                       width: size.width * 0.2,
-                                                      decoration: BoxDecoration(
+                                                      decoration: const BoxDecoration(
                                                         color: Colors.white70,
                                                         shape: BoxShape.circle,
-                                                        // borderRadius:
-                                                        //     BorderRadius
-                                                        //         .circular(10),
+
                                                       ),
-                                                      child: Center(
+                                                      child: const Center(
                                                           child: Icon(
                                                         FontAwesomeIcons
                                                             .driversLicense,
                                                       ))
-                                                      // ElevatedButton(
-                                                      //   onPressed: () {},
-                                                      //   child: Text(
-                                                      //     'Select Date',
-                                                      //     style: TextStyle(
-                                                      //       color: Colors.black,
-                                                      //     ),
-                                                      //   ),
-                                                      //   style: ButtonStyle(
-                                                      //     backgroundColor:
-                                                      //         MaterialStateProperty
-                                                      //             .all(Colors
-                                                      //                 .white70),
-                                                      //     padding:
-                                                      //         MaterialStateProperty
-                                                      //             .all(EdgeInsets
-                                                      //                 .all(50)),
-                                                      //     textStyle:
-                                                      //         MaterialStateProperty
-                                                      //             .all(TextStyle(
-                                                      //                 fontSize:
-                                                      //                     30,
-                                                      //                 color: Colors
-                                                      //                     .black)),
-                                                      //   ),
-                                                      // ),
-                                                      // TextFormField(
-                                                      //   controller:
-                                                      //       _appointmentUserController
-                                                      //           .appointmentController,
-                                                      //   onTap: () {
-                                                      //     _appointmentUserController
-                                                      //         .chooseDate();
-                                                      //   },
-                                                      //
-                                                      //   cursorColor: Colors.black,
-                                                      //   obscureText: false,
-                                                      //   decoration: InputDecoration(
-                                                      //     hintText: 'Select date',
-                                                      //     helperStyle: TextStyle(
-                                                      //       color: black
-                                                      //           .withOpacity(0.7),
-                                                      //       fontSize: 18,
-                                                      //     ),
-                                                      //     prefixIcon: Icon(
-                                                      //       Icons
-                                                      //           .calendar_today_outlined,
-                                                      //       color: black
-                                                      //           .withOpacity(0.7),
-                                                      //       size: 20,
-                                                      //     ),
-                                                      //     border: InputBorder.none,
-                                                      //   ),
-                                                      //   keyboardType:
-                                                      //       TextInputType.multiline,
-                                                      //   maxLines: 1,
-                                                      //   autofocus: true,
-                                                      //   //obscureText: true,
-                                                      //   //controller: _loginpasswordController.mobileController,
-                                                      // ),
                                                       ),
                                                 ),
                                                 InkWell(
@@ -486,66 +368,6 @@ class FranchiesHomePage extends StatelessWidget {
                                                             ],
                                                           ),
                                                         )
-                                                        // ElevatedButton(
-                                                        //   onPressed: () {},
-                                                        //   child: Text(
-                                                        //     'Select Date',
-                                                        //     style: TextStyle(
-                                                        //       color: Colors.black,
-                                                        //     ),
-                                                        //   ),
-                                                        //   style: ButtonStyle(
-                                                        //     backgroundColor:
-                                                        //         MaterialStateProperty
-                                                        //             .all(Colors
-                                                        //                 .white70),
-                                                        //     padding:
-                                                        //         MaterialStateProperty
-                                                        //             .all(EdgeInsets
-                                                        //                 .all(50)),
-                                                        //     textStyle:
-                                                        //         MaterialStateProperty
-                                                        //             .all(TextStyle(
-                                                        //                 fontSize:
-                                                        //                     30,
-                                                        //                 color: Colors
-                                                        //                     .black)),
-                                                        //   ),
-                                                        // ),
-                                                        // TextFormField(
-                                                        //   controller:
-                                                        //       _appointmentUserController
-                                                        //           .appointmentController,
-                                                        //   onTap: () {
-                                                        //     _appointmentUserController
-                                                        //         .chooseDate();
-                                                        //   },
-                                                        //
-                                                        //   cursorColor: Colors.black,
-                                                        //   obscureText: false,
-                                                        //   decoration: InputDecoration(
-                                                        //     hintText: 'Select date',
-                                                        //     helperStyle: TextStyle(
-                                                        //       color: black
-                                                        //           .withOpacity(0.7),
-                                                        //       fontSize: 18,
-                                                        //     ),
-                                                        //     prefixIcon: Icon(
-                                                        //       Icons
-                                                        //           .calendar_today_outlined,
-                                                        //       color: black
-                                                        //           .withOpacity(0.7),
-                                                        //       size: 20,
-                                                        //     ),
-                                                        //     border: InputBorder.none,
-                                                        //   ),
-                                                        //   keyboardType:
-                                                        //       TextInputType.multiline,
-                                                        //   maxLines: 1,
-                                                        //   autofocus: true,
-                                                        //   //obscureText: true,
-                                                        //   //controller: _loginpasswordController.mobileController,
-                                                        // ),
                                                         ),
                                                   ),
                                                 ),
@@ -600,467 +422,19 @@ class FranchiesHomePage extends StatelessWidget {
                                                             ],
                                                           ),
                                                         )
-                                                        // ElevatedButton(
-                                                        //   onPressed: () {},
-                                                        //   child: Text(
-                                                        //     'Select Date',
-                                                        //     style: TextStyle(
-                                                        //       color: Colors.black,
-                                                        //     ),
-                                                        //   ),
-                                                        //   style: ButtonStyle(
-                                                        //     backgroundColor:
-                                                        //         MaterialStateProperty
-                                                        //             .all(Colors
-                                                        //                 .white70),
-                                                        //     padding:
-                                                        //         MaterialStateProperty
-                                                        //             .all(EdgeInsets
-                                                        //                 .all(50)),
-                                                        //     textStyle:
-                                                        //         MaterialStateProperty
-                                                        //             .all(TextStyle(
-                                                        //                 fontSize:
-                                                        //                     30,
-                                                        //                 color: Colors
-                                                        //                     .black)),
-                                                        //   ),
-                                                        // ),
-                                                        // TextFormField(
-                                                        //   controller:
-                                                        //       _appointmentUserController
-                                                        //           .appointmentController,
-                                                        //   onTap: () {
-                                                        //     _appointmentUserController
-                                                        //         .chooseDate();
-                                                        //   },
-                                                        //
-                                                        //   cursorColor: Colors.black,
-                                                        //   obscureText: false,
-                                                        //   decoration: InputDecoration(
-                                                        //     hintText: 'Select date',
-                                                        //     helperStyle: TextStyle(
-                                                        //       color: black
-                                                        //           .withOpacity(0.7),
-                                                        //       fontSize: 18,
-                                                        //     ),
-                                                        //     prefixIcon: Icon(
-                                                        //       Icons
-                                                        //           .calendar_today_outlined,
-                                                        //       color: black
-                                                        //           .withOpacity(0.7),
-                                                        //       size: 20,
-                                                        //     ),
-                                                        //     border: InputBorder.none,
-                                                        //   ),
-                                                        //   keyboardType:
-                                                        //       TextInputType.multiline,
-                                                        //   maxLines: 1,
-                                                        //   autofocus: true,
-                                                        //   //obscureText: true,
-                                                        //   //controller: _loginpasswordController.mobileController,
-                                                        // ),
                                                         ),
                                                   ),
                                                 ),
-
-                                                // SizedBox(
-                                                //     height: size.height * 0.05,
-                                                //     child: TestPickerWidget()),
-                                                ///..................
-                                                // Obx(
-                                                //   () => Text(
-                                                //     DateFormat("dd-MM-yyyy")
-                                                //         .format(_appointmentController
-                                                //             .selectedDate.value)
-                                                //         .toString(),
-                                                //     style: TextStyle(fontSize: 25),
-                                                //   ),
-                                                // ),
-
-                                                // SizedBox(
-                                                //   height: 30.0,
-                                                // ),
-                                                // ElevatedButton(
-                                                //   style:
-                                                //       ElevatedButton.styleFrom(
-                                                //     foregroundColor:
-                                                //         Colors.yellow,
-                                                //     backgroundColor: Colors
-                                                //         .red, // foreground
-                                                //   ),
-                                                //   onPressed: () {
-                                                //     Get.back();
-                                                //     // Get.to(() =>
-                                                //     //     AppointmentHistory()
-                                                //     // );
-                                                //     // todoController.todos.add(
-                                                //     //   Todo(
-                                                //     //     text: textEditingController.text,
-                                                //     //   ),
-                                                //     // );
-                                                //     //Get.back();
-                                                //   },
-                                                //   child: Text(
-                                                //     'Appointment History',
-                                                //     style: TextStyle(
-                                                //         color: Colors.white,
-                                                //         fontSize: 16.0),
-                                                //   ),
-                                                //   //color: Colors.redAccent,
-                                                // )
                                               ],
                                             ),
                                           ),
                                           radius: 10.0);
-                                      // Get.to(() => RwaPatientList());
-                                      // Get.to(() => ChemistOrderHistory());
-                                      //Get.to(() => NursePaymentHistory());
-                                      // Get.defaultDialog(
-                                      //     backgroundColor: MyTheme.ThemeColors,
-                                      //     title: 'Select ambulance Type',
-                                      //     content: SingleChildScrollView(
-                                      //       child: Column(
-                                      //         //mainAxisSize: MainAxisSize.min,
-                                      //         children: [
-                                      //           InkWell(
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.05,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Text(
-                                      //                       'Regular',
-                                      //                       style: TextStyle(
-                                      //                         fontWeight:
-                                      //                             FontWeight
-                                      //                                 .w500,
-                                      //                         fontSize:
-                                      //                             size.height *
-                                      //                                 0.02,
-                                      //                       ),
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //           InkWell(
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.05,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Text(
-                                      //                       'Road Accident',
-                                      //                       style: TextStyle(
-                                      //                         fontWeight:
-                                      //                             FontWeight
-                                      //                                 .w500,
-                                      //                         fontSize:
-                                      //                             size.height *
-                                      //                                 0.02,
-                                      //                       ),
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //           InkWell(
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.05,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Text(
-                                      //                       'Funeral/Mortuary Service',
-                                      //                       style: TextStyle(
-                                      //                         fontWeight:
-                                      //                             FontWeight
-                                      //                                 .w500,
-                                      //                         fontSize:
-                                      //                             size.height *
-                                      //                                 0.02,
-                                      //                       ),
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           // SizedBox(
-                                      //           //     height: size.height * 0.05,
-                                      //           //     child: TestPickerWidget()),
-                                      //           ///..................
-                                      //           // Obx(
-                                      //           //   () => Text(
-                                      //           //     DateFormat("dd-MM-yyyy")
-                                      //           //         .format(_appointmentController
-                                      //           //             .selectedDate.value)
-                                      //           //         .toString(),
-                                      //           //     style: TextStyle(fontSize: 25),
-                                      //           //   ),
-                                      //           // ),
-                                      //
-                                      //           // SizedBox(
-                                      //           //   height: 30.0,
-                                      //           // ),
-                                      //           // ElevatedButton(
-                                      //           //   style:
-                                      //           //       ElevatedButton.styleFrom(
-                                      //           //     foregroundColor:
-                                      //           //         Colors.yellow,
-                                      //           //     backgroundColor: Colors
-                                      //           //         .red, // foreground
-                                      //           //   ),
-                                      //           //   onPressed: () {
-                                      //           //     Get.back();
-                                      //           //     // Get.to(() =>
-                                      //           //     //     AppointmentHistory()
-                                      //           //     // );
-                                      //           //     // todoController.todos.add(
-                                      //           //     //   Todo(
-                                      //           //     //     text: textEditingController.text,
-                                      //           //     //   ),
-                                      //           //     // );
-                                      //           //     //Get.back();
-                                      //           //   },
-                                      //           //   child: Text(
-                                      //           //     'Appointment History',
-                                      //           //     style: TextStyle(
-                                      //           //         color: Colors.white,
-                                      //           //         fontSize: 16.0),
-                                      //           //   ),
-                                      //           //   //color: Colors.redAccent,
-                                      //           // )
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     radius: 10.0);
-                                      //whatsAppOpen();
-                                      // _launchWhatsapp();
-
-                                      // Get.to(() => ComplainList());
-                                      //Get.to(() => Profoile());
                                     } else if (index == 3) {
-                                      ///
-                                      //Get.to(() => TheJwelleryStore());
-
                                       Get.to(() => GallaryViewss());
                                     } else if (index == 4) {
                                       Get.to(() => FranchisesgalaryPage());
-                                      //Get.defaultDialog(
-                                      //barrierDismissible: true,
-
                                     } else if (index == 5) {
                                       Get.to(() => TestListView());
-                                      //Get.to(() => RwaProfilePage());
                                     } else if (index == 6) {
                                       Get.to(() => AdddeptSpecPage());
                                     } else if (index == 7) {
@@ -1070,1769 +444,9 @@ class FranchiesHomePage extends StatelessWidget {
                                     } else if (index == 9) {
                                       Get.to(() => DeptAndSpecialistView());
                                     } else if (index == 10) {
-                                      Get.to(() =>
-                                          FrRegistrationCatagaryDetails());
-                                      // Get.defaultDialog(
-                                      //     backgroundColor: MyTheme.ThemeColors,
-                                      //     title: 'Registrations',
-                                      //     content: SingleChildScrollView(
-                                      //       child: Column(
-                                      //         //mainAxisSize: MainAxisSize.min,
-                                      //         children: [
-                                      //           ///vehicle registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               Get.to(() =>
-                                      //                   FrVehicleSignup());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .car,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Register Vehicle',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Driver registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   FrDriverSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .person,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Driver Registration',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Doctor registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   FrDoctorSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .kitMedical,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.08,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Register Doctor',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///patient registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               Get.to(
-                                      //                   () => PatientSignup());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .user,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Registration patient',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Chemist registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               Get.to(() =>
-                                      //                   franchiesChemistSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .bookMedical,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.07,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Register Chemist',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Nurse registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   FrNursesSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .userNurse,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.10,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Register Nurse',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///lab registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(
-                                      //                   () => FrLabSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .houseChimneyMedical,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.15,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Register Lab',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///health checkup registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   franchiesHealthcheckupSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .checkToSlot,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'checkup registration',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///health Rwa registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(
-                                      //                   () => FrRwaSignup1());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .houseMedicalFlag,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.08,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'RWA registration',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               // Get.to(
-                                      //               //     () => OldDriverView());
-                                      //             },
-                                      //             child: Align(
-                                      //               alignment:
-                                      //                   Alignment.centerRight,
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.03,
-                                      //                   width:
-                                      //                       size.width * 0.07,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     shape:
-                                      //                         BoxShape.circle,
-                                      //                     // borderRadius:
-                                      //                     //     BorderRadius
-                                      //                     //         .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                       child: Icon(
-                                      //                     Icons.close,
-                                      //                   ))
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///
-                                      //
-                                      //           ///..................
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     radius: 10.0);
-                                      //Get.to(() => DeptSpecList());
+                                      Get.to(() => FrRegistrationCatagaryDetails());
                                     } else if (index == 11) {
                                       Get.to(() => FrRegistrationDetails());
-
-                                      ///
-                                      // Get.defaultDialog(
-                                      //     backgroundColor: MyTheme.ThemeColors,
-                                      //     title: 'Registrations Entries',
-                                      //     content: SingleChildScrollView(
-                                      //       child: Column(
-                                      //         //mainAxisSize: MainAxisSize.min,
-                                      //         children: [
-                                      //           ///vehicle registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               Get.to(() =>
-                                      //                   ResitrationVechileDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .car,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Vehicle Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Driver registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   ResitrationDriverDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .person,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Driver Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Doctor registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   ResitrationDoctorDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .kitMedical,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.08,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Doctor Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///patient registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               Get.to(() =>
-                                      //                   ResitrationPatientDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .user,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Patient Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Chemist registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               Get.to(() =>
-                                      //                   ResitrationChemistDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .bookMedical,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.07,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Chemist Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///Nurse registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   ResitrationNurseDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .userNurse,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.10,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Nurse Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///lab registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   ResitrationLabDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .houseChimneyMedical,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.15,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Lab Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///health checkup registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   ResitrationHealthCheckupDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .checkToSlot,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'Checkup Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///health Rwa registration
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.to(() =>
-                                      //                   ResitrationRwaDetails());
-                                      //             },
-                                      //             child:
-                                      //                 NeumorphicTextFieldContainer(
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.04,
-                                      //                   width: size.width,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     borderRadius:
-                                      //                         BorderRadius
-                                      //                             .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                     child: Row(
-                                      //                       mainAxisAlignment:
-                                      //                           MainAxisAlignment
-                                      //                               .center,
-                                      //                       children: [
-                                      //                         Icon(
-                                      //                           FontAwesomeIcons
-                                      //                               .houseMedicalFlag,
-                                      //                           size:
-                                      //                               size.height *
-                                      //                                   0.03,
-                                      //                         ),
-                                      //                         SizedBox(
-                                      //                           width:
-                                      //                               size.width *
-                                      //                                   0.08,
-                                      //                         ),
-                                      //                         Text(
-                                      //                           'RWA Entries',
-                                      //                           style:
-                                      //                               TextStyle(
-                                      //                             fontWeight:
-                                      //                                 FontWeight
-                                      //                                     .w500,
-                                      //                             fontSize:
-                                      //                                 size.height *
-                                      //                                     0.02,
-                                      //                           ),
-                                      //                         ),
-                                      //                       ],
-                                      //                     ),
-                                      //                   )
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           InkWell(
-                                      //             onTap: () {
-                                      //               Get.back();
-                                      //               // Get.to(
-                                      //               //     () => OldDriverView());
-                                      //             },
-                                      //             child: Align(
-                                      //               alignment:
-                                      //                   Alignment.centerRight,
-                                      //               child: Container(
-                                      //                   height:
-                                      //                       size.height * 0.03,
-                                      //                   width:
-                                      //                       size.width * 0.07,
-                                      //                   decoration:
-                                      //                       BoxDecoration(
-                                      //                     color: Colors.white70,
-                                      //                     shape:
-                                      //                         BoxShape.circle,
-                                      //                     // borderRadius:
-                                      //                     //     BorderRadius
-                                      //                     //         .circular(10),
-                                      //                   ),
-                                      //                   child: Center(
-                                      //                       child: Icon(
-                                      //                     Icons.close,
-                                      //                   ))
-                                      //                   // ElevatedButton(
-                                      //                   //   onPressed: () {},
-                                      //                   //   child: Text(
-                                      //                   //     'Select Date',
-                                      //                   //     style: TextStyle(
-                                      //                   //       color: Colors.black,
-                                      //                   //     ),
-                                      //                   //   ),
-                                      //                   //   style: ButtonStyle(
-                                      //                   //     backgroundColor:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(Colors
-                                      //                   //                 .white70),
-                                      //                   //     padding:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(EdgeInsets
-                                      //                   //                 .all(50)),
-                                      //                   //     textStyle:
-                                      //                   //         MaterialStateProperty
-                                      //                   //             .all(TextStyle(
-                                      //                   //                 fontSize:
-                                      //                   //                     30,
-                                      //                   //                 color: Colors
-                                      //                   //                     .black)),
-                                      //                   //   ),
-                                      //                   // ),
-                                      //                   // TextFormField(
-                                      //                   //   controller:
-                                      //                   //       _appointmentUserController
-                                      //                   //           .appointmentController,
-                                      //                   //   onTap: () {
-                                      //                   //     _appointmentUserController
-                                      //                   //         .chooseDate();
-                                      //                   //   },
-                                      //                   //
-                                      //                   //   cursorColor: Colors.black,
-                                      //                   //   obscureText: false,
-                                      //                   //   decoration: InputDecoration(
-                                      //                   //     hintText: 'Select date',
-                                      //                   //     helperStyle: TextStyle(
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       fontSize: 18,
-                                      //                   //     ),
-                                      //                   //     prefixIcon: Icon(
-                                      //                   //       Icons
-                                      //                   //           .calendar_today_outlined,
-                                      //                   //       color: black
-                                      //                   //           .withOpacity(0.7),
-                                      //                   //       size: 20,
-                                      //                   //     ),
-                                      //                   //     border: InputBorder.none,
-                                      //                   //   ),
-                                      //                   //   keyboardType:
-                                      //                   //       TextInputType.multiline,
-                                      //                   //   maxLines: 1,
-                                      //                   //   autofocus: true,
-                                      //                   //   //obscureText: true,
-                                      //                   //   //controller: _loginpasswordController.mobileController,
-                                      //                   // ),
-                                      //                   ),
-                                      //             ),
-                                      //           ),
-                                      //
-                                      //           ///
-                                      //
-                                      //           ///..................
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //     radius: 10.0);
-                                      //Get.to(() => DeptSpecList());
                                     } else if (index == 12) {
                                       Get.defaultDialog(
                                           backgroundColor: MyTheme.ThemeColors,
@@ -3062,7 +676,6 @@ class FranchiesHomePage extends StatelessWidget {
                                                         )),
                                                   ),
                                                 ),
-
                                                 ///for Chemist
                                                 InkWell(
                                                   onTap: () {
@@ -3118,67 +731,64 @@ class FranchiesHomePage extends StatelessWidget {
                                                         )),
                                                   ),
                                                 ),
-
                                                 ///health checkup registration
-                                                InkWell(
-                                                  onTap: () {
-                                                    Get.to(() =>
-                                                        YmwdreportHlthChkup());
-                                                  },
-                                                  child:
-                                                      NeumorphicTextFieldContainer(
-                                                    child: Container(
-                                                        height:
-                                                            size.height * 0.04,
-                                                        width: size.width,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white70,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        child: Center(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Icon(
-                                                                FontAwesomeIcons
-                                                                    .checkToSlot,
-                                                                size:
-                                                                    size.height *
-                                                                        0.03,
-                                                              ),
-                                                              SizedBox(
-                                                                width:
-                                                                    size.width *
-                                                                        0.03,
-                                                              ),
-                                                              Text(
-                                                                'For Health Checkup',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      size.height *
-                                                                          0.02,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                  ),
-                                                ),
+                                                // InkWell(
+                                                //   onTap: () {
+                                                //     Get.to(() =>
+                                                //         YmwdreportHlthChkup());
+                                                //   },
+                                                //   child:
+                                                //       NeumorphicTextFieldContainer(
+                                                //     child: Container(
+                                                //         height:
+                                                //             size.height * 0.04,
+                                                //         width: size.width,
+                                                //         decoration:
+                                                //             BoxDecoration(
+                                                //           color: Colors.white70,
+                                                //           borderRadius:
+                                                //               BorderRadius
+                                                //                   .circular(10),
+                                                //         ),
+                                                //         child: Center(
+                                                //           child: Row(
+                                                //             mainAxisAlignment:
+                                                //                 MainAxisAlignment
+                                                //                     .center,
+                                                //             children: [
+                                                //               Icon(
+                                                //                 FontAwesomeIcons
+                                                //                     .checkToSlot,
+                                                //                 size:
+                                                //                     size.height *
+                                                //                         0.03,
+                                                //               ),
+                                                //               SizedBox(
+                                                //                 width:
+                                                //                     size.width *
+                                                //                         0.03,
+                                                //               ),
+                                                //               Text(
+                                                //                 'For Health Checkup',
+                                                //                 style:
+                                                //                     TextStyle(
+                                                //                   fontWeight:
+                                                //                       FontWeight
+                                                //                           .w500,
+                                                //                   fontSize:
+                                                //                       size.height *
+                                                //                           0.02,
+                                                //                 ),
+                                                //               ),
+                                                //             ],
+                                                //           ),
+                                                //         )),
+                                                //   ),
+                                                // ),
 
                                                 InkWell(
                                                   onTap: () {
                                                     Get.back();
-                                                    // Get.to(
-                                                    //     () => OldDriverView());
                                                   },
                                                   child: Align(
                                                     alignment:
@@ -3189,90 +799,24 @@ class FranchiesHomePage extends StatelessWidget {
                                                         width:
                                                             size.width * 0.07,
                                                         decoration:
-                                                            BoxDecoration(
+                                                            const BoxDecoration(
                                                           color: Colors.white70,
                                                           shape:
                                                               BoxShape.circle,
-                                                          // borderRadius:
-                                                          //     BorderRadius
-                                                          //         .circular(10),
                                                         ),
-                                                        child: Center(
+                                                        child: const Center(
                                                             child: Icon(
                                                           Icons.close,
                                                         ))
-                                                        // ElevatedButton(
-                                                        //   onPressed: () {},
-                                                        //   child: Text(
-                                                        //     'Select Date',
-                                                        //     style: TextStyle(
-                                                        //       color: Colors.black,
-                                                        //     ),
-                                                        //   ),
-                                                        //   style: ButtonStyle(
-                                                        //     backgroundColor:
-                                                        //         MaterialStateProperty
-                                                        //             .all(Colors
-                                                        //                 .white70),
-                                                        //     padding:
-                                                        //         MaterialStateProperty
-                                                        //             .all(EdgeInsets
-                                                        //                 .all(50)),
-                                                        //     textStyle:
-                                                        //         MaterialStateProperty
-                                                        //             .all(TextStyle(
-                                                        //                 fontSize:
-                                                        //                     30,
-                                                        //                 color: Colors
-                                                        //                     .black)),
-                                                        //   ),
-                                                        // ),
-                                                        // TextFormField(
-                                                        //   controller:
-                                                        //       _appointmentUserController
-                                                        //           .appointmentController,
-                                                        //   onTap: () {
-                                                        //     _appointmentUserController
-                                                        //         .chooseDate();
-                                                        //   },
-                                                        //
-                                                        //   cursorColor: Colors.black,
-                                                        //   obscureText: false,
-                                                        //   decoration: InputDecoration(
-                                                        //     hintText: 'Select date',
-                                                        //     helperStyle: TextStyle(
-                                                        //       color: black
-                                                        //           .withOpacity(0.7),
-                                                        //       fontSize: 18,
-                                                        //     ),
-                                                        //     prefixIcon: Icon(
-                                                        //       Icons
-                                                        //           .calendar_today_outlined,
-                                                        //       color: black
-                                                        //           .withOpacity(0.7),
-                                                        //       size: 20,
-                                                        //     ),
-                                                        //     border: InputBorder.none,
-                                                        //   ),
-                                                        //   keyboardType:
-                                                        //       TextInputType.multiline,
-                                                        //   maxLines: 1,
-                                                        //   autofocus: true,
-                                                        //   //obscureText: true,
-                                                        //   //controller: _loginpasswordController.mobileController,
-                                                        // ),
                                                         ),
                                                   ),
                                                 ),
-
                                                 ///
-
                                                 ///..................
                                               ],
                                             ),
                                           ),
                                           radius: 10.0);
-                                      //Get.to(() => DeptSpecList());
                                     } else if (index == 13) {
                                       Get.to(() => FranchisePaymentReport());
                                     } else if (index == 14) {
@@ -3291,9 +835,7 @@ class FranchiesHomePage extends StatelessWidget {
                                     width: size.width * 0.23,
                                     padding: EdgeInsets.all(7),
                                     child: Image.asset(
-                                      productimage[index],
-                                      // "lib/assets/image/icons8-hospital-64.png",
-                                    ),
+                                      productimage[index]),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(10),
@@ -3320,10 +862,8 @@ class FranchiesHomePage extends StatelessWidget {
                                 Container(
                                   height: size.height * 0.033,
                                   decoration: BoxDecoration(
-                                      color:
-                                          Color(0xffffffff).withOpacity(0.999),
-                                      //Colors.pink.shade100,
-                                      borderRadius: BorderRadius.only(
+                                      color: Color(0xffffffff).withOpacity(0.999),
+                                      borderRadius: const BorderRadius.only(
                                         bottomLeft: Radius.circular(10),
                                         bottomRight: Radius.circular(10),
                                       )),
@@ -3346,13 +886,6 @@ class FranchiesHomePage extends StatelessWidget {
                           ),
                           // child: child,
                         );
-                        //   Container(
-                        //   alignment: Alignment.center,
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.amber,
-                        //       borderRadius: BorderRadius.circular(15)),
-                        //   child: Text(productname[index]),
-                        // );
                       }),
                 ),
               )
@@ -3364,211 +897,88 @@ class FranchiesHomePage extends StatelessWidget {
   }
 }
 
-// class Mycrusial extends StatelessWidget {
-//   final _sliderKey = GlobalKey();
-//   FranchiseHomepagContreoller _franchiseHomepagContreoller =Get.put(FranchiseHomepagContreoller());
-//   Mycrusial({Key? key}) : super(key: key);
-//
-//   final List<Color> colors = [
-//     Colors.red,
-//     Colors.orange,
-//     Colors.yellow,
-//     Colors.green,
-//     Colors.blue,
-//     Colors.indigo,
-//     Colors.purple,
-//   ];
-//
-//   final List<String> images = [
-//     'https://media.istockphoto.com/id/1207168332/photo/adult-and-children-hands-holding-paper-family-cutout-family-home-foster-care-homeless-charity.jpg?b=1&s=170667a&w=0&k=20&c=nLT8wduB3SKjWp8WQYa2hW28vckCqFyMwNpteoFq_mA=',
-//     'https://images.unsplash.com/photo-1531431057391-da7a1aabd412?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-//     'https://images.unsplash.com/photo-1577896851905-dc99e1f8b4b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-//     'https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-//     'https://images.unsplash.com/photo-1536064479547-7ee40b74b807?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60',
-//     //'https://images.unsplash.com/photo-1523299174285-a59d80640155?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
-//     // 'https://images.unsplash.com/photo-1576765608866-5b51046452be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2078&q=80',
-//   ];
-//   final bool _isPlaying = true;
-//
-//   //get _sliderKey => null;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     var base = 'http://test.pswellness.in/Images/';
-//     //var base = 'https://api.gyros.farm/Images/';
-//     Size size = MediaQuery.of(context).size;
-//     return Scaffold(
-//       body: Obx(
-//             () => (_franchiseHomepagContreoller.isLoading.value)
-//             ? Center(child: CircularProgressIndicator())
-//             :_franchiseHomepagContreoller.banerlistmodel!.bannerImageList.isEmpty
-//         //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
-//         //: _userhomePageController.getsliderbaner!.bannerImageList == null
-//         //: _allProductController.allProductModel!.result!.isEmpty
-//         //_bestSellerController.bestsellermodel!.result!.isEmpty
-//             ? Center(
-//           child: Text('No data'),
-//         )
-//             : SizedBox(
-//           height:size.height*0.33,
-//           child: CarouselSlider.builder(
-//             //scrollPhysics: NeverScrollableScrollPhysics(),
-//             key: _sliderKey,
-//             unlimitedMode: true,
-//             autoSliderTransitionTime: Duration(seconds: 2),
-//             //autoSliderDelay: Duration(seconds: 5),
-//             slideBuilder: (index) {
-//               return Container(
-//                 height: size.height*0.29,
-//                 alignment: Alignment.center,
-//                 // decoration: BoxDecoration(
-//                 //   image: DecorationImage(
-//                 //       image: NetworkImage(base +
-//                 //           '${_homePageController.getsliderbaner!.bannerImageList![index]}'),
-//                 //
-//                 //   fit: BoxFit.fill),
-//
-//                 child: Container(
-//                   height: size.height * 0.33,
-//                   width: size.width,
-//                   // height: 26.h,
-//                   child: Image.network(
-//                     base + '${_franchiseHomepagContreoller.banerlistmodel!.bannerImageList[index].bannerPath.toString()}',
-//                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-//                     fit: BoxFit.fill,
-//                     errorBuilder: (context, error, stackTrace) {
-//                       //if image not comming in catagary then we have to purchase
-//
-//                       return Center(
-//                         child: Text(
-//
-//                           'No Image',
-//
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.bold,
-//                             fontSize: size.height*0.02,
-//                           ),
-//                         ),
-//                       );
-//                     },
-//                   ),
-//                 ),
-//               );
-//             },
-//             slideTransform: ZoomOutSlideTransform(),
-//             slideIndicator: CircularSlideIndicator(
-//               indicatorBorderWidth: 2,
-//               indicatorRadius: 4,
-//               itemSpacing: 15,
-//               currentIndicatorColor: Colors.white,
-//               padding: EdgeInsets.only(bottom: 5),
-//             ),
-//             itemCount: _franchiseHomepagContreoller.banerlistmodel!.bannerImageList.length,
-//             enableAutoSlider: true,
-//           ),
-//
-//           // FutureBuilder<List<String>>(
-//           //   future: getData(),
-//           //   builder: (context, snapshot) {
-//           //     if (snapshot.hasData) {
-//           //       var items = snapshot.data;
-//           //       var base = 'https://api.gyros.farm/Images/';
-//           //       return Container(
-//           //         height: 26.h,
-//           //         child: CarouselSlider.builder(
-//           //           //scrollPhysics: NeverScrollableScrollPhysics(),
-//           //           key: _sliderKey,
-//           //           unlimitedMode: true,
-//           //           autoSliderTransitionTime: Duration(seconds: 2),
-//           //           //autoSliderDelay: Duration(seconds: 5),
-//           //           slideBuilder: (index) {
-//           //             return Container(
-//           //               height: 26.h,
-//           //               alignment: Alignment.center,
-//           //               decoration: BoxDecoration(
-//           //                 image: DecorationImage(
-//           //                     image: NetworkImage(base + '${items![index]}'),
-//           //                     fit: BoxFit.fill),
-//           //               ),
-//           //             );
-//           //           },
-//           //           slideTransform: ZoomOutSlideTransform(),
-//           //           slideIndicator: CircularSlideIndicator(
-//           //             indicatorBorderWidth: 2,
-//           //             indicatorRadius: 4,
-//           //             itemSpacing: 15,
-//           //             currentIndicatorColor: Colors.white,
-//           //             padding: EdgeInsets.only(bottom: 6),
-//           //           ),
-//           //           itemCount: items!.length,
-//           //           enableAutoSlider: true,
-//           //         ),
-//           //       );
-//           //
-//           //       /*  ListView(
-//           //         physics: NeverScrollableScrollPhysics(),
-//           //         children: <Widget>[
-//           //           Container(
-//           //             height: 26.h,
-//           //             child: CarouselSlider.builder(
-//           //               //scrollPhysics: NeverScrollableScrollPhysics(),
-//           //               key: _sliderKey,
-//           //               unlimitedMode: true,
-//           //               autoSliderTransitionTime: Duration(seconds: 2),
-//           //               //autoSliderDelay: Duration(seconds: 5),
-//           //               slideBuilder: (index) {
-//           //                 return Container(
-//           //                   height: 26.h,
-//           //                   alignment: Alignment.center,
-//           //                   decoration: BoxDecoration(
-//           //                     image: DecorationImage(
-//           //                         image: NetworkImage('${'Images'}'),
-//           //                         fit: BoxFit.fill),
-//           //                   ),
-//           //                   //color: colors[index],
-//           //                   // child: Text(
-//           //                   //   letters[index],
-//           //                   //   style: TextStyle(fontSize: 200, color: Colors.white),
-//           //                   // ),
-//           //                 );
-//           //               },
-//           //               slideTransform: ZoomOutSlideTransform(),
-//           //               slideIndicator: CircularSlideIndicator(
-//           //                 indicatorBorderWidth: 2,
-//           //                 indicatorRadius: 4,
-//           //                 itemSpacing: 15,
-//           //                 currentIndicatorColor: Colors.white,
-//           //                 padding: EdgeInsets.only(bottom: 6),
-//           //               ),
-//           //               itemCount: images.length,
-//           //               enableAutoSlider: true,
-//           //             ),
-//           //           ),
-//           //           Padding(
-//           //             padding: const EdgeInsets.symmetric(vertical: 1),
-//           //             child: Align(
-//           //               child: ConstrainedBox(
-//           //                 constraints:
-//           //                     BoxConstraints(minWidth: 190, maxWidth: 600),
-//           //               ),
-//           //             ),
-//           //           ),
-//           //         ],
-//           //       );*/
-//           //     } else if (snapshot.hasError) {
-//           //       return Text("${snapshot.error}");
-//           //     }
-//           //     return Center(
-//           //         child: CircularProgressIndicator(
-//           //       color: Colors.white,
-//           //     ));
-//           //   },
-//           // )
-//         ),
-//       ),
-//     );
-//   }
-// }
+class Mycrusial extends StatelessWidget {
+  final _sliderKey = GlobalKey();
+  Mycrusial({Key? key}) : super(key: key);
+  FrenchiesBannerController frenchiesBannerController = Get.put(FrenchiesBannerController());
+  final List<Color> colors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.indigo,
+    Colors.purple,
+  ];
+
+  final bool _isPlaying = true;
+final img = 'http://test.pswellness.in/Images/';
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Obx(()=> (frenchiesBannerController.isLoading.value) ?
+          Center(child: CircularProgressIndicator(),)
+        : Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Container(
+            height: size.height * 0.28,
+            width: size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(
+              child: Material(
+                color: MyTheme.ThemeColors,
+                borderRadius: BorderRadius.circular(10),
+                elevation: 0,
+                child: CarouselSlider.builder(
+                  key: _sliderKey,
+                  unlimitedMode: true,
+                  autoSliderTransitionTime: Duration(seconds: 1),
+                  slideBuilder: (index) {
+                    var items = frenchiesBannerController.getfrenchiesBannerApi?.bannerImageList;
+                    return Padding(
+                      padding: const EdgeInsets.all(7.0),
+                      child: Material(
+                        elevation: 12,
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          height: size.height * 38,
+                          width: size.width,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.white, width: 3),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    '$img${items?[index].bannerPath}'??''
+                                ),
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  slideTransform: DefaultTransform(),
+                  slideIndicator: CircularSlideIndicator(
+                    indicatorBorderWidth: 2,
+                    indicatorRadius: 4,
+                    itemSpacing: 15,
+                    currentIndicatorColor: Colors.white,
+                    padding: EdgeInsets.only(bottom: 0),
+                  ),
+                  itemCount: frenchiesBannerController.getfrenchiesBannerApi!.bannerImageList.length,
+                  enableAutoSlider: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 ///...........
 ///

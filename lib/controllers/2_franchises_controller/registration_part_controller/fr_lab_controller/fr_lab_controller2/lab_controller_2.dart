@@ -54,9 +54,7 @@ class Fr_Lab_2_Controller extends GetxController {
       certificateController,
       addressController;
 
-  var aadhar = '';
-  var address = '';
-  var certificateno = '';
+
 
   //get stateCitymap => null;
 

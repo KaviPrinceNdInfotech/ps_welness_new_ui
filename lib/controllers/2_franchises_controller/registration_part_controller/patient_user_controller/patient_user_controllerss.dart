@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class Patients_Controller extends GetxController {
   final GlobalKey<FormState> patientformkey = GlobalKey<FormState>();
-
+  RxBool isLoading = false.obs;
   ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
 
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
 
-  late TextEditingController nameController,
+   TextEditingController? nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -27,11 +30,43 @@ class Patients_Controller extends GetxController {
   var mobile = '';
   var address = '';
   var pin = '';
+  void getStateLabApi() async {
+    states = await ApiProvider.getSatesApi();
+  }
+  ///get cities api...........
+  void getCityByStateIDLab(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+  }
+  void frenchiesRegisterPatientApi() async{
+    isLoading(true);
+    http.Response r = await ApiProvider.FrenchiesRegisterPatient(
+        nameController?.text,
+        mobileController?.text,
+        emailController?.text,
+        passwordController?.text,
+        confirmpasswordController?.text,
+        addressController?.text,
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
 
+      pinController?.text,
+    );
+    if(r.statusCode == 200){
+      isLoading(false);
+    }
+  }
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
+    getStateLabApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDLab("${p0.id}");
+      }
+    }
+    );
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -48,13 +83,13 @@ class Patients_Controller extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmpasswordController.dispose();
-    mobileController.dispose();
-    addressController.dispose();
-    pinController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    passwordController?.dispose();
+    confirmpasswordController?.dispose();
+    mobileController?.dispose();
+    addressController?.dispose();
+    pinController?.dispose();
   }
 
   String? validName(String value) {
@@ -132,6 +167,7 @@ class Patients_Controller extends GetxController {
 
   void checkpatient() {
     final isValid = patientformkey.currentState!.validate();
+    frenchiesRegisterPatientApi();
     if (!isValid) {
       return;
     }

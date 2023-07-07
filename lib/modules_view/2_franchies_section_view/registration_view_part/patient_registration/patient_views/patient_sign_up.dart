@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/patient_registration/patient_views/patient_components/credentials.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/patient_registration/patient_views/patient_components/head_text.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/patient_registration/patient_views/patient_components/credentials.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/patient_registration/patient_views/patient_components/head_text.dart';
 
 class PatientSignup extends StatelessWidget {
   const PatientSignup({Key? key}) : super(key: key);
@@ -14,7 +11,7 @@ class PatientSignup extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -31,16 +28,13 @@ class PatientSignup extends StatelessWidget {
               children: [
                 Positioned(
                   top: -size.height * 0.05,
-                  //bottom: size.height * 0.64,
-                  //left: -30,
                   right: -size.width * 0.006,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Container(
                       height: size.height * 0.27,
                       width: size.width * 0.60,
-                      decoration: BoxDecoration(
-                          //color: Colors.,
+                      decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                           ),
@@ -57,8 +51,6 @@ class PatientSignup extends StatelessWidget {
                   children: [
                     PatientHeadText(),
                     PatientCredentials(),
-                    //HospitalSocial(),
-                    //Spacer(),
                   ],
                 ),
               ],

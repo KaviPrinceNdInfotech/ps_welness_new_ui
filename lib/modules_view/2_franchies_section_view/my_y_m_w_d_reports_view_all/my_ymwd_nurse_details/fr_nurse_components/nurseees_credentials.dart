@@ -13,10 +13,7 @@ import '../../../../../controllers/2_franchises_controller/my_ymwd_report_contro
 class MyYmwdreportNursessCredential extends StatelessWidget {
   MyYmwdreportNursessCredential({Key? key}) : super(key: key);
 
-  YmwdnursesssController _ymwdnursesssController =
-      Get.put(YmwdnursesssController());
-
-  //YmwdLabController YmwdLabController = Get.put(YmwdLabController());
+  YmwdnursesssController _ymwdnursesssController = Get.put(YmwdnursesssController());
 
   var items = [
     'Daily',
@@ -24,11 +21,7 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
     'Yearly',
     'Weekly',
   ];
-
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,29 +29,6 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
     return SafeArea(
       child: Stack(
         children: [
-          // Positioned(
-          //   top: -size.height * 0.04,
-          //   //bottom: size.height * 0.64,
-          //   //left: -30,
-          //   right: -size.width * 0.1,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(2.0),
-          //     child: Container(
-          //       height: size.height * 0.23,
-          //       width: size.width * 0.65,
-          //       decoration: BoxDecoration(
-          //           //color: Colors.,
-          //           borderRadius: BorderRadius.only(
-          //             topRight: Radius.circular(20),
-          //           ),
-          //           image: DecorationImage(
-          //               image: AssetImage(
-          //                 'lib/assets/background_stack_png/vehicle1.png',
-          //               ),
-          //               fit: BoxFit.cover)),
-          //     ),
-          //   ),
-          // ),
           Form(
             key: _ymwdnursesssController.ymwdnursessformkey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -77,10 +47,9 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
                     child: Container(
                         height: size.height * 0.035,
                         width: size.width * 0.07,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.white70, shape: BoxShape.circle),
-                        child:
-                            Center(child: Icon(Icons.arrow_back_ios_outlined))),
+                        child: Center(child: Icon(Icons.arrow_back_ios_outlined))),
                   ),
                   SizedBox(
                     height: size.width * 0.05,
@@ -101,9 +70,8 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: size.width * 0.01),
                       child: Obx(
                         () => DropdownButtonFormField(
-                            //icon: Icon(Icons.location_city),
-                            value: _ymwdnursesssController.selectedCity.value,
-                            decoration: InputDecoration(
+                            value: _ymwdnursesssController.selectedTerm.value,
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(
                                 Icons.list_alt,
                                 color: Colors.black,
@@ -125,14 +93,8 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              _ymwdnursesssController.selectedCity.value =
-                                  newValue!;
-                              // _hospital_2_controller.states.value =
-                              //     newValue! as List<String>;
-                              // _hospital_2_controller.selectedCity.value = null;
-                              // _hospital_2_controller.cities.clear();
-                              // _hospital_2_controller.cities
-                              //     .addAll(stateCityMap[newvalue]!);
+                              _ymwdnursesssController.selectedTerm.value = newValue!;
+                              _ymwdnursesssController.frenchiesYMWDNurseReportApi(newValue);
                             }),
                       ),
                     ),
@@ -145,7 +107,6 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          //height: size.height * 0.02,
                           decoration: new BoxDecoration(
                               borderRadius: new BorderRadius.all(
                                   new Radius.circular(30.0)),
@@ -157,24 +118,16 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
                           child: Theme(
                             data: Theme.of(context)
                                 .copyWith(splashColor: Colors.transparent),
-                            child: Obx(
-                              () => (_ymwdnursesssController.isLoading.value)
-                                  ? Center(child: CircularProgressIndicator())
-                                  : TextField(
-                                      controller: _ymwdnursesssController
-                                          .appointmentController1,
-                                      onTap: () {
-                                        _ymwdnursesssController.chooseDate();
-                                      },
+                            child: TextField(
+                              onChanged: (value)=>  _ymwdnursesssController.filterPaymentNurse(value),
                                       autofocus: false,
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: MyTheme.blueww),
                                       decoration: InputDecoration(
-                                        //prefixIcon: Icon(Icons.search),
                                         filled: true,
                                         fillColor: MyTheme.ThemeColors,
-                                        hintText: 'dd-mm-yyyy',
+                                        hintText: 'search nurse name',
                                         contentPadding: const EdgeInsets.only(
                                             left: 10.0, bottom: 12.0, top: 0.0),
                                         focusedBorder: OutlineInputBorder(
@@ -191,7 +144,6 @@ class MyYmwdreportNursessCredential extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                            ),
                           ),
                         ),
                         Container(

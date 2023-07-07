@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class FranchisesBankProfileController extends GetxController {
-  final GlobalKey<FormState> franchisesbankprofileformkey =
-      GlobalKey<FormState>();
+  final GlobalKey<FormState> franchisesbankprofileformkey = GlobalKey<FormState>();
 
   var selectedImagepath = ''.obs;
 
@@ -16,58 +17,31 @@ class FranchisesBankProfileController extends GetxController {
       print('No image selected');
     }
   }
-
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
-
-  late TextEditingController nameController,
-      accountController,
-      //emailController,
-      // mobileController,
-      locatoionController,
-      accountholdernameController,
-      ifscController;
-  //feesController,
-  //pinController,
-  //gstcontroller,
-  //aadharpancontroller;
-  //accountnoController,
-  // ifscController,
-  //branchController;
-
-  //var email = '';
+  late TextEditingController accountholdernameController,locationController,accountController,ifscController,BranchName;
   var account = '';
   var name = '';
   var location = '';
   var accountholdername = '';
   var ifsc = '';
-  //var fees = '';
-  //var pin = '';
-  //var gst = '';
-  //var panaadhar = '';
-  //var account = '';
-  //var ifsc = '';
-  //var branch = '';
-
+  void franchiesUpdateBankApi() async {
+    http.Response r = await ApiProvider.FranchiseUpdateBankApi(
+        accountholdernameController.text,
+        locationController.text,
+        accountController.text,
+        ifscController.text,
+        BranchName.text
+    );
+    if (r.statusCode == 200) {
+    }
+  }
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
-    accountController = TextEditingController(text: "2345667754");
-    nameController = TextEditingController(text: 'SBI');
-    //emailController = TextEditingController();
-    //mobileController = TextEditingController(text: 'Ram Kumar');
-    locatoionController = TextEditingController(text: 'Noida Sector 63');
     accountholdernameController = TextEditingController(text: 'Ram Kumar');
+    locationController = TextEditingController(text: 'Noida Sector 63');
+    accountController = TextEditingController(text: "2345667754");
     ifscController = TextEditingController(text: 'SBIN000RDS');
-    //gstcontroller = TextEditingController(text: '7847867890');
-    //aadharpancontroller = TextEditingController(text: '87778987776');
-    // branchController = TextEditingController(text: 'SBI');
+    BranchName = TextEditingController(text: 'pnb');
   }
 
   @override
@@ -77,18 +51,6 @@ class FranchisesBankProfileController extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    //emailController.dispose();
-    accountController.dispose();
-    locatoionController.dispose();
-    accountholdernameController.dispose();
-    ifscController.dispose();
-    //gstcontroller.dispose();
-    //aadharpancontroller.dispose();
-
-    //accountnoController.dispose();
-    //ifscController.dispose();
-    // branchController.dispose();
   }
 
   String? validaccountNumber(String value) {
@@ -97,39 +59,12 @@ class FranchisesBankProfileController extends GetxController {
     }
     return null;
   }
-
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
     }
     return null;
   }
-
-  // String? validEmail(String value) {
-  //   if (value.isEmpty) {
-  //     return '              This field is required';
-  //   }
-  //   if (!value.contains('@')) {
-  //     return "              A valid email should contain '@'";
-  //   }
-  //   if (!RegExp(
-  //     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-  //   ).hasMatch(value)) {
-  //     return "              Please enter a valid email";
-  //   }
-  //   return null;
-  // }
-
-  // String? validPhone(String value) {
-  //   if (value.isEmpty) {
-  //     return '              This field is required';
-  //   }
-  //   // if (value.length != 10) {
-  //   //   return '              A valid phone should be of 10 digits';
-  //   // }
-  //   return null;
-  // }
-
   String? validLocation(String value) {
     if (value.length < 2) {
       return "              Provide valid location";
@@ -156,33 +91,12 @@ class FranchisesBankProfileController extends GetxController {
     }
     return null;
   }
-
-  // String? validgst(String value) {
-  //   if (value.isEmpty) {
-  //     return '              This field is required';
-  //   }
-  //   if (value.length < 2) {
-  //     return '              Provide valid Gst number';
-  //   }
-  //   return null;
-  // }
-  //
-  // String? validpanaadhar(String value) {
-  //   if (value.isEmpty) {
-  //     return '              This field is required';
-  //   }
-  //   if (value.length < 2) {
-  //     return '              Provide valid Aadhaar/pan number';
-  //   }
-  //   return null;
-  // }
-
-  void checkBankProfilee() {
+  void checkUpdateBankProfilee() {
     final isValid = franchisesbankprofileformkey.currentState!.validate();
+    franchiesUpdateBankApi();
     if (!isValid) {
       return;
     }
     franchisesbankprofileformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

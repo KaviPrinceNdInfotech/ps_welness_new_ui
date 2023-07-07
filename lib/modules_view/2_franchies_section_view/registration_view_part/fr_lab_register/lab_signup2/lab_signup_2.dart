@@ -17,7 +17,7 @@ class FrLabSignup2 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -33,16 +33,13 @@ class FrLabSignup2 extends StatelessWidget {
             children: [
               Positioned(
                 top: -size.height * 0.05,
-                //bottom: size.height * 0.64,
-                //left: -30,
                 right: -size.width * 0.08,
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Container(
                     height: size.height * 0.554,
                     width: size.width * 0.6,
-                    decoration: BoxDecoration(
-                        //color: Colors.,
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                         ),
@@ -59,8 +56,6 @@ class FrLabSignup2 extends StatelessWidget {
                 children: [
                   FrLab2HeadText(),
                   FrLab2Credentials(),
-                  //HospitalSocial(),
-                  //Spacer(),
                 ],
               ),
             ],

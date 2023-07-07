@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_lab_register/lab_signup2/lab_signup_2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -16,12 +18,7 @@ import '../../../../../../controllers/2_franchises_controller/registration_part_
 
 class FrLab1Credentials extends StatelessWidget {
   FrLab1Credentials({Key? key}) : super(key: key);
-
-  // Hospital_1_Controller _hospital_1_controller =
-  //     Get.put(Hospital_1_Controller());
-
   Fr_Lab_1_Controller _frlab_1_controller = Get.put(Fr_Lab_1_Controller());
-
   var items = [
     'Item 1',
     'Item 2',
@@ -29,11 +26,7 @@ class FrLab1Credentials extends StatelessWidget {
     'Item 4',
     'Item 5',
   ];
-
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +40,6 @@ class FrLab1Credentials extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ///TODO: Name.......................
-
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
@@ -78,7 +70,6 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -110,7 +101,6 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -141,7 +131,6 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -168,14 +157,11 @@ class FrLab1Credentials extends StatelessWidget {
                   border: InputBorder.none,
                 ),
                 keyboardType: TextInputType.visiblePassword,
-                //obscureText: true,
-                //controller: _loginpasswordController.mobileController,
               ),
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -204,16 +190,9 @@ class FrLab1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-            // RectangularInputField(
-            //   hintText: 'Password',
-            //   icon: Icons.lock,
-            //   obscureText: true,
-            // ),
-
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///todo: address value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -242,19 +221,17 @@ class FrLab1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-
             ///Todo: state............................
             SizedBox(
               height: size.height * 0.02,
             ),
-
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
+                  () => DropdownButtonFormField<StateModel>(
                       value: _frlab_1_controller.selectedState.value,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
                           color: Colors.black,
@@ -263,11 +240,11 @@ class FrLab1Credentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select State'),
-                      items: items.map((String items) {
+                      items: _frlab_1_controller.states.map((StateModel items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
-                            items,
+                            items.stateName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -275,21 +252,13 @@ class FrLab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
+                      onChanged: (StateModel? newValue) {
                         _frlab_1_controller.selectedState.value = newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
                       }),
                 ),
               ),
             ),
-
             ///Todo: city.....................................
-
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -298,10 +267,9 @@ class FrLab1Credentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField(
-                      //icon: Icon(Icons.location_city),
+                  () => DropdownButtonFormField<City>(
                       value: _frlab_1_controller.selectedCity.value,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
                           color: Colors.black,
@@ -310,11 +278,11 @@ class FrLab1Credentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Selected City'),
-                      items: items.map((String items) {
+                      items: _frlab_1_controller.cities.map((City items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
-                            items,
+                            items.cityName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -322,45 +290,15 @@ class FrLab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
+                      onChanged: (City? newValue) {
                         _frlab_1_controller.selectedCity.value = newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
                       }),
                 ),
               ),
             ),
-
-            // child: DropdownButton(
-            //     value: _hospital_2_controller.selectedState.value,
-            //     menuMaxHeight: size.height * 0.3,
-            //     items: items.map((String items) {
-            //       return DropdownMenuItem(
-            //         value: items,
-            //         child: Text(items),
-            //       );
-            //     }).toList(),
-            //     // _hospital_2_controller.states.map((String value) {
-            //     //   return DropdownMenuItem(
-            //     //     value: value,
-            //     //
-            //     //   )
-            //     onChanged: (String? newValue) {
-            //       _hospital_2_controller.states.value =
-            //           newValue! as List<String>;
-            //       _hospital_2_controller.selectedCity.value = null;
-            //       _hospital_2_controller.cities.clear();
-            //       _hospital_2_controller.cities
-            //           .addAll(stateCityMap[newvalue]!);
-            //     })),
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///TODO: Pin.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -389,34 +327,16 @@ class FrLab1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-
             SizedBox(
               height: size.height * 0.018,
-              //appPadding / 2,
             ),
             SizedBox(
               height: size.height * 0.00,
-              //appPadding / 2,
             ),
-
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: InkWell(
-            //     onTap: () {},
-            //     child: Text(
-            //       'Forget Password?',
-            //       style: GoogleFonts.alegreya(
-            //         fontWeight: FontWeight.w500,
-            //         fontSize: size.width * 0.035,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             RectangularButton(
                 text: 'Go Next>',
                 press: () {
                   Get.to(FrLabSignup2());
-                  //_loginpasswordController.checkLoginpassword();
                 })
           ],
         ),

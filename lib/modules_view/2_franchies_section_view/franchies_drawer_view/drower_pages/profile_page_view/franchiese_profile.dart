@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/profile_components/credentials.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/profile_components/head_text.dart';
-//import 'package:ps_welness/constants/constants/constants.dart';
-//import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/profile_components/credentials.dart';
-//import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/profile_components/head_text.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_components/credentials.dart';
-//import 'package:ps_welness/modules_view/drawer_view/drower_pages/profile_page_view/profile_components/head_text.dart';
 
 class FranchiessProfilePage extends StatelessWidget {
   const FranchiessProfilePage({Key? key}) : super(key: key);
@@ -15,7 +10,7 @@ class FranchiessProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -25,11 +20,6 @@ class FranchiessProfilePage extends StatelessWidget {
           ])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        // appBar: AppBar(
-        //   backgroundColor: MyTheme.ThemeColors,
-        //   elevation: 0,
-        //   title: Text('Update Profile'),
-        // ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Stack(
@@ -37,16 +27,13 @@ class FranchiessProfilePage extends StatelessWidget {
               children: [
                 Positioned(
                   top: size.height * 0.014,
-                  //bottom: size.height * 0.64,
-                  //left: -30,
                   right: size.width * 0.003,
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Container(
                       height: size.height * 0.230,
                       width: size.width * 0.40,
-                      decoration: BoxDecoration(
-                          //color: Colors.,
+                      decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                           ),
@@ -61,12 +48,8 @@ class FranchiessProfilePage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //FrancbhiesProfileeHeadText
                     FrancbhiesProfileeHeadText(),
                     FranchiesProfileCredentials(),
-                    //FranchiesProfileCredentials(),
-                    //HospitalSocial(),
-                    //Spacer(),
                   ],
                 ),
               ],

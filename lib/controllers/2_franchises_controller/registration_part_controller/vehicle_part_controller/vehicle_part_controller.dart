@@ -1,10 +1,33 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class Franchies_vehicle_Controller extends GetxController {
   final GlobalKey<FormState> frvehicleformkey = GlobalKey<FormState>();
+  RxBool isLoading = false.obs;
+   TextEditingController? nameController,
+      vehiclenumberController,
+      accountController,
+      confirmaccountController,
+      driverchargeController,
+      accountholderController,
+      IfscController,
+      vendorIdController;
 
+  var name = '';
+  var vehiclenumber = '';
+  var account = '';
+  var confirmaccount = '';
+  var drivercharge = '';
+  var acholdername = '';
+  var ifsccode = '';
   var selectedImagepath = ''.obs;
 
   void getImage(ImageSource imageSource) async {
@@ -15,78 +38,84 @@ class Franchies_vehicle_Controller extends GetxController {
       print('No image selected');
     }
   }
+  Rx<VehicleTypeName?> selectedVehicleType = (null as VehicleTypeName?).obs;
+  RxList<VehicleTypeName> vehicleType = <VehicleTypeName>[].obs;
+  Rx<VehicleCatDropdown?> selectedVehicleCat = (null as VehicleCatDropdown?).obs;
+  List<VehicleCatDropdown> vehicles = <VehicleCatDropdown>[].obs;
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
-
-  late TextEditingController nameController,
-      vehiclenumberController,
-      accountController,
-      confirmaccountController,
-      driverchaergeController,
-      accountholderController,
-      IfscController;
-
-  var name = '';
-  var vehiclenumber = '';
-  var account = '';
-  var confirmaccount = '';
-  var drivercharge = '';
-  var acholdername = '';
-  var ifsccode = '';
+  void getVehicleCategoryApi() async {
+    vehicles = await ApiProvider.getVehicleCategoryApi();
+  }
+  void getVehicleByCategoryID(String stateID) async {
+    vehicleType.clear();
+    final localList = await ApiProvider.getVehicleTypeApi(stateID);
+    vehicleType.addAll(localList);
+  }
+  void FrenchiesVehicleRegistration()async{
+    isLoading(true);
+    final imageAsBase64 = base64Encode(await File(selectedImagepath.value).readAsBytes());
+    http.Response r = await ApiProvider.FrenchiesRegisterVehicle(
+        nameController?.text,
+        vehiclenumberController?.text,
+        accountController?.text,
+        driverchargeController?.text,
+        accountholderController?.text,
+        selectedVehicleCat.value?.id.toString(),
+        selectedVehicleType.value?.id.toString(),
+        IfscController?.text,
+        selectedImagepath.value.split('/').last,
+        imageAsBase64
+        );
+    if(r.statusCode == 200){
+      isLoading(false);
+    }
+  }
 
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
-    nameController = TextEditingController();
-    vehiclenumberController = TextEditingController();
-    accountController = TextEditingController();
-    confirmaccountController = TextEditingController();
-    driverchaergeController = TextEditingController();
-    accountholderController = TextEditingController();
-    IfscController = TextEditingController();
+    getVehicleCategoryApi();
+    selectedVehicleCat.listen((p0) {
+      if (p0 != null) {
+        getVehicleByCategoryID("${p0.id}");
+      }
+    }
+    );
+    nameController = TextEditingController(text: 'hhhhhh');
+    vehiclenumberController = TextEditingController(text: '987699');
+    accountController = TextEditingController(text: '156676543322');
+    driverchargeController = TextEditingController(text: '233');
+    accountholderController = TextEditingController(text: 'acs');
+    IfscController = TextEditingController(text: 'PUNB11455');
   }
-
   @override
   void onReady() {
     super.onReady();
   }
-
   @override
   void onClose() {
-    nameController.dispose();
-    vehiclenumberController.dispose();
-    accountController.dispose();
-    confirmaccountController.dispose();
-    driverchaergeController.dispose();
-    accountholderController.dispose();
-    IfscController.dispose();
+    nameController?.dispose();
+    vehiclenumberController?.dispose();
+    accountController?.dispose();
+    confirmaccountController?.dispose();
+    driverchargeController?.dispose();
+    accountholderController?.dispose();
+    IfscController?.dispose();
   }
-
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
     }
     return null;
   }
-
   String? validnumber(String value) {
     if (value.isEmpty) {
       return '              This field is required';
     }
-
     return null;
   }
-
   String? validAcno(String value) {
     account = value;
-
     if (value.isEmpty) {
       return "              Please Enter account no";
     } else if (value.length < 8) {
@@ -95,7 +124,6 @@ class Franchies_vehicle_Controller extends GetxController {
       return null;
     }
   }
-
   String? validConfirmAcno(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter account no";
@@ -137,10 +165,10 @@ class Franchies_vehicle_Controller extends GetxController {
 
   void checkFrvehicle() {
     final isValid = frvehicleformkey.currentState!.validate();
+    FrenchiesVehicleRegistration();
     if (!isValid) {
       return;
     }
     frvehicleformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

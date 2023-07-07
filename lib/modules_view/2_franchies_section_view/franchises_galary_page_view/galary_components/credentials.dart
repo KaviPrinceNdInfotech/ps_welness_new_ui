@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,19 +7,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_gallary/add_galary_controller.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/controllers/2_franchises_controller/add_gallary/add_galary_controller.dart';
-
-import '../../../../controllers/6_chemist_view_controllers/chemist_profile_controller/chemist_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_getGallery_controller.dart';
 
 class franchiesGalarryCredentials extends StatelessWidget {
   franchiesGalarryCredentials({Key? key}) : super(key: key);
-
-  // Hospital_1_Controller _hospital_1_controller =
-  //     Get.put(Hospital_1_Controller());
-
-  FranchisesgalaryController _franchisesgalaryController =
-      Get.put(FranchisesgalaryController());
+  FranchisesgalaryController _franchisesgalaryController = Get.put(FranchisesgalaryController());
+  FrenchiesGetGalleryController frenchiesGetGalleryController = Get.put(FrenchiesGetGalleryController());
 
   var items = [
     'Item 1',
@@ -28,9 +23,6 @@ class franchiesGalarryCredentials extends StatelessWidget {
   ];
 
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,48 +35,14 @@ class franchiesGalarryCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ///Todo: email.....................
-            // NeumorphicTextFieldContainer(
-            //   child: TextFormField(
-            //     autofillHints: [AutofillHints.email],
-            //     controller: _profileController.emailController,
-            //     onSaved: (value) {
-            //       _profileController.email = value!;
-            //     },
-            //     validator: (value) {
-            //       return _profileController.validEmail(value!);
-            //     },
-            //     cursorColor: Colors.black,
-            //     obscureText: false,
-            //     decoration: InputDecoration(
-            //       hintText: 'Email',
-            //       helperStyle: TextStyle(
-            //         color: black.withOpacity(0.7),
-            //         fontSize: 18,
-            //       ),
-            //       prefixIcon: Icon(
-            //         Icons.email,
-            //         color: black.withOpacity(0.7),
-            //         size: 20,
-            //       ),
-            //       border: InputBorder.none,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.02,
-            // ),
-
             ///todo:  name..........
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  //height: size.height * 0.06,
                   width: size.width * 0.37,
-                  //margin: EdgeInsets.symmetric(vertical: appPadding / 3),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                           colors: [
@@ -92,7 +50,7 @@ class franchiesGalarryCredentials extends StatelessWidget {
                             darkPrimary,
                           ]),
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           offset: Offset(-2, -2),
                           spreadRadius: 1,
@@ -126,11 +84,6 @@ class franchiesGalarryCredentials extends StatelessWidget {
                         color: black.withOpacity(0.7),
                         fontSize: 12,
                       ),
-                      // prefixIcon: Icon(
-                      //   Icons.account_box,
-                      //   color: black.withOpacity(0.7),
-                      //   size: 20,
-                      // ),
                       border: InputBorder.none,
                     ),
                   ),
@@ -138,9 +91,8 @@ class franchiesGalarryCredentials extends StatelessWidget {
                 Container(
                   height: size.height * 0.06,
                   width: size.width * 0.40,
-                  //margin: EdgeInsets.symmetric(vertical: appPadding / 3),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                           colors: [
@@ -148,7 +100,7 @@ class franchiesGalarryCredentials extends StatelessWidget {
                             darkPrimary,
                           ]),
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           offset: Offset(-2, -2),
                           spreadRadius: 1,
@@ -162,14 +114,12 @@ class franchiesGalarryCredentials extends StatelessWidget {
                           color: lightShadow,
                         ),
                       ]),
-                  child: GetBuilder<ChemistProfileController>(
+                  child: GetBuilder<FranchisesgalaryController>(
                     // specify type as Controller
-                    init:
-                        ChemistProfileController(), // intialize with the Controller
+                    init: FranchisesgalaryController(), // intialize with the Controller
                     builder: (value) => InkWell(
                       onTap: () {
-                        _franchisesgalaryController
-                            .getImage(ImageSource.gallery);
+                        _franchisesgalaryController.getImage(ImageSource.gallery);
                       },
                       child: Container(
                         height: size.height * 0.03,
@@ -195,45 +145,54 @@ class franchiesGalarryCredentials extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: size.height * 0.06,
-                  width: size.width * 0.15,
-                  margin: EdgeInsets.symmetric(vertical: appPadding / 3),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            lightPrimary1,
-                            darkPrimary2,
-                          ]),
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(-2, -2),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          color: darkShadow,
-                        ),
-                        BoxShadow(
-                          offset: Offset(2, 2),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          color: lightShadow,
-                        ),
-                      ]),
+                InkWell(
+                  onTap: (){
+                   _franchisesgalaryController.checkAddGallery();
+
+                   Timer(const Duration(seconds: 1), () =>
+                       frenchiesGetGalleryController.FrenchiesGetGalleryApi()
+                   );
+                  },
                   child: Container(
                     height: size.height * 0.06,
-                    width: size.width * 0.1,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * 0.0),
-                      child: Center(
-                        child: Text(
-                          'Post',
-                          style: TextStyle(
-                            fontSize: size.width * 0.03,
-                            fontWeight: FontWeight.w700,
+                    width: size.width * 0.15,
+                    margin: EdgeInsets.symmetric(vertical: appPadding / 3),
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              lightPrimary1,
+                              darkPrimary2,
+                            ]),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: const [
+                          BoxShadow(
+                            offset: Offset(-2, -2),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            color: darkShadow,
+                          ),
+                          BoxShadow(
+                            offset: Offset(2, 2),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            color: lightShadow,
+                          ),
+                        ]),
+                    child: Container(
+                      height: size.height * 0.06,
+                      width: size.width * 0.1,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.0),
+                        child: Center(
+                          child: Text(
+                            'Post',
+                            style: TextStyle(
+                              fontSize: size.width * 0.03,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),

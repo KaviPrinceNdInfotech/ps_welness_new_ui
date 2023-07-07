@@ -30,9 +30,7 @@ class FrNurses_2_Controller extends GetxController {
       certificateController,
       addressController;
 
-  var pin = '';
-  var address = '';
-  var certificateno = '';
+
 
   //get stateCitymap => null;
 
@@ -44,9 +42,7 @@ class FrNurses_2_Controller extends GetxController {
     //);
     states.refresh();
 
-    pinController = TextEditingController();
-    addressController = TextEditingController();
-    certificateController = TextEditingController();
+
     super.onInit();
   }
 
@@ -62,29 +58,7 @@ class FrNurses_2_Controller extends GetxController {
     certificateController.dispose();
   }
 
-  String? validPin(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    if (value.length != 6) {
-      return '              A valid pin should be of 6 digits';
-    }
-    return null;
-  }
 
-  String? validAddress(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    return null;
-  }
-
-  String? validcertificate(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    return null;
-  }
 
   void checknurse2() {
     final isValid = frnurse2formkey.currentState!.validate();

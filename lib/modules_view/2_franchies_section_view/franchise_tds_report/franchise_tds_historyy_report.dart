@@ -1,48 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTDSReportDD_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
-//import 'package:ps_welness/constants/constants/constants.dart';
-//import 'package:ps_welness/constants/my_theme.dart';
-//import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-
 import '../../../controllers/2_franchises_controller/franchise_tdshistory_report/franchise_tds_history_report.dart';
 
 class FranchiseTdsHistoryReport extends StatelessWidget {
   FranchiseTdsHistoryReport({Key? key}) : super(key: key);
 
-  FranchiseTdsHistoryReportController _franchisecommissionController =
-      Get.put(FranchiseTdsHistoryReportController());
-
-  var items = [
-    'Doctor',
-    'Vehicle',
-    'Nurse',
-    'Lab',
-    'Health Checkup',
-    'Chemist',
-  ];
-
+  FranchiseTdsHistoryReportController _franchiseTdsHistoryReportController = Get.put(FranchiseTdsHistoryReportController());
   get newvalue => null!;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   title: Text('Appintment History'),
-      //   backgroundColor: MyTheme.ThemeColors,
-      // ),
       body: SingleChildScrollView(
         child: Column(
-          //clipBehavior: Clip.none,
           children: [
             SizedBox(
               height: size.height * 0.05,
@@ -61,7 +42,7 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                     child: Container(
                         height: size.height * 0.032,
                         width: size.width * 0.071,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white70,
                           shape: BoxShape.circle,
                         ),
@@ -84,18 +65,15 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                 ],
               ),
             ),
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
               child: NeumorphicTextFieldContainer(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
                   child: Obx(
-                    () => DropdownButtonFormField(
-                        //icon: Icon(Icons.location_city),
-                        value:
-                            _franchisecommissionController.selectedCity.value,
-                        decoration: InputDecoration(
+                    () => DropdownButtonFormField<TdsDropdown>(
+                        value: _franchiseTdsHistoryReportController.selectedRole.value,
+                        decoration: const InputDecoration(
                           prefixIcon: Icon(
                             Icons.list_alt,
                             color: Colors.black,
@@ -104,11 +82,11 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select Any'),
-                        items: items.map((String items) {
+                        items: _franchiseTdsHistoryReportController.role.map((TdsDropdown items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
-                              items,
+                              items.name,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: size.height * 0.015,
@@ -116,15 +94,13 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        onChanged: (String? newValue) {
-                          _franchisecommissionController.selectedCity.value =
-                              newValue!;
-                          // _hospital_2_controller.states.value =
-                          //     newValue! as List<String>;
-                          // _hospital_2_controller.selectedCity.value = null;
-                          // _hospital_2_controller.cities.clear();
-                          // _hospital_2_controller.cities
-                          //     .addAll(stateCityMap[newvalue]!);
+                        onChanged: (TdsDropdown? newValue) {
+                           _franchiseTdsHistoryReportController.selectedRole.value = newValue!;
+                          // _franchiseTdsHistoryReportController.frenchiesTDSReportApi(newValue.name);
+                          // _franchiseTdsHistoryReportController.frenchiesTotalTDSAmountApi(newValue.name);
+
+
+                         // _franchiseTdsHistoryReportController.frenchiesTDSListByDateApi(newValue.name);
                         }),
                   ),
                 ),
@@ -134,30 +110,54 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
               child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Total TDS Amount : 00',
-                    style: TextStyle(
-                      color: MyTheme.blueww,
-                      fontSize: size.height * 0.016,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Total TDS Amount :',
+                        style: TextStyle(
+                          color: MyTheme.blueww,
+                          fontSize: size.height * 0.016,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Obx(()=>
+                      _franchiseTdsHistoryReportController.isLoading.value
+                          ? Center(child: Text("wait"))
+                          :
+                      Text("${_franchiseTdsHistoryReportController.getfrenchiesTotalTdsModel?.amount?.toStringAsFixed(2) ?? 0}"))
+                    ],
+                  )
+              ),
             ),
 
             Row(
               children: [
                 Container(
+                  decoration: const BoxDecoration(
+                      borderRadius:
+                           BorderRadius.all(Radius.circular(10.0)),
+                      color: Colors.white),
+                  width: size.width * 0.34,
+                  height: size.height * 0.06,
+                  margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
+                  padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
                   child: Theme(
                     data: Theme.of(context)
                         .copyWith(splashColor: Colors.transparent),
-                    child: Obx(
-                      () => (_franchisecommissionController.isLoading.value)
-                          ? Center(child: CircularProgressIndicator())
+                    child: Obx(() =>
+                        // Center(
+                        //   child: Text(
+                        //     DateFormat("dd-MM-yyyy")
+                        //         .format(_franchiseTdsHistoryReportController.selectedDate.value),
+                        //     style: TextStyle(fontSize: 15)
+                        //   ),
+                        // )
+                    (_franchiseTdsHistoryReportController.isLoading.value)
+                          ? Center(child: Text("Wait"))
                           : TextField(
-                              controller: _franchisecommissionController
-                                  .appointmentController,
+                              controller: _franchiseTdsHistoryReportController.appointmentController,
                               onTap: () {
-                                _franchisecommissionController.chooseDate();
+                                _franchiseTdsHistoryReportController.chooseDate();
                               },
                               autofocus: false,
                               style: TextStyle(
@@ -181,710 +181,278 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                             ),
                     ),
                   ),
-                  decoration: new BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(10.0)),
-                      color: Colors.white),
-                  width: size.width * 0.34,
-                  height: size.height * 0.06,
-                  margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
-                  padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
                 ),
-                Container(
-                  child: Theme(
-                    data: Theme.of(context)
-                        .copyWith(splashColor: Colors.transparent),
-                    child: Obx(
-                      () => (_franchisecommissionController.isLoading.value)
-                          ? Center(child: CircularProgressIndicator())
-                          : TextField(
-                              controller: _franchisecommissionController
-                                  .appointmentController2,
-                              onTap: () {
-                                _franchisecommissionController.chooseDate2();
-                              },
-                              autofocus: false,
-                              style: TextStyle(
-                                  fontSize: 15.0, color: MyTheme.blueww),
-                              decoration: InputDecoration(
-                                //prefixIcon: Icon(Icons.search),
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'dd-mm-yyyy',
-                                contentPadding: const EdgeInsets.only(
-                                    left: 10.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
+                InkWell(
+                  onTap: (){
+                    _franchiseTdsHistoryReportController.chooseDate2();
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all( Radius.circular(10.0)),
+                        color: Colors.white),
+                    width: size.width * 0.34,
+                    height: size.height * 0.06,
+                    margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
+                    child: Theme(
+                      data: Theme.of(context)
+                          .copyWith(splashColor: Colors.transparent),
+                      child: Obx(
+                        () =>
+                        //     Center(
+                        //   child: Text(
+                        //       DateFormat("dd-MM-yyyy")
+                        //           .format(_franchiseTdsHistoryReportController.selectedDate2.value).toString(),
+                        //       style: TextStyle(fontSize: 15)
+                        //   ),
+                        // )
+
+                        (_franchiseTdsHistoryReportController.isLoading.value)
+                            ? Center(child: Text("Wait"))
+                            :
+                        TextField(
+                                controller: _franchiseTdsHistoryReportController.appointmentController2,
+                                onTap: () {
+                                  _franchiseTdsHistoryReportController.chooseDate2();
+                                },
+                                autofocus: false,
+                                style: TextStyle(
+                                    fontSize: 15.0, color: MyTheme.blueww),
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'dd-mm-yyyy',
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 10.0, bottom: 12.0, top: 0.0),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(25.7),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(25.7),
+                                  ),
                                 ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
-                  decoration: new BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(10.0)),
-                      color: Colors.white),
-                  width: size.width * 0.34,
-                  height: size.height * 0.06,
-                  margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
-                  padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
                 ),
-                Container(
-                  height: size.height * 0.06,
-                  width: size.width * 0.2,
-                  decoration: BoxDecoration(
-                    color: MyTheme.blueww,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Center(
-                      child: Text(
-                    'Search',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: size.width * 0.035,
-                      fontWeight: FontWeight.bold,
+                InkWell(
+                  onTap: (){
+                    _franchiseTdsHistoryReportController.update();
+                    Timer(const Duration(seconds: 1), () {
+                      _franchiseTdsHistoryReportController.frenchiesTotalTDSAmountApi();
+                      _franchiseTdsHistoryReportController.frenchiesTDSListByDateApi();
+                    });
+                  },
+                  child: Container(
+                    height: size.height * 0.06,
+                    width: size.width * 0.2,
+                    decoration: BoxDecoration(
+                      color: MyTheme.blueww,
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                  )),
+                    child: Center(
+                        child: Text(
+                      'Search',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: size.width * 0.035,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+                  ),
                 ),
               ],
             ),
-
-            SizedBox(
-                height: size.height * 0.67,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 7,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.03,
-                            vertical: size.height * 0.0005),
-                        child: Container(
-                          height: size.height * 0.25,
-                          margin: EdgeInsets.symmetric(vertical: 30 / 9),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    lightPrimary2,
-                                    darkPrimary2,
-                                  ]),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(-0, -0),
-                                  spreadRadius: 0,
-                                  blurRadius: 0,
-                                  color: darkShadow,
-                                ),
-                                BoxShadow(
-                                  offset: Offset(1, 3),
-                                  spreadRadius: 0,
-                                  blurRadius: 0,
-                                  color: Colors.grey,
-                                ),
-                              ],
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                      //'https://images.unsplash.com/photo-1557683311-eac922347aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1658&q=80'
-                                      //'https://images.unsplash.com/photo-1628527304948-06157ee3c8a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGF5bWVudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'
-                                      //'lib/assets/background_stack_png/appointment6.png'
+            Obx(()=> _franchiseTdsHistoryReportController.isLoading.value
+                ? const Center(child: CircularProgressIndicator(),)
+              : _franchiseTdsHistoryReportController.gettdsByDateModel == null
+                ? const Center(child: Text("Record Not Found!!!"),)
+            : SizedBox(
+                  height: size.height * 0.67,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _franchiseTdsHistoryReportController.gettdsByDateModel?.tdsReport?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var item = _franchiseTdsHistoryReportController.gettdsByDateModel?.tdsReport;
+                        return   Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.03,
+                              vertical: size.height * 0.0005),
+                          child: Container(
+                            height: size.height * 0.25,
+                            margin: const EdgeInsets.symmetric(vertical: 30 / 9),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: const LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [
+                                      lightPrimary2,
+                                      darkPrimary2,
+                                    ]),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    offset: Offset(-0, -0),
+                                    spreadRadius: 0,
+                                    blurRadius: 0,
+                                    color: darkShadow,
+                                  ),
+                                  BoxShadow(
+                                    offset: Offset(1, 3),
+                                    spreadRadius: 0,
+                                    blurRadius: 0,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                                image: const DecorationImage(
+                                    image: NetworkImage(
+                                        'https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+                                        ),
+                                    fit: BoxFit.cover)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Name:',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                  fit: BoxFit.cover)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Name:',
-                                      style: GoogleFonts.poppins(
-                                        color: MyTheme.blueww,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.width * 0.035,
+                                      Text(
+                                        'Paid Fees :',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Paid Fees :',
-                                      style: GoogleFonts.poppins(
-                                        color: MyTheme.blueww,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.width * 0.035,
+                                      Text(
+                                        'Payment Id:',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Payment Id:',
-                                      style: GoogleFonts.poppins(
-                                        color: MyTheme.blueww,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.width * 0.035,
+                                      Text(
+                                        'Location:',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Location:',
-                                      style: GoogleFonts.poppins(
-                                        color: MyTheme.blueww,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.width * 0.035,
+                                      Text(
+                                        'Payment date:',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Payment date:',
-                                      style: GoogleFonts.poppins(
-                                        color: MyTheme.blueww,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.width * 0.035,
+                                      Text(
+                                        'Payment Timing :',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Payment Timing :',
-                                      style: GoogleFonts.poppins(
-                                        color: MyTheme.blueww,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.width * 0.035,
+                                      Text(
+                                        'Tds :',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Dr Kumar',
-                                      style: GoogleFonts.raleway(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: size.width * 0.035),
-                                    ),
-                                    Text(
-                                      '₹ 20000',
-                                      style: GoogleFonts.raleway(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: size.width * 0.035),
-                                    ),
-                                    Text(
-                                      'ugu876',
-                                      style: GoogleFonts.raleway(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: size.width * 0.035),
-                                    ),
-                                    Text(
-                                      'Sector 45,C52 Noida',
-                                      style: GoogleFonts.raleway(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: size.width * 0.035),
-                                    ),
-                                    Text(
-                                      'Nov 15,2022',
-                                      style: GoogleFonts.raleway(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: size.width * 0.035),
-                                    ),
-                                    Text(
-                                      '08:00 pm',
-                                      style: GoogleFonts.raleway(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: size.width * 0.035),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      Text(
+                                        'Pay amount :',
+                                        style: GoogleFonts.poppins(
+                                          color: MyTheme.blueww,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.width * 0.035,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${item?[index].name}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].paidFees}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].paymentId}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].location}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].paymentDate}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].paymentTime}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].tds}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                      Text('${item?[index].payAmount}',
+                                        style: GoogleFonts.raleway(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: size.width * 0.035),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    })),
-
-            // Positioned(
-            //   top: 50,
-            //   child: Container(
-            //     height: size.height * 0.10,
-            //     width: size.width * 0.19,
-            //     decoration: BoxDecoration(
-            //       color: Colors.green,
-            //       shape: BoxShape.circle,
-            //     ),
-            //   ),
-            // ),
+                        );
+                      })),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-///
-
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:get/get_core/src/get_main.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-//
-// import '../../../controllers/2_franchises_controller/franchise_tdshistory_report/franchise_tds_history_report.dart';
-//
-// class FranchiseTdsHistoryReport extends StatelessWidget {
-//   FranchiseTdsHistoryReport({Key? key}) : super(key: key);
-//
-//   FranchiseTdsHistoryReportController _franchisecommissionController =
-//       Get.put(FranchiseTdsHistoryReportController());
-//
-//   var items = [
-//     'Doctor',
-//     'Vehicle',
-//     'Nurse',
-//     'Lab',
-//     'Health Checkup',
-//     'Chemist',
-//   ];
-//
-//   get newvalue => null!;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-//     return Scaffold(
-//       backgroundColor: MyTheme.ThemeColors,
-//
-//       // appBar: AppBar(
-//       //   centerTitle: true,
-//       //   elevation: 0,
-//       //   title: Text('Appintment History'),
-//       //   backgroundColor: MyTheme.ThemeColors,
-//       // ),
-//
-//       body: SingleChildScrollView(
-//         child: Column(
-//           //clipBehavior: Clip.none,
-//           children: [
-//             SizedBox(
-//               height: size.height * 0.05,
-//             ),
-//             SizedBox(
-//               height: size.height * 0.0,
-//             ),
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-//               child: Row(
-//                 children: [
-//                   InkWell(
-//                     onTap: () {
-//                       Get.back();
-//                     },
-//                     child: Container(
-//                         height: size.height * 0.032,
-//                         width: size.width * 0.071,
-//                         decoration: BoxDecoration(
-//                           color: Colors.white70,
-//                           shape: BoxShape.circle,
-//                         ),
-//                         child: Icon(
-//                           Icons.arrow_back_ios_outlined,
-//                           size: size.height * 0.022,
-//                         )),
-//                   ),
-//                   SizedBox(
-//                     width: size.width * 0.02,
-//                   ),
-//                   Text(
-//                     'Franchise TDS History',
-//                     style: TextStyle(
-//                       color: MyTheme.blueww,
-//                       fontSize: size.width * 0.045,
-//                       fontWeight: FontWeight.w700,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//
-//             // Padding(
-//             //   padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-//             //   child: NeumorphicTextFieldContainer(
-//             //     child: Padding(
-//             //       padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-//             //       child: Obx(
-//             //         () => DropdownButtonFormField(
-//             //             //icon: Icon(Icons.location_city),
-//             //             value:
-//             //                 _franchisecommissionController.selectedCity.value,
-//             //             decoration: InputDecoration(
-//             //               prefixIcon: Icon(
-//             //                 Icons.list_alt,
-//             //                 color: Colors.black,
-//             //               ),
-//             //               enabledBorder: InputBorder.none,
-//             //               border: InputBorder.none,
-//             //             ),
-//             //             hint: Text('Select Any'),
-//             //             items: items.map((String items) {
-//             //               return DropdownMenuItem(
-//             //                 value: items,
-//             //                 child: Text(
-//             //                   items,
-//             //                   style: TextStyle(
-//             //                     fontWeight: FontWeight.w600,
-//             //                     fontSize: size.height * 0.015,
-//             //                   ),
-//             //                 ),
-//             //               );
-//             //             }).toList(),
-//             //             onChanged: (String? newValue) {
-//             //               _franchisecommissionController.selectedCity.value =
-//             //                   newValue!;
-//             //               // _hospital_2_controller.states.value =
-//             //               //     newValue! as List<String>;
-//             //               // _hospital_2_controller.selectedCity.value = null;
-//             //               // _hospital_2_controller.cities.clear();
-//             //               // _hospital_2_controller.cities
-//             //               //     .addAll(stateCityMap[newvalue]!);
-//             //             }),
-//             //       ),
-//             //     ),
-//             //   ),
-//             // ),
-//
-//             SizedBox(
-//               height: size.height * 0.01,
-//             ),
-//
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-//               child: Align(
-//                   alignment: Alignment.centerLeft,
-//                   child: Row(
-//                     children: [
-//                       Text(
-//                         'Total Tds Amount:',
-//                         style: TextStyle(
-//                           color: MyTheme.white,
-//                           fontSize: size.height * 0.016,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         width: size.width * 0.01,
-//                       ),
-//                       Text(
-//                         'Rs.20000',
-//                         style: TextStyle(
-//                           color: Colors.red.shade800,
-//                           fontSize: size.height * 0.022,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ],
-//                   )),
-//             ),
-//
-//             ///.................
-//
-//             Row(
-//               children: [
-//                 Container(
-//                   child: Theme(
-//                     data: Theme.of(context)
-//                         .copyWith(splashColor: Colors.transparent),
-//                     child: Obx(
-//                       () => (_franchisecommissionController.isLoading.value)
-//                           ? Center(child: CircularProgressIndicator())
-//                           : TextField(
-//                               controller: _franchisecommissionController
-//                                   .appointmentController,
-//                               onTap: () {
-//                                 _franchisecommissionController.chooseDate();
-//                               },
-//                               autofocus: false,
-//                               style: TextStyle(
-//                                   fontSize: 15.0, color: MyTheme.blueww),
-//                               decoration: InputDecoration(
-//                                 //prefixIcon: Icon(Icons.search),
-//                                 filled: true,
-//                                 fillColor: Colors.white,
-//                                 hintText: 'dd-mm-yyyy',
-//                                 contentPadding: const EdgeInsets.only(
-//                                     left: 10.0, bottom: 12.0, top: 0.0),
-//                                 focusedBorder: OutlineInputBorder(
-//                                   borderSide: BorderSide(color: Colors.white),
-//                                   borderRadius: BorderRadius.circular(25.7),
-//                                 ),
-//                                 enabledBorder: UnderlineInputBorder(
-//                                   borderSide: BorderSide(color: Colors.white),
-//                                   borderRadius: BorderRadius.circular(25.7),
-//                                 ),
-//                               ),
-//                             ),
-//                     ),
-//                   ),
-//                   decoration: new BoxDecoration(
-//                       borderRadius:
-//                           new BorderRadius.all(new Radius.circular(10.0)),
-//                       color: Colors.white),
-//                   width: size.width * 0.34,
-//                   height: size.height * 0.06,
-//                   margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
-//                   padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
-//                 ),
-//                 Container(
-//                   child: Theme(
-//                     data: Theme.of(context)
-//                         .copyWith(splashColor: Colors.transparent),
-//                     child: Obx(
-//                       () => (_franchisecommissionController.isLoading.value)
-//                           ? Center(child: CircularProgressIndicator())
-//                           : TextField(
-//                               controller: _franchisecommissionController
-//                                   .appointmentController2,
-//                               onTap: () {
-//                                 _franchisecommissionController.chooseDate2();
-//                               },
-//                               autofocus: false,
-//                               style: TextStyle(
-//                                   fontSize: 15.0, color: MyTheme.blueww),
-//                               decoration: InputDecoration(
-//                                 //prefixIcon: Icon(Icons.search),
-//                                 filled: true,
-//                                 fillColor: Colors.white,
-//                                 hintText: 'dd-mm-yyyy',
-//                                 contentPadding: const EdgeInsets.only(
-//                                     left: 10.0, bottom: 12.0, top: 0.0),
-//                                 focusedBorder: OutlineInputBorder(
-//                                   borderSide: BorderSide(color: Colors.white),
-//                                   borderRadius: BorderRadius.circular(25.7),
-//                                 ),
-//                                 enabledBorder: UnderlineInputBorder(
-//                                   borderSide: BorderSide(color: Colors.white),
-//                                   borderRadius: BorderRadius.circular(25.7),
-//                                 ),
-//                               ),
-//                             ),
-//                     ),
-//                   ),
-//                   decoration: new BoxDecoration(
-//                       borderRadius:
-//                           new BorderRadius.all(new Radius.circular(10.0)),
-//                       color: Colors.white),
-//                   width: size.width * 0.34,
-//                   height: size.height * 0.06,
-//                   margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
-//                   padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
-//                 ),
-//                 Container(
-//                   height: size.height * 0.06,
-//                   width: size.width * 0.2,
-//                   decoration: BoxDecoration(
-//                     color: MyTheme.blueww,
-//                     borderRadius: BorderRadius.circular(30),
-//                   ),
-//                   child: Center(
-//                       child: Text(
-//                     'Search',
-//                     style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: size.width * 0.035,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   )),
-//                 ),
-//               ],
-//             ),
-//
-//             SizedBox(
-//                 height: size.height * 0.75,
-//                 child: ListView.builder(
-//                     shrinkWrap: true,
-//                     itemCount: 7,
-//                     itemBuilder: (BuildContext context, int index) {
-//                       return Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             horizontal: size.width * 0.03,
-//                             vertical: size.height * 0.0005),
-//                         child: Container(
-//                           height: size.height * 0.25,
-//                           margin: EdgeInsets.symmetric(vertical: 30 / 9),
-//                           decoration: BoxDecoration(
-//                               borderRadius: BorderRadius.circular(20),
-//                               gradient: LinearGradient(
-//                                   begin: Alignment.centerLeft,
-//                                   end: Alignment.centerRight,
-//                                   colors: [
-//                                     lightPrimary2,
-//                                     darkPrimary2,
-//                                   ]),
-//                               boxShadow: [
-//                                 BoxShadow(
-//                                   offset: Offset(-0, -0),
-//                                   spreadRadius: 0,
-//                                   blurRadius: 0,
-//                                   color: darkShadow,
-//                                 ),
-//                                 BoxShadow(
-//                                   offset: Offset(1, 3),
-//                                   spreadRadius: 0,
-//                                   blurRadius: 0,
-//                                   color: Colors.grey,
-//                                 ),
-//                               ],
-//                               image: DecorationImage(
-//                                   image: NetworkImage(
-//                                       'https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-//                                       // 'https://images.unsplash.com/photo-1614850523060-8da1d56ae167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-//                                       //'https://images.unsplash.com/photo-1557683311-eac922347aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1658&q=80'
-//                                       //'https://images.unsplash.com/photo-1628527304948-06157ee3c8a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGF5bWVudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'
-//                                       //'lib/assets/background_stack_png/appointment6.png'
-//                                       ),
-//                                   fit: BoxFit.cover)),
-//                           child: Padding(
-//                             padding: const EdgeInsets.all(6.0),
-//                             child: Row(
-//                               mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                               children: [
-//                                 Column(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceAround,
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   children: [
-//                                     Text(
-//                                       'Name:',
-//                                       style: GoogleFonts.poppins(
-//                                         color: MyTheme.blueww,
-//                                         fontWeight: FontWeight.w600,
-//                                         fontSize: size.width * 0.035,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       'Paid Fees :',
-//                                       style: GoogleFonts.poppins(
-//                                         color: MyTheme.blueww,
-//                                         fontWeight: FontWeight.w600,
-//                                         fontSize: size.width * 0.035,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       'Payment Id:',
-//                                       style: GoogleFonts.poppins(
-//                                         color: MyTheme.blueww,
-//                                         fontWeight: FontWeight.w600,
-//                                         fontSize: size.width * 0.035,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       'Location:',
-//                                       style: GoogleFonts.poppins(
-//                                         color: MyTheme.blueww,
-//                                         fontWeight: FontWeight.w600,
-//                                         fontSize: size.width * 0.035,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       'Payment date:',
-//                                       style: GoogleFonts.poppins(
-//                                         color: MyTheme.blueww,
-//                                         fontWeight: FontWeight.w600,
-//                                         fontSize: size.width * 0.035,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       'Payment Timing :',
-//                                       style: GoogleFonts.poppins(
-//                                         color: MyTheme.blueww,
-//                                         fontWeight: FontWeight.w600,
-//                                         fontSize: size.width * 0.035,
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                                 Column(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceAround,
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   children: [
-//                                     Text(
-//                                       'Dr.Ravi Kumar',
-//                                       style: GoogleFonts.raleway(
-//                                           color: Colors.brown,
-//                                           fontWeight: FontWeight.w700,
-//                                           fontSize: size.width * 0.035),
-//                                     ),
-//                                     Text(
-//                                       '₹ 10000',
-//                                       style: GoogleFonts.raleway(
-//                                           color: Colors.brown,
-//                                           fontWeight: FontWeight.w700,
-//                                           fontSize: size.width * 0.035),
-//                                     ),
-//                                     Text(
-//                                       '89tt879',
-//                                       style: GoogleFonts.raleway(
-//                                           color: Colors.brown,
-//                                           fontWeight: FontWeight.w700,
-//                                           fontSize: size.width * 0.035),
-//                                     ),
-//                                     Text(
-//                                       'Sector 02,C45 Noida',
-//                                       style: GoogleFonts.raleway(
-//                                           color: Colors.brown,
-//                                           fontWeight: FontWeight.w700,
-//                                           fontSize: size.width * 0.035),
-//                                     ),
-//                                     Text(
-//                                       'Nov 30,2022',
-//                                       style: GoogleFonts.raleway(
-//                                           color: Colors.brown,
-//                                           fontWeight: FontWeight.w700,
-//                                           fontSize: size.width * 0.035),
-//                                     ),
-//                                     Text(
-//                                       '01:00 pm',
-//                                       style: GoogleFonts.raleway(
-//                                           color: Colors.brown,
-//                                           fontWeight: FontWeight.w700,
-//                                           fontSize: size.width * 0.035),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                       );
-//                     })),
-//
-//             // Positioned(
-//             //   top: 50,
-//             //   child: Container(
-//             //     height: size.height * 0.10,
-//             //     width: size.width * 0.19,
-//             //     decoration: BoxDecoration(
-//             //       color: Colors.green,
-//             //       shape: BoxShape.circle,
-//             //     ),
-//             //   ),
-//             // ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

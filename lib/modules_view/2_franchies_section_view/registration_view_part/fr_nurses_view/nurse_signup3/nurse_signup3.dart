@@ -57,8 +57,6 @@ class FrNursesSignup3 extends StatelessWidget {
                   children: [
                     FrNurses3HeadText(),
                     FrNurses3Credentials(),
-                    //HospitalSocial(),
-                    //Spacer(),
                   ],
                 ),
               ],

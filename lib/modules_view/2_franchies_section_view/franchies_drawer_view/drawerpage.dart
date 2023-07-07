@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/about_franchies/about_franchies.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/complaint_page/complaint_page.dart';
@@ -16,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness/modules_view/forget_password_view/forget_password_view.dart';
 
 import '../../forget_password_view/forget_password_view.dart';
-import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/about_franchies/about_franchies.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_details_franchies/profile_franchies_detail_page.dart';
@@ -77,7 +74,6 @@ class FranchiesisMainDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              // horizontalTitleGap: 10,
               leading: Icon(
                 FontAwesomeIcons.home,
                 color: MyTheme.blueww,
@@ -104,13 +100,10 @@ class FranchiesisMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                // Get.to(() => AboutUs());
                 Get.offNamed('/AboutUs');
               },
             ),
-
             ListTile(
-              // horizontalTitleGap: 10,
               leading: Icon(
                 FontAwesomeIcons.edit,
                 color: MyTheme.blueww,
@@ -174,75 +167,7 @@ class FranchiesisMainDrawer extends StatelessWidget {
                 Get.offNamed('/FranchiessProfilePage');
               },
             ),
-
-            // ListTile(
-            //   // horizontalTitleGap: 10,
-            //   leading: Icon(
-            //     FontAwesomeIcons.list,
-            //     color: MyTheme.blueww,
-            //     size: size.height * 0.021,
-            //   ),
-            //   trailing: Icon(
-            //     Icons.arrow_forward_ios_sharp,
-            //     color: MyTheme.blueww,
-            //     size: size.height * 0.02,
-            //   ),
-            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            //   dense: true,
-            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-            //   title: Text(
-            //     'List',
-            //     style: TextStyle(
-            //         fontSize: size.height * 0.017,
-            //         fontWeight: FontWeight.w600,
-            //         color: MyTheme.blueww),
-            //   ),
-            //   tileColor: Get.currentRoute == '/PatientList'
-            //       ? Colors.grey[300]
-            //       : Colors.transparent,
-            //   onTap: () {
-            //     print(Get.currentRoute);
-            //     Get.back();
-            //     Get.to(() => PatientList());
-            //     Get.offNamed('/PatientList');
-            //   },
-            // ),
-            ///
-            // ListTile(
-            //   // horizontalTitleGap: 10,
-            //   leading: Icon(
-            //     FontAwesomeIcons.add,
-            //     color: MyTheme.blueww,
-            //     size: size.height * 0.021,
-            //   ),
-            //   trailing: Icon(
-            //     Icons.arrow_forward_ios_sharp,
-            //     color: MyTheme.blueww,
-            //     size: size.height * 0.02,
-            //   ),
-            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            //   dense: true,
-            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-            //   title: Text(
-            //     'Add Skils',
-            //     style: TextStyle(
-            //         fontSize: size.height * 0.017,
-            //         fontWeight: FontWeight.w600,
-            //         color: MyTheme.blueww),
-            //   ),
-            //   tileColor: Get.currentRoute == '/AddSkilsScreen'
-            //       ? Colors.grey[300]
-            //       : Colors.transparent,
-            //   onTap: () {
-            //     print(Get.currentRoute);
-            //     Get.back();
-            //     Get.to(() => AddSkilsScreen());
-            //     Get.offNamed('/AddSkilsScreen');
-            //   },
-            // ),
-
             ListTile(
-              // horizontalTitleGap: 10,
               leading: Icon(
                 Icons.sticky_note_2_sharp,
                 color: MyTheme.blueww,
@@ -367,10 +292,10 @@ class FranchiesisMainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
-                ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
-                //Get.back();
-                Get.to(() => SignInScreen());
+                print(Get.currentRoute);
+                Get.back();
+                // Get.to(() => AboutUs());
+                Get.offNamed('/AboutUs');
               },
             ),
 

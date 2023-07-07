@@ -14,7 +14,7 @@ class FrVehicleSignup extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -31,16 +31,13 @@ class FrVehicleSignup extends StatelessWidget {
               children: [
                 Positioned(
                   top: size.height * 0.014,
-                  //bottom: size.height * 0.64,
-                  //left: -30,
                   right: -size.width * 0.006,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Container(
                       height: size.height * 0.240,
                       width: size.width * 0.60,
-                      decoration: BoxDecoration(
-                          //color: Colors.,
+                      decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                           ),
@@ -55,10 +52,8 @@ class FrVehicleSignup extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FrVehicleHeadText(),
+                    const FrVehicleHeadText(),
                     FrVehicleCredentials(),
-                    //HospitalSocial(),
-                    //Spacer(),
                   ],
                 ),
               ],

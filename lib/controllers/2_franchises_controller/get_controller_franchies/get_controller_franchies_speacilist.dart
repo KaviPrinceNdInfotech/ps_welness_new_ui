@@ -1,39 +1,75 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDept&SpecList2_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDept&SpecList_model.dart';
 import '../../../model/franchies_models/franchies_specialist.dart';
-import '../../../servicess_api/api_services_all_api.dart';
-//import 'package:ps_welness/model/franchies_models/franchies_specialist.dart';
-//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class FranchiesSpecialistController extends GetxController {
-  RxInt selectedIndex = 0.obs;
   RxBool isLoading = true.obs;
-
-  void toggle(int index) => selectedIndex.value = index;
-
   SpealistFranchies? spealistFranchies;
-
-  //all catagary list .........
+  DeptSpecList2Model? getDeptSpecList2Model;
+  FrenchiesDepartmentListModel? frenchiesDepartmentListModel;
+  TextEditingController? IdController,DepartmentNameController;
 
   void franchiesSpecialistListssApi() async {
     isLoading(true);
-    spealistFranchies = await ApiProvider.FranchiesSpealistApi();
-    if (spealistFranchies != null
-        //getcatagartlist!.result!.isNotEmpty
-        ) {
+    getDeptSpecList2Model = await ApiProvider.FrenchiesDeptSpecList2Api();
+    if (getDeptSpecList2Model != null) {
       isLoading(false);
     }
   }
-
+  void franchiesDeptAndSpecListsApi() async {
+    isLoading(true);
+    frenchiesDepartmentListModel = await ApiProvider.FrenchiesDeptSpecListApi();
+    if (frenchiesDepartmentListModel != null) {
+      isLoading(false);
+      ///for search filter
+      data.value = frenchiesDepartmentListModel!.deptList!;
+    }
+  }
+  void frenchiesDeleteDepartment(int id)async{
+    isLoading(true);
+    http.Response r = await ApiProvider.FrenchiesDeleteDepartment(id);
+    if(r.statusCode == 200){
+      isLoading(false);
+    }
+  }
+  void frenchiesEditDepartment(int id,)async{
+    isLoading(true);
+    http.Response r = await ApiProvider.FrenchiesEditDepartment(id,DepartmentNameController?.text);
+    if(r.statusCode == 200){
+      isLoading(false);
+    }
+  }
+  /// for search filter
+  RxList<DeptList> data = RxList<DeptList>([]);
+  void filterPaymentNurse(String searchpaymentNurse) {
+    List<DeptList>? finalResult = [];
+    if (searchpaymentNurse.isEmpty) {
+      finalResult = frenchiesDepartmentListModel!.deptList!;
+    } else {
+      finalResult = frenchiesDepartmentListModel!.deptList!
+          .where((element) => element.departmentName
+          .toString()
+          .toLowerCase()
+          .contains(searchpaymentNurse.toString().toLowerCase().trim()))
+          .toList();
+    }
+    data.value = finalResult;
+  }
   @override
   void onInit() {
     super.onInit();
     franchiesSpecialistListssApi();
+    franchiesDeptAndSpecListsApi();
+    IdController = TextEditingController();
+    DepartmentNameController = TextEditingController();
   }
-
   @override
   void dispose() {
-    Get.delete<FranchiesSpecialistController>();
+   // Get.delete<FranchiesSpecialistController>();
     super.dispose();
   }
 }

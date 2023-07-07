@@ -9,13 +9,11 @@ import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_containe
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 
 import '../../../../../../controllers/2_franchises_controller/my_ymwd_report_controller/my_ymwd_report_vehicle_controller.dart';
-//import '../../../../controllers/2_franchises_controller/my_ymwd_report_controller/my_ymwd_report_controller.dart';
 
 class MyYmwdreportVehicleeCredential extends StatelessWidget {
   MyYmwdreportVehicleeCredential({Key? key}) : super(key: key);
 
-  YmwdVehicleController _ymwd_vehicle_controller =
-      Get.put(YmwdVehicleController());
+  YmwdVehicleController _ymwd_vehicle_controller = Get.put(YmwdVehicleController());
 
   var items = [
     'Daily',
@@ -26,38 +24,12 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
 
   get newvalue => null!;
 
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Stack(
         children: [
-          // Positioned(
-          //   top: -size.height * 0.04,
-          //   //bottom: size.height * 0.64,
-          //   //left: -30,
-          //   right: -size.width * 0.1,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(2.0),
-          //     child: Container(
-          //       height: size.height * 0.23,
-          //       width: size.width * 0.65,
-          //       decoration: BoxDecoration(
-          //           //color: Colors.,
-          //           borderRadius: BorderRadius.only(
-          //             topRight: Radius.circular(20),
-          //           ),
-          //           image: DecorationImage(
-          //               image: AssetImage(
-          //                 'lib/assets/background_stack_png/vehicle1.png',
-          //               ),
-          //               fit: BoxFit.cover)),
-          //     ),
-          //   ),
-          // ),
           Form(
             key: _ymwd_vehicle_controller.ymwdvehicleformkey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -76,10 +48,9 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                     child: Container(
                         height: size.height * 0.035,
                         width: size.width * 0.07,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.white70, shape: BoxShape.circle),
-                        child:
-                            Center(child: Icon(Icons.arrow_back_ios_outlined))),
+                        child: const Center(child: Icon(Icons.arrow_back_ios_outlined))),
                   ),
                   SizedBox(
                     height: size.width * 0.05,
@@ -100,9 +71,8 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: size.width * 0.01),
                       child: Obx(
                         () => DropdownButtonFormField(
-                            //icon: Icon(Icons.location_city),
-                            value: _ymwd_vehicle_controller.selectedCity.value,
-                            decoration: InputDecoration(
+                            value: _ymwd_vehicle_controller.selectedTerm.value,
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(
                                 Icons.list_alt,
                                 color: Colors.black,
@@ -124,14 +94,8 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              _ymwd_vehicle_controller.selectedCity.value =
-                                  newValue!;
-                              // _hospital_2_controller.states.value =
-                              //     newValue! as List<String>;
-                              // _hospital_2_controller.selectedCity.value = null;
-                              // _hospital_2_controller.cities.clear();
-                              // _hospital_2_controller.cities
-                              //     .addAll(stateCityMap[newvalue]!);
+                              _ymwd_vehicle_controller.selectedTerm.value = newValue!;
+                              _ymwd_vehicle_controller.frenchiesYMDWVehicleReportApi(newValue);
                             }),
                       ),
                     ),
@@ -144,27 +108,19 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          //height: size.height * 0.02,
-                          decoration: new BoxDecoration(
-                              borderRadius: new BorderRadius.all(
-                                  new Radius.circular(30.0)),
+                          decoration:  BoxDecoration(
+                              borderRadius:  const BorderRadius.all(
+                                   Radius.circular(30.0)),
                               color: MyTheme.containercolor14),
                           width: size.width * 0.72,
                           height: size.height * 0.06,
-                          margin: new EdgeInsets.fromLTRB(1, 20, 10, 20),
+                          margin:  EdgeInsets.fromLTRB(1, 20, 10, 20),
                           padding: new EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: Theme(
                             data: Theme.of(context)
                                 .copyWith(splashColor: Colors.transparent),
-                            child: Obx(
-                              () => (_ymwd_vehicle_controller.isLoading.value)
-                                  ? Center(child: CircularProgressIndicator())
-                                  : TextField(
-                                      controller: _ymwd_vehicle_controller
-                                          .appointmentController1,
-                                      onTap: () {
-                                        _ymwd_vehicle_controller.chooseDate();
-                                      },
+                            child: TextField(
+                              onChanged: (value)=>  _ymwd_vehicle_controller.filterPaymentNurse(value),
                                       autofocus: false,
                                       style: TextStyle(
                                           fontSize: 15.0,
@@ -173,7 +129,7 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                                         //prefixIcon: Icon(Icons.search),
                                         filled: true,
                                         fillColor: MyTheme.ThemeColors,
-                                        hintText: 'dd-mm-yyyy',
+                                        hintText: 'Search van number',
                                         contentPadding: const EdgeInsets.only(
                                             left: 10.0, bottom: 12.0, top: 0.0),
                                         focusedBorder: OutlineInputBorder(
@@ -190,7 +146,6 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                            ),
                           ),
                         ),
                         Container(

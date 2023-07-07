@@ -1,12 +1,34 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
-class FranchisesProfileController extends GetxController {
+class FranchisesEditProfileController extends GetxController {
   final GlobalKey<FormState> franchisesprofileformkey = GlobalKey<FormState>();
 
   var selectedImagepath = ''.obs;
+  late TextEditingController CompanyName,StateMaster_Id,Location,City_Id,GSTNumber,
+      MobileNumber,AadharOrPANNumber,AadharOrPANImage;
 
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[];
+
+  void getStateApi() async {
+    states = await ApiProvider.getSatesApi();
+  }
+  void getCityByStateID(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+  }
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
@@ -15,26 +37,23 @@ class FranchisesProfileController extends GetxController {
       print('No image selected');
     }
   }
-
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
-
-  late TextEditingController nameController,
-      //emailController,
-      mobileController,
-      locatoionController,
-      feesController,
-      pinController,
-      gstcontroller,
-      aadharpancontroller;
-  //accountnoController,
-  // ifscController,
-  //branchController;
+  void frenchiesEditProfileApi() async {
+    final Aadhar1imageAsBase64 = base64Encode(await File(selectedImagepath.value).readAsBytes());
+    http.Response r = await ApiProvider.FrenchiesEditProfileApi(
+        CompanyName.text,
+        selectedState.value?.id.toString(),
+        Location.text,
+        selectedCity.value?.id.toString(),
+        GSTNumber.text,
+        MobileNumber.text,
+        AadharOrPANNumber.text,
+      selectedImagepath.value.split('/').last,
+        Aadhar1imageAsBase64
+    );
+    if (r.statusCode == 200) {
+    }else{
+    }
+  }
 
   var name = '';
   //var email = '';
@@ -44,44 +63,31 @@ class FranchisesProfileController extends GetxController {
   var pin = '';
   var gst = '';
   var panaadhar = '';
-  //var account = '';
-  //var ifsc = '';
-  //var branch = '';
 
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
-    nameController = TextEditingController(text: 'Ram PVT LTD');
-    //emailController = TextEditingController();
-    mobileController = TextEditingController(text: 'Ram Kumar');
-    locatoionController = TextEditingController(text: 'Noida Sector 15');
-    feesController = TextEditingController(text: '7847867890');
-    pinController = TextEditingController(text: '2f556678');
-    gstcontroller = TextEditingController(text: '7847867890');
-    aadharpancontroller = TextEditingController(text: '87778987776');
-    // branchController = TextEditingController(text: 'SBI');
+    getStateApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateID("${p0.id}");
+      }
+    });
+    CompanyName = TextEditingController(text: 'dsf');
+    StateMaster_Id = TextEditingController(text: '11');
+    Location = TextEditingController(text: 'danpur');
+    City_Id = TextEditingController(text: '6');
+    GSTNumber = TextEditingController(text: 'csdf45');
+    MobileNumber = TextEditingController(text: '9988564534');
+    AadharOrPANNumber = TextEditingController(text: '4567878');
+    AadharOrPANImage = TextEditingController(text: 'stampn.png');
   }
-
   @override
   void onReady() {
     super.onReady();
   }
-
   @override
   void onClose() {
-    nameController.dispose();
-    //emailController.dispose();
-    mobileController.dispose();
-    locatoionController.dispose();
-    feesController.dispose();
-    pinController.dispose();
-    gstcontroller.dispose();
-    aadharpancontroller.dispose();
-
-    //accountnoController.dispose();
-    //ifscController.dispose();
-    // branchController.dispose();
   }
 
   String? validName(String value) {
@@ -90,7 +96,6 @@ class FranchisesProfileController extends GetxController {
     }
     return null;
   }
-
   String? validEmail(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -110,9 +115,6 @@ class FranchisesProfileController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    // if (value.length != 10) {
-    //   return '              A valid phone should be of 10 digits';
-    // }
     return null;
   }
 
@@ -134,9 +136,6 @@ class FranchisesProfileController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    // if (value.length != 6) {
-    //   return '              A valid pin should be of 6 digits';
-    // }
     return null;
   }
 
@@ -192,10 +191,11 @@ class FranchisesProfileController extends GetxController {
 
   void checkProfilee() {
     final isValid = franchisesprofileformkey.currentState!.validate();
+    frenchiesEditProfileApi();
     if (!isValid) {
       return;
     }
     franchisesprofileformkey.currentState!.save();
-    //Get.to(() => HomePage());
+
   }
 }

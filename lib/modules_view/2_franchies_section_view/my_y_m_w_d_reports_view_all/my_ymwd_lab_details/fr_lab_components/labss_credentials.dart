@@ -14,20 +14,13 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
   MyYmwdreportlabbCredential({Key? key}) : super(key: key);
 
   YmwdlabbbController _ymwdlabbbController = Get.put(YmwdlabbbController());
-
-  //YmwdLabController YmwdLabController = Get.put(YmwdLabController());
-
   var items = [
     'Daily',
     'Monthly',
     'Yearly',
     'Weekly',
   ];
-
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,29 +28,6 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
     return SafeArea(
       child: Stack(
         children: [
-          // Positioned(
-          //   top: -size.height * 0.04,
-          //   //bottom: size.height * 0.64,
-          //   //left: -30,
-          //   right: -size.width * 0.1,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(2.0),
-          //     child: Container(
-          //       height: size.height * 0.23,
-          //       width: size.width * 0.65,
-          //       decoration: BoxDecoration(
-          //           //color: Colors.,
-          //           borderRadius: BorderRadius.only(
-          //             topRight: Radius.circular(20),
-          //           ),
-          //           image: DecorationImage(
-          //               image: AssetImage(
-          //                 'lib/assets/background_stack_png/vehicle1.png',
-          //               ),
-          //               fit: BoxFit.cover)),
-          //     ),
-          //   ),
-          // ),
           Form(
             key: _ymwdlabbbController.ymwdllabformkey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -76,7 +46,7 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
                     child: Container(
                         height: size.height * 0.035,
                         width: size.width * 0.07,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.white70, shape: BoxShape.circle),
                         child:
                             Center(child: Icon(Icons.arrow_back_ios_outlined))),
@@ -100,9 +70,8 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: size.width * 0.01),
                       child: Obx(
                         () => DropdownButtonFormField(
-                            //icon: Icon(Icons.location_city),
-                            value: _ymwdlabbbController.selectedCity.value,
-                            decoration: InputDecoration(
+                            value: _ymwdlabbbController.selectedTerm.value,
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(
                                 Icons.list_alt,
                                 color: Colors.black,
@@ -124,14 +93,8 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              _ymwdlabbbController.selectedCity.value =
-                                  newValue!;
-                              // _hospital_2_controller.states.value =
-                              //     newValue! as List<String>;
-                              // _hospital_2_controller.selectedCity.value = null;
-                              // _hospital_2_controller.cities.clear();
-                              // _hospital_2_controller.cities
-                              //     .addAll(stateCityMap[newvalue]!);
+                              _ymwdlabbbController.selectedTerm.value = newValue!;
+                              _ymwdlabbbController.frenchiesYMDWLabReportApi(newValue);
                             }),
                       ),
                     ),
@@ -144,27 +107,19 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          //height: size.height * 0.02,
-                          decoration: new BoxDecoration(
-                              borderRadius: new BorderRadius.all(
-                                  new Radius.circular(30.0)),
+                          decoration:  BoxDecoration(
+                              borderRadius:  const BorderRadius.all(
+                                   Radius.circular(30.0)),
                               color: MyTheme.containercolor14),
                           width: size.width * 0.72,
                           height: size.height * 0.06,
-                          margin: new EdgeInsets.fromLTRB(1, 20, 10, 20),
-                          padding: new EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          margin: const EdgeInsets.fromLTRB(1, 20, 10, 20),
+                          padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: Theme(
                             data: Theme.of(context)
                                 .copyWith(splashColor: Colors.transparent),
-                            child: Obx(
-                              () => (_ymwdlabbbController.isLoading.value)
-                                  ? Center(child: CircularProgressIndicator())
-                                  : TextField(
-                                      controller: _ymwdlabbbController
-                                          .appointmentController1,
-                                      onTap: () {
-                                        _ymwdlabbbController.chooseDate();
-                                      },
+                            child: TextField(
+                                onChanged: (value)=>  _ymwdlabbbController.filterPaymentNurse(value),
                                       autofocus: false,
                                       style: TextStyle(
                                           fontSize: 15.0,
@@ -173,7 +128,7 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
                                         //prefixIcon: Icon(Icons.search),
                                         filled: true,
                                         fillColor: MyTheme.ThemeColors,
-                                        hintText: 'dd-mm-yyyy',
+                                        hintText: 'search lab name',
                                         contentPadding: const EdgeInsets.only(
                                             left: 10.0, bottom: 12.0, top: 0.0),
                                         focusedBorder: OutlineInputBorder(
@@ -190,7 +145,6 @@ class MyYmwdreportlabbCredential extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                            ),
                           ),
                         ),
                         Container(

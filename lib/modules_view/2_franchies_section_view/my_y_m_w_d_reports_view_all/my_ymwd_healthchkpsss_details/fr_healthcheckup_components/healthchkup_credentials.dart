@@ -101,7 +101,7 @@ class MyYmwdreportHlthChkupCredential extends StatelessWidget {
                       child: Obx(
                         () => DropdownButtonFormField(
                             //icon: Icon(Icons.location_city),
-                            value: _ymwdchemisttController.selectedCity.value,
+                            value: _ymwdchemisttController.selectedTerm.value,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.list_alt,
@@ -124,7 +124,7 @@ class MyYmwdreportHlthChkupCredential extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              _ymwdchemisttController.selectedCity.value =
+                              _ymwdchemisttController.selectedTerm.value =
                                   newValue!;
                               // _hospital_2_controller.states.value =
                               //     newValue! as List<String>;
@@ -160,11 +160,10 @@ class MyYmwdreportHlthChkupCredential extends StatelessWidget {
                               () => (_ymwdchemisttController.isLoading.value)
                                   ? Center(child: CircularProgressIndicator())
                                   : TextField(
-                                      controller: _ymwdchemisttController
-                                          .appointmentController1,
-                                      onTap: () {
-                                        _ymwdchemisttController.chooseDate();
-                                      },
+                                      // controller: _ymwdchemisttController.appointmentController1,
+                                      // onTap: () {
+                                      //   _ymwdchemisttController.chooseDate();
+                                      // },
                                       autofocus: false,
                                       style: TextStyle(
                                           fontSize: 15.0,

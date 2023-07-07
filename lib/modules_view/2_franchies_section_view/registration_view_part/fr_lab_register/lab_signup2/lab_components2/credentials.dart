@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,24 +7,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_lab_controller/fr_lab_controller1/lab_controller_1.dart';
 import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/constants/my_theme.dart';
-// import 'package:ps_welness/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
-
-import '../../../../../../controllers/2_franchises_controller/registration_part_controller/fr_lab_controller/fr_lab_controller2/lab_controller_2.dart';
-
 class FrLab2Credentials extends StatelessWidget {
   FrLab2Credentials({Key? key}) : super(key: key);
 
-  Fr_Lab_2_Controller _frlab_2_controller = Get.put(Fr_Lab_2_Controller());
-
+  Fr_Lab_1_Controller _frlab_1_controller = Get.put(Fr_Lab_1_Controller());
   var items = [
     'Item 1',
     'Item 2',
@@ -30,98 +22,69 @@ class FrLab2Credentials extends StatelessWidget {
     'Item 4',
     'Item 5',
   ];
-
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-        key: _frlab_2_controller.frlab2formkey,
+       // key: _frlab_1_controller.frlab2formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                  //height: size.height * 0.02,
-                  ),
-
               GetBuilder<Hospital_2_Controller>(
-                // specify type as Controller
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _frlab_2_controller.getImage(ImageSource.gallery);
+                    _frlab_1_controller.getLicenceImage(ImageSource.gallery);
                   },
-                  child: NeumorphicTextFieldContainer(
-                    child: Container(
-                      height: size.height * 0.06,
-                      //width: size.width * 0.5,
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Licence Image File',
-                              style: TextStyle(
-                                fontSize: size.width * 0.03,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Icon(Icons.camera_alt),
-                          ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Licence Image File',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ),
+                      Container(
+                        height: 70,width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border:  Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius:BorderRadius.circular(5)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Obx(()=> _frlab_1_controller.selectedLicenceImagepath.value=='' ?
+                          const Center(
+                              child: Text("No Image")) :
+                          Image.file(File(_frlab_1_controller.selectedLicenceImagepath.value),
+                            fit: BoxFit.cover,
+                          ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-
-              // child: DropdownButton(
-              //     value: _hospital_2_controller.selectedState.value,
-              //     menuMaxHeight: size.height * 0.3,
-              //     items: items.map((String items) {
-              //       return DropdownMenuItem(
-              //         value: items,
-              //         child: Text(items),
-              //       );
-              //     }).toList(),
-              //     // _hospital_2_controller.states.map((String value) {
-              //     //   return DropdownMenuItem(
-              //     //     value: value,
-              //     //
-              //     //   )
-              //     onChanged: (String? newValue) {
-              //       _hospital_2_controller.states.value =
-              //           newValue! as List<String>;
-              //       _hospital_2_controller.selectedCity.value = null;
-              //       _hospital_2_controller.cities.clear();
-              //       _hospital_2_controller.cities
-              //           .addAll(stateCityMap[newvalue]!);
-              //     })),
-
               SizedBox(
                 height: size.height * 0.02,
               ),
-
               ///TODO: certificate.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
                   autofillHints: [AutofillHints.name],
-                  controller: _frlab_2_controller.certificateController,
+                  controller: _frlab_1_controller.certificateController,
                   onSaved: (value) {
-                    _frlab_2_controller.certificateno = value!;
+                    _frlab_1_controller.certificateno = value!;
                   },
                   validator: (value) {
-                    return _frlab_2_controller.validcertificate(value!);
+                  //  return _frlab_1_controller.validcertificate(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -149,12 +112,12 @@ class FrLab2Credentials extends StatelessWidget {
                 child: TextFormField(
                   keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.addressCityAndState],
-                  controller: _frlab_2_controller.addressController,
+                  controller: _frlab_1_controller.addressController,
                   onSaved: (value) {
-                    _frlab_2_controller.address = value!;
+                    _frlab_1_controller.address = value!;
                   },
                   validator: (value) {
-                    return _frlab_2_controller.validAddress(value!);
+                    return _frlab_1_controller.validAddress(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -183,12 +146,12 @@ class FrLab2Credentials extends StatelessWidget {
               NeumorphicTextFieldContainer(
                 child: TextFormField(
                   autofillHints: [AutofillHints.password],
-                  controller: _frlab_2_controller.aadhaarController,
+                  controller: _frlab_1_controller.aadhaarController,
                   onSaved: (value) {
-                    _frlab_2_controller.aadhar = value!;
+                    _frlab_1_controller.aadhar = value!;
                   },
                   validator: (value) {
-                    return _frlab_2_controller.validaadhar(value!);
+                   // return _frlab_1_controller.validaadhar(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -217,7 +180,7 @@ class FrLab2Credentials extends StatelessWidget {
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _frlab_2_controller.getImage1(ImageSource.gallery);
+                    _frlab_1_controller.getPanImage(ImageSource.gallery);
                   },
                   child: NeumorphicTextFieldContainer(
                     child: Container(
@@ -244,26 +207,15 @@ class FrLab2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
-
               ///todo:selected date starting...
               SizedBox(
                 height: size.height * 0.018,
               ),
-
-              // Text(
-              //   'Choose Starting Time:',
-              //   style: TextStyle(
-              //     fontSize: size.height * 0.016,
-              //     fontWeight: FontWeight.bold,
-              //     color: MyTheme.blueww,
-              //   ),
-              // ),
-
               NeumorphicTextFieldContainer(
                 child: Obx(
                   () => InkWell(
                     onTap: () {
-                      _frlab_2_controller.chooseTime();
+                      _frlab_1_controller.chooseTime();
                     },
                     child: Container(
                       height: size.height * 0.06,
@@ -287,7 +239,7 @@ class FrLab2Credentials extends StatelessWidget {
                               ),
                               //Spacer(),
                               Text(
-                                "${_frlab_2_controller.selectedTime.value.hour}:${_frlab_2_controller.selectedTime.value.minute}",
+                                "${_frlab_1_controller.selectedTime.value.hour}:${_frlab_1_controller.selectedTime.value.minute}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.026,
                                 ),
@@ -306,21 +258,11 @@ class FrLab2Credentials extends StatelessWidget {
               ),
 
               ///todo:selected time ending...
-
-              // Text(
-              //   'Choose Ending Time:',
-              //   style: TextStyle(
-              //     fontSize: size.height * 0.016,
-              //     fontWeight: FontWeight.bold,
-              //     color: MyTheme.blueww,
-              //   ),
-              // ),
-
               NeumorphicTextFieldContainer(
                 child: Obx(
                   () => InkWell(
                     onTap: () {
-                      _frlab_2_controller.chooseTime2();
+                      _frlab_1_controller.chooseTime2();
                     },
                     child: Container(
                       height: size.height * 0.06,
@@ -332,7 +274,7 @@ class FrLab2Credentials extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Choose Ending Time:',
+                          "Choose end time",
                                 style: TextStyle(
                                   fontSize: size.height * 0.017,
                                   fontWeight: FontWeight.bold,
@@ -344,7 +286,7 @@ class FrLab2Credentials extends StatelessWidget {
                               ),
                               //Spacer(),
                               Text(
-                                "${_frlab_2_controller.selectedTime2.value.hour}:${_frlab_2_controller.selectedTime2.value.minute}",
+                                "${_frlab_1_controller.selectedTime2.value.hour}:${_frlab_1_controller.selectedTime2.value.minute}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.026,
                                 ),
@@ -361,8 +303,7 @@ class FrLab2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                    Get.to(FranchiesHomePage());
-                    //_loginpasswordController.checkLoginpassword();
+                   _frlab_1_controller.checkLab();
                   })
             ],
           ),

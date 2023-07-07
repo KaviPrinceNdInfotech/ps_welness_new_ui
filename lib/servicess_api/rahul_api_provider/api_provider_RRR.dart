@@ -18,14 +18,48 @@ import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_m
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/complain_nurse_model.dart';
-//import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/complain_doctor_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmentdetail_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmenthistory_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_banner_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/Dept_dropdown_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/Frenchies_payoutReport_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesAddVehicleList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesBanner_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesChemistRegistration_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesCommissionReportDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesCommissionReport_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDept&SpecList2_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDept&SpecList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDoctorDetail_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDriverDetails_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesLabDetail_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesNewDriverList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesNurseDetails_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesOldDriverList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesPatientDetails_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesPaymentReport_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesProfileDetail_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesRWADetail_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTDSReportDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTDSReportList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTdsListByDate_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTotalCommission_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTotalTDS_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleDetails_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDChemistReportApi_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDDoctorReportApi_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDLabReportApi_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDNurseReportApi_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDVehicleReportApi_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchies_getRole_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchies_testList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/specialistDW_model.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,11 +90,12 @@ import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
 import '../../model/9_doctors_model_RRR/doctor_profile_model.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
 import '../../model/9_doctors_model_RRR/view_patient_report_model.dart';
+import '../../model/franchies_models/frenchiesGetGallery_model.dart';
 
 var base64Code = "base64";
 //base64Encode( File(selectedPath.value).readAsBytes());
 ///
-
+var prefs = GetStorage();
 class ApiProvider {
   static var baseUrl = 'http://test.pswellness.in/';
 
@@ -77,6 +112,7 @@ class ApiProvider {
   static String userid = ''.toString();
   static String StatemasterId = ''.toString();
   static String CitymasterId = ''.toString();
+  static String AdminLoginId = ''.toString();
 
   //static String cartlistid = '';
   //static String addressid = '';
@@ -2498,6 +2534,1196 @@ class ApiProvider {
       print('Error');
       print(e.toString());
       print("###3###3####1error: ${e}");
+    }
+  }
+  /// todo Rahul Frenchies .............. start
+  /////todo Frenchies Start
+  /// todo Frechies Banner Api ...........Rahul
+  static FrenchiesBannnerApi(String id) async {
+    print("##################88: ${id}");
+    var url = '${baseUrl}api/SignupApi/getBanner?id=2';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesBannerApiMode = frenchiesBannerApiModeFromJson(r.body);
+        return frenchiesBannerApiMode;
+      }
+    } catch (error) {
+      print('FrenchiesBannerRRRError: ${error}');
+      return;
+    }
+  }
+  /// todo Frenchies Edit Profile ............Rahul
+  static FrenchiesEditProfileApi(var CompanyName,var StateMaster_Id,var City_Id,var Location,var GSTNumber, var MobileNumber,var AadharOrPANNumber,var AadharOrPANImage, String aadhar1imageAsBase64) async {
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/EditProfile';
+    var body = {
+      "Id": "$Id",
+      "VendorName": CompanyName,
+      "StateMaster_Id": StateMaster_Id,
+      "Location": City_Id,
+      "City_Id": Location,
+      "GSTNumber": GSTNumber,
+      "MobileNumber": MobileNumber,
+      "AadharOrPANNumber": AadharOrPANNumber,
+      "AadharOrPANImage": AadharOrPANImage,
+      "AadharOrPANImageBase64": aadhar1imageAsBase64
+    };
+    print("Frenchies body:: $body");
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      print("Frenchies Edit profile: ${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+  /// todo Frenchies SignUp ............Rahul
+  static FrenchiesSignUpApi(var CompanyName,var EmailId,var Password,var MobileNumber,var Location,var StateMaster_Id, var City_Id,var PinCode,var GSTNumber,var PanNumber,var AadharOrPANNumber,var  AadharOrPANImage, var VendorName) async {
+    var url = '${baseUrl}api/SignupApi/FranchiseRegistration';
+    var body = {
+      "CompanyName": CompanyName,
+      "EmailId": EmailId,
+      "Password": Password,
+      "MobileNumber": MobileNumber,
+      "Location": Location,
+      "StateMaster_Id": StateMaster_Id,
+      "City_Id": City_Id,
+      "PinCode": PinCode,
+      "GSTNumber": GSTNumber,
+      "PanNumber": PanNumber,
+      "AadharOrPANNumber": AadharOrPANNumber,
+      "AadharOrPANImage": AadharOrPANImage,
+      "VendorName": VendorName,
+      "AadharOrPANImageBase64": "",//base64Code
+    };
+    print("Frenchies Signupbody:: $body");
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      print("Frenchies SignupApi: ${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+  /// todo Frenchies Add Gallery ............Rahul
+  static FrenchiesAddGalleryApi(var ImageName,var Images,var base) async {
+    var url = '${baseUrl}api/FranchisesApi/Add_Gallery';
+    var body = {
+      "ImageName": "$ImageName",
+      "Images": '$Images',
+      "Imagesbase64": "$base"
+    };
+    print("Frenchies Add Gallery body: $body");
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      print("Frenchies Add Gallery : ${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+  ///Todo Get Gallery
+  static FrenchiesGetGalleryApi() async {
+    var url = '${baseUrl}api/FranchisesApi/Get_Gallery';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final franchiseGetGallery = franchiseGetGalleryFromJson(r.body);
+        return franchiseGetGallery;
+      }
+    } catch (error) {
+      print('FrenchiesBannerRRRError: ${error}');
+      return;
+    }
+  }
+  /// todo Frenchies Test List .............Rahul
+  static FrenchiesTestListApi() async {
+    var url = '${baseUrl}api/FranchisesApi/Test_List';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTestList = frenchiesTestListFromJson(r.body);
+        return frenchiesTestList;
+      }
+    } catch (error) {
+      print('Frenchies Test ListError: ${error}');
+      return;
+    }
+  }
+  /// todo Frenchies Payout Report .............Rahul
+  static FrenchiesPayoutReportApi() async {
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_PayoutHistory?Id=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesPayoutReportModel = frenchiesPayoutReportModelFromJson(r.body);
+        return frenchiesPayoutReportModel;
+      }
+    } catch (error) {
+      print("FrenchiesPayoutReportApi : $error");
+      return;
+    }
+  }
+  /// todo Frenchies Profile Detail .............Rahul
+  static FrenchiesProfileDetailApi() async {
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_ProfileDetail?Id=${Id}';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesProfileDetailModel = frenchiesProfileDetailModelFromJson(r.body);
+        return frenchiesProfileDetailModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+  /// todo Frenchies Edit Test List ............Rahul....pending
+  static FrenchiesEditTestApi(var TestName) async {
+    var url = '${baseUrl}api/FranchisesApi/EditTestList';
+    var body = {
+      "Id": "643",
+      "TestName": TestName
+    };
+    print("Frenchies Edit Test List: $body");
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      print("Frenchies Edit Test ListSuccess : ${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+  /// todo Franchise_Complaint ............Rahul....
+  static Franchise_ComplaintApi(var patsubid,var Others,var Complaints) async {
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/ComplaintApi/Franchise_Complaint';
+    var body = {
+      "patsubid": patsubid,
+      "Others": Others,
+      "Complaints": Complaints,
+      "Login_Id": "$Id",//"1212"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      print("Frenchies Complaint : ${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+  /// todo Franchies Update Bank Detail.......Rahul
+  static FranchiseUpdateBankApi(var HolderName,var Location,var AccountNo, var IFSCCode,var BranchName) async {
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/SignupApi/Franchises_UpdateBank';
+    var body = {
+      "HolderName": HolderName,
+      "Location": Location,
+      "Login_Id": "$Id",
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    print("Frenchies Update bank: ${body}");
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}");
+      print("Frenchies Update bankSuccess: ${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+  ///Department Id Api get........Dropdown...................Rahul
+  static Future<List<FranchiseDepartment>>  getDepartmentApi() async {
+    var url = "http://test.pswellness.in/api/FranchisesApi/Fra_DepartmentDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print("DepartmentDropDownData: ${r.body}");
+      if (r.statusCode == 200) {
+        final departmentsDwModel = departmentsDwModelFromJson(r.body);
+        print("DepartmentDropDownData: ${departmentsDwModel.franchiseDepartment}");
+        return departmentsDwModel.franchiseDepartment;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      print("DepartmentDropDownDataError: $error");
+      return [];
+    }
+  }
+  /// Specialist Id_api.....dropdown...... Rahul
+  static Future<List<FranchiseSpecialist>> getSpecialistApi(String stateID) async {
+    var url = "http://test.pswellness.in/api/FranchisesApi/Fra_SpecialistDropdown_By_DepID?dep_Id=$stateID";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final specialistDwModel = specialistDwModelFromJson(r.body);
+        return specialistDwModel.franchiseSpecialist;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+  /// todo Dept&Spec post Api ............Rahul
+  static addDeptSpecApi(var deptId,var specId)async{
+    AdminLoginId = prefs.read("AdminLoginId").toString();
+    var url = 'http://test.pswellness.in/api/FranchisesApi/AddDepartment';
+    final  body = {
+      "Dep_Id":"$deptId",
+      "Spec_Id":"$specId",
+      "AdminLogin_Id":"$AdminLoginId"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  /// Specialist Id_api...........
+  /// todo Frenchies Dept & Spec List .............Rahul
+  static FrenchiesDeptSpecListApi() async {
+    var url = '${baseUrl}api/FranchisesApi/DepartmentList';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesDepartmentListModel = frenchiesDepartmentListModelFromJson(r.body);
+        return frenchiesDepartmentListModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+  /// todo Frenchies Dept & Spec List2 .......Rahul
+  static FrenchiesDeptSpecList2Api() async{
+    var prefs = GetStorage();
+    AdminLoginId = prefs.read("AdminLoginId").toString();
+    print("Admin:${AdminLoginId}");
+    var url = '${baseUrl}api/FranchisesApi/Dept_spec_List?Id=644';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        print("URL: ${url}");
+        final deptSpecListModel = deptSpecListModelFromJson(r.body);
+        print("Admin12:${deptSpecListModel.deptspecList?[0].specialistName}");
+        return deptSpecListModel;
+      }
+    }catch(error){
+      print("error:${error}");
+      return;
+    }
+  }
+  /// todo FrenchiesDeleteGallery .........Rahul
+  static FrenchiesDeleteGallery(id) async{
+    var url = '${baseUrl}api/FranchisesApi/DeleteGallery?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      Get.snackbar("Deleted", "item deleted");
+    }else{
+    }
+  }
+  /// todo FrenchiesDeleteDepartment .........Rahul
+  static FrenchiesDeleteDepartment(id) async{
+    var url = '${baseUrl}api/FranchisesApi/DeleteDepartment?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      Get.snackbar("Deleted", "item deleted");
+    }else{
+    }
+  }
+  ///todo FrenchiesEditDepartment...........Rahul
+  static FrenchiesEditDepartment(id,DepName) async{
+    var url = '${baseUrl}api/FranchisesApi/EditDepartment';
+    http.Response r = await http.post(Uri.parse(url),
+        body: {
+          "Id": "$id",
+          "Departmentname": "$DepName"
+        });
+    if(r.statusCode == 200){
+      print("FrenchiesGallery Deleted1: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+    }else{
+      print("FrenchiesGallery Not Edited:");
+    }
+  }
+  ///todo FrenchiesDepartment...........Rahul
+  static FrenchiesAddDepartment(String name) async{
+    var url = '${baseUrl}api/FranchisesApi/AddDepartment_ByList';
+    var  body =  {
+      "DepartmentName":"$name"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }else{
+    }
+  }
+  /// todo FrenchiesDeleteTestList......Rahul
+  static FrenchiesDeleteTestList(id) async{
+    print("rfrenchiesDeleteGallery&&&&&&&: ${id}");
+    var url = '${baseUrl}api/FranchisesApi/DeleteTestList?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      print("FrenchiesGallery Deleted:");
+      Get.snackbar("Deleted", "item deleted");
+    }else{
+      print("FrenchiesGallery Not Deleted:");
+    }
+  }
+  /// todo FrenchiesEditTestList..........Rahul
+  static FrenchiesEditTestList(id,TestName) async{
+    var body =  {
+      "Id": "$id",
+      "TestName": "$TestName"
+    };
+    var url = '${baseUrl}api/FranchisesApi/EditTestList';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }else{
+    }
+  }
+  /// todo Frenchies Edit Profile .........Rahul
+  static FrenchiesEditProfile(CompanyName,MobileNumber,StateId,CityId,Location,PinCode) async{
+    Id = prefs.read("Id").toString();
+    var body =  {
+      "Id":"$Id",
+      "CompanyName": CompanyName,
+      "MobileNumber": MobileNumber,
+      "StateMaster_Id": StateId,
+      "City_Id": CityId,
+      "Location": Location,
+      "PinCode": PinCode
+    };
+    var url = '${baseUrl}api/FranchisesApi/Fra_EditProfile';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if(r.statusCode == 200){
+      print("FrenchiesEditProfile##: ${body}");
+      Get.snackbar("Success", "${r.body}");
+    }else{
+    }
+  }
+  /// todo Frenchies Vehicle Detail ............Rahul
+  static FrenchiesVehicleDetail()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesVehicleDetailModel = frenchiesVehicleDetailModelFromJson(r.body);
+        return frenchiesVehicleDetailModel;
+      }
+    }catch(error){
+      print('FrenchiesVehicleDetail: ${error}');
+      return;
+    }
+  }
+  static FrenchiesDriverDetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_DriverRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesDriverDetailModel = frenchiesDriverDetailModelFromJson(r.body);
+        return frenchiesDriverDetailModel;
+      }
+    }catch(error){
+      return;
+    }
+  }
+  static FrenchiesDoctorDetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_DoctorRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesDoctorDetailModel = frenchiesDoctorDetailModelFromJson(r.body);
+        print("FrenchiesDoctorDetailApi0: ${frenchiesDoctorDetailModel.doctorRegDetail?[0].vendorName}");
+        return frenchiesDoctorDetailModel;
+      }
+    }catch(error){
+      print("FrenchiesDoctorDetailApi1: ${error}");
+      return;
+    }
+  }
+  /// todo Frenchies PatientDetail...........Rahul
+  static FrenchiesPatientDetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_PatientRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesPatientDetailModel = frenchiesPatientDetailModelFromJson(r.body);
+        return frenchiesPatientDetailModel;
+      }
+    }catch(error){
+      return;
+    }
+  }
+  /// todo FrenchiesChemistDetailApi....Rahul
+  static FrenchiesChemistDetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_ChemistRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesChemistDetailModel = frenchiesChemistDetailModelFromJson(r.body);
+        print("FrenchiesChemistDetailApi8: ${frenchiesChemistDetailModel.chemistRegDetail?[0].chemistName}");
+        return frenchiesChemistDetailModel;
+      }
+    }catch(error){
+      print("FrenchiesChemistDetailApi: ${error}");
+      return;
+    }
+  }
+  /// todo Frenchies Edit Chemist Detail Api ..........Rahul
+  static FrenchiesEditChemistDetail(var id,var ChemistName,var ShopName,var MobileNumber,var EmailId,var Location,var GSTNumber,var LicenceNumber)async{
+    final body = {
+      "Id":"$id",
+      "ChemistName":"$ChemistName",
+      "ShopName":"$ShopName",
+      "MobileNumber":"$MobileNumber",
+      "EmailId":"$EmailId",
+      "Location":"$Location",
+      "GSTNumber":"$GSTNumber",
+      "LicenceNumber":"$LicenceNumber"
+    };
+    var url = '${baseUrl}api/FranchisesApi/Fra_EditChemRegDetail';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    print("FrenchiesEditChemistDetail: ${body}");
+    if(r.statusCode == 200){
+      print("###########333333333#########33#${r.body}");
+      Get.snackbar("Success", "Item Edited");
+    }
+  }
+  /// todo Frenchies Delete Chemist Registration Detail..........Rahul
+  static FrenchiesDeleteChemistDetail(id)async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_DeleteChemistRegDetail?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      print("Chemist Detail Deleted:");
+      Get.snackbar("Deleted", "Item Deleted");
+    }else{
+    }
+  }
+  /// todo FrenchiesNurseDetailApi .......Rahul
+  static FrenchiesNurseDetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_NurseRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesNurseDetailModel = frenchiesNurseDetailModelFromJson(r.body);
+        return frenchiesNurseDetailModel;
+      }
+    }catch(error){
+      return;
+    }
+  }
+  ///todo Frenchies Delete NurseDetailApi ........... Rahul
+  static FrenchiesDeleteNurseDetailApi(id) async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_DeleteNurseRegDetail?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      Get.snackbar("Deleted", "Item Deleted");
+    }else{
+    }
+  }
+  ///todo FrenchiesLabDetailApi ........... Rahul
+  static FrenchiesLabDetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_LabRegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesLabDetailModel = frenchiesLabDetailModelFromJson(r.body);
+        return frenchiesLabDetailModel;
+      }
+    }catch(error){
+    }
+  }
+  ///todo FrenchiesDeleteLabDetailApi .....Rahul
+  static FrenchiesDeleteLabDetailApi(id)async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_DeleteLabRegDetail?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      Get.snackbar("Deleted", "Item Deleted");
+    }else{
+    }
+  }
+  /// todo  FrenchiesRWADetailApi ........Rahul
+  static FrenchiesRWADetailApi()async{
+    var url = '${baseUrl}api/FranchisesApi/Fra_RWARegistrationDetail';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesRwaDetailModel = frenchiesRwaDetailModelFromJson(r.body);
+        return frenchiesRwaDetailModel;
+      }
+    }catch(error){
+      return;
+    }
+  }
+  ///todo Frenchies RWA Detail Api ..............Rahul
+  static FrenchiesDeleteRWADetailApi(id) async{
+    var  url = '${baseUrl}api/FranchisesApi/Fra_DeleteRWARegDetail?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      Get.snackbar("Deleted", "Item Deleted");
+    }else{
+    }
+  }
+  /// todo Frenchies Payment Report Api ........Rahul
+  static FrenchiesPaymentReportApi(String p)async{
+    var url = '${baseUrl}api/FranchisesApi/PaymentHistories_ByRole?Role=$p';
+    print("FrenchiesPaymentReportUrl:${url}");
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesPaymentReportModel = frenchiesPaymentReportModelFromJson(r.body);
+        print("FrenchiesPaymentReport: ${frenchiesPaymentReportModel.paymentHistory}");
+        return frenchiesPaymentReportModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Frenchies Role DropDown .........Rahul
+  static Future<List<Role>> FrenchiesPaymentRole() async {
+    var url = "http://test.pswellness.in/api/FranchisesApi/GetRole";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesRoleModel = frenchiesRoleModelFromJson(r.body);
+        return frenchiesRoleModel.role;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+  /// todo Frenchies Edit Nurse Detail Api ..........Rahul
+  static FrenchiesEditNurseDetail(var id,var name,var MobileNumber,var EmailId,var Location,var CNumber)async{
+    final body = {
+      "Id":"$id",
+      "NurseName":"$name",
+      "MobileNumber":"$MobileNumber",
+      "EmailId":"$EmailId",
+      "Location":"$Location",
+      "CertificateNumber":"$CNumber"
+    };
+    var url = '${baseUrl}api/FranchisesApi/Fra_EditNurseRegDetail';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    print("FrenchiesEditNurseDetail: ${body}");
+    if(r.statusCode == 200){
+      print("###########333333333#########33#${r.body}");
+      Get.snackbar("Success", "Item Edited");
+    }
+  }
+  /// todo Frenchies Edit RWA Detail Api ..........Rahul
+  static FrenchiesEditRWADetail(var id,var name,var Phone,var MobileNumber,var EmailId,var Location,var CNumber)async{
+    final body = {
+      "Id":"$id",
+      "AuthorityName":"$name",
+      "PhoneNumber":"$Phone",
+      "MobileNumber":"$MobileNumber",
+      "EmailId":"$EmailId",
+      "Location":"$Location",
+      "CertificateNo":"$CNumber"
+    };
+    print("FrenchiesEditRWADetail: ${body}");
+    var url = '${baseUrl}api/FranchisesApi/Fra_EditRWARegDetail';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "Item Edited");
+    }
+  }
+  /// todo Frenchies Edit Lab Detail Api ..........Rahul
+  static FrenchiesEditLabDetail(var id,var name,var Phone,var MobileNumber,var EmailId,var Location,var GST,var Licence, var Aadhar)async{
+    final body = {
+      "Id":"$id",
+      "LabName":"$name",
+      "PhoneNumber":"$Phone",
+      "MobileNumber":"$MobileNumber",
+      "EmailId":"$EmailId",
+      "Location":"$Location",
+      "GSTNumber":"$GST",
+      "LicenceNumber":"$Licence",
+      "AadharNumber":"$Aadhar"
+    };
+    var url = '${baseUrl}api/FranchisesApi/Fra_EditLabRegDetail';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "Item Edited");
+    }
+  }
+  /// todo Frenchies Vehicle Category DropDown ....... Rahul
+  static Future<List<VehicleCatDropdown>> getVehicleCategoryApi() async {
+    var url = '${baseUrl}api/FranchisesApi/Fra_vehicleCat_dropdown';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesVehicleCategoryModel = frenchiesVehicleCategoryModelFromJson(r.body);
+        return frenchiesVehicleCategoryModel.vehicleCatDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+  ///todo get_VehicleType_api...........Rahul
+  static Future<List<VehicleTypeName>> getVehicleTypeApi(String catID) async {
+    var url = "${baseUrl}api/FranchisesApi/Fra_VehicleType_By_cat?Id=$catID";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesVehicleTypeModel = frenchiesVehicleTypeModelFromJson(r.body);
+        return frenchiesVehicleTypeModel.vehicleTypeName;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+  ///todo Registration, Register Vehicle..............Rahul
+  static FrenchiesRegisterVehicle(var name,var number,var accountNo,var DriverCharges,var holderName,
+      var VcatId,var VtypeId,
+      var ifsc,var img, String imageAsBase64)async{
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistration';
+    final body = {
+      "VehicleName":"$name",
+      "VehicleNumber":"$number",
+      "AccountNo":"$accountNo",
+      "DriverCharges":"$DriverCharges",
+      "AccountHolderName":"$holderName",
+      "VehicleCat_Id":"$VcatId",
+      "VehicleType_Id":"$VtypeId",
+      "IFSCCode":"$ifsc",
+      "CancelCheque":"$img",
+      "CancelChequeBase64":"$imageAsBase64",
+      "Vendor_Id":"$Id"
+    };
+    print("FrenchiesVehicleRegister: ${body}");
+    http.Response r = await http.post(Uri.parse(url),
+        body : body);
+    if(r.statusCode == 200){
+      Get.snackbar("Successs", "${r.body}");
+    }
+  }
+  ///todo  Register Driver..............Rahul
+  static FrenchiesRegisterDriver(var name,var password,var confirmPassword,var mobileNumber,var location,var DlNumber,
+      var stateId,var cityId,var DlImage1,var DlImage1Base64,var DlImage2,var DlImage2Base64,
+      var AadharImage,var AadharImageBase64Image,var AadharImage2,var AadharImage2base64Image,var PinCode  )async{
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_DriverRegistration';
+    final body = {
+      "DriverName":"$name",
+      "Password":"$password",
+      "ConfirmPassword":"$confirmPassword",
+      "MobileNumber":"$mobileNumber",
+      "Location":"$location",
+      "DlNumber":"$DlNumber",
+      "StateMaster_Id":"$stateId",
+      "CityMaster_Id":"$cityId",
+      "DlImage1":"$DlImage1",
+      "DlImage1Base64":"$DlImage1Base64",
+      "DlImage2":"$DlImage2",
+      "DlImage2Base64":"$DlImage2Base64",
+      "AadharImage":"$AadharImage",
+      "AadharImageBase64Image":"$AadharImageBase64Image",
+      "AadharImage2":"$AadharImage2",
+      "AadharImage64Image1":"$AadharImage2base64Image",
+      "PinCode":"$PinCode",
+      "Vendor_Id":"$Id"
+    };
+    print("FrenchiesDoctorRegister: ${body}");
+    http.Response r = await http.post(Uri.parse(url),
+        body : body);
+    if(r.statusCode == 200){
+      Get.snackbar("Successs", "${r.body}");
+    }
+  }
+  ///todo Register Doctor................Rahul
+  static FrenchiesRegisterDoctor(var doctorName,var email,var password,var confirmPassword,var mobileNumber,var phone,var clinicName,var stateId,var cityId,var location,var licenceImage,var licenceBase64,var licenceNumber,
+      var licenceValidity,var pin,var panImage,var panImageBase64,var SlotTime,var startTime,var endTime,
+      var SlotTime2,var StartTime2,var EndTime2)async{
+    Id = prefs.read("Id").toString();
+    final url = '${baseUrl}api/FranchisesApi/fra_DoctorRegistration';
+    final body = {
+      "DoctorName": "$doctorName",
+      "EmailId":"$email",
+      "Password":"$password",
+      "ConfirmPassword":"$confirmPassword",
+      "MobileNumber":"$mobileNumber",
+      "PhoneNumber": "$phone",
+      "ClinicName": "$clinicName",
+      "StateMaster_Id": "$stateId",
+      "CityMaster_Id": "$cityId",
+      "Location": "$location",
+      "LicenceImage": "$licenceImage",
+      "LicenceBase64": "$licenceBase64",
+      "LicenceNumber": "$licenceNumber",
+      "LicenseValidity":"$licenceValidity",
+      "PinCode": "$pin",
+      "PanImage":"$panImage",
+      "PanImageBase64":"$panImageBase64",
+      "SlotTime": "$SlotTime",
+      "StartTime": "$startTime",
+      "EndTime":"$endTime",
+      "SlotTime2":"$SlotTime2",
+      "StartTime2":"$StartTime2",
+      "EndTime2":"$EndTime2",
+      "Vendor_Id":"$Id"
+    };
+    final http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    print('FrenchiesRegisterDoctor1212: ${body}');
+    if(r.statusCode == 200){
+      Get.snackbar("Successs", "${r.body}");
+    }
+  }
+  /// todo Register patient.................Rahul
+  static FrenchiesRegisterPatient(var PatientName,var MobileNumber,var EmailId,var Password,var ConfirmPassword,
+      var Location,var stateId,var cityId,var pinCode)async{
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_PatientRegistration';
+    final body = {
+      "PatientName": "$PatientName}",
+      "MobileNumber": "$MobileNumber",
+      "EmailId": "$EmailId",
+      "Password": "$Password",
+      "ConfirmPassword": "$ConfirmPassword",
+      "Location": "$Location",
+      "StateMaster_Id": "$stateId",
+      "CityMaster_Id":"$cityId",
+      "PinCode": "$pinCode",
+      "vendorId":"$Id"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  /// todo Frenchies Register Chemist
+  static FrenchiesRegisterChemist(var ChemistName,var ShopName,var EmailId,var Password,var ConfirmPassword,
+      var MobileNumber,var Location,var stateId,var cityId,var Certificateimg,var certificateBase64,var licenceNumber,var LicenseValidity,var PinCode)async{
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_ChemistReg';
+    final body = {
+      "ChemistName":"$ChemistName",
+      "ShopName":"$ShopName",
+      "EmailId":"$EmailId",
+      "Password":"$Password",
+      "ConfirmPassword":"$ConfirmPassword",
+      "MobileNumber":"$MobileNumber",
+      "Location":"$Location",
+      "StateMaster_Id":"$stateId",
+      "CityMaster_Id":"$cityId",
+      "Certificateimg":"$Certificateimg",
+      "Certificateimgbase64":"$certificateBase64",
+      "LicenceNumber":"$licenceNumber",
+      "LicenseValidity":"$LicenseValidity",
+      "PinCode":"$PinCode",
+      "Vendor_Id":"$Id",
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    print("FrenchiesRegisterChemist: ${body}");
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  /// todo Frenchies Register Nurse....................Rahul
+  static FrenchiesRegisterNurse(var NurseName,var EmailId,var Password,var ConfirmPassword,
+      var MobileNumber,var Location,var stateId,var cityId,var Certificateimg,var certificateBase64,var CertificateNumber,
+      var PinCode,var NurseType_Id,var fee)async{
+    print("NurseType : ${NurseType_Id}");
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_NurseRegistration';
+    final body =
+    {
+      "NurseName": "$NurseName",
+      "EmailId": "$EmailId",
+      "Password": "$Password",
+      "ConfirmPassword": "$ConfirmPassword",
+      "MobileNumber": "$MobileNumber",
+      "Location": "$Location",
+      "StateMaster_Id": "$stateId",
+      "CityMaster_Id": "$cityId",
+      "CertificateImage": "$Certificateimg",
+      "CertificateBase64Image": "$certificateBase64",
+      "CertificateNumber": "$CertificateNumber",
+      "PinCode": "$PinCode",
+      "NurseType_Id": "$NurseType_Id",
+      "Fee":"$fee",
+      "Location_id":"67",
+      "Vendor_Id":"$Id"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    print("FrenchiesRegisterNurse: ${body}");
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  /// todo Frenchies Register Lab....................Rahul
+  static FrenchiesRegisterLab(var LabName,var EmailId,var Password,var ConfirmPassword,
+      var MobileNumber,var Location,var stateId,var cityId,var PinCode,var LicenceNumber,
+      var LicenceImage,var LicenceImageBase64,var PanImage,var PanImageBase64,var GSTNumber,var AadharNumber,
+      var StartTime,var EndTime)async{
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_LabRegistration';
+    final body =
+    {
+      "LabName": "$LabName",
+      "EmailId": "$EmailId",
+      "Password": "$Password",
+      "ConfirmPassword": "$ConfirmPassword",
+      "PhoneNumber": "$MobileNumber",
+      "Location": "$Location",
+      "StateMaster_Id": "$stateId",
+      "CityMaster_Id": "$cityId",
+      "PinCode": "$PinCode",
+      "LicenceNumber": "$LicenceNumber",
+      "LicenceImage": "$LicenceImage",
+      "LicenceImageBase64":"$LicenceImageBase64",
+      "PanImage": "$PanImage",
+      "PanImageBase64": "$PanImageBase64",
+      "GSTNumber": "$GSTNumber",
+      "AadharNumber": "$AadharNumber",
+      "StartTime": "$StartTime",
+      "EndTime": "$EndTime",
+      "Vendor_Id": "$Id"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    print("FrenchiesRegisterLab: ${body}");
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  static FrenchiesRegisterRWA(var AuthorityName,var MobileNumber,var EmailId,var Password,var ConfirmPassword,
+      var CertificateImage,var CertificateImagebase64,var stateId,var cityId,var Location,var LandlineNumber,
+      var Pincode)async{
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Fra_RWARegistration';
+    final body = {
+      "AuthorityName":"$AuthorityName",
+      "MobileNumber":"$MobileNumber",
+      "EmailId":"$EmailId",
+      "Password":"$Password",
+      "ConfirmPassword":"$ConfirmPassword",
+      "CertificateImage":"$CertificateImage",
+      "CertificateImagebase64":"$CertificateImagebase64",
+      "StateMaster_Id":"$stateId",
+      "CityMaster_Id":"$cityId",
+      "Location":"$Location",
+      "LandlineNumber":"$LandlineNumber",
+      "Pincode":"$Pincode",
+      "Vendor_Id":"$Id"
+    };
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    print("FrenchiesRegisterRWA: ${body}");
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  /// todo Frenchies TDS Report .............Rahul
+  static FrenchiesTDSReportApi(String p)async{
+    var url = '${baseUrl}api/FranchisesApi/TDSReports_ByRole?Role=${p}';
+    print("FrenchiesTDsReportUrl:${url}");
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesTdsReportModel = frenchiesTdsReportModelFromJson(r.body);
+        print("FrenchiesTDSReport: ${ frenchiesTdsReportModel.tdsReport}");
+        return  frenchiesTdsReportModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Frenchies TDS report DropDown .........Rahul
+  static Future<List<TdsDropdown>> FrenchiesTdsReportRole() async {
+    var url = "${baseUrl}api/FranchisesApi/GetTDSDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTdsReportDdModel = frenchiesTdsReportDdModelFromJson(r.body);
+        return frenchiesTdsReportDdModel.tdsDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+  ///todo frenchies total TDS Amount................Rahul
+  static FrenchiesTotalTDSAmountApi(var p,var fDate,var tDate)async{
+    var url = '${baseUrl}api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesTotalTdsModel = frenchiesTotalTdsModelFromJson(r.body);
+        return  frenchiesTotalTdsModel;
+      }
+    }catch(error){
+    }
+  }
+  ///todo frenchies TDS List by date
+  static FrenchiesTDSListByDateApi(var p,var fromDate,var toDate)async{
+    var tDate = toDate;
+    print("qwertyufrom: ${fromDate}");
+    print("sdfgh:${tDate}");
+    print("ppppppp:${p}");
+    var url = '${baseUrl}api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=$p&FromDate=$fromDate&ToDate=$tDate';
+    print("Urlllllllllllllllll:${url}");
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final tdsByDateModel = tdsByDateModelFromJson(r.body);
+        return  tdsByDateModel;
+      }
+    }catch(error){
+      print("FrenchiesTdsListBydateError: ${error}");
+    }
+  }
+
+  /// todo Frenchies Commission Report .............Rahul
+  static FrenchiesCommissionReportApi(var role,var fDate,var tDate)async{
+    // var url = '${baseUrl}api/FranchisesApi/CommissionReports_ByRole?Role=${p}';
+    var fromDate = fDate;
+    var toDate = tDate;
+    print("Role: ${role}");
+    print("FromDate: ${fDate}");
+    print("toDate : ${toDate}");
+    var url = '${baseUrl}api/FranchisesApi/GetCommissionData_ByToDateFromDate?Role=$role&FromDate=$fromDate&ToDate=$toDate';
+    print("Commission Url: ${url}");
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesCommissionReportModel = frenchiesCommissionReportModelFromJson(r.body);
+        return  frenchiesCommissionReportModel;
+      }
+    }catch(error){
+      print("Commission: ${error}");
+    }
+  }
+  /// todo total commission amount .....Rahul
+  static FrenchiesTotalCommissionAmountApi(var p,var fDate,var tDate)async{
+    var url = '${baseUrl}api/FranchisesApi/TotalCommissionAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate';
+    print("FrenchiesTotalCommissionAmountApi: ${url}");
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesTotalCommissionModel = frenchiesTotalCommissionModelFromJson(r.body);
+        return  frenchiesTotalCommissionModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Frenchies TDS report DropDown .........Rahul
+  static Future<List<CommissionDropdown>> FrenchiesCommissionReportRole() async {
+    var url = "${baseUrl}api/FranchisesApi/GetCommissionDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesCommissionReportDdModel = frenchiesCommissionReportDdModelFromJson(r.body);
+        return frenchiesCommissionReportDdModel.commissionDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+  /// todo Frenchies YMWDDoctorReportApi
+  static FrenchiesYMWDDoctorReportApi(String role)async{
+    var url = '${baseUrl}api/FranchisesApi/GetDoctorReport_By_YMWD?Timeperiod=${role}';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesYmdwDoctorModel = frenchiesYmdwDoctorModelFromJson(r.body);
+        return frenchiesYmdwDoctorModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Frenchies YMWDVehicleReportApi
+  static FrenchiesYMWDVehicleReportApi(String role)async{
+    var url = '${baseUrl}api/FranchisesApi/GetVehicleReport_By_YMWD?Timeperiod=${role}';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesYmdwVehicleModel = frenchiesYmdwVehicleModelFromJson(r.body);
+        return frenchiesYmdwVehicleModel;
+      }
+    }catch(error){
+      print("FrenchiesYMWDVehicleReportApi: ${error}");
+    }
+  }
+  /// todo Frenchies YMWDLabReportApi
+  static FrenchiesYMWDLabReportApi(String role)async{
+    var url = '${baseUrl}api/FranchisesApi/GetLabReport_By_YMWD?Timeperiod=${role}';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesYmdwLabModel = frenchiesYmdwLabModelFromJson(r.body);
+        return frenchiesYmdwLabModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Frenchies YMWDNurseReportApi
+  static FrenchiesYMWDNurseReportApi(String role)async{
+    var url = '${baseUrl}api/FranchisesApi/GetNurseReport_By_YMWD?Timeperiod=${role}';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesYmdwNurseModel = frenchiesYmdwNurseModelFromJson(r.body);
+        return frenchiesYmdwNurseModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Frenchies YMWDChemistReportApi
+  static FrenchiesYMWDChemistReportApi(String role)async{
+    var url = '${baseUrl}api/FranchisesApi/GetChemistReport_By_YMWD?Timeperiod=${role}';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesYmdwChemistModel = frenchiesYmdwChemistModelFromJson(r.body);
+        return frenchiesYmdwChemistModel;
+      }
+    }catch(error){
+    }
+  }
+  /// todo Add Vehicle type Post Api...........Rahul
+  static FrenchiesVehicleType(var CategoryId,var VehicleTypeId)async{
+    final body = {
+      "Category_Id": "${CategoryId}",
+      "VehicleType_Id": "${VehicleTypeId}"
+    };
+    var url = '${baseUrl}api/FranchisesApi/AddVehicle_type';
+    http.Response r = await http.post(Uri.parse(url),
+        body: body
+    );
+    print("FrenchiesVehicleTypePost: ${body}");
+    if(r.statusCode == 200){
+      print("###########333333333#########33#${r.body}");
+      Get.snackbar("Success", "Item Edited");
+    }
+  }
+  /// todo Frenchies YMWDChemistReportApi
+  static FrenchiesAddVehicleListApi()async{
+    var url = '${baseUrl}api/FranchisesApi/AddedVehicleList';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesAddVehicleList = frenchiesAddVehicleListFromJson(r.body);
+        print("&&&&&&&&&&&&&&&&&&&&yuyy:${frenchiesAddVehicleList.vehicleList?[0].categoryName}");
+        return frenchiesAddVehicleList;
+      }
+    }catch(error){
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+  ///todo Frenchies Get New Driver List pending....create controller
+  static FrenchiesNewDriverListApi()async{
+    var url = '${baseUrl}api/FranchisesApi/GetNewDriverList';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesNewDriverListModel = frenchiesNewDriverListModelFromJson(r.body);
+        return frenchiesNewDriverListModel;
+      }
+    }catch(error){
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+  ///todo Frenchies Get Old Driver List ......rahul
+  static FrenchiesOldDriverListApi()async{
+    var url = '${baseUrl}api/FranchisesApi/GetOldDriverList';
+    try{
+      http.Response r = await http.get(Uri.parse(url));
+      if(r.statusCode == 200){
+        final frenchiesOldDriverListModel = frenchiesOldDriverListModelFromJson(r.body);
+        return frenchiesOldDriverListModel;
+      }
+    }catch(error){
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+  ///todo Frenchies Get Old Driver Update ..............Rahul
+  static FrenchiesOldDriverUpdateApi(var vehicleNo, var driverName,id)async{
+    var url = '${baseUrl}api/FranchisesApi/UpdateOldDriver';
+    final body = {
+      "VehicleNumber":"$vehicleNo",
+      "DriverName":"$driverName",
+      "Id":"$id"
+    };
+    print("FrenchiesOldDriverUpdateApi: ${body}");
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  ///todo Frenchies Get New Driver Update ..............Rahul
+  static FrenchiesNewDriverUpdateApi(var driverName,id)async{
+    var url = '${baseUrl}api/FranchisesApi/UpdateNewDriver';
+    final body = {
+      "DriverName":"$driverName",
+      "Id":"$id"
+    };
+    print("qwertyui: ${body}");
+    http.Response r = await http.post(Uri.parse(url),
+        body: body);
+    if(r.statusCode == 200){
+      Get.snackbar("Success", "${r.body}");
+    }
+  }
+  ///todo Frenchies delete Old Driver...............Rahul
+  static FrenchiesDeleteOldDriverApi(id) async{
+    var  url = '${baseUrl}api/FranchisesApi/DeleteOldDriver?Id=$id';
+    http.Response r = await http.post(Uri.parse(url));
+    if(r.statusCode == 200){
+      Get.snackbar("Deleted", "Item Deleted");
+    }else{
     }
   }
 }

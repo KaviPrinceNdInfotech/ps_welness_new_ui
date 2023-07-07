@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/Dept_dropdown_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/specialistDW_model.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 
@@ -12,11 +15,7 @@ import '../../../../controllers/2_franchises_controller/add_department_and_speal
 class AdddeptSpecialCredentials extends StatelessWidget {
   AdddeptSpecialCredentials({Key? key}) : super(key: key);
 
-  // Hospital_1_Controller _hospital_1_controller =
-  //     Get.put(Hospital_1_Controller());
-
-  AdddepartmentController _adddepartmentController =
-      Get.put(AdddepartmentController());
+  AdddepartmentController _adddepartmentController = Get.put(AdddepartmentController());
 
   var items = [
     'Item 1',
@@ -27,9 +26,6 @@ class AdddeptSpecialCredentials extends StatelessWidget {
   ];
 
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,47 +38,15 @@ class AdddeptSpecialCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ///Todo: email.....................
-            // NeumorphicTextFieldContainer(
-            //   child: TextFormField(
-            //     autofillHints: [AutofillHints.email],
-            //     controller: _profileController.emailController,
-            //     onSaved: (value) {
-            //       _profileController.email = value!;
-            //     },
-            //     validator: (value) {
-            //       return _profileController.validEmail(value!);
-            //     },
-            //     cursorColor: Colors.black,
-            //     obscureText: false,
-            //     decoration: InputDecoration(
-            //       hintText: 'Email',
-            //       helperStyle: TextStyle(
-            //         color: black.withOpacity(0.7),
-            //         fontSize: 18,
-            //       ),
-            //       prefixIcon: Icon(
-            //         Icons.email,
-            //         color: black.withOpacity(0.7),
-            //         size: 20,
-            //       ),
-            //       border: InputBorder.none,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.02,
-            // ),
-
             SizedBox(
               height: size.height * 0.05,
             ),
             Container(
               height: size.height * 0.06,
               width: size.width * 0.2,
-              margin: EdgeInsets.symmetric(vertical: appPadding / 3),
+              margin: const EdgeInsets.symmetric(vertical: appPadding / 3),
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
@@ -90,7 +54,7 @@ class AdddeptSpecialCredentials extends StatelessWidget {
                         darkPrimary,
                       ]),
                   borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       offset: Offset(-2, -2),
                       spreadRadius: 1,
@@ -108,7 +72,7 @@ class AdddeptSpecialCredentials extends StatelessWidget {
                 onTap: () {
                   Get.to(() => DeptSpecList());
                 },
-                child: Container(
+                child: SizedBox(
                   height: size.height * 0.06,
                   width: size.width * 0.1,
                   child: Padding(
@@ -129,165 +93,120 @@ class AdddeptSpecialCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.05,
             ),
-
-            ///todo:  name..........
-            Container(
-              height: size.height * 0.07,
-              //width: size.width * 0.37,
-              //margin: EdgeInsets.symmetric(vertical: appPadding / 3),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        lightPrimary,
-                        darkPrimary,
-                      ]),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-2, -2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: darkShadow,
-                    ),
-                    BoxShadow(
-                      offset: Offset(2, 2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: lightShadow,
-                    ),
-                  ]),
-              child: TextFormField(
-                keyboardType: TextInputType.name,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _adddepartmentController.nameController,
-                onSaved: (value) {
-                  _adddepartmentController.name = value!;
-                },
-                validator: (value) {
-                  return _adddepartmentController.validName(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                  hintText: 'Dept Name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 12,
-                  ),
-                  // prefixIcon: Icon(
-                  //   Icons.account_box,
-                  //   color: black.withOpacity(0.7),
-                  //   size: 20,
-                  // ),
-                  border: InputBorder.none,
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(() => DropdownButtonFormField<FranchiseDepartment>(
+                      value: _adddepartmentController.selectedDep.value,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.real_estate_agent,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Department'),
+                      items: _adddepartmentController.department.map((FranchiseDepartment items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(
+                            items.departmentName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (FranchiseDepartment? newValue) {
+                        _adddepartmentController.selectedDep.value = newValue!;
+                      }),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                      () => DropdownButtonFormField<FranchiseSpecialist>(
+                      value: _adddepartmentController.selectedSpec.value,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.real_estate_agent,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Specialist'),
+                      items: _adddepartmentController.specialist.map((FranchiseSpecialist items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(
+                            items.specialistName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (FranchiseSpecialist? newValue) {
+                        _adddepartmentController.selectedSpec.value = newValue!;
+                      }),
                 ),
               ),
             ),
             SizedBox(
               height: size.height * 0.05,
             ),
-            Container(
-              height: size.height * 0.07,
-              //width: size.width * 0.37,
-              //margin: EdgeInsets.symmetric(vertical: appPadding / 3),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        lightPrimary,
-                        darkPrimary,
-                      ]),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-2, -2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: darkShadow,
-                    ),
-                    BoxShadow(
-                      offset: Offset(2, 2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: lightShadow,
-                    ),
-                  ]),
-              child: TextFormField(
-                keyboardType: TextInputType.name,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _adddepartmentController.branchController,
-                onSaved: (value) {
-                  _adddepartmentController.branch = value!;
-                },
-                validator: (value) {
-                  return _adddepartmentController.validDept(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                  hintText: 'Enter service',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 12,
-                  ),
-                  // prefixIcon: Icon(
-                  //   Icons.account_box,
-                  //   color: black.withOpacity(0.7),
-                  //   size: 20,
-                  // ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: size.height * 0.05,
-            ),
-            Container(
-              height: size.height * 0.06,
-              width: size.width * 0.2,
-              margin: EdgeInsets.symmetric(vertical: appPadding / 3),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        lightPrimary1,
-                        darkPrimary2,
-                      ]),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-2, -2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: darkShadow,
-                    ),
-                    BoxShadow(
-                      offset: Offset(2, 2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: lightShadow,
-                    ),
-                  ]),
+            InkWell(
+              onTap: (){
+                _adddepartmentController.checkadddeptspeceee();
+              },
               child: Container(
                 height: size.height * 0.06,
-                width: size.width * 0.1,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.0),
-                  child: Center(
-                    child: Text(
-                      'SAVE',
-                      style: TextStyle(
-                        fontSize: size.width * 0.03,
-                        fontWeight: FontWeight.w700,
+                width: size.width * 0.2,
+                margin: const EdgeInsets.symmetric(vertical: appPadding / 3),
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          lightPrimary1,
+                          darkPrimary2,
+                        ]),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: const [
+                      BoxShadow(
+                        offset: Offset(-2, -2),
+                        spreadRadius: 1,
+                        blurRadius: 4,
+                        color: darkShadow,
+                      ),
+                      BoxShadow(
+                        offset: Offset(2, 2),
+                        spreadRadius: 1,
+                        blurRadius: 4,
+                        color: lightShadow,
+                      ),
+                    ]),
+                child: Container(
+                  height: size.height * 0.06,
+                  width: size.width * 0.1,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.0),
+                    child: Center(
+                      child: Text(
+                        'SAVE',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),

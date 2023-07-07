@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../constants/my_theme.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 
-//import '../../../controllers/6_chemist_view_controllers/chemist_payout_history_controller/chemist_bank_details.dart';
+//import '../../../controllers/6_chemist_view_controllers/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
 
 class VehicleList extends StatelessWidget {
   VehicleList({Key? key}) : super(key: key);

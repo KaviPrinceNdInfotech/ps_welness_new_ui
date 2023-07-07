@@ -7,41 +7,23 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 
-import '../../../../../controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
-//import 'package:ps_welness_new_ui/controllers/9_doctor_controllers/doctor_profile_controller.dart';
-//import 'package:ps_welness/constants/my_theme.dart';
-//import 'package:ps_welness/controllers/9_doctor_controllers/doctor_profile_controller.dart';
 
 class FranchiesDetailProfile extends StatelessWidget {
   FranchiesDetailProfile({Key? key}) : super(key: key);
 
-  DoctorProfileControllers _doctorProfileControllers =
-      Get.put(DoctorProfileControllers());
+  FrenchiesProfileDetailController _frenchiesProfileDetailController = Get.put(FrenchiesProfileDetailController());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: MyTheme.white,
 
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: MyTheme.ThemeColors,
-      //   title: Text(
-      //     'Lab Profile details',
-      //   ),
-      //   centerTitle: true,
-      // ),
-
       body: Obx(
-        () => (_doctorProfileControllers.isLoading.value)
+        () => (_frenchiesProfileDetailController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-            : _doctorProfileControllers.doctorProfile == null
-                ? Center(
-                    child: Text('No Data'),
-                  )
                 : SafeArea(
                     child: Stack(
                       clipBehavior: Clip.none,
@@ -67,10 +49,9 @@ class FranchiesDetailProfile extends StatelessWidget {
                                   width: size.width * 0.8,
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade200,
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                           image: NetworkImage(
                                               'https://images.unsplash.com/photo-1465220183275-1faa863377e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'
-                                              //'https://images.unsplash.com/photo-1604116395843-94f7b28a8080?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80',
                                               ),
                                           fit: BoxFit.fill)),
                                   child: Row(
@@ -87,80 +68,39 @@ class FranchiesDetailProfile extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               FontAwesomeIcons.person,
                                               color: Colors.red,
                                             ),
-
-                                            // Text(
-                                            //   'Name:',
-                                            //   style: GoogleFonts.alatsi(
-                                            //     fontSize: size.height * 0.022,
-                                            //     fontWeight: FontWeight.bold,
-                                            //   ),
-                                            // ),
-
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Icon(
+                                            const Icon(
                                               FontAwesomeIcons.solidMessage,
                                               color: Colors.red,
                                             ),
-                                            // Text(
-                                            //   'Email:',
-                                            //   style: GoogleFonts.alatsi(
-                                            //     fontSize: size.height * 0.022,
-                                            //     fontWeight: FontWeight.bold,
-                                            //   ),
-                                            // ),
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Icon(
+                                            const Icon(
                                               FontAwesomeIcons.phone,
                                               color: Colors.red,
                                             ),
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Icon(
-                                              FontAwesomeIcons.shop,
-                                              color: Colors.red,
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            ),
-
-                                            Icon(
-                                              FontAwesomeIcons.addressCard,
-                                              color: Colors.red,
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            ),
-                                            Icon(
-                                              FontAwesomeIcons.city,
-                                              color: Colors.red,
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            ),
-                                            Icon(
+                                            const Icon(
                                               FontAwesomeIcons.locationPinLock,
                                               color: Colors.red,
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.01,
+                                              height: size.height * 0.0,
                                             ),
-                                            Icon(
+                                            const Icon(
                                               FontAwesomeIcons.location,
                                               color: Colors.red,
                                             ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            ),
-                                            Icon(
+                                            const Icon(
                                               FontAwesomeIcons.clock,
                                               color: Colors.red,
                                             ),
@@ -175,11 +115,7 @@ class FranchiesDetailProfile extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              // _doctorProfileControllers
-                                              //     .doctorProfile!.doctorName
-                                              //     .toString(),
-                                              'Dr.Kavi Singh',
+                                            Text("${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.vendorName}",
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -187,13 +123,9 @@ class FranchiesDetailProfile extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.01,
+                                              height: size.height * 0.07,
                                             ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.emailId
-                                                  .toString(),
-                                              //'vinit@gmail.com',
+                                            Text("${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.emailId}",
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -201,13 +133,9 @@ class FranchiesDetailProfile extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.01,
+                                              height: size.height * 0.08,
                                             ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.mobileNumber
-                                                  .toString(),
-                                              //'8909565733',
+                                            Text("${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.mobileNumber}",
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -215,40 +143,9 @@ class FranchiesDetailProfile extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.01,
+                                              height: size.height * 0.05,
                                             ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.clinicName
-                                                  .toString(),
-                                              //'8909565733',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
-                                                fontWeight: FontWeight.w600,
-                                                color: MyTheme.blueww,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.departmentName
-                                                  .toString(),
-                                              //'Sector 12,D47',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
-                                                fontWeight: FontWeight.w600,
-                                                color: MyTheme.blueww,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.stateName
-                                                  .toString(),
+                                            Text("${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.stateName}",
                                               //'Noida',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
@@ -257,13 +154,9 @@ class FranchiesDetailProfile extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.01,
+                                              height: size.height * 0.04,
                                             ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.cityName
-                                                  .toString(),
-                                              //'UP',
+                                            Text("${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.cityname}",
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -273,11 +166,7 @@ class FranchiesDetailProfile extends StatelessWidget {
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.location
-                                                  .toString(),
-                                              //'8909565733',
+                                            Text("${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.location}",
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -286,17 +175,6 @@ class FranchiesDetailProfile extends StatelessWidget {
                                             ),
                                             SizedBox(
                                               height: size.height * 0.01,
-                                            ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.availableTime
-                                                  .toString(),
-                                              //'110096',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
-                                                fontWeight: FontWeight.w600,
-                                                color: MyTheme.blueww,
-                                              ),
                                             ),
                                           ],
                                         ),

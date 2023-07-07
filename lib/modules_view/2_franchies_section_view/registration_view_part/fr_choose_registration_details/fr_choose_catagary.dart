@@ -16,7 +16,6 @@ import '../../fr_registration_detailsss/fr_registration_detail_nurse/fr_registra
 import '../../fr_registration_detailsss/fr_registration_detail_patient/fr_registration_patient_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_rwa/fr_registration_rwa_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_vehicle/fr_registration_vehicle_detailss.dart';
-//import 'package:ps_welness/modules_view/1_user_section_views/appointment_section/doctorss_lists/doctor_list_appointment.dart';
 
 class FrRegistrationDetails extends StatelessWidget {
   FrRegistrationDetails({Key? key}) : super(key: key);
@@ -31,12 +30,6 @@ class FrRegistrationDetails extends StatelessWidget {
     'Lab Details',
     'Checkup Details',
     'Rwa Details',
-    // 'Radiologist',
-    // 'Pulmonologist',
-    // 'Endocrinologist',
-    // 'Neurologist',
-    // 'Veterinarian',
-    // 'Cardiothoracic',
   ];
 
   final List<String> catimage = [
@@ -49,12 +42,6 @@ class FrRegistrationDetails extends StatelessWidget {
     'lib/assets/icons/frd7.png',
     'lib/assets/icons/frd8.png',
     'lib/assets/icons/frd9.png',
-    // 'lib/assets/icons/cat10.png',
-    // 'lib/assets/icons/cat11.png',
-    // 'lib/assets/icons/cat12.png',
-    // 'lib/assets/icons/cat13.png',
-    // 'lib/assets/icons/cat14.png',
-    // 'lib/assets/icons/cat15.png',
   ];
 
   @override
@@ -63,7 +50,7 @@ class FrRegistrationDetails extends StatelessWidget {
     return Container(
       height: size.height,
       width: size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -78,7 +65,6 @@ class FrRegistrationDetails extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
             child: SingleChildScrollView(
               child: Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: size.height * 0.18,
@@ -122,14 +108,14 @@ class FrRegistrationDetails extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          decoration: new BoxDecoration(
-                              borderRadius: new BorderRadius.all(
-                                  new Radius.circular(30.0)),
+                          decoration:  const BoxDecoration(
+                              borderRadius:  BorderRadius.all(
+                                   Radius.circular(30.0)),
                               color: Colors.white),
                           width: size.width,
                           height: size.height * 0.06,
-                          margin: new EdgeInsets.fromLTRB(15, 20, 15, 20),
-                          padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
+                          margin:  const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          padding:  const EdgeInsets.fromLTRB(8, 8, 8, 8),
                           child: Theme(
                             data: Theme.of(context)
                                 .copyWith(splashColor: Colors.transparent),
@@ -145,11 +131,11 @@ class FrRegistrationDetails extends StatelessWidget {
                                 contentPadding: const EdgeInsets.only(
                                     left: 10.0, bottom: 12.0, top: 0.0),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: const BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(25.7),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: const BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(25.7),
                                 ),
                               ),
@@ -186,10 +172,8 @@ class FrRegistrationDetails extends StatelessWidget {
                                 onTap: () {
                                   if (index == 0) {
                                     Get.to(() => ResitrationVechileDetails());
-                                    //Get.to(() => AppointmentDetails());
                                   } else if (index == 1) {
                                     Get.to(() => ResitrationDriverDetails());
-                                    //Get.to(() => AddTechnician());
                                   } else if (index == 2) {
                                     Get.to(() => ResitrationDoctorDetails());
                                   } else if (index == 3) {
@@ -201,8 +185,7 @@ class FrRegistrationDetails extends StatelessWidget {
                                   } else if (index == 6) {
                                     Get.to(() => ResitrationLabDetails());
                                   } else if (index == 7) {
-                                    Get.to(() =>
-                                        ResitrationHealthCheckupDetails());
+                                    Get.to(() => ResitrationHealthCheckupDetails());
                                   } else if (index == 8) {
                                     Get.to(() => ResitrationRwaDetails());
                                   }
@@ -216,14 +199,14 @@ class FrRegistrationDetails extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: MyTheme.ThemeColors,
                                       borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        const BoxShadow(
+                                      boxShadow: const[
+                                         BoxShadow(
                                           color: Colors.black38,
                                           offset: Offset(5, 5),
                                           blurRadius: 0,
                                           spreadRadius: 0,
                                         ),
-                                        const BoxShadow(
+                                         BoxShadow(
                                           color: Colors.black26,
                                           offset: Offset(0, -0),
                                           blurRadius: 0,
@@ -257,38 +240,6 @@ class FrRegistrationDetails extends StatelessWidget {
                                 ),
                               ),
                             );
-                            // RoundedButton(
-                            //   imageSrc: 'Container(
-                            //           padding: EdgeInsets.all(appPadding / 2),
-                            //           width: 65,
-                            //           height: 65,
-                            //           decoration: BoxDecoration(
-                            //               shape: BoxShape.circle,
-                            //               gradient: LinearGradient(
-                            //                   begin: Alignment.topCenter,
-                            //                   end: Alignment.bottomCenter,
-                            //                   colors: [
-                            //                     darkPrimary,
-                            //                     lightPrimary,
-                            //                   ]),
-                            //               boxShadow: [
-                            //                 BoxShadow(
-                            //                   offset: Offset(3, 3),
-                            //                   spreadRadius: 1,
-                            //                   blurRadius: 4,
-                            //                   color: darkShadow,
-                            //                 ),
-                            //                 BoxShadow(
-                            //                   offset: Offset(-5, -5),
-                            //                   spreadRadius: 1,
-                            //                   blurRadius: 4,
-                            //                   color: lightShadow,
-                            //                 ),
-                            //               ]),
-                            //           child: Image.asset(imageSrc),
-                            //         ),',
-                            //   press: () {}
-                            // );
                           }),
                     ),
                   ),

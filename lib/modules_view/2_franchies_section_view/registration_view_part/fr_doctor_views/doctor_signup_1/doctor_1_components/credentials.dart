@@ -12,20 +12,10 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 import '../../../../../../controllers/2_franchises_controller/registration_part_controller/fr_doctor_controllers/doctor_controller1.dart';
 import '../../doctor_sigup_part2/doctor_signup_part2.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/controllers/hospital_1_controller/hospital_login_controllers.dart';
-// import 'package:ps_welness/modules_view/hospital_view/hospital_sigup_step2/hospital_sighup_part2_view.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
 class FrDoctor1Credentials extends StatelessWidget {
   FrDoctor1Credentials({Key? key}) : super(key: key);
-
-  FrDoctor_1_Controller _frdoctor_1_controller =
-      Get.put(FrDoctor_1_Controller());
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
+  FrDoctor_1_Controller _frdoctor_1_controller = Get.put(FrDoctor_1_Controller());
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +32,7 @@ class FrDoctor1Credentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _frdoctor_1_controller.nameController,
+                controller: _frdoctor_1_controller.doctorNameController,
                 onSaved: (value) {
                   _frdoctor_1_controller.name = value!;
                 },
@@ -69,7 +59,6 @@ class FrDoctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -101,7 +90,6 @@ class FrDoctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -132,11 +120,10 @@ class FrDoctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _frdoctor_1_controller.confirmpasswordController,
+                controller: _frdoctor_1_controller.confirmPasswordController,
                 onSaved: (value) {
                   _frdoctor_1_controller.confirmpassword = value!;
                 },
@@ -166,12 +153,11 @@ class FrDoctor1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.telephoneNumber],
-                controller: _frdoctor_1_controller.mobileController,
+                controller: _frdoctor_1_controller.phoneController,
                 onSaved: (value) {
                   _frdoctor_1_controller.mobile = value!;
                 },
@@ -195,33 +181,14 @@ class FrDoctor1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-            // RectangularInputField(
-            //   hintText: 'Password',
-            //   icon: Icons.lock,
-            //   obscureText: true,
-            // ),
             SizedBox(
               height: size.height * 0.00,
               //appPadding / 2,
             ),
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: InkWell(
-            //     onTap: () {},
-            //     child: Text(
-            //       'Forget Password?',
-            //       style: GoogleFonts.alegreya(
-            //         fontWeight: FontWeight.w500,
-            //         fontSize: size.width * 0.035,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
                   Get.to(FrDoctorSignup2());
-                  //_loginpasswordController.checkLoginpassword();
                 })
           ],
         ),

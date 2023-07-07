@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchises_chemist_signup1/franchise_chemist1components/credentials.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchises_chemist_signup1/franchise_chemist1components/head_text.dart';
-//import 'package:ps_welness/constants/constants/constants.dart';
-//import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchises_chemist_signup1/franchise_chemist1components/credentials.dart';
-//import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchises_chemist_signup1/franchise_chemist1components/head_text.dart';
 
 class franchiesChemistSignup1 extends StatelessWidget {
   const franchiesChemistSignup1({Key? key}) : super(key: key);
@@ -14,7 +11,7 @@ class franchiesChemistSignup1 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -31,8 +28,6 @@ class franchiesChemistSignup1 extends StatelessWidget {
               children: [
                 Positioned(
                   top: -size.height * 0.06,
-                  //bottom: size.height * 0.64,
-                  //left: -30,
                   right: -size.width * 0.07,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
@@ -58,9 +53,6 @@ class franchiesChemistSignup1 extends StatelessWidget {
                   children: [
                     FranchiseChemist1HeadText(),
                     FranchiesChemist1Credentials(),
-
-                    //HospitalSocial(),
-                    //Spacer(),
                   ],
                 ),
               ],

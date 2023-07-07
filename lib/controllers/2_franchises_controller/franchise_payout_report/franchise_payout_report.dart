@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-//import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/Frenchies_payoutReport_model.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class FranchisePayoutReportController extends GetxController {
   var selectedTime = TimeOfDay.now().obs;
@@ -19,32 +20,54 @@ class FranchisePayoutReportController extends GetxController {
   var appointment = ''.obs;
   var appointment2 = ''.obs;
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
-
+  // ///this is for State....................................
+  // Rx<String?> selectedCity = (null as String?).obs;
+  // RxList<String> cities = <String>[].obs;
+  //
+  // //this is for City.................................
+  // Rx<String?> selectedState = (null as String?).obs;
+  // RxList<String> states = <String>[].obs;
+  FrenchiesPayoutReportModel? getFrenchiesPayoutReportModel;
+ void frenchiesPayoutReportApi()async{
+   isLoading(true);
+   getFrenchiesPayoutReportModel = await ApiProvider.FrenchiesPayoutReportApi();
+   if(getFrenchiesPayoutReportModel?.payoutHistory != null){
+     isLoading(false);
+     ///for search filter
+     data.value = getFrenchiesPayoutReportModel!.payoutHistory!;
+   }
+ }
+ ///todo search filter
+  RxList<PayoutHistory> data = RxList<PayoutHistory>([]);
+  void filterPaymentNurse(String searchpaymentNurse) {
+    List<PayoutHistory>? finalResult = [];
+    if (searchpaymentNurse.isEmpty) {
+      finalResult = getFrenchiesPayoutReportModel!.payoutHistory!;
+    } else {
+      finalResult = getFrenchiesPayoutReportModel!.payoutHistory!
+          .where((element) => element.vendorName
+          .toString()
+          .toLowerCase()
+          .contains(searchpaymentNurse.toString().toLowerCase().trim()))
+          .toList();
+    }
+    data.value = finalResult;
+  }
   @override
   void onInit() {
     super.onInit();
+    frenchiesPayoutReportApi();
     appointmentController = TextEditingController();
     appointmentController.text = "DD-MM-YYYY";
-
     appointmentController2 = TextEditingController();
     appointmentController2.text = "DD-MM-YYYY";
   }
-
   @override
   void onReady() {
     super.onReady();
   }
-
   @override
   void onClose() {
-    //TextEditingController.dispose();
   }
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
@@ -111,12 +134,4 @@ class FranchisePayoutReportController extends GetxController {
     //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
     // }
   }
-
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
 }

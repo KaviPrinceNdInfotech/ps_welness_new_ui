@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class DraweerFranchiesProfileController extends GetxController {
-  final GlobalKey<FormState> drawerfranchiesprofileformkey =
-      GlobalKey<FormState>();
-
+  final GlobalKey<FormState> drawerfranchiesprofileformkey = GlobalKey<FormState>();
+  late TextEditingController CompanyName,MobileNumber,StateId,CityId,Location,PinCode;
   ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
+  Rx<City?> selectedCityy = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
 
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel>? states = <StateModel>[].obs;
 
-  late TextEditingController nameController,
-      emailController,
-      mobileController,
-      locatoionController,
-      feesController,
-      pinController,
-      accountnoController,
-      ifscController,
-      branchController;
+  void getStateApi() async {
+    states = await ApiProvider.getSatesApi();
+  }
+  void getCityByStateID(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+  }
+  void frenchiesEditProfileApi()async{
+    http.Response r = await ApiProvider.FrenchiesEditProfile(
+        CompanyName.text,
+        MobileNumber.text,
+        selectedState.value?.id.toString(),
+        selectedCityy.value?.id.toString(),
+        Location.text,
+        PinCode.text);
+    if(r.statusCode == 200){
+
+    }
+
+  }
+
+
 
   var name = '';
   var email = '';
@@ -35,17 +51,17 @@ class DraweerFranchiesProfileController extends GetxController {
 
   @override
   void onInit() {
-    states.refresh();
     super.onInit();
-    nameController = TextEditingController(text: 'Mrs Ak Singh');
-    emailController = TextEditingController();
-    mobileController = TextEditingController(text: '9888776655');
-    locatoionController = TextEditingController(text: 'Palam');
-    feesController = TextEditingController(text: '2000');
-    pinController = TextEditingController(text: '119999');
-    accountnoController = TextEditingController(text: '4898666666');
-    ifscController = TextEditingController(text: '149ONSBI');
-    branchController = TextEditingController(text: 'IDBI');
+    getStateApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateID("${p0.id}");
+      }
+    });
+    CompanyName = TextEditingController(text: 'Rahul');
+    MobileNumber = TextEditingController(text: '9888776655');
+    Location = TextEditingController(text: 'Palam');
+   PinCode = TextEditingController(text: '119999');
   }
 
   @override
@@ -55,15 +71,6 @@ class DraweerFranchiesProfileController extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    mobileController.dispose();
-    locatoionController.dispose();
-    feesController.dispose();
-    pinController.dispose();
-    accountnoController.dispose();
-    ifscController.dispose();
-    branchController.dispose();
   }
 
   String? validName(String value) {
@@ -152,12 +159,12 @@ class DraweerFranchiesProfileController extends GetxController {
     return null;
   }
 
-  void checkProfilee() {
+  void checkFrenchiesEditProfilee() {
     final isValid = drawerfranchiesprofileformkey.currentState!.validate();
+    frenchiesEditProfileApi();
     if (!isValid) {
       return;
     }
     drawerfranchiesprofileformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

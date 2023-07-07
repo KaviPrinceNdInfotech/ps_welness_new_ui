@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-//import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTDSReportDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTDSReportList_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTdsListByDate_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTotalTDS_model.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+
 
 class FranchiseTdsHistoryReportController extends GetxController {
   var selectedTime = TimeOfDay.now().obs;
@@ -19,29 +24,65 @@ class FranchiseTdsHistoryReportController extends GetxController {
   var appointment = ''.obs;
   var appointment2 = ''.obs;
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
-
+  FrenchiesTdsReportModel? getfrenchiesTdsReportModel;
+  FrenchiesTotalTdsModel? getfrenchiesTotalTdsModel;
+  TdsByDateModel? gettdsByDateModel;
+  Rx<TdsDropdown?> selectedRole = (null as TdsDropdown?).obs;
+  List<TdsDropdown> role = <TdsDropdown>[].obs;
+  void getTdsRoleApi() async {
+    role = await ApiProvider.FrenchiesTdsReportRole();
+  }
+  void frenchiesTDSReportApi(String p)async{
+    isLoading(true);
+    getfrenchiesTdsReportModel = await ApiProvider.FrenchiesTDSReportApi(p);
+    if(getfrenchiesTdsReportModel?.tdsReport != null){
+      isLoading(false);
+    }
+  }
+  void frenchiesTotalTDSAmountApi()async{
+    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+    isLoading(true);
+    getfrenchiesTotalTdsModel = await ApiProvider.FrenchiesTotalTDSAmountApi(
+        selectedRole.value?.name.toString(),
+        d1.toString(),
+        d2.toString()
+    );
+    if(getfrenchiesTotalTdsModel?.amount != null){
+      isLoading(false);
+    }
+  }
+  /// tds list by date
+  void frenchiesTDSListByDateApi()async{
+    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+    isLoading(true);
+    gettdsByDateModel = await ApiProvider.FrenchiesTDSListByDateApi(
+      selectedRole.value?.name.toString(),
+        d1.toString(),
+      d2.toString()
+    );
+    if(gettdsByDateModel?.tdsReport != null){
+      isLoading(false);
+    }
+    isLoading(false);
+  }
   @override
   void onInit() {
     super.onInit();
-    appointmentController = TextEditingController();
-    appointmentController.text = "DD-MM-YYYY";
-
-    appointmentController2 = TextEditingController();
-    appointmentController2.text = "DD-MM-YYYY";
+    getTdsRoleApi();
+    frenchiesTDSReportApi('');
+    frenchiesTotalTDSAmountApi();
+    frenchiesTDSListByDateApi();
+   appointmentController = TextEditingController();
+   appointmentController.text = 'dd-MM-yyyy';
+   appointmentController2 = TextEditingController();
+   appointmentController2.text = 'dd-MM-yyyy';
   }
-
   @override
   void onReady() {
     super.onReady();
   }
-
   @override
   void onClose() {
     //TextEditingController.dispose();
@@ -61,8 +102,6 @@ class FranchiseTdsHistoryReportController extends GetxController {
 
       errorInvalidText: 'Enter valid date range',
       fieldLabelText: 'DOB',
-      //fieldHintText: 'Month/Date/Year',
-      //selectableDayPredicate: disableDate,
     );
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
@@ -72,11 +111,6 @@ class FranchiseTdsHistoryReportController extends GetxController {
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
     }
-    // if (pickedDate != null && pickedDate != selectedDate) {
-    //   selectedDate.value = pickedDate;
-    //   appointmentController.text =
-    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
-    // }
   }
 
   chooseDate2() async {
@@ -105,18 +139,25 @@ class FranchiseTdsHistoryReportController extends GetxController {
             offset: appointmentController2.text.length,
             affinity: TextAffinity.upstream));
     }
-    // if (pickedDate != null && pickedDate != selectedDate) {
-    //   selectedDate.value = pickedDate;
-    //   appointmentController.text =
-    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
-    // }
   }
-
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
+  // chooseDate() async{
+  //   DateTime? pickedDate = await showDatePicker(
+  //       context: Get.context!,
+  //       initialDate: selectedDate.value,
+  //       firstDate: DateTime(2018),
+  //       lastDate: DateTime(2025));
+  //   if(pickedDate != null && pickedDate != selectedDate.value){
+  //     selectedDate.value = pickedDate;
+  //   }
+  // }
+  // chooseDate2() async{
+  //   DateTime? pickedDate = await showDatePicker(
+  //       context: Get.context!,
+  //       initialDate: selectedDate2.value,
+  //       firstDate: DateTime(2018),
+  //       lastDate: DateTime(2025));
+  //   if(pickedDate != null && pickedDate != selectedDate2.value){
+  //     selectedDate2.value = pickedDate;
+  //   }
+  // }
 }

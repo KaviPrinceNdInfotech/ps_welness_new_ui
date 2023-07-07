@@ -13,7 +13,7 @@ class FrDoctorSignup2 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -27,41 +27,15 @@ class FrDoctorSignup2 extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              // Positioned(
-              //   top: size.height * 0.1,
-              //   //bottom: size.height * 0.64,
-              //   //left: -30,
-              //   right: -size.width * 0.035,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(2.0),
-              //     child: Container(
-              //       height: size.height * 0.200,
-              //       width: size.width * 0.52,
-              //       decoration: BoxDecoration(
-              //           //color: Colors.,
-              //           borderRadius: BorderRadius.only(
-              //             topRight: Radius.circular(20),
-              //           ),
-              //           image: DecorationImage(
-              //               image: AssetImage(
-              //                 'lib/assets/background_stack_png/doctor21.png',
-              //               ),
-              //               fit: BoxFit.cover)),
-              //     ),
-              //   ),
-              // ),
               Positioned(
                 top: -size.height * 0.05,
-                //bottom: size.height * 0.64,
-                //left: -30,
                 right: size.width * 0.0,
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Container(
                     height: size.height * 0.32,
                     width: size.width * 0.55,
-                    decoration: BoxDecoration(
-                        //color: Colors.,
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                         ),
@@ -78,8 +52,6 @@ class FrDoctorSignup2 extends StatelessWidget {
                 children: [
                   FrDoctor2HeadText(),
                   FrDoctor2Credentials(),
-                  //HospitalSocial(),
-                  //Spacer(),
                 ],
               ),
             ],

@@ -12,10 +12,7 @@ import '../../../../../controllers/2_franchises_controller/my_ymwd_report_contro
 
 class MyYmwdreportchemisttCredential extends StatelessWidget {
   MyYmwdreportchemisttCredential({Key? key}) : super(key: key);
-  YmwdchemisttController _ymwdchemisttController =
-      Get.put(YmwdchemisttController());
-
-  //YmwdLabController YmwdLabController = Get.put(YmwdLabController());
+  YmwdchemisttController _ymwdchemisttController = Get.put(YmwdchemisttController());
 
   var items = [
     'Daily',
@@ -23,11 +20,7 @@ class MyYmwdreportchemisttCredential extends StatelessWidget {
     'Yearly',
     'Weekly',
   ];
-
   get newvalue => null!;
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,29 +28,6 @@ class MyYmwdreportchemisttCredential extends StatelessWidget {
     return SafeArea(
       child: Stack(
         children: [
-          // Positioned(
-          //   top: -size.height * 0.04,
-          //   //bottom: size.height * 0.64,
-          //   //left: -30,
-          //   right: -size.width * 0.1,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(2.0),
-          //     child: Container(
-          //       height: size.height * 0.23,
-          //       width: size.width * 0.65,
-          //       decoration: BoxDecoration(
-          //           //color: Colors.,
-          //           borderRadius: BorderRadius.only(
-          //             topRight: Radius.circular(20),
-          //           ),
-          //           image: DecorationImage(
-          //               image: AssetImage(
-          //                 'lib/assets/background_stack_png/vehicle1.png',
-          //               ),
-          //               fit: BoxFit.cover)),
-          //     ),
-          //   ),
-          // ),
           Form(
             key: _ymwdchemisttController.ymwdchemisstformkey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -98,11 +68,9 @@ class MyYmwdreportchemisttCredential extends StatelessWidget {
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * 0.01),
-                      child: Obx(
-                        () => DropdownButtonFormField(
-                            //icon: Icon(Icons.location_city),
-                            value: _ymwdchemisttController.selectedCity.value,
-                            decoration: InputDecoration(
+                      child: Obx(() => DropdownButtonFormField(
+                            value: _ymwdchemisttController.selectedTerm.value,
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(
                                 Icons.list_alt,
                                 color: Colors.black,
@@ -124,14 +92,8 @@ class MyYmwdreportchemisttCredential extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              _ymwdchemisttController.selectedCity.value =
-                                  newValue!;
-                              // _hospital_2_controller.states.value =
-                              //     newValue! as List<String>;
-                              // _hospital_2_controller.selectedCity.value = null;
-                              // _hospital_2_controller.cities.clear();
-                              // _hospital_2_controller.cities
-                              //     .addAll(stateCityMap[newvalue]!);
+                              _ymwdchemisttController.selectedTerm.value = newValue!;
+                              _ymwdchemisttController.frenchiesYMWDChemistReportApi(newValue);
                             }),
                       ),
                     ),
@@ -144,36 +106,29 @@ class MyYmwdreportchemisttCredential extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          //height: size.height * 0.02,
                           decoration: new BoxDecoration(
                               borderRadius: new BorderRadius.all(
                                   new Radius.circular(30.0)),
                               color: MyTheme.containercolor14),
                           width: size.width * 0.72,
                           height: size.height * 0.06,
-                          margin: new EdgeInsets.fromLTRB(1, 20, 10, 20),
-                          padding: new EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          margin: const EdgeInsets.fromLTRB(1, 20, 10, 20),
+                          padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: Theme(
-                            data: Theme.of(context)
-                                .copyWith(splashColor: Colors.transparent),
+                            data: Theme.of(context).copyWith(splashColor: Colors.transparent),
                             child: Obx(
                               () => (_ymwdchemisttController.isLoading.value)
-                                  ? Center(child: CircularProgressIndicator())
+                                  ? Center(child: Text("wait"))
                                   : TextField(
-                                      controller: _ymwdchemisttController
-                                          .appointmentController1,
-                                      onTap: () {
-                                        _ymwdchemisttController.chooseDate();
-                                      },
+                                    onChanged: (value)=>  _ymwdchemisttController.filterPaymentNurse(value),
                                       autofocus: false,
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: MyTheme.blueww),
                                       decoration: InputDecoration(
-                                        //prefixIcon: Icon(Icons.search),
                                         filled: true,
                                         fillColor: MyTheme.ThemeColors,
-                                        hintText: 'dd-mm-yyyy',
+                                        hintText: 'search Chemist name',
                                         contentPadding: const EdgeInsets.only(
                                             left: 10.0, bottom: 12.0, top: 0.0),
                                         focusedBorder: OutlineInputBorder(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_nurses_view/nurses_sighup2/nurses_signup2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -16,11 +17,7 @@ import '../../../../../../controllers/2_franchises_controller/registration_part_
 class FrNurses1Credentials extends StatelessWidget {
   FrNurses1Credentials({Key? key}) : super(key: key);
 
-  FrNurses_1_controller _frnurses_1_controller =
-      Get.put(FrNurses_1_controller());
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
+  FrNurses_1_controller _frnurses_1_controller = Get.put(FrNurses_1_controller());
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +61,6 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -96,7 +92,6 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -127,7 +122,6 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -161,7 +155,6 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -190,190 +183,54 @@ class FrNurses1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-            // RectangularInputField(
-            //   hintText: 'Password',
-            //   icon: Icons.lock,
-            //   obscureText: true,
-            // ),
             SizedBox(
               height: size.height * 0.00,
               //appPadding / 2,
             ),
-
             SizedBox(
               height: size.height * 0.03,
             ),
-
-            Container(
-              height: size.height * 0.066,
-              width: double.infinity,
-              margin: EdgeInsets.symmetric(vertical: appPadding / 2),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        lightPrimary,
-                        darkPrimary,
-                      ]),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-2, -2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: darkShadow,
-                    ),
-                    BoxShadow(
-                      offset: Offset(2, 2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: lightShadow,
-                    ),
-                  ]),
-              child: SizedBox(
-                //width: size.width * 0.40,
-                child: Container(
-                  //width: size.width * 40,
-                  height: size.height * 0.065,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    //color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                      () => DropdownButtonFormField<NurseModels>(
+                      value: _frnurses_1_controller.selectedNurse.value,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Nurse'),
+                      items: _frnurses_1_controller.nurse
+                          .map((NurseModels nurse) {
+                        return DropdownMenuItem(
+                          value: nurse,
+                          child: Text(
+                            nurse.nurseTypeName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
                             ),
-                            // title: Text("Male"),
-                            value: "Anm",
-                            groupValue:
-                                _frnurses_1_controller.selectedServicee.value,
-                            onChanged: (value) {
-                              _frnurses_1_controller.onChangeServicee(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
                           ),
-                        ),
-                        Text(
-                          'ANM',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "GNM",
-                            groupValue:
-                                _frnurses_1_controller.selectedServicee.value,
-                            onChanged: (value) {
-                              _frnurses_1_controller.onChangeServicee(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
-                        Text(
-                          'GNM',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "Product",
-                            groupValue:
-                                _frnurses_1_controller.selectedServicee.value,
-                            onChanged: (value) {
-                              _frnurses_1_controller.onChangeServicee(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
-                        Text(
-                          'Technician',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "Attendance",
-                            groupValue:
-                                _frnurses_1_controller.selectedServicee.value,
-                            onChanged: (value) {
-                              _frnurses_1_controller.onChangeServicee(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
-                        Text(
-                          'Attedant',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        );
+                      }).toList(),
+                      onChanged: (NurseModels? newValue) {
+                        _frnurses_1_controller.selectedNurse.value = newValue!;
+                      }),
                 ),
               ),
             ),
-
             SizedBox(
               height: size.height * 0.01,
             ),
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: InkWell(
-            //     onTap: () {},
-            //     child: Text(
-            //       'Forget Password?',
-            //       style: GoogleFonts.alegreya(
-            //         fontWeight: FontWeight.w500,
-            //         fontSize: size.width * 0.035,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
                   Get.to(FrNursesSignup2());
-                  //_loginpasswordController.checkLoginpassword();
                 })
           ],
         ),

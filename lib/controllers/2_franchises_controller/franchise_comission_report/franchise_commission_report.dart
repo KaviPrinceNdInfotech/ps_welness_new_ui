@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-//import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesCommissionReportDD_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesCommissionReport_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTotalCommission_model.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class FranchiseCommissionReportController extends GetxController {
   var selectedTime = TimeOfDay.now().obs;
@@ -18,22 +21,55 @@ class FranchiseCommissionReportController extends GetxController {
   var appointment = ''.obs;
   var appointment2 = ''.obs;
 
-  ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  FrenchiesCommissionReportModel? getfrenchiesCommissionReportModel;
+  FrenchiesTotalCommissionModel? getfrenchiesTotalCommissionModel;
+  Rx<CommissionDropdown?> selectedRole = (null as CommissionDropdown?).obs;
+  List<CommissionDropdown> role = <CommissionDropdown>[].obs;
+  void getCommissionRoleApi() async {
+    role = await ApiProvider.FrenchiesCommissionReportRole();
+  }
+  void frenchiesCommissionReportApi()async{
+    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+    isLoading(true);
+    getfrenchiesCommissionReportModel = await ApiProvider.FrenchiesCommissionReportApi(
+      selectedRole.value?.name.toString(),
+      d1.toString(),
+      d2.toString()
+    );
+    if(getfrenchiesCommissionReportModel?.commissionReport != null){
+      isLoading(false);
+    }
+    isLoading(false);
+  }
+  ////
+  void frenchiesTotalCommissionAmountApi()async{
+    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+    isLoading(true);
+    getfrenchiesTotalCommissionModel = await ApiProvider.FrenchiesTotalCommissionAmountApi(
+        selectedRole.value?.name.toString(),
+        d1.toString(),
+        d2.toString()
+    );
+    if(getfrenchiesTotalCommissionModel?.totalCommissionAmount != null){
+      isLoading(false);
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
+    var d3=DateFormat("dd-MM-yyyy").format(selectedDate.value).toString();
+    var d4=DateFormat("dd-MM-yyyy").format(selectedDate2.value).toString();
+    getCommissionRoleApi();
+    frenchiesCommissionReportApi();
+    frenchiesTotalCommissionAmountApi();
     appointmentController = TextEditingController();
-    appointmentController.text = "DD-MM-YYYY";
+    appointmentController.text = d3;
 
     appointmentController2 = TextEditingController();
-    appointmentController2.text = "DD-MM-YYYY";
+    appointmentController2.text = d4;
   }
 
   @override
@@ -43,7 +79,6 @@ class FranchiseCommissionReportController extends GetxController {
 
   @override
   void onClose() {
-    //TextEditingController.dispose();
   }
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
@@ -60,6 +95,7 @@ class FranchiseCommissionReportController extends GetxController {
 
       errorInvalidText: 'Enter valid date range',
       fieldLabelText: 'DOB',
+
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
@@ -71,11 +107,6 @@ class FranchiseCommissionReportController extends GetxController {
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
     }
-    // if (pickedDate != null && pickedDate != selectedDate) {
-    //   selectedDate.value = pickedDate;
-    //   appointmentController.text =
-    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
-    // }
   }
 
   chooseDate2() async {
@@ -104,18 +135,5 @@ class FranchiseCommissionReportController extends GetxController {
             offset: appointmentController2.text.length,
             affinity: TextAffinity.upstream));
     }
-    // if (pickedDate != null && pickedDate != selectedDate) {
-    //   selectedDate.value = pickedDate;
-    //   appointmentController.text =
-    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
-    // }
   }
-
-//bool disableDate(DateTime day) {
-//   if ((day.isAfter(DateTime.now().subtract(Duration(days: 4))) &&
-//       day.isBefore(DateTime.now().add(Duration(days: 30))))) {
-//     return true;
-//   }
-//   return false;
-// }
 }

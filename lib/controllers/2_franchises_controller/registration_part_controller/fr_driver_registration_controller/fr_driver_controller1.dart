@@ -1,29 +1,135 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:http/http.dart' as http;
 
 class Fr_Driver_1_Controller extends GetxController {
   final GlobalKey<FormState> frdriver1formkey = GlobalKey<FormState>();
+  RxBool isLoading = false.obs;
 
-  late TextEditingController nameController,
+  TextEditingController?
+      nameController,
       emailController,
       passwordController,
       confirmpasswordController,
-      mobileController;
+      mobileController,
+      pinController,
+      addressController,
+      dlNumber;
 
   var name = '';
   var email = '';
   var password = '';
   var confirmpassword = '';
   var mobile = '';
+  var selectedDLImage1path = ''.obs;
+  var selectedDLImage2path = ''.obs;
+  var selectedAadharImage1path = ''.obs;
+  var selectedAadharImage2path = ''.obs;
+
+  void getDLImage1(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedDLImage1path.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+  void getDLImage2(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedDLImage2path.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+  void getAadharImage1(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedAadharImage1path.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+  void getAadharImage2(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedAadharImage2path.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+
+  ///this is for State....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+  ///this is for City.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+///
+  void getStateLabApi() async {
+    states = await ApiProvider.getSatesApi();
+  }
+  ///get cities api...........
+  void getCityByStateIDLab(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+  }
+  void FrenchiesDriverRegistration()async{
+    isLoading(true);
+    final Dl1imageAsBase64 = base64Encode(await File(selectedDLImage1path.value).readAsBytes());
+    final Dl2imageAsBase64 = base64Encode(await File(selectedDLImage2path.value).readAsBytes());
+    final Aadhar1imageAsBase64 = base64Encode(await File(selectedAadharImage1path.value).readAsBytes());
+    final Aadhar2imageAsBase64 = base64Encode(await File(selectedAadharImage2path.value).readAsBytes());
+    http.Response r = await ApiProvider.FrenchiesRegisterDriver(
+        nameController?.text,
+        passwordController?.text,
+        confirmpasswordController?.text,
+        mobileController?.text,
+        addressController?.text,
+        dlNumber?.text,
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
+      selectedDLImage1path.value.split('/').last,
+      Dl1imageAsBase64,
+      selectedDLImage2path.value.split('/').last,
+      Dl2imageAsBase64,
+      selectedAadharImage1path.value.split('/').last,
+      Aadhar1imageAsBase64,
+      selectedAadharImage2path.value.split('/').last,
+      Aadhar2imageAsBase64,
+      pinController?.text,
+    );
+    if(r.statusCode == 200){
+      isLoading(false);
+    }
+  }
+
 
   @override
   void onInit() {
     super.onInit();
-    nameController = TextEditingController();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    confirmpasswordController = TextEditingController();
-    mobileController = TextEditingController();
+    getStateLabApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDLab("${p0.id}");
+      }
+    }
+    );
+    nameController = TextEditingController(text: 'Rahul');
+    passwordController = TextEditingController(text: '12345678');
+    confirmpasswordController = TextEditingController(text: '12345678');
+    mobileController = TextEditingController(text: '8888888888');
+    pinController = TextEditingController(text: '841214');
+    addressController = TextEditingController(text: 'noida');
+    dlNumber = TextEditingController(text: '1234t78');
   }
 
   @override
@@ -33,11 +139,11 @@ class Fr_Driver_1_Controller extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmpasswordController.dispose();
-    mobileController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    passwordController?.dispose();
+    confirmpasswordController?.dispose();
+    mobileController?.dispose();
   }
 
   String? validName(String value) {
@@ -46,7 +152,6 @@ class Fr_Driver_1_Controller extends GetxController {
     }
     return null;
   }
-
   String? validEmail(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -64,7 +169,6 @@ class Fr_Driver_1_Controller extends GetxController {
 
   String? validPassword(String value) {
     confirmpassword = value;
-
     if (value.isEmpty) {
       return "              Please Enter New Password";
     } else if (value.length < 8) {
@@ -73,7 +177,6 @@ class Fr_Driver_1_Controller extends GetxController {
       return null;
     }
   }
-
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
@@ -98,10 +201,10 @@ class Fr_Driver_1_Controller extends GetxController {
 
   void checkDriver1() {
     final isValid = frdriver1formkey.currentState!.validate();
+    FrenchiesDriverRegistration();
     if (!isValid) {
       return;
     }
     frdriver1formkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

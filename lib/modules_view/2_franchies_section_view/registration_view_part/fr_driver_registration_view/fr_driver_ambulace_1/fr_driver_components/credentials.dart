@@ -16,11 +16,7 @@ import '../../../../../../controllers/2_franchises_controller/registration_part_
 class FrDriver1Credentials extends StatelessWidget {
   FrDriver1Credentials({Key? key}) : super(key: key);
 
-  Fr_Driver_1_Controller _frdriver_1_controller =
-      Get.put(Fr_Driver_1_Controller());
-
-  // LoginpasswordController _loginpasswordController =
-  //     Get.put(LoginpasswordController());
+  Fr_Driver_1_Controller _frdriver_1_controller = Get.put(Fr_Driver_1_Controller());
 
   @override
   Widget build(BuildContext context) {
@@ -64,39 +60,6 @@ class FrDriver1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
-            ///Todo: email.....................
-            // NeumorphicTextFieldContainer(
-            //   child: TextFormField(
-            //     autofillHints: [AutofillHints.email],
-            //     controller: _driver_1_controller.emailController,
-            //     onSaved: (value) {
-            //       _driver_1_controller.email = value!;
-            //     },
-            //     validator: (value) {
-            //       return _driver_1_controller.validEmail(value!);
-            //     },
-            //     cursorColor: Colors.black,
-            //     obscureText: false,
-            //     decoration: InputDecoration(
-            //       hintText: 'Email',
-            //       helperStyle: TextStyle(
-            //         color: black.withOpacity(0.7),
-            //         fontSize: 18,
-            //       ),
-            //       prefixIcon: Icon(
-            //         Icons.email,
-            //         color: black.withOpacity(0.7),
-            //         size: 20,
-            //       ),
-            //       border: InputBorder.none,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.02,
-            // ),
-
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -127,7 +90,6 @@ class FrDriver1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -161,7 +123,6 @@ class FrDriver1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -190,36 +151,14 @@ class FrDriver1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-            // RectangularInputField(
-            //   hintText: 'Password',
-            //   icon: Icons.lock,
-            //   obscureText: true,
-            // ),
-
             SizedBox(
               height: size.height * 0.00,
               //appPadding / 2,
             ),
-
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: InkWell(
-            //     onTap: () {},
-            //     child: Text(
-            //       'Forget Password?',
-            //       style: GoogleFonts.alegreya(
-            //         fontWeight: FontWeight.w500,
-            //         fontSize: size.width * 0.035,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
                   Get.to(FrDriverSignup2());
-                  //_loginpasswordController.checkLoginpassword();
                 })
           ],
         ),

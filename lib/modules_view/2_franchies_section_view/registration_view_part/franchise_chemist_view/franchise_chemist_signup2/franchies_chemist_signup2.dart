@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchise_chemistcomponents2/credentials.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchise_chemistcomponents2/head_text.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchise_chemistcomponents2/credentials.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchise_chemistcomponents2/head_text.dart';
 
 class FranchiseChemistSignup2 extends StatelessWidget {
   const FranchiseChemistSignup2({Key? key}) : super(key: key);
@@ -14,7 +11,7 @@ class FranchiseChemistSignup2 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -30,16 +27,13 @@ class FranchiseChemistSignup2 extends StatelessWidget {
             children: [
               Positioned(
                 top: -size.height * 0.04,
-                //bottom: size.height * 0.64,
-                //left: -30,
                 right: -size.width * 0.02,
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Container(
                     height: size.height * 0.31,
                     width: size.width * 0.5,
-                    decoration: BoxDecoration(
-                        //color: Colors.,
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                         ),
@@ -56,8 +50,6 @@ class FranchiseChemistSignup2 extends StatelessWidget {
                 children: [
                   FranchiesChemist2HeadText(),
                   FranchiesChemist2Credentials(),
-                  //HospitalSocial(),
-                  //Spacer(),
                 ],
               ),
             ],

@@ -17,12 +17,10 @@ class Fr_Driver_2_Controller extends GetxController {
       print('No image selected');
     }
   }
-
   ///this is for State....................................
   Rx<String?> selectedCity = (null as String?).obs;
   RxList<String> cities = <String>[].obs;
-
-  //this is for City.................................
+  ///this is for City.................................
   Rx<String?> selectedState = (null as String?).obs;
   RxList<String> states = <String>[].obs;
 
@@ -31,16 +29,9 @@ class Fr_Driver_2_Controller extends GetxController {
   var pin = '';
   var address = '';
 
-  //get stateCitymap => null;
-
   @override
   void onInit() {
-    // stateCitymap((key, value) {
-    //   states.add(key);
-    // }
-    //);
     states.refresh();
-
     pinController = TextEditingController();
     addressController = TextEditingController();
     super.onInit();

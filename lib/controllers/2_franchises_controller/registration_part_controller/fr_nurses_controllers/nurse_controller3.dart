@@ -6,14 +6,12 @@ class FrNurses_3_controller extends GetxController {
 
   late TextEditingController dayController, locationController;
 
-  var day = '';
-  var location = '';
+
 
   @override
   void onInit() {
     super.onInit();
-    locationController = TextEditingController();
-    dayController = TextEditingController();
+
   }
 
   @override
@@ -27,19 +25,7 @@ class FrNurses_3_controller extends GetxController {
     dayController.dispose();
   }
 
-  String? validLocation(String value) {
-    if (value.length < 2) {
-      return "              Provide valid location";
-    }
-    return null;
-  }
 
-  String? validDay(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    return null;
-  }
 
   void checkNurses3() {
     final isValid = frnursesformkey3.currentState!.validate();

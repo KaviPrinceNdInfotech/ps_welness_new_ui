@@ -66,65 +66,7 @@ class FrDoctor_2_Controller extends GetxController {
     mobileController.dispose();
   }
 
-  ///time 1........................
-  chooseTime() async {
-    TimeOfDay? pickedTime = await showTimePicker(
-        context: Get.context!,
-        initialTime: selectedTime.value,
-        builder: (context, child) {
-          return Theme(data: ThemeData.dark(), child: child!);
-        },
-        initialEntryMode: TimePickerEntryMode.input,
-        helpText: 'Select Departure Time',
-        cancelText: 'Close',
-        confirmText: 'Confirm',
-        errorInvalidText: 'Provide valid time',
-        hourLabelText: 'Select Hour',
-        minuteLabelText: 'Select Minute');
 
-    if (pickedTime != null && pickedTime != selectedTime.value) {
-      selectedTime.value = pickedTime;
-    }
-  }
-
-  ///time 2...................
-
-  chooseTime2() async {
-    TimeOfDay? pickedTime = await showTimePicker(
-        context: Get.context!,
-        initialTime: selectedTime2.value,
-        builder: (context, child) {
-          return Theme(data: ThemeData.dark(), child: child!);
-        },
-        initialEntryMode: TimePickerEntryMode.input,
-        helpText: 'Select Departure Time',
-        cancelText: 'Close',
-        confirmText: 'Confirm',
-        errorInvalidText: 'Provide valid time',
-        hourLabelText: 'Select Hour',
-        minuteLabelText: 'Select Minute');
-    if (pickedTime != null && pickedTime != selectedTime2.value) {
-      selectedTime2.value = pickedTime;
-    }
-  }
-
-  String? validClinicname(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-
-    return null;
-  }
-
-  String? validPhone(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    if (value.length != 10) {
-      return '              A valid phone number should be of 10 digits';
-    }
-    return null;
-  }
 
   void checkDoctor2() {
     final isValid = frdoctor2formkey.currentState!.validate();
