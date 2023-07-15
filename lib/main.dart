@@ -204,7 +204,6 @@ void main() async {
   await Firebase.initializeApp();
   final fcmToken = await FirebaseMessaging.instance.getToken();
   print("mytoken${fcmToken}");
-
   // ///other token...
   //
   // ///call background function firebase....27...jun...2023..old

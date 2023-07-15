@@ -5160,7 +5160,13 @@ class ApiProvider {
     var body = {
       "Id": "${driacceptrejectlistid}",
       "DriverId": userid,
-      "StatusId": "${1}",
+      "StatusId": "${0}",
+
+      ///for testing perpose i am....up...0
+      ///
+
+      ///this is the main actual down..1
+      //"StatusId": "${1}",
     };
     //
     print("acceptttt:${body}");

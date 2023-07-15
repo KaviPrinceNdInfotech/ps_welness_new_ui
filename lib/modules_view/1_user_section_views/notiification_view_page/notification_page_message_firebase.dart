@@ -312,7 +312,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         style:
                                                             GoogleFonts.aBeeZee(
                                                           fontSize: size.width *
-                                                              0.045,
+                                                              0.036,
                                                           fontWeight:
                                                               FontWeight.w700,
                                                           color: Colors
@@ -359,8 +359,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                         style:
                                                             GoogleFonts.aBeeZee(
-                                                          fontSize: size.width *
-                                                              0.045,
+                                                          fontSize:
+                                                              size.width * 0.04,
                                                           fontWeight:
                                                               FontWeight.w700,
                                                           color: Colors
@@ -379,8 +379,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                         style:
                                                             GoogleFonts.actor(
-                                                          fontSize: size.width *
-                                                              0.045,
+                                                          fontSize:
+                                                              size.width * 0.04,
                                                           fontWeight:
                                                               FontWeight.w700,
                                                           color:
@@ -399,8 +399,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                         style:
                                                             GoogleFonts.roboto(
-                                                          fontSize: size.width *
-                                                              0.045,
+                                                          fontSize:
+                                                              size.width * 0.04,
                                                           fontWeight:
                                                               FontWeight.w700,
                                                           color: Colors
@@ -410,7 +410,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                     ],
                                                   ),
                                                   SizedBox(
-                                                    height: size.height * 0.02,
+                                                    height: size.height * 0.01,
                                                   ),
                                                   Row(
                                                     children: [
@@ -436,7 +436,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         width:
                                                             size.width * 0.61,
                                                         child: Text(
-                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].startLat}",
+                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseStartLatLongToLocation}",
 
                                                           // """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
                                                           maxLines: 2,
@@ -457,7 +457,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                     ],
                                                   ),
                                                   SizedBox(
-                                                    height: size.height * 0.02,
+                                                    height: size.height * 0.012,
                                                   ),
                                                   Row(
                                                     children: [
@@ -483,7 +483,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         width:
                                                             size.width * 0.66,
                                                         child: Text(
-                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].startLat}",
+                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseEndLatLongToLocation}",
 
                                                           //  """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
                                                           maxLines: 2,
@@ -600,9 +600,12 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                   },
                                                                 },
                                                                 'data': {
-                                                                  'type': 'msj',
-                                                                  'ids':
-                                                                      '12345611111'
+                                                                  'type':
+                                                                      'reject_case',
+                                                                  //reject_case
+                                                                  //accept_case
+                                                                  'id':
+                                                                      '1234567'
                                                                 }
                                                               };
                                                               await http.post(
@@ -764,9 +767,10 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                   },
                                                                 },
                                                                 'data': {
-                                                                  'type': 'msj',
-                                                                  'ids':
-                                                                      '123456111'
+                                                                  'type':
+                                                                      'accept_case',
+                                                                  'id':
+                                                                      '12345678'
                                                                 }
                                                               };
                                                               await http.post(

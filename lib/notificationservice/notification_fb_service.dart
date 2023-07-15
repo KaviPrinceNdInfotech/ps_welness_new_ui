@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_message2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_page_message_firebase.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
@@ -202,7 +203,44 @@ class NotificationServices {
       //         builder: (context) => MessageScreen(
       //               id: message.data['id'],
       //             )));
-    }
+    } else if (message.data['type'] == 'accept_case') {
+      await Future.delayed(Duration(seconds: 1));
+      accountService.getAccountData.then((accountData) {
+        CallLoader.loader();
+        // nearlistdriverApi();
+
+        _useracptrejectController.driveracceptrejctlistApi();
+        _useracptrejectController.update();
+
+        Timer(
+          const Duration(seconds: 1),
+          () {
+            // nearlistdriverApi();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MessageScreen2(
+                          id: message.data['id'],
+                        )));
+            // Get.to(MessageScreen(
+            //   id: message.data['id'],
+            // ));
+            //Get.to((MapView));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => MessageScreen(
+      //               id: message.data['id'],
+      //             )));
+    } else if (message.data['type'] == 'reject_case') {}
   }
 
   Future forgroundMessage() async {

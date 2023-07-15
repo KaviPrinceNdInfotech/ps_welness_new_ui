@@ -151,10 +151,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                     clipBehavior: Clip.none,
                     children: [
                       Positioned(
-                        top: -size.height * 0.04,
+                        top: size.height * 0.007,
                         //bottom: size.height * 0.64,
                         //left: -30,
-                        right: -size.width * 0.024,
+                        left: -size.width * 0.024,
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
                           child: Container(
@@ -174,40 +174,25 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                         ),
                       ),
                       Positioned(
-                        top: size.height * 0.06,
+                        top: size.height * 0.05,
                         //bottom: size.height * 0.64,
                         //left: -30,
-                        left: size.width * 0.1,
-
-                        ///todo: all booking driver...
-                        child: Padding(
-                          padding: EdgeInsets.all(2.0),
-                          child: InkWell(
-                              onTap: () async {
-                                print("trtrtrtrt88888855${alldevicetoken}");
-                                print(
-                                  "okokotokenww:${widget.driverlist?.message?[0].deviceId}"
-                                      .toString(),
-                                );
-
-                                //DriverListApi? driverlist;
-                                List<DriverListApi> driverlists = [];
-
-                                ///for each loop......przactice
-
-                                List<String> items = [
-                                  "Item 1",
-                                  "Item 2",
-                                  "Item 3",
-                                  "Item 4",
-                                  "Item 5"
-                                ];
-                                driverlists?.forEach((driverlists) {
-                                  print("trtrtrtrt${driverlists}");
-                                });
-
-                                ///end....of...loop......
-
+                        right: size.width * 0.024,
+                        child: Container(
+                          height: size.height * 0.05,
+                          width: size.width * 0.3,
+                          child: NeoPopButton(
+                            color: Colors.red.shade800,
+                            bottomShadowColor: ColorUtils.getVerticalShadow(
+                                    Colors.red.shade300)
+                                .toColor(),
+                            rightShadowColor: ColorUtils.getHorizontalShadow(
+                                    Colors.red.shade300)
+                                .toColor(),
+                            //animationDuration: kButtonAnimationDuration,
+                            depth: kButtonDepth,
+                            onTapUp: () async {
+                              widget.driverlist?.message?.forEach((element) {
                                 ///.......
                                 print('princee notification');
                                 notificationServices
@@ -222,7 +207,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
 
                                         ///todo device token......
                                         // "${widget.driverlist?.message?[0].deviceId}"
-                                        "${alldevicetoken}".toString(),
+                                        "${element.deviceId}".toString(),
 
                                     ///
                                     //
@@ -243,7 +228,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                         'notification_count': 23,
                                       },
                                     },
-                                    'data': {'type': 'msj', 'id': '123456'}
+                                    'data': {
+                                      'type': 'msj',
+                                      'id': '123456',
+                                    }
                                   };
 
                                   await http.post(
@@ -297,24 +285,157 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
 
                                   ///todo end post api from backend...
                                 });
-                              },
-                              child: Icon(Icons.select_all)),
-                          // Container(
-                          //   height: size.height * 0.20,
-                          //   width: size.width * 0.5,
-                          //   decoration: BoxDecoration(
-                          //     //color: Colors.,
-                          //       borderRadius: BorderRadius.only(
-                          //         topRight: Radius.circular(20),
-                          //       ),
-                          //       image: DecorationImage(
-                          //           image: AssetImage(
-                          //             'lib/assets/image/psambulance.png',
-                          //           ),
-                          //           fit: BoxFit.cover)),
-                          // ),
+                              });
+                            },
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 3,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text("Request All",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
+
+                      ///request all driver bhaiya.....suggession...
+                      // Positioned(
+                      //   top: size.height * 0.066,
+                      //   //bottom: size.height * 0.64,
+                      //   //left: -30,
+                      //   left: size.width * 0.3,
+                      //
+                      //   ///todo: all booking driver...
+                      //   child: Padding(
+                      //     padding: EdgeInsets.all(2.0),
+                      //     child: InkWell(
+                      //         onTap: () async {
+                      //           widget.driverlist?.message?.forEach((element) {
+                      //             ///.......
+                      //             print('princee notification');
+                      //             notificationServices
+                      //                 .getDeviceToken()
+                      //                 .then((value) async {
+                      //               var data = {
+                      //                 //this the particular device id.....
+                      //                 'to':
+                      //                     // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                      //                     //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                      //                     //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                      //
+                      //                     ///todo device token......
+                      //                     // "${widget.driverlist?.message?[0].deviceId}"
+                      //                     "${element.deviceId}".toString(),
+                      //
+                      //                 ///
+                      //                 //
+                      //                 //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                      //                 //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                      //                 //.toString(),
+                      //
+                      //                 ///this is same device token....
+                      //                 //value
+                      //                 //.toString(),
+                      //                 'notification': {
+                      //                   'title': 'Ps_Wellness',
+                      //                   'body':
+                      //                       'You have request for ambulance',
+                      //                   //"sound": "jetsons_doorbell.mp3"
+                      //                 },
+                      //                 'android': {
+                      //                   'notification': {
+                      //                     'notification_count': 23,
+                      //                   },
+                      //                 },
+                      //                 'data': {
+                      //                   'type': 'msj',
+                      //                   'id': '123456',
+                      //                 }
+                      //               };
+                      //
+                      //               await http.post(
+                      //                   Uri.parse(
+                      //                       'https://fcm.googleapis.com/fcm/send'),
+                      //                   body: jsonEncode(data),
+                      //                   headers: {
+                      //                     'Content-Type':
+                      //                         'application/json; charset=UTF-8',
+                      //                     'Authorization':
+                      //                         //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                      //                         'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                      //                   }).then((value) {
+                      //                 if (kDebugMode) {
+                      //                   print(value.body.toString());
+                      //                 }
+                      //               }).onError((error, stackTrace) {
+                      //                 if (kDebugMode) {
+                      //                   print(error);
+                      //                 }
+                      //               });
+                      //
+                      //               ///todo: from here custom from backend start...
+                      //               var prefs = GetStorage();
+                      //               PatientRegNo =
+                      //                   prefs.read("PatientRegNo").toString();
+                      //               print(
+                      //                   '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                      //               var body = {
+                      //                 "UserId": "${PatientRegNo}",
+                      //                 "DeviceId": value.toString(),
+                      //               };
+                      //               print(
+                      //                   "userrrtokenupdateeeddbeforetttt${body}");
+                      //               http.Response r = await http.post(
+                      //                 Uri.parse(
+                      //                     'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                      //                 body: body,
+                      //               );
+                      //
+                      //               print(r.body);
+                      //               if (r.statusCode == 200) {
+                      //                 print("userrrtokenupdateeedd111${body}");
+                      //                 return r;
+                      //               } else if (r.statusCode == 401) {
+                      //                 Get.snackbar('message', r.body);
+                      //               } else {
+                      //                 Get.snackbar('Error', r.body);
+                      //                 return r;
+                      //               }
+                      //
+                      //               ///todo end post api from backend...
+                      //             });
+                      //           });
+                      //         },
+                      //         child: Icon(Icons.select_all)),
+                      //     // Container(
+                      //     //   height: size.height * 0.20,
+                      //     //   width: size.width * 0.5,
+                      //     //   decoration: BoxDecoration(
+                      //     //     //color: Colors.,
+                      //     //       borderRadius: BorderRadius.only(
+                      //     //         topRight: Radius.circular(20),
+                      //     //       ),
+                      //     //       image: DecorationImage(
+                      //     //           image: AssetImage(
+                      //     //             'lib/assets/image/psambulance.png',
+                      //     //           ),
+                      //     //           fit: BoxFit.cover)),
+                      //     // ),
+                      //   ),
+                      // ),
+                      ///end.....
                       Column(
                         children: [
                           Padding(
@@ -355,7 +476,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.05,
+                            height: size.height * 0.1,
                           ),
 
                           Expanded(
@@ -1029,6 +1150,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                           ),
                                                         ),
                                                       ),
+
+                                                      ///
+
+                                                      ///
                                                       // Container(
                                                       //   height: size.height *
                                                       //       0.04,
