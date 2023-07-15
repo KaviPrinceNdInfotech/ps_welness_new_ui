@@ -53,8 +53,6 @@ class FrRwaSignup2 extends StatelessWidget {
                 children: [
                   FrRwa2HeadText(),
                   FrRwa2Credentials(),
-                  //HospitalSocial(),
-                  //Spacer(),
                 ],
               ),
             ],

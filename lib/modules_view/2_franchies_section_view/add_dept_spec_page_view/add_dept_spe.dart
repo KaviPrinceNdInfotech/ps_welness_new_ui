@@ -68,7 +68,7 @@ class AdddeptSpecPage extends StatelessWidget {
                             child: Container(
                               height: size.height * 0.03,
                               width: size.width * 0.1,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white70,
                               ),
@@ -95,7 +95,6 @@ class AdddeptSpecPage extends StatelessWidget {
                     SizedBox(
                       height: size.height * 0.03,
                     ),
-                    //FranchisesGallaryHeadText(),
                     AdddeptSpecialCredentials(),
                   ],
                 ),

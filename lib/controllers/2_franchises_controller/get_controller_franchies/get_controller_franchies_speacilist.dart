@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDept&SpecList2_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDept&SpecList_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../model/franchies_models/franchies_specialist.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ class FranchiesSpecialistController extends GetxController {
   void franchiesSpecialistListssApi() async {
     isLoading(true);
     getDeptSpecList2Model = await ApiProvider.FrenchiesDeptSpecList2Api();
-    if (getDeptSpecList2Model != null) {
+    if (getDeptSpecList2Model?.deptspecList != null) {
       isLoading(false);
     }
   }
@@ -60,7 +61,7 @@ class FranchiesSpecialistController extends GetxController {
     data.value = finalResult;
   }
   @override
-  void onInit() {
+  void onInit(){
     super.onInit();
     franchiesSpecialistListssApi();
     franchiesDeptAndSpecListsApi();

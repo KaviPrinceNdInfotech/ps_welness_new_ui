@@ -57,6 +57,7 @@ class PostOrderDoctorController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    //postOrderdoctoronlineApi();
     //ProductName;
     //Total_Item;
     //Price;

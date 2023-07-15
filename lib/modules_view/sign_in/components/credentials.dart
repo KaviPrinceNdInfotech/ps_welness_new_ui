@@ -341,14 +341,37 @@ class Credentials extends StatelessWidget {
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
+    await Future.delayed(Duration(seconds: 1));
+    await Get.dialog(
+      // bool barrierDismissible = true
+
+      AlertDialog(
+        title: const Text('Ps Wellness'),
+        content: const Text(
+            """When you grant permission for  location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
+        actions: [
+          TextButton(
+            child: const Text("Reject"),
+            onPressed: () => Get.back(),
+          ),
+          TextButton(
+            child: const Text("Accept"),
+            onPressed: () => Get.back(),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      // return Future.value('');
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
       await Geolocator.openLocationSettings();
+
       return Future.error('Location services are disabled.');
     }
 

@@ -37,7 +37,7 @@ class NurseViewssReport {
   int? id;
   String? labName;
   String? testName;
-  DateTime? testDate;
+  String? testDate;
   String? file;
 
   NurseViewssReport({

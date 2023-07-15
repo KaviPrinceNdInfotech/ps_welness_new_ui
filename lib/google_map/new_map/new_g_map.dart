@@ -12,6 +12,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/secrets.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
@@ -42,6 +43,9 @@ class _MapViewState extends State<MapView> {
   final destinationAddressController = TextEditingController();
   AmbulancegetController _ambulancegetController =
       Get.put(AmbulancegetController());
+
+  DevicetokenController _devicetokenController =
+      Get.put(DevicetokenController());
 
   final startAddressFocusNode = FocusNode();
   final desrinationAddressFocusNode = FocusNode();
@@ -281,6 +285,9 @@ class _MapViewState extends State<MapView> {
       setState(() {
         _placeDistance = totalDistance.toStringAsFixed(2);
         print('DISTANCE: $_placeDistance km');
+
+        ///todo: user token......
+        _devicetokenController.UsertokenApi();
       });
 
       return true;
@@ -335,6 +342,8 @@ class _MapViewState extends State<MapView> {
 
   @override
   void initState() {
+    //_devicetokenController.UsertokenApi();
+
     super.initState();
   }
 
@@ -537,6 +546,10 @@ class _MapViewState extends State<MapView> {
                             CallLoader.loader();
                             _ambulancegetController
                                 .googlerequestambulance(markers);
+
+                            ///todo: user device token saved..........
+
+                            ///_devicetokenController.UsertokenApi();
 
                             //_ambulancegetController.googlerequestambulance();
                           },

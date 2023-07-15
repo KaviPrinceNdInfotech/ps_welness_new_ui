@@ -2,14 +2,20 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_payment_report/franchise_payment_report.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_tdshistory_report/franchise_tds_history_report.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_lab_controller/fr_lab_controller1/lab_controller_1.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_nurses_controllers/nurses_controller1.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_rwa_controller/fr_rwa_controller1.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/patient_user_controller/patient_user_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
@@ -33,6 +39,8 @@ import 'controllers/10_lab_controller/lab_home_controllers/lab_home_controller.d
 import 'controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import 'controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import 'controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
+import 'controllers/1_user_view_controller/ambulance/get_ambulancetype2_controller.dart';
+import 'controllers/1_user_view_controller/ambulance/get_ambulancetype3_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/near_driverlist_controller.dart';
 import 'controllers/1_user_view_controller/doctor_rating_review_controller/doctor_view_ratting_review.dart';
@@ -54,7 +62,7 @@ import 'controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_lab_
 import 'controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import 'controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
-import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
+//import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 import 'controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
 import 'controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
@@ -72,11 +80,11 @@ import 'controllers/6_chemist_view_controllers_RRR/chemist_profile_detailControl
 import 'controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
 import 'controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'controllers/complaint_controller/complaint_controller.dart';
+import 'controllers/device_token_controller/devicetoken_controller.dart';
 import 'controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 import 'controllers/login_email/login_email_controller.dart';
 import 'controllers/profile_u_controller/profile_update_controller.dart';
 import 'modules_view/splash_screen/splash_screen.dart';
-import 'notificationservice/local_notification_service.dart';
 
 ///firebase background services........function....27..jun..2023....
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -94,7 +102,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => MapController());
     Get.lazyPut(() => UserHomepagContreoller());
     Get.lazyPut(() => DoctorListController());
-    Get.lazyPut(() => FranchiseHomepagContreoller());
+    //Get.lazyPut(() => FranchiseHomepagContreoller());
     Get.lazyPut(() => LabHomepagContreoller());
     Get.lazyPut(() => DriverHomepagContreoller());
     Get.lazyPut(() => RwaBannerController());
@@ -153,6 +161,24 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => DoctorreportviewController());
     Get.lazyPut(() => Driver_1111_Controller());
     Get.lazyPut(() => DriverlistnearController());
+
+    ///franchise....
+    Get.lazyPut(() => DraweerFranchiesProfileController());
+    Get.lazyPut(() => FranchisePaymentReportController());
+    Get.lazyPut(() => FrNurses_1_controller());
+    Get.lazyPut(() => FranchiseTdsHistoryReportController());
+    Get.lazyPut(() => Patients_Controller());
+    Get.lazyPut(() => AddVehicleController());
+    Get.lazyPut(() => Fr_Lab_1_Controller());
+    Get.lazyPut(() => FrRwa_1_controller());
+
+    Get.lazyPut(() => DevicetokenController());
+    Get.lazyPut(() => Ambulanceget3Controller());
+    Get.lazyPut(() => Ambulanceget2Controller());
+
+    //Ambulanceget3Controller
+
+    //DevicetokenController
     // Get.lazyPut(() => AmbulancegetController());
     //NurseUploadReportController
     // Get.lazyPut(() => NurseUploadReportController());
@@ -165,6 +191,13 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+///without this you can't show notification in background..new
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print(message.notification!.title.toString());
+}
+
 void main() async {
   ///firebase notification...old
   WidgetsFlutterBinding.ensureInitialized();
@@ -172,33 +205,24 @@ void main() async {
   final fcmToken = await FirebaseMessaging.instance.getToken();
   print("mytoken${fcmToken}");
 
-  ///other token...
-
-  ///call background function firebase....27...jun...2023..old
-  /// FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-
-  ///you can call local notification......old
-  LocalNotificationService.initialize();
-
-  ///new_notification_services...new.
-  LocalNotificationService();
-
-  ///todo: changes for map 11 jan 2023........old
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-  }
-
-  ///..........
+  // ///other token...
+  //
+  // ///call background function firebase....27...jun...2023..old
+  // /// FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  //
+  // ///you can call local notification......old
+  // LocalNotificationService.initialize();
+  //
+  // ///new_notification_services...new.
+  // LocalNotificationService();
+  //
+  // ///todo: changes for map 11 jan 2023........old
+  // if (defaultTargetPlatform == TargetPlatform.android) {
+  //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+  // }
   ///todo new for background message........
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
-}
-
-///without this you can't show notification in background..new
-@pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print(message.notification!.title.toString());
 }
 
 class MyApp extends StatelessWidget {
@@ -229,6 +253,9 @@ class MyApp extends StatelessWidget {
           //DriverHomePage()
           //DoctorHomePage() //SignUpList()
           SplashScreen(),
+      //     MessageScreen(
+      //   id: '12345',
+      // ),
       //initialRoute: AddSkilsScreen.id,
     );
   }

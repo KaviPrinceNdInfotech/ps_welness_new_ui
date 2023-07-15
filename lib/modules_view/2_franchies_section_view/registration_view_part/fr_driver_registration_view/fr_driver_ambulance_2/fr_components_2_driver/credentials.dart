@@ -32,7 +32,7 @@ class FrDriver2Credentials extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-        //key: _fr_driver_1_controller.frdriver2formkey,
+        key: _fr_driver_1_controller.frdriver1formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
@@ -46,9 +46,9 @@ class FrDriver2Credentials extends StatelessWidget {
                   onSaved: (value) {
                    // _fr_driver_1_controller.address = value!;
                   },
-                  // validator: (value) {
-                  //   return _fr_driver_1_controller.validAddress(value!);
-                  // },
+                  validator: (value) {
+                    return _fr_driver_1_controller.validAddress(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -76,9 +76,9 @@ class FrDriver2Credentials extends StatelessWidget {
                   onSaved: (value) {
                     // _fr_driver_1_controller.address = value!;
                   },
-                  // validator: (value) {
-                  //   return _fr_driver_1_controller.validAddress(value!);
-                  // },
+                  validator: (value) {
+                    return _fr_driver_1_controller.validAddress(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -127,6 +127,7 @@ class FrDriver2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? '  field required' : null,
                         onChanged: (StateModel? newValue) {
                           _fr_driver_1_controller.selectedState.value =
                               newValue!;
@@ -165,6 +166,7 @@ class FrDriver2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? '  field required' : null,
                         onChanged: (City? newValue) {
                           _fr_driver_1_controller.selectedCity.value = newValue!;
                         }),
@@ -348,9 +350,9 @@ class FrDriver2Credentials extends StatelessWidget {
                   onSaved: (value) {
                   //  _fr_driver_1_controller.pin = value!;
                   },
-                  // validator: (value) {
-                  //   return _fr_driver_1_controller.validPin(value!);
-                  // },
+                  validator: (value) {
+                    return _fr_driver_1_controller.validPin(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(

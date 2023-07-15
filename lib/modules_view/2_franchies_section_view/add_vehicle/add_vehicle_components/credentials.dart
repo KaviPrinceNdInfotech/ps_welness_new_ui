@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/add_vehicle/added_vehicle_list/added_vehicle_list.dart';
 //import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
@@ -18,6 +21,7 @@ class AddVehicleCredentials extends StatelessWidget {
   AddVehicleController _addVehicleController = Get.put(AddVehicleController());
 
   get newvalue => null!;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -81,6 +85,7 @@ class AddVehicleCredentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: vehicle type............................
             SizedBox(
               height: size.height * 0.04,
@@ -98,7 +103,8 @@ class AddVehicleCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select Vehicle Category'),
-                      items: _addVehicleController.vehiclesCat.map((VehicleCatDropdown items) {
+                      items: _addVehicleController.vehiclesCat
+                          .map((VehicleCatDropdown items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
@@ -110,8 +116,11 @@ class AddVehicleCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) =>
+                          value == null ? '  field required' : null,
                       onChanged: (VehicleCatDropdown? newValue) {
-                        _addVehicleController.selectedVehicleCat.value = newValue!;
+                        _addVehicleController.selectedVehicleCat.value =
+                            newValue!;
                       }),
                 ),
               ),
@@ -123,16 +132,17 @@ class AddVehicleCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<VehicleTypeName>(
+                  () => DropdownButtonFormField<VehicleTypeName>(
                       value: _addVehicleController.selectedVehicleType.value,
                       decoration: InputDecoration(
                         contentPadding:
-                        EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                            EdgeInsets.symmetric(horizontal: size.width * 0.02),
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
                       hint: Text('Select Vehicle Category'),
-                      items: _addVehicleController.vehicleType.map((VehicleTypeName items) {
+                      items: _addVehicleController.vehicleType
+                          .map((VehicleTypeName items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
@@ -144,8 +154,11 @@ class AddVehicleCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) =>
+                          value == null ? '  field required' : null,
                       onChanged: (VehicleTypeName? newValue) {
-                        _addVehicleController.selectedVehicleType.value = newValue!;
+                        _addVehicleController.selectedVehicleType.value =
+                            newValue!;
                       }),
                 ),
               ),
@@ -154,8 +167,21 @@ class AddVehicleCredentials extends StatelessWidget {
               height: size.height * 0.05,
             ),
             InkWell(
-              onTap: (){
-                _addVehicleController.FrenchiesAddVehicleType();
+              onTap: () {
+                final isValid = _addVehicleController
+                    .addvehicleformkey.currentState!
+                    .validate();
+                if (isValid) {
+                  _addVehicleController.FrenchiesAddVehicleType();
+                  Timer(const Duration(seconds: 2),
+                      () => _addVehicleController.FrenchiesAddVehicleList());
+                  _addVehicleController.update();
+                  Timer(
+                      const Duration(seconds: 2), () => Get.to(VehicleList()));
+                  return;
+                } else {
+                  Get.snackbar("Failed", "please add all data");
+                }
               },
               child: Container(
                 height: size.height * 0.06,
@@ -170,7 +196,7 @@ class AddVehicleCredentials extends StatelessWidget {
                           Colors.black38,
                         ]),
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         offset: Offset(-2, -2),
                         spreadRadius: 1,

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDoctorDetail_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/frenchiesDriverDetails_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class FrenchiesDoctorDetailController extends GetxController{

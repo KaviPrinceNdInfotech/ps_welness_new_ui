@@ -9,18 +9,18 @@ SpecialistDwModel specialistDwModelFromJson(String str) => SpecialistDwModel.fro
 String specialistDwModelToJson(SpecialistDwModel data) => json.encode(data.toJson());
 
 class SpecialistDwModel {
-  List<FranchiseSpecialist> franchiseSpecialist;
+  List<FranchiseSpecialist> specialist;
 
   SpecialistDwModel({
-    required this.franchiseSpecialist,
+    required this.specialist,
   });
 
   factory SpecialistDwModel.fromJson(Map<String, dynamic> json) => SpecialistDwModel(
-    franchiseSpecialist: List<FranchiseSpecialist>.from(json["Franchise_Specialist"].map((x) => FranchiseSpecialist.fromJson(x))),
+    specialist: List<FranchiseSpecialist>.from(json["Specialist"].map((x) => FranchiseSpecialist.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "Franchise_Specialist": List<dynamic>.from(franchiseSpecialist.map((x) => x.toJson())),
+    "Specialist": List<dynamic>.from(specialist.map((x) => x.toJson())),
   };
 }
 

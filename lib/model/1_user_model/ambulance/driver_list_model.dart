@@ -14,9 +14,9 @@ class DriverListApi {
   double? startLong;
   double? endLong;
   double? endLat;
-  num? ambulanceTypeId;
-  num? vehicleTypeId;
-  num? patientId;
+  int? ambulanceTypeId;
+  int? vehicleTypeId;
+  int? patientId;
   List<Message>? message;
 
   DriverListApi({
@@ -59,13 +59,15 @@ class DriverListApi {
 }
 
 class Message {
-  num? id;
+  int? id;
   num? driverId;
   num? km;
   String? name;
   String? dl;
   num? charge;
   num? totalPrice;
+  String? deviceId;
+  num? toatlDistance;
 
   Message({
     this.id,
@@ -75,6 +77,8 @@ class Message {
     this.dl,
     this.charge,
     this.totalPrice,
+    this.deviceId,
+    this.toatlDistance,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
@@ -85,6 +89,8 @@ class Message {
         dl: json["DL"],
         charge: json["Charge"],
         totalPrice: json["TotalPrice"],
+        deviceId: json["DeviceId"],
+        toatlDistance: json["ToatlDistance"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -95,5 +101,7 @@ class Message {
         "DL": dl,
         "Charge": charge,
         "TotalPrice": totalPrice,
+        "DeviceId": deviceId,
+        "ToatlDistance": toatlDistance,
       };
 }

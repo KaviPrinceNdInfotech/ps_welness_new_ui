@@ -218,6 +218,7 @@ class FrNurses1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                          validator: (value) => value == null ? 'field required' : null,
                       onChanged: (NurseModels? newValue) {
                         _frnurses_1_controller.selectedNurse.value = newValue!;
                       }),
@@ -230,7 +231,8 @@ class FrNurses1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
-                  Get.to(FrNursesSignup2());
+                  _frnurses_1_controller.checkNurses1();
+
                 })
           ],
         ),

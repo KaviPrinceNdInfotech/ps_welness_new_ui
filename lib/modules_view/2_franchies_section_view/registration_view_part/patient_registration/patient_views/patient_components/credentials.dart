@@ -251,6 +251,7 @@ class PatientCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? 'field required' : null,
                       onChanged: (StateModel? newValue) {
                         _patient_controller.selectedState.value = newValue!;
                       }),
@@ -288,6 +289,7 @@ class PatientCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? 'field required' : null,
                       onChanged: (City? newValue) {
                         _patient_controller.selectedCity.value = newValue!;
                       }),

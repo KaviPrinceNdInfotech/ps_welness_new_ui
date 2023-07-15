@@ -36,6 +36,16 @@ class YmwdController extends GetxController {
 
   ///TODO: image picker.2................
   ///
+ // var selectedImagepath1 = ''.obs;
+
+  // void getImage1(ImageSource imageSource) async {
+  //   final pickedFile = await ImagePicker().pickImage(source: imageSource);
+  //   if (pickedFile != null) {
+  //     selectedImagepath.value = pickedFile.path;
+  //   } else {
+  //     print('No image selected');
+  //   }
+  // }
 
   ///this is for State....................................
   Rx<String?> selectedTerm = (null as String?).obs;

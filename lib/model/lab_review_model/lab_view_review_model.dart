@@ -11,7 +11,6 @@ String labRatingViewToJson(LabRatingView data) => json.encode(data.toJson());
 
 class LabRatingView {
   List<Rating>? rating;
-
   LabRatingView({
     this.rating,
   });

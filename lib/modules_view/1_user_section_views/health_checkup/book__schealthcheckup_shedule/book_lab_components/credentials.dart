@@ -167,7 +167,7 @@ class LabScheduleCredentials extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.0,
                           ),
 
                           ///todo:selected date starting...
@@ -245,7 +245,7 @@ class LabScheduleCredentials extends StatelessWidget {
                             height: size.height * 0.0,
                           ),
                           SizedBox(
-                            height: size.height * 0.07,
+                            //height: size.height * 0.08,
                             width: size.width,
                             child: Container(
                               width: double.infinity,
@@ -376,7 +376,7 @@ class LabScheduleCredentials extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.00,
+                            height: size.height * 0.0,
                           ),
 
                           NeumorphicTextFieldContainer(

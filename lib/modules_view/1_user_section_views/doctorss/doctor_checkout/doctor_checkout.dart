@@ -565,7 +565,9 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 await SharedPreferences
                                                     .getInstance();
                                             prefs.setString("DoctorFee",
-                                                "${_doctorappointmentcheckout.doctorCheckoutModel?.fee.toString()}");
+                                                "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toString()}");
+
+                                            // print("okook: ${fee}");
 
                                             ///todo: end the fees.........
                                             _rozarPaydoctorController
@@ -616,7 +618,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                   Get.snackbar("Error123", "");
                                                 }
                                               });
-                                              final labFee =
+                                              final doctorFee =
                                                   _doctorappointmentcheckout
                                                           .doctorCheckoutModel
                                                           ?.fee ??
@@ -627,14 +629,17 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                           ?.result?[0]
                                                           .walletAmount ??
                                                       0;
-                                              print("LABFEE $labFee");
+                                              print("DoctorFEE $doctorFee");
+                                              print(
+                                                  "DoctorFEEamount $walletAmount");
+
                                               print(
                                                   "WALLET AMOUNT $walletAmount");
-                                              if (labFee > walletAmount) {
+                                              if (doctorFee > walletAmount) {
                                                 /// Not possibble from wallet go to add page
                                               } else {
                                                 final newWalletAmount =
-                                                    walletAmount - labFee;
+                                                    walletAmount - doctorFee;
                                                 _walletPostController
                                                     .walletPostUpdateApi(
                                                         newWalletAmount)
@@ -648,7 +653,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                     //Get.to(LabHistoryUser());
                                                     _doctorHistoryController
                                                         .update();
-                                                    Get.offAll(
+                                                    Get.to(
                                                       () =>
                                                           DoctorHistoryUser(), //next page class
                                                       duration: Duration(

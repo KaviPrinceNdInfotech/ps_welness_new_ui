@@ -1,34 +1,140 @@
+import 'dart:convert';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/driver_list_model.dart';
+import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
+import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 
-class Driver_List_LocationId extends StatelessWidget {
+String PatientRegNo = ''.toString();
+String userPassword = ''.toString();
+
+String DriverId = ''.toString();
+String driverpassword = ''.toString();
+var alldevicetoken = '';
+
+class Driver_List_LocationId extends StatefulWidget {
   Driver_List_LocationId({Key? key, this.driverlist}) : super(key: key);
   DriverListApi? driverlist;
 
+  @override
+  State<Driver_List_LocationId> createState() => _Driver_List_LocationIdState();
+}
+
+class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
+  //NotificationServices notificationServices = NotificationServices();
+
   //DriverPayoutController _driverPayoutController =
-  // Get.put(DriverPayoutController());
-
-  // DriverlistnearController _nearambulancelistController =
-  //     Get.put(DriverlistnearController());
-
   AmbulancegetController _ambulancegetController =
       Get.put(AmbulancegetController());
-  // get kButtonAnimationDuration => null;
+  NotificationServices notificationServices = NotificationServices();
 
+  ///implement firebase....27...jun..2023
+  @override
+  void initState() {
+    super.initState();
+    // print("okoko33334${alldevicetoken}");
+    //DriverListApi? driverlist;
+    List<DriverListApi> driverlists = [];
+
+    ///for each loop......przactice
+
+    List<String> items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"];
+    driverlists?.forEach((sd) {
+      print("trtrtrtrt888888${sd}");
+    });
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    // notificationServices.requestNotificationPermission();
+    // notificationServices.isTokenRefresh();
+    // notificationServices.firebaseInit();
+
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+      // print('device token');
+      // print(value);
+    });
+
+    /// 1. This method call when app in terminated state and you get a notification
+    /// when you click on notification app open from terminated state and you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+
+          ///you can call local notification....
+          LocalNotificationService.createanddisplaynotification(message);
+        }
+      },
+    );
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
+
+  // get kButtonAnimationDuration => null;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    ///for each loop......przactice....
+
+    List<String> driverlist = ['weqweqeqeqqddqdq', 'dsdwdwd'];
+
+    driverlist.forEach((driverlist) {
+      print(driverlist);
+    });
+
     return Container(
       color: MyTheme.ThemeColors,
       height: size.height,
@@ -65,6 +171,148 @@ class Driver_List_LocationId extends StatelessWidget {
                                     ),
                                     fit: BoxFit.cover)),
                           ),
+                        ),
+                      ),
+                      Positioned(
+                        top: size.height * 0.06,
+                        //bottom: size.height * 0.64,
+                        //left: -30,
+                        left: size.width * 0.1,
+
+                        ///todo: all booking driver...
+                        child: Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: InkWell(
+                              onTap: () async {
+                                print("trtrtrtrt88888855${alldevicetoken}");
+                                print(
+                                  "okokotokenww:${widget.driverlist?.message?[0].deviceId}"
+                                      .toString(),
+                                );
+
+                                //DriverListApi? driverlist;
+                                List<DriverListApi> driverlists = [];
+
+                                ///for each loop......przactice
+
+                                List<String> items = [
+                                  "Item 1",
+                                  "Item 2",
+                                  "Item 3",
+                                  "Item 4",
+                                  "Item 5"
+                                ];
+                                driverlists?.forEach((driverlists) {
+                                  print("trtrtrtrt${driverlists}");
+                                });
+
+                                ///end....of...loop......
+
+                                ///.......
+                                print('princee notification');
+                                notificationServices
+                                    .getDeviceToken()
+                                    .then((value) async {
+                                  var data = {
+                                    //this the particular device id.....
+                                    'to':
+                                        // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                                        //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                                        //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+
+                                        ///todo device token......
+                                        // "${widget.driverlist?.message?[0].deviceId}"
+                                        "${alldevicetoken}".toString(),
+
+                                    ///
+                                    //
+                                    //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                    //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                    //.toString(),
+
+                                    ///this is same device token....
+                                    //value
+                                    //.toString(),
+                                    'notification': {
+                                      'title': 'Ps_Wellness',
+                                      'body': 'You have request for ambulance',
+                                      //"sound": "jetsons_doorbell.mp3"
+                                    },
+                                    'android': {
+                                      'notification': {
+                                        'notification_count': 23,
+                                      },
+                                    },
+                                    'data': {'type': 'msj', 'id': '123456'}
+                                  };
+
+                                  await http.post(
+                                      Uri.parse(
+                                          'https://fcm.googleapis.com/fcm/send'),
+                                      body: jsonEncode(data),
+                                      headers: {
+                                        'Content-Type':
+                                            'application/json; charset=UTF-8',
+                                        'Authorization':
+                                            //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                            'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                      }).then((value) {
+                                    if (kDebugMode) {
+                                      print(value.body.toString());
+                                    }
+                                  }).onError((error, stackTrace) {
+                                    if (kDebugMode) {
+                                      print(error);
+                                    }
+                                  });
+
+                                  ///todo: from here custom from backend start...
+                                  var prefs = GetStorage();
+                                  PatientRegNo =
+                                      prefs.read("PatientRegNo").toString();
+                                  print(
+                                      '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                                  var body = {
+                                    "UserId": "${PatientRegNo}",
+                                    "DeviceId": value.toString(),
+                                  };
+                                  print(
+                                      "userrrtokenupdateeeddbeforetttt${body}");
+                                  http.Response r = await http.post(
+                                    Uri.parse(
+                                        'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                                    body: body,
+                                  );
+
+                                  print(r.body);
+                                  if (r.statusCode == 200) {
+                                    print("userrrtokenupdateeedd111${body}");
+                                    return r;
+                                  } else if (r.statusCode == 401) {
+                                    Get.snackbar('message', r.body);
+                                  } else {
+                                    Get.snackbar('Error', r.body);
+                                    return r;
+                                  }
+
+                                  ///todo end post api from backend...
+                                });
+                              },
+                              child: Icon(Icons.select_all)),
+                          // Container(
+                          //   height: size.height * 0.20,
+                          //   width: size.width * 0.5,
+                          //   decoration: BoxDecoration(
+                          //     //color: Colors.,
+                          //       borderRadius: BorderRadius.only(
+                          //         topRight: Radius.circular(20),
+                          //       ),
+                          //       image: DecorationImage(
+                          //           image: AssetImage(
+                          //             'lib/assets/image/psambulance.png',
+                          //           ),
+                          //           fit: BoxFit.cover)),
+                          // ),
                         ),
                       ),
                       Column(
@@ -115,11 +363,14 @@ class Driver_List_LocationId extends StatelessWidget {
                                 //height: size.height * 0.76,
                                 child: ListView.builder(
                                     shrinkWrap: true,
-                                    itemCount: driverlist?.message?.length
+                                    itemCount:
+                                        widget.driverlist?.message?.length
                                     //.driverlist?.message?.length,
                                     ,
                                     itemBuilder:
                                         (BuildContext context, int index) {
+                                      alldevicetoken =
+                                          "${widget.driverlist?.message?[index].deviceId}";
                                       // DateTime? now =
                                       //     _driverPayoutHistoryController
                                       //         .foundpayoutdriver?[index]
@@ -245,11 +496,11 @@ class Driver_List_LocationId extends StatelessWidget {
                                                                 0xff12BFC4),
                                                           ),
                                                           Text(
-                                                            "${driverlist?.message?[index].name}",
+                                                            "${widget.driverlist?.message?[index].name}",
                                                             // 'Kumar Prince',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
-                                                                .actor(
+                                                                .aBeeZee(
                                                               fontSize:
                                                                   size.width *
                                                                       0.04,
@@ -337,7 +588,7 @@ class Driver_List_LocationId extends StatelessWidget {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            'Total Distance :',
+                                                            'Driver Distance :',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
                                                                 .actor(
@@ -364,11 +615,11 @@ class Driver_List_LocationId extends StatelessWidget {
                                                                 0.01,
                                                           ),
                                                           Text(
-                                                            "${driverlist?.message?[index].km}",
+                                                            "${widget.driverlist?.message?[index].km} km",
                                                             //'2020 Honda Clive',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
-                                                                .actor(
+                                                                .aBeeZee(
                                                               fontSize:
                                                                   size.width *
                                                                       0.027,
@@ -407,7 +658,7 @@ class Driver_List_LocationId extends StatelessWidget {
                                                                 0.01,
                                                           ),
                                                           Text(
-                                                            "${driverlist?.message?[index].totalPrice}",
+                                                            "\u{20B9} ${widget.driverlist?.message?[index].totalPrice?.toDouble()}",
                                                             // '121234333377',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
@@ -450,7 +701,7 @@ class Driver_List_LocationId extends StatelessWidget {
                                                                 0.01,
                                                           ),
                                                           Text(
-                                                            "${driverlist?.message?[index].dl}",
+                                                            "${widget.driverlist?.message?[index].dl}",
                                                             //'ENP 2345',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
@@ -544,7 +795,8 @@ class Driver_List_LocationId extends StatelessWidget {
                                                                       0.002,
                                                             ),
                                                             Text(
-                                                              "${driverlist?.message?[index].charge}/Km",
+                                                              "${widget.driverlist?.message?[index].charge}/Km",
+
                                                               // '10/km',
                                                               //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                               style: GoogleFonts
@@ -591,29 +843,156 @@ class Driver_List_LocationId extends StatelessWidget {
                                                                     .getInstance();
                                                             prefs.setString(
                                                                 "driverlistssId",
-                                                                "${driverlist?.message?[index].driverId.toString()}");
+                                                                "${widget.driverlist?.message?[index].driverId.toString()}");
+                                                            print(
+                                                                "okolllll${widget.driverlist?.message?[index].driverId.toString()}");
                                                             prefs.setString(
                                                                 "lng1",
-                                                                "${driverlist?.startLong.toString()}");
+                                                                "${widget.driverlist?.startLong.toString()}");
                                                             prefs.setString(
                                                                 "lat1",
-                                                                "${driverlist?.startLat.toString()}");
+                                                                "${widget.driverlist?.startLat.toString()}");
 
                                                             prefs.setString(
                                                                 "lng2",
-                                                                "${driverlist?.endLong.toString()}");
+                                                                "${widget.driverlist?.endLong.toString()}");
                                                             prefs.setString(
                                                                 "lat2",
-                                                                "${driverlist?.endLat.toString()}");
+                                                                "${widget.driverlist?.endLat.toString()}");
                                                             prefs.setString(
                                                                 "ambulance1",
-                                                                "${driverlist?.ambulanceTypeId.toString()}");
+                                                                "${widget.driverlist?.ambulanceTypeId.toString()}");
                                                             prefs.setString(
                                                                 "vehicle1",
-                                                                "${driverlist?.vehicleTypeId.toString()}");
+                                                                "${widget.driverlist?.vehicleTypeId.toString()}");
 
                                                             _ambulancegetController
                                                                 .postAmbulancerequestApi2();
+                                                            print(
+                                                              "okokotokenww:${widget.driverlist?.message?[index].deviceId}"
+                                                                  .toString(),
+                                                            );
+
+                                                            ///.......
+                                                            print(
+                                                                'princee notification');
+                                                            notificationServices
+                                                                .getDeviceToken()
+                                                                .then(
+                                                                    (value) async {
+                                                              var data = {
+                                                                //this the particular device id.....
+                                                                'to':
+                                                                    // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                                                                    //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                                                                    //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+
+                                                                    ///todo device token......
+                                                                    "${widget.driverlist?.message?[index].deviceId}"
+                                                                        .toString(),
+
+                                                                ///
+                                                                //
+                                                                //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                //.toString(),
+
+                                                                ///this is same device token....
+                                                                //value
+                                                                //.toString(),
+                                                                'notification':
+                                                                    {
+                                                                  'title':
+                                                                      'Ps_Wellness',
+                                                                  'body':
+                                                                      'You have request for ambulance',
+                                                                  //"sound": "jetsons_doorbell.mp3"
+                                                                },
+                                                                'android': {
+                                                                  'notification':
+                                                                      {
+                                                                    'notification_count':
+                                                                        23,
+                                                                  },
+                                                                },
+                                                                'data': {
+                                                                  'type': 'msj',
+                                                                  'id': '123456'
+                                                                }
+                                                              };
+
+                                                              await http.post(
+                                                                  Uri.parse(
+                                                                      'https://fcm.googleapis.com/fcm/send'),
+                                                                  body:
+                                                                      jsonEncode(
+                                                                          data),
+                                                                  headers: {
+                                                                    'Content-Type':
+                                                                        'application/json; charset=UTF-8',
+                                                                    'Authorization':
+                                                                        //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                        'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                  }).then(
+                                                                  (value) {
+                                                                if (kDebugMode) {
+                                                                  print(value
+                                                                      .body
+                                                                      .toString());
+                                                                }
+                                                              }).onError((error,
+                                                                  stackTrace) {
+                                                                if (kDebugMode) {
+                                                                  print(error);
+                                                                }
+                                                              });
+
+                                                              ///todo: from here custom from backend start...
+                                                              var prefs =
+                                                                  GetStorage();
+                                                              PatientRegNo = prefs
+                                                                  .read(
+                                                                      "PatientRegNo")
+                                                                  .toString();
+                                                              print(
+                                                                  '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                                                              var body = {
+                                                                "UserId":
+                                                                    "${PatientRegNo}",
+                                                                "DeviceId": value
+                                                                    .toString(),
+                                                              };
+                                                              print(
+                                                                  "userrrtokenupdateeeddbeforetttt${body}");
+                                                              http.Response r =
+                                                                  await http
+                                                                      .post(
+                                                                Uri.parse(
+                                                                    'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                                                                body: body,
+                                                              );
+
+                                                              print(r.body);
+                                                              if (r.statusCode ==
+                                                                  200) {
+                                                                print(
+                                                                    "userrrtokenupdateeedd99999${body}");
+                                                                return r;
+                                                              } else if (r
+                                                                      .statusCode ==
+                                                                  401) {
+                                                                Get.snackbar(
+                                                                    'message',
+                                                                    r.body);
+                                                              } else {
+                                                                Get.snackbar(
+                                                                    'Error',
+                                                                    r.body);
+                                                                return r;
+                                                              }
+
+                                                              ///todo end post api from backend...
+                                                            });
                                                           },
                                                           border: Border.all(
                                                             color:
@@ -730,4 +1109,12 @@ class Driver_List_LocationId extends StatelessWidget {
       ),
     );
   }
+  //DriverListApi
+  //alldevicetoken
+  // void devicetoken() {
+  //   List<String> alldevicetoken = ${widget?.driverlist?.message.toString();};
+  //   alldevicetoken.forEach((number) {
+  //     print(number);
+  //   });
+  // }
 }

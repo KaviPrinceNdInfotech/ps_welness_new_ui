@@ -530,7 +530,7 @@ class LabListPage extends StatelessWidget {
                                                           ),
 
                                                           Text(
-                                                            'Rs.${_labListController.foundlabProducts[index].fee?.toDouble()
+                                                            'Rs.${_labListController.foundlabProducts[index].fee?.toDouble() ?? 0
                                                             //     _labListController
                                                             //     .labListUser!
                                                             //     .labList[
@@ -587,6 +587,9 @@ class LabListPage extends StatelessWidget {
                                                             prefs.setString(
                                                                 "LablistssId",
                                                                 "${_labListController.foundlabProducts[index].id.toString()}");
+                                                            prefs.setString(
+                                                                "Labfeess",
+                                                                "${_labListController.foundlabProducts[index].fee?.toDouble()}");
                                                             _labListController
                                                                 .labdetailApi();
                                                             _labListController

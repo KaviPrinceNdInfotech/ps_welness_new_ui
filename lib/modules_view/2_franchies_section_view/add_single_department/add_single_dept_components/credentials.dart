@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/all_dept_section/all_dept.dart';
 
@@ -25,7 +28,7 @@ class AddSingleDeptCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _addsingledepartmentController.addsingledepartmentformkey,
+     // key: _addsingledepartmentController.addsingledepartmentformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(7),
@@ -96,7 +99,11 @@ class AddSingleDeptCredentials extends StatelessWidget {
             ),
             InkWell(
               onTap: (){
-                _addsingledepartmentController.checkadddeptspeceee();
+                if(_addsingledepartmentController.nameController.text.isEmpty){
+                  Get.snackbar("title", "Please Enter Department Name");
+                }else{
+                  _addsingledepartmentController.checkadddeptspeceee();
+                }
               },
               child: Container(
                 height: size.height * 0.06,

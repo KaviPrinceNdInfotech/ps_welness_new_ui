@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDVehicleReportApi_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+
 class YmwdVehicleController extends GetxController {
   final GlobalKey<FormState> ymwdvehicleformkey = GlobalKey<FormState>();
 

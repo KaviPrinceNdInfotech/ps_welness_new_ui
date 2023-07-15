@@ -220,7 +220,8 @@ class FranchiesChemist1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
-                  Get.to(FranchiseChemistSignup2());
+                  _fr_chemist_1_controller.checkChemist1();
+                 // Get.to(FranchiseChemistSignup2());
                 })
           ],
         ),

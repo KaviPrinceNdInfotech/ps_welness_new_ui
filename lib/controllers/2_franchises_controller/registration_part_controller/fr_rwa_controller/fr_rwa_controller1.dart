@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_rwa_view/rwa_signup2/rwa_signup2.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
 
 class FrRwa_1_controller extends GetxController {
   final GlobalKey<FormState> frrwa1formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> frrwa2formkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
    TextEditingController? nameController,
       emailController,
@@ -193,9 +195,19 @@ class FrRwa_1_controller extends GetxController {
 
   void checkRwa1() {
     final isValid = frrwa1formkey.currentState!.validate();
-    frenchiesRegisterRWA();
-    if (!isValid) {
+    if (isValid) {
+      Get.to(FrRwaSignup2());
       return;
+    }
+    frrwa1formkey.currentState!.save();
+  }
+  void checkRwa2() {
+    final isValid = frrwa2formkey.currentState!.validate();
+    if (isValid && selectedImagepath.value != '') {
+      frenchiesRegisterRWA();
+      return;
+    }else{
+      Get.snackbar("title", "Please fill data and image");
     }
     frrwa1formkey.currentState!.save();
   }

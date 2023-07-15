@@ -198,11 +198,14 @@ class VehicleList extends StatelessWidget {
                                               SizedBox(
                                                 height: size.height * 0.02,
                                               ),
-                                              Text('${item?[index].vehicleTypeName}',
-                                                style: GoogleFonts.roboto(
-                                                  fontSize: size.width * 0.025,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.red.shade900,
+                                              Container(
+                                                width: 100,
+                                                child: Text('${item?[index].vehicleTypeName}',
+                                                  style: GoogleFonts.roboto(
+                                                    fontSize: size.width * 0.025,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.red.shade900,
+                                                  ),
                                                 ),
                                               ),
                                             ],

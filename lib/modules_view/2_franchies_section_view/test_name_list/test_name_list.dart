@@ -348,7 +348,7 @@ class TestListView extends StatelessWidget {
                                                   ),
                                                   InkWell(
                                                     onTap: (){
-                                                      _dialog(id);
+                                                      _dialog(id,'${item?[index].testName}');
                                                     },
                                                     child: Container(
                                                       height: size.height * 0.02,
@@ -412,7 +412,7 @@ class TestListView extends StatelessWidget {
       ),
     );
   }
-  _dialog(id){
+  _dialog(id, String name){
     Get.defaultDialog(
         title: '',
         content: Column(
@@ -422,15 +422,18 @@ class TestListView extends StatelessWidget {
           children: [
             SizedBox(
               height: 50,
-              child: TextField(
-                controller: frenchiesTestListController.testNameController,
+              child: TextFormField(
+                initialValue: name,
                 keyboardType: TextInputType.text,
-                maxLines: 1,
                 decoration: const InputDecoration(
                     labelText: 'Department Name',
-                    hintMaxLines: 1,
+                   isDense: true,
+                   // hintMaxLines: 1,
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                onChanged: (value){
+                  frenchiesTestListController.testNameController?.text = value;
+                },
               ),
             ),
             const SizedBox(height: 30.0,),

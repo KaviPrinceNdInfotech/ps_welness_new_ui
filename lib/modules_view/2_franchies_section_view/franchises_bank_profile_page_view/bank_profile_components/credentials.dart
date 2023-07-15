@@ -6,6 +6,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+//import 'package:ps_welness/constants/constants/constants.dart';
+//import 'package:ps_welness/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+//import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
+//import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
+//import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
+
 import '../../../../controllers/2_franchises_controller/franchieses_bank_profile_controller/franchises_bank_profile_controllers.dart';
 
 class FranchiesBankCredentials extends StatelessWidget {
@@ -58,6 +64,39 @@ class FranchiesBankCredentials extends StatelessWidget {
                     size: 20,
                   ),
                   border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            // mobile...
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                maxLength: 10,
+                autofillHints: [AutofillHints.name],
+                controller: _franchisesBankProfileController.mobileController,
+                onSaved: (value) {
+                  _franchisesBankProfileController.mobile = value!;
+                },
+                validator: (value) {
+                  return _franchisesBankProfileController.validMobile(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Mobile Number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    FontAwesomeIcons.piggyBank,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                  counterText: ''
                 ),
               ),
             ),
@@ -136,8 +175,7 @@ class FranchiesBankCredentials extends StatelessWidget {
                   _franchisesBankProfileController.accountholdername = value!;
                 },
                 validator: (value) {
-                  return _franchisesBankProfileController
-                      .validaccountNumber(value!);
+                  return _franchisesBankProfileController.validHolderName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,

@@ -97,8 +97,7 @@ class LabHistoryUser extends StatelessWidget {
                         ? Center(
                             child: Text('No List'),
                           )
-                        : SizedBox(
-                            height: size.height * 0.73,
+                        : Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount:
@@ -351,7 +350,8 @@ class LabHistoryUser extends StatelessWidget {
                                       ),
                                     ),
                                   );
-                                })),
+                                }),
+                          ),
                     //),
                   ],
                 ),

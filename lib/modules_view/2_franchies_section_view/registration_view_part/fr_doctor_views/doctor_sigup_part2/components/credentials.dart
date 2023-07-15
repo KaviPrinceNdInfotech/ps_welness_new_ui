@@ -36,7 +36,7 @@ class FrDoctor2Credentials extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-        //key: _frdoctor_2_controller.frdoctor2formkey,
+        key: _frdoctor_1_controller.frdoctor2formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
@@ -132,6 +132,7 @@ class FrDoctor2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? 'field required' : null,
                         onChanged: (StateModel? newValue) {
                           _frdoctor_1_controller.selectedState.value = newValue!;
                         }),
@@ -169,6 +170,7 @@ class FrDoctor2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frdoctor_1_controller.selectedCity.value = newValue!;
                         }),
@@ -182,7 +184,7 @@ class FrDoctor2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'GO NEXT>',
                   press: () {
-                    Get.to(FrDocSignup3());
+                   _frdoctor_1_controller.checkDoctor2();
                   })
             ],
           ),

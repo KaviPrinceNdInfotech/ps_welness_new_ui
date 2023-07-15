@@ -7,11 +7,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_signup3/fr_doctor_signup_3.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_sigup_part2/doctor_signup_part2.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
 
 class FrDoctor_1_Controller extends GetxController {
   final GlobalKey<FormState> frdoctor1formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> frdoctor2formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> frdoctor3formkey = GlobalKey<FormState>();
     RxBool isLoading = false.obs;
    TextEditingController? doctorNameController, emailController, passwordController, confirmPasswordController,
        mobileNumberController, phoneController,
@@ -353,8 +357,29 @@ class FrDoctor_1_Controller extends GetxController {
 
   void checkDoctor1() {
     final isValid = frdoctor1formkey.currentState!.validate();
-    if (!isValid) {
+    if (isValid) {
+      Get.to(FrDoctorSignup2());
       return;
+    }else{
+    }
+    frdoctor1formkey.currentState!.save();
+  }
+  void checkDoctor2() {
+    final isValid = frdoctor2formkey.currentState!.validate();
+    if (isValid) {
+      Get.to(FrDocSignup3());
+      return;
+    }else{
+    }
+    frdoctor1formkey.currentState!.save();
+  }
+  void checkDoctor3() {
+    final isValid = frdoctor3formkey.currentState!.validate();
+    if (isValid && selectedLicenceImagepath.value != '' && selectedPanImagepath.value != '') {
+      FrenchiesDoctorRegistration();
+      return;
+    }else{
+      Get.snackbar("Failed", "Please select all data and image");
     }
     frdoctor1formkey.currentState!.save();
   }

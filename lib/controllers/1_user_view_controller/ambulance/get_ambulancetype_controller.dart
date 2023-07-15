@@ -45,7 +45,6 @@ import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/ambulance_driver/driver_list.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
@@ -112,7 +111,7 @@ class AmbulancegetController extends GetxController {
 
     final endLat = markers.last.position.latitude;
     final endLong = markers.last.position.longitude;
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.GooglebookambulanceApi(
       startLat.toDouble(),
       startLong.toDouble(),
@@ -132,7 +131,7 @@ class AmbulancegetController extends GetxController {
       var data = jsonDecode(r.body);
       //nearlistdriverApi();
 
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       //Get.offAll(UserHomePage());
@@ -141,7 +140,7 @@ class AmbulancegetController extends GetxController {
       //_nearambulancelistController.update();
 
       accountService.getAccountData.then((accountData) {
-        CallLoader.loader();
+        // CallLoader.loader();
         // nearlistdriverApi();
 
         Timer(
@@ -159,7 +158,7 @@ class AmbulancegetController extends GetxController {
             ///
           },
         );
-        //CallLoader.hideLoader();
+        CallLoader.hideLoader();
       });
 
       //Get.to(Driver_List_LocationId());
@@ -193,7 +192,7 @@ class AmbulancegetController extends GetxController {
         Timer(
           const Duration(seconds: 05),
           () {
-            Get.to(UserHomePage());
+            ///Get.to(UserHomePage());
             // nearlistdriverApi();
             // Get.to(
             //   Driver_List_LocationId(

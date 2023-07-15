@@ -1,16 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchies_chemist_signup2.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
 
 class Fr_Chemist_1_Controller extends GetxController {
   final GlobalKey<FormState> frchemist1formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> frchemist2formkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
 
    TextEditingController? nameController,
@@ -253,9 +254,19 @@ void frenchiesRegisterChemist()async{
   }
   void checkChemist1() {
     final isValid = frchemist1formkey.currentState!.validate();
-    frenchiesRegisterChemist();
-    if (!isValid) {
+    if (isValid) {
+      Get.to(FranchiseChemistSignup2());
       return;
+    }else{}
+    frchemist1formkey.currentState!.save();
+  }
+  void checkChemist2() {
+    final isValid = frchemist2formkey.currentState!.validate();
+    if (isValid && selectedImagepath.value != '') {
+      frenchiesRegisterChemist();
+      return;
+    }else{
+      Get.snackbar("Failed", "Please select image");
     }
     frchemist1formkey.currentState!.save();
   }

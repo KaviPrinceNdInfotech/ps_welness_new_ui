@@ -36,19 +36,17 @@ class LabPayHi {
   int? id;
   String? patientName;
   String? mobileNumber;
-  double? amount;
-  String? startSlotTime;
-  String? endSlotTime;
+  num? amount;
   DateTime? paymentDate;
+  String? slotTime;
 
   LabPayHi({
     this.id,
     this.patientName,
     this.mobileNumber,
     this.amount,
-    this.startSlotTime,
-    this.endSlotTime,
     this.paymentDate,
+    this.slotTime,
   });
 
   factory LabPayHi.fromJson(Map<String, dynamic> json) => LabPayHi(
@@ -56,11 +54,10 @@ class LabPayHi {
         patientName: json["PatientName"],
         mobileNumber: json["MobileNumber"],
         amount: json["Amount"],
-        startSlotTime: json["StartSlotTime"],
-        endSlotTime: json["EndSlotTime"],
         paymentDate: json["PaymentDate"] == null
             ? null
             : DateTime.parse(json["PaymentDate"]),
+        slotTime: json["SlotTime"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,8 +65,7 @@ class LabPayHi {
         "PatientName": patientName,
         "MobileNumber": mobileNumber,
         "Amount": amount,
-        "StartSlotTime": startSlotTime,
-        "EndSlotTime": endSlotTime,
         "PaymentDate": paymentDate?.toIso8601String(),
+        "SlotTime": slotTime,
       };
 }

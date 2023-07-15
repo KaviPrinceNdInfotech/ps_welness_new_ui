@@ -11,17 +11,7 @@ class AddVehicleController extends GetxController {
   final GlobalKey<FormState> addvehicleformkey = GlobalKey<FormState>();
     RxBool isLoading = false.obs;
   var selectedImagepath = ''.obs;
-  late TextEditingController nameController,
-      branchController;
 
-  void getImage(ImageSource imageSource) async {
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
-    if (pickedFile != null) {
-      selectedImagepath.value = pickedFile.path;
-    } else {
-      print('No image selected');
-    }
-  }
   Rx<VehicleCatDropdown?> selectedVehicleCat = (null as VehicleCatDropdown?).obs;
   List<VehicleCatDropdown> vehiclesCat = <VehicleCatDropdown>[].obs;
   Rx<VehicleTypeName?> selectedVehicleType = (null as VehicleTypeName?).obs;
@@ -62,8 +52,8 @@ class AddVehicleController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    nameController = TextEditingController(text: '');
-    branchController = TextEditingController(text: '');
+   // nameController = TextEditingController(text: '');
+  //  branchController = TextEditingController(text: '');
   }
   @override
   void onReady() {
@@ -71,26 +61,30 @@ class AddVehicleController extends GetxController {
   }
   @override
   void onClose() {
-    nameController.dispose();
+   // nameController.dispose();
   }
-  String? validName(String value) {
-    if (value.length < 2) {
-      return "Provide valid Type";
-    }
-    return null;
-  }
-  String? validDept(String value) {
-    if (value.length < 2) {
-      return "              Provide valid name";
-    }
-    return null;
-  }
-  void checkadddeptspeceee() {
-    final isValid = addvehicleformkey.currentState!.validate();
-    if (!isValid) {
-      return;
-    }
-    addvehicleformkey.currentState!.save();
-    //Get.to(() => HomePage());
-  }
+  // String? validName(String value) {
+  //   if (value.length < 2) {
+  //     return "Provide valid Type";
+  //   }
+  //   return null;
+  // }
+  // String? validDept(String value) {
+  //   if (value.length < 2) {
+  //     return "              Provide valid name";
+  //   }
+  //   return null;
+  // }
+  // void checkaddVehicle() {
+  //   final isValid = addvehicleformkey.currentState!.validate();
+  //   if (isValid) {
+  //
+  //     return;
+  //   }else{
+  //
+  //     Get.snackbar("Failed", "please add all data");
+  //   }
+  //   addvehicleformkey.currentState!.save();
+  //
+  // }
 }

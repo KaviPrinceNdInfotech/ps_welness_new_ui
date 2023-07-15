@@ -291,7 +291,7 @@ class LabSchedule1Page extends StatelessWidget {
                               ),
 
                               SizedBox(
-                                  height: size.height * 0.21,
+                                  height: size.height * 0.226,
                                   child: LabScheduleCredentials()),
 
                               SizedBox(
@@ -317,9 +317,7 @@ class LabSchedule1Page extends StatelessWidget {
                                         ? Center(
                                             child: CircularProgressIndicator(),
                                           )
-                                        : SizedBox(
-                                            height: size.height * 0.13,
-                                            width: size.width * 0.95,
+                                        : Expanded(
                                             child: ListView.builder(
                                                 shrinkWrap: true,
                                                 //scrollDirection: Axis.horizontal,
@@ -618,7 +616,7 @@ class LabSchedule1Page extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.2,
-                                    vertical: size.height * 0.00),
+                                    vertical: size.height * 0.0),
                                 child: ElevatedButton(
                                   onPressed: () {
                                     //Get.to(() => UserHomePage());
@@ -742,7 +740,7 @@ class LabSchedule1Page extends StatelessWidget {
                                 // ),
                               ),
                               SizedBox(
-                                height: size.height * 0.00,
+                                height: size.height * 0.018,
                               ),
                             ],
                           ),

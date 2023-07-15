@@ -27,7 +27,7 @@ class PrivacyPolicyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'About Us:',
+                    'Our Policies:',
                     style: GoogleFonts.poppins(
                         color: MyTheme.blueww,
                         fontSize: size.width * 0.06,
@@ -37,7 +37,9 @@ class PrivacyPolicyView extends StatelessWidget {
                     height: size.height * 0.01,
                   ),
                   Text(
-                    """ P S Wellness is the author and publisher of the internet resource P S Wellness www.pswellness.in and the mobile application ‘ P S Wellness User  and PS Wellness Franchise’ (together, “Website”). PS Wellness owns and operates the services provided through the Website.
+                    """  
+
+ P S Wellness is the author and publisher of the internet resource P S Wellness www.pswellness.in and the mobile application ‘ P S Wellness User  and PS Wellness Franchise’ (together, “Website”). PS Wellness owns and operates the services provided through the Website.
 
 
 Note: Ps wellness Provide only Platform and not Responsible for only mishappning. & damages
@@ -423,12 +425,72 @@ The specific terms relating to such  Account are as below, without prejudice to 
 10.17You acknowledge that the Service Provider/user/Practitioners you are visiting may engage P S Wellness software or third party software for the purposes of the functioning of the Service Provider/User/ Practitioner’s business and P S Wellness services including but not limited to the usage and for storage of Records (as defined in Section 3.10) in India and outside India, in accordance with the applicable laws.
 
 10.18To the extent that your Records have been shared with P S Wellness or stored on any of the P S Wellness products used by Service Provider/user/Practitioner’s you are visiting, and may in the past have visited, You hereby agree to the storage of your Records by P S wellness pertaining to such previously visited Doctors, clinics and hospitals who have tie ups with P S Wellness for the purposes of their business and for P S Wellness services including but not limited to the usage and for storage of Records (as defined in Section 3.10) in India and outside India, in accordance with the applicable laws and further agree, upon creation of your account with P S Wellness, to the mapping of such Records as may be available in P S Wellness database to your User account.
-11P S WELLNESS MEDICINE INFORMATION
+18
+
+11.1Privacy Policy - Location Permission in Application.
+
+11.2At PS Wellness, we value and prioritize the privacy and security of our users. This Privacy Policy outlines how we handle the location permission of users in our application and explains the collection, use, storage, and protection of their location data.
+
+19
+
+11.3Collection of Location Information:
+
+11.4When you grant permission for location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, IP address, and other relevant data sources to determine your device's location.
+
+20
+
+11.5Purpose of Location Data Collection:
+
+We collect your location data to provide you with location-based services and enhance your overall app experience. The primary purposes of collecting location information include:
+
+a. Personalized Content and Features: We may use your location data to tailor our application's content, services, and features to your specific geographical location. This enables us to provide you with relevant information, local recommendations, and customized experiences based on your current whereabouts.
+
+b. Navigation and Directions: If our application offers navigation or mapping services, we utilize your location data to provide accurate directions, real-time traffic updates, and estimated arrival times.
+
+c. Analytics and Improvements: We may anonymize and aggregate location data for statistical analysis, research, and development purposes. This helps us understand user behavior, improve our services, and optimize the performance of our application.
+21
+
+11.6Sharing of Location Information:
+
+We understand the importance of safeguarding your location data and are committed to maintaining its privacy. We do not sell, rent, or lease your location information to third parties for marketing purposes. However, we may share your location data under the following circumstances:
+
+a.Service Providers: We may engage trusted third-party service providers to assist us in delivering location-based services, data processing, analytics, or infrastructure support. These providers are contractually bound to handle your information securely and solely for the purpose of providing the requested services.
+
+b.Legal Requirements: We may disclose your location information if required by law, court order, or governmental regulations. We may also disclose such information to protect our rights, safety, or the rights and safety of others.
+
+c.Aggregated and Anonymized Data: We may share aggregated and anonymized location data that does not identify individual users.
+
+22
+
+11.7Data Security and Retention:
+
+11.8We employ industry-standard security measures to protect your location data from unauthorized access, alteration, disclosure, or destruction. We retain your location information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
+
+23
+
+11.9User Controls and Choices:
+
+11.10You have the right to control and manage the location permission granted to our application. You can enable or disable location services within your device's settings or within our application's settings, depending on the platform. However, please note that disabling location access may limit the functionality and personalized features available in the app.
+
+24
+
+11.11Children's Privacy:
+
+11.12Our application is not intended for use by individuals under the age of 18. We do not knowingly collect or solicit personal information from children. If we become aware that we have collected personal information from a child without parental consent, we will take steps to remove that information from our servers.
+
+25
+
+11.13Updates to the Privacy Policy:
+
+11.14We reserve the right to update or modify this Privacy Policy from time to time. Any changes will be effective upon posting the revised Privacy Policy within the application. We encourage you to review this Privacy Policy periodically for any updates.
+
+
+26P S WELLNESS MEDICINE INFORMATION
 
 For detailed terms and conditions regarding medicine information click.
 
 
-12 P S Wellness Q&A
+27P S Wellness Q&A
 12.1Terms for Service Provider/User/Practitioners:
 Every Service Provider/User/Practitioner on the Q&A Platform must be qualified in the area of expertise that he represents as being his qualification.
 

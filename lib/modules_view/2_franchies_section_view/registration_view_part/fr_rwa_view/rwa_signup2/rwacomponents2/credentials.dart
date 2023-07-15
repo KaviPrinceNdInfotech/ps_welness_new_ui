@@ -41,7 +41,7 @@ class FrRwa2Credentials extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-      //  key: _frrwa_2_controller.frrwa2formkey,
+        key: _frrwa_1_controller.frrwa2formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
@@ -108,6 +108,7 @@ class FrRwa2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? 'field required' : null,
                         onChanged: (StateModel? newValue) {
                           _frrwa_1_controller.selectedState.value = newValue!;
                         }),
@@ -145,6 +146,7 @@ class FrRwa2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frrwa_1_controller.selectedCity.value = newValue!;
                         }),
@@ -261,7 +263,7 @@ class FrRwa2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                   _frrwa_1_controller.checkRwa1();
+                   _frrwa_1_controller.checkRwa2();
                   })
             ],
           ),

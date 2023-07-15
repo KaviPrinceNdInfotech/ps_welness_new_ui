@@ -22,7 +22,7 @@ class FrDriver1Credentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _frdriver_1_controller.frdriver1formkey,
+     // key: _frdriver_1_controller.frdriver1formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -34,12 +34,6 @@ class FrDriver1Credentials extends StatelessWidget {
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
                 controller: _frdriver_1_controller.nameController,
-                onSaved: (value) {
-                  _frdriver_1_controller.name = value!;
-                },
-                validator: (value) {
-                  return _frdriver_1_controller.validName(value!);
-                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -63,13 +57,8 @@ class FrDriver1Credentials extends StatelessWidget {
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: _frdriver_1_controller.passwordController,
-                onSaved: (value) {
-                  _frdriver_1_controller.password = value!;
-                },
-                validator: (value) {
-                  return _frdriver_1_controller.validPassword(value!);
-                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -94,12 +83,10 @@ class FrDriver1Credentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 controller: _frdriver_1_controller.confirmpasswordController,
-                onSaved: (value) {
-                  _frdriver_1_controller.confirmpassword = value!;
-                },
-                validator: (value) {
-                  return _frdriver_1_controller.validConfirmPassword(value!);
-                },
+                keyboardType: TextInputType.number,
+                // onSaved: (value) {
+                //   _frdriver_1_controller.confirmpassword = value!;
+                // },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -115,7 +102,7 @@ class FrDriver1Credentials extends StatelessWidget {
                   ),
                   border: InputBorder.none,
                 ),
-                keyboardType: TextInputType.visiblePassword,
+
                 //obscureText: true,
                 //controller: _loginpasswordController.mobileController,
               ),
@@ -126,14 +113,9 @@ class FrDriver1Credentials extends StatelessWidget {
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                maxLength: 10,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _frdriver_1_controller.mobileController,
-                onSaved: (value) {
-                  _frdriver_1_controller.mobile = value!;
-                },
-                validator: (value) {
-                  return _frdriver_1_controller.validPhone(value!);
-                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -148,7 +130,9 @@ class FrDriver1Credentials extends StatelessWidget {
                     size: 20,
                   ),
                   border: InputBorder.none,
+                  counterText: ''
                 ),
+                keyboardType: TextInputType.number,
               ),
             ),
             SizedBox(
@@ -158,7 +142,14 @@ class FrDriver1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
-                  Get.to(FrDriverSignup2());
+                  if(_frdriver_1_controller.nameController!.text.isEmpty || _frdriver_1_controller.passwordController!.text.isEmpty
+                  || _frdriver_1_controller.confirmpasswordController!.text.isEmpty || _frdriver_1_controller.mobileController!.text.isEmpty){
+                    Get.snackbar("title", "please fill all data");
+                  }else if( _frdriver_1_controller.mobileController!.text.length< 10){
+                    Get.snackbar("title", "Mobile Number must be of 10 digit");
+                  }else{
+                    Get.to(FrDriverSignup2());
+                  }
                 })
           ],
         ),

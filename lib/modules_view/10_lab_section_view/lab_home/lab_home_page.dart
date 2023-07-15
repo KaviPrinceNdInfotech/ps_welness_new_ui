@@ -10,6 +10,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_slider.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_payment_history/lab_payment_history.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -22,7 +23,6 @@ import '../../../controllers/10_lab_controller/lab_appointment_history_controlle
 import '../../../controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../../../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
-import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
 import '../lab_appointment_details/lab_appointment_details.dart';
 import '../lab_appointment_history_view/appointment_history_view.dart';
 import '../lab_report_list/lab_report_list.dart';
@@ -58,7 +58,7 @@ class LabHomePage extends StatelessWidget {
       'Payment History',
       'Appointment History',
       'Report view',
-      'Contact Support',
+      'Update Bank Details',
 
       // 'service 7',
       // 'service 8',
@@ -90,7 +90,7 @@ class LabHomePage extends StatelessWidget {
       'lib/assets/image/history_payment_lab.png',
       'lib/assets/image/appoinment_his_lab.png',
       'lib/assets/image/lab_report_view.png',
-      'lib/assets/icons/contact33.png',
+      'lib/assets/icons/drbank.png',
       // 'service 7',
       // 'service 8',
     ];
@@ -293,7 +293,7 @@ class LabHomePage extends StatelessWidget {
                                           .labreportviewApi();
                                       Get.to(LabViewReport());
                                     } else if (index == 5) {
-                                      Get.to(SupportView());
+                                      Get.to(() => AddBankDetail());
                                     }
                                   },
                                   child: Container(

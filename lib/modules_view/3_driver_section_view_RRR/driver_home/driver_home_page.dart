@@ -1,18 +1,26 @@
+import 'dart:convert';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_details/driver_appointment_details.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/profile_driver_page_view/driver_profile.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
+import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -25,6 +33,7 @@ import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemis
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_update_view.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../../../notificationservice/notification_fb_service.dart';
 import '../driver_drawer_view/driver_drower_pages/location_practice/location_practiceeee.dart';
 import '../driver_payment_history/driver_payment_history.dart';
 import '../driver_payout_history/driver_payout_histories.dart';
@@ -34,10 +43,93 @@ AppointmentUserController _appointmentUserController =
 DriverProfileController _driverProfileController =
     Get.put(DriverProfileController());
 
+DevicetokenController _devicetokenController = Get.put(DevicetokenController());
+
+String PatientRegNo = ''.toString();
+String userPassword = ''.toString();
+
+String DriverId = ''.toString();
+String driverpassword = ''.toString();
+
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());
-class DriverHomePage extends StatelessWidget {
+class DriverHomePage extends StatefulWidget {
   const DriverHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<DriverHomePage> createState() => _DriverHomePageState();
+}
+
+class _DriverHomePageState extends State<DriverHomePage> {
+  NotificationServices notificationServices = NotificationServices();
+
+  ///implement firebase....27...jun..2023
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    // notificationServices.requestNotificationPermission();
+    // notificationServices.isTokenRefresh();
+    // notificationServices.firebaseInit();
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+      // print('device token');
+      // print(value);
+    });
+
+    /// 1. This method call when app in terminated state and you get a notification
+    /// when you click on notification app open from terminated state and you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+
+          ///you can call local notification....
+          LocalNotificationService.createanddisplaynotification(message);
+        }
+      },
+    );
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +206,7 @@ class DriverHomePage extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: ' DRIVER',
+                      text: 'DRIVER',
                       style: GoogleFonts.alatsi(
                         fontSize: size.height * 0.022,
                         fontWeight: FontWeight.w600,
@@ -152,7 +244,97 @@ class DriverHomePage extends StatelessWidget {
                 //Theme.of(context).bottomAppBarColor,
                 child: InkWell(
                   splashColor: Colors.blueGrey,
-                  onTap: () {
+                  onTap: () async {
+                    ///todo: this is driver token.............
+                    /// _devicetokenController.DrivertokenApi();
+
+                    ///from here start notification and send your token to the server...
+
+                    print('princee notification');
+                    notificationServices.getDeviceToken().then((value) async {
+                      var data = {
+                        //this the particular device id.....
+                        'to':
+                            //this is dummy token...
+                            "ugug6t878",
+
+                        ///todo device token......
+                        // widget
+                        //     .driverlist
+                        //     ?.message?[
+                        //         index]
+                        //     .id
+                        //     .toString(),
+                        ///
+                        //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                        //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                        //.toString(),
+
+                        ///this is same device token....
+                        //value.toString(),
+                        'notification': {
+                          'title': 'Ps_Wellness',
+                          'body': 'You have request for ambulance',
+                          //"sound": "jetsons_doorbell.mp3"
+                        },
+                        'android': {
+                          'notification': {
+                            'notification_count': 23,
+                          },
+                        },
+                        'data': {'type': 'msj', 'id': '123456'}
+                      };
+
+                      await http.post(
+                          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                          body: jsonEncode(data),
+                          headers: {
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            'Authorization':
+                                //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                          }).then((value) {
+                        if (kDebugMode) {
+                          print(value.body.toString());
+                        }
+                      }).onError((error, stackTrace) {
+                        if (kDebugMode) {
+                          print(error);
+                        }
+                      });
+
+                      ///todo: from here custom from backend start...
+                      var prefs = GetStorage();
+                      DriverId = prefs.read("DriverId").toString();
+                      print(
+                          '&&&&&&&&&&&&&&&&&&&&&&driverrcredentials:${DriverId}');
+                      var body = {
+                        "UserId": "${DriverId}",
+                        "DeviceId": value.toString(),
+                      };
+                      print("userrrtokenupdateeeddbeforetttt${body}");
+                      http.Response r = await http.post(
+                        Uri.parse(
+                            'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                        body: body,
+                      );
+
+                      print(r.body);
+                      if (r.statusCode == 200) {
+                        print("userrrtokenupdatdricvfe3333${body}");
+                        return r;
+                      } else if (r.statusCode == 401) {
+                        Get.snackbar('message', r.body);
+                      } else {
+                        Get.snackbar('Error', r.body);
+                        return r;
+                      }
+
+                      ///todo end post api from backend...
+                    });
+
+                    ///end....
+                    ///
                     Get.to(MyLocation());
                   },
                   child: Container(

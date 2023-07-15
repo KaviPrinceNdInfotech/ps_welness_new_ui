@@ -252,6 +252,7 @@ class FrLab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? 'field required' : null,
                       onChanged: (StateModel? newValue) {
                         _frlab_1_controller.selectedState.value = newValue!;
                       }),
@@ -262,7 +263,6 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
@@ -290,6 +290,7 @@ class FrLab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? 'field required' : null,
                       onChanged: (City? newValue) {
                         _frlab_1_controller.selectedCity.value = newValue!;
                       }),
@@ -336,7 +337,7 @@ class FrLab1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next>',
                 press: () {
-                  Get.to(FrLabSignup2());
+                  _frlab_1_controller.checkLab();
                 })
           ],
         ),

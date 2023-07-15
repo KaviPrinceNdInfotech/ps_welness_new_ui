@@ -7,11 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_nurses_view/nurses_sighup2/nurses_signup2.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
 
 class FrNurses_1_controller extends GetxController {
   final GlobalKey<FormState> frnursesformkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> frnurses2formkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
   RxInt selectedIndex = 0.obs;
 
@@ -234,9 +236,19 @@ class FrNurses_1_controller extends GetxController {
 
   void checkNurses1() {
     final isValid = frnursesformkey.currentState!.validate();
-    frenchiesRegisterNurse();
-    if (!isValid) {
+    if (isValid) {
+      Get.to(FrNursesSignup2());
       return;
+    }else{}
+    frnursesformkey.currentState!.save();
+  }
+  void checkNurses2() {
+    final isValid = frnurses2formkey.currentState!.validate();
+    if (isValid && selectedImagepath.value != '') {
+       frenchiesRegisterNurse();
+      return;
+    }else{
+      Get.snackbar("title", "Please Select Image");
     }
     frnursesformkey.currentState!.save();
   }

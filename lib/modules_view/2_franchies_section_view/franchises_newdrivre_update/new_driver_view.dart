@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -299,7 +301,7 @@ class NewDriverView extends StatelessWidget {
                                                   ),
                                                   InkWell(
                                                     onTap: (){
-                                                      _dialog(id);
+                                                      _dialog(id,'${item?[index].driverName}');
                                                     },
                                                     child: Container(
                                                       height: size.height * 0.05,
@@ -382,53 +384,57 @@ class NewDriverView extends StatelessWidget {
       ),
     );
   }
-  _dialog(id){
+  _dialog(id, String name){
     Get.defaultDialog(
         title: '',
-        content: Form(
-          key: _frenchiesNewDriverListController.franchisesNewDriverUpdateformkey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                height: 50,
-                child: TextFormField(
-                  controller: _frenchiesNewDriverListController.driverNameController,
-                  keyboardType: TextInputType.text,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                    labelText: 'Driver Name',
-                  ),
-                  validator: (value) {
-                    if(value!.isEmpty){
-                      return'Driver Name is Empty';
-                    }
-                  },
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 50,
+              child: TextFormField(
+                initialValue: name,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  labelText: 'Driver Name',
                 ),
-              ),
-              SizedBox(height: 10,),
-              const SizedBox(height: 30.0,),
-              InkWell(
-                onTap: ()async{
-                  _frenchiesNewDriverListController.checkFranchisesNewDriver(id);
+                validator: (value) {
+                  if(value!.isEmpty){
+                    return'Driver Name is Empty';
+                  }
                 },
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  decoration: const BoxDecoration(
-                    color: Colors.teal,
-                  ),
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
+                onChanged: (value){
+                  _frenchiesNewDriverListController.driverNameController?.text=value;
+                },
+              ),
+            ),
+            SizedBox(height: 10,),
+            const SizedBox(height: 30.0,),
+            InkWell(
+              onTap: ()async{
+                _frenchiesNewDriverListController.frenchiesNewDriverUpdate(id!);
+                Timer(const Duration(seconds: 2), () =>
+                    _frenchiesNewDriverListController.frenchiesNewDriverList()
+                );
+                Get.back();
+                // _frenchiesNewDriverListController.checkFranchisesNewDriver(id);
+              },
+              child: Container(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                decoration: const BoxDecoration(
+                  color: Colors.teal,
+                ),
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         radius: 10.0);
   }

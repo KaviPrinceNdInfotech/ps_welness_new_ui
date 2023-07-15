@@ -278,7 +278,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                 height: size.height * 0.0,
                               ),
                               SizedBox(
-                                  height: size.height * 0.23,
+                                  height: size.height * 0.235,
                                   child: DoctorScheduleCredentials()),
                               SizedBox(
                                 height: size.height * 0.0,
@@ -743,7 +743,7 @@ class DetailsSchedulePage extends StatelessWidget {
                       bottom: size.height * 0.0,
                       left: size.width * 0.0,
                       right: size.width * 0.00,
-                      top: size.height * 0.865,
+                      top: size.height * 0.885,
                       child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: size.width * 0.2),
@@ -767,7 +767,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.bold)),
                           clipBehavior: Clip.none,
                           child: Container(
-                            height: size.height * 0.05,
+                            height: size.height * 0.07,
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(

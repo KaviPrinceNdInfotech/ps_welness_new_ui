@@ -7,7 +7,6 @@ import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTdsListByDate_
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTotalTDS_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
-
 class FranchiseTdsHistoryReportController extends GetxController {
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;

@@ -28,7 +28,7 @@ class FrLab2Credentials extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-       // key: _frlab_1_controller.frlab2formkey,
+        key: _frlab_1_controller.frlab2formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
@@ -84,7 +84,7 @@ class FrLab2Credentials extends StatelessWidget {
                     _frlab_1_controller.certificateno = value!;
                   },
                   validator: (value) {
-                  //  return _frlab_1_controller.validcertificate(value!);
+                    return _frlab_1_controller.validcertificate(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -151,7 +151,7 @@ class FrLab2Credentials extends StatelessWidget {
                     _frlab_1_controller.aadhar = value!;
                   },
                   validator: (value) {
-                   // return _frlab_1_controller.validaadhar(value!);
+                    return _frlab_1_controller.validaadhar(value!);
                   },
                   cursorColor: Colors.black,
                   obscureText: false,
@@ -182,28 +182,34 @@ class FrLab2Credentials extends StatelessWidget {
                   onTap: () {
                     _frlab_1_controller.getPanImage(ImageSource.gallery);
                   },
-                  child: NeumorphicTextFieldContainer(
-                    child: Container(
-                      height: size.height * 0.06,
-                      //width: size.width * 0.5,
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Pan Image File',
-                              style: TextStyle(
-                                fontSize: size.width * 0.03,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Icon(Icons.camera_alt),
-                          ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Select Pan Image',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ),
+                      Container(
+                        height: 70,width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border:  Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius:BorderRadius.circular(5)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Obx(()=> _frlab_1_controller.selectedPanImagepath.value=='' ?
+                          const Center(
+                              child: Text("No Image")) :
+                          Image.file(File(_frlab_1_controller.selectedPanImagepath.value),
+                            fit: BoxFit.cover,
+                          ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -256,7 +262,6 @@ class FrLab2Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.018,
               ),
-
               ///todo:selected time ending...
               NeumorphicTextFieldContainer(
                 child: Obx(
@@ -303,7 +308,7 @@ class FrLab2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                   _frlab_1_controller.checkLab();
+                   _frlab_1_controller.checkLab2();
                   })
             ],
           ),

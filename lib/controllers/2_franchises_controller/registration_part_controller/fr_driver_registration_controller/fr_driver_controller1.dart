@@ -123,13 +123,13 @@ class Fr_Driver_1_Controller extends GetxController {
       }
     }
     );
-    nameController = TextEditingController(text: 'Rahul');
-    passwordController = TextEditingController(text: '12345678');
-    confirmpasswordController = TextEditingController(text: '12345678');
-    mobileController = TextEditingController(text: '8888888888');
-    pinController = TextEditingController(text: '841214');
-    addressController = TextEditingController(text: 'noida');
-    dlNumber = TextEditingController(text: '1234t78');
+    nameController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmpasswordController = TextEditingController();
+    mobileController = TextEditingController();
+    pinController = TextEditingController();
+    addressController = TextEditingController();
+    dlNumber = TextEditingController();
   }
 
   @override
@@ -137,18 +137,16 @@ class Fr_Driver_1_Controller extends GetxController {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    nameController?.dispose();
-    emailController?.dispose();
-    passwordController?.dispose();
-    confirmpasswordController?.dispose();
-    mobileController?.dispose();
-  }
 
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
+    }
+    return null;
+  }
+  String? validAddress(String value) {
+    if (value.length < 2) {
+      return "              Provide valid address";
     }
     return null;
   }
@@ -198,12 +196,30 @@ class Fr_Driver_1_Controller extends GetxController {
     }
     return null;
   }
+  String? validPin(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length == 7) {
+      return '              A valid pin number should be of 6 digits';
+    }
+    return null;
+  }
 
   void checkDriver1() {
     final isValid = frdriver1formkey.currentState!.validate();
-    FrenchiesDriverRegistration();
     if (!isValid) {
       return;
+    }else if(selectedState.value==''){
+      Get.snackbar("title", "Please Select State");
+    }else if(selectedCity.value==''){
+      Get.snackbar("title", "Please Select City");
+    }else if(selectedDLImage1path.value == '' || selectedDLImage2path.value == ''){
+      Get.snackbar("title", "Please Add DL image");
+    }else if(selectedAadharImage1path.value == '' || selectedAadharImage2path.value == ''){
+      Get.snackbar("title", "Please Add Aadhar image");
+    }else{
+      FrenchiesDriverRegistration();
     }
     frdriver1formkey.currentState!.save();
   }

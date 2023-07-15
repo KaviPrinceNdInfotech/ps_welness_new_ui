@@ -670,12 +670,12 @@ class LabAppointmentCheckout extends StatelessWidget {
                                                         .labHistorybyUserId();
                                                     _labHistoryController
                                                         .update();
-                                                    Get.offAll(
+                                                    Get.to(
                                                       () =>
                                                           LabHistoryUser(), //next page class
                                                       duration: Duration(
                                                           milliseconds:
-                                                              300), //duration of transitions, default 1 sec
+                                                              400), //duration of transitions, default 1 sec
                                                       transition:
                                                           Transition.zoom,
                                                     );

@@ -188,7 +188,7 @@ class FrRwa1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
-                  Get.to(FrRwaSignup2());
+                  _fr_rwa_1_controller.checkRwa1();
                 })
           ],
         ),

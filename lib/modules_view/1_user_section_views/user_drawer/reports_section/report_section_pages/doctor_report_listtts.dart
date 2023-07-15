@@ -161,10 +161,7 @@ class DoctorUserreportList extends StatelessWidget {
                               ? Center(
                                   child: Text("No List"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
-
-                                  ///height: size.height,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _doctorreportuserviewController
@@ -494,7 +491,11 @@ class DoctorUserreportList extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
                         ],
                       ),
                     ],

@@ -132,8 +132,7 @@ class LabPaymentHistory extends StatelessWidget {
                               ? Center(
                                   child: Text("No List"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _labpaymentController
@@ -377,7 +376,7 @@ class LabPaymentHistory extends StatelessWidget {
                                                                     size.width *
                                                                         0.55,
                                                                 child: Text(
-                                                                  '${_labpaymentController.foundlabProducts[index].startSlotTime}'
+                                                                  '${_labpaymentController.foundlabProducts[index].slotTime}'
                                                                   //'22 nov 2022-02 dec 2022',
                                                                   ,
                                                                   style: GoogleFonts.raleway(
@@ -403,7 +402,8 @@ class LabPaymentHistory extends StatelessWidget {
                                             ),
                                           ],
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
 

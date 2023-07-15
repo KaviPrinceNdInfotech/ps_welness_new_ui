@@ -253,6 +253,7 @@ class FrVehicleCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? '  field required' : null,
                       onChanged: (VehicleCatDropdown? newValue) {
                         _franchies_vehicle_controller.selectedVehicleCat.value = newValue!;
                       }),
@@ -290,6 +291,7 @@ class FrVehicleCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? '  field required' : null,
                       onChanged: (VehicleTypeName? newValue) {
                         _franchies_vehicle_controller.selectedVehicleType.value = newValue!;
                       }),
@@ -373,7 +375,8 @@ class FrVehicleCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'Submit',
                 press: () {
-                  _franchies_vehicle_controller.FrenchiesVehicleRegistration();
+                    _franchies_vehicle_controller.checkFrvehicle();
+
                 })
           ],
         ),

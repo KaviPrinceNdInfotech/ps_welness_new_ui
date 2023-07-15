@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class FrenchiesOldDriverListController extends GetxController{
   final GlobalKey<FormState> franchisesOldDriverUpdateformkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
-  TextEditingController? driverNameController,vehicleNameController;
+  TextEditingController? driverNameController,vehicleNumberController;
   FrenchiesOldDriverListModel? getfrenchiesOldDriverListModel;
   void frenchiesOldDriverList()async{
     isLoading(true);
@@ -23,9 +23,10 @@ class FrenchiesOldDriverListController extends GetxController{
   ///todo frenchies Update Old driver ..... rahul
   void frenchiesOldDriverUpdate(id) async{
     http.Response r = await ApiProvider.FrenchiesOldDriverUpdateApi(
-        vehicleNameController?.text,
+        id,
         driverNameController?.text,
-        id);
+        vehicleNumberController?.text
+       );
     if(r.statusCode == 200){
     }
   }
@@ -58,7 +59,7 @@ class FrenchiesOldDriverListController extends GetxController{
   void onInit() {
     frenchiesOldDriverList();
     driverNameController = TextEditingController();
-    vehicleNameController = TextEditingController();
+    vehicleNumberController = TextEditingController();
     super.onInit();
   }
   @override
@@ -77,12 +78,9 @@ class FrenchiesOldDriverListController extends GetxController{
     }
     return null;
   }
-  void checkFranchisesOldDriver(id) {
-    if (franchisesOldDriverUpdateformkey.currentState!.validate()) {
-      frenchiesOldDriverUpdate(id);
-      Timer(const Duration(seconds: 4), () => frenchiesOldDriverList());
-      Get.back();
-    }
-    franchisesOldDriverUpdateformkey.currentState!.save();
-  }
+  // void checkFranchisesOldDriver(id) {
+  //   if (franchisesOldDriverUpdateformkey.currentState!.validate()) {
+  //   }
+  //   franchisesOldDriverUpdateformkey.currentState!.save();
+  // }
 }

@@ -27,10 +27,13 @@ class DoctorHistoryUser extends StatelessWidget {
             : SafeArea(
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 20,
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: size.width * 0.05,
-                          vertical: size.height * 0.02),
+                          vertical: size.height * 0.0),
                       child: Row(
                         children: [
                           InkWell(
@@ -60,7 +63,7 @@ class DoctorHistoryUser extends StatelessWidget {
                               new BorderRadius.all(new Radius.circular(30.0)),
                           color: Colors.white),
                       width: size.width * 0.9,
-                      height: size.height * 0.06,
+                      height: size.height * 0.065,
                       margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
                       padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                       child: Theme(
@@ -172,8 +175,7 @@ class DoctorHistoryUser extends StatelessWidget {
                         ? Center(
                             child: Text('No List'),
                           )
-                        : SizedBox(
-                            height: size.height * 0.73,
+                        : Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount:
@@ -186,7 +188,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                     child: Container(
                                       height: size.height * 0.33,
                                       margin: EdgeInsets.symmetric(
-                                          vertical: 30 / 6),
+                                          vertical: 30 / 7),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),
@@ -218,9 +220,9 @@ class DoctorHistoryUser extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           SizedBox(
-                                            height: size.height * 0.1,
+                                            height: size.height * 0.08,
                                             child: Container(
-                                              height: size.height * 0.09,
+                                              height: size.height * 0.1,
                                               width: size.width * 0.16,
                                               decoration: BoxDecoration(
                                                 color: Colors.yellow.shade200,
@@ -241,7 +243,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                       .spaceBetween,
                                               children: [
                                                 SizedBox(
-                                                  height: size.height * 0.2,
+                                                  height: size.height * 0.22,
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -331,7 +333,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: size.height * 0.2,
+                                                  height: size.height * 0.22,
                                                   width: size.width * 0.45,
                                                   child: Column(
                                                     mainAxisAlignment:
@@ -520,7 +522,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                       ),
                                     ),
                                   );
-                                })),
+                                }),
+                          ),
                     // ),
                   ],
                 ),

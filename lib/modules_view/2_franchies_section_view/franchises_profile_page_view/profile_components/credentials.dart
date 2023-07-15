@@ -93,10 +93,12 @@ class franchiesEditProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? '  field required' : null,
                       onChanged: (StateModel? newValue) {
                         _franchisesProfileController.selectedState.value = newValue!;
 
-                      }),
+                      }
+                      ),
                 ),
               ),
             ),
@@ -131,6 +133,7 @@ class franchiesEditProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      validator: (value) => value == null ? '  field required' : null,
                       onChanged: (City? newValue) {
                         _franchisesProfileController.selectedCity.value = newValue!;
                       }),

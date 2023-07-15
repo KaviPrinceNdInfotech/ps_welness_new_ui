@@ -462,74 +462,70 @@ class OldDriverView extends StatelessWidget {
     );
   }
   _dialog(id,driverName,vehicleNo){
+    print("driver: ${driverName}");
     Get.defaultDialog(
         title: '',
-        content: Form(
-          key: _frenchiesOldDriverListController.franchisesOldDriverUpdateformkey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                height: 50,
-                child: TextFormField(
-                 // initialValue: driverName,
-                  controller:  _frenchiesOldDriverListController.driverNameController,
-                  keyboardType: TextInputType.text,
-                  maxLines: 1,
-                    decoration: const InputDecoration(
-                      labelText: 'Driver Name',
-                    ),
-                  validator: (value) {
-                    if(value!.isEmpty){
-                      return'Driver Name is Empty';
-                    }
-                  },
-                  // onChanged: (value){
-                  //       _frenchiesOldDriverListController.driverNameController?.text= value.toString();
-                  // },
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height: 50,
-                child: TextFormField(
-                 // initialValue: vehicleNo,
-                  controller: _frenchiesOldDriverListController.vehicleNameController,
-                  keyboardType: TextInputType.text,
-                  maxLines: 1,
-                  decoration:  const InputDecoration(
-                      labelText: 'Vehicle Number',
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 50,
+              child: TextFormField(
+               initialValue: driverName,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                  decoration: const InputDecoration(
+                    labelText: 'Driver Name',
                   ),
-                  validator: (value) {
-                    return _frenchiesOldDriverListController.validVehicleNo(value!);
-                  },
-                  // onChanged: (value){
-                  //     _frenchiesOldDriverListController.vehicleNameController?.text= value.toString();
-                  // },
-                ),
-              ),
-              const SizedBox(height: 30.0,),
-              InkWell(
-                onTap: ()async{
-                  _frenchiesOldDriverListController.checkFranchisesOldDriver(id);
+                validator: (value) {
+                  if(value!.isEmpty){
+                    return'Driver Name is Empty';
+                  }
                 },
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  decoration: const BoxDecoration(
-                    color: Colors.teal,
-                  ),
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
+                onChanged: (value){
+                      _frenchiesOldDriverListController.driverNameController?.text= value;
+                },
+              ),
+            ),
+            SizedBox(height: 10,),
+            Container(
+              height: 50,
+              child: TextFormField(
+                initialValue: vehicleNo,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                decoration:  const InputDecoration(
+                    labelText: 'Vehicle Number',
+                ),
+                onChanged: (value){
+                    _frenchiesOldDriverListController.vehicleNumberController?.text= value;
+                },
+              ),
+            ),
+            const SizedBox(height: 30.0,),
+            InkWell(
+              onTap: ()async{
+                _frenchiesOldDriverListController.frenchiesOldDriverUpdate(id!);
+                Timer(const Duration(seconds: 2), () =>
+                    _frenchiesOldDriverListController.frenchiesOldDriverList()
+                );
+                Get.back();
+              },
+              child: Container(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                decoration: const BoxDecoration(
+                  color: Colors.teal,
+                ),
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         radius: 10.0);
   }

@@ -281,17 +281,7 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          'Srl no:',
-                                                          style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width * 0.04,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color: Colors
-                                                                .brown.shade800,
-                                                          ),
-                                                        ),
+
                                                         Text(
                                                           'Vehicle No:',
                                                           style: GoogleFonts.lato(
@@ -377,24 +367,6 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                             color: Colors.blue,
                                                           ),
                                                         ),
-                                                        Text('${item[index].vehicleNumber}',
-                                                          style: GoogleFonts.lato(
-                                                            fontSize: size.width *
-                                                                0.033,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color: Colors.blue,
-                                                          ),
-                                                        ),
-                                                        Text('${item[index].vehicleNumber}',
-                                                          style: GoogleFonts.lato(
-                                                            fontSize: size.width *
-                                                                0.033,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color: Colors.blue,
-                                                          ),
-                                                        ),
                                                         Text('${item[index].vehicleOwnerName}',
                                                           style: GoogleFonts.lato(
                                                             fontSize: size.width *
@@ -416,6 +388,18 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                         Container(
                                                           width: 150,
                                                           child: Text('${item[index].vehicleTypeName}',
+                                                            style: GoogleFonts.lato(
+                                                              fontSize: size.width *
+                                                                  0.033,
+                                                              fontWeight:
+                                                                  FontWeight.w700,
+                                                              color: Colors.blue,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 150,
+                                                          child: Text('${item[index].categoryName}',
                                                             style:
                                                             GoogleFonts.lato(
                                                               fontSize: size.width *

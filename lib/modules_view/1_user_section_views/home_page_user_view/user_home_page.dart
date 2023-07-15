@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
+import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
+import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
+import 'package:ps_welness_new_ui/google_map/new_map/new_g_map3.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,15 +24,19 @@ import '../../../controllers/1_user_view_controller/ambulance/get_ambulancetype_
 import '../../../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+import '../../../notificationservice/notification_fb_service.dart';
 import '../../../utils/services/account_service.dart';
-import '../../../widgets/notification_fb_service.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
-//import '../../4_nurse_section_view/nurse_drawer_view/drower_pages/supports/support_view.dart';
-import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../doctorss/doctor_address/doctor_address.dart';
 import '../medicine_view/search_section/search_medicine.dart';
 import '../nursess/book_nurse_appointment1/nurse_booking_1.dart';
 import '../user_drawer/user_drawer.dart';
+
+String PatientRegNo = ''.toString();
+String userPassword = ''.toString();
+
+String DriverId = ''.toString();
+String driverpassword = ''.toString();
 
 //import 'package:ps_welness/modules_view/1_user_section_views/user_drawer/user_drawHomePage({Key? key}) : super(key: key);
 
@@ -44,6 +51,7 @@ MedicineCartListController _medicineCartListController =
     Get.put(MedicineCartListController());
 final MedicineListController _medicineListController =
     Get.put(MedicineListController());
+DevicetokenController _devicetokenController = Get.put(DevicetokenController());
 
 ///
 
@@ -64,12 +72,20 @@ class _UserHomePageState extends State<UserHomePage> {
   void initState() {
     super.initState();
     notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
     notificationServices.isTokenRefresh();
-    notificationServices.firebaseInit();
-
+    // notificationServices.requestNotificationPermission();
+    // notificationServices.isTokenRefresh();
+    // notificationServices.firebaseInit();
     notificationServices.getDeviceToken().then((value) {
-      print('device token');
-      print(value);
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+      // print('device token');
+      // print(value);
     });
 
     /// 1. This method call when app in terminated state and you get a notification
@@ -133,8 +149,8 @@ class _UserHomePageState extends State<UserHomePage> {
 
       //'Complete Health Checkup',
       'Buy Medicine',
-      'Contact US',
-      'Add Bank',
+      // 'Contact US',
+      // 'Add Bank',
 
       //'Funeral Service',
 
@@ -148,8 +164,8 @@ class _UserHomePageState extends State<UserHomePage> {
       '',
       '',
       '',
-      '',
-      '',
+      // '',
+      // '',
       //'     Coming Soon..',
 
       // 'service 7',
@@ -171,8 +187,8 @@ class _UserHomePageState extends State<UserHomePage> {
       'lib/assets/user_assets/11lab.png',
       'lib/assets/user_assets/16checkup.png',
       'lib/assets/user_assets/18medicine.png',
-      'lib/assets/icons/contact44.png',
-      'lib/assets/icons/bank_update.png',
+      // 'lib/assets/icons/contact44.png',
+      // 'lib/assets/icons/bank_update.png',
       //'lib/assets/user_assets/20funeral.png',
       // 'service 7',
       // 'service 8',
@@ -191,21 +207,118 @@ class _UserHomePageState extends State<UserHomePage> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           centerTitle: true,
+//           actions: [
+//             IconButton(
+//               onPressed: () async {
+//                 print('princee notification');
+//
+//                 ///call api...
+//
+//                 /// _devicetokenController.UsertokenApi();
+//
+//                 notificationServices.getDeviceToken().then((value) async {
+//                   var data = {
+//                     //this the particular device id.....
+//                     'to':
+//                         //'mytokenfCZIyxFpQKacxnYBshsrJ_:APA91bFZWB_TNV_W7Jkpu6I3ukojLKIopGlSUU95mWj7-oPHR1WawZdN7SL-fmTwGDDmjMDmJvc4AulEIDKHWGQQffyDQjSH09b9z27JMLG1pB1K7xHdoTMeWHRCY7jsrXFzUX3zmQtj'
+//                         //.toString(),
+//
+//                         ///this is same device token....
+//                         value.toString(),
+//                     'notification': {
+//                       'title': 'Ps_Wellness',
+//                       'body': 'You have request for ambulance',
+//                       //"sound": "jetsons_doorbell.mp3"
+//                     },
+//                     'android': {
+//                       'notification': {
+//                         'notification_count': 23,
+//                       },
+//                     },
+//                     'data': {'type': 'msj', 'id': '123456'}
+//                   };
+//
+//                   //var url = '${baseUrl}api/DriverApi/UpadateDiviceId';
+//                   var prefs = GetStorage();
+//                   PatientRegNo = prefs.read("PatientRegNo").toString();
+//                   print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+//                   // PatientRegNo = prefs.read("PatientRegNo").toString();
+//                   //print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+// //user password........
+//                   //userPassword = prefs.read("Password").toString();
+//                   // print('&&&&&&&&&&&&&&&&&&&&&&usecredentialspassword:${userPassword}');
+//
+//                   var body = {
+//                     "UserId": "${PatientRegNo}",
+//                     "DeviceId": value.toString(),
+//                   };
+//                   print("userrrtokenupdateeeddbefore${body}");
+//
+//                   http.Response r = await http.post(
+//                     Uri.parse(
+//                         'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+//                     body: body,
+//                   );
+//                   print(r.body);
+//                   if (r.statusCode == 200) {
+//                     print("userrrtokenupdateeedd777${body}");
+//                     return r;
+//                   } else if (r.statusCode == 401) {
+//                     Get.snackbar('message', r.body);
+//                   } else {
+//                     Get.snackbar('Error', r.body);
+//                     return r;
+//                   }
+//
+//                   ///from here we have token post to the server........
+//                   await http.post(
+//                       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+//                       body: jsonEncode(data),
+//                       headers: {
+//                         'Content-Type': 'application/json; charset=UTF-8',
+//                         'Authorization':
+//                             //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+//                             'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+//                       }).then((value) {
+//                     if (kDebugMode) {
+//                       print(value.body.toString());
+//                     }
+//                   }).onError((error, stackTrace) {
+//                     if (kDebugMode) {
+//                       print(error);
+//                     }
+//                   });
+//                   // await http.post(
+//                   //     Uri.parse('https://fcm.googleapis.com/fcm/send'),
+//                   //     body: jsonEncode(data),
+//                   //     headers: {
+//                   //       'Content-Type': 'application/json; charset=UTF-8',
+//                   //       'Authorization':
+//                   //           'AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc',
+//                   //     });
+//                 });
+//               },
+//               icon: Icon(Icons.notification_add),
+//             ),
+//           ],
           title: Row(
             children: [
-              Container(
-                  height: size.height * 0.045,
-                  width: size.width * 0.11,
+              SizedBox(
+                  height: size.height * 0.047,
+                  width: size.width * 0.1,
                   child: Image.asset(
                       //'lib/assets/user_assets/12lab.png'
                       'lib/assets/background_stack_png/users_patient.png')),
+              SizedBox(
+                width: size.width * 0.02,
+              ),
               RichText(
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
                       text: 'PS WELLNESS',
                       style: GoogleFonts.poppins(
-                        fontSize: 23,
+                        fontSize: 16,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         //color: Color(0xff023382)
@@ -276,16 +389,14 @@ class _UserHomePageState extends State<UserHomePage> {
                         padding: EdgeInsets.symmetric(
                             vertical: size.height * 0.001,
                             horizontal: size.width * 0.01),
-                        child: Container(
+                        child: SizedBox(
                           height: size.height * 0.63,
-                          decoration: BoxDecoration(
-                              // color: Colors.white,
-                              ),
                           child: GridView.builder(
+                              shrinkWrap: true,
                               gridDelegate:
                                   SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: size.height * 0.25,
-                                mainAxisExtent: size.height * 0.188,
+                                mainAxisExtent: size.height * 0.2,
                                 childAspectRatio: 4 / 3,
                                 crossAxisSpacing: 4,
                                 mainAxisSpacing: 8,
@@ -385,19 +496,11 @@ class _UserHomePageState extends State<UserHomePage> {
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                     ),
-                                                    child: ListView.builder(
+                                                    child: ListView(
                                                         physics:
                                                             NeverScrollableScrollPhysics(),
-                                                        itemCount:
-                                                            _userHomepagContreoller
-                                                                .ambulancetype
-                                                                ?.ambulanceT
-                                                                ?.length,
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                    context,
-                                                                int index) {
-                                                          return Padding(
+                                                        children: <Widget>[
+                                                          Padding(
                                                             padding: EdgeInsets.only(
                                                                 left:
                                                                     size.width *
@@ -441,21 +544,19 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                           prefs.setString(
                                                                               "AmbulancelistssId",
                                                                               "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
-
-                                                                          //_ambulancegetController
-                                                                          //.selectedvhicleCatagary();
-                                                                          //_ambulancegetController
-                                                                          //.ambulancecatagaryyApi();
                                                                           _ambulancegetController
                                                                               .update();
+
                                                                           accountService
                                                                               .getAccountData
                                                                               .then((accountData) {
                                                                             CallLoader.loader();
                                                                             Timer(
-                                                                              const Duration(seconds: 2),
+                                                                              const Duration(seconds: 3),
                                                                               () {
-                                                                                Get.offAll(MapView());
+                                                                                Get.to(MapView());
+                                                                                //_ambulancegetController.selectedvhicleCatagary();
+                                                                                //_ambulancegetController.ambulancecatagaryyApi();
                                                                                 //Get.to((MapView));
 
                                                                                 ///
@@ -475,11 +576,12 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                       //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
                                                                       // ),
                                                                       title: Text(
-                                                                        _userHomepagContreoller
-                                                                            .ambulancetype!
-                                                                            .ambulanceT![index]
-                                                                            .ambulanceType
-                                                                            .toString(),
+                                                                        'Regular',
+                                                                        // _userHomepagContreoller
+                                                                        //     .ambulancetype!
+                                                                        //     .ambulanceT![index]
+                                                                        //     .ambulanceType
+                                                                        //     .toString(),
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .indigo,
@@ -492,8 +594,198 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                 ),
                                                               ),
                                                             ),
-                                                          );
-                                                        }),
+                                                          ),
+                                                          Padding(
+                                                            padding: EdgeInsets.only(
+                                                                left:
+                                                                    size.width *
+                                                                        0.02,
+                                                                right:
+                                                                    size.width *
+                                                                        0.02),
+                                                            child:
+                                                                NeumorphicTextFieldContainer(
+                                                              child: Container(
+                                                                // height:
+                                                                //     size.height *
+                                                                //         0.05,
+                                                                width:
+                                                                    size.width,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .white70,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                ),
+                                                                child: Center(
+                                                                  child: ListTile(
+                                                                      //leading: const Icon(Icons.list),
+                                                                      trailing: IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .arrow_circle_right_rounded,
+                                                                          size: size.width *
+                                                                              0.07,
+                                                                        ),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          SharedPreferences
+                                                                              prefs =
+                                                                              await SharedPreferences.getInstance();
+                                                                          prefs.setString(
+                                                                              "AmbulancelistssId",
+                                                                              "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
+                                                                          _ambulancegetController
+                                                                              .update();
+
+                                                                          accountService
+                                                                              .getAccountData
+                                                                              .then((accountData) {
+                                                                            CallLoader.loader();
+                                                                            Timer(
+                                                                              const Duration(seconds: 3),
+                                                                              () {
+                                                                                Get.to(MapView2());
+                                                                                //_ambulancegetController.selectedvhicleCatagary();
+                                                                                //_ambulancegetController.ambulancecatagaryyApi();
+                                                                                //Get.to((MapView));
+
+                                                                                ///
+                                                                              },
+                                                                            );
+                                                                            //CallLoader.hideLoader();
+                                                                          });
+
+                                                                          //Get.off(() => MapUser());
+
+                                                                          // Get.offAll(() =>
+                                                                          //     MapView());
+                                                                        },
+                                                                      ),
+                                                                      // Text(
+                                                                      //   "GFG",
+                                                                      //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
+                                                                      // ),
+                                                                      title: Text(
+                                                                        'Road Accident',
+                                                                        // _userHomepagContreoller
+                                                                        //     .ambulancetype!
+                                                                        //     .ambulanceT![index]
+                                                                        //     .ambulanceType
+                                                                        //     .toString(),
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .indigo,
+                                                                            fontSize:
+                                                                                13,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                        // "List item $index"
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: EdgeInsets.only(
+                                                                left:
+                                                                    size.width *
+                                                                        0.02,
+                                                                right:
+                                                                    size.width *
+                                                                        0.02),
+                                                            child:
+                                                                NeumorphicTextFieldContainer(
+                                                              child: Container(
+                                                                // height:
+                                                                //     size.height *
+                                                                //         0.05,
+                                                                width:
+                                                                    size.width,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .white70,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                ),
+                                                                child: Center(
+                                                                  child: ListTile(
+                                                                      //leading: const Icon(Icons.list),
+                                                                      trailing: IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .arrow_circle_right_rounded,
+                                                                          size: size.width *
+                                                                              0.07,
+                                                                        ),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          SharedPreferences
+                                                                              prefs =
+                                                                              await SharedPreferences.getInstance();
+                                                                          prefs.setString(
+                                                                              "AmbulancelistssId",
+                                                                              "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
+                                                                          _ambulancegetController
+                                                                              .update();
+
+                                                                          accountService
+                                                                              .getAccountData
+                                                                              .then((accountData) {
+                                                                            CallLoader.loader();
+                                                                            Timer(
+                                                                              const Duration(seconds: 3),
+                                                                              () {
+                                                                                Get.to(MapView3());
+                                                                                //_ambulancegetController.selectedvhicleCatagary();
+                                                                                //_ambulancegetController.ambulancecatagaryyApi();
+                                                                                //Get.to((MapView));
+
+                                                                                ///
+                                                                              },
+                                                                            );
+                                                                            //CallLoader.hideLoader();
+                                                                          });
+
+                                                                          //Get.off(() => MapUser());
+
+                                                                          // Get.offAll(() =>
+                                                                          //     MapView());
+                                                                        },
+                                                                      ),
+                                                                      // Text(
+                                                                      //   "GFG",
+                                                                      //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
+                                                                      // ),
+                                                                      title: Text(
+                                                                        'Funeral/MortuaryService',
+                                                                        // _userHomepagContreoller
+                                                                        //     .ambulancetype!
+                                                                        //     .ambulanceT![index]
+                                                                        //     .ambulanceType
+                                                                        //     .toString(),
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .indigo,
+                                                                            fontSize:
+                                                                                13,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                        // "List item $index"
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ]),
                                                   ),
                                                   // SingleChildScrollView(
                                                   //   child:
@@ -1231,13 +1523,16 @@ class _UserHomePageState extends State<UserHomePage> {
                                               //     radius: 10.0);
                                               ///
                                               //Get.to(() => ServicesPage());
-                                            } else if (index == 6) {
-                                              Get.to(() => SupportView());
-                                            } else if (index == 7) {
-                                              Get.to(() => AddBankDetail());
-
-                                              //Get.to(() => TermsMemberPage());
                                             }
+                                            // else if (index == 6) {
+                                            //   Get.to(() => SupportView());
+                                            // }
+                                            ///
+                                            // else if (index == 7) {
+                                            //   Get.to(() => AddBankDetail());
+                                            //
+                                            //   //Get.to(() => TermsMemberPage());
+                                            // }
                                           },
                                           child: Container(
                                             height: size.height * 0.11,

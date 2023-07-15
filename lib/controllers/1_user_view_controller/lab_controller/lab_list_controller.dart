@@ -107,7 +107,7 @@ class LabListController extends GetxController {
           const Duration(milliseconds: 600),
           () {
             // labcheckoutApi();
-            Get.offAll(() => LabAppointmentCheckout());
+            Get.to(() => LabAppointmentCheckout());
 
             //Get.to((page))
             ///

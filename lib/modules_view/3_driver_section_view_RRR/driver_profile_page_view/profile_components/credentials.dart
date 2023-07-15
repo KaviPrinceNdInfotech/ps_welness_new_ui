@@ -22,7 +22,7 @@ class DriverProfileCredentials extends StatelessWidget {
       Get.put(DriverProfileController());
   User_1_Controller _user_1_controller = Get.put(User_1_Controller());
   DriverProfileDetailController _driverprofile =
-  Get.put(DriverProfileDetailController());
+      Get.put(DriverProfileDetailController());
   var items = [
     'Item 1',
     'Item 2',
@@ -52,7 +52,7 @@ class DriverProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 controller: _driverProfileController.DriverNameEditText,
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -106,7 +106,7 @@ class DriverProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 controller: _driverProfileController.VehicleNameEditText,
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -213,7 +213,7 @@ class DriverProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 controller: _driverProfileController.LocationEditText,
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -240,7 +240,7 @@ class DriverProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 controller: _driverProfileController.DlNumberEditText,
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -357,7 +357,6 @@ class DriverProfileCredentials extends StatelessWidget {
                   _driverProfileController.checkDriverUpdateProfile();
                   _driverprofile.driverProfileDetailApi();
                   _driverprofile.update();
-
                 })
           ],
         ),

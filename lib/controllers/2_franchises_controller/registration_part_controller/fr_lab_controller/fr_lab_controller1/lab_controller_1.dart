@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_lab_register/lab_signup2/lab_signup_2.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
 
 class Fr_Lab_1_Controller extends GetxController {
   final GlobalKey<FormState> frlab1formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> frlab2formkey = GlobalKey<FormState>();
  RxBool isLoading = false.obs;
   var  selectedLicenceImagepath = ''.obs;
   var selectedPanImagepath = ''.obs;
@@ -194,7 +196,6 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
-
   String? validPassword(String value) {
     confirmpassword = value;
 
@@ -206,7 +207,6 @@ class Fr_Lab_1_Controller extends GetxController {
       return null;
     }
   }
-
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
@@ -218,7 +218,6 @@ class Fr_Lab_1_Controller extends GetxController {
       return null;
     }
   }
-
   String? validPhone(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -228,14 +227,12 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
-
   String? validAddress(String value) {
     if (value.length < 2) {
       return "              Provide valid address";
     }
     return null;
   }
-
   String? validPin(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -245,14 +242,36 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
+  //
+  String? validcertificate(String value) {
+    if (value.length < 2) {
+      return "              Provide valid Licence number";
+    }
+    return null;
+  }
+  String? validaadhar(String value) {
+    if (value.length < 2) {
+      return "              Provide valid Aadhar number";
+    }
+    return null;
+  }
 
   void checkLab() {
     final isValid = frlab1formkey.currentState!.validate();
-    frenchiesRegisterLab();
-    if (!isValid) {
+    if (isValid) {
+      Get.to(FrLabSignup2());
       return;
     }
     frlab1formkey.currentState!.save();
-    //Get.to(() => HomePage());
+  }
+  void checkLab2() {
+    final isValid = frlab2formkey.currentState!.validate();
+    if (isValid && selectedLicenceImagepath.value != '' && selectedPanImagepath.value != '') {
+      frenchiesRegisterLab();
+      return;
+    }else{
+      Get.snackbar("title", "Please fill all data and image");
+    }
+    frlab1formkey.currentState!.save();
   }
 }

@@ -20,7 +20,10 @@ class FrenchiesNewDriverListController extends GetxController{
     }
   }
   void frenchiesNewDriverUpdate(id) async{
-    http.Response r = await ApiProvider.FrenchiesNewDriverUpdateApi(driverNameController?.text,id);
+    http.Response r = await ApiProvider.FrenchiesNewDriverUpdateApi(
+        driverNameController?.text,
+        id
+    );
     if(r.statusCode == 200){
     }
   }
@@ -50,12 +53,12 @@ class FrenchiesNewDriverListController extends GetxController{
   void onClose() {
     super.onClose();
   }
-  void checkFranchisesNewDriver(id) {
-    if (franchisesNewDriverUpdateformkey.currentState!.validate()) {
-      frenchiesNewDriverUpdate(id);
-      Timer(const Duration(seconds: 4), () => frenchiesNewDriverList());
-      Get.back();
-    }
-    franchisesNewDriverUpdateformkey.currentState!.save();
-  }
+  // void checkFranchisesNewDriver(id) {
+  //   if (franchisesNewDriverUpdateformkey.currentState!.validate()) {
+  //     frenchiesNewDriverUpdate(id);
+  //     Timer(const Duration(seconds: 4), () => frenchiesNewDriverList());
+  //     Get.back();
+  //   }
+  //   franchisesNewDriverUpdateformkey.currentState!.save();
+  // }
 }

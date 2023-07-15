@@ -162,10 +162,7 @@ class LabUserreportList extends StatelessWidget {
                               ? Center(
                                   child: Text("No List"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
-
-                                  ///height: size.height,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _labreportuserviewController
@@ -495,7 +492,11 @@ class LabUserreportList extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
                         ],
                       ),
                     ],

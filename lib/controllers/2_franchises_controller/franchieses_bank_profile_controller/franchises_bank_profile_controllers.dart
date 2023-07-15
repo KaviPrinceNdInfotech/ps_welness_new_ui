@@ -17,8 +17,9 @@ class FranchisesBankProfileController extends GetxController {
       print('No image selected');
     }
   }
-  late TextEditingController accountholdernameController,locationController,accountController,ifscController,BranchName;
+  late TextEditingController accountholdernameController,mobileController,locationController,accountController,ifscController,BranchName;
   var account = '';
+  var mobile = '';
   var name = '';
   var location = '';
   var accountholdername = '';
@@ -26,6 +27,7 @@ class FranchisesBankProfileController extends GetxController {
   void franchiesUpdateBankApi() async {
     http.Response r = await ApiProvider.FranchiseUpdateBankApi(
         accountholdernameController.text,
+        mobileController.text,
         locationController.text,
         accountController.text,
         ifscController.text,
@@ -37,11 +39,12 @@ class FranchisesBankProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    accountholdernameController = TextEditingController(text: 'Ram Kumar');
-    locationController = TextEditingController(text: 'Noida Sector 63');
-    accountController = TextEditingController(text: "2345667754");
-    ifscController = TextEditingController(text: 'SBIN000RDS');
-    BranchName = TextEditingController(text: 'pnb');
+    accountholdernameController = TextEditingController();
+    mobileController = TextEditingController();
+    locationController = TextEditingController();
+    accountController = TextEditingController();
+    ifscController = TextEditingController();
+    BranchName = TextEditingController();
   }
 
   @override
@@ -59,12 +62,19 @@ class FranchisesBankProfileController extends GetxController {
     }
     return null;
   }
+  String? validMobile(String value) {
+    if (value.length < 10) {
+      return "              Provide valid Phone number";
+    }
+    return null;
+  }
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
     }
     return null;
   }
+
   String? validLocation(String value) {
     if (value.length < 2) {
       return "              Provide valid location";
@@ -93,10 +103,11 @@ class FranchisesBankProfileController extends GetxController {
   }
   void checkUpdateBankProfilee() {
     final isValid = franchisesbankprofileformkey.currentState!.validate();
-    franchiesUpdateBankApi();
-    if (!isValid) {
+
+    if (isValid) {
+      franchiesUpdateBankApi();
       return;
-    }
+    }else{}
     franchisesbankprofileformkey.currentState!.save();
   }
 }

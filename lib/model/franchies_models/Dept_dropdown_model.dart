@@ -9,18 +9,18 @@ DepartmentsDwModel departmentsDwModelFromJson(String str) => DepartmentsDwModel.
 String departmentsDwModelToJson(DepartmentsDwModel data) => json.encode(data.toJson());
 
 class DepartmentsDwModel {
-  List<FranchiseDepartment> franchiseDepartment;
+  List<FranchiseDepartment> department;
 
   DepartmentsDwModel({
-    required this.franchiseDepartment,
+    required this.department,
   });
 
   factory DepartmentsDwModel.fromJson(Map<String, dynamic> json) => DepartmentsDwModel(
-    franchiseDepartment: List<FranchiseDepartment>.from(json["Franchise_Department"].map((x) => FranchiseDepartment.fromJson(x))),
+    department: List<FranchiseDepartment>.from(json["Department"].map((x) => FranchiseDepartment.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "Franchise_Department": List<dynamic>.from(franchiseDepartment.map((x) => x.toJson())),
+    "Department": List<dynamic>.from(department.map((x) => x.toJson())),
   };
 }
 

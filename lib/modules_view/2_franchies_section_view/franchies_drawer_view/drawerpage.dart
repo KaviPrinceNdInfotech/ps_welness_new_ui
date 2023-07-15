@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/about_franchies/about_franchies.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/complaint_page/complaint_page.dart';
@@ -292,8 +295,12 @@ class FranchiesisMainDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
+                ///....logout
+                SharedPreferences.getInstance().then((value) => value.clear());
+                //Get.back();
+                Get.to(() => SignInScreen());
                 print(Get.currentRoute);
-                Get.back();
+                //Get.back();
                 // Get.to(() => AboutUs());
                 Get.offNamed('/AboutUs');
               },

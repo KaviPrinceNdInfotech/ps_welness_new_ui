@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_single_department/add_dept_type.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DeptAndSpecialistView extends StatelessWidget {
   DeptAndSpecialistView({Key? key}) : super(key: key);
@@ -181,6 +182,7 @@ class DeptAndSpecialistView extends StatelessWidget {
                                   itemCount: _franchiesSpecialistController.data.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     var id = _franchiesSpecialistController.frenchiesDepartmentListModel?.deptList?[index].id;
+                                    var name = _franchiesSpecialistController.data[index].departmentName;
                                     return   Padding(
                                       padding: EdgeInsets.symmetric(horizontal: size.width * 0.03,
                                           vertical: size.height * 0.0005),
@@ -397,8 +399,8 @@ class DeptAndSpecialistView extends StatelessWidget {
                                                           0.01,
                                                     ),
                                                     InkWell(
-                                                      onTap: (){
-                                                       _dialog(id);
+                                                      onTap: ()async{
+                                                       _dialog(id,name!);
                                                       },
                                                       child: Container(
                                                         height: size
@@ -527,7 +529,7 @@ class DeptAndSpecialistView extends StatelessWidget {
       ),
     );
   }
-  _dialog(id){
+  _dialog(id, String name){
     Get.defaultDialog(
         title: '',
         content: Column(
@@ -537,8 +539,8 @@ class DeptAndSpecialistView extends StatelessWidget {
           children: [
              SizedBox(
                height: 50,
-               child: TextField(
-                controller: _franchiesSpecialistController.DepartmentNameController,
+               child: TextFormField(
+                 initialValue: name,
                 keyboardType: TextInputType.text,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -546,6 +548,9 @@ class DeptAndSpecialistView extends StatelessWidget {
                     hintMaxLines: 1,
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                   onChanged: (value) {
+                     _franchiesSpecialistController.DepartmentNameController?.text = value;
+                   }
             ),
              ),
             const SizedBox(height: 30.0,),

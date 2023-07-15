@@ -73,14 +73,14 @@ class FranchisesEditProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    CompanyName = TextEditingController(text: 'dsf');
-    StateMaster_Id = TextEditingController(text: '11');
-    Location = TextEditingController(text: 'danpur');
-    City_Id = TextEditingController(text: '6');
-    GSTNumber = TextEditingController(text: 'csdf45');
-    MobileNumber = TextEditingController(text: '9988564534');
-    AadharOrPANNumber = TextEditingController(text: '4567878');
-    AadharOrPANImage = TextEditingController(text: 'stampn.png');
+    CompanyName = TextEditingController();
+    StateMaster_Id = TextEditingController();
+    Location = TextEditingController();
+    City_Id = TextEditingController();
+    GSTNumber = TextEditingController();
+    MobileNumber = TextEditingController();
+    AadharOrPANNumber = TextEditingController();
+    AadharOrPANImage = TextEditingController();
   }
   @override
   void onReady() {
@@ -191,9 +191,11 @@ class FranchisesEditProfileController extends GetxController {
 
   void checkProfilee() {
     final isValid = franchisesprofileformkey.currentState!.validate();
-    frenchiesEditProfileApi();
-    if (!isValid) {
+    if (isValid && selectedImagepath.value!='') {
+      frenchiesEditProfileApi();
       return;
+    }else{
+      Get.snackbar("Failed", "Please fill all data");
     }
     franchisesprofileformkey.currentState!.save();
 

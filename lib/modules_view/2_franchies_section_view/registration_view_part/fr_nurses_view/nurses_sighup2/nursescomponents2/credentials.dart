@@ -32,7 +32,7 @@ class FrNurses2Credentials extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
-       // key: _frnurses_2_controller.frnurse2formkey,
+        key: _frnurses_1_controller.frnurses2formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: EdgeInsets.all(30),
@@ -98,6 +98,7 @@ class FrNurses2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? 'field required' : null,
                         onChanged: (StateModel? newValue) {
                           _frnurses_1_controller.selectedState.value = newValue!;
                         }),
@@ -135,6 +136,7 @@ class FrNurses2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) => value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frnurses_1_controller.selectedCity.value = newValue!;
                         }),
@@ -282,7 +284,7 @@ class FrNurses2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'Submit',
                   press: () {
-                    _frnurses_1_controller.checkNurses1();
+                    _frnurses_1_controller.checkNurses2();
                   })
             ],
           ),

@@ -188,7 +188,8 @@ class FrDoctor1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
-                  Get.to(FrDoctorSignup2());
+                  _frdoctor_1_controller.checkDoctor1();
+                  //Get.to(FrDoctorSignup2());
                 })
           ],
         ),

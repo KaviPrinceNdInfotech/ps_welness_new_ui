@@ -81,12 +81,12 @@ class Franchies_vehicle_Controller extends GetxController {
       }
     }
     );
-    nameController = TextEditingController(text: 'hhhhhh');
-    vehiclenumberController = TextEditingController(text: '987699');
-    accountController = TextEditingController(text: '156676543322');
-    driverchargeController = TextEditingController(text: '233');
-    accountholderController = TextEditingController(text: 'acs');
-    IfscController = TextEditingController(text: 'PUNB11455');
+    nameController = TextEditingController();
+    vehiclenumberController = TextEditingController();
+    accountController = TextEditingController();
+    driverchargeController = TextEditingController();
+    accountholderController = TextEditingController();
+    IfscController = TextEditingController();
   }
   @override
   void onReady() {
@@ -165,9 +165,12 @@ class Franchies_vehicle_Controller extends GetxController {
 
   void checkFrvehicle() {
     final isValid = frvehicleformkey.currentState!.validate();
-    FrenchiesVehicleRegistration();
     if (!isValid) {
       return;
+    }else if(selectedImagepath.value== ''){
+      Get.snackbar("title", "please select photo");
+    }else{
+      FrenchiesVehicleRegistration();
     }
     frvehicleformkey.currentState!.save();
   }

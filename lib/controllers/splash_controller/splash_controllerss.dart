@@ -168,13 +168,14 @@ import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driv
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
 import '../../modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
 import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
-import '../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+//import '../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import '../../modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 import '../../modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
