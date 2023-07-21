@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_checkout/medicine_chkout_controller.dart';
-import 'package:ps_welness_new_ui/controllers/1_user_view_controller/post_medicine_order_controller/post_medicine_order_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/ambulance_payment_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-import '../1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
-import '../1_user_view_controller/drawer_contoller/medicine_history_controller/medicine_history_controller.dart';
-//import '../1_user_view_controller/lab_controller/post_lab_order_controller/post_lab_order_controller.dart';
-import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
+import '../../user_profile_controller/user_profile_controllerss.dart';
 
-class RozarPayController extends GetxController {
+class RozarPayAmbulanceController extends GetxController {
   //get isLoading => null;
 
   RxBool isLoading = false.obs;
-  //LabListController _labListController = Get.put(LabListController());
+
+  ///
+
+  DriverAcceptlistController _driverAcceptlistController =
+      Get.put(DriverAcceptlistController());
+
   UserProfileControllers _userrsProfileControllers =
       Get.put(UserProfileControllers());
-  MedicineHistoryController _medicineHistoryController =
-      Get.put(MedicineHistoryController());
-  PostOrderChemistController _postmedicineordercontroller =
-      Get.put(PostOrderChemistController());
-  CheckoutMedicineController _medicinecheckoutController =
-      Get.put(CheckoutMedicineController());
 
-  //final CartController controller = Get.put(CartController());
-  //GetProfileController _getProfileController = Get.put(GetProfileController());
-  //CheckoutController _checkoutController = Get.put(CheckoutController());
-  //PostOrderController _postOrderController = Get.put(PostOrderController());
-  LabHistoryController _labHistoryController = Get.put(LabHistoryController());
+  AmbulanceOrderpaymentController _ambulanceOrderpaymentController =
+      Get.put(AmbulanceOrderpaymentController());
+
+  // LabHistoryController _labHistoryController = Get.put(LabHistoryController());
+  // DoctorHistoryController _doctorHistoryController =
+  //     Get.put(DoctorHistoryController());
 
   @override
   void onInit() {
@@ -53,16 +50,17 @@ class RozarPayController extends GetxController {
       'key': 'rzp_test_aeRns0u8gPpOUK',
       'amount': int.parse(
               // '100'
-              '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}') *
+
+              '${_driverAcceptlistController.getDriveracceptDetail?.totalPrice?.toInt()}') *
           100,
       'name':
           //'Kavi Singh',
-          _userrsProfileControllers.userProfile!.patientName.toString(),
+          "${_userrsProfileControllers.userProfile?.patientName.toString()}",
       'timeout': 60 * 5,
       'description': 'Do Payment',
       'prefill': {
         'contact':
-            _userrsProfileControllers.userProfile!.mobileNumber.toString(),
+            "${_userrsProfileControllers.userProfile?.mobileNumber.toString()}",
 
         //'7877663456',
         //_getProfileController.getprofileModel!.result!.mobileNo.toString(),
@@ -92,15 +90,18 @@ class RozarPayController extends GetxController {
     Get.snackbar("SUCCESS", "ID: ${response.paymentId}");
     print('payment sucess');
 
-    _postmedicineordercontroller.postOrderApi().then((statusCode) {
+    _ambulanceOrderpaymentController
+        .postOrderAmbulanceonlineApi()
+        .then((statusCode) {
       if (statusCode == 200) {
         ///This is the main thing to provide updated list history...
-        _medicineHistoryController.medicineorderhistoryApi();
+        _driverAcceptlistController.driveracceptuserDetailApi();
 
         ///nov 14....................................
-        // Get.to(LabHistoryUser());
         Get.to(UserHomePage());
-        _medicineHistoryController.update();
+        _driverAcceptlistController.update();
+        //_doctorHistoryController.update();
+        //_doctorHistoryController.doctorListHospitalApi();
       } else {
         // SHow
       }

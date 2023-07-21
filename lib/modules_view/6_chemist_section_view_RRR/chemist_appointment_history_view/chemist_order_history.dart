@@ -149,7 +149,7 @@ class ChemistOrderHistory extends StatelessWidget {
                                   child: Text('No List'),
                                 )
                               : SizedBox(
-                                  height: size.height * 0.71,
+                                  height: size.height * 0.80,
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _chemistOrderController

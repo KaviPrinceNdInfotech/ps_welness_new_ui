@@ -1348,14 +1348,15 @@ class ApiProvider {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userid455ee:${userid}');
-    var url = '${baseUrl}api/DriverApi/PayoutHistory?id=169';
+    http: //test.pswellness.in/api/DriverApi/payouthistory?id
+    var url = '${baseUrl}api/DriverApi/PayoutHistory?id=$userid';
     //'$userid';
     //169
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         List<DriverPayoutHistoryModel> driverPayoutHistory =
-            driverPayoutHistoryFromJson(r.body);
+            driverPayoutHistoryModelFromJson(r.body);
         return driverPayoutHistory;
       }
     } catch (error) {
@@ -1436,7 +1437,7 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         DriverProfileDetailModel driverProfileDetail =
-            driverProfileDetailFromJson(r.body);
+            driverProfileDetailModelFromJson(r.body);
         return driverProfileDetail;
       }
     } catch (error) {

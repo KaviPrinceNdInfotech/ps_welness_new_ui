@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_payout_history_controller.dart';
 
@@ -175,10 +174,10 @@ class DriverPayoutHistory extends StatelessWidget {
                                             DateTime? now =
                                                 _driverPayoutHistoryController
                                                     .foundpayoutdriver?[index]
-                                                    .joiningDate;
-                                            String Date =
-                                                DateFormat('dd-MM-yyyy')
-                                                    .format(now!);
+                                                    .paymentDate;
+                                            // String Date =
+                                            //     DateFormat('dd-MM-yyyy')
+                                            //         .format(now!);
                                             return Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: size.width * 0.03,
@@ -314,7 +313,7 @@ class DriverPayoutHistory extends StatelessWidget {
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              '\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                              '\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].amount}',
                                                               style: GoogleFonts
                                                                   .roboto(
                                                                 fontSize:
@@ -333,7 +332,7 @@ class DriverPayoutHistory extends StatelessWidget {
                                                                       0.02,
                                                             ),
                                                             Text(
-                                                              Date,
+                                                              '${_driverPayoutHistoryController.foundpayoutdriver?[index].paymentDate}',
                                                               style: GoogleFonts
                                                                   .roboto(
                                                                 fontSize:

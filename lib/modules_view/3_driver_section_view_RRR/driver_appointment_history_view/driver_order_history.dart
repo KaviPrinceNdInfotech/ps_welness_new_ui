@@ -326,7 +326,7 @@ class DriverOrderHistory extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              'Driver Address:',
+                                                              'Patient Address:',
                                                               style: GoogleFonts
                                                                   .poppins(
                                                                 color: MyTheme

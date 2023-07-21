@@ -40,7 +40,7 @@ class MedicineCart extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: size.width * 0.05,
-                            vertical: size.height * 0.02),
+                            vertical: size.height * 0.03),
                         child: Row(
                           children: [
                             InkWell(
@@ -500,7 +500,7 @@ class MedicineCart extends StatelessWidget {
                       ),
                       Spacer(),
                       Container(
-                        ///height: size.height * 0.12,
+                        height: size.height * 0.134,
                         width: size.width,
                         decoration: BoxDecoration(
                             color: Colors.white70,
@@ -528,7 +528,7 @@ class MedicineCart extends StatelessWidget {
                                           fontSize: size.width * 0.04),
                                     ),
                                     SizedBox(
-                                      height: size.height * 0.01,
+                                      height: size.height * 0.012,
                                     ),
                                     Text(
                                       'Total Price:',
@@ -538,7 +538,7 @@ class MedicineCart extends StatelessWidget {
                                           fontSize: size.width * 0.04),
                                     ),
                                     SizedBox(
-                                      width: size.width * 0.1,
+                                      width: size.width * 0.05,
                                     ),
                                   ],
                                 ),

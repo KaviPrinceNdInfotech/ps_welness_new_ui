@@ -131,7 +131,7 @@ class AmbulancegetController extends GetxController {
       var data = jsonDecode(r.body);
       //nearlistdriverApi();
 
-      //CallLoader.hideLoader();
+      CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       //Get.offAll(UserHomePage());
@@ -158,7 +158,7 @@ class AmbulancegetController extends GetxController {
             ///
           },
         );
-        CallLoader.hideLoader();
+        //CallLoader.hideLoader();
       });
 
       //Get.to(Driver_List_LocationId());
@@ -172,9 +172,8 @@ class AmbulancegetController extends GetxController {
   ///todo: google book ambulance api post Api...........2 may 2023.....
 
   void postAmbulancerequestApi2() async {
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.Googlebookambulance2Api();
-
     if (r.statusCode == 200) {
       print("ACCOUNT ${r.body}");
       Get.snackbar('Successfully', "Request send");

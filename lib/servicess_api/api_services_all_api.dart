@@ -43,6 +43,7 @@ import '../model/10_lab_module/lab_appointment_historyy_latest/lab_appointment_h
 import '../model/10_lab_module/lab_profile_detail_model/profile_details_model.dart';
 import '../model/10_lab_module/lab_report_view_model/lab_report_image.dart';
 import '../model/10_lab_module/lab_report_view_model/lab_report_view_model.dart';
+import '../model/1_user_model/ambulance/accepted_driver_models.dart';
 import '../model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import '../model/1_user_model/ambulance/driver_list_model.dart';
 import '../model/1_user_model/city_model/city_modelss.dart';
@@ -516,6 +517,7 @@ class ApiProvider {
       print(r.body.toString());
       if (r.statusCode == 200) {
         print("userlistIdUrl77: ${url}");
+        print("userlistIdUrl774343: ${r.body}");
         UserListModeldriver? userListModeldriver =
             userListModeldriverFromJson(r.body);
         return userListModeldriver;
@@ -1532,6 +1534,9 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistIdrriview: ${NurseuserListId}");
+    //Nurseuserfees
+    var Nurseuserfees = preferences.getString("Nurseuserfees");
+    print("Fee545454feeaass: ${Nurseuserfees}");
 
     ///.....
     //SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -1548,7 +1553,7 @@ class ApiProvider {
       "Id": nursebooking_Id,
       "Nurse_Id": "$NurseuserListId",
       "Patient_Id": userid,
-      "TotalFee": "$NurseFee",
+      "TotalFee": "$Nurseuserfees",
       "IsPaid": "true",
     };
     // print(body);
@@ -2118,9 +2123,12 @@ class ApiProvider {
 
     print(r.body);
     if (r.statusCode == 200) {
-      var prefs = GetStorage();
-
       ///todo:labbookingid.........5  june 2023....
+      prefs.write("BookingId".toString(), json.decode(r.body)['BookingId']);
+      DriverId = prefs.read("BookingId").toString();
+      print('eeeebookingid:$BookingId');
+
+      ///
       prefs.write("labbooking_Id".toString(), json.decode(r.body)['BookingId']);
       labbooking_Id = prefs.read("labbooking_Id").toString();
       print('&&&&&&&&&&&&&&lab:${labbooking_Id}');
@@ -5160,7 +5168,7 @@ class ApiProvider {
     var body = {
       "Id": "${driacceptrejectlistid}",
       "DriverId": userid,
-      "StatusId": "${0}",
+      "StatusId": "${1}",
 
       ///for testing perpose i am....up...0
       ///
@@ -5240,6 +5248,71 @@ class ApiProvider {
     }
   }
 
+  ///todo: accepted driver list  17 july 2023....user api...
+  static AcceptDriverDetailUserApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistbookingId = preferences.getString("driverlistbookingId");
+    print("driverlistbookingId: ${driverlistbookingId}");
+    //driverlistbookingId
+    var url =
+        '${baseUrl}api/DriverApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("ambulanceonlinerrreeeww:${r.body}");
+        print("ambulanceonlinerrreeeww:${url}");
+
+        DriveracceptModeluser driveracceptuserDetail =
+            driveracceptModeluserFromJson(r.body);
+        return driveracceptuserDetail;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///ambulance_paynow.ONLINE.lab....api..of...user........29 april 2023...........
+
+  static AmbulancepaynowOnlineApi() async {
+    var url = baseUrl + 'api/DriverApi/DriverPayNow';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistssId = preferences.getString("driverlistssId");
+    print("driverlistssId: ${driverlistssId}");
+    //doctor fees.....
+    var drivertotalamount = preferences.getString("drivertotalamount");
+    print("drivertotalamount: ${drivertotalamount}");
+
+    //Labfeess......
+
+    var body = {
+      "PatientId": userid,
+      "Driver_Id": "$driverlistssId",
+      "Amount": "$drivertotalamount",
+    };
+    print("ambulanceonline444:${body}");
+
+    // print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    // print(r.body);
+    if (r.statusCode == 200) {
+//adminId
+      print("ambulanceonline:${body}");
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error1088', r.body);
+      return r;
+    }
+  }
   //http://test.pswellness.in/api/LabApi/LabUpdateProfiledetail?Id=16
 
 }

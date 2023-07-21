@@ -101,10 +101,13 @@ class SearchMedicine extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
                           _medicineListController.foundProducts.value.isEmpty
                               ? Center(child: Text("No Result Found"))
                               : SizedBox(
-                                  height: size.height * 0.77,
+                                  height: size.height * 0.81,
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _medicineListController
@@ -451,7 +454,8 @@ class SearchMedicine extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
               ),

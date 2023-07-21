@@ -21,7 +21,7 @@ class WolletHeadText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: size.height * 0.01),
+          SizedBox(height: size.height * 0.035),
           Container(
               height: size.height * 0.04,
               width: size.width * 0.09,
@@ -39,6 +39,8 @@ class WolletHeadText extends StatelessWidget {
                   size: size.width * 0.04,
                 ),
               ))),
+          SizedBox(height: size.height * 0.01),
+
           RichText(
             text: TextSpan(
               children: <TextSpan>[

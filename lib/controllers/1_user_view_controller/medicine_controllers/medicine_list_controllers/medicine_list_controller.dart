@@ -74,7 +74,7 @@ class MedicineListController extends GetxController {
         );
       });
     } else {
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
     }
   }
 

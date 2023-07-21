@@ -39,6 +39,7 @@ import 'controllers/10_lab_controller/lab_home_controllers/lab_home_controller.d
 import 'controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import 'controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import 'controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
+import 'controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/get_ambulancetype2_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/get_ambulancetype3_controller.dart';
 import 'controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
@@ -64,6 +65,7 @@ import 'controllers/1_user_view_controller/user_home_page_controller/user_home_p
 import 'controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 //import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
+import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import 'controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
 import 'controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
 import 'controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
@@ -175,6 +177,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => DevicetokenController());
     Get.lazyPut(() => Ambulanceget3Controller());
     Get.lazyPut(() => Ambulanceget2Controller());
+    Get.lazyPut(() => DriverAcceptlistController());
+    Get.lazyPut(() => UseracptrejectController());
 
     //Ambulanceget3Controller
 
@@ -254,6 +258,8 @@ class MyApp extends StatelessWidget {
           //DriverHomePage()
           //DoctorHomePage() //SignUpList()
           SplashScreen(),
+      //NurseDetailsSchedulePage(),
+      //DetailsSchedulePage(),
       //     MessageScreen(
       //   id: '12345',
       // ),

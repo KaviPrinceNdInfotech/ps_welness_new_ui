@@ -18,6 +18,8 @@ class UseracptrejectController extends GetxController {
     isLoading(true);
     userListModeldriver = await ApiProvider.UserListUserrApi();
     if (userListModeldriver?.userListForBookingAmbulance != null) {
+      print(
+          "okokhvghjbnklmdc${userListModeldriver?.userListForBookingAmbulance?.length}");
       isLoading(false);
     }
   }
@@ -72,7 +74,7 @@ class UseracptrejectController extends GetxController {
           },
         );
       });
-      CallLoader.hideLoader();
+      // CallLoader.hideLoader();
     } else {
       //CallLoader.hideLoader();
     }

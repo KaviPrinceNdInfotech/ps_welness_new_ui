@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
@@ -14,7 +15,6 @@ import '../../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
-
 
 class medicine_addresssList_Controller extends GetxController {
   RxBool isLoading = true.obs;
@@ -72,7 +72,7 @@ class medicine_addresssList_Controller extends GetxController {
 
   late TextEditingController nameController,
       emailController,
-  // confirmpasswordController,
+      // confirmpasswordController,
       mobileController,
       passwordController,
       StateController,
@@ -89,18 +89,17 @@ class medicine_addresssList_Controller extends GetxController {
   var address = '';
   var pin = '';
 
-
   MedicineAddressModel? medicineaddresslistmodel;
 
   ///list address medicine 28april 2023................
   void medicineaddressListApi() async {
-   // isLoading(true);
+    isLoading(true);
     medicineaddresslistmodel = await ApiProvider.MedicineaddresslistApi();
     print('Prince address list');
     print(medicineaddresslistmodel);
     if (medicineaddresslistmodel?.addAddressMediciness != null) {
       //Get.to(() => TotalPrice());
-      isLoading(true);
+      isLoading(false);
       //foundProducts.value = medicinelistmodel!.data;
       //Get.to(()=>Container());
     }
@@ -134,7 +133,6 @@ class medicine_addresssList_Controller extends GetxController {
 
   @override
   void onClose() {
-
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();

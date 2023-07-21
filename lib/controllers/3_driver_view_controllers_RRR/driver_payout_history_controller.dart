@@ -85,7 +85,7 @@ class DriverPayoutHistoryController extends GetxController {
       finalResult = getDriverPayoutHistory!;
     } else {
       finalResult = getDriverPayoutHistory!
-          .where((element) => element.joiningDate
+          .where((element) => element.paymentDate
               .toString()
               .toLowerCase()
               .contains(searchpayoutdriver.toString().toLowerCase().trim()))

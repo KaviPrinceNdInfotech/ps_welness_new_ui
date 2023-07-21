@@ -40,6 +40,13 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   void initState() {
     super.initState();
+
+    ///
+    _useracptrejectController.driveracceptrejctlistApi();
+    _useracptrejectController.update();
+    _useracptrejectController.refresh();
+
+    ///
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
     notificationServices.firebaseInit(context);
@@ -48,7 +55,6 @@ class _MessageScreenState extends State<MessageScreen> {
     // notificationServices.requestNotificationPermission();
     // notificationServices.isTokenRefresh();
     // notificationServices.firebaseInit();
-
     notificationServices.getDeviceToken().then((value) {
       if (kDebugMode) {
         print('device token');
@@ -120,7 +126,7 @@ class _MessageScreenState extends State<MessageScreen> {
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: SafeArea(
-              child: Obx(() => _ambulancegetController.isLoading.isFalse
+              child: Obx(() => _useracptrejectController.isLoading.value
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
@@ -258,7 +264,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                             Color(0xff12BFC4),
                                                       ),
                                                       Text(
-                                                        "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].patientName}",
+                                                        "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].patientName.toString()}",
                                                         //"Kumar Prince",
                                                         // 'Kumar Prince',
                                                         //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
@@ -304,7 +310,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                             size.width * 0.01,
                                                       ),
                                                       Text(
-                                                        "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].mobileNumber}",
+                                                        "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].mobileNumber.toString()}",
 
                                                         // "10 km.",
                                                         //'2020 Honda Clive',
@@ -436,7 +442,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         width:
                                                             size.width * 0.61,
                                                         child: Text(
-                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseStartLatLongToLocation}",
+                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseStartLatLongToLocation.toString()}",
 
                                                           // """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
                                                           maxLines: 2,
@@ -483,7 +489,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         width:
                                                             size.width * 0.66,
                                                         child: Text(
-                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseEndLatLongToLocation}",
+                                                          "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseEndLatLongToLocation.toString()}",
 
                                                           //  """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
                                                           maxLines: 2,
@@ -608,6 +614,9 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                       '1234567'
                                                                 }
                                                               };
+                                                              print(
+                                                                  "datareject:${data}");
+
                                                               await http.post(
                                                                   Uri.parse(
                                                                       'https://fcm.googleapis.com/fcm/send'),
@@ -624,7 +633,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                   (value) {
                                                                 if (kDebugMode) {
                                                                   print(
-                                                                      "princedriver${value.body.toString()}");
+                                                                      "princedriverreject${value.body.toString()}");
                                                                 }
                                                               }).onError((error,
                                                                   stackTrace) {
@@ -773,6 +782,9 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                       '12345678'
                                                                 }
                                                               };
+                                                              print(
+                                                                  "dataccept:${data}");
+
                                                               await http.post(
                                                                   Uri.parse(
                                                                       'https://fcm.googleapis.com/fcm/send'),

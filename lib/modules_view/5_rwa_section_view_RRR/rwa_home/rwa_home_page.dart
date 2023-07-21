@@ -14,6 +14,7 @@ import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profil
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_update_bank_details/bank_update_view.dart';
 
 import '../../../controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
+import '../../../widgets/exit_popup_warning/exit_popup.dart';
 import '../rwa_payout_history/rwa_payout_histories.dart';
 import '../rwa_user_views/rwa_add_patient.dart';
 
@@ -60,236 +61,243 @@ class RwaHomePage extends StatelessWidget {
       'lib/assets/icons/rwapyout.png',
       'lib/assets/icons/rwauser.png',
     ];
-    return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            lightPrimary,
-            darkPrimary,
-          ])),
-      child: Scaffold(
-        key: _key,
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Row(
-            children: [
-              Container(
-                  height: size.height * 0.045,
-                  width: size.width * 0.11,
-                  child: Image.asset('lib/assets/icons/rwa.png')),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'PS WELLNESS',
-                      style: GoogleFonts.poppins(
-                        fontSize: 23,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        //color: Color(0xff023382)
-                      ),
-                    ),
-                    TextSpan(
-                      text: ' RWA',
-                      style: GoogleFonts.alatsi(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: MyTheme.containercolor5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          elevation: 0,
+    return WillPopScope(
+      onWillPop: () => showExitPopup(context),
+      child: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              lightPrimary,
+              darkPrimary,
+            ])),
+        child: Scaffold(
+          key: _key,
           backgroundColor: Colors.transparent,
-          //MyTheme.ThemeColors,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.dehaze_rounded,
-              size: 23,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              _key.currentState!.openDrawer();
-            },
-          ),
-        ),
-        drawer: RwaMainDrawer(),
-        body: Obx(
-          () => (_rwaBannerController.isLoading.value)
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: size.height * 0.28,
-                        width: size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.grey)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: MySliderwa(),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Row(
+              children: [
+                Container(
+                    height: size.height * 0.045,
+                    width: size.width * 0.11,
+                    child: Image.asset('lib/assets/icons/rwa.png')),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'PS WELLNESS',
+                        style: GoogleFonts.poppins(
+                          fontSize: 23,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          //color: Color(0xff023382)
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.005,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: size.height * 0.001,
-                            horizontal: size.width * 0.01),
-                        child: Container(
-                          height: size.height * 0.585,
-                          decoration: BoxDecoration(),
-                          child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: size.height * 0.25,
-                                mainAxisExtent: size.height * 0.188,
-                                childAspectRatio: 4 / 3,
-                                crossAxisSpacing: 4,
-                                mainAxisSpacing: 8,
-                              ),
-                              itemCount: productname.length,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return Container(
-                                  height: size.height * 0.08,
-                                  //width: double.,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: size.height * 0.00131,
-                                      horizontal: size.width * 0.01),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xff11eae0),
-                                      borderRadius: BorderRadius.circular(12),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: Offset(-0, -0),
-                                          spreadRadius: 0,
-                                          blurRadius: 0,
-                                          color: Colors.grey.shade100,
-                                        ),
-                                        BoxShadow(
-                                          offset: Offset(3, 3),
-                                          spreadRadius: 0,
-                                          blurRadius: 0,
-                                          color: Colors.grey.shade300,
-                                        ),
-                                      ]),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: size.height * 0.000,
-                                        horizontal: size.width * 0.000),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            underprocess[index],
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: GoogleFonts.abhayaLibre(
-                                              fontSize: size.height * 0.016,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            if (index == 0) {
-                                              Get.to(() => RwaaaAddPatient());
-                                            } else if (index == 1) {
-                                              Get.to(
-                                                  () => UpdateRwaBankDetail());
-                                            } else if (index == 2) {
-                                              Get.to(() => RwaPatientList());
-                                            } else if (index == 3) {
-                                              Get.to(() => RwaPaymentHistory());
-                                            } else if (index == 4) {
-                                              Get.to(() => RwaPayoutHistory());
-                                            } else if (index == 5) {
-                                              Get.to(() => RwaProfilePage());
-                                            } else if (index == 6) {
-                                            } else if (index == 7) {}
-                                          },
-                                          child: Container(
-                                            height: size.height * 0.11,
-                                            width: size.width * 0.23,
-                                            padding: EdgeInsets.all(7),
-                                            child: Image.asset(
-                                              productimage[index],
-                                            ),
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey.shade300,
-                                                    //color: Color(0xFFBEBEBE),
-                                                    offset: Offset(03, 03),
-                                                    blurRadius: 0,
-                                                    spreadRadius: 0,
-                                                  ),
-                                                  const BoxShadow(
-                                                    color: Colors.white,
-                                                    offset: Offset(-02, -02),
-                                                    blurRadius: 0,
-                                                    spreadRadius: 0,
-                                                  ),
-                                                ]),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: size.height * 0.005,
-                                        ),
-                                        Container(
-                                          height: size.height * 0.033,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffffffff)
-                                                  .withOpacity(0.999),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                bottomLeft: Radius.circular(10),
-                                                bottomRight:
-                                                    Radius.circular(10),
-                                              )),
-                                          child: Center(
-                                            child: Text(
-                                              productname[index],
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: GoogleFonts.abhayaLibre(
-                                                fontSize: size.height * 0.018,
-                                                letterSpacing: 0.5,
-                                                fontWeight: FontWeight.w900,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // child: child,
-                                );
-                              }),
+                      TextSpan(
+                        text: ' RWA',
+                        style: GoogleFonts.alatsi(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: MyTheme.containercolor5,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
+              ],
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            //MyTheme.ThemeColors,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.dehaze_rounded,
+                size: 23,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _key.currentState!.openDrawer();
+              },
+            ),
+          ),
+          drawer: RwaMainDrawer(),
+          body: Obx(
+            () => (_rwaBannerController.isLoading.value)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          height: size.height * 0.28,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: MySliderwa(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.005,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: size.height * 0.001,
+                              horizontal: size.width * 0.01),
+                          child: Container(
+                            height: size.height * 0.585,
+                            decoration: BoxDecoration(),
+                            child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: size.height * 0.25,
+                                  mainAxisExtent: size.height * 0.188,
+                                  childAspectRatio: 4 / 3,
+                                  crossAxisSpacing: 4,
+                                  mainAxisSpacing: 8,
+                                ),
+                                itemCount: productname.length,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return Container(
+                                    height: size.height * 0.08,
+                                    //width: double.,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: size.height * 0.00131,
+                                        horizontal: size.width * 0.01),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xff11eae0),
+                                        borderRadius: BorderRadius.circular(12),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(-0, -0),
+                                            spreadRadius: 0,
+                                            blurRadius: 0,
+                                            color: Colors.grey.shade100,
+                                          ),
+                                          BoxShadow(
+                                            offset: Offset(3, 3),
+                                            spreadRadius: 0,
+                                            blurRadius: 0,
+                                            color: Colors.grey.shade300,
+                                          ),
+                                        ]),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: size.height * 0.000,
+                                          horizontal: size.width * 0.000),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              underprocess[index],
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: GoogleFonts.abhayaLibre(
+                                                fontSize: size.height * 0.016,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              if (index == 0) {
+                                                Get.to(() => RwaaaAddPatient());
+                                              } else if (index == 1) {
+                                                Get.to(() =>
+                                                    UpdateRwaBankDetail());
+                                              } else if (index == 2) {
+                                                Get.to(() => RwaPatientList());
+                                              } else if (index == 3) {
+                                                Get.to(
+                                                    () => RwaPaymentHistory());
+                                              } else if (index == 4) {
+                                                Get.to(
+                                                    () => RwaPayoutHistory());
+                                              } else if (index == 5) {
+                                                Get.to(() => RwaProfilePage());
+                                              } else if (index == 6) {
+                                              } else if (index == 7) {}
+                                            },
+                                            child: Container(
+                                              height: size.height * 0.11,
+                                              width: size.width * 0.23,
+                                              padding: EdgeInsets.all(7),
+                                              child: Image.asset(
+                                                productimage[index],
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color:
+                                                          Colors.grey.shade300,
+                                                      //color: Color(0xFFBEBEBE),
+                                                      offset: Offset(03, 03),
+                                                      blurRadius: 0,
+                                                      spreadRadius: 0,
+                                                    ),
+                                                    const BoxShadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(-02, -02),
+                                                      blurRadius: 0,
+                                                      spreadRadius: 0,
+                                                    ),
+                                                  ]),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: size.height * 0.005,
+                                          ),
+                                          Container(
+                                            height: size.height * 0.033,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffffffff)
+                                                    .withOpacity(0.999),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(10),
+                                                  bottomRight:
+                                                      Radius.circular(10),
+                                                )),
+                                            child: Center(
+                                              child: Text(
+                                                productname[index],
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: GoogleFonts.abhayaLibre(
+                                                  fontSize: size.height * 0.018,
+                                                  letterSpacing: 0.5,
+                                                  fontWeight: FontWeight.w900,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // child: child,
+                                  );
+                                }),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,7 +19,11 @@ import 'package:ps_welness_new_ui/notificationservice/local_notification_service
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import '../../../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
+import '../../../utils/services/account_service.dart';
+import '../../../widgets/circular_loader.dart';
+import '../notiification_view_page/notification_message2.dart';
 
 String PatientRegNo = ''.toString();
 String userPassword = ''.toString();
@@ -42,6 +47,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
   AmbulancegetController _ambulancegetController =
       Get.put(AmbulancegetController());
   NotificationServices notificationServices = NotificationServices();
+  DriverAcceptlistController _driverAcceptlistController =
+      Get.put(DriverAcceptlistController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -174,7 +181,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                         ),
                       ),
                       Positioned(
-                        top: size.height * 0.05,
+                        top: size.height * 0.09,
                         //bottom: size.height * 0.64,
                         //left: -30,
                         right: size.width * 0.024,
@@ -194,6 +201,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                             onTapUp: () async {
                               widget.driverlist?.message?.forEach((element) {
                                 ///.......
+                                _ambulancegetController
+                                    .postAmbulancerequestApi2();
                                 print('princee notification');
                                 notificationServices
                                     .getDeviceToken()
@@ -233,6 +242,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                       'id': '123456',
                                     }
                                   };
+                                  print("data1${data}");
 
                                   await http.post(
                                       Uri.parse(
@@ -246,7 +256,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                             'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
                                       }).then((value) {
                                     if (kDebugMode) {
-                                      print(value.body.toString());
+                                      print(
+                                          "bookdriver${value.body.toString()}");
                                     }
                                   }).onError((error, stackTrace) {
                                     if (kDebugMode) {
@@ -472,11 +483,58 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                       fontWeight: FontWeight.w600,
                                       color: Color(0xff023382)),
                                 ),
+                                SizedBox(
+                                  width: size.width * 0.3,
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 4, right: 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        _driverAcceptlistController
+                                            .driveracceptuserDetailApi();
+                                        _driverAcceptlistController.update();
+                                        accountService.getAccountData
+                                            .then((accountData) {
+                                          // CallLoader.loader();
+                                          // nearlistdriverApi();
+
+                                          Timer(
+                                            const Duration(microseconds: 300),
+                                            () {
+                                              // nearlistdriverApi();
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MessageScreen2(
+                                                            id: "12345678",
+                                                          )));
+                                              // Get.to(MessageScreen(
+                                              //   id: message.data['id'],
+                                              // ));
+                                              //Get.to((MapView));
+                                              //postAmbulancerequestApi(markers);
+
+                                              ///
+                                            },
+                                          );
+                                          CallLoader.hideLoader();
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.notifications_active_rounded,
+                                        size: size.height * 0.04,
+                                        color: MyTheme.blueww,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.1,
+                            height: size.height * 0.085,
                           ),
 
                           Expanded(
@@ -965,8 +1023,15 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                             prefs.setString(
                                                                 "driverlistssId",
                                                                 "${widget.driverlist?.message?[index].driverId.toString()}");
+
+                                                            prefs.setString(
+                                                                "drivertotalamount",
+                                                                "${widget.driverlist?.message?[index].totalPrice.toString()}");
+                                                            prefs.setString(
+                                                                "driverlistbookingId",
+                                                                "${widget.driverlist?.message?[index].id.toString()}");
                                                             print(
-                                                                "okolllll${widget.driverlist?.message?[index].driverId.toString()}");
+                                                                "okolllllidd${widget.driverlist?.message?[index].id.toString()}");
                                                             prefs.setString(
                                                                 "lng1",
                                                                 "${widget.driverlist?.startLong.toString()}");
@@ -997,123 +1062,167 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                             ///.......
                                                             print(
                                                                 'princee notification');
-                                                            notificationServices
-                                                                .getDeviceToken()
-                                                                .then(
-                                                                    (value) async {
-                                                              var data = {
-                                                                //this the particular device id.....
-                                                                'to':
-                                                                    // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                                                                    //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
-                                                                    //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                                                            try {
+                                                              notificationServices
+                                                                  .getDeviceToken()
+                                                                  .then(
+                                                                      (value) async {
+                                                                var data = {
+                                                                  //this the particular device id.....
+                                                                  'to':
+                                                                      // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                                                                      //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                                                                      //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
 
-                                                                    ///todo device token......
-                                                                    "${widget.driverlist?.message?[index].deviceId}"
-                                                                        .toString(),
+                                                                      ///todo device token......
+                                                                      "${widget.driverlist?.message?[index].deviceId}"
+                                                                          .toString(),
 
-                                                                ///
-                                                                //
-                                                                //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                                                                //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                                                                //.toString(),
+                                                                  ///
+                                                                  //
+                                                                  //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                  //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                  //.toString(),
 
-                                                                ///this is same device token....
-                                                                //value
-                                                                //.toString(),
-                                                                'notification':
-                                                                    {
-                                                                  'title':
-                                                                      'Ps_Wellness',
-                                                                  'body':
-                                                                      'You have request for ambulance',
-                                                                  //"sound": "jetsons_doorbell.mp3"
-                                                                },
-                                                                'android': {
+                                                                  ///this is same device token....
+                                                                  //value
+                                                                  //.toString(),
                                                                   'notification':
                                                                       {
-                                                                    'notification_count':
-                                                                        23,
+                                                                    'title':
+                                                                        'Ps_Wellness',
+                                                                    'body':
+                                                                        'You have request for ambulance',
+                                                                    //"sound": "jetsons_doorbell.mp3"
                                                                   },
-                                                                },
-                                                                'data': {
-                                                                  'type': 'msj',
-                                                                  'id': '123456'
-                                                                }
-                                                              };
+                                                                  'android': {
+                                                                    'notification':
+                                                                        {
+                                                                      'notification_count':
+                                                                          23,
+                                                                    },
+                                                                  },
+                                                                  'data': {
+                                                                    'type':
+                                                                        'msj',
+                                                                    'id':
+                                                                        '123456'
+                                                                  }
+                                                                };
 
-                                                              await http.post(
-                                                                  Uri.parse(
-                                                                      'https://fcm.googleapis.com/fcm/send'),
-                                                                  body:
-                                                                      jsonEncode(
-                                                                          data),
-                                                                  headers: {
-                                                                    'Content-Type':
-                                                                        'application/json; charset=UTF-8',
-                                                                    'Authorization':
-                                                                        //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                                                                        'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
-                                                                  }).then(
-                                                                  (value) {
-                                                                if (kDebugMode) {
-                                                                  print(value
-                                                                      .body
-                                                                      .toString());
-                                                                }
-                                                              }).onError((error,
-                                                                  stackTrace) {
-                                                                if (kDebugMode) {
-                                                                  print(error);
-                                                                }
-                                                              });
+                                                                await http.post(
+                                                                    Uri.parse(
+                                                                        'https://fcm.googleapis.com/fcm/send'),
+                                                                    body: jsonEncode(
+                                                                        data),
+                                                                    headers: {
+                                                                      'Content-Type':
+                                                                          'application/json; charset=UTF-8',
+                                                                      'Authorization':
+                                                                          //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                          'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                    }).then(
+                                                                    (value) {
+                                                                  if (kDebugMode) {
+                                                                    print(
+                                                                        "bookdriver${value.body.toString()}");
+                                                                  }
+                                                                }).onError((error,
+                                                                    stackTrace) {
+                                                                  if (kDebugMode) {
+                                                                    print(
+                                                                        error);
+                                                                  }
+                                                                });
 
-                                                              ///todo: from here custom from backend start...
-                                                              var prefs =
-                                                                  GetStorage();
-                                                              PatientRegNo = prefs
-                                                                  .read(
-                                                                      "PatientRegNo")
-                                                                  .toString();
-                                                              print(
-                                                                  '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
-                                                              var body = {
-                                                                "UserId":
-                                                                    "${PatientRegNo}",
-                                                                "DeviceId": value
-                                                                    .toString(),
-                                                              };
-                                                              print(
-                                                                  "userrrtokenupdateeeddbeforetttt${body}");
-                                                              http.Response r =
-                                                                  await http
-                                                                      .post(
-                                                                Uri.parse(
-                                                                    'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
-                                                                body: body,
-                                                              );
-
-                                                              print(r.body);
-                                                              if (r.statusCode ==
-                                                                  200) {
+                                                                ///todo: from here custom from backend start...
+                                                                var prefs =
+                                                                    GetStorage();
+                                                                PatientRegNo = prefs
+                                                                    .read(
+                                                                        "PatientRegNo")
+                                                                    .toString();
                                                                 print(
-                                                                    "userrrtokenupdateeedd99999${body}");
-                                                                return r;
-                                                              } else if (r
-                                                                      .statusCode ==
-                                                                  401) {
-                                                                Get.snackbar(
-                                                                    'message',
-                                                                    r.body);
-                                                              } else {
-                                                                Get.snackbar(
-                                                                    'Error',
-                                                                    r.body);
-                                                                return r;
-                                                              }
+                                                                    '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                                                                var body = {
+                                                                  "UserId":
+                                                                      "${PatientRegNo}",
+                                                                  "DeviceId": value
+                                                                      .toString(),
+                                                                };
+                                                                print(
+                                                                    "userrrtokenupdateeeddbeforetttt${body}");
+                                                                http.Response
+                                                                    r =
+                                                                    await http
+                                                                        .post(
+                                                                  Uri.parse(
+                                                                      'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                                                                  body: body,
+                                                                );
 
-                                                              ///todo end post api from backend...
-                                                            });
+                                                                print(r.body);
+                                                                if (r.statusCode ==
+                                                                    200) {
+                                                                  print(
+                                                                      "userrrtokenupdateeedd99999${body}");
+                                                                  return r;
+                                                                } else if (r
+                                                                        .statusCode ==
+                                                                    401) {
+                                                                  Get.snackbar(
+                                                                      'message',
+                                                                      r.body);
+                                                                } else {
+                                                                  Get.snackbar(
+                                                                      'Error',
+                                                                      r.body);
+                                                                  return r;
+                                                                }
+
+                                                                ///todo end post api from backend..
+                                                                ///
+                                                                ///call message 2 screen....from book driver....21 july..
+
+                                                                _driverAcceptlistController
+                                                                    .driveracceptuserDetailApi();
+                                                                _driverAcceptlistController
+                                                                    .update();
+                                                                accountService
+                                                                    .getAccountData
+                                                                    .then(
+                                                                        (accountData) {
+                                                                  // CallLoader.loader();
+                                                                  // nearlistdriverApi();
+
+                                                                  Timer(
+                                                                    const Duration(
+                                                                        seconds:
+                                                                            2),
+                                                                    () {
+                                                                      // nearlistdriverApi();
+                                                                      Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) => MessageScreen2(
+                                                                                    id: "12345678",
+                                                                                  )));
+                                                                      // Get.to(MessageScreen(
+                                                                      //   id: message.data['id'],
+                                                                      // ));
+                                                                      //Get.to((MapView));
+                                                                      //postAmbulancerequestApi(markers);
+
+                                                                      ///
+                                                                    },
+                                                                  );
+                                                                  CallLoader
+                                                                      .hideLoader();
+                                                                });
+                                                              });
+                                                            } catch (e, s) {
+                                                              print(s);
+                                                            }
                                                           },
                                                           border: Border.all(
                                                             color:

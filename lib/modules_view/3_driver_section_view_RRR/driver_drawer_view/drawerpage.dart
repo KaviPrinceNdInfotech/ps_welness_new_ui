@@ -21,7 +21,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/profile_driver_page_view/driver_profile.dart';
 //import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
 
+import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/supports/support_view.dart';
+import '../driver_profile_page_view/profile_view.dart';
 import 'driver_drower_pages/location_practice/location_practiceeee.dart';
 
 class DriverMainDrawer extends StatelessWidget {
@@ -29,6 +31,8 @@ class DriverMainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     DriverProfileDetailController _driverprofile =
         Get.put(DriverProfileDetailController());
+    UseracptrejectController _useracptrejectController =
+        Get.put(UseracptrejectController());
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Drawer(
@@ -107,7 +111,11 @@ class DriverMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                // Get.to(() => AboutUs());
+                _useracptrejectController.driveracceptrejctlistApi();
+                _useracptrejectController.update();
+                // Get.to(() => MessageScreen(
+                //       id: '123456',
+                //     ));
                 Get.offNamed('/AboutUs');
               },
             ),
@@ -141,6 +149,40 @@ class DriverMainDrawer extends StatelessWidget {
                 Get.back();
                 Get.to(() => ComplaintPageDriver());
                 Get.offNamed('/ComplaintPage');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.edit,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Edit Profile',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/DriverProfilePage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+
+                Get.to(() => DriverProfilePage());
+                Get.offNamed('/DriverProfilePage');
               },
             ),
             ListTile(

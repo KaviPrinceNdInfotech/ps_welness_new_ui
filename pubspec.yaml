@@ -79,6 +79,8 @@ dependencies:
   firebase_messaging: ^14.5.0
   flutter_local_notifications: ^14.1.1
   app_settings: ^4.2.0
+  cached_network_image: ^3.2.3
+
 
 dev_dependencies:
   flutter_test:

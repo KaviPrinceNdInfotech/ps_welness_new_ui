@@ -109,7 +109,7 @@ class Medicineaddresslist extends StatelessWidget {
                 data:
                     Theme.of(context).copyWith(splashColor: Colors.transparent),
                 child: Obx(
-                  () => (_medicine_addresslist_controller.isLoading.isFalse)
+                  () => (_medicine_addresslist_controller.isLoading.value)
                       ? Center(child: CircularProgressIndicator())
                       : Column(
                           children: [
@@ -149,7 +149,7 @@ class Medicineaddresslist extends StatelessWidget {
                             //     ? Center(child: Text("No Result Found"))
                             //     :
                             SizedBox(
-                                // height: size.height * 0.8,
+                                height: size.height * 0.87,
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: _medicine_addresslist_controller

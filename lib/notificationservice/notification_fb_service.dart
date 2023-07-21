@@ -12,6 +12,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiificatio
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_page_message_firebase.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
+import '../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../utils/services/account_service.dart';
 
@@ -24,6 +25,9 @@ class NotificationServices {
       FlutterLocalNotificationsPlugin();
   UseracptrejectController _useracptrejectController =
       Get.put(UseracptrejectController());
+
+  DriverAcceptlistController _driverAcceptlistController =
+      Get.put(DriverAcceptlistController());
 
   //function to initialise flutter local notification plugin to show notifications for android when app is active
   void initLocalNotifications(
@@ -144,7 +148,7 @@ class NotificationServices {
     messaging.onTokenRefresh.listen((event) {
       event.toString();
       if (kDebugMode) {
-        print('refresh');
+        print('refreshtoken');
       }
     });
   }
@@ -167,17 +171,16 @@ class NotificationServices {
 
   void handleMessage(BuildContext context, RemoteMessage message) async {
     if (message.data['type'] == 'msj') {
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(milliseconds: 200));
+      _useracptrejectController.driveracceptrejctlistApi();
+      _useracptrejectController.update();
       accountService.getAccountData.then((accountData) {
-        CallLoader.loader();
+        //CallLoader.loader();
         // nearlistdriverApi();
-
-        _useracptrejectController.driveracceptrejctlistApi();
-        _useracptrejectController.update();
-
         Timer(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 200),
           () {
+            print("dataa1${message.data['id']}");
             // nearlistdriverApi();
             Navigator.push(
                 context,
@@ -194,7 +197,7 @@ class NotificationServices {
             ///
           },
         );
-        CallLoader.hideLoader();
+        //CallLoader.hideLoader();
       });
 
       // Navigator.push(
@@ -204,16 +207,19 @@ class NotificationServices {
       //               id: message.data['id'],
       //             )));
     } else if (message.data['type'] == 'accept_case') {
-      await Future.delayed(Duration(seconds: 1));
+      print("dataaaccept${message.data['id']}");
+      //_useracptrejectController.driveracceptrejctlistApi();
+      //_useracptrejectController.update();
+
+      await Future.delayed(Duration(milliseconds: 200));
+      _driverAcceptlistController.driveracceptuserDetailApi();
+      _driverAcceptlistController.update();
       accountService.getAccountData.then((accountData) {
-        CallLoader.loader();
+        // CallLoader.loader();
         // nearlistdriverApi();
 
-        _useracptrejectController.driveracceptrejctlistApi();
-        _useracptrejectController.update();
-
         Timer(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 200),
           () {
             // nearlistdriverApi();
             Navigator.push(
@@ -240,7 +246,9 @@ class NotificationServices {
       //         builder: (context) => MessageScreen(
       //               id: message.data['id'],
       //             )));
-    } else if (message.data['type'] == 'reject_case') {}
+    } else if (message.data['type'] == 'reject_case') {
+      print("reject${message.data['id']}");
+    }
   }
 
   Future forgroundMessage() async {

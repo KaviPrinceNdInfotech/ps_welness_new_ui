@@ -12,7 +12,6 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controller/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
-import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../../controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
@@ -132,7 +131,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: size.height * 0.3,
+                        top: size.height * 0.298,
                         child: Container(
                           height: size.height * 0.7,
                           width: size.width,
@@ -223,7 +222,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                             // .refresh();
                                           },
                                           child: Container(
-                                            height: size.height * 0.036,
+                                            height: size.height * 0.03,
                                             width: size.width * 0.22,
                                             decoration: BoxDecoration(
                                               color: Colors.cyanAccent.shade200,
@@ -247,10 +246,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.009,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.009,
+                                    height: size.height * 0.000,
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
@@ -268,7 +264,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.009,
+                                    height: size.height * 0.005,
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
@@ -286,7 +282,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.01,
+                                    height: size.height * 0.00,
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
@@ -322,12 +318,12 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     height: size.height * 0.00,
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.083,
+                                    height: size.height * 0.075,
                                     width: size.width,
                                     child: Container(
                                       width: double.infinity,
                                       margin: EdgeInsets.symmetric(
-                                          vertical: 30 / 3),
+                                          vertical: 30 / 7),
                                       decoration: BoxDecoration(
                                           gradient: LinearGradient(
                                               begin: Alignment.centerLeft,
@@ -457,56 +453,144 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.0,
-                                  ),
-                                  NeumorphicTextFieldContainer(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.01),
-                                      child: Obx(
-                                        () => DropdownButtonFormField<TimeSlot>(
-                                            value:
-                                                _nurseAppointmentDetailController
-                                                    .selectedTimeslot.value,
-                                            decoration: InputDecoration(
-                                              prefixIcon: Icon(
-                                                Icons.more_time,
-                                                color: Colors.black,
-                                              ),
-                                              enabledBorder: InputBorder.none,
-                                              border: InputBorder.none,
+                                    height: size.height * 0.075,
+                                    width: size.width,
+                                    child: Container(
+                                      width: double.infinity,
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 30 / 7),
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                lightPrimary,
+                                                darkPrimary,
+                                              ]),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              offset: Offset(-1, -1),
+                                              spreadRadius: 1,
+                                              blurRadius: 3,
+                                              color: Colors.white,
                                             ),
-                                            hint: Text('Select Your Slots'),
-                                            items:
-                                                _nurseAppointmentDetailController
-                                                    .timeslot
-                                                    .map((TimeSlot timeslot) {
-                                              return DropdownMenuItem(
-                                                value: timeslot,
-                                                child: Text(
-                                                  timeslot.slotTime.toString(),
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                  ),
+                                            BoxShadow(
+                                              offset: Offset(2, 2),
+                                              spreadRadius: 1,
+                                              blurRadius: 0,
+                                              color: Colors.grey,
+                                            ),
+                                          ]),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.01,
+                                          //vertical: size.height * 0.02
+                                        ),
+                                        child: Obx(
+                                          () => DropdownButtonFormField<
+                                                  TimeSlot>(
+                                              value:
+                                                  _nurseAppointmentDetailController
+                                                      .selectedTimeslot.value,
+                                              decoration: InputDecoration(
+                                                prefixIcon: Icon(
+                                                  Icons.more_time,
+                                                  color: Colors.black,
                                                 ),
-                                              );
-                                            }).toList(),
-                                            onChanged: (TimeSlot? newValue) {
-                                              _nurseAppointmentDetailController
-                                                  .selectedTimeslot
-                                                  .value = newValue!;
-                                              // _nurseBooking1Controller.selectedCity.value = null;
-                                              // _hospital_2_controller.states.value =
-                                              //     newValue! as List<String>;
-                                              // _hospital_2_controller.selectedCity.value = null;
-                                              // _hospital_2_controller.cities.clear();
-                                              // _hospital_2_controller.cities
-                                              //     .addAll(stateCityMap[newvalue]!);
-                                            }),
+                                                enabledBorder: InputBorder.none,
+                                                border: InputBorder.none,
+                                              ),
+                                              hint: Text('Select Your Slots'),
+                                              items:
+                                                  _nurseAppointmentDetailController
+                                                      .timeslot
+                                                      .map((TimeSlot timeslot) {
+                                                return DropdownMenuItem(
+                                                  value: timeslot,
+                                                  child: Text(
+                                                    timeslot.slotTime
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize:
+                                                          size.height * 0.015,
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (TimeSlot? newValue) {
+                                                _nurseAppointmentDetailController
+                                                    .selectedTimeslot
+                                                    .value = newValue!;
+                                                // _nurseBooking1Controller.selectedCity.value = null;
+                                                // _hospital_2_controller.states.value =
+                                                //     newValue! as List<String>;
+                                                // _hospital_2_controller.selectedCity.value = null;
+                                                // _hospital_2_controller.cities.clear();
+                                                // _hospital_2_controller.cities
+                                                //     .addAll(stateCityMap[newvalue]!);
+                                              }),
+                                        ),
                                       ),
                                     ),
+                                    // ListView.builder(
+                                    //     shrinkWrap: true,
+                                    //     scrollDirection: Axis.horizontal,
+                                    //     itemCount: 32,
+                                    //     itemBuilder: (BuildContext context, int index) {
+                                    //       return Padding(
+                                    //         padding: const EdgeInsets.all(3.0),
+                                    //         child: PhysicalModel(
+                                    //           color: MyTheme.white,
+                                    //           borderRadius: BorderRadius.circular(5),
+                                    //           elevation: 20,
+                                    //           child: Padding(
+                                    //             padding: EdgeInsets.symmetric(
+                                    //                 horizontal: size.width * 0.01,
+                                    //                 vertical: size.height * 0.004),
+                                    //             child: Container(
+                                    //               //height: size.height * 0.025,
+                                    //               width: size.width * 0.17,
+                                    //               decoration: BoxDecoration(
+                                    //                 color: MyTheme.ThemeColors,
+                                    //                 borderRadius: BorderRadius.circular(5),
+                                    //               ),
+                                    //               child: Column(
+                                    //                 mainAxisAlignment:
+                                    //                     MainAxisAlignment.center,
+                                    //                 children: [
+                                    //                   Text(
+                                    //                     'MAR',
+                                    //                     style: TextStyle(
+                                    //                       fontSize: size.height * 0.015,
+                                    //                       fontWeight: FontWeight.w600,
+                                    //                       color: Colors.white,
+                                    //                     ),
+                                    //                   ),
+                                    //                   SizedBox(
+                                    //                     height: size.height * 0.01,
+                                    //                   ),
+                                    //                   Text(
+                                    //                     '${index}',
+                                    //                     style: TextStyle(
+                                    //                       fontSize: size.height * 0.016,
+                                    //                       fontWeight: FontWeight.w600,
+                                    //                       color: Colors.white,
+                                    //                     ),
+                                    //                   ),
+                                    //                 ],
+                                    //               ),
+                                    //             ),
+                                    //           ),
+                                    //         ),
+                                    //       );
+                                    //     }),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.002,
                                   ),
                                   SizedBox(
                                     height: size.height * 0.0,
@@ -523,174 +607,178 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Obx(
-                                    () => (_nurseAppointmentDetailController
-                                                .isLoading.value &&
-                                            _nurseviewssRatingReviewController
-                                                .isLoading.value)
-                                        ? Center(
-                                            child: CircularProgressIndicator(),
-                                          )
-                                        : SizedBox(
-                                            height: size.height * 0.13,
-                                            width: size.width * 0.95,
-                                            child: ListView.builder(
-                                                shrinkWrap: true,
-                                                //scrollDirection: Axis.horizontal,
-                                                itemCount:
-                                                    _nurseviewssRatingReviewController
-                                                        .nurseviewreview
-                                                        ?.rating
-                                                        ?.length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  return Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(2.0),
-                                                        child: Ink(
-                                                          child: PhysicalModel(
-                                                            color:
-                                                                MyTheme.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            elevation: 20,
-                                                            child: Padding(
-                                                              padding: EdgeInsets.symmetric(
-                                                                  horizontal:
+                                  SizedBox(
+                                    height: size.height * 0.004,
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.22,
+                                    child: Obx(
+                                      () => (_nurseAppointmentDetailController
+                                                  .isLoading.value &&
+                                              _nurseviewssRatingReviewController
+                                                  .isLoading.value)
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : SizedBox(
+                                              height: size.height * 0.13,
+                                              width: size.width * 0.95,
+                                              child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  //scrollDirection: Axis.horizontal,
+                                                  itemCount:
+                                                      _nurseviewssRatingReviewController
+                                                          .nurseviewreview
+                                                          ?.rating
+                                                          ?.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(2.0),
+                                                          child: Ink(
+                                                            child:
+                                                                PhysicalModel(
+                                                              color:
+                                                                  MyTheme.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              elevation: 20,
+                                                              child: Padding(
+                                                                padding: EdgeInsets.symmetric(
+                                                                    horizontal:
+                                                                        size.width *
+                                                                            0.01,
+                                                                    vertical: size
+                                                                            .height *
+                                                                        0.003),
+                                                                child:
+                                                                    Container(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.11,
+                                                                  width:
                                                                       size.width *
-                                                                          0.01,
-                                                                  vertical: size
-                                                                          .height *
-                                                                      0.004),
-                                                              child: Container(
-                                                                height:
-                                                                    size.height *
-                                                                        0.11,
-                                                                width:
-                                                                    size.width *
-                                                                        0.9,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: MyTheme
-                                                                      .ThemeColors,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5),
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Row(
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.all(8.0),
-                                                                          child:
-                                                                              Container(
-                                                                            height:
-                                                                                size.height * 0.08,
-                                                                            width:
-                                                                                size.width * 0.2,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: Colors.red,
-                                                                            ),
+                                                                          0.9,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: MyTheme
+                                                                        .ThemeColors,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(5),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
                                                                             child:
-                                                                                Image.network(
-                                                                              '$base${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].image.toString()}',
-                                                                              //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                                              fit: BoxFit.fill,
-                                                                              errorBuilder: (context, error, stackTrace) {
-                                                                                //if image not comming in catagary then we have to purchase
+                                                                                Container(
+                                                                              height: size.height * 0.08,
+                                                                              width: size.width * 0.2,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.red,
+                                                                              ),
+                                                                              child: Image.network(
+                                                                                '$base${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].image.toString()}',
+                                                                                //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                                                fit: BoxFit.fill,
+                                                                                errorBuilder: (context, error, stackTrace) {
+                                                                                  //if image not comming in catagary then we have to purchase
 
-                                                                                return Center(
-                                                                                  child: Text(
-                                                                                    'No Image',
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontSize: size.height * 0.013,
+                                                                                  return Center(
+                                                                                    child: Text(
+                                                                                      'No Image',
+                                                                                      style: TextStyle(
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                        fontSize: size.height * 0.013,
+                                                                                      ),
                                                                                     ),
-                                                                                  ),
-                                                                                );
-                                                                              },
+                                                                                  );
+                                                                                },
+                                                                              ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                        Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Text(
-                                                                              "${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].name}",
-                                                                              style: TextStyle(
-                                                                                fontSize: size.height * 0.016,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                color: Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: size.height * 0.035,
-                                                                              width: size.width * 0.5,
-                                                                              child: Text(
-                                                                                "${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].description}",
+                                                                          Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Text(
+                                                                                "${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].name}",
                                                                                 style: TextStyle(
-                                                                                  fontSize: size.height * 0.013,
+                                                                                  fontSize: size.height * 0.016,
                                                                                   fontWeight: FontWeight.w600,
-                                                                                  color: Colors.white,
+                                                                                  color: Colors.black,
                                                                                 ),
                                                                               ),
-                                                                            ),
-                                                                            Row(
-                                                                              children: [
-                                                                                Text(
-                                                                                  "Rating:",
+                                                                              SizedBox(
+                                                                                height: size.height * 0.035,
+                                                                                width: size.width * 0.5,
+                                                                                child: Text(
+                                                                                  "${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].description}",
                                                                                   style: TextStyle(
-                                                                                    fontSize: size.height * 0.016,
+                                                                                    fontSize: size.height * 0.013,
                                                                                     fontWeight: FontWeight.w600,
-                                                                                    color: Colors.brown,
+                                                                                    color: Colors.white,
                                                                                   ),
                                                                                 ),
-                                                                                Text(
-                                                                                  "${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].rating.toString()}",
-                                                                                  style: TextStyle(
-                                                                                    fontSize: size.height * 0.016,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    color: Colors.red,
+                                                                              ),
+                                                                              Row(
+                                                                                children: [
+                                                                                  Text(
+                                                                                    "Rating:",
+                                                                                    style: TextStyle(
+                                                                                      fontSize: size.height * 0.016,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      color: Colors.brown,
+                                                                                    ),
                                                                                   ),
-                                                                                ),
-                                                                                Icon(
-                                                                                  Icons.star,
-                                                                                  color: Colors.yellow,
-                                                                                  size: size.height * 0.02,
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
+                                                                                  Text(
+                                                                                    "${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].rating.toString()}",
+                                                                                    style: TextStyle(
+                                                                                      fontSize: size.height * 0.016,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      color: Colors.red,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Icon(
+                                                                                    Icons.star,
+                                                                                    color: Colors.yellow,
+                                                                                    size: size.height * 0.02,
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }),
-                                          ),
+                                                      ],
+                                                    );
+                                                  }),
+                                            ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -724,7 +812,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     fontSize: 30, fontWeight: FontWeight.bold)),
                             clipBehavior: Clip.none,
                             child: Container(
-                              height: size.height * 0.045,
+                              height: size.height * 0.05,
                               decoration: BoxDecoration(
                                 border: Border(
                                   top: BorderSide(
