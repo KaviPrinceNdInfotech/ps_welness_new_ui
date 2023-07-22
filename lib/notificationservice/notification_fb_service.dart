@@ -219,7 +219,7 @@ class NotificationServices {
         // nearlistdriverApi();
 
         Timer(
-          const Duration(milliseconds: 200),
+          const Duration(milliseconds: 600),
           () {
             // nearlistdriverApi();
             Navigator.push(

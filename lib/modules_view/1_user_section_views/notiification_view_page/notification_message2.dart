@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +12,7 @@ import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +21,7 @@ import '../../../controllers/1_user_view_controller/ambulance/ambulance_payment_
 import '../../../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import '../../../controllers/1_user_view_controller/ambulance/rozar_pay_ambulance_controller/rozarpayy_ambulance_controllers.dart';
 import '../../../controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
+import '../../../utils/services/account_service.dart';
 import '../home_page_user_view/user_home_page.dart';
 import '../user_drawer/drawer_pages_user/walet_user/wallet_user.dart';
 
@@ -136,7 +140,9 @@ class _MessageScreen2State extends State<MessageScreen2> {
           child: Obx(
             () => (_driverAcceptlistController.isLoading.value)
                 ? const Center(child: CircularProgressIndicator())
-                : _driverAcceptlistController.getDriveracceptDetail == null
+                : _driverAcceptlistController
+                            .getDriveracceptDetail?.driverName ==
+                        null
                     ? const Center(
                         child: Text('No Data'),
                       )
@@ -632,7 +638,10 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                       .toColor(),
                                                   //animationDuration: kButtonAnimationDuration,
                                                   depth: kButtonDepth,
-                                                  onTapUp: () {
+                                                  onTapUp: () async {
+                                                    ///
+
+                                                    ///
                                                     final Ambulancefees =
                                                         _driverAcceptlistController
                                                                 .getDriveracceptDetail
@@ -684,23 +693,65 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                           _ambulanceOrderpaymentController
                                                               .postOrderAmbulanceonlineApi()
                                                               .then(
-                                                                  (statusCode) {
+                                                                  (statusCode) async {
                                                             if (statusCode ==
                                                                 200) {
                                                               Get.snackbar(
                                                                   "Payment Success",
                                                                   "Your booking confirmed");
 
-                                                              Get.to(
-                                                                () =>
-                                                                    UserHomePage(), //next page class
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        500), //duration of transitions, default 1 sec
-                                                                transition:
-                                                                    Transition
-                                                                        .zoom,
-                                                              );
+                                                              ///
+                                                              await Future.delayed(
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          700));
+
+                                                              ///
+                                                              _driverAcceptlistController
+                                                                  .driveracceptuserDetailApi();
+                                                              _driverAcceptlistController
+                                                                  .update();
+                                                              _driverAcceptlistController
+                                                                  .refresh();
+                                                              accountService
+                                                                  .getAccountData
+                                                                  .then(
+                                                                      (accountData) {
+                                                                // CallLoader.loader();
+                                                                // nearlistdriverApi();
+                                                                Timer(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                                  () {
+                                                                    // nearlistdriverApi();
+                                                                    Get.to(
+                                                                        UserHomePage());
+                                                                    // Get.to(MessageScreen(
+                                                                    //   id: message.data['id'],
+                                                                    // ));
+                                                                    //Get.to((MapView));
+                                                                    //postAmbulancerequestApi(markers);
+
+                                                                    ///
+                                                                  },
+                                                                );
+                                                                CallLoader
+                                                                    .hideLoader();
+                                                              });
+
+                                                              ///
+                                                              //
+                                                              // Get.to(
+                                                              //   () =>
+                                                              //       UserHomePage(), //next page class
+                                                              //   duration: Duration(
+                                                              //       milliseconds:
+                                                              //           500), //duration of transitions, default 1 sec
+                                                              //   transition:
+                                                              //       Transition
+                                                              //           .zoom,
+                                                              // );
 
                                                               ///This is the main thing to provide updated list history...
 
@@ -817,6 +868,19 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                     ///todo: end the fees.........
                                                     _rozarPayAmbulanceController
                                                         .openCheckout();
+
+                                                    ///
+                                                    _driverAcceptlistController
+                                                        .driveracceptuserDetailApi();
+                                                    _driverAcceptlistController
+                                                        .update();
+                                                    _driverAcceptlistController
+                                                        .refresh();
+                                                    // await Future.delayed(
+                                                    //     Duration(
+                                                    //         milliseconds: 400));
+
+                                                    ///
 
                                                     ///end..0nline..
                                                     // SharedPreferences

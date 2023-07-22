@@ -9,9 +9,9 @@ class DriverAcceptlistController extends GetxController {
   DriveracceptModeluser? getDriveracceptDetail;
 
   void driveracceptuserDetailApi() async {
-    isLoading(true);
+    isLoading(false);
     getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi();
-    if (getDriveracceptDetail != null) {
+    if (getDriveracceptDetail?.driverName == null) {
       isLoading(false);
     }
   }

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/ambulance_payment_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../user_profile_controller/user_profile_controllerss.dart';
@@ -95,11 +98,32 @@ class RozarPayAmbulanceController extends GetxController {
         .then((statusCode) {
       if (statusCode == 200) {
         ///This is the main thing to provide updated list history...
-        _driverAcceptlistController.driveracceptuserDetailApi();
+        //_driverAcceptlistController.driveracceptuserDetailApi();
 
         ///nov 14....................................
-        Get.to(UserHomePage());
+        _driverAcceptlistController.driveracceptuserDetailApi();
         _driverAcceptlistController.update();
+        _driverAcceptlistController.refresh();
+        accountService.getAccountData.then((accountData) {
+          // CallLoader.loader();
+          // nearlistdriverApi();
+
+          Timer(
+            const Duration(microseconds: 500),
+            () {
+              // nearlistdriverApi();
+              Get.to(UserHomePage());
+              // Get.to(MessageScreen(
+              //   id: message.data['id'],
+              // ));
+              //Get.to((MapView));
+              //postAmbulancerequestApi(markers);
+
+              ///
+            },
+          );
+          //CallLoader.hideLoader();
+        });
         //_doctorHistoryController.update();
         //_doctorHistoryController.doctorListHospitalApi();
       } else {

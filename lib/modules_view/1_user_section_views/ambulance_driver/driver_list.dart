@@ -15,6 +15,7 @@ import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/driver_list_model.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -1016,6 +1017,42 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                           //animationDuration: kButtonAnimationDuration,
                                                           depth: kButtonDepth,
                                                           onTapUp: () async {
+                                                            ///
+                                                            _driverAcceptlistController
+                                                                .driveracceptuserDetailApi();
+                                                            _driverAcceptlistController
+                                                                .update();
+                                                            accountService
+                                                                .getAccountData
+                                                                .then(
+                                                                    (accountData) {
+                                                              CallLoader
+                                                                  .loader();
+                                                              Timer(
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        900),
+                                                                () {
+                                                                  // nearlistdriverApi();
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              UserHomePage()));
+                                                                  // Get.to(MessageScreen(
+                                                                  //   id: message.data['id'],
+                                                                  // ));
+                                                                  //Get.to((MapView));
+                                                                  //postAmbulancerequestApi(markers);
+
+                                                                  ///
+                                                                },
+                                                              );
+                                                              CallLoader
+                                                                  .hideLoader();
+                                                            });
+
+                                                            ///
                                                             SharedPreferences
                                                                 prefs =
                                                                 await SharedPreferences
@@ -1195,29 +1232,29 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   // CallLoader.loader();
                                                                   // nearlistdriverApi();
 
-                                                                  Timer(
-                                                                    const Duration(
-                                                                        seconds:
-                                                                            2),
-                                                                    () {
-                                                                      // nearlistdriverApi();
-                                                                      Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => MessageScreen2(
-                                                                                    id: "12345678",
-                                                                                  )));
-                                                                      // Get.to(MessageScreen(
-                                                                      //   id: message.data['id'],
-                                                                      // ));
-                                                                      //Get.to((MapView));
-                                                                      //postAmbulancerequestApi(markers);
-
-                                                                      ///
-                                                                    },
-                                                                  );
-                                                                  CallLoader
-                                                                      .hideLoader();
+                                                                  // Timer(
+                                                                  //   const Duration(
+                                                                  //       seconds:
+                                                                  //           2),
+                                                                  //   () {
+                                                                  //     // nearlistdriverApi();
+                                                                  //     Navigator.push(
+                                                                  //         context,
+                                                                  //         MaterialPageRoute(
+                                                                  //             builder: (context) => MessageScreen2(
+                                                                  //                   id: "12345678",
+                                                                  //                 )));
+                                                                  //     // Get.to(MessageScreen(
+                                                                  //     //   id: message.data['id'],
+                                                                  //     // ));
+                                                                  //     //Get.to((MapView));
+                                                                  //     //postAmbulancerequestApi(markers);
+                                                                  //
+                                                                  //     ///
+                                                                  //   },
+                                                                  // );
+                                                                  // CallLoader
+                                                                  //     .hideLoader();
                                                                 });
                                                               });
                                                             } catch (e, s) {

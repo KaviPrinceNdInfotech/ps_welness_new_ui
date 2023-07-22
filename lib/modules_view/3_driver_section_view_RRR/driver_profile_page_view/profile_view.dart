@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/profile_driver_page_view/profile_driver_components/head_text.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_profile_page_view/profile_components/credentials.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/profile_driver_page_view/profile_driver_components/credentials.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/profile_driver_page_view/profile_driver_components/head_text.dart';
 
@@ -51,7 +52,7 @@ class DriverProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DriverProfileHeadText(),
-                    // DriverProfileCredentials(),
+                    DriverProfileCredentials(),
                   ],
                 ),
               ],

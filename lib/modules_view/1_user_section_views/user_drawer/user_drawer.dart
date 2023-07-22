@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_message2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
@@ -141,31 +140,31 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 // await Future.delayed(Duration(milliseconds: 200));
                 _driverAcceptlistController.driveracceptuserDetailApi();
                 _driverAcceptlistController.update();
-                accountService.getAccountData.then((accountData) {
-                  // CallLoader.loader();
-                  // nearlistdriverApi();
-
-                  Timer(
-                    const Duration(microseconds: 300),
-                    () {
-                      // nearlistdriverApi();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MessageScreen2(
-                                    id: "12345678",
-                                  )));
-                      // Get.to(MessageScreen(
-                      //   id: message.data['id'],
-                      // ));
-                      //Get.to((MapView));
-                      //postAmbulancerequestApi(markers);
-
-                      ///
-                    },
-                  );
-                  CallLoader.hideLoader();
-                });
+                // accountService.getAccountData.then((accountData) {
+                //   // CallLoader.loader();
+                //   // nearlistdriverApi();
+                //
+                //   Timer(
+                //     const Duration(microseconds: 300),
+                //     () {
+                //       // nearlistdriverApi();
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => MessageScreen2(
+                //                     id: "12345678",
+                //                   )));
+                //       // Get.to(MessageScreen(
+                //       //   id: message.data['id'],
+                //       // ));
+                //       //Get.to((MapView));
+                //       //postAmbulancerequestApi(markers);
+                //
+                //       ///
+                //     },
+                //   );
+                //   CallLoader.hideLoader();
+                // });
                 //Get.back();
                 // _driverAcceptlistController.driveracceptuserDetailApi();
                 // _driverAcceptlistController.update();
@@ -174,6 +173,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 //     ));
                 //Get.to(() => UserHomePage());
                 //Get.offNamed('/UserHomePage');
+                Get.back();
               },
             ),
 

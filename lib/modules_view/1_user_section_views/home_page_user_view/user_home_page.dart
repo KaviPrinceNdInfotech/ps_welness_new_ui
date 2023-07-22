@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
 import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map3.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_message2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
@@ -52,6 +54,8 @@ MedicineCartListController _medicineCartListController =
     Get.put(MedicineCartListController());
 final MedicineListController _medicineListController =
     Get.put(MedicineListController());
+DriverAcceptlistController _driverAcceptlistController =
+    Get.put(DriverAcceptlistController());
 DevicetokenController _devicetokenController = Get.put(DevicetokenController());
 
 ///
@@ -147,7 +151,6 @@ class _UserHomePageState extends State<UserHomePage> {
       'Book Ambulance',
       'Lab',
       'Your Report',
-
       //'Complete Health Checkup',
       'Buy Medicine',
       // 'Contact US',
@@ -362,6 +365,70 @@ class _UserHomePageState extends State<UserHomePage> {
                 _key.currentState!.openDrawer();
               },
             ),
+            actions: [
+              Padding(
+                  padding: EdgeInsets.only(right: size.height * 0.02),
+                  child: IconButton(
+                    icon: _driverAcceptlistController
+                                .getDriveracceptDetail?.driverName ==
+                            null
+                        ? SizedBox(
+                            height: size.height * 0.047,
+                            width: size.width * 0.1,
+                            child: Image.asset(
+                                //'lib/assets/user_assets/12lab.png'
+                                'lib/assets/icons/ambulance_notification.png'))
+                        : SizedBox(
+                            height: size.height * 0.047,
+                            width: size.width * 0.1,
+                            child: Image.asset(
+                              //'lib/assets/user_assets/12lab.png'
+                              'lib/assets/icons/ambulance_notification.png',
+                            )),
+                    onPressed: () async {
+                      await accountService.getAccountData.then((accountData) {
+                        _driverAcceptlistController.driveracceptuserDetailApi();
+                        _driverAcceptlistController.update();
+                        _driverAcceptlistController.refresh();
+                      });
+
+                      await accountService.getAccountData.then((accountData) {
+                        _driverAcceptlistController.driveracceptuserDetailApi();
+                        _driverAcceptlistController.update();
+                        _driverAcceptlistController.refresh();
+                        // CallLoader.loader();
+                        // nearlistdriverApi();
+
+                        Timer(
+                          const Duration(seconds: 1),
+                          () {
+                            // nearlistdriverApi();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MessageScreen2(
+                                          id: "12345678",
+                                        )));
+                            // Get.to(MessageScreen(
+                            //   id: message.data['id'],
+                            // ));
+                            //Get.to((MapView));
+                            //postAmbulancerequestApi(markers);
+
+                            ///
+                          },
+                        );
+                        CallLoader.hideLoader();
+                      });
+                    },
+                  )
+                  //         Icon( if (getDriveracceptDetail?.driverName == null) {
+                  // isLoading(false);
+                  // }
+                  //            // Icons.notification_important_sharp
+                  //         ),
+                  ),
+            ],
             // leading: Icon(Icons.read_more_outlined),
           ),
           drawer: UserMainDrawer(),

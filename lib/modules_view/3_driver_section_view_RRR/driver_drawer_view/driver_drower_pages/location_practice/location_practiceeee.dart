@@ -97,6 +97,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../servicess_api/api_services_all_api.dart';
@@ -499,8 +500,24 @@ class _MyLocationState extends State<MyLocation> {
                           splashColor: Colors.blueGrey,
                           onTap: () async {
                             _getCurrentPosition();
+                            postssDriverUpdateApi();
                             // postDriverUpdateApi();
                             // CallLoader.hideLoader();
+                            accountService.getAccountData.then((accountData) {
+                              Timer(
+                                const Duration(seconds: 1),
+                                () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DriverHomePage()));
+
+                                  //Get.to((page))
+                                  ///
+                                },
+                              );
+                            });
                           },
                           child: Container(
                             height: size.height * 0.05,
@@ -555,9 +572,10 @@ class _MyLocationState extends State<MyLocation> {
                           splashColor: Colors.blueGrey,
                           onTap: () async {
                             _getCurrentPosition();
+                            postssDriverUpdateApi();
                             accountService.getAccountData.then((accountData) {
                               Timer(
-                                const Duration(milliseconds: 200),
+                                const Duration(milliseconds: 100),
                                 () {
                                   _getCurrentPosition();
                                 },
@@ -565,9 +583,14 @@ class _MyLocationState extends State<MyLocation> {
                             });
                             accountService.getAccountData.then((accountData) {
                               Timer(
-                                const Duration(milliseconds: 400),
+                                const Duration(milliseconds: 1200),
                                 () {
-                                  postssDriverUpdateApi();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DriverHomePage()));
+
                                   //Get.to((page))
                                   ///
                                 },
