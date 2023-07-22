@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-import '../../../modules_view/1_user_section_views/user_drawer/drawer_pages_user/nurse_history/nurse_history_page.dart';
+import '../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import '../nurse_checkout_controller/nurse_checkout_controller.dart';
@@ -99,7 +99,13 @@ class RozarPayNurseController extends GetxController {
         _nurseHistoryController.nursehistoryApi();
 
         ///nov 14....................................
-        Get.off(NurseHistoryUser());
+        //Get.off(NurseHistoryUser());
+        Get.to(
+          () => UserHomePage(), //next page class
+          duration: Duration(
+              milliseconds: 500), //duration of transitions, default 1 sec
+          transition: Transition.zoom,
+        );
       } else {
         // SHow
       }

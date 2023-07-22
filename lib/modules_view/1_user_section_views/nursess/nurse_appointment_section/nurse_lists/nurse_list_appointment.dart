@@ -397,6 +397,9 @@ class NurseListUser extends StatelessWidget {
                                                             prefs.setString(
                                                                 "NurseuserListId",
                                                                 "${_nurseUserListController.foundNurses[index].id.toString()}");
+                                                            prefs.setString(
+                                                                "Nurseuserfees",
+                                                                "${_nurseUserListController.foundNurses[index].fee?.toDouble()}");
                                                             _nurseAppointmentDetailController
                                                                 .nursedetailApi();
                                                             _nurseAppointmentDetailController

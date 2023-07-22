@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants/constants/constants.dart';
@@ -15,7 +16,6 @@ import '../../../../controllers/1_user_view_controller/doctor_sections/post_doct
 import '../../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import '../../../../controllers/1_user_view_controller/rozar_pay_doctor_controller/rozarpayy_doctor_controllers.dart';
 import '../../../../controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
-import '../../user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
 import '../../user_drawer/drawer_pages_user/walet_user/wallet_user.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
@@ -596,13 +596,111 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                           ),
                                         ),
                                         InkWell(
-                                          onTap: () {},
-                                          child: InkWell(
-                                            onTap: () {
-                                              _postOrderDoctorController
-                                                  .postOrderdoctoronlineApi()
+                                          onTap: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            prefs.setString("DoctorFee",
+                                                "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toString()}");
+                                            // _postOrderDoctorController
+                                            //     .postOrderdoctoronlineApi()
+                                            //     .then((statusCode) {
+                                            //   if (statusCode == 200) {
+                                            //     ///This is the main thing to provide updated list history...
+                                            //     _doctorHistoryController
+                                            //         .doctorListHospitalApi();
+                                            //
+                                            //     ///nov 14....................................
+                                            //     //Get.to(LabHistoryUser());
+                                            //     _doctorHistoryController
+                                            //         .update();
+                                            //
+                                            //     ///nov 14....................................
+                                            //     //Get.to(OrderConfirmationPage());
+                                            //   } else {
+                                            //     Get.snackbar("Error123", "");
+                                            //   }
+                                            // });
+                                            final doctorFee =
+                                                _doctorappointmentcheckout
+                                                        .doctorCheckoutModel
+                                                        ?.fee
+                                                        ?.toDouble() ??
+                                                    0;
+                                            final walletAmount =
+                                                _walletPostController
+                                                        .getwalletlist
+                                                        ?.result?[0]
+                                                        .walletAmount ??
+                                                    0;
+                                            print("DoctorFEE $doctorFee");
+                                            print(
+                                                "DoctorFEEamount $walletAmount");
+
+                                            print(
+                                                "WALLET AMOUNT $walletAmount");
+                                            if (doctorFee > walletAmount) {
+                                              Get.snackbar("Low Amount",
+                                                  "Please Add Money");
+                                              Get.to(
+                                                () =>
+                                                    WolletUser(), //next page class
+                                                duration: Duration(
+                                                    milliseconds:
+                                                        300), //duration of transitions, default 1 sec
+                                                transition: Transition.zoom,
+                                              );
+
+                                              /// Not possibble from wallet go to add page
+                                            } else {
+                                              // final newWalletAmount =
+                                              //     walletAmount - doctorFee;
+
+                                              final newWalletAmount =
+                                                  doctorFee - 0;
+                                              _walletPostController
+                                                  .walletPostUpdateApi(
+                                                      newWalletAmount)
                                                   .then((statusCode) {
                                                 if (statusCode == 200) {
+                                                  ///post order apis.....
+                                                  _postOrderDoctorController
+                                                      .postOrderdoctoronlineApi()
+                                                      .then((statusCode) {
+                                                    if (statusCode == 200) {
+                                                      Get.snackbar(
+                                                          "Payment Success",
+                                                          "Your booking confirmed");
+
+                                                      ///todo:home page.....
+                                                      Get.to(
+                                                        () =>
+                                                            UserHomePage(), //next page class
+                                                        duration: Duration(
+                                                            milliseconds:
+                                                                500), //duration of transitions, default 1 sec
+                                                        transition:
+                                                            Transition.zoom,
+                                                      );
+
+                                                      ///This is the main thing to provide updated list history...
+                                                      _doctorHistoryController
+                                                          .doctorListHospitalApi();
+
+                                                      ///nov 14....................................
+                                                      //Get.to(LabHistoryUser());
+                                                      _doctorHistoryController
+                                                          .update();
+
+                                                      ///nov 14....................................
+                                                      //Get.to(OrderConfirmationPage());
+                                                    } else {
+                                                      Get.snackbar(
+                                                          "Error123", "error");
+                                                    }
+                                                  });
+
+                                                  ///end post order apis...
                                                   ///This is the main thing to provide updated list history...
                                                   _doctorHistoryController
                                                       .doctorListHospitalApi();
@@ -611,96 +709,50 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                   //Get.to(LabHistoryUser());
                                                   _doctorHistoryController
                                                       .update();
+                                                  // Get.to(
+                                                  //   () =>
+                                                  //       DoctorHistoryUser(), //next page class
+                                                  //   duration: Duration(
+                                                  //       milliseconds:
+                                                  //           300), //duration of transitions, default 1 sec
+                                                  //   transition: Transition.zoom,
+                                                  // );
 
                                                   ///nov 14....................................
                                                   //Get.to(OrderConfirmationPage());
+                                                } else if (statusCode == 400) {
+                                                  Get.to(
+                                                    () =>
+                                                        WolletUser(), //next page class
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            500), //duration of transitions, default 1 sec
+                                                    transition: Transition.zoom,
+                                                  );
                                                 } else {
-                                                  Get.snackbar("Error123", "");
+                                                  Get.snackbar(
+                                                      "Error12378", "error");
                                                 }
                                               });
-                                              final doctorFee =
-                                                  _doctorappointmentcheckout
-                                                          .doctorCheckoutModel
-                                                          ?.fee ??
-                                                      0;
-                                              final walletAmount =
-                                                  _walletPostController
-                                                          .getwalletlist
-                                                          ?.result?[0]
-                                                          .walletAmount ??
-                                                      0;
-                                              print("DoctorFEE $doctorFee");
-                                              print(
-                                                  "DoctorFEEamount $walletAmount");
-
-                                              print(
-                                                  "WALLET AMOUNT $walletAmount");
-                                              if (doctorFee > walletAmount) {
-                                                /// Not possibble from wallet go to add page
-                                              } else {
-                                                final newWalletAmount =
-                                                    walletAmount - doctorFee;
-                                                _walletPostController
-                                                    .walletPostUpdateApi(
-                                                        newWalletAmount)
-                                                    .then((statusCode) {
-                                                  if (statusCode == 200) {
-                                                    ///This is the main thing to provide updated list history...
-                                                    _doctorHistoryController
-                                                        .doctorListHospitalApi();
-
-                                                    ///nov 14....................................
-                                                    //Get.to(LabHistoryUser());
-                                                    _doctorHistoryController
-                                                        .update();
-                                                    Get.to(
-                                                      () =>
-                                                          DoctorHistoryUser(), //next page class
-                                                      duration: Duration(
-                                                          milliseconds:
-                                                              300), //duration of transitions, default 1 sec
-                                                      transition:
-                                                          Transition.zoom,
-                                                    );
-
-                                                    ///nov 14....................................
-                                                    //Get.to(OrderConfirmationPage());
-                                                  } else if (statusCode ==
-                                                      400) {
-                                                    Get.to(
-                                                      () =>
-                                                          WolletUser(), //next page class
-                                                      duration: Duration(
-                                                          milliseconds:
-                                                              500), //duration of transitions, default 1 sec
-                                                      transition:
-                                                          Transition.zoom,
-                                                    );
-                                                  } else {
-                                                    Get.snackbar(
-                                                        "Error12378", "");
-                                                  }
-                                                });
-                                              }
-                                            },
-                                            child: Container(
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    new BorderRadius.circular(
-                                                        10.0),
-                                              ),
-                                              child: new Center(
-                                                child: new Text(
-                                                  'Pay via Wallet',
-                                                  style: new TextStyle(
-                                                      fontSize: 18.0,
-                                                      color: Colors.white),
-                                                ),
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              border: Border.all(
+                                                  color: Colors.white,
+                                                  width: 2.0),
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      10.0),
+                                            ),
+                                            child: new Center(
+                                              child: new Text(
+                                                'Pay via Wallet',
+                                                style: new TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: Colors.white),
                                               ),
                                             ),
                                           ),

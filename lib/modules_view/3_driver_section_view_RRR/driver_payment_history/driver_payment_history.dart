@@ -247,22 +247,9 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                         .start,
                                                                 children: [
                                                                   Text(
-                                                                    'Driver Name:',
+                                                                    'Patient Name:',
                                                                     style: GoogleFonts
                                                                         .poppins(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Bank Name :',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      // color: MyTheme.text1,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -311,7 +298,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                     ),
                                                                   ),
                                                                   Text(
-                                                                    'Time:',
+                                                                    'Location:',
                                                                     style: GoogleFonts
                                                                         .poppins(
                                                                       //color: MyTheme.text1,
@@ -334,7 +321,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                         .start,
                                                                 children: [
                                                                   Text(
-                                                                    '${item?[index].driverName}',
+                                                                    '${item?[index].patientName}',
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .blueww,
@@ -346,7 +333,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                                 0.035),
                                                                   ),
                                                                   Text(
-                                                                    '${item?[index].branchName}',
+                                                                    '₹ ${item?[index].amount}',
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .blueww,
@@ -358,7 +345,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                                 0.035),
                                                                   ),
                                                                   Text(
-                                                                    '${item?[index].paidAmount}',
+                                                                    '${item?[index].paymentId}',
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .blueww,
@@ -370,7 +357,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                                 0.035),
                                                                   ),
                                                                   Text(
-                                                                    '${item?[index].id}',
+                                                                    "${_driverPaymentHistoryController?.foundpaymenthistorydriver?[index].paymentDate ?? "00 / 00 / 0000"}",
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .blueww,
@@ -382,19 +369,10 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                                 0.035),
                                                                   ),
                                                                   Text(
-                                                                    "${_driverPaymentHistoryController?.foundpaymenthistorydriver?[index].joiningDate ?? "00 / 00 / 0000"}",
-                                                                    style: GoogleFonts.raleway(
-                                                                        color: MyTheme
-                                                                            .blueww,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                        fontSize:
-                                                                            size.width *
-                                                                                0.035),
-                                                                  ),
-                                                                  Text(
-                                                                    '11:09 am',
+                                                                    _driverPaymentHistoryController
+                                                                            ?.foundpaymenthistorydriver?[index]
+                                                                            .location ??
+                                                                        "no data",
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .blueww,

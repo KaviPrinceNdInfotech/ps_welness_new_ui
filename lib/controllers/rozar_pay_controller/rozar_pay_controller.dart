@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_checkout/medicine_chkout_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/post_medicine_order_controller/post_medicine_order_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/medicine_history/medicine_history_page.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
@@ -99,7 +99,7 @@ class RozarPayController extends GetxController {
 
         ///nov 14....................................
         // Get.to(LabHistoryUser());
-        Get.to(MedicinrHistoryUser());
+        Get.to(UserHomePage());
         _medicineHistoryController.update();
       } else {
         // SHow

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
@@ -16,9 +17,13 @@ import 'package:ps_welness_new_ui/modules_view/change_password_view/change_passw
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/my_theme.dart';
+import '../../../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import '../../../controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
+import '../../../controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
+import '../../../utils/services/account_service.dart';
+import '../../../widgets/circular_loader.dart';
 import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../../sign_in/sigin_screen.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
@@ -28,7 +33,12 @@ import 'drawer_pages_user/privecy_policy_page/privacy_policy.dart';
 import 'drawer_pages_user/profile_page_view/profile_view.dart';
 import 'drawer_pages_user/walet_user/wallet_user.dart';
 
-class UserMainDrawer extends StatelessWidget {
+class UserMainDrawer extends StatefulWidget {
+  @override
+  State<UserMainDrawer> createState() => _UserMainDrawerState();
+}
+
+class _UserMainDrawerState extends State<UserMainDrawer> {
   @override
   Widget build(BuildContext context) {
     ///use media query to provide the main.......
@@ -40,6 +50,11 @@ class UserMainDrawer extends StatelessWidget {
         Get.put(LabHistoryController());
     NurseHistoryController _nurseHistoryController =
         Get.put(NurseHistoryController());
+    DriverAcceptlistController _driverAcceptlistController =
+        Get.put(DriverAcceptlistController());
+    Wallet_2_Controller _wallet_2_controller = Get.put(Wallet_2_Controller());
+
+    ///
 
     return SafeArea(
       child: Drawer(
@@ -121,11 +136,44 @@ class UserMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UserHomePage'
                   ? Colors.grey[00]
                   : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
+              onTap: () async {
+                // await Future.delayed(Duration(milliseconds: 200));
+                _driverAcceptlistController.driveracceptuserDetailApi();
+                _driverAcceptlistController.update();
+                // accountService.getAccountData.then((accountData) {
+                //   // CallLoader.loader();
+                //   // nearlistdriverApi();
+                //
+                //   Timer(
+                //     const Duration(microseconds: 300),
+                //     () {
+                //       // nearlistdriverApi();
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => MessageScreen2(
+                //                     id: "12345678",
+                //                   )));
+                //       // Get.to(MessageScreen(
+                //       //   id: message.data['id'],
+                //       // ));
+                //       //Get.to((MapView));
+                //       //postAmbulancerequestApi(markers);
+                //
+                //       ///
+                //     },
+                //   );
+                //   CallLoader.hideLoader();
+                // });
+                //Get.back();
+                // _driverAcceptlistController.driveracceptuserDetailApi();
+                // _driverAcceptlistController.update();
+                // Get.to(() => MessageScreen2(
+                //       id: '12345678',
+                //     ));
+                //Get.to(() => UserHomePage());
+                //Get.offNamed('/UserHomePage');
                 Get.back();
-                Get.to(() => UserHomePage());
-                Get.offNamed('/UserHomePage');
               },
             ),
 
@@ -157,8 +205,34 @@ class UserMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => WolletUser());
-                Get.offNamed('/WolletUser');
+                _wallet_2_controller.walletListssApi();
+                _wallet_2_controller.update();
+                accountService.getAccountData.then((accountData) {
+                  // CallLoader.loader();
+                  // nearlistdriverApi();
+
+                  Timer(
+                    const Duration(microseconds: 200),
+                    () {
+                      Get.to(() => WolletUser());
+
+                      // nearlistdriverApi();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => WolletUser()));
+                      // Get.to(MessageScreen(
+                      //   id: message.data['id'],
+                      // ));
+                      //Get.to((MapView));
+                      //postAmbulancerequestApi(markers);
+
+                      ///
+                    },
+                  );
+                  CallLoader.hideLoader();
+                });
+                // Get.offNamed('/WolletUser');
               },
             ),
             //UserDetailProfile

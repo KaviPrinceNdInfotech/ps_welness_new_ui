@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-import '../../../modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
+import '../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../doctor_sections/doctor_checkout_controller.dart';
 import '../doctor_sections/post_doctor_paybooking_order_controller.dart';
 import '../drawer_contoller/lab_history_controller/lab_history_controllers.dart';
@@ -96,7 +96,13 @@ class RozarPayDoctorController extends GetxController {
         _doctorappointmentcheckout.doctoorcheckoutApi();
 
         ///nov 14....................................
-        Get.to(DoctorHistoryUser());
+        //Get.to(DoctorHistoryUser());
+        Get.to(
+          () => UserHomePage(), //next page class
+          duration: Duration(
+              milliseconds: 500), //duration of transitions, default 1 sec
+          transition: Transition.zoom,
+        );
         _doctorappointmentcheckout.update();
         _doctorHistoryController.update();
         _doctorHistoryController.doctorListHospitalApi();

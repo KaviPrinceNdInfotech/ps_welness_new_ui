@@ -164,7 +164,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_driverprofile.getDriverProfileDetail?.city}',
+                                              '${_driverprofile.getDriverProfileDetail?.cityName}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,
@@ -175,7 +175,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               height: size.height * 0.01,
                                             ),
                                             Text(
-                                              '${_driverprofile.getDriverProfileDetail?.state}',
+                                              '${_driverprofile.getDriverProfileDetail?.stateName}',
                                               style: GoogleFonts.poppins(
                                                 fontSize: size.height * 0.018,
                                                 fontWeight: FontWeight.w600,

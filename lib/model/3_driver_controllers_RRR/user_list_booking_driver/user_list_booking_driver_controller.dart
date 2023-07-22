@@ -35,8 +35,8 @@ class UserListModeldriver {
 }
 
 class UserListForBookingAmbulance {
-  int? id;
-  int? patientId;
+  num? id;
+  num? patientId;
   String? patientName;
   String? mobileNumber;
   double? endLat;
@@ -46,6 +46,8 @@ class UserListForBookingAmbulance {
   String? deviceId;
   num? totalPrice;
   num? toatlDistance;
+  String? reverseStartLatLongToLocation;
+  String? reverseEndLatLongToLocation;
 
   UserListForBookingAmbulance({
     this.id,
@@ -59,6 +61,8 @@ class UserListForBookingAmbulance {
     this.deviceId,
     this.totalPrice,
     this.toatlDistance,
+    this.reverseStartLatLongToLocation,
+    this.reverseEndLatLongToLocation,
   });
 
   factory UserListForBookingAmbulance.fromJson(Map<String, dynamic> json) =>
@@ -74,6 +78,8 @@ class UserListForBookingAmbulance {
         deviceId: json["DeviceId"],
         totalPrice: json["TotalPrice"],
         toatlDistance: json["ToatlDistance"],
+        reverseStartLatLongToLocation: json["ReverseStartLatLong_To_Location"],
+        reverseEndLatLongToLocation: json["ReverseEndLatLong_To_Location"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -88,5 +94,7 @@ class UserListForBookingAmbulance {
         "DeviceId": deviceId,
         "TotalPrice": totalPrice,
         "ToatlDistance": toatlDistance,
+        "ReverseStartLatLong_To_Location": reverseStartLatLongToLocation,
+        "ReverseEndLatLong_To_Location": reverseEndLatLongToLocation,
       };
 }

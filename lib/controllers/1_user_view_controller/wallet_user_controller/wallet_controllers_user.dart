@@ -58,6 +58,8 @@ class Wallet_2_Controller extends GetxController {
       "$newWalletAmount",
     );
     if (r.statusCode == 200) {
+      print("ewalletpostttupdat:${r.body}");
+
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
       // Get.to(
       //       () => HomePagePractice(), //next page class

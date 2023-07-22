@@ -16,7 +16,7 @@ import '../../../../controllers/1_user_view_controller/post_nurse_order_controll
 import '../../../../controllers/1_user_view_controller/rozar_pay_nurse_controller/rozar_pay_nurse_controller.dart';
 import '../../../../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import '../../../../controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
-import '../../user_drawer/drawer_pages_user/nurse_history/nurse_history_page.dart';
+import '../../home_page_user_view/user_home_page.dart';
 import '../../user_drawer/drawer_pages_user/walet_user/wallet_user.dart';
 
 class AppointmentCheckout extends StatelessWidget {
@@ -636,110 +636,164 @@ class AppointmentCheckout extends StatelessWidget {
                                           ),
                                         ),
                                         InkWell(
-                                          onTap: () {},
-                                          child: InkWell(
-                                            onTap: () {
-                                              _postOrderNurseController
-                                                  .postOrdernurseonlineApi()
+                                          onTap: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            prefs.setString("NurseFee",
+                                                "${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+                                            // _postOrderNurseController
+                                            //     .postOrdernurseonlineApi()
+                                            //     .then((statusCode) {
+                                            //   if (statusCode == 200) {
+                                            //     ///This is the main thing to provide updated list history...
+                                            //     _nurseHistoryController
+                                            //         .nursehistoryApi();
+                                            //
+                                            //     ///nov 14....................................
+                                            //     //Get.to(LabHistoryUser());
+                                            //     _nurseHistoryController
+                                            //         .update();
+                                            //
+                                            //     ///nov 14....................................
+                                            //     //Get.to(OrderConfirmationPage());
+                                            //   } else {
+                                            //     Get.snackbar("Error123", "");
+                                            //   }
+                                            // });
+                                            final labFee =
+                                                _nurseappointmentcheckout
+                                                        .nurseCheckoutModel?.fee
+                                                        ?.toDouble() ??
+                                                    0;
+
+                                            // _labListController
+                                            // .labCheckoutModel?.fee ??
+                                            // 0;
+                                            final walletAmount =
+                                                _walletPostController
+                                                        .getwalletlist
+                                                        ?.result?[0]
+                                                        .walletAmount ??
+                                                    0;
+                                            print("LABFEEhhh $labFee");
+                                            print(
+                                                "WALLET AMOUNTnn $walletAmount");
+                                            if (labFee > walletAmount) {
+                                              Get.snackbar("Low Amount",
+                                                  "Please Add Money");
+                                              Get.to(
+                                                () =>
+                                                    WolletUser(), //next page class
+                                                duration: Duration(
+                                                    milliseconds:
+                                                        500), //duration of transitions, default 1 sec
+                                                transition: Transition.zoom,
+                                              );
+
+                                              /// Not possibble from wallet go to add page
+                                            } else {
+                                              // final newWalletAmount =
+                                              //     walletAmount - labFee;
+
+                                              final newWalletAmount =
+                                                  labFee - 0;
+                                              _walletPostController
+                                                  .walletPostUpdateApi(
+                                                      newWalletAmount)
                                                   .then((statusCode) {
                                                 if (statusCode == 200) {
+                                                  ///start post order controller.....
+                                                  _postOrderNurseController
+                                                      .postOrdernurseonlineApi()
+                                                      .then((statusCode) {
+                                                    if (statusCode == 200) {
+                                                      Get.snackbar(
+                                                          "Payment Success",
+                                                          "Your booking confirmed");
+
+                                                      ///todo:home page.....
+                                                      Get.to(
+                                                        () =>
+                                                            UserHomePage(), //next page class
+                                                        duration: Duration(
+                                                            milliseconds:
+                                                                500), //duration of transitions, default 1 sec
+                                                        transition:
+                                                            Transition.zoom,
+                                                      );
+
+                                                      ///This is the main thing to provide updated list history...
+                                                      _nurseHistoryController
+                                                          .nursehistoryApi();
+
+                                                      ///nov 14....................................
+                                                      //Get.to(LabHistoryUser());
+                                                      _nurseHistoryController
+                                                          .update();
+
+                                                      ///nov 14....................................
+                                                      //Get.to(OrderConfirmationPage());
+                                                    } else {
+                                                      Get.snackbar(
+                                                          "Error123", "Errors");
+                                                    }
+                                                  });
+
+                                                  ///end...
                                                   ///This is the main thing to provide updated list history...
                                                   _nurseHistoryController
                                                       .nursehistoryApi();
 
-                                                  ///nov 14....................................
-                                                  //Get.to(LabHistoryUser());
                                                   _nurseHistoryController
                                                       .update();
 
+                                                  ///old....
+                                                  // Get.offAll(
+                                                  //   () =>
+                                                  //       NurseHistoryUser(), //next page class
+                                                  //   duration: Duration(
+                                                  //       milliseconds:
+                                                  //           300), //duration of transitions, default 1 sec
+                                                  //   transition:
+                                                  //       Transition.zoom,
+                                                  // );
+
                                                   ///nov 14....................................
                                                   //Get.to(OrderConfirmationPage());
+                                                } else if (statusCode == 400) {
+                                                  Get.to(
+                                                    () =>
+                                                        WolletUser(), //next page class
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            500), //duration of transitions, default 1 sec
+                                                    transition: Transition.zoom,
+                                                  );
                                                 } else {
-                                                  Get.snackbar("Error123", "");
+                                                  Get.snackbar(
+                                                      "Error12378", "error");
                                                 }
                                               });
-                                              final labFee =
-                                                  _nurseappointmentcheckout
-                                                          .nurseCheckoutModel
-                                                          ?.fee ??
-                                                      0;
-
-                                              // _labListController
-                                              // .labCheckoutModel?.fee ??
-                                              // 0;
-                                              final walletAmount =
-                                                  _walletPostController
-                                                          .getwalletlist
-                                                          ?.result?[0]
-                                                          .walletAmount ??
-                                                      0;
-                                              print("LABFEE $labFee");
-                                              print(
-                                                  "WALLET AMOUNT $walletAmount");
-                                              if (labFee > walletAmount) {
-                                                /// Not possibble from wallet go to add page
-                                              } else {
-                                                final newWalletAmount =
-                                                    walletAmount - labFee;
-                                                _walletPostController
-                                                    .walletPostUpdateApi(
-                                                        newWalletAmount)
-                                                    .then((statusCode) {
-                                                  if (statusCode == 200) {
-                                                    ///This is the main thing to provide updated list history...
-                                                    _nurseHistoryController
-                                                        .nursehistoryApi();
-
-                                                    _nurseHistoryController
-                                                        .update();
-                                                    Get.offAll(
-                                                      () =>
-                                                          NurseHistoryUser(), //next page class
-                                                      duration: Duration(
-                                                          milliseconds:
-                                                              300), //duration of transitions, default 1 sec
-                                                      transition:
-                                                          Transition.zoom,
-                                                    );
-
-                                                    ///nov 14....................................
-                                                    //Get.to(OrderConfirmationPage());
-                                                  } else if (statusCode ==
-                                                      400) {
-                                                    Get.to(
-                                                      () =>
-                                                          WolletUser(), //next page class
-                                                      duration: Duration(
-                                                          milliseconds:
-                                                              500), //duration of transitions, default 1 sec
-                                                      transition:
-                                                          Transition.zoom,
-                                                    );
-                                                  } else {
-                                                    Get.snackbar(
-                                                        "Error12378", "");
-                                                  }
-                                                });
-                                              }
-                                            },
-                                            child: Container(
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.red,
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    new BorderRadius.circular(
-                                                        10.0),
-                                              ),
-                                              child: new Center(
-                                                child: new Text(
-                                                  'Pay via Wallet',
-                                                  style: new TextStyle(
-                                                      fontSize: 18.0,
-                                                      color: Colors.white),
-                                                ),
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              border: Border.all(
+                                                  color: Colors.white,
+                                                  width: 2.0),
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      10.0),
+                                            ),
+                                            child: new Center(
+                                              child: new Text(
+                                                'Pay via Wallet',
+                                                style: new TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: Colors.white),
                                               ),
                                             ),
                                           ),

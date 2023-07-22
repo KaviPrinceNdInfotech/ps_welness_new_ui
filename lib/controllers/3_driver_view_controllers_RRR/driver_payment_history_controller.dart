@@ -42,7 +42,7 @@ class DriverPaymentHistoryController extends GetxController {
       finalResult = getDriverPaymentHistory!;
     } else {
       finalResult = getDriverPaymentHistory!
-          .where((element) => element.driverName
+          .where((element) => element.patientName
               .toString()
               .toLowerCase()
               .contains(searchpaymenthistorydriverName

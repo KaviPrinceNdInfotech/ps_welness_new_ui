@@ -58,6 +58,7 @@ import '../controllers/10_lab_controller/lab_home_controllers/lab_home_controlle
 import '../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
+import '../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype2_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype3_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
@@ -82,6 +83,7 @@ import '../controllers/1_user_view_controller/user_profile_controller/user_profi
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 //import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
 //import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
+import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
 import '../controllers/5_rwa_controller_RRR/rwa_complain_controller/rwa_complain_controller.dart';
 import '../controllers/6_chemist_view_controllers/chemist_home_page_controller/chemist_home_page_controllers.dart';
@@ -212,6 +214,8 @@ class ControllerBinding extends Bindings {
     Get.put(FrRwa_1_controller());
     Get.put(Ambulanceget3Controller());
     Get.put(Ambulanceget2Controller());
+    Get.put(DriverAcceptlistController());
+    Get.put(UseracptrejectController());
 
     // Get.put(CatagaryByIdController());
 

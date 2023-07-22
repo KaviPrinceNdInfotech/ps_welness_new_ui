@@ -23,6 +23,7 @@ import '../../../controllers/10_lab_controller/lab_appointment_history_controlle
 import '../../../controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../../../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../../../widgets/exit_popup_warning/exit_popup.dart';
 import '../lab_appointment_details/lab_appointment_details.dart';
 import '../lab_appointment_history_view/appointment_history_view.dart';
 import '../lab_report_list/lab_report_list.dart';
@@ -94,279 +95,284 @@ class LabHomePage extends StatelessWidget {
       // 'service 7',
       // 'service 8',
     ];
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            lightPrimary,
-            darkPrimary,
-          ])),
-      child: Scaffold(
-        key: _key,
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Row(
-            children: [
-              Container(
-                  height: size.height * 0.09,
-                  width: size.width * 0.15,
-                  child: Image.asset(
-                      //'lib/assets/user_assets/12lab.png'
-                      'lib/assets/background_stack_png/lab_equi1.png')),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'PS WELLNESS',
-                      style: GoogleFonts.poppins(
-                        fontSize: 23,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        //color: Color(0xff023382)
-                      ),
-                    ),
-                    TextSpan(
-                      text: ' LAB',
-                      style: GoogleFonts.alatsi(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: MyTheme.containercolor5,
-                        //color: Color(0xff023382)
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Text(
-              //   'PS WELLNESS',
-              //   style: GoogleFonts.alatsi(
-              //     fontWeight: FontWeight.w500,
-              //     fontSize: 22,
-              //   ),
-              // ),
-            ],
-          ),
-          elevation: 0,
+    return WillPopScope(
+      onWillPop: () => showExitPopup(context),
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              lightPrimary,
+              darkPrimary,
+            ])),
+        child: Scaffold(
+          key: _key,
           backgroundColor: Colors.transparent,
-          //MyTheme.ThemeColors,
-          leading: IconButton(
-            icon: Icon(
-              Icons.dehaze_rounded,
-              size: 23,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              _key.currentState!.openDrawer();
-            },
-          ),
-          // leading: Icon(Icons.read_more_outlined),
-        ),
-        drawer: LabMainDrawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: size.height * 0.28,
-                width: size.width,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey)),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: MyLabSlider(),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Row(
+              children: [
+                Container(
+                    height: size.height * 0.09,
+                    width: size.width * 0.15,
+                    child: Image.asset(
+                        //'lib/assets/user_assets/12lab.png'
+                        'lib/assets/background_stack_png/lab_equi1.png')),
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'PS WELLNESS',
+                        style: GoogleFonts.poppins(
+                          fontSize: 23,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          //color: Color(0xff023382)
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' LAB',
+                        style: GoogleFonts.alatsi(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: MyTheme.containercolor5,
+                          //color: Color(0xff023382)
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                // Text(
+                //   'PS WELLNESS',
+                //   style: GoogleFonts.alatsi(
+                //     fontWeight: FontWeight.w500,
+                //     fontSize: 22,
+                //   ),
+                // ),
+              ],
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            //MyTheme.ThemeColors,
+            leading: IconButton(
+              icon: Icon(
+                Icons.dehaze_rounded,
+                size: 23,
+                color: Colors.white,
               ),
-              SizedBox(
-                height: size.height * 0.005,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: size.height * 0.001,
-                    horizontal: size.width * 0.01),
-                child: Container(
-                  height: size.height * 0.585,
+              onPressed: () {
+                _key.currentState!.openDrawer();
+              },
+            ),
+            // leading: Icon(Icons.read_more_outlined),
+          ),
+          drawer: LabMainDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: size.height * 0.28,
+                  width: size.width,
                   decoration: BoxDecoration(
-                      // color: Colors.white,
-                      ),
-                  child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: size.height * 0.25,
-                        mainAxisExtent: size.height * 0.188,
-                        childAspectRatio: 4 / 3,
-                        crossAxisSpacing: 4,
-                        mainAxisSpacing: 8,
-                      ),
-                      itemCount: productname.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Container(
-                          height: size.height * 0.08,
-                          //width: double.,
-                          margin: EdgeInsets.symmetric(
-                              vertical: size.height * 0.00131,
-                              horizontal: size.width * 0.01),
-                          decoration: BoxDecoration(
-                              color: Color(0xff11eae0),
-                              //colors[index],
-                              // gradient: LinearGradient(
-                              //     begin: Alignment.centerLeft,
-                              //     end: Alignment.centerRight,
-                              //     colors: [
-                              //       Color(0xffffffff),
-                              //       Color(0xffffffff)
-                              //       //darkPrimary,
-                              //     ]),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(-0, -0),
-                                  spreadRadius: 0,
-                                  blurRadius: 0,
-                                  color: Colors.grey.shade100,
-                                ),
-                                BoxShadow(
-                                  offset: Offset(3, 3),
-                                  spreadRadius: 0,
-                                  blurRadius: 0,
-                                  color: Colors.grey.shade300,
-                                ),
-                              ]),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: size.height * 0.000,
-                                horizontal: size.width * 0.000),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    underprocess[index],
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: GoogleFonts.abhayaLibre(
-                                      fontSize: size.height * 0.016,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                    ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.grey)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: MyLabSlider(),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.005,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: size.height * 0.001,
+                      horizontal: size.width * 0.01),
+                  child: Container(
+                    height: size.height * 0.585,
+                    decoration: BoxDecoration(
+                        // color: Colors.white,
+                        ),
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: size.height * 0.25,
+                          mainAxisExtent: size.height * 0.188,
+                          childAspectRatio: 4 / 3,
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 8,
+                        ),
+                        itemCount: productname.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return Container(
+                            height: size.height * 0.08,
+                            //width: double.,
+                            margin: EdgeInsets.symmetric(
+                                vertical: size.height * 0.00131,
+                                horizontal: size.width * 0.01),
+                            decoration: BoxDecoration(
+                                color: Color(0xff11eae0),
+                                //colors[index],
+                                // gradient: LinearGradient(
+                                //     begin: Alignment.centerLeft,
+                                //     end: Alignment.centerRight,
+                                //     colors: [
+                                //       Color(0xffffffff),
+                                //       Color(0xffffffff)
+                                //       //darkPrimary,
+                                //     ]),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(-0, -0),
+                                    spreadRadius: 0,
+                                    blurRadius: 0,
+                                    color: Colors.grey.shade100,
                                   ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    if (index == 0) {
-                                      //Get.back();
-                                      _appointmentDetailController
-                                          .labappointmentdetailApi();
-                                      _appointmentDetailController.update();
-                                      Get.to(() => LabAppointmentDetail());
-                                    } else if (index == 1) {
-                                      Get.offAll(() => LabUploadReports());
-                                      // _labUploadReportController
-                                      //     .getlabpatientApi();
-                                      // _labUploadReportController.update();
-                                      // _labUploadReportController
-                                      //     .getTestNameApi();
-
-                                      //Get.to(() => CatagaryDetails());
-                                    } else if (index == 2) {
-                                      // Get.back();
-                                      _labpaymentController.update();
-                                      _labpaymentController.labhistoryApi();
-                                      Get.to(() => LabPaymentHistory());
-                                    } else if (index == 3) {
-                                      _labAppointmentHistoryyController
-                                          .update();
-                                      _labAppointmentHistoryyController
-                                          .labappointmenthistoryApi();
-                                      Get.to(() => LabAppointmentHistory());
-
-                                      ///
-                                      //Get.to(() => TheJwelleryStore());
-
-                                      //Get.to(() => CarouselDemo());
-                                    } else if (index == 4) {
-                                      _labreportviewController.update();
-                                      _labreportviewController
-                                          .labreportviewApi();
-                                      Get.to(LabViewReport());
-                                    } else if (index == 5) {
-                                      Get.to(() => AddBankDetail());
-                                    }
-                                  },
-                                  child: Container(
-                                    height: size.height * 0.11,
-                                    width: size.width * 0.23,
-                                    padding: EdgeInsets.all(7),
-                                    child: Image.asset(
-                                      productimage[index],
-                                      // "lib/assets/image/icons8-hospital-64.png",
-                                    ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.shade300,
-                                            //color: Color(0xFFBEBEBE),
-                                            offset: Offset(03, 03),
-                                            blurRadius: 0,
-                                            spreadRadius: 0,
-                                          ),
-                                          const BoxShadow(
-                                            color: Colors.white,
-                                            offset: Offset(-02, -02),
-                                            blurRadius: 0,
-                                            spreadRadius: 0,
-                                          ),
-                                        ]),
+                                  BoxShadow(
+                                    offset: Offset(3, 3),
+                                    spreadRadius: 0,
+                                    blurRadius: 0,
+                                    color: Colors.grey.shade300,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.005,
-                                ),
-                                Container(
-                                  height: size.height * 0.033,
-                                  decoration: BoxDecoration(
-                                      color:
-                                          Color(0xffffffff).withOpacity(0.999),
-                                      //Colors.pink.shade100,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10),
-                                      )),
-                                  child: Center(
+                                ]),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: size.height * 0.000,
+                                  horizontal: size.width * 0.000),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
-                                      productname[index],
+                                      underprocess[index],
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                       style: GoogleFonts.abhayaLibre(
-                                        fontSize: size.height * 0.018,
-                                        letterSpacing: 0.5,
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.black,
+                                        fontSize: size.height * 0.016,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  InkWell(
+                                    onTap: () {
+                                      if (index == 0) {
+                                        //Get.back();
+                                        _appointmentDetailController
+                                            .labappointmentdetailApi();
+                                        _appointmentDetailController.update();
+                                        Get.to(() => LabAppointmentDetail());
+                                      } else if (index == 1) {
+                                        Get.offAll(() => LabUploadReports());
+                                        // _labUploadReportController
+                                        //     .getlabpatientApi();
+                                        // _labUploadReportController.update();
+                                        // _labUploadReportController
+                                        //     .getTestNameApi();
+
+                                        //Get.to(() => CatagaryDetails());
+                                      } else if (index == 2) {
+                                        // Get.back();
+                                        _labpaymentController.update();
+                                        _labpaymentController.labhistoryApi();
+                                        Get.to(() => LabPaymentHistory());
+                                      } else if (index == 3) {
+                                        _labAppointmentHistoryyController
+                                            .update();
+                                        _labAppointmentHistoryyController
+                                            .labappointmenthistoryApi();
+                                        Get.to(() => LabAppointmentHistory());
+
+                                        ///
+                                        //Get.to(() => TheJwelleryStore());
+
+                                        //Get.to(() => CarouselDemo());
+                                      } else if (index == 4) {
+                                        _labreportviewController.update();
+                                        _labreportviewController
+                                            .labreportviewApi();
+                                        Get.to(LabViewReport());
+                                      } else if (index == 5) {
+                                        Get.to(() => AddBankDetail());
+                                      }
+                                    },
+                                    child: Container(
+                                      height: size.height * 0.11,
+                                      width: size.width * 0.23,
+                                      padding: EdgeInsets.all(7),
+                                      child: Image.asset(
+                                        productimage[index],
+                                        // "lib/assets/image/icons8-hospital-64.png",
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.shade300,
+                                              //color: Color(0xFFBEBEBE),
+                                              offset: Offset(03, 03),
+                                              blurRadius: 0,
+                                              spreadRadius: 0,
+                                            ),
+                                            const BoxShadow(
+                                              color: Colors.white,
+                                              offset: Offset(-02, -02),
+                                              blurRadius: 0,
+                                              spreadRadius: 0,
+                                            ),
+                                          ]),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.005,
+                                  ),
+                                  Container(
+                                    height: size.height * 0.033,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffffffff)
+                                            .withOpacity(0.999),
+                                        //Colors.pink.shade100,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        )),
+                                    child: Center(
+                                      child: Text(
+                                        productname[index],
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: GoogleFonts.abhayaLibre(
+                                          fontSize: size.height * 0.018,
+                                          letterSpacing: 0.5,
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          // child: child,
-                        );
-                        //   Container(
-                        //   alignment: Alignment.center,
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.amber,
-                        //       borderRadius: BorderRadius.circular(15)),
-                        //   child: Text(productname[index]),
-                        // );
-                      }),
-                ),
-              )
-            ],
+                            // child: child,
+                          );
+                          //   Container(
+                          //   alignment: Alignment.center,
+                          //   decoration: BoxDecoration(
+                          //       color: Colors.amber,
+                          //       borderRadius: BorderRadius.circular(15)),
+                          //   child: Text(productname[index]),
+                          // );
+                        }),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
