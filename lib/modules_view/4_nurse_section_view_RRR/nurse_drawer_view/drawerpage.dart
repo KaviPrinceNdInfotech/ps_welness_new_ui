@@ -17,10 +17,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'drower_pages/about_us/about_us.dart';
 import '../../../controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
+import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/patient_lists/patient_list.dart';
 import 'drower_pages/profile_page_view/nurse_profile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class NurseMainDrawer extends StatelessWidget {
   // NurseComplaintController _nurseComplaintController =
@@ -356,7 +356,7 @@ class NurseMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
+                Get.to(() => SupportViewPs());
                 Get.offNamed('/SupportView');
               },
             ),

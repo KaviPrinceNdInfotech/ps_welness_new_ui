@@ -20,10 +20,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/10_lab_controller/lab_about_us_controller/lab_about_us_controllers.dart';
 import '../../../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
+import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/complaint_page/complaint_lab_page.dart';
 import 'drower_pages/profile_page_view/lab_profile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class LabMainDrawer extends StatelessWidget {
   LabprofiledetailController _labprofiledetailController =
@@ -389,7 +389,7 @@ class LabMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
+                Get.to(() => SupportViewPs());
                 Get.offNamed('/SupportView');
               },
             ),

@@ -312,7 +312,7 @@ class LabSchedule1Page extends StatelessWidget {
                                     height: size.height * 0.005,
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.16,
+                                    height: size.height * 0.21,
                                     child: Obx(
                                       () => (_labListController
                                                   .isLoading.value &&
@@ -627,7 +627,7 @@ class LabSchedule1Page extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: size.width * 0.2,
-                                        vertical: size.height * 0.004),
+                                        vertical: size.height * 0.00),
                                     child: ElevatedButton(
                                       onPressed: () {
                                         //Get.to(() => UserHomePage());

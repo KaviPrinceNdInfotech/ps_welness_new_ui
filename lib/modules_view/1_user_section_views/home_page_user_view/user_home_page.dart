@@ -441,19 +441,19 @@ class _UserHomePageState extends State<UserHomePage> {
                     child: Column(
                       children: [
                         Container(
-                          height: size.height * 0.23,
+                          height: size.height * 0.265,
                           width: size.width,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(color: Colors.grey)),
                           child: Padding(
-                            padding: const EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(1),
                             child: MySlider(),
                           ),
                         ),
                         SizedBox(
-                          height: size.height * 0.005,
+                          height: size.height * 0.001,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -466,7 +466,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                 gridDelegate:
                                     SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: size.height * 0.25,
-                                  mainAxisExtent: size.height * 0.2,
+                                  mainAxisExtent: size.height * 0.196,
                                   childAspectRatio: 4 / 3,
                                   crossAxisSpacing: 4,
                                   mainAxisSpacing: 8,

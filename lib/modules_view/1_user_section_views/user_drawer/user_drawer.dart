@@ -669,7 +669,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
+                Get.to(() => SupportViewPs());
                 Get.offNamed('/SupportView');
               },
             ),

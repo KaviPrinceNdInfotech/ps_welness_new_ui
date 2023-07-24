@@ -22,9 +22,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/6_chemist_view_controllers_RRR/chemist_aboutus_controller.dart';
 import '../../../controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
+import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_page_view/chemist_updateProfile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class ChemistMainDrawer extends StatelessWidget {
   ChemistProfileDetailController _chemistProfileDetailController =
@@ -318,7 +318,7 @@ class ChemistMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
+                Get.to(() => SupportViewPs());
                 Get.offNamed('/SupportView');
               },
             ),

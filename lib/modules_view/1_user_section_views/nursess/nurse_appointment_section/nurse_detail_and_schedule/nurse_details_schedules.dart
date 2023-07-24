@@ -611,7 +611,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     height: size.height * 0.004,
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.22,
+                                    height: size.height * 0.20,
                                     child: Obx(
                                       () => (_nurseAppointmentDetailController
                                                   .isLoading.value &&
@@ -787,10 +787,11 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: size.height * 0.86,
+                        top: size.height * 0.9,
                         //bottom: size.height * 0.00,
                         left: size.width * 0.0,
                         right: size.width * 0.00,
+                        bottom: 0.005,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.2),

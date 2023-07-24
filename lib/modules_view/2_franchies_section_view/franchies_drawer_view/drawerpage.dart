@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +22,6 @@ import 'drower_pages/about_franchies/about_franchies.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_details_franchies/profile_franchies_detail_page.dart';
 import 'drower_pages/profile_page_view/franchiese_profile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class FranchiesisMainDrawer extends StatelessWidget {
   @override
@@ -264,7 +264,7 @@ class FranchiesisMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
+                Get.to(() => SupportViewPs());
                 Get.offNamed('/SupportView');
               },
             ),

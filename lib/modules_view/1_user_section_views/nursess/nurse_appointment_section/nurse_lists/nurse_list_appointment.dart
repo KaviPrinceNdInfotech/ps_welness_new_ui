@@ -148,7 +148,7 @@ class NurseListUser extends StatelessWidget {
                               child: Text('No List'),
                             )
                           : SizedBox(
-                              //height: size.height * 0.77,
+                              height: size.height * 0.78,
                               child: ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: _nurseUserListController
