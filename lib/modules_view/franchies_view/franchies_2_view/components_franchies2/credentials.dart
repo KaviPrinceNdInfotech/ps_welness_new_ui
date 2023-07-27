@@ -33,7 +33,7 @@ class Franchies2Credentials extends StatelessWidget {
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.only(left: 30, right: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -122,9 +122,12 @@ class Franchies2Credentials extends StatelessWidget {
                 child: TextFormField(
                   autofillHints: [AutofillHints.addressCityAndState],
                   controller: _franchies_1_controller.Location,
-                  // validator: (value) {
-                  //   return _franchies_1_controller.validAddress(value!);
-                  // },
+                  onSaved: (value) {
+                    _franchies_1_controller.address = value!;
+                  },
+                  validator: (value) {
+                    return _franchies_1_controller.validAddress(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -152,12 +155,12 @@ class Franchies2Credentials extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.telephoneNumber],
                   controller: _franchies_1_controller.PinCode,
-                  // onSaved: (value) {
-                  //   _franchies_2_controller.pin = value!;
-                  // },
-                  // validator: (value) {
-                  //   return _franchies_2_controller.validPin(value!);
-                  // },
+                  onSaved: (value) {
+                    _franchies_1_controller.pin = value!;
+                  },
+                  validator: (value) {
+                    return _franchies_1_controller.validPin(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -185,6 +188,12 @@ class Franchies2Credentials extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.telephoneNumber],
                   controller: _franchies_1_controller.GSTNumber,
+                  onSaved: (value) {
+                    _franchies_1_controller.gst = value!;
+                  },
+                  validator: (value) {
+                    return _franchies_1_controller.validGst(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -211,6 +220,12 @@ class Franchies2Credentials extends StatelessWidget {
                 child: TextFormField(
                   autofillHints: [AutofillHints.name],
                   controller: _franchies_1_controller.PanNumber,
+                  onSaved: (value) {
+                    _franchies_1_controller.pan = value!;
+                  },
+                  validator: (value) {
+                    return _franchies_1_controller.validPan(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -237,6 +252,12 @@ class Franchies2Credentials extends StatelessWidget {
                 child: TextFormField(
                   autofillHints: [AutofillHints.password],
                   controller: _franchies_1_controller.AadharOrPANNumber,
+                  onSaved: (value) {
+                    _franchies_1_controller.aadhaar = value!;
+                  },
+                  validator: (value) {
+                    return _franchies_1_controller.validAadhar(value!);
+                  },
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(

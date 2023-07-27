@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 import 'chemistcomponents2/credentials.dart';
@@ -28,14 +29,14 @@ class ChemistSignup2 extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                top: -size.height * 0.08,
+                top: -size.height * 0.04,
                 //bottom: size.height * 0.64,
                 //left: -30,
                 right: -size.width * 0.013,
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Container(
-                    height: size.height * 0.52,
+                    height: size.height * 0.45,
                     width: size.width * 0.52,
                     decoration: BoxDecoration(
                         //color: Colors.,

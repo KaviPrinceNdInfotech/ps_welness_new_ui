@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
 import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
@@ -56,8 +58,21 @@ class MedicineAddressController extends GetxController {
 
       CallLoader.hideLoader();
 
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(seconds: 1),
+          () {
+            // labcheckoutApi();
+            Get.to(() => Medicineaddresslist());
+
+            //Get.to((page))
+            ///
+          },
+        );
+      });
+
       /// we can navigate to user page.....................................
-      Get.to(Medicineaddresslist());
+      //Get.to(Medicineaddresslist());
     }
   }
 
@@ -115,6 +130,15 @@ class MedicineAddressController extends GetxController {
     deliveryaddressController.dispose();
     pinController.dispose();
   }
+
+  ///delete your controller...
+  @override
+  void dispose() {
+    Get.delete<MedicineAddressController>();
+    super.dispose();
+  }
+
+  //Get.delete<YourController>();
 
   String? validName(String value) {
     if (value.length < 2) {

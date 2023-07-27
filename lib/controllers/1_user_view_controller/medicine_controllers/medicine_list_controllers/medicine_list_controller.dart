@@ -29,6 +29,22 @@ class MedicineListController extends GetxController {
   void medicineListApi() async {
     isLoading(true);
     medicinelistmodel = await ApiProvider.MedicinelistApi();
+    if (medicinelistmodel == null) {
+      Timer(
+        const Duration(seconds: 2),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      medicinelistmodel = await ApiProvider.MedicinelistApi();
+      //Get.to(() => TotalPrice());
+
+      foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince lab list');
     print(medicinelistmodel);
     if (medicinelistmodel != null) {
@@ -49,6 +65,7 @@ class MedicineListController extends GetxController {
       _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
       _medicineCartListController.refresh();
+      _medicineCartListController.onInit();
 
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
       // Get.to(
@@ -65,7 +82,7 @@ class MedicineListController extends GetxController {
       ///from here we can go to next screen with some time ....
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 300),
+          const Duration(seconds: 1),
           () {
             Get.to(() => MedicineCart());
             //Get.to((page))

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_controller1.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -198,6 +198,12 @@ class Doctor1Credentials extends StatelessWidget {
                 controller: _doctor_1_controller.feeController,
                 cursorColor: Colors.black,
                 obscureText: false,
+                onSaved: (value) {
+                  _doctor_1_controller.DoctorName = value!;
+                },
+                validator: (value) {
+                  return _doctor_1_controller.validName(value!);
+                },
                 decoration: InputDecoration(
                   hintText: 'Fee',
                   helperStyle: TextStyle(
@@ -225,6 +231,12 @@ class Doctor1Credentials extends StatelessWidget {
                 controller: _doctor_1_controller.phoneNumberController,
                 cursorColor: Colors.black,
                 obscureText: false,
+                onSaved: (value) {
+                  _doctor_1_controller.DoctorName = value!;
+                },
+                validator: (value) {
+                  return _doctor_1_controller.validPhone(value!);
+                },
                 decoration: InputDecoration(
                   hintText: 'Phone number',
                   helperStyle: TextStyle(
@@ -245,103 +257,112 @@ class Doctor1Credentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
-            ///todo : start Timing .................
-            NeumorphicTextFieldContainer(
-              child: Obx(
-                () => InkWell(
-                  onTap: () {
-                    _doctor_1_controller.chooseStartTime();
-                  },
-                  child: Container(
-                    height: size.height * 0.06,
-                    child: Center(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Choose Start time",
-                              style: TextStyle(
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.bold,
-                                color: MyTheme.blueww,
-                              ),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.03,
-                            ),
-                            //Spacer(),
-                            Text(
-                              "${_doctor_1_controller.selectedStartTime.value.hour}:${_doctor_1_controller.selectedStartTime.value.minute}",
-                              style: TextStyle(
-                                fontSize: size.height * 0.026,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.00,
-              //appPadding / 2,
-            ),
+            // ///todo : start Timing .................
+            // NeumorphicTextFieldContainer(
+            //   child: Obx(
+            //     () => InkWell(
+            //       onTap: () {
+            //         _doctor_1_controller.chooseStartTime();
+            //       },
+            //       child: Container(
+            //         height: size.height * 0.06,
+            //         child: Center(
+            //           child: Padding(
+            //             padding:
+            //                 EdgeInsets.symmetric(horizontal: size.width * 0.1),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   "Choose Start time",
+            //                   style: TextStyle(
+            //                     fontSize: size.height * 0.017,
+            //                     fontWeight: FontWeight.bold,
+            //                     color: MyTheme.blueww,
+            //                   ),
+            //                 ),
+            //                 SizedBox(
+            //                   width: size.width * 0.03,
+            //                 ),
+            //                 //Spacer(),
+            //                 Text(
+            //                   "${_doctor_1_controller.selectedStartTime.value.hour}:${_doctor_1_controller.selectedStartTime.value.minute}",
+            //                   style: TextStyle(
+            //                     fontSize: size.height * 0.026,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.00,
+            //   //appPadding / 2,
+            // ),
+            //
+            // ///todo : Slot Timing .................
+            // NeumorphicTextFieldContainer(
+            //   child: Obx(
+            //     () => InkWell(
+            //       onTap: () {
+            //         _doctor_1_controller.chooseSlotTime();
+            //       },
+            //       child: Container(
+            //         height: size.height * 0.06,
+            //         child: Center(
+            //           child: Padding(
+            //             padding:
+            //                 EdgeInsets.symmetric(horizontal: size.width * 0.1),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   "Choose Slot time",
+            //                   style: TextStyle(
+            //                     fontSize: size.height * 0.017,
+            //                     fontWeight: FontWeight.bold,
+            //                     color: MyTheme.blueww,
+            //                   ),
+            //                 ),
+            //                 SizedBox(
+            //                   width: size.width * 0.03,
+            //                 ),
+            //                 //Spacer(),
+            //                 Text(
+            //                   "${_doctor_1_controller.selectedSlotTime.value.hour}:${_doctor_1_controller.selectedSlotTime.value.minute}",
+            //                   style: TextStyle(
+            //                     fontSize: size.height * 0.026,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
-            ///todo : Slot Timing .................
-            NeumorphicTextFieldContainer(
-              child: Obx(
-                () => InkWell(
-                  onTap: () {
-                    _doctor_1_controller.chooseSlotTime();
-                  },
-                  child: Container(
-                    height: size.height * 0.06,
-                    child: Center(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Choose Slot time",
-                              style: TextStyle(
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.bold,
-                                color: MyTheme.blueww,
-                              ),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.03,
-                            ),
-                            //Spacer(),
-                            Text(
-                              "${_doctor_1_controller.selectedSlotTime.value.hour}:${_doctor_1_controller.selectedSlotTime.value.minute}",
-                              style: TextStyle(
-                                fontSize: size.height * 0.026,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
               height: size.height * 0.00,
               //appPadding / 2,
             ),
             RectangularButton(
                 text: 'Go Next >',
-                press: () {
-                  Get.to(DoctorSignup2());
+                press: () async {
+                  //_doctor_1_controller.onInit();
+                  _doctor_1_controller.getdepartmentApi();
+                  // _doctor_1_controller.update();
+                  _doctor_1_controller.getStateLabApi();
+                  //RxStatus.loading();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(seconds: 1));
+                  CallLoader.hideLoader();
+                  await Get.to(DoctorSignup2());
                 })
           ],
         ),

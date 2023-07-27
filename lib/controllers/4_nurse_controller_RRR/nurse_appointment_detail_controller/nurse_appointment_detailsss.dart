@@ -166,9 +166,27 @@ class NurseAppointmentDetailController extends GetxController {
   void nursedetailApi() async {
     isLoading(true);
     nursedetailbyId = await ApiProvider.NursDetailApi();
+    if (nursedetailbyId?.nurseName == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      nursedetailbyId = await ApiProvider.NursDetailApi();
+      //Get.to(() => TotalPrice());
+
+      // foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
+    print('Prince lab list');
+    print(nursedetailbyId);
     print('Prince nurse detail..');
     print(nursedetailbyId);
-    if (nursedetailbyId != null
+    if (nursedetailbyId?.nurseName != null
         //nurseappointmentdetail?.result != null
         //nursedetailbyId != null
         //getcatagartlist!.result!.isNotEmpty

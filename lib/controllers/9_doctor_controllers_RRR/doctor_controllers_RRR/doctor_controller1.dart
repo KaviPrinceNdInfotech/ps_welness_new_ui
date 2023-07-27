@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
@@ -20,6 +22,31 @@ class Doctor_1_Controller extends GetxController {
   var selectedStartTime = TimeOfDay.now().obs;
   var selectedEndTime = TimeOfDay.now().obs;
   var selectedSlotTime = TimeOfDay.now().obs;
+
+  ///this is for department.................................
+  Rx<DepartmentModel?> selectedDepartment = (null as DepartmentModel?).obs;
+  List<DepartmentModel> department = <DepartmentModel>[].obs;
+
+  ///this is for department.................................
+  Rx<SpecialistModel?> selectedSpecialist = (null as SpecialistModel?).obs;
+  List<SpecialistModel> specialist = <SpecialistModel>[].obs;
+
+  ///get department api.........
+
+  void getdepartmentApi() async {
+    department = await ApiProvider.getDortorDepartmentApi();
+    print('Prince departmrntttss  list');
+    print(department);
+  }
+
+  ///get specialist api...........
+  void getspecialistByDeptID(String depId) async {
+    specialist.clear();
+    final localList = await ApiProvider.getSpeaclistbyIdApi(depId);
+    specialist.addAll(localList);
+    print("Prince cities of $depId");
+    print(specialist);
+  }
 
   TextEditingController? idController,
       doctorNameController,
@@ -42,7 +69,8 @@ class Doctor_1_Controller extends GetxController {
       stateMaster_IdController,
       cityMaster_IdController,
       endTimeController,
-      licenceBase64Controller;
+      licenceBase64Controller,
+      experienceController;
 
   var Id = '';
   var DoctorName = '';
@@ -66,6 +94,7 @@ class Doctor_1_Controller extends GetxController {
   var CityMaster_Id = '';
   var EndTime = '';
   var LicenceBase64 = '';
+  var experience = '';
 
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
@@ -97,66 +126,73 @@ class Doctor_1_Controller extends GetxController {
     final licenceImageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.signDoctorUpApi(
-        doctorNameController?.text,
-        emailIdController?.text,
-        passwordController?.text,
-        confirmPasswordController?.text,
-        mobileNumberController?.text,
-        feeController?.text,
-        phoneNumberController?.text,
-        selectedStartTime.value.toString(),
-        selectedSlotTime.value.hour,
-        departmentIdController?.text,
-        specialistIdController?.text,
-        licenceNumberController?.text,
-        selectedImagepath.value.split('/').last,
-        pinCodeController?.text,
-        clinicNameController?.text,
-        locationController?.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        selectedEndTime.value.hour,
-        licenceImageAsBase64);
+      doctorNameController?.text,
+      emailIdController?.text,
+      passwordController?.text,
+      confirmPasswordController?.text,
+      mobileNumberController?.text,
+      feeController?.text,
+      phoneNumberController?.text,
+      selectedStartTime.value.toString(),
+      selectedSlotTime.value.hour,
+      selectedDepartment.value?.id.toString(),
+      selectedSpecialist.value?.id.toString(),
+      licenceNumberController?.text,
+      selectedImagepath.value.split('/').last,
+      pinCodeController?.text,
+      clinicNameController?.text,
+      locationController?.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      selectedEndTime.value.hour,
+      licenceImageAsBase64,
+      experienceController?.text,
+    );
     if (r.statusCode == 200) {
+      Get.snackbar('message', "${r.body}");
       Get.to(SignInScreen());
       CallLoader.hideLoader();
-    } else {
-      CallLoader.hideLoader();
-    }
+    } else {}
   }
 
   @override
   void onInit() {
     super.onInit();
     getStateLabApi();
+    getdepartmentApi();
     selectedState.listen((p0) {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
     });
+    selectedDepartment.listen((p0) {
+      if (p0 != null) {
+        getspecialistByDeptID("${p0.id}");
+      }
+    });
     idController = TextEditingController(text: '143');
-    doctorNameController = TextEditingController(text: 'ramkkkkkkkssssingh');
-    emailIdController = TextEditingController(text: 'ram@gmail.com');
-    passwordController = TextEditingController(text: '12345');
-    confirmPasswordController = TextEditingController(text: '12345');
-    mobileNumberController = TextEditingController(text: '6853064834');
-    feeController = TextEditingController(text: '100');
-    phoneNumberController = TextEditingController(text: '6378028261');
+    doctorNameController = TextEditingController();
+    emailIdController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    mobileNumberController = TextEditingController();
+    feeController = TextEditingController();
+    phoneNumberController = TextEditingController();
     startTimeController = TextEditingController(text: '01:50:00.0000000');
     slotTimingController = TextEditingController(text: '5');
-    departmentIdController = TextEditingController(text: '1');
-    specialistIdController = TextEditingController(text: '3');
-    licenceNumberController = TextEditingController(text: '12345');
-    licenceImageController = TextEditingController(text: 'healt.jpeg');
-    licenceImageNameController = TextEditingController(text: 'healt.jpeg');
-    pinCodeController = TextEditingController(text: '206122');
-    clinicNameController = TextEditingController(text: '2545');
-    locationController =
-        TextEditingController(text: 'Saket, New Delhi, Delhi, India');
-    stateMaster_IdController = TextEditingController(text: '3');
-    cityMaster_IdController = TextEditingController(text: '4');
+    departmentIdController = TextEditingController();
+    specialistIdController = TextEditingController();
+    licenceNumberController = TextEditingController();
+    licenceImageController = TextEditingController();
+    licenceImageNameController = TextEditingController();
+    pinCodeController = TextEditingController();
+    clinicNameController = TextEditingController();
+    locationController = TextEditingController();
+    stateMaster_IdController = TextEditingController();
+    cityMaster_IdController = TextEditingController();
     endTimeController = TextEditingController(text: '14:27:00.0000000');
-    licenceBase64Controller = TextEditingController(text: '');
+    licenceBase64Controller = TextEditingController();
+    experienceController = TextEditingController();
   }
 
   @override
@@ -166,6 +202,7 @@ class Doctor_1_Controller extends GetxController {
 
   @override
   void onClose() {
+    experienceController?.dispose();
     idController?.dispose();
     doctorNameController?.dispose();
     emailIdController?.dispose();
@@ -192,7 +229,7 @@ class Doctor_1_Controller extends GetxController {
 
   String? validName(String value) {
     if (value.length < 2) {
-      return "              Provide valid name";
+      return "              Provide valid value";
     }
     return null;
   }
@@ -217,8 +254,8 @@ class Doctor_1_Controller extends GetxController {
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -227,8 +264,8 @@ class Doctor_1_Controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != ConfirmPassword) {
       return "              Password must be same as above";
     } else {
@@ -244,6 +281,26 @@ class Doctor_1_Controller extends GetxController {
       return '              A valid phone number should be of 10 digits';
     }
     return null;
+  }
+
+  String? validPin(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 6) {
+      return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validexperince(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    // if (value.length < 1) {
+    //   return '              A valid pin should be of 6 digits';
+    // }
+    //return null;
   }
 
   chooseEndTime() async {

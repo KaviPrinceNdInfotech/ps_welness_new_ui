@@ -32,7 +32,7 @@ class FranchiesSignup2 extends StatelessWidget {
                 height: size.height * 0.02,
               ),
               Positioned(
-                top: size.height * 0.03,
+                top: size.height * 0.07,
                 //bottom: size.height * 0.64,
                 //left: -30,
                 right: -size.width * 0.006,

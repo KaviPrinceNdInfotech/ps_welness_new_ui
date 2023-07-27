@@ -7,6 +7,8 @@ import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dar
 import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup2/rwa_signup2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
+import '../../../../widgets/circular_loader.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/controllers/rwa_controller/rwa_controller1.dart';
 // import 'package:ps_welness/modules_view/rwa_view/rwa_signup2/rwa_signup2.dart';
@@ -200,7 +202,7 @@ class Rwa1Credentials extends StatelessWidget {
             ),
 
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.0,
             ),
 
             // Container(
@@ -367,8 +369,15 @@ class Rwa1Credentials extends StatelessWidget {
             // ),
             RectangularButton(
                 text: 'Go Next >',
-                press: () {
-                  Get.to(RwaSignup2());
+                press: () async {
+                  _rwa_11_controller.getStateRwaApi();
+                  _rwa_11_controller.update();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(seconds: 1));
+                  CallLoader.hideLoader();
+                  //await Get.to(DoctorSignup2());
+                  //await Get.to(NursesSignup2());
+                  await Get.to(RwaSignup2());
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

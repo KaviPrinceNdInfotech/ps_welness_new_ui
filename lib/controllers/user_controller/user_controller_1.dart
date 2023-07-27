@@ -60,6 +60,7 @@ class User_1_Controller extends GetxController {
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
+      Get.snackbar('message', r.body);
 
       CallLoader.hideLoader();
 

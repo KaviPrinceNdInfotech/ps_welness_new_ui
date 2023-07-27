@@ -151,7 +151,7 @@ class ControllerBinding extends Bindings {
     Get.put(NurseComplaintController()); // Rahul
     Get.put(DriverProfileController()); // Rahul
     Get.put(DoctorUpdateProfileController()); // Rahul
-    Get.put(Nurses_2_Controller()); // Rahul
+    Get.put(Nurses_22_Controller()); // Rahul
     Get.put(ComplaintController()); // Rahul
     Get.put(RwaProfileController()); // Rahul
     Get.put(RWASignupController());

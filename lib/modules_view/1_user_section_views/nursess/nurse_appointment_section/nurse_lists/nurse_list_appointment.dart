@@ -12,6 +12,7 @@ import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
 import '../../../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import '../../../../../utils/services/account_service.dart';
+import '../../../../../widgets/circular_loader.dart';
 import '../nurse_detail_and_schedule/nurse_details_schedules.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_section/detail_and_schedule/details_schedules.dart';
@@ -42,7 +43,7 @@ class NurseListUser extends StatelessWidget {
             // )
             : SafeArea(
                 child: SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
+                  //physics: NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
                       Container(
@@ -404,22 +405,37 @@ class NurseListUser extends StatelessWidget {
                                                                 .nursedetailApi();
                                                             _nurseAppointmentDetailController
                                                                 .update();
+                                                            _nurseAppointmentDetailController
+                                                                .refresh();
                                                             _nurseviewssRatingReviewController
                                                                 .nursereviewratingApi();
                                                             _nurseviewssRatingReviewController
                                                                 .update();
 
                                                             ///from here we can go to next screen with some time ....
-                                                            accountService
+                                                            await accountService
                                                                 .getAccountData
                                                                 .then(
                                                                     (accountData) {
                                                               Timer(
                                                                 const Duration(
                                                                     milliseconds:
-                                                                        700),
-                                                                () {
-                                                                  Get.to(() =>
+                                                                        1200),
+                                                                () async {
+                                                                  _nurseAppointmentDetailController
+                                                                      .nursedetailApi();
+                                                                  _nurseAppointmentDetailController
+                                                                      .update();
+                                                                  CallLoader
+                                                                      .loader();
+                                                                  await Future.delayed(
+                                                                      Duration(
+                                                                          seconds:
+                                                                              2));
+                                                                  CallLoader
+                                                                      .hideLoader();
+                                                                  // await Get.to(DoctorSignup2());
+                                                                  await Get.to(() =>
                                                                       NurseDetailsSchedulePage());
                                                                   //Get.to((page))
                                                                   ///

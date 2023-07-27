@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
@@ -56,6 +57,9 @@ final MedicineListController _medicineListController =
     Get.put(MedicineListController());
 DriverAcceptlistController _driverAcceptlistController =
     Get.put(DriverAcceptlistController());
+
+NurseBooking1Controller _nurseBooking1Controller =
+    Get.put(NurseBooking1Controller());
 DevicetokenController _devicetokenController = Get.put(DevicetokenController());
 
 ///
@@ -518,9 +522,22 @@ class _UserHomePageState extends State<UserHomePage> {
                                             ),
                                           ),
                                           InkWell(
-                                            onTap: () {
+                                            onTap: () async {
                                               if (index == 0) {
-                                                Get.to(() => NurseBoooking1());
+                                                _nurseBooking1Controller
+                                                    .getNurseTypeApi();
+                                                //_doctor_1_controller.getdepartmentApi();
+                                                // _doctor_1_controller.update();
+                                                _nurseBooking1Controller
+                                                    .getNurseLocationApi();
+                                                //RxStatus.loading();
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 1));
+                                                CallLoader.hideLoader();
+                                                //await Get.to(DoctorSignup2());
+                                                await Get.to(
+                                                    () => NurseBoooking1());
                                               } else if (index == 1) {
                                                 Get.to(() => DoctorAddress());
                                                 //Get.to(() => CatagaryDetails());

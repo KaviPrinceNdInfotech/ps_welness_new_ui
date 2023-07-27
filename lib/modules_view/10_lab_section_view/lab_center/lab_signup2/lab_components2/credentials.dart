@@ -1,12 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/constants/my_theme.dart';
-import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -54,38 +53,38 @@ class Lab2Credentials extends StatelessWidget {
                   //height: size.height * 0.02,
                   ),
 
-              GetBuilder<Hospital_2_Controller>(
-                // specify type as Controller
-                init: Hospital_2_Controller(), // intialize with the Controller
-                builder: (value) => InkWell(
-                  onTap: () {
-                    _lab_1_controller.getImage(ImageSource.gallery);
-                  },
-                  child: NeumorphicTextFieldContainer(
-                    child: Container(
-                      height: size.height * 0.06,
-                      //width: size.width * 0.5,
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Licence Image File',
-                              style: TextStyle(
-                                fontSize: size.width * 0.03,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Icon(Icons.camera_alt),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // GetBuilder<Hospital_2_Controller>(
+              //   // specify type as Controller
+              //   init: Hospital_2_Controller(), // intialize with the Controller
+              //   builder: (value) => InkWell(
+              //     onTap: () {
+              //       _lab_1_controller.getImage(ImageSource.gallery);
+              //     },
+              //     child: NeumorphicTextFieldContainer(
+              //       child: Container(
+              //         height: size.height * 0.06,
+              //         //width: size.width * 0.5,
+              //         child: Padding(
+              //           padding:
+              //               EdgeInsets.symmetric(horizontal: size.width * 0.1),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: [
+              //               Text(
+              //                 'Licence Image File',
+              //                 style: TextStyle(
+              //                   fontSize: size.width * 0.03,
+              //                   fontWeight: FontWeight.w700,
+              //                 ),
+              //               ),
+              //               Icon(Icons.camera_alt),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
               // child: DropdownButton(
               //     value: _hospital_2_controller.selectedState.value,
@@ -214,162 +213,393 @@ class Lab2Credentials extends StatelessWidget {
                 height: size.height * 0.018,
               ),
 
-              GetBuilder<Hospital_2_Controller>(
-                // specify type as Controller
-                init: Hospital_2_Controller(), // intialize with the Controller
-                builder: (value) => InkWell(
-                  onTap: () {
-                    _lab_1_controller.getImage1(ImageSource.gallery);
-                  },
-                  child: NeumorphicTextFieldContainer(
-                    child: Container(
-                      height: size.height * 0.06,
-                      //width: size.width * 0.5,
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Pan Image File',
-                              style: TextStyle(
-                                fontSize: size.width * 0.03,
-                                fontWeight: FontWeight.w700,
+              SizedBox(
+                height: size.height * 0.018,
+                //appPadding / 2,
+              ),
+
+              // SizedBox(
+              //   height: size.height * 0.2,
+              //   child: GetBuilder<Driver_1111_Controller>(
+              //     // specify type as Controller
+              //     init:
+              //         Driver_1111_Controller(), // intialize with the Controller
+              //     builder: (value) => InkWell(
+              //       onTap: () {
+              //         //_rwa_11_controller.getImage(ImageSource.gallery);
+              //       },
+              //       child: Obx(
+              ///         () => _driver_1111_controller.selectedPath.value != ''
+              //             ? Image.file(
+              //                 File(_driver_1111_controller.selectedPath.value))
+              //             : InkWell(
+              //                 onTap: (() {
+              //                   optionsImage();
+              //                 }),
+              //                 child: NeumorphicTextFieldContainer(
+              //                   child: Container(
+              //                     height: size.height * 0.07,
+              //                     //width: size.width * 0.5,
+              //                     child: Padding(
+              //                       padding: EdgeInsets.symmetric(
+              //                           horizontal: size.width * 0.1),
+              //                       child: Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.spaceBetween,
+              //                         children: [
+              //                           Text(
+              //                             'User Image',
+              //                             style: TextStyle(
+              //                               fontSize: size.width * 0.03,
+              //                               fontWeight: FontWeight.w700,
+              //                             ),
+              //                           ),
+              //                           Icon(Icons.camera_alt),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                      width: size.width * 0.5,
+                      child: Text(
+                        "Upload Licence Image:",
+                        style: TextStyle(
+                          fontSize: size.height * 0.017,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      )),
+                  Container(
+                    height: size.height * 0.1,
+                    width: size.width * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.cyanAccent, width: 2),
+                    ),
+                    child: Obx(
+                      () => _lab_1_controller.selectedPath.value != ''
+                          ? Image.file(
+                              File(_lab_1_controller.selectedPath.value))
+                          : InkWell(
+                              onTap: (() {
+                                optionsImage();
+                              }),
+                              child: Center(
+                                child: Icon(Icons.camera_enhance_rounded),
                               ),
                             ),
-                            Icon(Icons.camera_alt),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-
-              ///todo:selected date starting...
               SizedBox(
-                height: size.height * 0.018,
+                height: 20,
               ),
 
-              // Text(
-              //   'Choose Starting Time:',
-              //   style: TextStyle(
-              //     fontSize: size.height * 0.016,
-              //     fontWeight: FontWeight.bold,
-              //     color: MyTheme.blueww,
-              //   ),
-              // ),
-
-              NeumorphicTextFieldContainer(
-                child: Obx(
-                  () => InkWell(
-                    onTap: () {
-                      _lab_1_controller.chooseTime();
-                    },
-                    child: Container(
-                      height: size.height * 0.06,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Choose Starting Time:',
-                                style: TextStyle(
-                                  fontSize: size.height * 0.017,
-                                  fontWeight: FontWeight.bold,
-                                  color: MyTheme.blueww,
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.03,
-                              ),
-                              //Spacer(),
-                              Text(
-                                "${_lab_1_controller.selectedTime.value.hour}:${_lab_1_controller.selectedTime.value.minute}",
-                                style: TextStyle(
-                                  fontSize: size.height * 0.026,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              ///image picker....2......
 
               SizedBox(
                 height: size.height * 0.018,
+                //appPadding / 2,
               ),
-
-              ///todo:selected time ending...
-
-              // Text(
-              //   'Choose Ending Time:',
-              //   style: TextStyle(
-              //     fontSize: size.height * 0.016,
-              //     fontWeight: FontWeight.bold,
-              //     color: MyTheme.blueww,
-              //   ),
-              // ),
-
-              NeumorphicTextFieldContainer(
-                child: Obx(
-                  () => InkWell(
-                    onTap: () {
-                      _lab_1_controller.chooseTime2();
-                    },
-                    child: Container(
-                      height: size.height * 0.06,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Choose Ending Time:',
-                                style: TextStyle(
-                                  fontSize: size.height * 0.017,
-                                  fontWeight: FontWeight.bold,
-                                  color: MyTheme.blueww,
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.03,
-                              ),
-                              //Spacer(),
-                              Text(
-                                "${_lab_1_controller.selectedTime2.value.hour}:${_lab_1_controller.selectedTime2.value.minute}",
-                                style: TextStyle(
-                                  fontSize: size.height * 0.026,
-                                ),
-                              ),
-                            ],
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                      width: size.width * 0.5,
+                      child: Text(
+                        "Upload Pan Image:",
+                        style: TextStyle(
+                          fontSize: size.height * 0.017,
+                          fontWeight: FontWeight.w800,
                         ),
-                      ),
+                      )),
+                  Container(
+                    height: size.height * 0.1,
+                    width: size.width * 0.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.cyanAccent, width: 2),
+                    ),
+                    child: Obx(
+                      () => _lab_1_controller.selectedPath1.value != ''
+                          ? Image.file(
+                              File(_lab_1_controller.selectedPath1.value))
+                          : InkWell(
+                              onTap: (() {
+                                optionsImage1();
+                              }),
+                              child: Center(
+                                child: Icon(Icons.camera_enhance_rounded),
+                              ),
+                            ),
                     ),
                   ),
-                ),
+                ],
               ),
+              //
+              // NeumorphicTextFieldContainer(
+              //   child: Obx(
+              //     () => InkWell(
+              //       onTap: () {
+              //         _lab_1_controller.chooseTime();
+              //       },
+              //       child: Container(
+              //         height: size.height * 0.06,
+              //         child: Center(
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.1),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Text(
+              //                   'Choose Starting Time:',
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.017,
+              //                     fontWeight: FontWeight.bold,
+              //                     color: MyTheme.blueww,
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: size.width * 0.03,
+              //                 ),
+              //                 //Spacer(),
+              //                 Text(
+              //                   "${_lab_1_controller.selectedTime.value.hour}:${_lab_1_controller.selectedTime.value.minute}",
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.026,
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              //
+              // SizedBox(
+              //   height: size.height * 0.018,
+              // ),
+              //
+              // ///todo:selected time ending...
+              //
+              // // Text(
+              // //   'Choose Ending Time:',
+              // //   style: TextStyle(
+              // //     fontSize: size.height * 0.016,
+              // //     fontWeight: FontWeight.bold,
+              // //     color: MyTheme.blueww,
+              // //   ),
+              // // ),
+              //
+              // NeumorphicTextFieldContainer(
+              //   child: Obx(
+              //     () => InkWell(
+              //       onTap: () {
+              //         _lab_1_controller.chooseTime2();
+              //       },
+              //       child: Container(
+              //         height: size.height * 0.06,
+              //         child: Center(
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.1),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Text(
+              //                   'Choose Ending Time:',
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.017,
+              //                     fontWeight: FontWeight.bold,
+              //                     color: MyTheme.blueww,
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: size.width * 0.03,
+              //                 ),
+              //                 //Spacer(),
+              //                 Text(
+              //                   "${_lab_1_controller.selectedTime2.value.hour}:${_lab_1_controller.selectedTime2.value.minute}",
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.026,
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
                     _lab_1_controller.checklab1();
 
-                    Get.to(SignInScreen());
+                    //Get.to(SignInScreen());
                     //_loginpasswordController.checkLoginpassword();
                   })
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void optionsImage() {
+    Get.defaultDialog(
+      title: "Selcet an option",
+      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      content: SizedBox(
+        width: 780,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                //var ImageSource1;
+                _lab_1_controller.getImage(ImageSource.camera);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.camera_enhance,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(
+              color: Color.fromARGB(255, 34, 126, 201),
+              endIndent: 70,
+              indent: 70,
+            ),
+            InkWell(
+              onTap: () {
+                _lab_1_controller.getImage(ImageSource.gallery);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Gallery",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void optionsImage1() {
+    Get.defaultDialog(
+      title: "Selcet an option",
+      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      content: SizedBox(
+        width: 780,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                //var ImageSource1;
+                _lab_1_controller.getImage1(ImageSource.camera);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.camera_enhance,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(
+              color: Color.fromARGB(255, 34, 126, 201),
+              endIndent: 70,
+              indent: 70,
+            ),
+            InkWell(
+              onTap: () {
+                _lab_1_controller.getImage1(ImageSource.gallery);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Gallery",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

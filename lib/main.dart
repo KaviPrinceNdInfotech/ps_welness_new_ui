@@ -164,6 +164,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => Driver_1111_Controller());
     Get.lazyPut(() => DriverlistnearController());
 
+    //Get.lazyPut(() => DriverlistnearController(driverrepo:get.find(),fenix: true);
+
     ///franchise....
     Get.lazyPut(() => DraweerFranchiesProfileController());
     Get.lazyPut(() => FranchisePaymentReportController());

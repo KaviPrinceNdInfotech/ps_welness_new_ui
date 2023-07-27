@@ -6,11 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurses_view_RRR_sighup/nurses_signup1/nurses_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 import 'package:ps_welness_new_ui/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulace_1/driver_registation_1.dart';
 import 'package:ps_welness_new_ui/modules_view/franchies_view/franchies_1_view/franchies_signup_part1.dart';
-import 'package:ps_welness_new_ui/modules_view/nurses_view/nurses_signup1/nurses_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup1/rwa_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/user_views/user_sign_up.dart';
 
@@ -181,7 +181,8 @@ class SignUpList extends StatelessWidget {
                                 print('okcasll');
                                 //Get.to(() => AssociatePage());
                               } else if (index == 5) {
-                                Get.to(() => NursesSignup1());
+                                ///Get.to(() => NursesSignup1());
+                                Get.to(() => NursesSignup11());
 
                                 //Get.to(() => RwaSignup1());
 

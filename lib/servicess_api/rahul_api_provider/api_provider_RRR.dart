@@ -471,27 +471,27 @@ class ApiProvider {
   ///
   //sign up  Api doctor Api 1........................................................
   static signDoctorUpApi(
-    var DoctorName,
-    var EmailId,
-    var Password,
-    var ConfirmPassword,
-    var MobileNumber,
-    var Fee,
-    var PhoneNumber,
-    var StartTime,
-    var SlotTiming,
-    var Department_Id,
-    var Specialist_Id,
-    var LicenceNumber,
-    var LicenceImage,
-    var PinCode,
-    var ClinicName,
-    var Location,
-    var StateMaster_Id,
-    var CityMaster_Id,
-    var EndTime,
-    var LicenceBase64,
-  ) async {
+      var DoctorName,
+      var EmailId,
+      var Password,
+      var ConfirmPassword,
+      var MobileNumber,
+      var Fee,
+      var PhoneNumber,
+      var StartTime,
+      var SlotTiming,
+      var Department_Id,
+      var Specialist_Id,
+      var LicenceNumber,
+      var LicenceImage,
+      var PinCode,
+      var ClinicName,
+      var Location,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var EndTime,
+      var LicenceBase64,
+      var experience) async {
     try {
       var url = '${baseUrl}api/SignupApi/DoctorRegistration';
       var body = {
@@ -515,7 +515,8 @@ class ApiProvider {
         "StateMaster_Id": "$StateMaster_Id",
         "CityMaster_Id": "$CityMaster_Id",
         "EndTime": "14:27:00.0000000", //"$EndTime",
-        "LicenceBase64": "$LicenceBase64"
+        "LicenceBase64": "$LicenceBase64",
+        "experience": experience,
       };
       print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%: ${body}");
       print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%Time: ${StartTime}");
@@ -1605,48 +1606,48 @@ class ApiProvider {
 
   /// todo Nurse Signup api..........rahul .............
   static NurseSignupApi(
-      var NurseType_IdController,
-      var CertificateNumberController,
-      var CityNameController,
-      var PinCodeController,
-      var NurseNameController,
-      var PhoneNumberController,
-      var MobileNumberController,
-      var EmailIdController,
-      var StateMaster_IdController,
-      var CityMaster_IdController,
-      var LocationController,
-      var FeeController,
-      var PasswordController,
-      var ConfirmPasswordController,
-      var PanImageFileController,
-      var LicenceImageController,
-      var CertificateBase64ImageController,
-      var CertificateImageNameController,
-      var VerificationDocController,
-      var CertificateImageController) async {
+      var NurseName,
+      var EmailId,
+      var Password,
+      var ConfirmPassword,
+      var MobileNumber,
+      var Location,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var PanImage,
+      var PanBase64Image,
+      var NurseImage,
+      var NurseImageBase64Image,
+      var CertificateImage,
+      var CertificateBase64Image,
+      var CertificateNumber,
+      var PinCode,
+      var NurseType_Id,
+      var Fee,
+      var Location_id,
+      var experience) async {
     var url = baseUrl + 'api/SignupApi/NurseRegistration';
     var body = {
-      "NurseType_Id": NurseType_IdController,
-      "CertificateNumber": CertificateNumberController,
-      "CityName": CityNameController,
-      "PinCode": PinCodeController,
-      "NurseName": NurseNameController,
-      "PhoneNumber": PhoneNumberController,
-      "MobileNumber": MobileNumberController,
-      "EmailId": EmailIdController,
-      "StateMaster_Id": StateMaster_IdController,
-      "CityMaster_Id": CityMaster_IdController,
-      "Location": LocationController,
-      "Fee": FeeController,
-      "Password": PasswordController,
-      "ConfirmPassword": ConfirmPasswordController,
-      "PanImageFile": PanImageFileController,
-      "LicenceImage": LicenceImageController,
-      "CertificateImageName": CertificateImageNameController,
-      "VerificationDoc": VerificationDocController,
-      "CertificateImage": CertificateImageController,
-      "CertificateBase64Image": base64Code
+      "NurseName": NurseName,
+      "EmailId": EmailId,
+      "Password": Password,
+      "ConfirmPassword": ConfirmPassword,
+      "MobileNumber": MobileNumber,
+      "Location": Location,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "PanImage": PanImage,
+      "PanBase64Image": PanBase64Image,
+      "NurseImage": NurseImage,
+      "NurseImageBase64Image": NurseImageBase64Image,
+      "CertificateImage": CertificateImage,
+      "CertificateBase64Image": CertificateBase64Image,
+      "CertificateNumber": CertificateNumber,
+      "PinCode": PinCode,
+      "NurseType_Id": NurseType_Id,
+      "Fee": Fee,
+      "Location_id": Location_id,
+      "experience": experience,
     };
 
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -2610,6 +2611,7 @@ class ApiProvider {
 
   /// todo Frenchies SignUp ............Rahul
   static FrenchiesSignUpApi(
+      var VendorName,
       var CompanyName,
       var EmailId,
       var Password,
@@ -2622,9 +2624,10 @@ class ApiProvider {
       var PanNumber,
       var AadharOrPANNumber,
       var AadharOrPANImage,
-      var VendorName) async {
+      var AadharOrPANImageBase64) async {
     var url = '${baseUrl}api/SignupApi/FranchiseRegistration';
     var body = {
+      "VendorName": VendorName,
       "CompanyName": CompanyName,
       "EmailId": EmailId,
       "Password": Password,
@@ -2637,8 +2640,7 @@ class ApiProvider {
       "PanNumber": PanNumber,
       "AadharOrPANNumber": AadharOrPANNumber,
       "AadharOrPANImage": AadharOrPANImage,
-      "VendorName": VendorName,
-      "AadharOrPANImageBase64": "", //base64Code
+      "AadharOrPANImageBase64": AadharOrPANImageBase64, //base64Code
     };
     print("Frenchies Signupbody:: $body");
     http.Response r = await http.post(Uri.parse(url), body: body);

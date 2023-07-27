@@ -219,6 +219,7 @@ class ApiProvider {
     );
     // print(r.body);
     if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
       print(r.body);
 
       return r;
@@ -2124,7 +2125,7 @@ class ApiProvider {
     print(r.body);
     if (r.statusCode == 200) {
       ///todo:labbookingid.........5  june 2023....
-      prefs.write("BookingId".toString(), json.decode(r.body)['BookingId']);
+      prefs.write("BookingId".toString(), json.decode(r.body)["BookingId"]);
       DriverId = prefs.read("BookingId").toString();
       print('eeeebookingid:$BookingId');
 
@@ -3468,7 +3469,7 @@ class ApiProvider {
 
   ///nurse Api get...........................
   static Future<List<NurseModels>> getnursetypeApi() async {
-    var url = "http://pswellness.in/api/CommonApi/NurseList";
+    var url = "http://test.pswellness.in/api/CommonApi/NurseList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4317,13 +4318,13 @@ class ApiProvider {
       "MobileNumber": MobileNumber,
       "PhoneNumber": PhoneNumber,
       "Location": Location,
-      "StateMaster_Id": "2",
-      "CityMaster_Id": "3",
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
       "LicenceNumber": LicenceNumber,
-      "LicenceImage": "dr2.jpg",
-      "LicenceImageBase64": "LicenceImageBase64",
-      "PanImage": "dr2.jpg",
-      "PanImageBase64": "PanImageBase64",
+      "LicenceImage": "${LicenceImage}",
+      "LicenceImageBase64": "${LicenceImageBase64}",
+      "PanImage": "${PanImage}",
+      "PanImageBase64": "${PanImageBase64}",
       "StartTime": "09:30:00.0000000",
       "EndTime": "21:40:00.0000000",
       "GSTNumber": GSTNumber,

@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 
 import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
@@ -26,6 +31,12 @@ class Lab_1_Controller extends GetxController {
   List<StateModel> states = <StateModel>[];
 
   var selectedImagepath = ''.obs;
+  var selectedPath = ''.obs;
+  RxInt selectedimg1 = 0.obs;
+  var selectedPath1 = ''.obs;
+
+  RxInt selectedimg2 = 0.obs;
+  var selectedPath2 = ''.obs;
 
   void getStateApi() async {
     states = await ApiProvider.getSatesApi();
@@ -40,7 +51,7 @@ class Lab_1_Controller extends GetxController {
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
-      selectedImagepath.value = pickedFile.path;
+      selectedPath.value = pickedFile.path;
     } else {
       print('No image selected');
     }
@@ -51,7 +62,7 @@ class Lab_1_Controller extends GetxController {
   void getImage1(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
-      selectedImagepath.value = pickedFile.path;
+      selectedPath1.value = pickedFile.path;
     } else {
       print('No image selected');
     }
@@ -121,6 +132,14 @@ class Lab_1_Controller extends GetxController {
   ///lab_signup Api....15 may 2023...
 
   void labSignupApi() async {
+    CallLoader.loader();
+    final imageAsBase64 =
+        base64Encode(await File(selectedPath.value).readAsBytes());
+    print("imagebaseeee644113221:${imageAsBase64}");
+    final imageAsBase641 =
+        base64Encode(await File(selectedPath1.value).readAsBytes());
+    print("imagebaseeee64411122:${imageAsBase641}");
+
     http.Response r = await ApiProvider.LabSignupApi(
         nameController?.text,
         emailController?.text,
@@ -129,13 +148,13 @@ class Lab_1_Controller extends GetxController {
         mobileController?.text,
         phoneController?.text,
         locationController?.text,
-        StateMaster_IdController?.text,
-        CityMaster_IdController?.text,
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
         LicenceNumberController?.text,
-        LicenceImageController?.text,
-        LicenceImageBase64Controller?.text,
-        PanImageController?.text,
-        PanImageBase64Controller?.text,
+        selectedPath.value.split('/').last,
+        imageAsBase64,
+        selectedPath1.value.split('/').last,
+        imageAsBase641,
         StartTimeController?.text,
         EndTimeController?.text,
         GSTNumberController?.text,
@@ -147,6 +166,11 @@ class Lab_1_Controller extends GetxController {
     if (r.statusCode == 200) {
       ///todo: from here we have new thing to provide the main ....
       //Get.to(LabHomePage());
+      Get.snackbar('message', "${r.body}");
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      Get.to(SignInScreen());
     } else {}
   }
 
@@ -267,6 +291,16 @@ class Lab_1_Controller extends GetxController {
     }
   }
 
+  String? validMobile(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid mobile number should be of 10 digits';
+    }
+    return null;
+  }
+
   String? validPhone(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -298,8 +332,8 @@ class Lab_1_Controller extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length != 16) {
-      return '              A valid aadhaar should be of 16 digits';
+    if (value.length != 12) {
+      return '              A valid aadhaar should be of 12 digits';
     }
     return null;
   }

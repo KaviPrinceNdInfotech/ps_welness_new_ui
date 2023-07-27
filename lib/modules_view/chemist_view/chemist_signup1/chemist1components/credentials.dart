@@ -418,6 +418,8 @@ import 'package:ps_welness_new_ui/modules_view/chemist_view/chemist_signup2/chem
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
+import '../../../../widgets/circular_loader.dart';
+
 class Chemist1Credentials extends StatelessWidget {
   Chemist1Credentials({Key? key}) : super(key: key);
   Chemist_1_Controller _chemist_1_controller = Get.put(Chemist_1_Controller());
@@ -621,12 +623,17 @@ class Chemist1Credentials extends StatelessWidget {
               //appPadding / 2,
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.0,
             ),
             RectangularButton(
                 text: 'Go Next >',
-                press: () {
-                  Get.to(ChemistSignup2());
+                press: () async {
+                  _chemist_1_controller.getStateApi();
+                  _chemist_1_controller.update();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(seconds: 1));
+                  CallLoader.hideLoader();
+                  await Get.to(ChemistSignup2());
                 })
           ],
         ),

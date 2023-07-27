@@ -25,7 +25,7 @@ class Chemist2HeadText extends StatelessWidget {
                 Get.back();
               },
               child: Icon(Icons.arrow_circle_left)),
-          SizedBox(height: size.height * 0.02),
+          SizedBox(height: size.height * 0.004),
 
           RichText(
             text: TextSpan(

@@ -188,7 +188,7 @@ class Lab1Credentials extends StatelessWidget {
                   _lab_1_controller.mobileNumber = value!;
                 },
                 validator: (value) {
-                  return _lab_1_controller.validPhone(value!);
+                  return _lab_1_controller.validMobile(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -237,7 +237,7 @@ class Lab1Credentials extends StatelessWidget {
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.phone_android_outlined,
+                    Icons.call_rounded,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),

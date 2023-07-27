@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
@@ -126,16 +127,17 @@ class Rwa_11_controller extends GetxController {
     );
 
     if (r.statusCode == 200) {
+      CallLoader.hideLoader();
+
+      /// we can navigate to user page.....................................
+      Get.to(SignInScreen());
       accountService.getAccountData.then((accountData) {
         Timer(
           const Duration(milliseconds: 200),
           () {
             //  _viewdoctorreviewController.doctorreviewratingApi();
             //_viewdoctorreviewController.update();
-            Get.snackbar(
-                'Add review Successfully', "Review Submitted. Thank-you."
-                // "${r.body}"
-                );
+            Get.snackbar('Register Successfully', "${r.body}");
 
             ///Get.to(() => DetailsSchedulePage());
             // _doctorListController.doctordetailApi();
@@ -148,7 +150,7 @@ class Rwa_11_controller extends GetxController {
           },
         );
       });
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
     } else {
       //CallLoader.hideLoader();
     }

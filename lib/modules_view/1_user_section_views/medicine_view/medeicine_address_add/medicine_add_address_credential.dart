@@ -18,11 +18,6 @@ class AddaddressmedicineCredentials extends StatelessWidget {
   // Hospital_1_Controller _hospital_1_controller =
   //     Get.put(Hospital_1_Controller());
 
-  MedicineAddressController _medicine_address_controller =
-      Get.put(MedicineAddressController());
-  medicine_addresssList_Controller _medicine_addresslist_controller =
-      Get.put(medicine_addresssList_Controller());
-
   // medicine_address_Controller _medicine_address_controller = Get.put(medicine_address_Controller());
 
   var items = [
@@ -40,6 +35,10 @@ class AddaddressmedicineCredentials extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MedicineAddressController _medicine_address_controller =
+        Get.put(MedicineAddressController());
+    medicine_addresssList_Controller _medicine_addresslist_controller =
+        Get.put(medicine_addresssList_Controller());
     Size size = MediaQuery.of(context).size;
     return Form(
       key: _medicine_address_controller.medicineaddressformmkey,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 //import 'package:ps_welness/model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -20,6 +22,23 @@ class MedicineCartListController extends GetxController {
   void cartmdedicineListApi() async {
     isLoading(false);
     medicinecartlistmodel = await ApiProvider.MedicinecartlistApi();
+
+    if (medicinecartlistmodel == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      medicinecartlistmodel = await ApiProvider.MedicinecartlistApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince medicinr listcart: ${medicinecartlistmodel?.data?.length}');
     print(medicinecartlistmodel);
     if (medicinecartlistmodel != null) {
@@ -89,6 +108,7 @@ class MedicineCartListController extends GetxController {
   void onInit() {
     super.onInit();
     cartmdedicineListApi();
+    //log('data: $medicinecartlistmodel');
   }
 
   @override

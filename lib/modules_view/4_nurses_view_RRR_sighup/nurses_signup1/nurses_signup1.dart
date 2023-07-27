@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 import 'nursescomponents/credentials.dart';
 import 'nursescomponents/head_text.dart';
 
-class NursesSignup1 extends StatelessWidget {
-  const NursesSignup1({Key? key}) : super(key: key);
+class NursesSignup11 extends StatelessWidget {
+  const NursesSignup11({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

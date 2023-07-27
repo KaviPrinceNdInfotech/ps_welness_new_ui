@@ -293,7 +293,7 @@ class LabSchedule1Page extends StatelessWidget {
                                   ),
 
                                   SizedBox(
-                                      height: size.height * 0.21,
+                                      height: size.height * 0.205,
                                       child: LabScheduleCredentials()),
 
                                   Align(
@@ -309,10 +309,10 @@ class LabSchedule1Page extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.005,
+                                    height: size.height * 0.002,
                                   ),
                                   SizedBox(
-                                    height: size.height * 0.21,
+                                    height: size.height * 0.17,
                                     child: Obx(
                                       () => (_labListController
                                                   .isLoading.value &&

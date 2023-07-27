@@ -173,6 +173,19 @@ class Chemist_1_Controller extends GetxController {
       LicenseValidity,
       PinCode;
 
+  var Fee = '';
+  var PhoneNumber = '';
+  var StartTime = '';
+  var SlotTiming = '';
+  var Department_Id = '';
+  var Specialist_Id = '';
+  var LicenceImage = '';
+  var LicenceImageName = '';
+  var ClinicName = '';
+  var EndTime = '';
+  var LicenceBase64 = '';
+  var experience = '';
+
   /////////do here......................
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
@@ -307,7 +320,7 @@ class Chemist_1_Controller extends GetxController {
 
   String? validName(String value) {
     if (value.length < 2) {
-      return "              Provide valid name";
+      return "              Provide valid text";
     }
     return null;
   }
@@ -367,6 +380,26 @@ class Chemist_1_Controller extends GetxController {
       return '              A valid phone number should be of 10 digits';
     }
     return null;
+  }
+
+  String? validPin(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 6) {
+      return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validexperince(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    // if (value.length < 1) {
+    //   return '              A valid pin should be of 6 digits';
+    // }
+    //return null;
   }
 
   void checkChemistSignup() {

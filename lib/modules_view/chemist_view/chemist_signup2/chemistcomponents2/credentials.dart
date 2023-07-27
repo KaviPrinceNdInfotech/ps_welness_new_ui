@@ -394,14 +394,11 @@ class Chemist2Credentials extends StatelessWidget {
                 child: TextFormField(
                   autofillHints: [AutofillHints.addressCityAndState],
                   controller: _chemist_1_controller.Location,
-                  // onSaved: (value) {
-                  //   _chemist_2_controller.address = value!;
-                  // },
-                  // validator: (value) {
-                  //   return _chemist_2_controller.validAddress(value!);
-                  // },
                   cursorColor: Colors.black,
                   obscureText: false,
+                  validator: (value) {
+                    return _chemist_1_controller.validName(value!);
+                  },
                   decoration: InputDecoration(
                     hintText: 'Address',
                     helperStyle: TextStyle(
@@ -508,6 +505,9 @@ class Chemist2Credentials extends StatelessWidget {
                   controller: _chemist_1_controller.LicenceNumber,
                   cursorColor: Colors.black,
                   obscureText: false,
+                  validator: (value) {
+                    return _chemist_1_controller.validexperince(value!);
+                  },
                   decoration: InputDecoration(
                     hintText: 'Licence no',
                     helperStyle: TextStyle(
@@ -550,7 +550,7 @@ class Chemist2Credentials extends StatelessWidget {
               //   ),
               // ),
               SizedBox(
-                height: size.height * 0.078,
+                height: size.height * 0.089,
                 width: size.width,
                 child: Container(
                   width: double.infinity,
@@ -678,6 +678,9 @@ class Chemist2Credentials extends StatelessWidget {
                   controller: _chemist_1_controller.PinCode,
                   cursorColor: Colors.black,
                   obscureText: false,
+                  validator: (value) {
+                    return _chemist_1_controller.validPin(value!);
+                  },
                   decoration: InputDecoration(
                     hintText: 'Pin',
                     helperStyle: TextStyle(
@@ -728,6 +731,9 @@ class Chemist2Credentials extends StatelessWidget {
               //   ),
               // ),
               ///
+              SizedBox(
+                height: size.height * 0.01,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -780,7 +786,7 @@ class Chemist2Credentials extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: size.height * 0.02,
+                height: size.height * 0.0,
               ),
               RectangularButton(
                   text: 'SUBMIT',

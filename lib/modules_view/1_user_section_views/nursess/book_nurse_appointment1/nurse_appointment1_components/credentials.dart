@@ -55,786 +55,784 @@ class Nursebooking1Credentials extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // NeumorphicTextFieldContainer(
-              //   child: Padding(
-              //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-              //     child: Obx(
-              //       () => DropdownButtonFormField(
-              //           //icon: Icon(Icons.location_city),
-              //           value: _nurseBooking1Controller.selectednurse.value,
-              //           decoration: InputDecoration(
-              //             prefixIcon: Icon(
-              //               Icons.account_circle,
-              //               color: Colors.black,
-              //             ),
-              //             enabledBorder: InputBorder.none,
-              //             border: InputBorder.none,
-              //           ),
-              //           hint: Text('Selected Nurse'),
-              //           items: items.map((String items) {
-              //             return DropdownMenuItem(
-              //               value: items,
-              //               child: Text(
-              //                 items,
-              //                 style: TextStyle(
-              //                   fontWeight: FontWeight.w600,
-              //                   fontSize: size.height * 0.015,
-              //                 ),
-              //               ),
-              //             );
-              //           }).toList(),
-              //           onChanged: (String? newValue) {
-              //             _nurseBooking1Controller.selectednurse.value =
-              //                 newValue!;
-              //             // _hospital_2_controller.states.value =
-              //             //     newValue! as List<String>;
-              //             // _hospital_2_controller.selectedCity.value = null;
-              //             // _hospital_2_controller.cities.clear();
-              //             // _hospital_2_controller.cities
-              //             //     .addAll(stateCityMap[newvalue]!);
-              //           }),
-              //     ),
-              //   ),
-              // ),
-              Text(
-                'Nurse Type',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // NeumorphicTextFieldContainer(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+            //     child: Obx(
+            //       () => DropdownButtonFormField(
+            //           //icon: Icon(Icons.location_city),
+            //           value: _nurseBooking1Controller.selectednurse.value,
+            //           decoration: InputDecoration(
+            //             prefixIcon: Icon(
+            //               Icons.account_circle,
+            //               color: Colors.black,
+            //             ),
+            //             enabledBorder: InputBorder.none,
+            //             border: InputBorder.none,
+            //           ),
+            //           hint: Text('Selected Nurse'),
+            //           items: items.map((String items) {
+            //             return DropdownMenuItem(
+            //               value: items,
+            //               child: Text(
+            //                 items,
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.w600,
+            //                   fontSize: size.height * 0.015,
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           onChanged: (String? newValue) {
+            //             _nurseBooking1Controller.selectednurse.value =
+            //                 newValue!;
+            //             // _hospital_2_controller.states.value =
+            //             //     newValue! as List<String>;
+            //             // _hospital_2_controller.selectedCity.value = null;
+            //             // _hospital_2_controller.cities.clear();
+            //             // _hospital_2_controller.cities
+            //             //     .addAll(stateCityMap[newvalue]!);
+            //           }),
+            //     ),
+            //   ),
+            // ),
+            Text(
+              'Nurse Type',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.0,
+            ),
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                  () => DropdownButtonFormField<NurseModels>(
+                      value: _nurseBooking1Controller.selectedNurse.value,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Nurse'),
+                      items: _nurseBooking1Controller.nurse
+                          .map((NurseModels nurse) {
+                        return DropdownMenuItem(
+                          value: nurse,
+                          child: Text(
+                            nurse.nurseTypeName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (NurseModels? newValue) {
+                        _nurseBooking1Controller.selectedNurse.value =
+                            newValue!;
+                        // _nurseBooking1Controller.selectedCity.value = null;
+                        // _hospital_2_controller.states.value =
+                        //     newValue! as List<String>;
+                        // _hospital_2_controller.selectedCity.value = null;
+                        // _hospital_2_controller.cities.clear();
+                        // _hospital_2_controller.cities
+                        //     .addAll(stateCityMap[newvalue]!);
+                      }),
                 ),
               ),
-              SizedBox(
-                height: size.height * 0.0,
+            ),
+
+            ///nurse type...radio button.....
+            //
+            // Container(
+            //   height: size.height * 0.066,
+            //   width: double.infinity,
+            //   margin: EdgeInsets.symmetric(vertical: 25 / 2),
+            //   decoration: BoxDecoration(
+            //       gradient: LinearGradient(
+            //           begin: Alignment.centerLeft,
+            //           end: Alignment.centerRight,
+            //           colors: [
+            //             lightPrimary,
+            //             darkPrimary,
+            //           ]),
+            //       borderRadius: BorderRadius.circular(12),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           offset: Offset(-2, -2),
+            //           spreadRadius: 1,
+            //           blurRadius: 4,
+            //           color: darkShadow,
+            //         ),
+            //         BoxShadow(
+            //           offset: Offset(2, 2),
+            //           spreadRadius: 1,
+            //           blurRadius: 4,
+            //           color: lightShadow,
+            //         ),
+            //       ]),
+            //   child: SizedBox(
+            //     //width: size.width * 0.40,
+            //     child: Container(
+            //       //width: size.width * 40,
+            //       height: size.height * 0.065,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         //color: Colors.white,
+            //       ),
+            //       child: Padding(
+            //         padding:
+            //             EdgeInsets.symmetric(horizontal: size.width * 0.02),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Obx(
+            //               () => Radio(
+            //                 visualDensity: VisualDensity(
+            //                   horizontal: VisualDensity.minimumDensity,
+            //                   vertical: VisualDensity.minimumDensity,
+            //                 ),
+            //                 // title: Text("Male"),
+            //                 value: "Anm",
+            //                 groupValue: _nurseBooking1Controller
+            //                     .selectedServicee.value,
+            //                 onChanged: (value) {
+            //                   _nurseBooking1Controller
+            //                       .onChangeServicee(value!);
+            //                   // setState(() {
+            //                   //   gender = value.toString();
+            //                   // });
+            //                 },
+            //               ),
+            //             ),
+            //             Text(
+            //               'ANM',
+            //               style: TextStyle(
+            //                 fontSize: size.width * 0.03,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //             Obx(
+            //               () => Radio(
+            //                 visualDensity: VisualDensity(
+            //                   horizontal: VisualDensity.minimumDensity,
+            //                   vertical: VisualDensity.minimumDensity,
+            //                 ),
+            //                 // title: Text("Male"),
+            //                 value: "GNM",
+            //                 groupValue: _nurseBooking1Controller
+            //                     .selectedServicee.value,
+            //                 onChanged: (value) {
+            //                   _nurseBooking1Controller
+            //                       .onChangeServicee(value!);
+            //                   // setState(() {
+            //                   //   gender = value.toString();
+            //                   // });
+            //                 },
+            //               ),
+            //             ),
+            //             Text(
+            //               'GNM',
+            //               style: TextStyle(
+            //                 fontSize: size.width * 0.03,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //             Obx(
+            //               () => Radio(
+            //                 visualDensity: VisualDensity(
+            //                   horizontal: VisualDensity.minimumDensity,
+            //                   vertical: VisualDensity.minimumDensity,
+            //                 ),
+            //                 // title: Text("Male"),
+            //                 value: "Product",
+            //                 groupValue: _nurseBooking1Controller
+            //                     .selectedServicee.value,
+            //                 onChanged: (value) {
+            //                   _nurseBooking1Controller
+            //                       .onChangeServicee(value!);
+            //                   // setState(() {
+            //                   //   gender = value.toString();
+            //                   // });
+            //                 },
+            //               ),
+            //             ),
+            //             Text(
+            //               'Technician',
+            //               style: TextStyle(
+            //                 fontSize: size.width * 0.03,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //             Obx(
+            //               () => Radio(
+            //                 visualDensity: VisualDensity(
+            //                   horizontal: VisualDensity.minimumDensity,
+            //                   vertical: VisualDensity.minimumDensity,
+            //                 ),
+            //                 // title: Text("Male"),
+            //                 value: "Attendance",
+            //                 groupValue: _nurseBooking1Controller
+            //                     .selectedServicee.value,
+            //                 onChanged: (value) {
+            //                   _nurseBooking1Controller
+            //                       .onChangeServicee(value!);
+            //                   // setState(() {
+            //                   //   gender = value.toString();
+            //                   // });
+            //                 },
+            //               ),
+            //             ),
+            //             Text(
+            //               'Attedant',
+            //               style: TextStyle(
+            //                 fontSize: size.width * 0.03,
+            //                 fontWeight: FontWeight.w500,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            SizedBox(
+              height: size.height * 0.00,
+            ),
+
+            ///working hours...
+            ///
+            ///
+            Text(
+              'Choose working hours.',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
               ),
-              NeumorphicTextFieldContainer(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-                  child: Obx(
-                    () => DropdownButtonFormField<NurseModels>(
-                        value: _nurseBooking1Controller.selectedNurse.value,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: Colors.black,
+            ),
+
+            Container(
+              height: size.height * 0.066,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(vertical: 25 / 2),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        lightPrimary,
+                        darkPrimary,
+                      ]),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(-2, -2),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      color: darkShadow,
+                    ),
+                    BoxShadow(
+                      offset: Offset(2, 2),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      color: lightShadow,
+                    ),
+                  ]),
+              child: SizedBox(
+                //width: size.width * 0.40,
+                child: Container(
+                  //width: size.width * 40,
+                  height: size.height * 0.065,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    //color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () => Radio(
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value: "24",
+                            groupValue:
+                                _nurseBooking1Controller.selectedhours.value,
+                            onChanged: (value) {
+                              _nurseBooking1Controller.onChangeHours(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
                           ),
-                          enabledBorder: InputBorder.none,
+                        ),
+                        Text(
+                          '24 Hours',
+                          style: TextStyle(
+                            fontSize: size.width * 0.03,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Obx(
+                          () => Radio(
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value: "12",
+                            groupValue:
+                                _nurseBooking1Controller.selectedhours.value,
+                            onChanged: (value) {
+                              _nurseBooking1Controller.onChangeHours(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                        Text(
+                          '12 Hourss',
+                          style: TextStyle(
+                            fontSize: size.width * 0.03,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Obx(
+                          () => Radio(
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value: "Other",
+                            groupValue:
+                                _nurseBooking1Controller.selectedhours.value,
+                            onChanged: (value) {
+                              _nurseBooking1Controller.onChangeHours(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Other',
+                          style: TextStyle(
+                            fontSize: size.width * 0.03,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            //shifting...........
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///nurse shift type...
+
+            Text(
+              'Choose Shift.',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+
+            Container(
+              height: size.height * 0.16,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(vertical: 25 / 2),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        lightPrimary,
+                        darkPrimary,
+                      ]),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(-2, -2),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      color: darkShadow,
+                    ),
+                    BoxShadow(
+                      offset: Offset(2, 2),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      color: lightShadow,
+                    ),
+                  ]),
+              child: SizedBox(
+                // width: size.width * 0.40,
+                //height: size.height * 0.1,
+                child: Container(
+                  //width: size.width * 40,
+                  height: size.height * 0.095,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    //color: Colors.white,
+                  ),
+                  child: InkWell(
+                    onTap: () => _nurseBooking1Controller.selectedshift.value,
+                    child: Column(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () => RadioListTile(
+                            title: Text(
+                              'Day',
+                              style: TextStyle(
+                                fontSize: size.width * 0.035,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+
+                            // title: Text("Male"),
+                            value:
+                                //_nurseBooking1Controller.selectedshift.value,
+                                "Day",
+                            groupValue:
+                                _nurseBooking1Controller.selectedshift.value,
+                            onChanged: (value) {
+                              _nurseBooking1Controller.onChangeShifts(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                        Obx(
+                          () => RadioListTile(
+                            title: Text(
+                              'Night               ',
+                              style: TextStyle(
+                                fontSize: size.width * 0.035,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value:
+                                //_nurseBooking1Controller.selectedshift.value,
+                                "Night",
+                            groupValue:
+                                _nurseBooking1Controller.selectedshift.value,
+                            onChanged: (value) {
+                              _nurseBooking1Controller.onChangeShifts(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                        Obx(
+                          () => RadioListTile(
+                            title: Text(
+                              'Both               ',
+                              style: TextStyle(
+                                fontSize: size.width * 0.035,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value: "Both",
+                            //_nurseBooking1Controller.selectedshift.value,
+
+                            groupValue:
+                                _nurseBooking1Controller.selectedshift.value,
+                            onChanged: (value) {
+                              _nurseBooking1Controller.onChangeShifts(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo:selected date starting...
+
+            Text(
+              'Choose Starting Date:',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+
+            ///........................
+
+            NeumorphicTextFieldContainer(
+              child: Obx(
+                () => (_nurseBooking1Controller.isLoading.value)
+                    ? Center(child: CircularProgressIndicator())
+                    : TextFormField(
+                        controller:
+                            _nurseBooking1Controller.appointmentController1,
+                        onTap: () {
+                          _nurseBooking1Controller.chooseDate();
+                        },
+
+                        cursorColor: Colors.black,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'Select date',
+                          helperStyle: TextStyle(
+                            color: black.withOpacity(0.7),
+                            fontSize: 18,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.calendar_today_outlined,
+                            color: black.withOpacity(0.7),
+                            size: 20,
+                          ),
                           border: InputBorder.none,
                         ),
-                        hint: Text('Select Nurse'),
-                        items: _nurseBooking1Controller.nurse
-                            .map((NurseModels nurse) {
-                          return DropdownMenuItem(
-                            value: nurse,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 1,
+                        autofocus: true,
+                        //obscureText: true,
+                        //controller: _loginpasswordController.mobileController,
+                      ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo:selected date ending...
+
+            Text(
+              'Choose Ending Date:',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+
+            NeumorphicTextFieldContainer(
+              child: Obx(
+                () => (_nurseBooking1Controller.isLoading.value)
+                    ? Center(child: CircularProgressIndicator())
+                    : TextFormField(
+                        controller:
+                            _nurseBooking1Controller.appointmentController2,
+                        onTap: () {
+                          _nurseBooking1Controller.chooseDate2();
+                        },
+
+                        cursorColor: Colors.black,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'Select date',
+                          helperStyle: TextStyle(
+                            color: black.withOpacity(0.7),
+                            fontSize: 18,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.calendar_today_outlined,
+                            color: black.withOpacity(0.7),
+                            size: 20,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 1,
+                        autofocus: true,
+                        //obscureText: true,
+                        //controller: _loginpasswordController.mobileController,
+                      ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo:phone no...
+
+            Text(
+              'Enter your phone no:',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+
+            ///todo: phone number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _nurseBooking1Controller.mobileNumberController,
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  _nurseBooking1Controller.MobileNumber = value!;
+                },
+                validator: (value) {
+                  return _nurseBooking1Controller.validPhone(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Phone',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            // RectangularInputField(
+            //   hintText: 'Password',
+            //   icon: Icons.lock,
+            //   obscureText: true,
+            // ),
+
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+
+            ///todo: address value..........
+
+            Text(
+              'Enter your Location:',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
+                child: Obx(
+                  () => DropdownButtonFormField<NurseLocationModel>(
+                      value:
+                          _nurseBooking1Controller.selectedNurseLocation.value,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.place,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Locations'),
+                      items: _nurseBooking1Controller.locations
+                          .map((NurseLocationModel locations) {
+                        return DropdownMenuItem(
+                          value: locations,
+                          child: SizedBox(
+                            height: size.height * 0.06,
+                            width: size.width * 0.55,
                             child: Text(
-                              nurse.nurseTypeName,
+                              locations.locationName,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: size.height * 0.015,
                               ),
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (NurseModels? newValue) {
-                          _nurseBooking1Controller.selectedNurse.value =
-                              newValue!;
-                          // _nurseBooking1Controller.selectedCity.value = null;
-                          // _hospital_2_controller.states.value =
-                          //     newValue! as List<String>;
-                          // _hospital_2_controller.selectedCity.value = null;
-                          // _hospital_2_controller.cities.clear();
-                          // _hospital_2_controller.cities
-                          //     .addAll(stateCityMap[newvalue]!);
-                        }),
-                  ),
-                ),
-              ),
-
-              ///nurse type...radio button.....
-              //
-              // Container(
-              //   height: size.height * 0.066,
-              //   width: double.infinity,
-              //   margin: EdgeInsets.symmetric(vertical: 25 / 2),
-              //   decoration: BoxDecoration(
-              //       gradient: LinearGradient(
-              //           begin: Alignment.centerLeft,
-              //           end: Alignment.centerRight,
-              //           colors: [
-              //             lightPrimary,
-              //             darkPrimary,
-              //           ]),
-              //       borderRadius: BorderRadius.circular(12),
-              //       boxShadow: [
-              //         BoxShadow(
-              //           offset: Offset(-2, -2),
-              //           spreadRadius: 1,
-              //           blurRadius: 4,
-              //           color: darkShadow,
-              //         ),
-              //         BoxShadow(
-              //           offset: Offset(2, 2),
-              //           spreadRadius: 1,
-              //           blurRadius: 4,
-              //           color: lightShadow,
-              //         ),
-              //       ]),
-              //   child: SizedBox(
-              //     //width: size.width * 0.40,
-              //     child: Container(
-              //       //width: size.width * 40,
-              //       height: size.height * 0.065,
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(10),
-              //         //color: Colors.white,
-              //       ),
-              //       child: Padding(
-              //         padding:
-              //             EdgeInsets.symmetric(horizontal: size.width * 0.02),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Obx(
-              //               () => Radio(
-              //                 visualDensity: VisualDensity(
-              //                   horizontal: VisualDensity.minimumDensity,
-              //                   vertical: VisualDensity.minimumDensity,
-              //                 ),
-              //                 // title: Text("Male"),
-              //                 value: "Anm",
-              //                 groupValue: _nurseBooking1Controller
-              //                     .selectedServicee.value,
-              //                 onChanged: (value) {
-              //                   _nurseBooking1Controller
-              //                       .onChangeServicee(value!);
-              //                   // setState(() {
-              //                   //   gender = value.toString();
-              //                   // });
-              //                 },
-              //               ),
-              //             ),
-              //             Text(
-              //               'ANM',
-              //               style: TextStyle(
-              //                 fontSize: size.width * 0.03,
-              //                 fontWeight: FontWeight.w500,
-              //               ),
-              //             ),
-              //             Obx(
-              //               () => Radio(
-              //                 visualDensity: VisualDensity(
-              //                   horizontal: VisualDensity.minimumDensity,
-              //                   vertical: VisualDensity.minimumDensity,
-              //                 ),
-              //                 // title: Text("Male"),
-              //                 value: "GNM",
-              //                 groupValue: _nurseBooking1Controller
-              //                     .selectedServicee.value,
-              //                 onChanged: (value) {
-              //                   _nurseBooking1Controller
-              //                       .onChangeServicee(value!);
-              //                   // setState(() {
-              //                   //   gender = value.toString();
-              //                   // });
-              //                 },
-              //               ),
-              //             ),
-              //             Text(
-              //               'GNM',
-              //               style: TextStyle(
-              //                 fontSize: size.width * 0.03,
-              //                 fontWeight: FontWeight.w500,
-              //               ),
-              //             ),
-              //             Obx(
-              //               () => Radio(
-              //                 visualDensity: VisualDensity(
-              //                   horizontal: VisualDensity.minimumDensity,
-              //                   vertical: VisualDensity.minimumDensity,
-              //                 ),
-              //                 // title: Text("Male"),
-              //                 value: "Product",
-              //                 groupValue: _nurseBooking1Controller
-              //                     .selectedServicee.value,
-              //                 onChanged: (value) {
-              //                   _nurseBooking1Controller
-              //                       .onChangeServicee(value!);
-              //                   // setState(() {
-              //                   //   gender = value.toString();
-              //                   // });
-              //                 },
-              //               ),
-              //             ),
-              //             Text(
-              //               'Technician',
-              //               style: TextStyle(
-              //                 fontSize: size.width * 0.03,
-              //                 fontWeight: FontWeight.w500,
-              //               ),
-              //             ),
-              //             Obx(
-              //               () => Radio(
-              //                 visualDensity: VisualDensity(
-              //                   horizontal: VisualDensity.minimumDensity,
-              //                   vertical: VisualDensity.minimumDensity,
-              //                 ),
-              //                 // title: Text("Male"),
-              //                 value: "Attendance",
-              //                 groupValue: _nurseBooking1Controller
-              //                     .selectedServicee.value,
-              //                 onChanged: (value) {
-              //                   _nurseBooking1Controller
-              //                       .onChangeServicee(value!);
-              //                   // setState(() {
-              //                   //   gender = value.toString();
-              //                   // });
-              //                 },
-              //               ),
-              //             ),
-              //             Text(
-              //               'Attedant',
-              //               style: TextStyle(
-              //                 fontSize: size.width * 0.03,
-              //                 fontWeight: FontWeight.w500,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
-              SizedBox(
-                height: size.height * 0.00,
-              ),
-
-              ///working hours...
-              ///
-              ///
-              Text(
-                'Choose working hours.',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                ),
-              ),
-
-              Container(
-                height: size.height * 0.066,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 25 / 2),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          lightPrimary,
-                          darkPrimary,
-                        ]),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(-2, -2),
-                        spreadRadius: 1,
-                        blurRadius: 4,
-                        color: darkShadow,
-                      ),
-                      BoxShadow(
-                        offset: Offset(2, 2),
-                        spreadRadius: 1,
-                        blurRadius: 4,
-                        color: lightShadow,
-                      ),
-                    ]),
-                child: SizedBox(
-                  //width: size.width * 0.40,
-                  child: Container(
-                    //width: size.width * 40,
-                    height: size.height * 0.065,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      //color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(
-                            () => Radio(
-                              visualDensity: VisualDensity(
-                                horizontal: VisualDensity.minimumDensity,
-                                vertical: VisualDensity.minimumDensity,
-                              ),
-                              // title: Text("Male"),
-                              value: "24",
-                              groupValue:
-                                  _nurseBooking1Controller.selectedhours.value,
-                              onChanged: (value) {
-                                _nurseBooking1Controller.onChangeHours(value!);
-                                // setState(() {
-                                //   gender = value.toString();
-                                // });
-                              },
-                            ),
                           ),
-                          Text(
-                            '24 Hours',
-                            style: TextStyle(
-                              fontSize: size.width * 0.03,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Obx(
-                            () => Radio(
-                              visualDensity: VisualDensity(
-                                horizontal: VisualDensity.minimumDensity,
-                                vertical: VisualDensity.minimumDensity,
-                              ),
-                              // title: Text("Male"),
-                              value: "12",
-                              groupValue:
-                                  _nurseBooking1Controller.selectedhours.value,
-                              onChanged: (value) {
-                                _nurseBooking1Controller.onChangeHours(value!);
-                                // setState(() {
-                                //   gender = value.toString();
-                                // });
-                              },
-                            ),
-                          ),
-                          Text(
-                            '12 Hourss',
-                            style: TextStyle(
-                              fontSize: size.width * 0.03,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Obx(
-                            () => Radio(
-                              visualDensity: VisualDensity(
-                                horizontal: VisualDensity.minimumDensity,
-                                vertical: VisualDensity.minimumDensity,
-                              ),
-                              // title: Text("Male"),
-                              value: "Other",
-                              groupValue:
-                                  _nurseBooking1Controller.selectedhours.value,
-                              onChanged: (value) {
-                                _nurseBooking1Controller.onChangeHours(value!);
-                                // setState(() {
-                                //   gender = value.toString();
-                                // });
-                              },
-                            ),
-                          ),
-                          Text(
-                            'Other',
-                            style: TextStyle(
-                              fontSize: size.width * 0.03,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        );
+                      }).toList(),
+                      onChanged: (NurseLocationModel? newValue) {
+                        _nurseBooking1Controller.selectedNurseLocation.value =
+                            newValue!;
+                      }),
                 ),
               ),
+            ),
 
-              //shifting...........
+            SizedBox(
+              height: size.height * 0.00,
+            ),
 
-              SizedBox(
-                height: size.height * 0.02,
-              ),
+            SizedBox(
+              height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+            SizedBox(
+              height: size.height * 0.00,
+              //appPadding / 2,
+            ),
+            RectangularButton(
+                text: 'Book',
+                press: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setString("nurseLocationId",
+                      "${_nurseBooking1Controller.selectedNurseLocation.value?.id.toString()}");
+                  CallLoader.loader();
+                  _nurseBooking1Controller.checkNurse1();
+                  //Get.to(()=>NurseListUser());
+                  //Get.to(NurseAppointmentHistory());
 
-              ///nurse shift type...
-
-              Text(
-                'Choose Shift.',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                ),
-              ),
-
-              Container(
-                height: size.height * 0.16,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 25 / 2),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          lightPrimary,
-                          darkPrimary,
-                        ]),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(-2, -2),
-                        spreadRadius: 1,
-                        blurRadius: 4,
-                        color: darkShadow,
-                      ),
-                      BoxShadow(
-                        offset: Offset(2, 2),
-                        spreadRadius: 1,
-                        blurRadius: 4,
-                        color: lightShadow,
-                      ),
-                    ]),
-                child: SizedBox(
-                  // width: size.width * 0.40,
-                  //height: size.height * 0.1,
-                  child: Container(
-                    //width: size.width * 40,
-                    height: size.height * 0.095,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      //color: Colors.white,
-                    ),
-                    child: InkWell(
-                      onTap: () => _nurseBooking1Controller.selectedshift.value,
-                      child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(
-                            () => RadioListTile(
-                              title: Text(
-                                'Day',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.035,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              visualDensity: VisualDensity(
-                                horizontal: VisualDensity.minimumDensity,
-                                vertical: VisualDensity.minimumDensity,
-                              ),
-
-                              // title: Text("Male"),
-                              value:
-                                  //_nurseBooking1Controller.selectedshift.value,
-                                  "Day",
-                              groupValue:
-                                  _nurseBooking1Controller.selectedshift.value,
-                              onChanged: (value) {
-                                _nurseBooking1Controller.onChangeShifts(value!);
-                                // setState(() {
-                                //   gender = value.toString();
-                                // });
-                              },
-                            ),
-                          ),
-                          Obx(
-                            () => RadioListTile(
-                              title: Text(
-                                'Night               ',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.035,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              visualDensity: VisualDensity(
-                                horizontal: VisualDensity.minimumDensity,
-                                vertical: VisualDensity.minimumDensity,
-                              ),
-                              // title: Text("Male"),
-                              value:
-                                  //_nurseBooking1Controller.selectedshift.value,
-                                  "Night",
-                              groupValue:
-                                  _nurseBooking1Controller.selectedshift.value,
-                              onChanged: (value) {
-                                _nurseBooking1Controller.onChangeShifts(value!);
-                                // setState(() {
-                                //   gender = value.toString();
-                                // });
-                              },
-                            ),
-                          ),
-                          Obx(
-                            () => RadioListTile(
-                              title: Text(
-                                'Both               ',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.035,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              visualDensity: VisualDensity(
-                                horizontal: VisualDensity.minimumDensity,
-                                vertical: VisualDensity.minimumDensity,
-                              ),
-                              // title: Text("Male"),
-                              value: "Both",
-                              //_nurseBooking1Controller.selectedshift.value,
-
-                              groupValue:
-                                  _nurseBooking1Controller.selectedshift.value,
-                              onChanged: (value) {
-                                _nurseBooking1Controller.onChangeShifts(value!);
-                                // setState(() {
-                                //   gender = value.toString();
-                                // });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
-              ///todo:selected date starting...
-
-              Text(
-                'Choose Starting Date:',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                ),
-              ),
-
-              ///........................
-
-              NeumorphicTextFieldContainer(
-                child: Obx(
-                  () => (_nurseBooking1Controller.isLoading.value)
-                      ? Center(child: CircularProgressIndicator())
-                      : TextFormField(
-                          controller:
-                              _nurseBooking1Controller.appointmentController1,
-                          onTap: () {
-                            _nurseBooking1Controller.chooseDate();
-                          },
-
-                          cursorColor: Colors.black,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'Select date',
-                            helperStyle: TextStyle(
-                              color: black.withOpacity(0.7),
-                              fontSize: 18,
-                            ),
-                            prefixIcon: Icon(
-                              Icons.calendar_today_outlined,
-                              color: black.withOpacity(0.7),
-                              size: 20,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 1,
-                          autofocus: true,
-                          //obscureText: true,
-                          //controller: _loginpasswordController.mobileController,
-                        ),
-                ),
-              ),
-
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
-              ///todo:selected date ending...
-
-              Text(
-                'Choose Ending Date:',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                ),
-              ),
-
-              NeumorphicTextFieldContainer(
-                child: Obx(
-                  () => (_nurseBooking1Controller.isLoading.value)
-                      ? Center(child: CircularProgressIndicator())
-                      : TextFormField(
-                          controller:
-                              _nurseBooking1Controller.appointmentController2,
-                          onTap: () {
-                            _nurseBooking1Controller.chooseDate2();
-                          },
-
-                          cursorColor: Colors.black,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'Select date',
-                            helperStyle: TextStyle(
-                              color: black.withOpacity(0.7),
-                              fontSize: 18,
-                            ),
-                            prefixIcon: Icon(
-                              Icons.calendar_today_outlined,
-                              color: black.withOpacity(0.7),
-                              size: 20,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 1,
-                          autofocus: true,
-                          //obscureText: true,
-                          //controller: _loginpasswordController.mobileController,
-                        ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
-              ///todo:phone no...
-
-              Text(
-                'Enter your phone no:',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                ),
-              ),
-
-              ///todo: phone number..........
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _nurseBooking1Controller.mobileNumberController,
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) {
-                    _nurseBooking1Controller.MobileNumber = value!;
-                  },
-                  validator: (value) {
-                    return _nurseBooking1Controller.validPhone(value!);
-                  },
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Phone',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.phone_android_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-
-              // RectangularInputField(
-              //   hintText: 'Password',
-              //   icon: Icons.lock,
-              //   obscureText: true,
-              // ),
-
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-
-              ///todo: address value..........
-
-              Text(
-                'Enter your Location:',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                ),
-              ),
-              NeumorphicTextFieldContainer(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
-                  child: Obx(
-                    () => DropdownButtonFormField<NurseLocationModel>(
-                        value: _nurseBooking1Controller
-                            .selectedNurseLocation.value,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.place,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                        ),
-                        hint: Text('Select Locations'),
-                        items: _nurseBooking1Controller.locations
-                            .map((NurseLocationModel locations) {
-                          return DropdownMenuItem(
-                            value: locations,
-                            child: SizedBox(
-                              height: size.height * 0.06,
-                              width: size.width * 0.55,
-                              child: Text(
-                                locations.locationName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: size.height * 0.015,
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (NurseLocationModel? newValue) {
-                          _nurseBooking1Controller.selectedNurseLocation.value =
-                              newValue!;
-                        }),
-                  ),
-                ),
-              ),
-
-              SizedBox(
-                height: size.height * 0.00,
-              ),
-
-              SizedBox(
-                height: size.height * 0.018,
-                //appPadding / 2,
-              ),
-              SizedBox(
-                height: size.height * 0.00,
-                //appPadding / 2,
-              ),
-              RectangularButton(
-                  text: 'Book',
-                  press: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setString("nurseLocationId",
-                        "${_nurseBooking1Controller.selectedNurseLocation.value?.id.toString()}");
-                    CallLoader.loader();
-                    _nurseBooking1Controller.checkNurse1();
-                    //Get.to(()=>NurseListUser());
-                    //Get.to(NurseAppointmentHistory());
-
-                    //_loginpasswordController.checkLoginpassword();
-                  })
-            ],
-          ),
+                  //_loginpasswordController.checkLoginpassword();
+                })
+          ],
         ),
       ),
     );
