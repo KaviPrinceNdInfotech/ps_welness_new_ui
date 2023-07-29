@@ -11,9 +11,13 @@ import '../../../model/1_user_model/states_model/state_modells.dart';
 import '../../../modules_view/1_user_section_views/medicine_view/medicine_address_list/medicine_address_list_view.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
+import 'medicine_address_controller/medicine_address_controller.dart';
 
 class MedicineAddressController extends GetxController {
   final GlobalKey<FormState> medicineaddressformmkey = GlobalKey<FormState>();
+
+  medicine_addresssList_Controller _medicine_addresslist_controller =
+      Get.put(medicine_addresssList_Controller());
 
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
@@ -24,6 +28,8 @@ class MedicineAddressController extends GetxController {
 
   ///
   List<StateModel> states = <StateModel>[];
+
+  //get context => null;
 
   ///
 
@@ -55,15 +61,29 @@ class MedicineAddressController extends GetxController {
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
+      Get.snackbar("Add Sucessfully", "${r.body}");
 
       CallLoader.hideLoader();
-
+      _medicine_addresslist_controller.onInit();
+      _medicine_addresslist_controller.medicineaddressListApi();
+      // Get.to(
+      //   () => Medicineaddresslist(), //next page class
+      //   duration: Duration(seconds: 0), //duration of transitions, default 1 sec
+      //   transition:
+      //       // Transition.leftToRight //transition effect
+      //       // Transition.fadeIn
+      //       //Transition.size
+      //       Transition.zoom,
+      // );
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(seconds: 1),
-          () {
-            // labcheckoutApi();
-            Get.to(() => Medicineaddresslist());
+          Duration(seconds: 2),
+          //transition:Transition.zoom,
+
+          () async {
+            await Get.to(() => Medicineaddresslist());
+
+            // await Get.offAll(() => Medicineaddresslist());
 
             //Get.to((page))
             ///
@@ -242,4 +262,5 @@ class MedicineAddressController extends GetxController {
 //   user1formkey.currentState!.save();
 //   //Get.to(() => HomePage());
 // }
+
 }

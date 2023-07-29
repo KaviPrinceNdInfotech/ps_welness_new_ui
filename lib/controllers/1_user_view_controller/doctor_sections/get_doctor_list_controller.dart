@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
 import '../../../model/1_user_model/hlthchkp_detail_model/healthchkp_detail_model.dart';
 import '../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
@@ -14,11 +16,14 @@ import '../../../modules_view/1_user_section_views/doctorss/doctor_appointments_
 import '../../../modules_view/1_user_section_views/doctorss/doctor_checkout/doctor_checkout.dart';
 import '../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../servicess_api/api_services_all_api.dart';
+import 'doctor_checkout_controller.dart';
 //import 'package:ps_welness/model/1_user_model/lab_list_models.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
 
 class DoctorListController extends GetxController {
   final GlobalKey<FormState> doctor3formkey = GlobalKey<FormState>();
+  final DoctorCheckoutController _doctorappointmentcheckout =
+      Get.put(DoctorCheckoutController());
 
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
@@ -80,9 +85,24 @@ class DoctorListController extends GetxController {
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
 
-      CallLoader.hideLoader();
+      ///todo:for it it will call next screen apis and update....
 
-      Get.to(DoctorAppointmentCheckout());
+      _doctorappointmentcheckout.doctoorcheckoutApi();
+      _doctorappointmentcheckout.onInit();
+      _doctorappointmentcheckout.update();
+      await accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(seconds: 2),
+          () {
+            // labcheckoutApi();
+            Get.to(DoctorAppointmentCheckout());
+
+            //Get.to((page))
+            ///
+          },
+        );
+      });
+      CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());
@@ -99,9 +119,25 @@ class DoctorListController extends GetxController {
   void doctordetailApi() async {
     isLoading(true);
     doctordetailbyid = await ApiProvider.ViewDoctorDetailApi();
+    if (doctordetailbyid?.doctorName == null) {
+      Timer(
+        const Duration(seconds: 2),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      doctordetailbyid = await ApiProvider.ViewDoctorDetailApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince doctor list detail by id');
     print(doctordetailbyid);
-    if (doctordetailbyid != null) {
+    if (doctordetailbyid?.doctorName != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
       //Get.to(()=>Container());

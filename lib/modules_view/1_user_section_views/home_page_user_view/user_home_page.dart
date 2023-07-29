@@ -524,22 +524,27 @@ class _UserHomePageState extends State<UserHomePage> {
                                           InkWell(
                                             onTap: () async {
                                               if (index == 0) {
-                                                _nurseBooking1Controller
-                                                    .getNurseTypeApi();
+                                                // _nurseBooking1Controller
+                                                // .getNurseTypeApi();
                                                 //_doctor_1_controller.getdepartmentApi();
                                                 // _doctor_1_controller.update();
-                                                _nurseBooking1Controller
-                                                    .getNurseLocationApi();
+                                                // _nurseBooking1Controller
+                                                //.getNurseLocationApi();
                                                 //RxStatus.loading();
                                                 CallLoader.loader();
                                                 await Future.delayed(
                                                     Duration(seconds: 1));
                                                 CallLoader.hideLoader();
                                                 //await Get.to(DoctorSignup2());
-                                                await Get.to(
+                                                await Get.offAll(
                                                     () => NurseBoooking1());
                                               } else if (index == 1) {
-                                                Get.to(() => DoctorAddress());
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 1));
+                                                CallLoader.hideLoader();
+                                                Get.offAll(
+                                                    () => DoctorAddress());
                                                 //Get.to(() => CatagaryDetails());
                                               } else if (index == 2) {
                                                 Get.defaultDialog(
@@ -1291,7 +1296,11 @@ class _UserHomePageState extends State<UserHomePage> {
                                                 // Get.to(() => ComplainList());
                                                 //Get.to(() => Profoile());
                                               } else if (index == 3) {
-                                                Get.to(() => ChooseLab());
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 1));
+                                                CallLoader.hideLoader();
+                                                Get.offAll(() => ChooseLab());
                                                 //Get.to(() => ReportList());
 
                                                 ///
@@ -1305,6 +1314,10 @@ class _UserHomePageState extends State<UserHomePage> {
                                                 // _medicineListController
                                                 //     .medicineListApi();
                                                 // _medicineListController.update();
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 1));
+                                                CallLoader.hideLoader();
                                                 Get.to(() => ReportList());
                                                 // Get.defaultDialog(
                                                 //     barrierDismissible: true,
@@ -1451,7 +1464,12 @@ class _UserHomePageState extends State<UserHomePage> {
                                                     .medicineListApi();
                                                 _medicineListController
                                                     .update();
-                                                Get.to(() => SearchMedicine());
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 1));
+                                                CallLoader.hideLoader();
+                                                Get.offAll(
+                                                    () => SearchMedicine());
                                                 // Get.defaultDialog(
                                                 //     barrierDismissible: true,
                                                 //     backgroundColor: MyTheme.t1containercolor,

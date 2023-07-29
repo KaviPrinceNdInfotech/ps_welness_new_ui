@@ -114,6 +114,7 @@ class MedicineCart extends StatelessWidget {
                               horizontal: size.width * 0.05,
                               vertical: size.height * 0.03),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
                                 onTap: () {
@@ -129,10 +130,16 @@ class MedicineCart extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: size.width * 0.03,
+                                width: size.width * 0.0,
                               ),
                               Text(
                                 'Medicine Cart',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: size.height * 0.02),
+                              ),
+                              Text(
+                                '                 ',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.height * 0.02),
@@ -150,7 +157,7 @@ class MedicineCart extends StatelessWidget {
                               //         child: Text('No List'),
                               //       )
                               : SizedBox(
-                                  height: size.height * 0.727,
+                                  height: size.height / 1.37,
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _medicineCartListController

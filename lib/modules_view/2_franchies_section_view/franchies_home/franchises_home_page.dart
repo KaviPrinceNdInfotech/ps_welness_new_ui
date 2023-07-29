@@ -26,9 +26,9 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registra
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/test_name_list/test_name_list.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 
-import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
 import '../franchise_payout_report/franchise_payout_report.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_chemist_details/chemist_detail.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_doctor_report/my_ymwd_doctor_details/my_ymwd_vehicle_report.dart';
@@ -826,7 +826,7 @@ class FranchiesHomePage extends StatelessWidget {
                                             () => FranchiseTdsHistoryReport());
                                       } else if (index == 17) {
                                         //Get.back();
-                                        Get.to(() => SupportView());
+                                        Get.to(() => SupportViewPsComman());
                                       }
                                     },
                                     child: Container(

@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/sign_in/components/social.dart';
 
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/sign_in/components/social.dart';
 
+import '../../widgets/widgets/account_check.dart';
+import '../sign_up_list/sign_up_list.dart';
 import 'components/credentials.dart';
 import 'components/head_text.dart';
 
@@ -31,7 +32,7 @@ class SignInScreen extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                bottom: -size.height * 0.50,
+                bottom: -size.height * 0.47,
                 //left: -30,
                 right: size.width * 0.16,
                 child: Padding(
@@ -53,7 +54,7 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: -size.height * 0.35,
+                bottom: -size.height * 0.32,
                 //left: -30,
                 right: -size.width * 0.29,
                 child: Padding(
@@ -75,7 +76,7 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: size.height * 0.383,
+                bottom: size.height * 0.41,
                 //left: -30,
                 left: size.width * 0.30,
                 child: Padding(
@@ -96,6 +97,30 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              Positioned(
+                bottom: size.height * 0.0,
+                //left: -30,
+                right: size.width * 0.16,
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: AccountCheck(
+                    login: true,
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SignUpList();
+                            //UserSignup1();
+
+                            //SignUpScreen();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -103,8 +128,8 @@ class SignInScreen extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  Credentials(),
-                  Social(),
+                  SizedBox(height: size.height * 0.485, child: Credentials()),
+                  // Social(),
                   //Spacer(),
                 ],
               ),

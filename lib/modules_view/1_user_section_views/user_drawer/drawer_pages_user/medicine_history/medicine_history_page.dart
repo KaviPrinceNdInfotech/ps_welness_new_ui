@@ -61,7 +61,7 @@ class MedicinrHistoryUser extends StatelessWidget {
                           color: Colors.white),
                       width: size.width * 0.9,
                       height: size.height * 0.06,
-                      margin: new EdgeInsets.fromLTRB(15, 20, 10, 20),
+                      margin: new EdgeInsets.fromLTRB(15, 2, 10, 20),
                       padding: new EdgeInsets.fromLTRB(2, 2, 2, 2),
                       child: Theme(
                         data: Theme.of(context)
@@ -106,8 +106,7 @@ class MedicinrHistoryUser extends StatelessWidget {
                         ? Center(
                             child: Text('No List'),
                           )
-                        : SizedBox(
-                            height: size.height * 0.765,
+                        : Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: _medicineHistoryController
@@ -453,7 +452,8 @@ class MedicinrHistoryUser extends StatelessWidget {
                                       ),
                                     ),
                                   );
-                                })),
+                                }),
+                          ),
                     //),
                   ],
                 ),

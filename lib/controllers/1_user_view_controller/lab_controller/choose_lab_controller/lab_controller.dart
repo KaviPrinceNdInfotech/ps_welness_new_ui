@@ -86,7 +86,7 @@ class ChooseLabController extends GetxController {
 
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
-      Get.to(LabListPage());
+      Get.offAll(LabListPage());
     }
   }
 

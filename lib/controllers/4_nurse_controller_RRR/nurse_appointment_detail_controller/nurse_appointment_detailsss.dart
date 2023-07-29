@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_checkout_controller/nurse_checkout_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
@@ -21,6 +22,8 @@ import '../../../utils/services/account_service.dart';
 
 class NurseAppointmentDetailController extends GetxController {
   final GlobalKey<FormState> NurseBooking2formkey = GlobalKey<FormState>();
+  final NurseCheckoutController _nurseappointmentcheckout =
+      Get.put(NurseCheckoutController());
   RxBool isLoading = false.obs;
 
   RxInt selectedimg = 0.obs;
@@ -129,11 +132,26 @@ class NurseAppointmentDetailController extends GetxController {
     );
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
+      _nurseappointmentcheckout.nursecheckoutApi();
+      _nurseappointmentcheckout.onInit();
+      _nurseappointmentcheckout.update();
 
       CallLoader.hideLoader();
+
+      await accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(seconds: 1),
+          () {
+            // labcheckoutApi();
+            Get.to(() => AppointmentCheckout());
+
+            //Get.to((page))
+            ///
+          },
+        );
+      });
       //Get.to(NurseListUser());
       // Get.to(NurseDetailsSchedulePage());
-      Get.to(() => AppointmentCheckout());
 
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());

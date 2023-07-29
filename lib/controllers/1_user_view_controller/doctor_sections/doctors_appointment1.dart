@@ -94,7 +94,10 @@ class Doctor_appointment_1_Controller extends GetxController {
       //Get.to(NurseListUser());
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
-      Get.to(DoctorListUser());
+      CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
+      CallLoader.hideLoader();
+      await Get.offAll(DoctorListUser());
     }
   }
 

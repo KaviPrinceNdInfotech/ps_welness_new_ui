@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_lab_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
@@ -20,7 +21,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/10_lab_controller/lab_about_us_controller/lab_about_us_controllers.dart';
 import '../../../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
-import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/complaint_page/complaint_lab_page.dart';
 import 'drower_pages/profile_page_view/lab_profile.dart';
@@ -383,14 +383,14 @@ class LabMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportViewPs());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
               },
             ),
 

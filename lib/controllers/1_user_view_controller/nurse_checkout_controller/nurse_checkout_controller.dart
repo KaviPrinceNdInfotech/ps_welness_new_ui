@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
@@ -15,13 +17,29 @@ class NurseCheckoutController extends GetxController {
 
   ///todo from here we have get nurse checkout by location id...
   void nursecheckoutApi() async {
-    //isLoading(true);
+    isLoading(true);
     nurseCheckoutModel = await ApiProvider.NursecheckoutApi();
+    if (nurseCheckoutModel?.nurseName == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      nurseCheckoutModel = await ApiProvider.NursecheckoutApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince doctor list');
     print(nurseCheckoutModel);
     if (
         //nurseappointmentdetail?.result != nulla
-        nurseCheckoutModel != null
+        nurseCheckoutModel?.nurseName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

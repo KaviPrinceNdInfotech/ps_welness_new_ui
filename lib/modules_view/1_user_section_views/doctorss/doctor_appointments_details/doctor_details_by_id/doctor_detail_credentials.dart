@@ -43,7 +43,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
           child: Obx(
-            () => (_doctorListController.isLoading.value)
+            () => (_doctorListController.isLoading.isTrue)
                 ? Center(child: CircularProgressIndicator())
                 // : _nurseAppointmentDetailController.nursedetailbyId != null
                 // ? Center(

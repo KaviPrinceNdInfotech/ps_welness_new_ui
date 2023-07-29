@@ -58,7 +58,7 @@ class LabHistoryUser extends StatelessWidget {
                           color: Colors.white),
                       width: size.width * 0.9,
                       height: size.height * 0.06,
-                      margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      margin: new EdgeInsets.fromLTRB(20, 2, 20, 20),
                       padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                       child: Theme(
                         data: Theme.of(context)

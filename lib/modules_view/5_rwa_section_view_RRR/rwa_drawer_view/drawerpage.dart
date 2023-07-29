@@ -18,7 +18,7 @@ import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_passw
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
+import '../../../widgets/support_page_comman/support_comman_page.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 
 class RwaMainDrawer extends StatelessWidget {
@@ -291,14 +291,14 @@ class RwaMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportViewPs());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
               },
             ),
 

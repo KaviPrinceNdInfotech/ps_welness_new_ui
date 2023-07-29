@@ -137,12 +137,11 @@ class NurseBooking1Controller extends GetxController {
       CallLoader.hideLoader();
       _nurseUserListController.update();
       _nurseUserListController.nurselistsuserApi();
-      Get.to(NurseListUser());
+      Get.offAll(NurseListUser());
       //Get.to(NurseDetailsSchedulePage());
 
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());
-
     }
   }
 

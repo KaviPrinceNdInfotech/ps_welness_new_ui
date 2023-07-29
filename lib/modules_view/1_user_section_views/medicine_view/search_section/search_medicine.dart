@@ -116,7 +116,7 @@ class SearchMedicine extends StatelessWidget {
                             _medicineListController.foundProducts.value.isEmpty
                                 ? Center(child: Text("No Result Found"))
                                 : SizedBox(
-                                    height: size.height * 0.81,
+                                    height: size.height / 1.227,
                                     child: ListView.builder(
                                         shrinkWrap: true,
                                         itemCount: _medicineListController

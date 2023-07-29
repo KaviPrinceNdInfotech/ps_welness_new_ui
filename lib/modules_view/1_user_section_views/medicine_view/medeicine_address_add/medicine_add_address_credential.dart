@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,12 +7,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 import '../../../../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
 import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
+import '../../../../utils/services/account_service.dart';
+import '../../../../widgets/circular_loader.dart';
+import '../medicine_address_list/medicine_address_list_view.dart';
 
 class AddaddressmedicineCredentials extends StatelessWidget {
   AddaddressmedicineCredentials({Key? key}) : super(key: key);
@@ -343,16 +347,30 @@ class AddaddressmedicineCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'Submit',
                 press: () {
-                  CallLoader.loader();
                   _medicine_address_controller.checkaddressmedicine();
-                  _medicine_addresslist_controller.update();
                   _medicine_addresslist_controller.medicineaddressListApi();
-                  _medicine_address_controller.addmedicineaddressApi();
-                  _medicine_address_controller.refresh();
-                  //_medicine_address_controller.
+                  _medicine_addresslist_controller.update();
+                  _medicine_addresslist_controller.refresh();
+
+                  ///
+                  //CallLoader.hideLoader();
+                  // await accountService.getAccountData.then((accountData) {
+                  //   Timer(
+                  //     const Duration(seconds: 2),
+                  //     () {
+                  //       // labcheckoutApi();
+                  //       //Get.offAll(Medicineaddresslist());
+                  //
+                  //       //Get.to((page))
+                  //       ///
+                  //     },
+                  //   );
+                  // });
+                  ///
+                  //await showConfirmAddressPopup(context);
 
                   // Get.to(Medicineaddresslist());
-                  //CallLoader.loader();
+                  CallLoader.loader();
                   // _medicine_address_controller.checkUser1();
                   //Get.to(UserHomePage());
                   //_loginpasswordController.checkLoginpassword();
@@ -362,4 +380,46 @@ class AddaddressmedicineCredentials extends StatelessWidget {
       ),
     );
   }
+}
+
+enum ConfirmAction { Cancel, Accept }
+
+Future<Future<ConfirmAction?>> _asyncConfirmDialog(BuildContext context) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Add This Address?'),
+        content: const Text('This will add in your address list'),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop(ConfirmAction.Cancel);
+            },
+          ),
+          TextButton(
+            child: const Text('Save'),
+            onPressed: () async {
+              //CallLoader.loader();
+              await accountService.getAccountData.then((accountData) {
+                Timer(
+                  const Duration(seconds: 2),
+                  () {
+                    // labcheckoutApi();
+                    Get.offAll(Medicineaddresslist());
+
+                    //Get.to((page))
+                    ///
+                  },
+                );
+              });
+              Navigator.of(context).pop(ConfirmAction.Accept);
+            },
+          )
+        ],
+      );
+    },
+  );
 }

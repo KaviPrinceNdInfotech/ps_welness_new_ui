@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
+//import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+//import '../../3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/about_franchies/about_franchies.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/complaint_page/complaint_page.dart';
@@ -17,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/franchiese_profile.dart';
 //import 'package:ps_welness/modules_view/forget_password_view/forget_password_view.dart';
 
+import '../../../widgets/support_page_comman/support_comman_page.dart';
 import '../../forget_password_view/forget_password_view.dart';
 import 'drower_pages/about_franchies/about_franchies.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
@@ -258,14 +260,14 @@ class FranchiesisMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportViewPs());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
               },
             ),
 
@@ -302,7 +304,7 @@ class FranchiesisMainDrawer extends StatelessWidget {
                 print(Get.currentRoute);
                 //Get.back();
                 // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                //Get.offNamed('/AboutUs');
               },
             ),
 

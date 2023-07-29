@@ -71,7 +71,6 @@ import '../controllers/1_user_view_controller/lab_controller/choose_lab_controll
 import '../controllers/1_user_view_controller/lab_rating_review_controller/lab_view_ratting_review.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/add_delivery_post_controller.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
-import '../controllers/1_user_view_controller/medicine_controllers/medicine_checkout/medicine_chkout_controller.dart';
 import '../controllers/1_user_view_controller/medicine_controllers/medicine_list_controllers/medicine_list_controller.dart';
 import '../controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
 import '../controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
@@ -158,7 +157,8 @@ class ControllerBinding extends Bindings {
     Get.put(NurseUserListController());
     Get.put(MedicineCartListController());
     Get.put(MedicineListController());
-    Get.put(CheckoutMedicineController());
+
+    /// Get.put(CheckoutMedicineController());
     Get.put(UserProfileControllers());
     Get.put(ComplaintLabController());
     Get.put(LabProfileUpdateController());
@@ -216,6 +216,8 @@ class ControllerBinding extends Bindings {
     Get.put(Ambulanceget2Controller());
     Get.put(DriverAcceptlistController());
     Get.put(UseracptrejectController());
+
+    /// Get.put(CheckoutMedicineController());
 
     // Get.put(CatagaryByIdController());
 

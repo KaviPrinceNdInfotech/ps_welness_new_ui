@@ -36,7 +36,7 @@ class Social extends StatelessWidget {
         // ),
 
         SizedBox(
-          height: appPadding * 0.01,
+          height: appPadding * 0.0,
         ),
 
         AccountCheck(

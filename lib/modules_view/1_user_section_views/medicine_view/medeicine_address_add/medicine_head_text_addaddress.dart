@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/medicine_view/medicine_address_list/medicine_address_list_view.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 
 class MedicineAddressHeadText extends StatelessWidget {
@@ -22,7 +23,8 @@ class MedicineAddressHeadText extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAll(Medicineaddresslist());
+              //Get.back();
             },
             child: Container(
               height: size.height * 0.03,

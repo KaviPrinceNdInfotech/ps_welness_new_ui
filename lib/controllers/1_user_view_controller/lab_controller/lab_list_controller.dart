@@ -20,6 +20,8 @@ import '../../../utils/services/account_service.dart';
 
 class LabListController extends GetxController {
   final GlobalKey<FormState> Lab3formkey = GlobalKey<FormState>();
+  //LabListController _labListController = Get.put(LabListController());
+
   RxBool isLoading = true.obs;
 
   LabListUser? labListUser;
@@ -38,13 +40,29 @@ class LabListController extends GetxController {
 
   ///todo from here we have get nurse checkout by location id...
   void labcheckoutApi() async {
-    //isLoading(true);
+    isLoading(true);
     labCheckoutModel = await ApiProvider.LabcheckoutApi();
+    if (labCheckoutModel?.labName == null) {
+      Timer(
+        const Duration(seconds: 2),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      labCheckoutModel = await ApiProvider.LabcheckoutApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince doctor list');
     print(labCheckoutModel);
     if (
         //nurseappointmentdetail?.result != null
-        labCheckoutModel != null
+        labCheckoutModel?.labName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
@@ -68,9 +86,26 @@ class LabListController extends GetxController {
   void labdetailApi() async {
     isLoading(true);
     labdetailsbyid = await ApiProvider.ViewLabdetailssApi();
+
+    if (labdetailsbyid?.data?.labName == null) {
+      Timer(
+        const Duration(milliseconds: 200),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      labdetailsbyid = await ApiProvider.ViewLabdetailssApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince lab sedule.........');
     print(labdetailsbyid);
-    if (labdetailsbyid != null) {
+    if (labdetailsbyid?.data?.labName != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
       //Get.to(()=>Container());
@@ -99,12 +134,16 @@ class LabListController extends GetxController {
     );
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
-
+      labcheckoutApi();
+      CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
       CallLoader.hideLoader();
 
-      accountService.getAccountData.then((accountData) {
+      // CallLoader.hideLoader();
+
+      await accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 600),
+          const Duration(seconds: 2),
           () {
             // labcheckoutApi();
             Get.to(() => LabAppointmentCheckout());

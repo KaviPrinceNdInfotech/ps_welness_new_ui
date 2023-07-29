@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/lab_lists/lab_listpage.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
@@ -34,23 +35,30 @@ class LabSchedule1Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool shouldPop = true;
     Size size = MediaQuery.of(context).size;
     var base = 'http://test.pswellness.in/Images/';
 
-    return Scaffold(
-      backgroundColor: MyTheme.ThemeColors,
-      body: Obx(
-        () =>
-            (_labListController.isLoading.value &&
-                    _viewlabreviewController.isLoading.value)
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : SafeArea(
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Column(
+    return WillPopScope(
+      onWillPop: () async {
+        Get.offAll(LabListPage());
+        return shouldPop;
+      },
+      child: Scaffold(
+        backgroundColor: MyTheme.ThemeColors,
+        body: Obx(
+          () => (_labListController.isLoading.value &&
+                  _viewlabreviewController.isLoading.value)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SafeArea(
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        top: size.height * 0.00,
+                        child: Column(
                           children: [
                             Container(
                               height: size.height * 0.3,
@@ -71,7 +79,9 @@ class LabSchedule1Page extends StatelessWidget {
                                       alignment: Alignment.centerLeft,
                                       child: InkWell(
                                         onTap: () {
-                                          Get.back();
+                                          Get.offAll(LabListPage());
+
+                                          // Get.back();
                                         },
                                         child: Icon(
                                           Icons.arrow_back_ios_outlined,
@@ -94,192 +104,176 @@ class LabSchedule1Page extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Positioned(
-                          top: size.height * 0.266,
-                          child: Container(
-                            height: size.height * 0.05,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                color: MyTheme.ThemeColors,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: size.height * 0.007,
+                      ),
+                      Positioned(
+                        top: size.height * 0.27,
+                        child: Container(
+                          height: size.height * 0.05,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: MyTheme.ThemeColors,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: size.height * 0.007,
+                              ),
+                              Text(
+                                'Since ${_labListController.labdetailsbyid?.data?.year ?? 2000}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: size.height * 0.016,
+                                  fontWeight: FontWeight.w800,
                                 ),
-                                Text(
-                                  'Since ${_labListController.labdetailsbyid?.data?.year}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: size.height * 0.016,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                        Positioned(
-                          top: size.height * 0.3,
-                          child: Container(
-                            height: size.height * 0.7,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.03,
-                                  vertical: size.height * 0.01),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${_labListController.labdetailsbyid?.data?.labName.toString()}",
-                                      // 'Vineet ji lab',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: size.height * 0.025,
-                                        color: MyTheme.ThemeColors1,
-                                      ),
+                      ),
+                      Positioned(
+                        top: size.height * 0.298,
+                        child: Container(
+                          height: size.height * 0.7,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.03,
+                                vertical: size.height * 0.01),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "${_labListController.labdetailsbyid?.data?.labName.toString()}",
+                                    // 'Vineet ji lab',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.height * 0.025,
+                                      color: MyTheme.ThemeColors1,
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: SizedBox(
-                                          width: size.width * 0.4,
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Rating: ',
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.yellow.shade900,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                        width: size.width * 0.4,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Rating: ',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.yellow.shade900,
 
-                                                  //MyTheme
-                                                  //.containercolor2,
-                                                  fontSize: size.height * 0.017,
-                                                ),
+                                                //MyTheme
+                                                //.containercolor2,
+                                                fontSize: size.height * 0.017,
                                               ),
-                                              Text(
-                                                "${_labListController.labdetailsbyid?.data?.rating?.toString()}",
-
-                                                //'0.0',
-                                                //'${_doctorListController.foundDoctors[index].experience} yr',
-                                                //doctorcatagary[index],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.red.shade600,
-
-                                                  //MyTheme
-                                                  //.containercolor2,
-                                                  fontSize: size.height * 0.02,
-                                                ),
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow.shade800,
-                                                size: size.height * 0.025,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      PhysicalModel(
-                                        color: Colors.black,
-                                        elevation: 5,
-                                        borderRadius: BorderRadius.circular(30),
-                                        child: InkWell(
-                                          onTap: () {
-                                            addReview();
-                                            _viewlabreviewController
-                                                .labreviewratingApi();
-                                            _viewlabreviewController.update();
-                                          },
-                                          child: Container(
-                                            height: size.height * 0.03,
-                                            width: size.width * 0.22,
-                                            decoration: BoxDecoration(
-                                              color: Colors.cyanAccent.shade200,
-                                              //yellow.shade600,
-                                              border: Border.all(
-                                                  color: Colors.black),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
                                             ),
-                                            child: Center(
-                                                child: Text(
-                                              'Add Review',
-                                              style: GoogleFonts.nunitoSans(
-                                                  fontWeight: FontWeight.w800,
-                                                  fontSize:
-                                                      size.height * 0.013),
-                                            )),
-                                          ),
+                                            Text(
+                                              "${_labListController.labdetailsbyid?.data?.rating?.toString() ?? 0}",
+
+                                              //'0.0',
+                                              //'${_doctorListController.foundDoctors[index].experience} yr',
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red.shade600,
+
+                                                //MyTheme
+                                                //.containercolor2,
+                                                fontSize: size.height * 0.02,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.yellow.shade800,
+                                              size: size.height * 0.025,
+                                            )
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.00,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${_labListController.labdetailsbyid?.data?.labTypeName.toString()}",
-
-                                      //_labListController.labdetailsbyid!.labTypeName
-                                      // .toString(),
-                                      //'All type of test available',
-                                      style: TextStyle(
-                                        //fontWeight: FontWeight.bold,
-                                        fontSize: size.height * 0.02,
-                                        color: Colors.orange.shade400,
+                                    ),
+                                    PhysicalModel(
+                                      color: Colors.black,
+                                      elevation: 5,
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: InkWell(
+                                        onTap: () {
+                                          addReview();
+                                          _viewlabreviewController
+                                              .labreviewratingApi();
+                                          _viewlabreviewController.update();
+                                        },
+                                        child: Container(
+                                          height: size.height * 0.03,
+                                          width: size.width * 0.22,
+                                          decoration: BoxDecoration(
+                                            color: Colors.cyanAccent.shade200,
+                                            //yellow.shade600,
+                                            border:
+                                                Border.all(color: Colors.black),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                              child: Text(
+                                            'Add Review',
+                                            style: GoogleFonts.nunitoSans(
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.height * 0.013),
+                                          )),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.005,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${_labListController.labdetailsbyid?.data?.location.toString()}",
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.0002,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "${_labListController.labdetailsbyid?.data?.location.toString()}",
 
-                                      //
-                                      // _labListController.labdetailsbyid!.location
-                                      //     .toString(),
+                                    //
+                                    // _labListController.labdetailsbyid!.location
+                                    //     .toString(),
 
-                                      //'Address: Noida sector 2 bloc C53 201301',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: size.height * 0.015,
-                                        color: Colors.blue,
-                                      ),
+                                    //'Address: Noida sector 2 bloc C53 201301',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.height * 0.015,
+                                      color: Colors.blue,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.0,
-                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.005,
+                                ),
 
-                                  Align(
+                                SizedBox(
+                                  height: size.height * 0.06,
+                                  child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "${_labListController.labdetailsbyid?.data?.about.toString()}",
+                                      "${_labListController.labdetailsbyid?.data?.about ?? "No About Us Available"}",
 
                                       // _labListController.labdetailsbyid!.about
                                       // .toString(),
                                       // 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                                      maxLines: 4,
+                                      maxLines: 3,
                                       style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         //fontWeight: FontWeight.bold,
@@ -288,31 +282,31 @@ class LabSchedule1Page extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.00,
-                                  ),
+                                ),
 
-                                  SizedBox(
-                                      height: size.height * 0.205,
-                                      child: LabScheduleCredentials()),
+                                SizedBox(
+                                    height: size.height * 0.205,
+                                    child: LabScheduleCredentials()),
 
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'View Review:',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.height * 0.015,
-                                        color: Colors.black,
-                                        //color: Colors.red.shade300,
-                                      ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'View Review:',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: size.height * 0.015,
+                                      color: Colors.black,
+                                      //color: Colors.red.shade300,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.002,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.17,
+                                ),
+
+                                //Spacer(),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: size.height * 0.004),
+                                  child: SizedBox(
+                                    height: size.height * 0.2,
                                     child: Obx(
                                       () => (_labListController
                                                   .isLoading.value &&
@@ -320,153 +314,152 @@ class LabSchedule1Page extends StatelessWidget {
                                                   .isLoading.value)
                                           ? Center(
                                               child:
-                                                  CircularProgressIndicator(),
-                                            )
-                                          : ListView.builder(
-                                              shrinkWrap: true,
-                                              //scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  _viewlabreviewController
-                                                      .labviewreview
-                                                      ?.rating
-                                                      ?.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              1.0),
-                                                      child: Ink(
-                                                        child: PhysicalModel(
-                                                          color: MyTheme.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                          elevation: 20,
-                                                          child: Padding(
-                                                            padding: EdgeInsets.symmetric(
-                                                                horizontal:
-                                                                    size.width *
-                                                                        0.01,
-                                                                vertical:
-                                                                    size.height *
+                                                  CircularProgressIndicator())
+                                          : _viewlabreviewController
+                                                  .labviewreview!
+                                                  .rating!
+                                                  .isEmpty
+                                              ? Center(
+                                                  child: Text('No Rating'),
+                                                )
+                                              : ListView.builder(
+                                                  shrinkWrap: true,
+                                                  //scrollDirection: Axis.horizontal,
+                                                  itemCount:
+                                                      _viewlabreviewController
+                                                          .labviewreview
+                                                          ?.rating
+                                                          ?.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(2.0),
+                                                          child: Ink(
+                                                            child:
+                                                                PhysicalModel(
+                                                              color:
+                                                                  MyTheme.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              elevation: 20,
+                                                              child: Padding(
+                                                                padding: EdgeInsets.symmetric(
+                                                                    horizontal:
+                                                                        size.width *
+                                                                            0.01,
+                                                                    vertical: size
+                                                                            .height *
                                                                         0.003),
-                                                            child: Container(
-                                                              height:
-                                                                  size.height *
-                                                                      0.11,
-                                                              width:
-                                                                  size.width *
-                                                                      0.9,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: MyTheme
-                                                                    .ThemeColors,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Row(
+                                                                child:
+                                                                    Container(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.11,
+                                                                  width:
+                                                                      size.width *
+                                                                          0.9,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: MyTheme
+                                                                        .ThemeColors,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(5),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
                                                                     children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              size.height * 0.08,
-                                                                          width:
-                                                                              size.width * 0.2,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Colors.red,
-                                                                          ),
-                                                                          child:
-                                                                              Image.network(
-                                                                            '$base${_viewlabreviewController.labviewreview?.rating?[index].image.toString()}',
-                                                                            //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                                            fit:
-                                                                                BoxFit.fill,
-                                                                            errorBuilder: (context,
-                                                                                error,
-                                                                                stackTrace) {
-                                                                              //if image not comming in catagary then we have to purchase
-
-                                                                              return Center(
-                                                                                child: Text(
-                                                                                  'No Image',
-                                                                                  style: TextStyle(
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontSize: size.height * 0.013,
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
+                                                                      Row(
                                                                         children: [
-                                                                          Text(
-                                                                            "${_viewlabreviewController.labviewreview?.rating?[index].name}",
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: size.height * 0.016,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              color: Colors.black,
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                size.height * 0.035,
-                                                                            width:
-                                                                                size.width * 0.5,
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
                                                                             child:
-                                                                                Text(
-                                                                              "${_viewlabreviewController.labviewreview?.rating?[index].description}",
-                                                                              style: TextStyle(
-                                                                                fontSize: size.height * 0.013,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                color: Colors.white,
+                                                                                Container(
+                                                                              height: size.height * 0.08,
+                                                                              width: size.width * 0.2,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.red,
+                                                                              ),
+                                                                              child: Image.network(
+                                                                                '$base${_viewlabreviewController.labviewreview?.rating?[index].image.toString()}',
+                                                                                //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                                                fit: BoxFit.fill,
+                                                                                errorBuilder: (context, error, stackTrace) {
+                                                                                  //if image not comming in catagary then we have to purchase
+
+                                                                                  return Center(
+                                                                                    child: Text(
+                                                                                      'No Image',
+                                                                                      style: TextStyle(
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                        fontSize: size.height * 0.013,
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                },
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          Row(
+                                                                          Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
                                                                             children: [
                                                                               Text(
-                                                                                "Rating:",
+                                                                                "${_viewlabreviewController.labviewreview?.rating?[index].name}",
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.016,
                                                                                   fontWeight: FontWeight.w600,
-                                                                                  color: Colors.brown,
+                                                                                  color: Colors.black,
                                                                                 ),
                                                                               ),
-                                                                              Text(
-                                                                                "${_viewlabreviewController.labviewreview?.rating?[index].rating.toString()}",
-                                                                                style: TextStyle(
-                                                                                  fontSize: size.height * 0.016,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  color: Colors.red,
+                                                                              SizedBox(
+                                                                                height: size.height * 0.035,
+                                                                                width: size.width * 0.5,
+                                                                                child: Text(
+                                                                                  "${_viewlabreviewController.labviewreview?.rating?[index].description}",
+                                                                                  style: TextStyle(
+                                                                                    fontSize: size.height * 0.013,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: Colors.white,
+                                                                                  ),
                                                                                 ),
                                                                               ),
-                                                                              Icon(
-                                                                                Icons.star,
-                                                                                color: Colors.yellow,
-                                                                                size: size.height * 0.02,
+                                                                              Row(
+                                                                                children: [
+                                                                                  Text(
+                                                                                    "Rating:",
+                                                                                    style: TextStyle(
+                                                                                      fontSize: size.height * 0.016,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      color: Colors.brown,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    "${_viewlabreviewController.labviewreview?.rating?[index].rating.toString()}",
+                                                                                    style: TextStyle(
+                                                                                      fontSize: size.height * 0.016,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      color: Colors.red,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Icon(
+                                                                                    Icons.star,
+                                                                                    color: Colors.yellow,
+                                                                                    size: size.height * 0.02,
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ],
                                                                           ),
@@ -474,299 +467,300 @@ class LabSchedule1Page extends StatelessWidget {
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
+                                                      ],
+                                                    );
+                                                  }),
                                     ),
                                   ),
+                                ),
 
-                                  // Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: Text(
-                                  //     'Book a Date:',
-                                  //     style: TextStyle(
-                                  //       fontWeight: FontWeight.w600,
-                                  //       fontSize: size.height * 0.02,
-                                  //       //color: Colors.red.shade300,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: size.height * 0.01,
-                                  // ),
-                                  // SizedBox(
-                                  //   height: size.height * 0.08,
-                                  //   width: size.width,
-                                  //   child: ListView.builder(
-                                  //       shrinkWrap: true,
-                                  //       scrollDirection: Axis.horizontal,
-                                  //       itemCount: 32,
-                                  //       itemBuilder: (BuildContext context, int index) {
-                                  //         return Padding(
-                                  //           padding: const EdgeInsets.all(3.0),
-                                  //           child: PhysicalModel(
-                                  //             color: MyTheme.white,
-                                  //             borderRadius: BorderRadius.circular(5),
-                                  //             elevation: 20,
-                                  //             child: Padding(
-                                  //               padding: EdgeInsets.symmetric(
-                                  //                   horizontal: size.width * 0.01,
-                                  //                   vertical: size.height * 0.004),
-                                  //               child: Container(
-                                  //                 //height: size.height * 0.025,
-                                  //                 width: size.width * 0.17,
-                                  //                 decoration: BoxDecoration(
-                                  //                   color: MyTheme.ThemeColors,
-                                  //                   borderRadius: BorderRadius.circular(5),
-                                  //                 ),
-                                  //                 child: Column(
-                                  //                   mainAxisAlignment:
-                                  //                       MainAxisAlignment.center,
-                                  //                   children: [
-                                  //                     Text(
-                                  //                       'MAR',
-                                  //                       style: TextStyle(
-                                  //                         fontSize: size.height * 0.015,
-                                  //                         fontWeight: FontWeight.w600,
-                                  //                         color: Colors.white,
-                                  //                       ),
-                                  //                     ),
-                                  //                     SizedBox(
-                                  //                       height: size.height * 0.01,
-                                  //                     ),
-                                  //                     Text(
-                                  //                       '${index}',
-                                  //                       style: TextStyle(
-                                  //                         fontSize: size.height * 0.016,
-                                  //                         fontWeight: FontWeight.w600,
-                                  //                         color: Colors.white,
-                                  //                       ),
-                                  //                     ),
-                                  //                   ],
-                                  //                 ),
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //         );
-                                  //       }),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: size.height * 0.02,
-                                  // ),
-                                  // Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: Text(
-                                  //     'Book a Time:',
-                                  //     style: TextStyle(
-                                  //       fontWeight: FontWeight.w600,
-                                  //       fontSize: size.height * 0.02,
-                                  //       //color: Colors.red.shade300,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: size.height * 0.01,
-                                  // ),
-                                  // SizedBox(
-                                  //   height: size.height * 0.06,
-                                  //   width: size.width,
-                                  //   child: ListView.builder(
-                                  //       shrinkWrap: true,
-                                  //       scrollDirection: Axis.horizontal,
-                                  //       itemCount: 32,
-                                  //       itemBuilder: (BuildContext context, int index) {
-                                  //         return Padding(
-                                  //           padding: const EdgeInsets.all(3.0),
-                                  //           child: Ink(
-                                  //             child: PhysicalModel(
-                                  //               color: MyTheme.white,
-                                  //               borderRadius: BorderRadius.circular(5),
-                                  //               elevation: 20,
-                                  //               child: Padding(
-                                  //                 padding: EdgeInsets.symmetric(
-                                  //                     horizontal: size.width * 0.01,
-                                  //                     vertical: size.height * 0.004),
-                                  //                 child: Container(
-                                  //                   //height: size.height * 0.025,
-                                  //                   width: size.width * 0.17,
-                                  //                   decoration: BoxDecoration(
-                                  //                     color: MyTheme.ThemeColors,
-                                  //                     borderRadius:
-                                  //                         BorderRadius.circular(5),
-                                  //                   ),
-                                  //                   child: Column(
-                                  //                     mainAxisAlignment:
-                                  //                         MainAxisAlignment.center,
-                                  //                     children: [
-                                  //                       Text(
-                                  //                         '10:00',
-                                  //                         style: TextStyle(
-                                  //                           fontSize: size.height * 0.015,
-                                  //                           fontWeight: FontWeight.w600,
-                                  //                           color: Colors.white,
-                                  //                         ),
-                                  //                       ),
-                                  //                     ],
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //         );
-                                  //       }),
-                                  // ),
-                                  ///button
-
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: size.width * 0.2,
-                                        vertical: size.height * 0.00),
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        //Get.to(() => UserHomePage());
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(0.0),
-                                          ),
-                                          elevation: 0,
-                                          backgroundColor: Colors.white,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 0, vertical: 04),
-                                          textStyle: TextStyle(
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold)),
-                                      clipBehavior: Clip.none,
-                                      child: Container(
-                                        height: size.height * 0.05,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            top: BorderSide(
-                                                width: bevel,
-                                                color: Color(0xFFFFFFFFFF)),
-                                            left: BorderSide(
-                                                width: bevel,
-                                                color: Color(0xFFFFFFFFFF)),
-                                            right: BorderSide(
-                                                width: bevel,
-                                                color: Color(0xFFFF000000)),
-                                            bottom: BorderSide(
-                                                width: bevel,
-                                                color: Color(0xFFFF000000)),
-                                          ),
+                                // Align(
+                                //   alignment: Alignment.centerLeft,
+                                //   child: Text(
+                                //     'Book a Date:',
+                                //     style: TextStyle(
+                                //       fontWeight: FontWeight.w600,
+                                //       fontSize: size.height * 0.02,
+                                //       //color: Colors.red.shade300,
+                                //     ),
+                                //   ),
+                                // ),
+                                // SizedBox(
+                                //   height: size.height * 0.01,
+                                // ),
+                                // SizedBox(
+                                //   height: size.height * 0.08,
+                                //   width: size.width,
+                                //   child: ListView.builder(
+                                //       shrinkWrap: true,
+                                //       scrollDirection: Axis.horizontal,
+                                //       itemCount: 32,
+                                //       itemBuilder: (BuildContext context, int index) {
+                                //         return Padding(
+                                //           padding: const EdgeInsets.all(3.0),
+                                //           child: PhysicalModel(
+                                //             color: MyTheme.white,
+                                //             borderRadius: BorderRadius.circular(5),
+                                //             elevation: 20,
+                                //             child: Padding(
+                                //               padding: EdgeInsets.symmetric(
+                                //                   horizontal: size.width * 0.01,
+                                //                   vertical: size.height * 0.004),
+                                //               child: Container(
+                                //                 //height: size.height * 0.025,
+                                //                 width: size.width * 0.17,
+                                //                 decoration: BoxDecoration(
+                                //                   color: MyTheme.ThemeColors,
+                                //                   borderRadius: BorderRadius.circular(5),
+                                //                 ),
+                                //                 child: Column(
+                                //                   mainAxisAlignment:
+                                //                       MainAxisAlignment.center,
+                                //                   children: [
+                                //                     Text(
+                                //                       'MAR',
+                                //                       style: TextStyle(
+                                //                         fontSize: size.height * 0.015,
+                                //                         fontWeight: FontWeight.w600,
+                                //                         color: Colors.white,
+                                //                       ),
+                                //                     ),
+                                //                     SizedBox(
+                                //                       height: size.height * 0.01,
+                                //                     ),
+                                //                     Text(
+                                //                       '${index}',
+                                //                       style: TextStyle(
+                                //                         fontSize: size.height * 0.016,
+                                //                         fontWeight: FontWeight.w600,
+                                //                         color: Colors.white,
+                                //                       ),
+                                //                     ),
+                                //                   ],
+                                //                 ),
+                                //               ),
+                                //             ),
+                                //           ),
+                                //         );
+                                //       }),
+                                // ),
+                                // SizedBox(
+                                //   height: size.height * 0.02,
+                                // ),
+                                // Align(
+                                //   alignment: Alignment.centerLeft,
+                                //   child: Text(
+                                //     'Book a Time:',
+                                //     style: TextStyle(
+                                //       fontWeight: FontWeight.w600,
+                                //       fontSize: size.height * 0.02,
+                                //       //color: Colors.red.shade300,
+                                //     ),
+                                //   ),
+                                // ),
+                                // SizedBox(
+                                //   height: size.height * 0.01,
+                                // ),
+                                // SizedBox(
+                                //   height: size.height * 0.06,
+                                //   width: size.width,
+                                //   child: ListView.builder(
+                                //       shrinkWrap: true,
+                                //       scrollDirection: Axis.horizontal,
+                                //       itemCount: 32,
+                                //       itemBuilder: (BuildContext context, int index) {
+                                //         return Padding(
+                                //           padding: const EdgeInsets.all(3.0),
+                                //           child: Ink(
+                                //             child: PhysicalModel(
+                                //               color: MyTheme.white,
+                                //               borderRadius: BorderRadius.circular(5),
+                                //               elevation: 20,
+                                //               child: Padding(
+                                //                 padding: EdgeInsets.symmetric(
+                                //                     horizontal: size.width * 0.01,
+                                //                     vertical: size.height * 0.004),
+                                //                 child: Container(
+                                //                   //height: size.height * 0.025,
+                                //                   width: size.width * 0.17,
+                                //                   decoration: BoxDecoration(
+                                //                     color: MyTheme.ThemeColors,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(5),
+                                //                   ),
+                                //                   child: Column(
+                                //                     mainAxisAlignment:
+                                //                         MainAxisAlignment.center,
+                                //                     children: [
+                                //                       Text(
+                                //                         '10:00',
+                                //                         style: TextStyle(
+                                //                           fontSize: size.height * 0.015,
+                                //                           fontWeight: FontWeight.w600,
+                                //                           color: Colors.white,
+                                //                         ),
+                                //                       ),
+                                //                     ],
+                                //                   ),
+                                //                 ),
+                                //               ),
+                                //             ),
+                                //           ),
+                                //         );
+                                //       }),
+                                // ),
+                                ///button
+                                //Spacer(),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.2,
+                                      vertical: size.height * 0.002),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      //Get.to(() => UserHomePage());
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        onPrimary: Colors.blue,
+                                        animationDuration:
+                                            Duration(milliseconds: 1000),
+                                        primary: Colors.red,
+                                        shadowColor: Colors.black,
+                                        elevation: 7,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(0.0),
                                         ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            CallLoader.loader();
-                                            _labListController.checkLab2();
-                                            _labListController.labcheckoutApi();
-                                            _labListController.update();
+                                        //elevation: 1,
+                                        backgroundColor: Colors.grey.shade900,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 0, vertical: 01),
+                                        textStyle: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold)),
+                                    clipBehavior: Clip.none,
+                                    child: Container(
+                                      height: size.height * 0.05,
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide(
+                                              width: bevel,
+                                              color: Color(0xFFFFFFFFFF)),
+                                          left: BorderSide(
+                                              width: bevel,
+                                              color: Color(0xFFFFFFFFFF)),
+                                          right: BorderSide(
+                                              width: bevel,
+                                              color: Color(0xFFFF000000)),
+                                          bottom: BorderSide(
+                                              width: bevel,
+                                              color: Color(0xFFFF000000)),
+                                        ),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          CallLoader.loader();
+                                          _labListController.checkLab2();
+                                          _labListController.labcheckoutApi();
+                                          _labListController.update();
 
-                                            //_rozarPayController.openCheckout();
-                                            //print('okokokopayment');
+                                          //_rozarPayController.openCheckout();
+                                          //print('okokokopayment');
 
-                                            //Get.to(() => LabAppointmentCheckout());
-                                          },
-                                          child: Container(
-                                            // padding: const EdgeInsets.symmetric(
-                                            //     horizontal: 20.0, vertical: 2.0),
-                                            decoration: BoxDecoration(
-                                                border: Border(
-                                                  top: BorderSide(
-                                                      width: bevel,
-                                                      color:
-                                                          Color(0xFFFFDFDFDF)),
-                                                  left: BorderSide(
-                                                      width: bevel,
-                                                      color:
-                                                          Color(0xFFFFDFDFDF)),
-                                                  right: BorderSide(
-                                                      width: bevel,
-                                                      color:
-                                                          Color(0xFFFF7F7F7F)),
-                                                  bottom: BorderSide(
-                                                      width: bevel,
-                                                      color:
-                                                          Color(0xFFFF7F7F7F)),
-                                                ),
-                                                color: MyTheme.white
-                                                //Color(0xFFBFBFBF),
-                                                ),
-                                            child: Center(
-                                              child: Text(
-                                                'Book Now',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w800,
-                                                    fontSize:
-                                                        size.height * 0.02),
+                                          //Get.to(() => LabAppointmentCheckout());
+                                        },
+                                        child: Container(
+                                          // padding: const EdgeInsets.symmetric(
+                                          //     horizontal: 20.0, vertical: 2.0),
+                                          decoration: BoxDecoration(
+                                              border: Border(
+                                                top: BorderSide(
+                                                    width: bevel,
+                                                    color: Color(0xFFFFDFDFDF)),
+                                                left: BorderSide(
+                                                    width: bevel,
+                                                    color: Color(0xFFFFDFDFDF)),
+                                                right: BorderSide(
+                                                    width: bevel,
+                                                    color: Color(0xFFFF7F7F7F)),
+                                                bottom: BorderSide(
+                                                    width: bevel,
+                                                    color: Color(0xFFFF7F7F7F)),
                                               ),
+                                              color: MyTheme.white
+                                              //Color(0xFFBFBFBF),
+                                              ),
+                                          child: Center(
+                                            child: Text(
+                                              'Book Now',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: size.height * 0.02),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
+                                  ),
 
-                                    // Container(
-                                    //   height: 50.0,
-                                    //   child: ElevatedButton(
-                                    //     style: ElevatedButton.styleFrom(
-                                    //         shape: RoundedRectangleBorder(
-                                    //           borderRadius: new BorderRadius.circular(10.0),
-                                    //         ),
-                                    //         elevation: 0,
-                                    //         backgroundColor: Colors.white,
-                                    //         padding:
-                                    //             EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                    //         textStyle: TextStyle(
-                                    //             fontSize: size.height * 0.017,
-                                    //             fontWeight: FontWeight.bold)),
-                                    //     clipBehavior: Clip.none,
-                                    //     onPressed: () {},
-                                    //     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-                                    //     //padding: EdgeInsets.all(0.0),
-                                    //     child: Ink(
-                                    //       decoration: BoxDecoration(
-                                    //           gradient: LinearGradient(
-                                    //             colors: [Color(0xff374ABE), Color(0xff64B6FF)],
-                                    //             begin: Alignment.centerLeft,
-                                    //             end: Alignment.centerRight,
-                                    //           ),
-                                    //           borderRadius: BorderRadius.circular(10.0)),
-                                    //       child: Container(
-                                    //         constraints:
-                                    //             BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
-                                    //         alignment: Alignment.center,
-                                    //         child: Text(
-                                    //           "Book an Appointment",
-                                    //           textAlign: TextAlign.center,
-                                    //           style: TextStyle(color: Colors.white),
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  Spacer(),
-                                ],
-                              ),
+                                  // Container(
+                                  //   height: 50.0,
+                                  //   child: ElevatedButton(
+                                  //     style: ElevatedButton.styleFrom(
+                                  //         shape: RoundedRectangleBorder(
+                                  //           borderRadius: new BorderRadius.circular(10.0),
+                                  //         ),
+                                  //         elevation: 0,
+                                  //         backgroundColor: Colors.white,
+                                  //         padding:
+                                  //             EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                  //         textStyle: TextStyle(
+                                  //             fontSize: size.height * 0.017,
+                                  //             fontWeight: FontWeight.bold)),
+                                  //     clipBehavior: Clip.none,
+                                  //     onPressed: () {},
+                                  //     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                                  //     //padding: EdgeInsets.all(0.0),
+                                  //     child: Ink(
+                                  //       decoration: BoxDecoration(
+                                  //           gradient: LinearGradient(
+                                  //             colors: [Color(0xff374ABE), Color(0xff64B6FF)],
+                                  //             begin: Alignment.centerLeft,
+                                  //             end: Alignment.centerRight,
+                                  //           ),
+                                  //           borderRadius: BorderRadius.circular(10.0)),
+                                  //       child: Container(
+                                  //         constraints:
+                                  //             BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+                                  //         alignment: Alignment.center,
+                                  //         child: Text(
+                                  //           "Book an Appointment",
+                                  //           textAlign: TextAlign.center,
+                                  //           style: TextStyle(color: Colors.white),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.01,
+                                ),
+                                Spacer(),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                ),
+        ),
       ),
     );
   }

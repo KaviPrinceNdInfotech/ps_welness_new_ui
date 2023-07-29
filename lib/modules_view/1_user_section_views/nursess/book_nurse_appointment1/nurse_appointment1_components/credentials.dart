@@ -618,7 +618,7 @@ class Nursebooking1Credentials extends StatelessWidget {
 
             NeumorphicTextFieldContainer(
               child: Obx(
-                () => (_nurseBooking1Controller.isLoading.value)
+                () => (_nurseBooking1Controller.isLoading.isTrue)
                     ? Center(child: CircularProgressIndicator())
                     : TextFormField(
                         controller:
@@ -668,7 +668,7 @@ class Nursebooking1Credentials extends StatelessWidget {
 
             NeumorphicTextFieldContainer(
               child: Obx(
-                () => (_nurseBooking1Controller.isLoading.value)
+                () => (_nurseBooking1Controller.isLoading.isTrue)
                     ? Center(child: CircularProgressIndicator())
                     : TextFormField(
                         controller:
