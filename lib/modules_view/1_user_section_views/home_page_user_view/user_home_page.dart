@@ -147,7 +147,7 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keyuser = GlobalKey();
 
     final List<String> productname = [
       'Book Nurse',
@@ -213,7 +213,7 @@ class _UserHomePageState extends State<UserHomePage> {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keyuser,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -366,7 +366,7 @@ class _UserHomePageState extends State<UserHomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keyuser.currentState!.openDrawer();
               },
             ),
             actions: [

@@ -10,11 +10,14 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/about_us_doctor_controller/doctor_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/add_skills/add_skills.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +35,7 @@ class MainDrawer extends StatelessWidget {
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
   SkillsListController _skillsListController = Get.put(SkillsListController());
+  LoginpasswordController _loginpasswordControllerr6 = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -417,6 +421,38 @@ class MainDrawer extends StatelessWidget {
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
+                Icons.password,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Change Password',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChangePassword'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ChangePassword());
+                Get.offNamed('/ChangePassword');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
                 Icons.logout,
                 color: MyTheme.blueww,
                 size: size.height * 0.021,
@@ -439,11 +475,16 @@ class MainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/AboutUs'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
+                _loginpasswordControllerr6.onInit();
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
                 //Get.back();
-                Get.to(() => SignInScreen());
+                await Get.offAll(() => SignInScreen());
               },
             ),
           ],

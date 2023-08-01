@@ -368,20 +368,26 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                             size.width *
                                                                                 0.035),
                                                                   ),
-                                                                  Text(
-                                                                    _driverPaymentHistoryController
-                                                                            ?.foundpaymenthistorydriver?[index]
-                                                                            .location ??
-                                                                        "no data",
-                                                                    style: GoogleFonts.raleway(
-                                                                        color: MyTheme
-                                                                            .blueww,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                        fontSize:
-                                                                            size.width *
-                                                                                0.035),
+                                                                  SizedBox(
+                                                                    width:
+                                                                        size.width *
+                                                                            0.6,
+                                                                    height: size
+                                                                            .height *
+                                                                        0.03,
+                                                                    child: Text(
+                                                                      _driverPaymentHistoryController
+                                                                              ?.foundpaymenthistorydriver?[index]
+                                                                              .location ??
+                                                                          "no data",
+                                                                      style: GoogleFonts.raleway(
+                                                                          color: MyTheme
+                                                                              .blueww,
+                                                                          fontWeight: FontWeight
+                                                                              .w700,
+                                                                          fontSize:
+                                                                              size.width * 0.031),
+                                                                    ),
                                                                   ),
                                                                 ],
                                                               ),

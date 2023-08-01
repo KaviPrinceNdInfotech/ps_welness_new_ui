@@ -24,175 +24,184 @@ class LabUploadReports extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    bool shouldPop = true;
+    return WillPopScope(
+      onWillPop: () async {
+        //Get.offAll(LabHomePage());
+        //Get.offAll(() => LabHomePage());
+        Get.to(() => LabHomePage());
+        return shouldPop;
+      },
+      child: Scaffold(
+        // backgroundColor: Color(0xffffdb61),
+        appBar: AppBar(
+          leading: InkWell(
+              onTap: () {
+                Get.to(LabHomePage());
+              },
+              child: Icon(Icons.arrow_circle_left)),
+          title: Text("Upload Patient Report"),
+        ),
+        body: Obx(
+          () => (_labUploadReportController.isLoading.isFalse)
+              ? Center(child: CircularProgressIndicator())
 
-    return Scaffold(
-      // backgroundColor: Color(0xffffdb61),
-      appBar: AppBar(
-        leading: InkWell(
-            onTap: () {
-              Get.to(LabHomePage());
-            },
-            child: Icon(Icons.arrow_circle_left)),
-        title: Text("Upload Patient Report"),
-      ),
-      body: Obx(
-        () => (_labUploadReportController.isLoading.isFalse)
-            ? Center(child: CircularProgressIndicator())
-
-            ///TODO: here we can use layout builder and we can use stack under list view in flutter............
-            : Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: size.height * 0.3,
-                      width: size.width * 0.95,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.cyanAccent, width: 2),
+              ///TODO: here we can use layout builder and we can use stack under list view in flutter............
+              : Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
                       ),
-                      child: Obx(
-                        () => _labUploadReportController.selectedPath.value !=
-                                ''
-                            ? Image.file(File(
-                                _labUploadReportController.selectedPath.value))
-                            : Center(
-                                child: InkWell(
-                                  onTap: (() {
-                                    optionsImage();
-                                  }),
-                                  child: Container(
-                                    height: size.height * 0.4,
-                                    width: size.width * 0.95,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(12)),
-                                        border: Border.all(
-                                            width: 5,
-                                            color: Color.fromARGB(
-                                                255, 58, 141, 208))),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.add_box,
-                                        color:
-                                            Color.fromARGB(255, 58, 141, 208),
+                      Container(
+                        height: size.height * 0.3,
+                        width: size.width * 0.95,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border:
+                              Border.all(color: Colors.cyanAccent, width: 2),
+                        ),
+                        child: Obx(
+                          () => _labUploadReportController.selectedPath.value !=
+                                  ''
+                              ? Image.file(File(_labUploadReportController
+                                  .selectedPath.value))
+                              : Center(
+                                  child: InkWell(
+                                    onTap: (() {
+                                      optionsImage();
+                                    }),
+                                    child: Container(
+                                      height: size.height * 0.4,
+                                      width: size.width * 0.95,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12)),
+                                          border: Border.all(
+                                              width: 5,
+                                              color: Color.fromARGB(
+                                                  255, 58, 141, 208))),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.add_box,
+                                          color:
+                                              Color.fromARGB(255, 58, 141, 208),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                        // Image.file(File(
-                        //         _labUploadReportController.selectedImagePath.value)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.01),
-                        child: Obx(
-                          () => DropdownButtonFormField<PatientdropdownName>(
-                              value: _labUploadReportController
-                                  .selectedpatient.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  color: Colors.black,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Select Patient'),
-                              items: _labUploadReportController.patient
-                                  .map((PatientdropdownName patients) {
-                                return DropdownMenuItem(
-                                  value: patients,
-                                  child: Text(
-                                    patients.patientName.toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.015,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (PatientdropdownName? newValue) {
-                                _labUploadReportController
-                                    .selectedpatient.value = newValue!;
-                                // _hospital_2_controller.states.value =
-                                //     newValue! as List<String>;
-                                // _hospital_2_controller.selectedCity.value = null;
-                                // _hospital_2_controller.cities.clear();
-                                // _hospital_2_controller.cities
-                                //     .addAll(stateCityMap[newvalue]!);
-                              }),
+                          // Image.file(File(
+                          //         _labUploadReportController.selectedImagePath.value)),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.00),
-                        child: Obx(
-                          () => DropdownButtonFormField(
-                              // menuMaxHeight: size.height * 0.06,
-                              //icon: Icon(Icons.location_city),
-                              value:
-                                  _labUploadReportController.selectedTest.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.text_snippet_outlined,
-                                  color: Colors.black,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Selected Test'),
-                              items: _labUploadReportController.tests
-                                  .map((TestModel test) {
-                                return DropdownMenuItem(
-                                  value: test,
-                                  child: Text(
-                                    test.testName,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.010,
-                                    ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      NeumorphicTextFieldContainer(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.01),
+                          child: Obx(
+                            () => DropdownButtonFormField<PatientdropdownName>(
+                                value: _labUploadReportController
+                                    .selectedpatient.value,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: Colors.black,
                                   ),
-                                );
-                              }).toList(),
-                              onChanged: (TestModel? newValue) {
-                                _labUploadReportController.selectedTest.value =
-                                    newValue!;
-                              }),
+                                  enabledBorder: InputBorder.none,
+                                  border: InputBorder.none,
+                                ),
+                                hint: Text('Select Patient'),
+                                items: _labUploadReportController.patient
+                                    .map((PatientdropdownName patients) {
+                                  return DropdownMenuItem(
+                                    value: patients,
+                                    child: Text(
+                                      patients.patientName.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.height * 0.015,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (PatientdropdownName? newValue) {
+                                  _labUploadReportController
+                                      .selectedpatient.value = newValue!;
+                                  // _hospital_2_controller.states.value =
+                                  //     newValue! as List<String>;
+                                  // _hospital_2_controller.selectedCity.value = null;
+                                  // _hospital_2_controller.cities.clear();
+                                  // _hospital_2_controller.cities
+                                  //     .addAll(stateCityMap[newvalue]!);
+                                }),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    RectangularButton(
-                        text: 'SUBMIT REPORT',
-                        press: () async {
-                          //CallLoader.loader();
+                      SizedBox(
+                        height: 20,
+                      ),
+                      NeumorphicTextFieldContainer(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.00),
+                          child: Obx(
+                            () => DropdownButtonFormField(
+                                // menuMaxHeight: size.height * 0.06,
+                                //icon: Icon(Icons.location_city),
+                                value: _labUploadReportController
+                                    .selectedTest.value,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.text_snippet_outlined,
+                                    color: Colors.black,
+                                  ),
+                                  enabledBorder: InputBorder.none,
+                                  border: InputBorder.none,
+                                ),
+                                hint: Text('Selected Test'),
+                                items: _labUploadReportController.tests
+                                    .map((TestModel test) {
+                                  return DropdownMenuItem(
+                                    value: test,
+                                    child: Text(
+                                      test.testName,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.height * 0.010,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (TestModel? newValue) {
+                                  _labUploadReportController
+                                      .selectedTest.value = newValue!;
+                                }),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      RectangularButton(
+                          text: 'SUBMIT REPORT',
+                          press: () async {
+                            //CallLoader.loader();
 
-                          ///todo: calling api....
-                          _labUploadReportController.postUploadreportApi();
-                          // Get.to(LabCatagaryDetails());
-                          // LabListPage());
-                          //_loginpasswordController.checkLoginpassword();
-                        })
-                  ],
+                            ///todo: calling api....
+                            _labUploadReportController.postUploadreportApi();
+                            // Get.to(LabCatagaryDetails());
+                            // LabListPage());
+                            //_loginpasswordController.checkLoginpassword();
+                          })
+                    ],
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

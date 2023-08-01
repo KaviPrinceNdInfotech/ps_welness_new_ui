@@ -6,11 +6,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/add_test_lab_controller/lab_test_add_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/lab_test_view/add_labtestts/add_test_todo.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_lab_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
-import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,6 +36,10 @@ class LabMainDrawer extends StatelessWidget {
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
   LabAboutusController _labAboutusController = Get.put(LabAboutusController());
+  SkillsListController _skillsListController = Get.put(SkillsListController());
+  LoginpasswordController _loginpasswordController = Get.find();
+  LabTestListController _labTestListController =
+      Get.put(LabTestListController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -120,6 +129,79 @@ class LabMainDrawer extends StatelessWidget {
                 Get.offNamed('/AboutUs');
               },
             ),
+
+            ///todo: test..add............
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.list,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Add Lab Test',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/LabtestListScreen'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _labTestListController.labTestListApi();
+                _labTestListController.update();
+                Get.to(() => LabtestListScreen());
+                // Get.offNamed('/LabtestListScreen');
+              },
+            ),
+
+            ///
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     FontAwesomeIcons.solidAddressCard,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'Add Lab Test',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/AddTestPageLab'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //
+            //     Get.to(() => AddTestPageLab());
+            //
+            //     Get.offNamed('/AddTestPageLab');
+            //   },
+            // ),
+
+            ///
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -393,6 +475,38 @@ class LabMainDrawer extends StatelessWidget {
                 Get.offNamed('/SupportViewPsComman');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.password,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Change Password',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChangePassword'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ChangePassword());
+                Get.offNamed('/ChangePassword');
+              },
+            ),
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -419,48 +533,55 @@ class LabMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/AboutUs'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
+                _loginpasswordController.onInit();
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
                 //Get.back();
-                Get.to(() => SignInScreen());
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.password,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Forgot Password',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/AboutUs'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => ForgotPassword());
-                Get.offNamed('/AboutUs');
+                await Get.offAll(() => SignInScreen());
               },
             ),
 
             ///
+
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     Icons.password,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'Forgot Password',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/AboutUs'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //     Get.back();
+            //     Get.to(() => ForgotPassword());
+            //     Get.offNamed('/AboutUs');
+            //   },
+            // ),
+
+            ////
             // ListTile(
             //   //horizontalTitleGap: 10,
             //   leading: Icon(

@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_appointment_details/lab_appointment_detailsss.dart';
+
+//import 'package:ps_welness_new_ui/model/10_lab_module/lab_appointment_details/lab_appointment_detailsss.dart';
 
 import '../../../model/1_user_model/health_chekup_list_views/health_checkup_list_views.dart';
 import '../../../servicess_api/api_services_all_api.dart';
@@ -20,7 +24,7 @@ class LabAppointmentDetailController extends GetxController {
 
   HealthCheckupListss? healthCheckupListss;
 
-  LabappointmentdetailsModel? labappointmentdetailsModel;
+  LabappointmentdetailssModel? labappointmentdetailsModel;
 
   // HealthCheckupListss? healthCheckupListss;
 
@@ -41,12 +45,29 @@ class LabAppointmentDetailController extends GetxController {
   void labappointmentdetailApi() async {
     isLoading(true);
     labappointmentdetailsModel = await ApiProvider.LabapointmentdetailApi();
+    if (labappointmentdetailsModel == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(false);
+      labappointmentdetailsModel = await ApiProvider.LabapointmentdetailApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince lab list');
     print(labappointmentdetailsModel);
-    if (labappointmentdetailsModel != null) {
+    if (labappointmentdetailsModel?.labAdapt != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
-      foundpatientlab.value = labappointmentdetailsModel!.labAd!;
+      foundpatientlab.value = labappointmentdetailsModel!.labAdapt!;
       //Get.to(()=>Container());
     }
   }
@@ -115,13 +136,13 @@ class LabAppointmentDetailController extends GetxController {
     // }
   }
 
-  RxList<LabAd> foundpatientlab = RxList<LabAd>([]);
+  RxList<Labaptdetail> foundpatientlab = RxList<Labaptdetail>([]);
   void filterPatients(String searchpatientlabName) {
-    List<LabAd>? finalResult = [];
+    List<Labaptdetail>? finalResult = [];
     if (searchpatientlabName.isEmpty) {
-      finalResult = labappointmentdetailsModel!.labAd;
+      finalResult = labappointmentdetailsModel!.labAdapt;
     } else {
-      finalResult = labappointmentdetailsModel!.labAd!
+      finalResult = labappointmentdetailsModel!.labAdapt!
           .where((element) => element.patientName
               .toString()
               .toLowerCase()

@@ -41,7 +41,7 @@ class FranchiesHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keyfranchise = GlobalKey();
 
     final List<String> productname = [
       'Edit Profile',
@@ -125,7 +125,7 @@ class FranchiesHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keyfranchise,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -169,7 +169,7 @@ class FranchiesHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keyfranchise.currentState!.openDrawer();
               },
             ),
           ),

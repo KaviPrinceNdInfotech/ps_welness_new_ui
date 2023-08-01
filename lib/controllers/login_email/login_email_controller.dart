@@ -267,24 +267,26 @@ import '../1_user_view_controller/user_profile_controller/user_profile_controlle
 import '../5_rwa_controller_RRR/rwaBanner_controller.dart';
 
 class LoginpasswordController extends GetxController {
-  final GlobalKey<FormState> loginpasswordformkey = GlobalKey<FormState>();
-  LabprofiledetailController _labprofiledetailController =
+  final GlobalKey<FormState> loginpasswordformkey =
+      GlobalKey<FormState>(debugLabel: '_loginFormKey1111');
+  final LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
-  LabUploadReportController _labUploadReportController =
+  final LabUploadReportController _labUploadReportController =
       Get.put(LabUploadReportController());
-  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
-  ChemistProfileDetailController _chemistProfileDetailController =
+  final UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+  final ChemistProfileDetailController _chemistProfileDetailController =
       Get.put(ChemistProfileDetailController());
-  RwaBannerController _rwaBannerController = Get.put(RwaBannerController());
-  NurseProfileControllers _nurseprofileContrller =
+  final RwaBannerController _rwaBannerController =
+      Get.put(RwaBannerController());
+  final NurseProfileControllers _nurseprofileContrller =
       Get.put(NurseProfileControllers());
-  DoctorProfileControllers _doctorProfileControllers =
+  final DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
 
-  NurseUploadReportController _nursdeUploadReportController =
+  final NurseUploadReportController _nursdeUploadReportController =
       Get.put(NurseUploadReportController());
 
-  DriverProfileDetailController _driverprofile =
+  final DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
 
   var Id = '';

@@ -13,10 +13,25 @@ class DoctorPaymentViewControllers extends GetxController {
   DoctorPaymentHistoryModel? getdoctorpaymenthistory;
 
   void doctorPaymentHistoryApi() async {
-    isLoading(true);
+    // isLoading(true);
     getdoctorpaymenthistory = await ApiProvider.DoctorPaymentHistoryApi();
+    // if (getdoctorpaymenthistory == null) {
+    //   Timer(
+    //     const Duration(seconds: 2),
+    //     () {
+    //       //Get.to(() => MedicineCart());
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    //   isLoading(false);
+    //   getdoctorpaymenthistory = await ApiProvider.DoctorPaymentHistoryApi();
+    //   //Get.to(() => TotalPrice());
+    //   //isLoading(false);
+    //   foundPaymentdr.value = getdoctorpaymenthistory!.paymentHistory!;
+    // }
     if (getdoctorpaymenthistory != null) {
-      isLoading(false);
+      isLoading(true);
       foundPaymentdr.value = getdoctorpaymenthistory!.paymentHistory!;
     }
   }

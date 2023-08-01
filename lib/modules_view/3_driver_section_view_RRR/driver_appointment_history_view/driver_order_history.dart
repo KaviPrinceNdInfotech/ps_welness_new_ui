@@ -325,18 +325,27 @@ class DriverOrderHistory extends StatelessWidget {
                                                                         0.035,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              'Patient Address:',
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                color: MyTheme
-                                                                    .blueww,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.035,
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.042,
+                                                              width:
+                                                                  size.width *
+                                                                      0.3,
+                                                              child: Text(
+                                                                'Patient Address:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .blueww,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
                                                               ),
                                                             ),
 
@@ -452,17 +461,25 @@ class DriverOrderHistory extends StatelessWidget {
                                                             //               .width *
                                                             //           0.035),
                                                             // ),
-                                                            Text(
-                                                              '${item?[index].location}',
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.03,
+                                                              width:
+                                                                  size.width *
+                                                                      0.5,
+                                                              child: Text(
+                                                                '${item?[index].location}',
+                                                                style: GoogleFonts.raleway(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize: size
+                                                                            .width *
+                                                                        0.029),
+                                                              ),
                                                             ),
                                                             // Text(
                                                             //   '${item?[index].status}',

@@ -97,7 +97,7 @@ class RwaPatientList extends StatelessWidget {
                                   color: Colors.white30),
                               width: size.width,
                               height: size.height * 0.06,
-                              margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
+                              margin: new EdgeInsets.fromLTRB(10, 10, 10, 20),
                               padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
                               child: Theme(
                                 data: Theme.of(context)
@@ -134,14 +134,13 @@ class RwaPatientList extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.005,
                           ),
                           _rwaPatientListController.foundPatient.value.isEmpty
                               ? Center(
                                   child: Text("No Data"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _rwaPatientListController
@@ -421,7 +420,8 @@ class RwaPatientList extends StatelessWidget {
                                             ),
                                           ],
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

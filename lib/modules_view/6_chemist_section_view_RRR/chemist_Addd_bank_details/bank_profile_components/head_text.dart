@@ -40,7 +40,7 @@ class AddBankHeadText extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: size.height * 0.05),
+          SizedBox(height: size.height * 0.01),
           Text(
             'Bank Detail',
             style: GoogleFonts.alatsi(

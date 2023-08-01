@@ -10,12 +10,14 @@ import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategor
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 import '../../../../../controllers/2_franchises_controller/registration_part_controller/vehicle_part_controller/vehicle_part_controller.dart';
 
 class FrVehicleCredentials extends StatelessWidget {
   FrVehicleCredentials({Key? key}) : super(key: key);
 
-  Franchies_vehicle_Controller _franchies_vehicle_controller = Get.put(Franchies_vehicle_Controller());
+  Franchies_vehicle_Controller _franchies_vehicle_controller =
+      Get.put(Franchies_vehicle_Controller());
 
   var items = [
     'Item 1',
@@ -68,11 +70,13 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: vehicle number.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.email],
-                controller: _franchies_vehicle_controller.vehiclenumberController,
+                controller:
+                    _franchies_vehicle_controller.vehiclenumberController,
                 onSaved: (value) {
                   _franchies_vehicle_controller.vehiclenumber = value!;
                 },
@@ -99,6 +103,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: account..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -129,6 +134,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm account no...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -140,7 +146,6 @@ class FrVehicleCredentials extends StatelessWidget {
                 validator: (value) {
                   return _franchies_vehicle_controller.validAcno(value!);
                 },
-
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -162,11 +167,13 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: driver charge..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.telephoneNumber],
-                controller: _franchies_vehicle_controller.driverchargeController,
+                controller:
+                    _franchies_vehicle_controller.driverchargeController,
                 onSaved: (value) {
                   _franchies_vehicle_controller.drivercharge = value!;
                 },
@@ -193,6 +200,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: ac holder name value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -222,6 +230,7 @@ class FrVehicleCredentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: catagary............................
             SizedBox(
               height: size.height * 0.02,
@@ -231,7 +240,8 @@ class FrVehicleCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<VehicleCatDropdown>(
-                      value: _franchies_vehicle_controller.selectedVehicleCat.value,
+                      value: _franchies_vehicle_controller
+                          .selectedVehicleCat.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.car_repair,
@@ -241,25 +251,33 @@ class FrVehicleCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select vehicle category'),
-                      items: _franchies_vehicle_controller.vehicles.map((VehicleCatDropdown items) {
+                      items: _franchies_vehicle_controller.vehicles
+                          .map((VehicleCatDropdown items) {
                         return DropdownMenuItem(
                           value: items,
-                          child: Text(
-                            items.categoryName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                          child: SizedBox(
+                            //height: size.height * 0.03,
+                            width: size.width * 0.7,
+                            child: Text(
+                              items.categoryName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.015,
+                              ),
                             ),
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? '  field required' : null,
+                      validator: (value) =>
+                          value == null ? '  field required' : null,
                       onChanged: (VehicleCatDropdown? newValue) {
-                        _franchies_vehicle_controller.selectedVehicleCat.value = newValue!;
+                        _franchies_vehicle_controller.selectedVehicleCat.value =
+                            newValue!;
                       }),
                 ),
               ),
             ),
+
             ///Todo: type.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -269,7 +287,8 @@ class FrVehicleCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<VehicleTypeName>(
-                      value: _franchies_vehicle_controller.selectedVehicleType.value,
+                      value: _franchies_vehicle_controller
+                          .selectedVehicleType.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.bus_alert,
@@ -279,7 +298,8 @@ class FrVehicleCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select Vehicle Type'),
-                      items: _franchies_vehicle_controller.vehicleType.map((VehicleTypeName items) {
+                      items: _franchies_vehicle_controller.vehicleType
+                          .map((VehicleTypeName items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
@@ -291,9 +311,11 @@ class FrVehicleCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? '  field required' : null,
+                      validator: (value) =>
+                          value == null ? '  field required' : null,
                       onChanged: (VehicleTypeName? newValue) {
-                        _franchies_vehicle_controller.selectedVehicleType.value = newValue!;
+                        _franchies_vehicle_controller
+                            .selectedVehicleType.value = newValue!;
                       }),
                 ),
               ),
@@ -301,6 +323,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: Ifsc.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -333,7 +356,8 @@ class FrVehicleCredentials extends StatelessWidget {
               height: size.height * 0.033,
             ),
             GetBuilder<Franchies_vehicle_Controller>(
-              init: Franchies_vehicle_Controller(), // intialize with the Controller
+              init:
+                  Franchies_vehicle_Controller(), // intialize with the Controller
               builder: (value) => InkWell(
                 onTap: () {
                   _franchies_vehicle_controller.getImage(ImageSource.gallery);
@@ -349,19 +373,24 @@ class FrVehicleCredentials extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 70,width: 70,
+                      height: 70,
+                      width: 70,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border:  Border.all(color: Colors.blue, width: 1.0),
-                          borderRadius:BorderRadius.circular(5)),
+                          border: Border.all(color: Colors.blue, width: 1.0),
+                          borderRadius: BorderRadius.circular(5)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Obx(()=> _franchies_vehicle_controller.selectedImagepath.value=='' ?
-                        const Center(
-                            child: Text("No Image")) :
-                        Image.file(File(_franchies_vehicle_controller.selectedImagepath.value),
-                          fit: BoxFit.cover,
-                        ),
+                        child: Obx(
+                          () => _franchies_vehicle_controller
+                                      .selectedImagepath.value ==
+                                  ''
+                              ? const Center(child: Text("No Image"))
+                              : Image.file(
+                                  File(_franchies_vehicle_controller
+                                      .selectedImagepath.value),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),
@@ -375,8 +404,7 @@ class FrVehicleCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'Submit',
                 press: () {
-                    _franchies_vehicle_controller.checkFrvehicle();
-
+                  _franchies_vehicle_controller.checkFrvehicle();
                 })
           ],
         ),

@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:http/http.dart' as http;
 
 class DraweerFranchiesProfileController extends GetxController {
-  final GlobalKey<FormState> drawerfranchiesprofileformkey = GlobalKey<FormState>();
-  late TextEditingController CompanyName,MobileNumber,StateId,CityId,Location,PinCode;
+  final GlobalKey<FormState> drawerfranchiesprofileformkey =
+      GlobalKey<FormState>();
+  late TextEditingController CompanyName,
+      MobileNumber,
+      StateId,
+      CityId,
+      Location,
+      PinCode;
+
   ///this is for State....................................
   Rx<City?> selectedCityy = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
@@ -18,12 +25,14 @@ class DraweerFranchiesProfileController extends GetxController {
   void getStateApi() async {
     states = await ApiProvider.getSatesApi();
   }
+
   void getCityByStateID(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
     cities.addAll(localList);
   }
-  void frenchiesEditProfileApi()async{
+
+  void frenchiesEditProfileApi() async {
     http.Response r = await ApiProvider.FrenchiesEditProfile(
         CompanyName.text,
         MobileNumber.text,
@@ -31,13 +40,8 @@ class DraweerFranchiesProfileController extends GetxController {
         selectedCityy.value?.id.toString(),
         Location.text,
         PinCode.text);
-    if(r.statusCode == 200){
-
-    }
-
+    if (r.statusCode == 200) {}
   }
-
-
 
   var name = '';
   var email = '';
@@ -58,10 +62,10 @@ class DraweerFranchiesProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    CompanyName = TextEditingController(text: 'Rahul');
-    MobileNumber = TextEditingController(text: '9888776655');
-    Location = TextEditingController(text: 'Palam');
-   PinCode = TextEditingController(text: '119999');
+    CompanyName = TextEditingController();
+    MobileNumber = TextEditingController();
+    Location = TextEditingController();
+    PinCode = TextEditingController();
   }
 
   @override
@@ -70,8 +74,7 @@ class DraweerFranchiesProfileController extends GetxController {
   }
 
   @override
-  void onClose() {
-  }
+  void onClose() {}
 
   String? validName(String value) {
     if (value.length < 2) {

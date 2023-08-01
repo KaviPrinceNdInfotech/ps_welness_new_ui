@@ -12,12 +12,14 @@ import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurs
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_details/nurse_appointment_details.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
+//import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_payment_history/nurse_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_report_view/nurse_report_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_upload_report/nurse_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 
+import '../../../controllers/9_doctor_controllers_RRR/apointment_history/apointment_historydetail.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
 
 class NurseHomePage extends StatelessWidget {
@@ -29,10 +31,13 @@ class NurseHomePage extends StatelessWidget {
   NursereportviewController _nursereportviewController =
       Get.put(NursereportviewController());
 
+  NurseAppoointmentHistoryControllerss _appoointmentHistoryControllerss =
+      Get.put(NurseAppoointmentHistoryControllerss());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keynurse = GlobalKey();
 
     final List<String> productname = [
       'Appointment Detail',
@@ -82,7 +87,7 @@ class NurseHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keynurse,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -126,7 +131,7 @@ class NurseHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keynurse.currentState!.openDrawer();
               },
             ),
             // leading: Icon(Icons.read_more_outlined),
@@ -228,6 +233,10 @@ class NurseHomePage extends StatelessWidget {
                                         _nursePaymentHistoryController.update();
                                         Get.to(() => NursePaymentHistory());
                                       } else if (index == 3) {
+                                        _appoointmentHistoryControllerss
+                                            .nurseAppointmentHistoryApi();
+                                        _appoointmentHistoryControllerss
+                                            .update();
                                         Get.to(
                                             () => NurseeAppointmentHistory());
                                       } else if (index == 4) {

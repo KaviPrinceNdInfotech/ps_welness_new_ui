@@ -21,6 +21,7 @@ import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -36,7 +37,6 @@ import '../../../controllers/1_user_view_controller/user_appointment_controller/
 import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../../../notificationservice/notification_fb_service.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
-import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
 import '../driver_drawer_view/driver_drower_pages/location_practice/location_practiceeee.dart';
 import '../driver_payment_history/driver_payment_history.dart';
 import '../driver_payout_history/driver_payout_histories.dart';
@@ -141,7 +141,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keydriver = GlobalKey();
 
     final List<String> productname = [
       'Booking Request',
@@ -190,7 +190,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keydriver,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -238,7 +238,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keydriver.currentState!.openDrawer();
               },
             ),
             actions: [
@@ -507,7 +507,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                         _driverPayoutHistoryController.update();
                                         Get.to(() => DriverPayoutHistory());
                                       } else if (index == 5) {
-                                        Get.to(() => SupportView()
+                                        Get.to(() => SupportViewPsComman()
                                             //DriverAppointmentDetails()
                                             );
                                       }

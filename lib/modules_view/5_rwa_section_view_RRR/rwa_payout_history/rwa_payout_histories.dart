@@ -32,7 +32,7 @@ class RwaPayoutHistory extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Positioned(
-                        top: -size.height * 0.041,
+                        top: -size.height * 0.021,
                         right: -size.width * 0.124,
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
@@ -144,8 +144,7 @@ class RwaPayoutHistory extends StatelessWidget {
                               ? Center(
                                   child: Text("No Data"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _rwapayoutController
@@ -350,7 +349,8 @@ class RwaPayoutHistory extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

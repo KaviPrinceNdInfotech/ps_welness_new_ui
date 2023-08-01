@@ -95,6 +95,7 @@ import '../controllers/6_chemist_view_controllers_RRR/chemist_order_history_cont
 import '../controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
 import '../controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
+import '../controllers/9_doctor_controllers_RRR/apointment_history/apointment_historydetail.dart';
 import '../controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_complain_controller/doctor_complain_controllers.dart';
 import '../controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 import '../controllers/login_email/login_email_controller.dart';
@@ -216,6 +217,8 @@ class ControllerBinding extends Bindings {
     Get.put(Ambulanceget2Controller());
     Get.put(DriverAcceptlistController());
     Get.put(UseracptrejectController());
+    Get.put(SkillsListController());
+    Get.put(NurseAppoointmentHistoryControllerss());
 
     /// Get.put(CheckoutMedicineController());
 

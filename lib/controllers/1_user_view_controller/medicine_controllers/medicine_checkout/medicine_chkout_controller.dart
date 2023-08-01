@@ -23,7 +23,7 @@ class CheckoutMedicineController extends GetxController {
       Timer(
         const Duration(seconds: 1),
         () {
-          Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
           //Get.to(() => MedicineCart());
           //Get.to((page))
           ///

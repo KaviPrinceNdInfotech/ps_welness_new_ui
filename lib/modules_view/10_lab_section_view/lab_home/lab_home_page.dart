@@ -11,6 +11,8 @@ import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_vi
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_slider.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_payment_history/lab_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -51,7 +53,7 @@ class LabHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keylab = GlobalKey();
 
     final List<String> productname = [
       'Appointment Detail',
@@ -107,7 +109,7 @@ class LabHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keylab,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -162,7 +164,7 @@ class LabHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keylab.currentState!.openDrawer();
               },
             ),
             // leading: Icon(Icons.read_more_outlined),
@@ -259,13 +261,21 @@ class LabHomePage extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
                                         //Get.back();
                                         _appointmentDetailController
                                             .labappointmentdetailApi();
                                         _appointmentDetailController.update();
-                                        Get.to(() => LabAppointmentDetail());
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        await SharedPreferences.getInstance()
+                                            .then((value) =>
+                                                Get.to(LabAppointmentDetail()));
+
+                                        // Get.to(() => LabAppointmentDetail());
                                       } else if (index == 1) {
                                         Get.offAll(() => LabUploadReports());
                                         // _labUploadReportController

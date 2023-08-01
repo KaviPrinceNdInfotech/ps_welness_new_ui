@@ -14,6 +14,7 @@ import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_view_reportt/doctor_view_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/patient_lists/patient_list.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
 import '../../../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 //import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/patient_lists/patient_list.dart';
@@ -38,11 +39,12 @@ class DoctorHomePage extends StatelessWidget {
 
   DoctorreportviewController _doctorreportviewController =
       Get.put(DoctorreportviewController());
+  RxBool isLoading = true.obs;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keydoctor = GlobalKey();
 
     final List<String> productname = [
       'Appointment Detail',
@@ -71,7 +73,7 @@ class DoctorHomePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
       child: Scaffold(
-        key: _key,
+        key: _keydoctor,
         backgroundColor: MyTheme.ThemeColors,
         appBar: AppBar(
           centerTitle: true,
@@ -112,7 +114,7 @@ class DoctorHomePage extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              _key.currentState!.openDrawer();
+              _keydoctor.currentState!.openDrawer();
               _doctorProfileControllers.doctorprofileApi();
               _doctorProfileControllers.update();
             },
@@ -184,7 +186,7 @@ class DoctorHomePage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     if (index == 0) {
                                       _doctorHomepageController
                                           .doctorAppoinmentDetail();
@@ -195,12 +197,25 @@ class DoctorHomePage extends StatelessWidget {
                                       // .getdoctorrpatientApi();
                                       //.getlabpatientApi();
                                       // _doctorrUploadReportController.update();
+                                      CallLoader.loader();
+                                      await Future.delayed(
+                                          Duration(seconds: 1));
+                                      CallLoader.hideLoader();
+                                      //await Get.to(DoctorSignup2());
+                                      // await Get.offAll(
+                                      //         () => NurseBoooking1());
 
                                       Get.to(DoctorUploadReport());
                                     } else if (index == 2) {
                                       _paymentViewControllers
                                           .doctorPaymentHistoryApi();
                                       _paymentViewControllers.update();
+                                      // isLoading(true);
+                                      CallLoader.loader();
+                                      await Future.delayed(
+                                          Duration(seconds: 1));
+                                      //isLoading(false);
+                                      CallLoader.hideLoader();
                                       Get.to(() => PaymentHistory());
                                     } else if (index == 3) {
                                       _doctorHomepageController

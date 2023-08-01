@@ -60,7 +60,6 @@ class RwaProfileController extends GetxController {
 
   void rwaProfileApi() async {
     CallLoader.loader();
-
     final imageAsBase64 =
         base64Encode(await File(selectedPath.value).readAsBytes());
     http.Response r = await ApiProvider.RWAProfileApi(
@@ -74,7 +73,7 @@ class RwaProfileController extends GetxController {
     if (r.statusCode == 200) {
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 200),
+          const Duration(milliseconds: 900),
           () {
             //  _viewdoctorreviewController.doctorreviewratingApi();
             //_viewdoctorreviewController.update();
@@ -83,6 +82,8 @@ class RwaProfileController extends GetxController {
                 // "${r.body}"
                 );
             Get.to(() => RwaHomePage());
+            CallLoader.hideLoader();
+
             // _doctorListController.doctordetailApi();
             // _doctorListController.update();
             // _viewdoctorreviewController.doctorreviewratingApi();
@@ -118,12 +119,18 @@ class RwaProfileController extends GetxController {
   }
 
   @override
-  void dispose() {
-    Get.delete<RwaProfileController>(); // Dispose of the controller bindings
+  void onClose() {
+    //PatientNameController.dispose();
+    nameController?.dispose();
+    LandlineNumber?.dispose();
+    locatoionController?.dispose();
+    CertificateImage?.dispose();
   }
 
   @override
-  void onClose() {}
+  void dispose() {
+    Get.delete<RwaProfileController>(); // Dispose of the controller bindings
+  }
 
   String? validName(String value) {
     if (value.length < 2) {

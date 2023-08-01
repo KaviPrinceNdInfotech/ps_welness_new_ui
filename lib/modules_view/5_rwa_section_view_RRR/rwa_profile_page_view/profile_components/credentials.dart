@@ -268,10 +268,10 @@ class RwaProfileCredentials extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: size.height * 0.13,
+                  height: size.height * 0.16,
                   width: size.width * 0.4,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 3)),
+                      border: Border.all(color: Colors.transparent, width: 3)),
                   child: Obx(
                     () => _rwaProfileController.selectedPath.value != ''
                         ? Image.file(
@@ -283,11 +283,11 @@ class RwaProfileCredentials extends StatelessWidget {
                               }),
                               child: Container(
                                 height: size.height * 0.2,
-                                width: size.width * 0.7,
+                                width: size.width * 0.5,
                                 child: NeumorphicTextFieldContainer(
                                   child: SizedBox(
-                                    height: size.height * 0.05,
-                                    width: size.width * 0.5,
+                                    height: size.height * 0.0,
+                                    width: size.width * 0.0,
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: size.width * 0.1),

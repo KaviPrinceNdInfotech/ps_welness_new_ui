@@ -160,7 +160,7 @@ class NurseReportView extends StatelessWidget {
                               // width: size.width * 0.92,
                               height: size.height * 0.06,
                               margin: new EdgeInsets.fromLTRB(10, 15, 10, 20),
-                              padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
+                              padding: new EdgeInsets.fromLTRB(8, 8, 8, 5),
                               child: Theme(
                                 data: Theme.of(context)
                                     .copyWith(splashColor: Colors.transparent),
@@ -208,10 +208,7 @@ class NurseReportView extends StatelessWidget {
                               ? Center(
                                   child: Text("No List"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
-
-                                  ///height: size.height,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _nursereportviewController
@@ -533,7 +530,8 @@ class NurseReportView extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

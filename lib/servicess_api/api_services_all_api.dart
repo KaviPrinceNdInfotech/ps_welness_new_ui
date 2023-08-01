@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/model/10_lab_module/add_labtest_view/add_test_vieews.dart';
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_model_byId.dart';
 import 'package:ps_welness_new_ui/model/10_lab_module/lab_upload_dropdown_patient/lab_patient_dropdown_api.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/about_us_user_model/user_aboutus_model.dart';
@@ -2349,6 +2350,25 @@ class ApiProvider {
     }
   }
 
+  ///labtest_dropdown_api....
+  ///lab test name Api get ...........................
+  /////Testmodeldropdown
+  static Future<List<TestModel>> getTestNamedropdownApi() async {
+    var url = "http://test.pswellness.in/api/CommonApi/TestList";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var testnameData = testNameModelFromJson(r.body);
+        return testnameData.tests;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
   ///Todo: from here franchies 2 section.................
   static FranchiesSpealistApi() async {
     var url = baseUrl + 'api/CommonApi/GetSpecialist?depId=87';
@@ -3465,6 +3485,28 @@ class ApiProvider {
     }
   }
 
+  ///get_test_api.....................31..july..2023...
+
+  static getTestlabApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    var url = 'http://test.pswellness.in/api/LabApi/LabTestList?Id=$userid';
+    //'111';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        Labtestaddedlist viewtestReport = labtestaddedlistFromJson(r.body);
+        print('&&&&skilsprofiledetailurl:${url}');
+        return viewtestReport;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
   ///
 
   ///nurse Api get...........................
@@ -3590,6 +3632,88 @@ class ApiProvider {
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
     var url = baseUrl + 'api/DoctorApi/RemoveSkill?id=$SkilsId';
+
+    http.Response r = await http.post(
+      Uri.parse(url),
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      //Get.snackbar("Skills added",r.body);
+      var prefs = GetStorage();
+      //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///add labs's test api...........
+
+  static addTestLabsApi(
+    var Lab_Id,
+    var Test_Id,
+  ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+
+    var url = '${baseUrl}api/LabApi/LabAddTest';
+
+    var body = {
+      "Lab_Id": "$userid",
+      "Test_Id": Test_Id,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      //Get.snackbar("Skills added",r.body);
+      var prefs = GetStorage();
+      //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+      ///
+      // //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete skills ......17 june....
+  static labtestDeleteApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var TestaddedId = preferences.getString("TestaddedId");
+    print("TestaddedId: ${TestaddedId}");
+
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    var url = baseUrl + 'api/LabApi/RemoveTest?Id=$TestaddedId';
 
     http.Response r = await http.post(
       Uri.parse(url),
@@ -4118,7 +4242,9 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        LabappointmentdetailsModel? labappointmentdetailsModel =
+        print("labdetailss:${r.toString()}");
+
+        LabappointmentdetailssModel? labappointmentdetailsModel =
             labappointmentdetailsModelFromJson(r.body);
         return labappointmentdetailsModel;
       }

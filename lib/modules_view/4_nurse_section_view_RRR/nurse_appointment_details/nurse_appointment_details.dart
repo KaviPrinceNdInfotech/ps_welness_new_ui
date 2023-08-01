@@ -103,7 +103,7 @@ class NurseeAppointmentDetail extends StatelessWidget {
                                 width: size.width * 0.72,
                                 height: size.height * 0.06,
                                 margin:
-                                    const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                    const EdgeInsets.fromLTRB(10, 15, 10, 10),
                                 padding: const EdgeInsets.fromLTRB(5, 8, 8, 8),
                                 child: Theme(
                                   data: Theme.of(context).copyWith(
@@ -168,8 +168,7 @@ class NurseeAppointmentDetail extends StatelessWidget {
                           _nurseappointmentnursedetailController
                                   .foundAppointmentnurse.value.isEmpty
                               ? Center(child: Text('No List'))
-                              : SizedBox(
-                                  height: size.height * 0.725,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount:
@@ -194,7 +193,7 @@ class NurseeAppointmentDetail extends StatelessWidget {
                                                 height: size.height * 0.25,
                                                 margin:
                                                     const EdgeInsets.symmetric(
-                                                        vertical: 30 / 5),
+                                                        vertical: 30 / 6),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
@@ -266,7 +265,7 @@ class NurseeAppointmentDetail extends StatelessWidget {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              8.0),
+                                                              4.0),
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -372,98 +371,105 @@ class NurseeAppointmentDetail extends StatelessWidget {
                                                               ),
                                                             ],
                                                           ),
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                //"${_nurseappointmentdetailController.nurseappointmentdetail!.result![index].contactNumber}.toString()"
-                                                                '${item?[index]?.patientName}'
-                                                                    .toString(),
+                                                          SizedBox(
+                                                            // height:
+                                                            //     size.height *
+                                                            //         0.03,
+                                                            width: size.width *
+                                                                0.45,
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  //"${_nurseappointmentdetailController.nurseappointmentdetail!.result![index].contactNumber}.toString()"
+                                                                  '${item?[index]?.patientName}'
+                                                                      .toString(),
 
-                                                                style: GoogleFonts.raleway(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
-                                                              Text(
-                                                                '${item?[index].contactNumber}',
-                                                                style: GoogleFonts.raleway(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
-                                                              Text(
-                                                                '₹ ${'${item?[index].totalFee}'}'
-                                                                    .toString(),
-                                                                style: GoogleFonts.raleway(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
-                                                              Text(
-                                                                '${item?[index]}',
-                                                                style: GoogleFonts.raleway(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
-                                                              Text(
-                                                                '${item?[index].paymentDate}',
-                                                                // '20 dec 2023-28 jan 2023',
-                                                                style: GoogleFonts.raleway(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
-                                                              Text(
-                                                                '24 hours',
-                                                                style: GoogleFonts.raleway(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade800,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
-                                                            ],
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                                Text(
+                                                                  '${item?[index].contactNumber}',
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                                Text(
+                                                                  '₹ ${'${item?[index].totalFee}'}'
+                                                                      .toString(),
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                                Text(
+                                                                  '${item?[index]}',
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                                Text(
+                                                                  '${item?[index].paymentDate}',
+                                                                  // '20 dec 2023-28 jan 2023',
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                                Text(
+                                                                  '24 hours',
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
@@ -474,7 +480,8 @@ class NurseeAppointmentDetail extends StatelessWidget {
                                             ),
                                           ],
                                         );
-                                      })),
+                                      }),
+                                ),
                           //),
                         ],
                       ),

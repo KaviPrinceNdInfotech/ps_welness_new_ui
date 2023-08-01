@@ -42,36 +42,39 @@ class DoctorProfileHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Text(
-            'Dr.Vineet Mishra',
+            'PS Profile Update',
             style: GoogleFonts.alatsi(
-                fontSize: 32,
+                fontSize: 25,
                 fontWeight: FontWeight.w600,
                 color: Color(0xff023382)),
           ),
-          RichText(
-            text: TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'mishravineet@gmail.com',
-                  style: GoogleFonts.poppins(
-                    fontSize: 23,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w600,
-                    //color: Color(0xff023382)
-                  ),
-                ),
-                TextSpan(
-                  text: '',
-                  style: GoogleFonts.alatsi(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.deepPurple.shade500,
-                    //color: Color(0xff023382)
-                  ),
-                ),
-              ],
-            ),
-          ),
+
+          ///
+          // RichText(
+          //   text: TextSpan(
+          //     children: <TextSpan>[
+          //       TextSpan(
+          //         text: 'mishravineet@gmail.com',
+          //         style: GoogleFonts.poppins(
+          //           fontSize: 23,
+          //           color: Colors.black87,
+          //           fontWeight: FontWeight.w600,
+          //           //color: Color(0xff023382)
+          //         ),
+          //       ),
+          //       TextSpan(
+          //         text: '',
+          //         style: GoogleFonts.alatsi(
+          //           fontSize: 20,
+          //           fontWeight: FontWeight.w600,
+          //           color: Colors.deepPurple.shade500,
+          //           //color: Color(0xff023382)
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          ///
           // Text(
           //   'Sign Up',
           //   style: TextStyle(

@@ -52,7 +52,7 @@ class MySlider extends StatelessWidget {
       body: Obx(
         () => (_userhomePageController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-            : _userhomePageController.banerlistmodel?.bannerImageList == null
+            : _userhomePageController.banerlistmodel!.bannerImageList.isEmpty
                 //_userhomePageController.banerlistmodel!.bannerImageList!.isEmpty
                 //: _userhomePageController.getsliderbaner!.bannerImageList == null
                 //: _allProductController.allProductModel!.result!.isEmpty

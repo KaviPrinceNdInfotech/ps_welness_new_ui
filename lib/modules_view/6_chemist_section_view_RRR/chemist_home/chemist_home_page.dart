@@ -15,10 +15,9 @@ import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemis
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payment_history/chemist_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payout_history/chemist_payout_histories.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 
-//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_update_bank_details/bank_add_view.dart';
-
-import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
+//s/support_view.dart';
 import '../chemist_appointment_history_view/chemist_order_history.dart';
 import '../chemist_drawer_view/drawerpage.dart';
 import '../chemist_profile_page_view/profile_view.dart';
@@ -35,7 +34,7 @@ class ChemistHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keychemist = GlobalKey();
 
     final List<String> productname = [
       'Manage Profile',
@@ -82,7 +81,7 @@ class ChemistHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keychemist,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -125,7 +124,7 @@ class ChemistHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keychemist.currentState!.openDrawer();
               },
             ),
           ),
@@ -231,7 +230,8 @@ class ChemistHomePage extends StatelessWidget {
                                         _chemistPayoutController.update();
                                         Get.to(() => ChemistPayoutHistory());
                                       } else if (index == 5) {
-                                        Get.to(() => SupportView());
+                                        Get.to(() => SupportViewPsComman());
+                                        // Get.offNamed('/SupportViewPsComman');
                                       } else if (index == 6) {
                                       } else if (index == 7) {}
                                     },

@@ -25,7 +25,7 @@ class RwaHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keyrwa = GlobalKey();
 
     final List<String> productname = [
       'Add Patient',
@@ -73,7 +73,7 @@ class RwaHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keyrwa,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -118,7 +118,7 @@ class RwaHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
-                _key.currentState!.openDrawer();
+                _keyrwa.currentState!.openDrawer();
               },
             ),
           ),

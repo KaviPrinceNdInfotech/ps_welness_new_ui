@@ -25,13 +25,21 @@ class PaymentHistory extends StatelessWidget {
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: Obx(
-        () => _paymentViewControllers.isLoading.value
+        //_paymentViewControllers.foundPaymentdr.isEmpty
+        //                         ? Center(child: Text("No Result Found"))
+        //                         : Expanded(
+        () => _paymentViewControllers.isLoading.isFalse
             ? const Center(
                 child: CircularProgressIndicator(),
               )
+            // : _paymentViewControllers.foundPaymentdr == null
+            //     ? Center(child: Text("No list"))
             : SafeArea(
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: size.height * 0.023,
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * 0.03),
@@ -74,8 +82,8 @@ class PaymentHistory extends StatelessWidget {
                           color: Colors.white),
                       width: size.width,
                       // height: size.height * 0.06,
-                      margin: const EdgeInsets.fromLTRB(20, 20, 15, 10),
-                      padding: const EdgeInsets.fromLTRB(12, 12, 8, 8),
+                      margin: const EdgeInsets.fromLTRB(10, 20, 15, 10),
+                      padding: const EdgeInsets.fromLTRB(12, 6, 8, 8),
                       child: Theme(
                         data: Theme.of(context)
                             .copyWith(splashColor: Colors.transparent),
@@ -89,7 +97,7 @@ class PaymentHistory extends StatelessWidget {
                             fillColor: Colors.white,
                             hintText: 'Search name',
                             contentPadding: const EdgeInsets.only(
-                                left: 10.0, bottom: 1.0, top: 0.0),
+                                left: 10.0, bottom: 2.0, top: 0.0),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(25.7),
@@ -111,7 +119,7 @@ class PaymentHistory extends StatelessWidget {
                     //   () => (_paymentViewControllers.isLoading.value)
                     //       ? Center(child: CircularProgressIndicator())
                     _paymentViewControllers.foundPaymentdr.isEmpty
-                        ? Center(child: Text("No Result Found"))
+                        ? Center(child: Text("No Result"))
                         : Expanded(
                             //height: size.height * 0.75,
                             child: ListView.builder(
