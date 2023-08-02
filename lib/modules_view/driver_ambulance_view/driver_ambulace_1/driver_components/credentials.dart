@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulance_2/driver_registation_2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -417,10 +418,19 @@ class Driver1Credentials extends StatelessWidget {
 
             RectangularButton(
                 text: 'Go Next >',
-                press: () {
+                press: () async {
+                  //_doctor_1_controller.onInit();
+                  // _driver_1111_controller.getStateDriverApi();
+                  // _doctor_1_controller.update();
+                  //_driver_1111_controller.ambulancecatagaryyApi();
+                  //RxStatus.loading();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(seconds: 1));
+                  CallLoader.hideLoader();
+                  await Get.to(DriverSignup2());
                   //Driver_1111_Controller//
                   //_driver_1111_controller.checkDriver1111();
-                  Get.to(DriverSignup2());
+                  ///Get.to(DriverSignup2());
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

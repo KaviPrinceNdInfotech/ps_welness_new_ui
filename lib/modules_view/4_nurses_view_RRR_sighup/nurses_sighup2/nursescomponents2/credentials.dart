@@ -73,6 +73,9 @@ class Nurses2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        onTap: () {
+                          _nurses_22_controller.refresh();
+                        },
                         onChanged: (NurseModels? newValue) {
                           _nurses_22_controller.selectedNurse.value = newValue!;
                           // _nurseBooking1Controller.selectedCity.value = null;

@@ -77,34 +77,36 @@ class FranchisePayoutReport extends StatelessWidget {
             SizedBox(
               height: size.height * 0.01,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Text(
-                        'Vendor Name:',
-                        style: TextStyle(
-                          color: MyTheme.white,
-                          fontSize: size.height * 0.016,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.01,
-                      ),
-                      Text(
-                        'Rakesh Kumar',
-                        style: TextStyle(
-                          color: Colors.red.shade800,
-                          fontSize: size.height * 0.022,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
+
+            ///
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+            //   child: Align(
+            //       alignment: Alignment.centerLeft,
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             'Vendor Name:',
+            //             style: TextStyle(
+            //               color: MyTheme.white,
+            //               fontSize: size.height * 0.016,
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //           SizedBox(
+            //             width: size.width * 0.01,
+            //           ),
+            //           Text(
+            //             'Rakesh Kumar',
+            //             style: TextStyle(
+            //               color: Colors.red.shade800,
+            //               fontSize: size.height * 0.022,
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         ],
+            //       )),
+            // ),
 
             ///.................
             Row(

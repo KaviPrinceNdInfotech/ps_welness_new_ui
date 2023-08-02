@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
@@ -12,9 +13,13 @@ import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Doctor_1_Controller extends GetxController {
   final GlobalKey<FormState> doctor11formkey = GlobalKey<FormState>();
+
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   ///TODO: image picker.................
   ///
@@ -149,10 +154,27 @@ class Doctor_1_Controller extends GetxController {
       experienceController?.text,
     );
     if (r.statusCode == 200) {
-      Get.snackbar('message', "${r.body}");
-      Get.to(SignInScreen());
-      CallLoader.hideLoader();
-    } else {}
+      Get.snackbar(
+        'Success',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+      //Get.snackbar('message', "${r.body}");
+      /// we can navigate to user page.....................................
+      // Get.to(SignInScreen());
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+    } else {
+      Get.snackbar(
+        'Error',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+    }
   }
 
   @override

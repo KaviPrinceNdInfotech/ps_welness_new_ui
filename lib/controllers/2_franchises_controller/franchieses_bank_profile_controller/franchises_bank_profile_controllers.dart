@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../modules_view/circular_loader/circular_loaders.dart';
 
 class FranchisesBankProfileController extends GetxController {
-  final GlobalKey<FormState> franchisesbankprofileformkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> franchisesbankprofileformkey =
+      GlobalKey<FormState>();
 
   var selectedImagepath = ''.obs;
 
@@ -17,7 +22,13 @@ class FranchisesBankProfileController extends GetxController {
       print('No image selected');
     }
   }
-  late TextEditingController accountholdernameController,mobileController,locationController,accountController,ifscController,BranchName;
+
+  late TextEditingController accountholdernameController,
+      mobileController,
+      locationController,
+      accountController,
+      ifscController,
+      BranchName;
   var account = '';
   var mobile = '';
   var name = '';
@@ -31,11 +42,27 @@ class FranchisesBankProfileController extends GetxController {
         locationController.text,
         accountController.text,
         ifscController.text,
-        BranchName.text
-    );
+        BranchName.text);
     if (r.statusCode == 200) {
+      // Get.snackbar(
+      //   'Success',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => FranchiesHomePage()));
+    } else {
+      Get.snackbar(
+        'Fail',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
     }
   }
+
   @override
   void onInit() {
     super.onInit();
@@ -53,8 +80,7 @@ class FranchisesBankProfileController extends GetxController {
   }
 
   @override
-  void onClose() {
-  }
+  void onClose() {}
 
   String? validaccountNumber(String value) {
     if (value.length < 8) {
@@ -62,12 +88,14 @@ class FranchisesBankProfileController extends GetxController {
     }
     return null;
   }
+
   String? validMobile(String value) {
     if (value.length < 10) {
       return "              Provide valid Phone number";
     }
     return null;
   }
+
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
@@ -101,13 +129,14 @@ class FranchisesBankProfileController extends GetxController {
     }
     return null;
   }
+
   void checkUpdateBankProfilee() {
     final isValid = franchisesbankprofileformkey.currentState!.validate();
 
     if (isValid) {
       franchiesUpdateBankApi();
       return;
-    }else{}
+    } else {}
     franchisesbankprofileformkey.currentState!.save();
   }
 }

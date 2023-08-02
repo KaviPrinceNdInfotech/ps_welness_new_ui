@@ -355,9 +355,9 @@ class Doctor1Credentials extends StatelessWidget {
                 text: 'Go Next >',
                 press: () async {
                   //_doctor_1_controller.onInit();
-                  _doctor_1_controller.getdepartmentApi();
+                  ///_doctor_1_controller.getdepartmentApi();
                   // _doctor_1_controller.update();
-                  _doctor_1_controller.getStateLabApi();
+                  /// _doctor_1_controller.getStateLabApi();
                   //RxStatus.loading();
                   CallLoader.loader();
                   await Future.delayed(Duration(seconds: 1));

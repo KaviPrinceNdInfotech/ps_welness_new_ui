@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
@@ -14,6 +16,8 @@ import '../../../servicess_api/api_services_all_api.dart';
 
 class Lab_1_Controller extends GetxController {
   final GlobalKey<FormState> lab1formkey = GlobalKey<FormState>();
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   var selectedTime = TimeOfDay.now().obs;
   var selectedTime2 = TimeOfDay.now().obs;
@@ -166,11 +170,26 @@ class Lab_1_Controller extends GetxController {
     if (r.statusCode == 200) {
       ///todo: from here we have new thing to provide the main ....
       //Get.to(LabHomePage());
-      Get.snackbar('message', "${r.body}");
+      ///
+      // Get.snackbar(
+      //   'Success',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
+      //Get.snackbar('message', "${r.body}");
+      ///
+      /// we can navigate to user page.....................................
+      // Get.to(SignInScreen());
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(SignInScreen());
+      //Get.to(SignInScreen());
     } else {}
   }
 

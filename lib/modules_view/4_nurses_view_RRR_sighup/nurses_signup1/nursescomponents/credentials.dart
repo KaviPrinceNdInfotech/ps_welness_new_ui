@@ -322,10 +322,10 @@ class Nurses1Credentials extends StatelessWidget {
                 text: 'Go Next >',
                 press: () async {
                   //_doctor_1_controller.onInit();
-                  _nurses_22_controller.getStateApi();
+                  //_nurses_22_controller.getStateApi();
                   // _doctor_1_controller.update();
-                  _nurses_22_controller.getNurseLocationregistrationApi();
-                  _nurses_22_controller.getNurseTypeApi();
+                  // _nurses_22_controller.getNurseLocationregistrationApi();
+                  //_nurses_22_controller.getNurseTypeApi();
                   //RxStatus.loading();
                   CallLoader.loader();
                   await Future.delayed(Duration(seconds: 1));

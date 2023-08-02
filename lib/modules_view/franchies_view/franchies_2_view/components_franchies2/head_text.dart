@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
+import '../../franchies_1_view/franchies_signup_part1.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class Franchies2HeadText extends StatelessWidget {
@@ -23,7 +25,9 @@ class Franchies2HeadText extends StatelessWidget {
           SizedBox(height: size.height * 0.055),
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAll(FranchiesSignup1());
+
+              // Get.back();
             },
             child: Container(
               height: size.height * 0.03,

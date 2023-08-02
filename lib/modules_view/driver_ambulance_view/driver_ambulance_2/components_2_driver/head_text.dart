@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulace_1/driver_registation_1.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class Driver2HeadText extends StatelessWidget {
@@ -24,7 +25,9 @@ class Driver2HeadText extends StatelessWidget {
 
           InkWell(
               onTap: () {
-                Get.back();
+                Get.offAll(DriverSignup1());
+
+                //Get.back();
               },
               child: Icon(Icons.arrow_back_ios_new_outlined)),
           SizedBox(height: size.height * 0.02),

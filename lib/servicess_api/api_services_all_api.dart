@@ -220,14 +220,26 @@ class ApiProvider {
     );
     // print(r.body);
     if (r.statusCode == 200) {
-      Get.snackbar('Success', r.body);
+      Get.snackbar(
+        'Success',
+        r.body,
+        duration: const Duration(seconds: 2),
+      );
       print(r.body);
 
       return r;
     } else if (r.statusCode == 401) {
-      Get.snackbar('message', r.body);
+      Get.snackbar(
+        'message',
+        r.body,
+        duration: const Duration(seconds: 2),
+      );
     } else {
-      Get.snackbar('Error', r.body);
+      Get.snackbar(
+        'Error',
+        r.body,
+        duration: const Duration(seconds: 2),
+      );
       return r;
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AccountCheck extends StatelessWidget {
   final bool login;
@@ -10,19 +11,29 @@ class AccountCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(horizontal: 50),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            login ? "Don't have an Account?" : "Already have an Account?",
-            style: TextStyle(fontSize: 15),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              login ? "Don't have an Account? " : "Already have an Account? ",
+              style: GoogleFonts.abel(
+                fontSize: 15,
+                letterSpacing: 1,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           GestureDetector(
             onTap: press,
             child: Text(
               login ? "Sign Up" : "Sign In",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: GoogleFonts.aBeeZee(
+                  color: Colors.grey.shade800,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],

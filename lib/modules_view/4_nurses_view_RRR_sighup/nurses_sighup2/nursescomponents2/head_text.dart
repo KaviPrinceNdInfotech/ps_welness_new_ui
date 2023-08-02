@@ -4,6 +4,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurses_view_RRR_sighup/nurses_signup1/nurses_signup1.dart';
 
 class Nurses2HeadText extends StatelessWidget {
   const Nurses2HeadText({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class Nurses2HeadText extends StatelessWidget {
           SizedBox(height: size.height * 0.01),
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAll(NursesSignup11());
+
+              //Get.back();
             },
             child: Container(
               height: size.height * 0.03,

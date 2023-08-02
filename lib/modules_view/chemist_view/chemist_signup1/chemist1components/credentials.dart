@@ -628,7 +628,7 @@ class Chemist1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () async {
-                  _chemist_1_controller.getStateApi();
+                  //_chemist_1_controller.getStateApi();
                   _chemist_1_controller.update();
                   CallLoader.loader();
                   await Future.delayed(Duration(seconds: 1));

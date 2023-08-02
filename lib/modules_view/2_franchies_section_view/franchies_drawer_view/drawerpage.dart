@@ -23,6 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../widgets/circular_loader.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
 import 'drower_pages/about_franchies/about_franchies.dart';
+import 'drower_pages/bank_update_seperate_franchise/bank_update_saperate_franchise.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_details_franchies/profile_franchies_detail_page.dart';
 import 'drower_pages/profile_page_view/franchiese_profile.dart';
@@ -141,6 +142,39 @@ class FranchiesisMainDrawer extends StatelessWidget {
                 Get.back();
                 Get.to(() => FranchiessProfilePage());
                 Get.offNamed('/FranchiessProfilePage');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankChemistSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => UpdateBankChemistSeperateDetail());
+                Get.offNamed('/UpdateBankChemistSeperateDetail');
               },
             ),
 

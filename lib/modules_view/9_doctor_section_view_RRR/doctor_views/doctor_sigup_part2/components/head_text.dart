@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_views/doctor_signup_1/doctor_signup_part1.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class Doctor2HeadText extends StatelessWidget {
@@ -22,7 +23,9 @@ class Doctor2HeadText extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAll(DoctorSignup1());
+
+              // Get.back();
             },
             child: Container(
               height: size.height * 0.03,

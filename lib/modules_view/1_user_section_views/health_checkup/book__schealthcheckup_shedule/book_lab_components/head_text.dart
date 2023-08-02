@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_center/lab_signup1/lab_center.dart';
 
 import '../../../../../constants/constants/constants.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
@@ -25,7 +26,8 @@ class Lab2HeadText extends StatelessWidget {
 
           InkWell(
             onTap: () {
-              Get.back();
+              //Get.back();
+              Get.offAll(LabSignup1());
             },
             child: Container(
               height: size.height * 0.03,

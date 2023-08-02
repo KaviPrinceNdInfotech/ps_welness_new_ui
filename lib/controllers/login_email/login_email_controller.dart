@@ -289,6 +289,9 @@ class LoginpasswordController extends GetxController {
   final DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
 
+  ///new experiment....
+  //User_1_Controller _user_1_controller = Get.put(User_1_Controller());
+
   var Id = '';
 
   void emailApi() async {

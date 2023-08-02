@@ -370,8 +370,8 @@ class Rwa1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () async {
-                  _rwa_11_controller.getStateRwaApi();
-                  _rwa_11_controller.update();
+                  // _rwa_11_controller.getStateRwaApi();
+                  //_rwa_11_controller.update();
                   CallLoader.loader();
                   await Future.delayed(Duration(seconds: 1));
                   CallLoader.hideLoader();

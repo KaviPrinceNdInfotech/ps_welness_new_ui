@@ -115,6 +115,7 @@ class ApiProvider {
   static String StatemasterId = ''.toString();
   static String CitymasterId = ''.toString();
   static String AdminLoginId = ''.toString();
+  //static String adminId = ''.toString();
 
   //static String cartlistid = '';
   //static String addressid = '';
@@ -525,8 +526,13 @@ class ApiProvider {
         body: body,
       );
       if (r.statusCode == 200) {
+        Get.snackbar(
+          'Success',
+          r.body,
+          duration: const Duration(seconds: 2),
+        );
         print("Success123: ${r.body}");
-        Get.snackbar("Success", "${r.body}");
+        //Get.snackbar("Success", "${r.body}");
         return r;
       } else {
         print("Doctor registration failed: ${r.statusCode}");
@@ -1862,6 +1868,37 @@ class ApiProvider {
     }
   }
 
+  ///todo: all franchise update Bank Detail...........3 august 2023
+  static FranchiseBankSeperateDetailApi(
+    var AccountNo,
+    var IFSCCode,
+    var BranchName,
+  ) async {
+    var url = 'http://test.pswellness.in/api/CommonApi/UpdateBank';
+    //http://test.pswellness.in/api/CommonApi/UpdateBank
+    //var url = '${baseUrl}api/ComplaintApi/CHUpdateBank';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    var body = {
+      "Login_Id": adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName,
+    };
+    print('AddPatientBodyggdd: ${body}');
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("BankDetailSuccessstdddt: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
   /// todo Rwa Payment Report.........Rahul
   static RWAPaymentReportApi() async {
     var prefs = GetStorage();
@@ -2645,11 +2682,25 @@ class ApiProvider {
     print("Frenchies Signupbody:: $body");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar(
+        'Success',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
       print("Frenchies SignupApi: ${r.body}");
       return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar(
+        'message',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
     } else {
-      Get.snackbar("Failed", r.body);
+      Get.snackbar(
+        "Failed",
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
       return r;
     }
   }
@@ -2779,13 +2830,17 @@ class ApiProvider {
   static FranchiseUpdateBankApi(var HolderName, var mobile, var Location,
       var AccountNo, var IFSCCode, var BranchName) async {
     //Id = prefs.read("Id").toString();
+    var prefs = GetStorage();
     AdminLoginId = prefs.read("AdminLoginId").toString();
+
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
     var url = '${baseUrl}api/SignupApi/Franchises_UpdateBank';
     var body = {
       "HolderName": HolderName,
       "MobileNumber": mobile,
       "BranchAddress": Location,
-      "Login_Id": "$AdminLoginId",
+      "Login_Id": "$adminId",
       "AccountNo": AccountNo,
       "IFSCCode": IFSCCode,
       "BranchName": BranchName

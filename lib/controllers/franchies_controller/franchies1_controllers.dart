@@ -113,16 +113,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 class Franchies_1_Controller extends GetxController {
   final GlobalKey<FormState> franchies1formkey = GlobalKey<FormState>();
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   late TextEditingController CompanyName,
       EmailId,
@@ -194,12 +198,27 @@ class Franchies_1_Controller extends GetxController {
       imageAsBase64,
     );
     if (r.statusCode == 200) {
-      CallLoader.hideLoader();
-      Get.snackbar('message', "${r.body}");
-
+      Get.snackbar(
+        'Success',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+      //Get.snackbar('message', "${r.body}");
       /// we can navigate to user page.....................................
-      Get.to(SignInScreen());
-    } else {}
+      // Get.to(SignInScreen());
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+    } else {
+      Get.snackbar(
+        'Error',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+    }
   }
 
   var name = '';

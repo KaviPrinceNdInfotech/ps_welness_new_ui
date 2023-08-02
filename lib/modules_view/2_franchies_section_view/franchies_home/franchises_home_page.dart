@@ -45,7 +45,7 @@ class FranchiesHomePage extends StatelessWidget {
 
     final List<String> productname = [
       'Edit Profile',
-      'Update Bank Detail',
+      'Add Bank Detail',
       'Vehicle Allotment',
       'Gallery',
       'Add Gallery',

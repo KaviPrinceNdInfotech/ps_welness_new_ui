@@ -126,10 +126,12 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modelldart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../modules_view/sign_in/sigin_screen.dart';
@@ -137,6 +139,8 @@ import '../../modules_view/sign_in/sigin_screen.dart';
 
 class Chemist_1_Controller extends GetxController {
   final GlobalKey<FormState> chemist1formkey = GlobalKey<FormState>();
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
   var selectedPath = ''.obs;
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
@@ -222,8 +226,28 @@ class Chemist_1_Controller extends GetxController {
         appointmentController?.text,
         PinCode?.text);
     if (r.statusCode == 200) {
-      Get.to(SignInScreen());
+      // Get.snackbar(
+      //   'Success',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
+      //Get.snackbar('message', "${r.body}");
+      /// we can navigate to user page.....................................
+      // Get.to(SignInScreen());
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+      //Get.to(SignInScreen());
       var data = jsonDecode(r.body);
+    } else {
+      // Get.snackbar(
+      //   'Error',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
     }
   }
 

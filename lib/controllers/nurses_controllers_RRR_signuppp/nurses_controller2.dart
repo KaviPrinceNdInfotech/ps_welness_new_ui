@@ -7,11 +7,13 @@ import 'package:get/get.dart';
 ///import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import '../../modules_view/sign_in/sigin_screen.dart';
@@ -19,6 +21,9 @@ import '../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class Nurses_22_Controller extends GetxController {
   final GlobalKey<FormState> nurse2formkey = GlobalKey<FormState>();
+
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   RxBool isLoading = true.obs;
 
@@ -262,12 +267,27 @@ class Nurses_22_Controller extends GetxController {
       experienceController?.text,
     );
     if (r.statusCode == 200) {
-      Get.snackbar('message', "${r.body}");
-      CallLoader.hideLoader();
-
+      // Get.snackbar(
+      //   'Success',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
+      //Get.snackbar('message', "${r.body}");
       /// we can navigate to user page.....................................
-      Get.to(SignInScreen());
-    } else {}
+      // Get.to(SignInScreen());
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+    } else {
+      // Get.snackbar(
+      //   'Error',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
+    }
   }
 
   ///todo:okook 26 july changessss...

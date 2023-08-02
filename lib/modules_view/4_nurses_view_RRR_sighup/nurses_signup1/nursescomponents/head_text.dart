@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_up_list/sign_up_list.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class Nurses1HeadText extends StatelessWidget {
@@ -23,7 +24,9 @@ class Nurses1HeadText extends StatelessWidget {
           SizedBox(height: size.height * 0.01),
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAll(SignUpList());
+
+              // Get.back();
             },
             child: Container(
               height: size.height * 0.03,

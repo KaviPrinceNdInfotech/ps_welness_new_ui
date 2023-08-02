@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
@@ -17,7 +18,8 @@ import '../../../../controllers/2_franchises_controller/franchieses_bank_profile
 class FranchiesBankCredentials extends StatelessWidget {
   FranchiesBankCredentials({Key? key}) : super(key: key);
 
-  FranchisesBankProfileController _franchisesBankProfileController = Get.put(FranchisesBankProfileController());
+  FranchisesBankProfileController _franchisesBankProfileController =
+      Get.put(FranchisesBankProfileController());
 
   var items = [
     'Item 1',
@@ -85,24 +87,24 @@ class FranchiesBankCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Mobile Number',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    FontAwesomeIcons.piggyBank,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                  counterText: ''
-                ),
+                    hintText: 'Mobile Number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      FontAwesomeIcons.phone,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                    counterText: ''),
               ),
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo:  bank name..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -135,12 +137,12 @@ class FranchiesBankCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: location value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller:
-                    _franchisesBankProfileController.locationController,
+                controller: _franchisesBankProfileController.locationController,
                 onSaved: (value) {
                   _franchisesBankProfileController.location = value!;
                 },
@@ -167,15 +169,18 @@ class FranchiesBankCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: account holder name..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _franchisesBankProfileController.accountholdernameController,
+                controller: _franchisesBankProfileController
+                    .accountholdernameController,
                 onSaved: (value) {
                   _franchisesBankProfileController.accountholdername = value!;
                 },
                 validator: (value) {
-                  return _franchisesBankProfileController.validHolderName(value!);
+                  return _franchisesBankProfileController
+                      .validHolderName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -197,6 +202,7 @@ class FranchiesBankCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: ifsc no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -233,7 +239,7 @@ class FranchiesBankCredentials extends StatelessWidget {
             RectangularButton(
                 text: 'UPDATE',
                 press: () {
-                 _franchisesBankProfileController.checkUpdateBankProfilee();
+                  _franchisesBankProfileController.checkUpdateBankProfilee();
                 })
           ],
         ),
