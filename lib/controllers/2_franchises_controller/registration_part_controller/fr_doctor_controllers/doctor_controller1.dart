@@ -3,27 +3,45 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_signup3/fr_doctor_signup_3.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_sigup_part2/doctor_signup_part2.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:http/http.dart' as http;
 
 class FrDoctor_1_Controller extends GetxController {
   final GlobalKey<FormState> frdoctor1formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> frdoctor2formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> frdoctor3formkey = GlobalKey<FormState>();
-    RxBool isLoading = false.obs;
-   TextEditingController? doctorNameController, emailController, passwordController, confirmPasswordController,
-       mobileNumberController, phoneController,
-   clinicNameController, stateIdController, cityIdController, locationController, licenceImageController,
-       licenceBase64Controller, licenceNumberController,
-   licenceValidityController, pinController, panImageController, panImageBase64Controller,
-       SlotTimeController, startTimeController, endTimeController, SlotTime2Controller, StartTime2Controller,
-       EndTime2Controller;
+  RxBool isLoading = false.obs;
+  TextEditingController? doctorNameController,
+      emailController,
+      passwordController,
+      confirmPasswordController,
+      mobileNumberController,
+      phoneController,
+      clinicNameController,
+      stateIdController,
+      cityIdController,
+      locationController,
+      licenceImageController,
+      licenceBase64Controller,
+      licenceNumberController,
+      licenceValidityController,
+      pinController,
+      panImageController,
+      panImageBase64Controller,
+      SlotTimeController,
+      startTimeController,
+      endTimeController,
+      SlotTime2Controller,
+      StartTime2Controller,
+      EndTime2Controller;
 
   var name = '';
   var email = '';
@@ -49,19 +67,20 @@ class FrDoctor_1_Controller extends GetxController {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       selectedLicenceImagepath.value = pickedFile.path;
-    } else {
-    }
+    } else {}
   }
+
   void getPanImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       selectedPanImagepath.value = pickedFile.path;
-    } else {
-    }
+    } else {}
   }
+
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
+
   ///this is for City.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
   List<StateModel> states = <StateModel>[].obs;
@@ -73,6 +92,7 @@ class FrDoctor_1_Controller extends GetxController {
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
+
   ///get cities api...........
   void getCityByStateIDLab(String stateID) async {
     cities.clear();
@@ -80,41 +100,54 @@ class FrDoctor_1_Controller extends GetxController {
     cities.addAll(localList);
   }
 
-
-  void FrenchiesDoctorRegistration()async{
+  void FrenchiesDoctorRegistration() async {
     isLoading(true);
-    final licenceimageAsBase64 = base64Encode(await File(selectedLicenceImagepath.value).readAsBytes());
-    final PanImageAsBase64 = base64Encode(await File(selectedPanImagepath.value).readAsBytes());
+    final licenceimageAsBase64 =
+        base64Encode(await File(selectedLicenceImagepath.value).readAsBytes());
+    final PanImageAsBase64 =
+        base64Encode(await File(selectedPanImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterDoctor(
-        doctorNameController?.text,
-        emailController?.text,
-        passwordController?.text,
-        confirmPasswordController?.text,
-        mobileNumberController?.text,
-        phoneController?.text,
-        clinicNameController?.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        locationController?.text,
-        selectedLicenceImagepath.value.split('/').last,
-        licenceimageAsBase64,
-        licenceNumberController?.text,
-        licenceValidityController?.text,
-        pinController?.text,
-        selectedPanImagepath.value.split('/').last,
-        PanImageAsBase64,
-        SlotTimeController?.text,
-        startTimeController?.text,
-        endTimeController?.text,
-        SlotTime2Controller?.text,
-        StartTime2Controller?.text,
-        EndTime2Controller?.text
+      doctorNameController?.text,
+      emailController?.text,
+      passwordController?.text,
+      confirmPasswordController?.text,
+      mobileNumberController?.text,
+      phoneController?.text,
+      clinicNameController?.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      locationController?.text,
+      selectedLicenceImagepath.value.split('/').last,
+      licenceimageAsBase64,
+      licenceNumberController?.text,
+      licenceValidityController?.text,
+      pinController?.text,
+      selectedPanImagepath.value.split('/').last,
+      PanImageAsBase64,
+      SlotTimeController?.text,
+
+      ///
+      {selectedTime?.value.hour},
+      selectedTime2?.value.hour,
+      SlotTime2Controller?.text,
+      selectedTime3?.value.hour,
+      selectedTime4?.value.hour,
     );
-    if(r.statusCode == 200){
+    if (r.statusCode == 200) {
+      print("ttftft${SlotTimeController?.text}");
+
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      Get.offAll(FranchiesHomePage());
       isLoading(false);
+    } else {
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      Get.offAll(FranchiesHomePage());
     }
   }
-
 
   @override
   void onInit() {
@@ -123,8 +156,7 @@ class FrDoctor_1_Controller extends GetxController {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
-    }
-    );
+    });
     doctorNameController = TextEditingController(text: '');
     emailController = TextEditingController(text: '');
     passwordController = TextEditingController(text: '');
@@ -158,8 +190,7 @@ class FrDoctor_1_Controller extends GetxController {
   }
 
   @override
-  void onClose() {
-  }
+  void onClose() {}
 
   String? validName(String value) {
     if (value.length < 2) {
@@ -188,8 +219,8 @@ class FrDoctor_1_Controller extends GetxController {
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -198,14 +229,15 @@ class FrDoctor_1_Controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != confirmpassword) {
       return "              Password must be same as above";
     } else {
       return null;
     }
   }
+
   String? validPhone(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -215,6 +247,7 @@ class FrDoctor_1_Controller extends GetxController {
     }
     return null;
   }
+
   String? validaadhar(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -224,24 +257,28 @@ class FrDoctor_1_Controller extends GetxController {
     // }
     return null;
   }
+
   String? validAddress(String value) {
     if (value.isEmpty) {
       return '              This field is required';
     }
     return null;
   }
+
   String? validcertificate(String value) {
     if (value.isEmpty) {
       return '              This field is required';
     }
     return null;
   }
+
   String? validcertificatevalidity(String value) {
     if (value.isEmpty) {
       return '              This field is required';
     }
     return null;
   }
+
   ///time 1........................
   chooseTime() async {
     TimeOfDay? pickedTime = await showTimePicker(
@@ -262,6 +299,7 @@ class FrDoctor_1_Controller extends GetxController {
       selectedTime.value = pickedTime;
     }
   }
+
   ///time 2...................
   chooseTime2() async {
     TimeOfDay? pickedTime = await showTimePicker(
@@ -281,6 +319,7 @@ class FrDoctor_1_Controller extends GetxController {
       selectedTime2.value = pickedTime;
     }
   }
+
   ///time3
   chooseTime3() async {
     TimeOfDay? pickedTime = await showTimePicker(
@@ -300,6 +339,7 @@ class FrDoctor_1_Controller extends GetxController {
       selectedTime3.value = pickedTime;
     }
   }
+
   ///time4
   chooseTime4() async {
     TimeOfDay? pickedTime = await showTimePicker(
@@ -319,6 +359,7 @@ class FrDoctor_1_Controller extends GetxController {
       selectedTime4.value = pickedTime;
     }
   }
+
   // date
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
@@ -328,12 +369,12 @@ class FrDoctor_1_Controller extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'validity',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
@@ -346,6 +387,7 @@ class FrDoctor_1_Controller extends GetxController {
             affinity: TextAffinity.upstream));
     }
   }
+
   String? validClinicname(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -354,32 +396,34 @@ class FrDoctor_1_Controller extends GetxController {
     return null;
   }
 
-
   void checkDoctor1() {
     final isValid = frdoctor1formkey.currentState!.validate();
     if (isValid) {
       Get.to(FrDoctorSignup2());
       return;
-    }else{
-    }
+    } else {}
     frdoctor1formkey.currentState!.save();
   }
+
   void checkDoctor2() {
     final isValid = frdoctor2formkey.currentState!.validate();
     if (isValid) {
       Get.to(FrDocSignup3());
       return;
-    }else{
-    }
+    } else {}
     frdoctor1formkey.currentState!.save();
   }
+
   void checkDoctor3() {
     final isValid = frdoctor3formkey.currentState!.validate();
-    if (isValid && selectedLicenceImagepath.value != '' && selectedPanImagepath.value != '') {
+    if (isValid &&
+        selectedLicenceImagepath.value != '' &&
+        selectedPanImagepath.value != '') {
       FrenchiesDoctorRegistration();
       return;
-    }else{
-      Get.snackbar("Failed", "Please select all data and image");
+    } else {
+      Get.snackbar("Failed", "Please select all data and image",
+          duration: Duration(seconds: 3));
     }
     frdoctor1formkey.currentState!.save();
   }

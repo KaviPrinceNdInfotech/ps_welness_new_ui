@@ -6,21 +6,14 @@ import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_doctor_controllers/doctor_controller1.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_signup3/fr_doctor_signup_3.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_signup3/fr_doctor_signup_3.dart';
-// //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
-
-import '../../../../../../controllers/2_franchises_controller/registration_part_controller/fr_doctor_controllers/doctor_controller_2.dart';
 
 class FrDoctor2Credentials extends StatelessWidget {
   FrDoctor2Credentials({Key? key}) : super(key: key);
 
-  FrDoctor_1_Controller _frdoctor_1_controller = Get.put(FrDoctor_1_Controller());
+  FrDoctor_1_Controller _frdoctor_1_controller =
+      Get.put(FrDoctor_1_Controller());
 
   var items = [
     'Item 1',
@@ -57,7 +50,7 @@ class FrDoctor2Credentials extends StatelessWidget {
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: 'Confirm Phone',
+                    hintText: 'Landline Phone number',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,
@@ -101,6 +94,7 @@ class FrDoctor2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///Todo: state............................
               SizedBox(
                 height: size.height * 0.01,
@@ -120,7 +114,8 @@ class FrDoctor2Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select State'),
-                        items: _frdoctor_1_controller.states.map((StateModel items) {
+                        items: _frdoctor_1_controller.states
+                            .map((StateModel items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
@@ -132,13 +127,16 @@ class FrDoctor2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (StateModel? newValue) {
-                          _frdoctor_1_controller.selectedState.value = newValue!;
+                          _frdoctor_1_controller.selectedState.value =
+                              newValue!;
                         }),
                   ),
                 ),
               ),
+
               ///Todo: city.....................................
               SizedBox(
                 height: size.height * 0.02,
@@ -170,7 +168,8 @@ class FrDoctor2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frdoctor_1_controller.selectedCity.value = newValue!;
                         }),
@@ -184,7 +183,7 @@ class FrDoctor2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'GO NEXT>',
                   press: () {
-                   _frdoctor_1_controller.checkDoctor2();
+                    _frdoctor_1_controller.checkDoctor2();
                   })
             ],
           ),

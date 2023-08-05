@@ -144,7 +144,7 @@ class FrVehicleCredentials extends StatelessWidget {
                   _franchies_vehicle_controller.confirmaccount = value!;
                 },
                 validator: (value) {
-                  return _franchies_vehicle_controller.validAcno(value!);
+                  return _franchies_vehicle_controller.validConfirmAcno(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -171,6 +171,7 @@ class FrVehicleCredentials extends StatelessWidget {
             ///todo: driver charge..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller:
                     _franchies_vehicle_controller.driverchargeController,
@@ -183,7 +184,7 @@ class FrVehicleCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'driver charge',
+                  hintText: 'driver charge per Km',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,

@@ -1,23 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_lab_register/lab_signup2/lab_signup_2.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:http/http.dart' as http;
 
 class Fr_Lab_1_Controller extends GetxController {
   final GlobalKey<FormState> frlab1formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> frlab2formkey = GlobalKey<FormState>();
- RxBool isLoading = false.obs;
-  var  selectedLicenceImagepath = ''.obs;
+  RxBool isLoading = false.obs;
+  var selectedLicenceImagepath = ''.obs;
   var selectedPanImagepath = ''.obs;
   var selectedTime = TimeOfDay.now().obs;
   var selectedTime2 = TimeOfDay.now().obs;
-   TextEditingController? nameController,
+  TextEditingController? nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -25,9 +28,8 @@ class Fr_Lab_1_Controller extends GetxController {
       addressController,
       pinController,
       aadhaarController,
-    certificateController,
-    gstNoController;
-
+      certificateController,
+      gstNoController;
 
   var name = '';
   var email = '';
@@ -48,12 +50,14 @@ class Fr_Lab_1_Controller extends GetxController {
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
+
   ///get cities api...........
   void getCityByStateIDLab(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
     cities.addAll(localList);
   }
+
   void getLicenceImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
@@ -62,6 +66,7 @@ class Fr_Lab_1_Controller extends GetxController {
       print('No image selected');
     }
   }
+
   void getPanImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
@@ -70,32 +75,37 @@ class Fr_Lab_1_Controller extends GetxController {
       print('No image selected');
     }
   }
-  void frenchiesRegisterLab()async{
+
+  void frenchiesRegisterLab() async {
     isLoading(true);
-    final licenceimageAsBase64 = base64Encode(await File(selectedLicenceImagepath.value).readAsBytes());
-    final panimageAsBase64 = base64Encode(await File(selectedPanImagepath.value).readAsBytes());
+    final licenceimageAsBase64 =
+        base64Encode(await File(selectedLicenceImagepath.value).readAsBytes());
+    final panimageAsBase64 =
+        base64Encode(await File(selectedPanImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterLab(
-      nameController?.text,
-      emailController?.text,
-      passwordController?.text,
-      confirmpasswordController?.text,
-      mobileController?.text,
-      addressController?.text,
-      selectedState.value?.id.toString(),
-      selectedCity.value?.id.toString(),
-      pinController?.text,
-      certificateController?.text,
-      selectedLicenceImagepath.value.split('/').last,
-      licenceimageAsBase64,
-      selectedPanImagepath.value.split('/').last,
-      panimageAsBase64,
-      gstNoController?.text,
-      aadhaarController?.text,
-      selectedTime.value.toString(),
-      selectedTime2.value.toString()
-    );
-    if(r.statusCode == 200){
+        nameController?.text,
+        emailController?.text,
+        passwordController?.text,
+        confirmpasswordController?.text,
+        mobileController?.text,
+        addressController?.text,
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
+        pinController?.text,
+        certificateController?.text,
+        selectedLicenceImagepath.value.split('/').last,
+        licenceimageAsBase64,
+        selectedPanImagepath.value.split('/').last,
+        panimageAsBase64,
+        gstNoController?.text,
+        aadhaarController?.text,
+        selectedTime.value.toString(),
+        selectedTime2.value.toString());
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
       isLoading(false);
+    } else {
+      Get.snackbar("Failed", "${r.body}", duration: Duration(seconds: 3));
     }
   }
 
@@ -107,8 +117,7 @@ class Fr_Lab_1_Controller extends GetxController {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
-    }
-    );
+    });
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -136,6 +145,7 @@ class Fr_Lab_1_Controller extends GetxController {
     addressController?.dispose();
     pinController?.dispose();
   }
+
   ///time 1........................
   chooseTime() async {
     TimeOfDay? pickedTime = await showTimePicker(
@@ -156,6 +166,7 @@ class Fr_Lab_1_Controller extends GetxController {
       selectedTime.value = pickedTime;
     }
   }
+
   ///time 2...................
   chooseTime2() async {
     TimeOfDay? pickedTime = await showTimePicker(
@@ -175,6 +186,7 @@ class Fr_Lab_1_Controller extends GetxController {
       selectedTime2.value = pickedTime;
     }
   }
+
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
@@ -196,28 +208,31 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
+
   String? validPassword(String value) {
     confirmpassword = value;
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
   }
+
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != confirmpassword) {
       return "              Password must be same as above";
     } else {
       return null;
     }
   }
+
   String? validPhone(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -227,12 +242,14 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
+
   String? validAddress(String value) {
     if (value.length < 2) {
       return "              Provide valid address";
     }
     return null;
   }
+
   String? validPin(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -242,6 +259,7 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
+
   //
   String? validcertificate(String value) {
     if (value.length < 2) {
@@ -249,6 +267,7 @@ class Fr_Lab_1_Controller extends GetxController {
     }
     return null;
   }
+
   String? validaadhar(String value) {
     if (value.length < 2) {
       return "              Provide valid Aadhar number";
@@ -256,20 +275,31 @@ class Fr_Lab_1_Controller extends GetxController {
     return null;
   }
 
-  void checkLab() {
+  Future<void> checkLab() async {
     final isValid = frlab1formkey.currentState!.validate();
     if (isValid) {
+      refresh();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 1000));
+      CallLoader.hideLoader();
       Get.to(FrLabSignup2());
       return;
     }
     frlab1formkey.currentState!.save();
   }
-  void checkLab2() {
+
+  Future<void> checkLab2() async {
     final isValid = frlab2formkey.currentState!.validate();
-    if (isValid && selectedLicenceImagepath.value != '' && selectedPanImagepath.value != '') {
+    if (isValid &&
+        selectedLicenceImagepath.value != '' &&
+        selectedPanImagepath.value != '') {
       frenchiesRegisterLab();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      Get.offAll(FranchiesHomePage());
       return;
-    }else{
+    } else {
       Get.snackbar("title", "Please fill all data and image");
     }
     frlab1formkey.currentState!.save();

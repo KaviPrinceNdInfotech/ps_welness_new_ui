@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/modules_view/2_franchies_section_view/add_vehicle/added_vehicle_list/added_vehicle_list.dart';
@@ -64,8 +63,13 @@ class AddVehicleCredentials extends StatelessWidget {
                     ),
                   ]),
               child: InkWell(
-                onTap: () {
-                  Get.to(() => VehicleList());
+                onTap: () async {
+                  _addVehicleController.FrenchiesAddVehicleList();
+                  _addVehicleController.update();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(milliseconds: 900));
+                  CallLoader.hideLoader();
+                  await Get.to(() => VehicleList());
                 },
                 child: Container(
                   height: size.height * 0.06,
@@ -173,11 +177,12 @@ class AddVehicleCredentials extends StatelessWidget {
                     .validate();
                 if (isValid) {
                   _addVehicleController.FrenchiesAddVehicleType();
-                  Timer(const Duration(seconds: 2),
-                      () => _addVehicleController.FrenchiesAddVehicleList());
-                  _addVehicleController.update();
-                  Timer(
-                      const Duration(seconds: 2), () => Get.to(VehicleList()));
+                  // Timer(const Duration(seconds: 2),
+                  //     () => _addVehicleController.FrenchiesAddVehicleList());
+                  // _addVehicleController.update();
+                  // Timer(
+                  //     const Duration(seconds: 2),
+                  //         () => Get.to(VehicleList()));
                   return;
                 } else {
                   Get.snackbar("Failed", "please add all data");

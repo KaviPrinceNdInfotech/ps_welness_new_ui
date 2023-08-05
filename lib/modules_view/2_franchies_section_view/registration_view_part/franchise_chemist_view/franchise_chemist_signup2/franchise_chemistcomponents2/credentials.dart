@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,11 +13,14 @@ import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
+import '../../../../../../controllers/2_franchises_controller/comman_dropdown_franchise_controller/common_dropdown_franchise_controller.dart';
 
 class FranchiesChemist2Credentials extends StatelessWidget {
   FranchiesChemist2Credentials({Key? key}) : super(key: key);
 
-  Fr_Chemist_1_Controller _fr_chemist_1_controller = Get.put(Fr_Chemist_1_Controller());
+  Fr_Chemist_1_Controller _fr_chemist_1_controller =
+      Get.put(Fr_Chemist_1_Controller());
+  Fr_common_Controller _fr_common_controller = Get.put(Fr_common_Controller());
 
   var items = [
     'Item 1',
@@ -67,6 +71,7 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: state............................
             SizedBox(
               height: size.height * 0.01,
@@ -86,7 +91,8 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select State'),
-                      items: _fr_chemist_1_controller.states.map((StateModel items) {
+                      items: _fr_chemist_1_controller.states
+                          .map((StateModel items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
@@ -98,13 +104,16 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (StateModel? newValue) {
-                        _fr_chemist_1_controller.selectedState.value = newValue!;
+                        _fr_chemist_1_controller.selectedState.value =
+                            newValue!;
                       }),
                 ),
               ),
             ),
+
             ///Todo: city.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -136,7 +145,8 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (City? newValue) {
                         _fr_chemist_1_controller.selectedCity.value = newValue!;
                       }),
@@ -163,19 +173,24 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 70,width: 70,
+                      height: 70,
+                      width: 70,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border:  Border.all(color: Colors.blue, width: 1.0),
-                          borderRadius:BorderRadius.circular(5)),
+                          border: Border.all(color: Colors.blue, width: 1.0),
+                          borderRadius: BorderRadius.circular(5)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Obx(()=> _fr_chemist_1_controller.selectedImagepath.value=='' ?
-                        const Center(
-                            child: Text("No Image")) :
-                        Image.file(File(_fr_chemist_1_controller.selectedImagepath.value),
-                          fit: BoxFit.cover,
-                        ),
+                        child: Obx(
+                          () => _fr_chemist_1_controller
+                                      .selectedImagepath.value ==
+                                  ''
+                              ? const Center(child: Text("No Image"))
+                              : Image.file(
+                                  File(_fr_chemist_1_controller
+                                      .selectedImagepath.value),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),
@@ -186,6 +201,7 @@ class FranchiesChemist2Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: licence no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -215,42 +231,172 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                 ),
               ),
             ),
+
+            ///
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
+            //
+            // ///TODO: licence validation.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.creditCardNumber],
+            //     controller: _fr_chemist_1_controller.licencevalidityController,
+            //     onSaved: (value) {
+            //       _fr_chemist_1_controller.licencevalidity = value!;
+            //     },
+            //     validator: (value) {
+            //       return _fr_chemist_1_controller.validLicencevalidity(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Licence validity',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.videogame_asset_sharp,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
+            ///
+
+            ///date validity..
             SizedBox(
               height: size.height * 0.02,
             ),
-            ///TODO: licence validation.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.creditCardNumber],
-                controller:
-                    _fr_chemist_1_controller.licencevalidityController,
-                onSaved: (value) {
-                  _fr_chemist_1_controller.licencevalidity = value!;
-                },
-                validator: (value) {
-                  return _fr_chemist_1_controller
-                      .validLicencevalidity(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Licence validity',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
+            SizedBox(
+              height: size.height * 0.085,
+              width: size.width,
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 30 / 5),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          lightPrimary,
+                          darkPrimary,
+                        ]),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(-0, -0),
+                        spreadRadius: 0,
+                        blurRadius: 0,
+                        color: Colors.white,
+                      ),
+                      BoxShadow(
+                        offset: Offset(0, 0),
+                        spreadRadius: 0,
+                        blurRadius: 0,
+                        color: Colors.grey,
+                      ),
+                    ]),
+                child: TextFormField(
+                  textAlign: TextAlign.left,
+                  // decoration: InputDecoration(
+                  //   hintText: 'Enter Something',
+                  //   contentPadding: EdgeInsets.all(20.0),
+                  // ),
+
+                  controller:
+                      _fr_chemist_1_controller.licencevalidityController,
+                  onTap: () {
+                    _fr_chemist_1_controller.chooseDate();
+                  },
+
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(17.0),
+                    hintText: 'Licence Validity',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.calendar_today_outlined,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
                   ),
-                  prefixIcon: Icon(
-                    Icons.videogame_asset_sharp,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 1,
+                  autofocus: true,
+                  //obscureText: true,
+                  //controller: _loginpasswordController.mobileController,
                 ),
               ),
+              // ListView.builder(
+              //     shrinkWrap: true,
+              //     scrollDirection: Axis.horizontal,
+              //     itemCount: 32,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return Padding(
+              //         padding: const EdgeInsets.all(3.0),
+              //         child: PhysicalModel(
+              //           color: MyTheme.white,
+              //           borderRadius: BorderRadius.circular(5),
+              //           elevation: 20,
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.01,
+              //                 vertical: size.height * 0.004),
+              //             child: Container(
+              //               //height: size.height * 0.025,
+              //               width: size.width * 0.17,
+              //               decoration: BoxDecoration(
+              //                 color: MyTheme.ThemeColors,
+              //                 borderRadius: BorderRadius.circular(5),
+              //               ),
+              //               child: Column(
+              //                 mainAxisAlignment:
+              //                     MainAxisAlignment.center,
+              //                 children: [
+              //                   Text(
+              //                     'MAR',
+              //                     style: TextStyle(
+              //                       fontSize: size.height * 0.015,
+              //                       fontWeight: FontWeight.w600,
+              //                       color: Colors.white,
+              //                     ),
+              //                   ),
+              //                   SizedBox(
+              //                     height: size.height * 0.01,
+              //                   ),
+              //                   Text(
+              //                     '${index}',
+              //                     style: TextStyle(
+              //                       fontSize: size.height * 0.016,
+              //                       fontWeight: FontWeight.w600,
+              //                       color: Colors.white,
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       );
+              //     }),
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
+
+            ///end..date
             ///TODO: Pin.......................................................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -284,6 +430,9 @@ class FranchiesChemist2Credentials extends StatelessWidget {
                 text: 'SUBMIT',
                 press: () {
                   _fr_chemist_1_controller.checkChemist2();
+                  // _fr_chemist_1_controller.onInit();
+                  //_fr_chemist_1_controller.dispose();
+                  //_fr_chemist_1_controller.onClose();
                 }),
           ],
         ),

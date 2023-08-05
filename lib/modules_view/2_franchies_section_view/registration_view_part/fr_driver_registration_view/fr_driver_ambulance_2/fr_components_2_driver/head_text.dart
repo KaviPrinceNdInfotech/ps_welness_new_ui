@@ -13,12 +13,12 @@ class FrDriver2HeadText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: appPadding,
-        vertical: appPadding / 3,
+        vertical: appPadding / 1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: size.height * 0.05),
+          SizedBox(height: size.height * 0.07),
           RichText(
             text: TextSpan(
               children: <TextSpan>[

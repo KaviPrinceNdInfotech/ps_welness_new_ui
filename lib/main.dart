@@ -64,6 +64,7 @@ import 'controllers/1_user_view_controller/user_about_us/user_about_us_controlle
 import 'controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import 'controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 //import 'controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
+import 'controllers/2_franchises_controller/comman_dropdown_franchise_controller/common_dropdown_franchise_controller.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 import 'controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import 'controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
@@ -184,6 +185,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => UseracptrejectController());
     Get.lazyPut(() => SkillsListController());
     Get.lazyPut(() => NurseAppoointmentHistoryControllerss());
+
+    Get.lazyPut(() => Fr_common_Controller());
 
     ///
     /// Get.lazyPut(() => CheckoutMedicineController());

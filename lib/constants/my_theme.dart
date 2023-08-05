@@ -205,6 +205,41 @@ class MyTheme {
     tileMode: TileMode.clamp,
   );
 
+  static LinearGradient gradient01 = LinearGradient(
+    colors: [
+      Colors.teal[600]!.withOpacity(0.8),
+      Colors.green[500]!.withOpacity(0.8),
+    ],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+  static LinearGradient gradient02 = LinearGradient(
+    colors: [
+      Colors.red[600]!.withOpacity(0.8),
+      Colors.orange[500]!.withOpacity(0.8),
+    ],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  static LinearGradient gradient03 = LinearGradient(
+    colors: [
+      Colors.blue[600]!.withOpacity(0.8),
+      Colors.cyan[300]!.withOpacity(0.8),
+    ],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  static LinearGradient gradient04 = LinearGradient(
+    colors: [
+      Colors.black.withOpacity(0.8),
+      Colors.grey[500]!.withOpacity(0.8),
+    ],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
   static LinearGradient gradient71 = LinearGradient(
     colors: [
       Color(0xFF60efff),

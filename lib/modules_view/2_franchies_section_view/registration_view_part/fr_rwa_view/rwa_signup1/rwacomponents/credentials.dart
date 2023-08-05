@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_rwa_view/rwa_signup2/rwa_signup2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/fr_rwa_view/rwa_signup2/rwa_signup2.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
@@ -59,6 +59,7 @@ class FrRwa1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -90,6 +91,7 @@ class FrRwa1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -120,6 +122,7 @@ class FrRwa1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -151,9 +154,11 @@ class FrRwa1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _fr_rwa_1_controller.mobileController,
                 onSaved: (value) {

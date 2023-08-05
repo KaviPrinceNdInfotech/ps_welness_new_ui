@@ -10,16 +10,8 @@ import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registrati
 import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/controllers/hospital2_controller/hospital2_sighup_controller.dart';
-// import 'package:ps_welness/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
-
-import '../../../../../../controllers/2_franchises_controller/registration_part_controller/fr_rwa_controller/fr_rwa_controller2.dart';
 
 class FrRwa2Credentials extends StatelessWidget {
   FrRwa2Credentials({Key? key}) : super(key: key);
@@ -96,7 +88,8 @@ class FrRwa2Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select State'),
-                        items: _frrwa_1_controller.states.map((StateModel items) {
+                        items:
+                            _frrwa_1_controller.states.map((StateModel items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
@@ -108,13 +101,15 @@ class FrRwa2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (StateModel? newValue) {
                           _frrwa_1_controller.selectedState.value = newValue!;
                         }),
                   ),
                 ),
               ),
+
               ///Todo: city.....................................
               SizedBox(
                 height: size.height * 0.02,
@@ -146,7 +141,8 @@ class FrRwa2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frrwa_1_controller.selectedCity.value = newValue!;
                         }),
@@ -166,7 +162,7 @@ class FrRwa2Credentials extends StatelessWidget {
                   onTap: () {
                     _frrwa_1_controller.getImage(ImageSource.gallery);
                   },
-                  child:  Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -177,19 +173,23 @@ class FrRwa2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _frrwa_1_controller.selectedImagepath.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_frrwa_1_controller.selectedImagepath.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _frrwa_1_controller.selectedImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_frrwa_1_controller
+                                        .selectedImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -200,9 +200,11 @@ class FrRwa2Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: certificate.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.telephoneNumber],
                   controller: _frrwa_1_controller.landlineController,
                   onSaved: (value) {
@@ -235,6 +237,7 @@ class FrRwa2Credentials extends StatelessWidget {
               ///TODO: Pin.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.password],
                   controller: _frrwa_1_controller.pinController,
                   onSaved: (value) {
@@ -263,7 +266,7 @@ class FrRwa2Credentials extends StatelessWidget {
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                   _frrwa_1_controller.checkRwa2();
+                    _frrwa_1_controller.checkRwa2();
                   })
             ],
           ),

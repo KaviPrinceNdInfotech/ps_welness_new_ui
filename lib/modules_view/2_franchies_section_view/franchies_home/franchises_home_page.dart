@@ -28,7 +28,10 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dep
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
 import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../controllers/2_franchises_controller/registration_part_controller/franchise_chemist_regis_controller/chemist1_fr_controller/fr_chemist_controller.dart';
+import '../../../widgets/circular_loader.dart';
 import '../franchise_payout_report/franchise_payout_report.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_chemist_details/chemist_detail.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_doctor_report/my_ymwd_doctor_details/my_ymwd_vehicle_report.dart';
@@ -42,6 +45,8 @@ class FranchiesHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     GlobalKey<ScaffoldState> _keyfranchise = GlobalKey();
+    Fr_Chemist_1_Controller _fr_chemist_1_controller =
+        Get.put(Fr_Chemist_1_Controller());
 
     final List<String> productname = [
       'Edit Profile',
@@ -253,7 +258,7 @@ class FranchiesHomePage extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
                                         Get.to(() => FranchisesProfilePage());
                                       } else if (index == 1) {
@@ -426,8 +431,17 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 9) {
                                         Get.to(() => DeptAndSpecialistView());
                                       } else if (index == 10) {
-                                        Get.to(() =>
-                                            FrRegistrationCatagaryDetails());
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 900));
+                                        CallLoader.hideLoader();
+                                        await SharedPreferences.getInstance()
+                                            .then((value) => Get.to(() =>
+                                                FrRegistrationCatagaryDetails()));
+
+                                        //_fr_chemist_1_controller.onInit();
+                                        //Get.to(() =>
+                                        // FrRegistrationCatagaryDetails());
                                       } else if (index == 11) {
                                         Get.to(() => FrRegistrationDetails());
                                       } else if (index == 12) {

@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/circular_loader.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
-import 'drower_pages/about_franchies/about_franchies.dart';
+import '../../1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'drower_pages/bank_update_seperate_franchise/bank_update_saperate_franchise.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_details_franchies/profile_franchies_detail_page.dart';
@@ -271,8 +271,12 @@ class FranchiesisMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => AboutFranchiseeView());
-                Get.offNamed('/AboutUsView');
+                //UserAboutUsView
+                Get.to(() => UserAboutUsView());
+
+                ///franchise about us...
+                // Get.to(() => AboutFranchiseeView());
+                // Get.offNamed('/AboutUsView');
               },
             ),
 

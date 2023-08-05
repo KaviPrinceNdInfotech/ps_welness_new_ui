@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_lab_controller/fr_lab_controller1/lab_controller_1.dart';
 import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 class FrLab2Credentials extends StatelessWidget {
   FrLab2Credentials({Key? key}) : super(key: key);
 
@@ -52,19 +52,24 @@ class FrLab2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _frlab_1_controller.selectedLicenceImagepath.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_frlab_1_controller.selectedLicenceImagepath.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _frlab_1_controller
+                                        .selectedLicenceImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_frlab_1_controller
+                                        .selectedLicenceImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -75,6 +80,7 @@ class FrLab2Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: certificate.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
@@ -110,9 +116,9 @@ class FrLab2Credentials extends StatelessWidget {
               ///todo: Gst Number.................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
-                  keyboardType: TextInputType.number,
+                  // keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.addressCityAndState],
-                  controller: _frlab_1_controller.addressController,
+                  controller: _frlab_1_controller.gstNoController,
                   onSaved: (value) {
                     _frlab_1_controller.address = value!;
                   },
@@ -145,6 +151,7 @@ class FrLab2Credentials extends StatelessWidget {
               ///TODO: Aadhar no.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.password],
                   controller: _frlab_1_controller.aadhaarController,
                   onSaved: (value) {
@@ -193,19 +200,24 @@ class FrLab2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _frlab_1_controller.selectedPanImagepath.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_frlab_1_controller.selectedPanImagepath.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _frlab_1_controller
+                                        .selectedPanImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_frlab_1_controller
+                                        .selectedPanImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -213,102 +225,107 @@ class FrLab2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///todo:selected date starting...
               SizedBox(
                 height: size.height * 0.018,
               ),
-              NeumorphicTextFieldContainer(
-                child: Obx(
-                  () => InkWell(
-                    onTap: () {
-                      _frlab_1_controller.chooseTime();
-                    },
-                    child: Container(
-                      height: size.height * 0.06,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Choose Starting Time:',
-                                style: TextStyle(
-                                  fontSize: size.height * 0.017,
-                                  fontWeight: FontWeight.bold,
-                                  color: MyTheme.blueww,
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.03,
-                              ),
-                              //Spacer(),
-                              Text(
-                                "${_frlab_1_controller.selectedTime.value.hour}:${_frlab_1_controller.selectedTime.value.minute}",
-                                style: TextStyle(
-                                  fontSize: size.height * 0.026,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
 
-              SizedBox(
-                height: size.height * 0.018,
-              ),
-              ///todo:selected time ending...
-              NeumorphicTextFieldContainer(
-                child: Obx(
-                  () => InkWell(
-                    onTap: () {
-                      _frlab_1_controller.chooseTime2();
-                    },
-                    child: Container(
-                      height: size.height * 0.06,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                          "Choose end time",
-                                style: TextStyle(
-                                  fontSize: size.height * 0.017,
-                                  fontWeight: FontWeight.bold,
-                                  color: MyTheme.blueww,
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.03,
-                              ),
-                              //Spacer(),
-                              Text(
-                                "${_frlab_1_controller.selectedTime2.value.hour}:${_frlab_1_controller.selectedTime2.value.minute}",
-                                style: TextStyle(
-                                  fontSize: size.height * 0.026,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              ///time commented 4 aug 2023...
+              // NeumorphicTextFieldContainer(
+              //   child: Obx(
+              //     () => InkWell(
+              //       onTap: () {
+              //         _frlab_1_controller.chooseTime();
+              //       },
+              //       child: Container(
+              //         height: size.height * 0.06,
+              //         child: Center(
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.1),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Text(
+              //                   'Choose Starting Time:',
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.017,
+              //                     fontWeight: FontWeight.bold,
+              //                     color: MyTheme.blueww,
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: size.width * 0.03,
+              //                 ),
+              //                 //Spacer(),
+              //                 Text(
+              //                   "${_frlab_1_controller.selectedTime.value.hour}:${_frlab_1_controller.selectedTime.value.minute}",
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.026,
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              //
+              // SizedBox(
+              //   height: size.height * 0.018,
+              // ),
+              //
+              // ///todo:selected time ending...
+              // NeumorphicTextFieldContainer(
+              //   child: Obx(
+              //     () => InkWell(
+              //       onTap: () {
+              //         _frlab_1_controller.chooseTime2();
+              //       },
+              //       child: Container(
+              //         height: size.height * 0.06,
+              //         child: Center(
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.1),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Text(
+              //                   "Choose end time",
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.017,
+              //                     fontWeight: FontWeight.bold,
+              //                     color: MyTheme.blueww,
+              //                   ),
+              //                 ),
+              //                 SizedBox(
+              //                   width: size.width * 0.03,
+              //                 ),
+              //                 //Spacer(),
+              //                 Text(
+              //                   "${_frlab_1_controller.selectedTime2.value.hour}:${_frlab_1_controller.selectedTime2.value.minute}",
+              //                   style: TextStyle(
+              //                     fontSize: size.height * 0.026,
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              ///time end
 
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {
-                   _frlab_1_controller.checkLab2();
+                    _frlab_1_controller.checkLab2();
                   })
             ],
           ),

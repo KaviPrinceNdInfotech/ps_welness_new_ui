@@ -1468,8 +1468,8 @@ class _UserHomePageState extends State<UserHomePage> {
                                                 await Future.delayed(
                                                     Duration(seconds: 1));
                                                 CallLoader.hideLoader();
-                                                Get.offAll(
-                                                    () => SearchMedicine());
+                                                Get.to(() => SearchMedicine());
+
                                                 // Get.defaultDialog(
                                                 //     barrierDismissible: true,
                                                 //     backgroundColor: MyTheme.t1containercolor,

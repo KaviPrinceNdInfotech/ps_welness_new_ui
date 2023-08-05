@@ -79,6 +79,7 @@ import '../controllers/1_user_view_controller/rozarpay_lab_controller/rozarpay_l
 import '../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 //import '../controllers/2_franchises_controller/franchies_home_page_controller/franchies_home_page_controllers.dart';
+import '../controllers/2_franchises_controller/comman_dropdown_franchise_controller/common_dropdown_franchise_controller.dart';
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 //import '../controllers/4_nurse_controller/nurse_home_page_controller/nurse_home_page_controllers.dart';
 //import '../controllers/5_rwa_controller/rwa_home_page_controller/rwa_home_page_controllers.dart';
@@ -219,6 +220,7 @@ class ControllerBinding extends Bindings {
     Get.put(UseracptrejectController());
     Get.put(SkillsListController());
     Get.put(NurseAppoointmentHistoryControllerss());
+    Get.put(Fr_common_Controller());
 
     /// Get.put(CheckoutMedicineController());
 

@@ -42,7 +42,8 @@ class PostOrderChemistController extends GetxController {
     //ProductName;
     //Total_Item;
     //Price;
-    postOrderApi();
+    ///it is mainly changed on date of 5 august 2023.....
+    ///postOrderApi();
 
     //postqueryApi();
   }

@@ -5,9 +5,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_lab_register/lab_signup2/lab_signup_2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/fr_lab_register/lab_signup2/lab_signup_2.dart';
 // //import 'package:ps_welness/modules_view/lab_center/lab_signup2/lab_signup_2.dart';
@@ -70,6 +70,7 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -101,6 +102,7 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -131,6 +133,7 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -162,9 +165,11 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _frlab_1_controller.mobileController,
                 onSaved: (value) {
@@ -193,6 +198,7 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: address value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -221,6 +227,7 @@ class FrLab1Credentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: state............................
             SizedBox(
               height: size.height * 0.02,
@@ -252,13 +259,15 @@ class FrLab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (StateModel? newValue) {
                         _frlab_1_controller.selectedState.value = newValue!;
                       }),
                 ),
               ),
             ),
+
             ///Todo: city.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -290,7 +299,8 @@ class FrLab1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (City? newValue) {
                         _frlab_1_controller.selectedCity.value = newValue!;
                       }),
@@ -300,9 +310,11 @@ class FrLab1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: Pin.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.password],
                 controller: _frlab_1_controller.pinController,
                 onSaved: (value) {

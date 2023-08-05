@@ -8,7 +8,7 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registra
 // import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/franchise_healthcheckup_view/franchises_healthcheckup_signup1/franchise_healthchkup1components/head_text.dart';
 
 class franchiesHealthcheckupSignup1 extends StatelessWidget {
-  const franchiesHealthcheckupSignup1({Key? key}) : super(key: key);
+  franchiesHealthcheckupSignup1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

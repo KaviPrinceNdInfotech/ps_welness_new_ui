@@ -60,8 +60,8 @@ class PostOrderNurseController extends GetxController {
     //ProductName;
     //Total_Item;
     //Price;
-    postOrdernurseonlineApi();
-    postOrdernurseofflineApi();
+    //postOrdernurseonlineApi();
+    //postOrdernurseofflineApi();
 
     //postqueryApi();
   }

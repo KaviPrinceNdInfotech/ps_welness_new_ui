@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:http/http.dart' as http;
 
 class Patients_Controller extends GetxController {
   final GlobalKey<FormState> patientformkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
+
   ///this is for State....................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
   List<StateModel> states = <StateModel>[].obs;
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
 
-
-   TextEditingController? nameController,
+  TextEditingController? nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -33,30 +35,36 @@ class Patients_Controller extends GetxController {
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
+
   ///get cities api...........
   void getCityByStateIDLab(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
     cities.addAll(localList);
   }
-  void frenchiesRegisterPatientApi() async{
+
+  void frenchiesRegisterPatientApi() async {
     isLoading(true);
     http.Response r = await ApiProvider.FrenchiesRegisterPatient(
-        nameController?.text,
-        mobileController?.text,
-        emailController?.text,
-        passwordController?.text,
-        confirmpasswordController?.text,
-        addressController?.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-
+      nameController?.text,
+      mobileController?.text,
+      emailController?.text,
+      passwordController?.text,
+      confirmpasswordController?.text,
+      addressController?.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
       pinController?.text,
     );
-    if(r.statusCode == 200){
+    if (r.statusCode == 200) {
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      Get.offAll(FranchiesHomePage());
       isLoading(false);
     }
   }
+
   @override
   void onInit() {
     super.onInit();
@@ -65,8 +73,7 @@ class Patients_Controller extends GetxController {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
-    }
-    );
+    });
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -119,8 +126,8 @@ class Patients_Controller extends GetxController {
 
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
@@ -129,8 +136,8 @@ class Patients_Controller extends GetxController {
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != confirmpassword) {
       return "              Password must be same as above";
     } else {
@@ -165,9 +172,13 @@ class Patients_Controller extends GetxController {
     return null;
   }
 
-  void checkpatient() {
+  Future<void> checkpatient() async {
     final isValid = patientformkey.currentState!.validate();
     frenchiesRegisterPatientApi();
+    CallLoader.loader();
+    await Future.delayed(Duration(milliseconds: 900));
+    CallLoader.hideLoader();
+    Get.offAll(FranchiesHomePage());
     if (!isValid) {
       return;
     }

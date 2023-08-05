@@ -44,7 +44,7 @@ class PostOrderController extends GetxController {
     //ProductName;
     //Total_Item;
     //Price;
-    postOrderApi();
+    //postOrderApi();
 
     //postqueryApi();
   }

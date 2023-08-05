@@ -13,6 +13,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/wallet_user
 import 'package:ps_welness_new_ui/controllers/rozar_pay_controller/rozar_pay_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/walet_user/wallet_user.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants/app_colors.dart';
@@ -465,7 +466,7 @@ class CheckOutMedicine extends StatelessWidget {
                                             //  crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               InkWell(
-                                                onTap: () {
+                                                onTap: () async {
                                                   /// todo start payment......feess,,,,,...
 
                                                   // SharedPreferences prefs =
@@ -475,6 +476,18 @@ class CheckOutMedicine extends StatelessWidget {
                                                   //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
 
                                                   ///todo: end the fees.........
+                                                  _medicinecheckoutController
+                                                      .getmedicinecheckoutApi();
+                                                  _medicinecheckoutController
+                                                      .update();
+                                                  _medicinecheckoutController
+                                                      .onInit();
+
+                                                  CallLoader.loader();
+                                                  await Future.delayed(Duration(
+                                                      milliseconds: 800));
+                                                  CallLoader.hideLoader();
+
                                                   _rozarPayController
                                                       .openCheckout();
                                                   // _addressListController.update();

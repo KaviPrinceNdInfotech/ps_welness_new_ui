@@ -51,6 +51,11 @@ class RozarPayController extends GetxController {
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
+      //'amount': int.parse(
+      // '100'
+
+      // '${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()}') *
+      // 100,
       'amount': int.parse(
               // '100'
               '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}') *

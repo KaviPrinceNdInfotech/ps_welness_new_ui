@@ -57,15 +57,20 @@ class MedicineListController extends GetxController {
 
   void addtocartMedicineApi(var Id) async {
     //CallLoader.loader();
-    isLoading(true);
+    // isLoading(true);
     http.Response r = await ApiProvider.AddToCartMedicineApi(Id);
 
     if (r.statusCode == 200 || r.statusCode != 200) {
       //CallLoader.hideLoader();
+
+      CallLoader.loader();
+
       _medicineCartListController.update();
       _medicineCartListController.cartmdedicineListApi();
       _medicineCartListController.refresh();
       _medicineCartListController.onInit();
+
+      ///_medicineCartListController.onInit();
 
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
       // Get.to(
@@ -78,10 +83,14 @@ class MedicineListController extends GetxController {
       //       //Transition.size
       //       Transition.zoom,
       // );
+      //CallLoader.loader();
+      //await Future.delayed(Duration(milliseconds: 900));
+
+      //Get.to(() => MedicineCart());
 
       ///from here we can go to next screen with some time ....
-      accountService.getAccountData.then((accountData) {
-        Timer(
+      accountService.getAccountData.then((accountData) async {
+        await Timer(
           const Duration(seconds: 1),
           () {
             Get.to(() => MedicineCart());
@@ -90,33 +99,51 @@ class MedicineListController extends GetxController {
           },
         );
       });
+      CallLoader.hideLoader();
+      if (r.statusCode == 200) {
+        Get.snackbar("Success", "Item Added Successfully");
+      } else {
+        CallLoader.hideLoader();
+        Get.snackbar("Failed", "Item Already Added");
+      }
     } else {
-      //CallLoader.hideLoader();
+      CallLoader.hideLoader();
+      //Get.snackbar("Failed", "Item Already Added");
     }
   }
 
   ///increment plus add to cart......post api........
 
   void medicinepluscartApi(var Id) async {
-    CallLoader.loader();
+    isLoading(true);
+    //CallLoader.loader();
     http.Response r = await ApiProvider.AddToCartPlusMedicineApi(Id);
 
-    if (r.statusCode == 200) {
-      accountService.getAccountData.then((accountData) {
-        Timer(
-          const Duration(milliseconds: 500),
+    if (r.statusCode == 200 || r.statusCode != 200) {
+      //await Future.delayed(Duration(seconds: 1));
+
+      accountService.getAccountData.then((accountData) async {
+        await Timer(
+          const Duration(seconds: 1),
           () {
-            Get.offAll(() => MedicineCart());
+            //Get.to(() => MedicineCart());
             //Get.to((page))
             ///
           },
         );
-        CallLoader.hideLoader();
+        _medicineCartListController.cartmdedicineListApi();
+        _medicineCartListController.update();
+        // _medicineCartListController.refresh();
+        _medicineCartListController.onInit();
+        //CallLoader.loader();
+        isLoading(false);
+        //CallLoader.hideLoader();
       });
       //cartmdedicineListApi();
-      _medicineCartListController.update();
-      _medicineCartListController.cartmdedicineListApi();
-      CallLoader.hideLoader();
+      //_medicineCartListController.update();
+      // _medicineCartListController.cartmdedicineListApi();
+
+      // CallLoader.hideLoader();
       //Get.to(() => Cartproducts());
     }
   }
@@ -124,24 +151,32 @@ class MedicineListController extends GetxController {
   ///minus add to cart......post api........
 
   void medicineminuscartApi(var Id) async {
-    CallLoader.loader();
-    http.Response r = await ApiProvider.AddToCartMinusMedicineApi(Id);
+    // CallLoader.loader();
+    isLoading(true);
 
-    if (r.statusCode == 200) {
+    http.Response r = await ApiProvider.AddToCartMinusMedicineApi(Id);
+    if (r.statusCode == 200 || r.statusCode != 200) {
+      await Future.delayed(Duration(milliseconds: 100));
+
       accountService.getAccountData.then((accountData) {
         Timer(
           const Duration(milliseconds: 500),
           () {
-            Get.offAll(() => MedicineCart());
+            // Get.to(() => MedicineCart());
             //Get.to((page))
             ///
           },
         );
-        CallLoader.hideLoader();
+        _medicineCartListController.cartmdedicineListApi();
+        _medicineCartListController.update();
+        _medicineCartListController.refresh();
+        _medicineCartListController.onInit();
+        //CallLoader.hideLoader();
+        isLoading(false);
       });
 
-      _medicineCartListController.update();
-      _medicineCartListController.cartmdedicineListApi();
+      // _medicineCartListController.update();
+      // _medicineCartListController.cartmdedicineListApi();
 
       //Get.to(() => Cartproducts());
     }

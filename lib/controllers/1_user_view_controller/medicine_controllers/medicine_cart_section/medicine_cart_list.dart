@@ -20,7 +20,7 @@ class MedicineCartListController extends GetxController {
   MedicineCartListModel? medicinecartlistmodel;
 
   void cartmdedicineListApi() async {
-    isLoading(false);
+    isLoading(true);
     medicinecartlistmodel = await ApiProvider.MedicinecartlistApi();
 
     if (medicinecartlistmodel == null) {
@@ -59,8 +59,11 @@ class MedicineCartListController extends GetxController {
     );
 
     if (r.statusCode == 200 || r.statusCode != 200) {
-      CallLoader.hideLoader();
+      //CallLoader.loader();
       cartmdedicineListApi();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 200));
+      CallLoader.hideLoader();
 
       ///TODO: we can navigate directly this page through this navigation with add to cart with Id.
       Get.to(

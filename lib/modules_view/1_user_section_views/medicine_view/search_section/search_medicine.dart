@@ -27,12 +27,16 @@ class SearchMedicine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool shouldPop = true;
     Size size = MediaQuery.of(context).size;
+    bool shouldPop = true;
+    // Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(UserHomePage());
+        Get.to(UserHomePage());
 
+        //SignUpList
+        //SignInScreen
+        //Get.offAll(FrRegistrationCatagaryDetails());
         return shouldPop;
       },
       child: Scaffold(
@@ -50,16 +54,16 @@ class SearchMedicine extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.offAll(UserHomePage());
+                        Get.to(UserHomePage());
                         //Get.back();
                       },
                       child: Icon(
                         Icons.arrow_back_ios_outlined,
-                        size: size.width * 0.05,
+                        size: size.width * 0.06,
                       ),
                     ),
                     SizedBox(
-                      width: size.width * 0.03,
+                      width: size.width * 0.25,
                     ),
                     Text(
                       'Search Medicine',
@@ -98,7 +102,7 @@ class SearchMedicine extends StatelessWidget {
                                   fillColor: Colors.white,
                                   hintText: 'Search medicine..',
                                   contentPadding: const EdgeInsets.only(
-                                      left: 10.0, bottom: 12.0, top: 15.0),
+                                      left: 10.0, bottom: 12.0, top: 12.0),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                     borderRadius: BorderRadius.circular(25.7),
@@ -116,7 +120,7 @@ class SearchMedicine extends StatelessWidget {
                             _medicineListController.foundProducts.value.isEmpty
                                 ? Center(child: Text("No Result Found"))
                                 : SizedBox(
-                                    height: size.height / 1.227,
+                                    height: size.height / 1.23,
                                     child: ListView.builder(
                                         shrinkWrap: true,
                                         itemCount: _medicineListController
@@ -333,9 +337,12 @@ class SearchMedicine extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.02,
                                                                 width:
                                                                     size.width *
-                                                                        0.42,
+                                                                        0.5,
                                                                 child: Text(
                                                                   "${_medicineListController.foundProducts[index].medicineDescription}",
 
@@ -353,7 +360,6 @@ class SearchMedicine extends StatelessWidget {
                                                                         size.width *
                                                                             0.033,
                                                                   ),
-                                                                  maxLines: 1,
                                                                 ),
                                                               ),
                                                               Text(

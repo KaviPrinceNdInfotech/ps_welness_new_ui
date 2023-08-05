@@ -2707,17 +2707,25 @@ class ApiProvider {
 
   /// todo Frenchies Add Gallery ............Rahul
   static FrenchiesAddGalleryApi(var ImageName, var Images, var base) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewe:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&&usersds:${userid}');
     var url = '${baseUrl}api/FranchisesApi/Add_Gallery';
     var body = {
       "ImageName": "$ImageName",
       "Images": '$Images',
-      "Imagesbase64": "$base"
+      "Imagesbase64": "$base",
+      "Franchise_Id": "$Id"
     };
     print("Frenchies Add Gallery body: $body");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       Get.snackbar("Success", "${r.body}");
       print("Frenchies Add Gallery : ${r.body}");
+      print("Frenchiesid:${userid}");
       return r;
     } else {
       Get.snackbar("Failed", r.body);
@@ -2727,10 +2735,14 @@ class ApiProvider {
 
   ///Todo Get Gallery
   static FrenchiesGetGalleryApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Get_Gallery';
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Get_Gallery?Id=$Id';
+    //http://test.pswellness.in/api/FranchisesApi/Get_Gallery?Id=28
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print('Frenchurl: ${url}');
         final franchiseGetGallery = franchiseGetGalleryFromJson(r.body);
         return franchiseGetGallery;
       }
@@ -2898,18 +2910,27 @@ class ApiProvider {
 
   /// todo Dept&Spec post Api ............Rahul
   static addDeptSpecApi(var deptId, var specId) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
     AdminLoginId = prefs.read("AdminLoginId").toString();
     print("add DepartSpecApi: ${AdminLoginId}");
     var url = 'http://test.pswellness.in/api/FranchisesApi/AddDepartment';
     final body = {
       "Dep_Id": "$deptId",
       "Spec_Id": "$specId",
-      "AdminLogin_Id": "$AdminLoginId"
+      "AdminLogin_Id": "$adminId"
     };
     print("body12345: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       Get.snackbar("Success", "${r.body}");
+    }
+    if (r.statusCode == 400) {
+      Get.snackbar("Failed", "${r.body}");
     }
   }
 
@@ -2937,15 +2958,28 @@ class ApiProvider {
     //var prefs = GetStorage();
     // AdminLoginId = prefs.read("AdminLoginId").toString();
     // print("Admin:${AdminLoginId}");
-    var url = '${baseUrl}api/FranchisesApi/Dept_spec_List?Id=644';
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
+
+    var url = '${baseUrl}api/FranchisesApi/Dept_spec_List?Id=$adminId';
     print("urlvvr1: ${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         print("URL: ${url}");
+        // Get.snackbar("Success", " Department Successfully Added",
+        //     duration: Duration(seconds: 3));
+
         final deptSpecListModel = deptSpecListModelFromJson(r.body);
         print("Admin12:${deptSpecListModel.deptspecList?[0].specialistName}");
         return deptSpecListModel;
+      } else {
+        //Get.snackbar("Message", "Department Already added",
+        //duration: Duration(seconds: 3));
       }
     } catch (error) {
       print("error:${error}");
@@ -3432,6 +3466,9 @@ class ApiProvider {
     print("FrenchiesDoctorRegister: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
+      print("FrenchiesDoctorRegisterree0: ${PinCode}");
+      print("FrenchiesDoctorRegisterree1: ${Id}");
+      print("FrenchiesDoctorRegisterree2: ${body}");
       Get.snackbar("Successs", "${r.body}");
     }
   }
@@ -3482,16 +3519,22 @@ class ApiProvider {
       "PanImage": "$panImage",
       "PanImageBase64": "$panImageBase64",
       "SlotTime": "$SlotTime",
-      "StartTime": "$startTime",
-      "EndTime": "$endTime",
+      "StartTime": "14:27:00.0000000",
+      //startTime,
+      "EndTime": "14:27:00.0000000",
+      //endTime,
       "SlotTime2": "$SlotTime2",
-      "StartTime2": "$StartTime2",
-      "EndTime2": "$EndTime2",
+      "StartTime2": "14:27:00.0000000",
+      //StartTime2,
+      "EndTime2": "14:27:00.0000000",
+      //EndTime2,
       "Vendor_Id": "$Id"
     };
     final http.Response r = await http.post(Uri.parse(url), body: body);
     print('FrenchiesRegisterDoctor1212: ${body}');
     if (r.statusCode == 200) {
+      print("ttftft66:${EndTime2}");
+
       Get.snackbar("Successs", "${r.body}");
     }
   }
@@ -3564,7 +3607,13 @@ class ApiProvider {
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterChemist: ${body}");
+    print("FrenchiesRegisterChemistvalidity: ${LicenseValidity}");
+    print("FrenchiesRegisterChemistbunbbr: ${licenceNumber}");
+
     if (r.statusCode == 200) {
+      print("Frenchies232323RegisterChemist: ${body}");
+      print("FrenchiesRegisterChemistvalidity1: ${LicenseValidity}");
+      print("FrenchiesRegisterChemistbunbbr2: ${licenceNumber}");
       Get.snackbar("Success", "${r.body}");
     }
   }
@@ -3609,7 +3658,9 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterNurse: ${body}");
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
+    } else {
+      Get.snackbar("Failed", "${r.body}", duration: Duration(seconds: 3));
     }
   }
 
@@ -3652,14 +3703,19 @@ class ApiProvider {
       "PanImageBase64": "$PanImageBase64",
       "GSTNumber": "$GSTNumber",
       "AadharNumber": "$AadharNumber",
-      "StartTime": "$StartTime",
-      "EndTime": "$EndTime",
+      "StartTime": "14:27:00.0000000",
+      //"$StartTime",
+      "EndTime": "14:27:00.0000000",
+      //"$EndTime",
       "Vendor_Id": "$Id"
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterLab: ${body}");
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
+      //isLoading(false);
+    } else {
+      Get.snackbar("Failed", "${r.body}", duration: Duration(seconds: 3));
     }
   }
 
@@ -3696,7 +3752,7 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterRWA: ${body}");
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 4));
     }
   }
 
@@ -3892,27 +3948,43 @@ class ApiProvider {
 
   /// todo Add Vehicle type Post Api...........Rahul
   static FrenchiesVehicleType(var CategoryId, var VehicleTypeId) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
+
     AdminLoginId = prefs.read("AdminLoginId").toString();
     final body = {
       "Category_Id": "${CategoryId}",
       "VehicleType_Id": "${VehicleTypeId}",
-      "AdminLogin_Id": "$AdminLoginId"
+      "AdminLogin_Id": "$adminId"
     };
     print("FrenchiesVehicleType: ${body}");
     var url = '${baseUrl}api/FranchisesApi/AddVehicle_type';
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       print("###########333333333#########33#${r.body}");
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 2));
+    } else {
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 2));
     }
   }
 
   /// todo Frenchies YMWDChemistReportApi
   static FrenchiesAddVehicleListApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&&useasdrsds:${userid}');
     print("$AdminLoginId");
     //AdminLoginId =  prefs.read("AdminLoginId");
     //  print("FrenchiesAddVehicleListApi:${AdminLoginId}");
-    var url = '${baseUrl}api/FranchisesApi/AddedVehicleList?AdminLoginId=644';
+    var url =
+        '${baseUrl}api/FranchisesApi/AddedVehicleList?AdminLoginId=$adminId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {

@@ -156,6 +156,7 @@ class FrDoctor1Credentials extends StatelessWidget {
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _frdoctor_1_controller.phoneController,
                 onSaved: (value) {

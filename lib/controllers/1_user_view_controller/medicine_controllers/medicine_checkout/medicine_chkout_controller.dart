@@ -29,7 +29,7 @@ class CheckoutMedicineController extends GetxController {
           ///
         },
       );
-      isLoading(false);
+      isLoading(true);
       medicinecheckoutModel = await ApiProvider.GetMedicineCheckoutApi();
       //Get.to(() => TotalPrice());
 

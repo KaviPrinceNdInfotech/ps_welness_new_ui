@@ -3,13 +3,15 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_nurses_view/nurses_sighup2/nurses_signup2.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:http/http.dart' as http;
 
 class FrNurses_1_controller extends GetxController {
   final GlobalKey<FormState> frnursesformkey = GlobalKey<FormState>();
@@ -26,7 +28,6 @@ class FrNurses_1_controller extends GetxController {
   //this is for nurse type.................................
   Rx<NurseModels?> selectedNurse = (null as NurseModels?).obs;
   List<NurseModels> nurse = <NurseModels>[].obs;
-
 
   var selectedServicee = ''.obs;
   var selectedplan = ''.obs;
@@ -53,7 +54,6 @@ class FrNurses_1_controller extends GetxController {
       addressController,
       feeController;
 
-
   var name = '';
   var email = '';
   var password = '';
@@ -69,12 +69,14 @@ class FrNurses_1_controller extends GetxController {
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
+
   ///get cities api...........
   void getCityByStateIDLab(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
     cities.addAll(localList);
   }
+
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
@@ -83,32 +85,39 @@ class FrNurses_1_controller extends GetxController {
       print('No image selected');
     }
   }
+
   void getNurseTypeApi() async {
     nurse = await ApiProvider.getnursetypeApi();
   }
-  void frenchiesRegisterNurse()async{
+
+  void frenchiesRegisterNurse() async {
     isLoading(true);
-    final licenceimageAsBase64 = base64Encode(await File(selectedImagepath.value).readAsBytes());
+    final licenceimageAsBase64 =
+        base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterNurse(
-        nameController.text,
-        emailController.text,
-        passwordController.text,
-        confirmpasswordController.text,
-        mobileController.text,
-        addressController.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        selectedImagepath.value.split('/').last,
-        licenceimageAsBase64,
-        certificateController.text,
-        pinController.text,
-        selectedNurse.value?.id.toString(),
-        feeController.text,
+      nameController.text,
+      emailController.text,
+      passwordController.text,
+      confirmpasswordController.text,
+      mobileController.text,
+      addressController.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
+      selectedImagepath.value.split('/').last,
+      licenceimageAsBase64,
+      certificateController.text,
+      pinController.text,
+      selectedNurse.value?.id.toString(),
+      feeController.text,
     );
-    if(r.statusCode == 200){
+    if (r.statusCode == 200) {
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
       isLoading(false);
+    } else {
+      Get.snackbar("Failed", "${r.body}", duration: Duration(seconds: 3));
     }
   }
+
   @override
   void onInit() {
     super.onInit();
@@ -118,8 +127,7 @@ class FrNurses_1_controller extends GetxController {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
-    }
-    );
+    });
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -138,11 +146,11 @@ class FrNurses_1_controller extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmpasswordController.dispose();
-    mobileController.dispose();
+    //nameController.dispose();
+    //emailController.dispose();
+    // passwordController.dispose();
+    // confirmpasswordController.dispose();
+    // mobileController.dispose();
   }
 
   String? validName(String value) {
@@ -171,17 +179,18 @@ class FrNurses_1_controller extends GetxController {
     confirmpassword = value;
     if (value.isEmpty) {
       return "              Please Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else {
       return null;
     }
   }
+
   String? validConfirmPassword(String value) {
     if (value.isEmpty) {
       return "              Please Re-Enter New Password";
-    } else if (value.length < 8) {
-      return "              Password must be atleast 8 characters long";
+    } else if (value.length < 5) {
+      return "              Password must be atleast 5 characters long";
     } else if (value != confirmpassword) {
       return "              Password must be same as above";
     } else {
@@ -198,6 +207,7 @@ class FrNurses_1_controller extends GetxController {
     }
     return null;
   }
+
   String? validPin(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -221,12 +231,14 @@ class FrNurses_1_controller extends GetxController {
     }
     return null;
   }
+
   String? validLocation(String value) {
     if (value.length < 2) {
       return "              Provide valid location";
     }
     return null;
   }
+
   String? validDay(String value) {
     if (value.isEmpty) {
       return '              This field is required';
@@ -234,20 +246,29 @@ class FrNurses_1_controller extends GetxController {
     return null;
   }
 
-  void checkNurses1() {
+  Future<void> checkNurses1() async {
     final isValid = frnursesformkey.currentState!.validate();
     if (isValid) {
+      refresh();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 1000));
+      CallLoader.hideLoader();
       Get.to(FrNursesSignup2());
       return;
-    }else{}
+    } else {}
     frnursesformkey.currentState!.save();
   }
-  void checkNurses2() {
+
+  Future<void> checkNurses2() async {
     final isValid = frnurses2formkey.currentState!.validate();
     if (isValid && selectedImagepath.value != '') {
-       frenchiesRegisterNurse();
+      frenchiesRegisterNurse();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      Get.offAll(FranchiesHomePage());
       return;
-    }else{
+    } else {
       Get.snackbar("title", "Please Select Image");
     }
     frnursesformkey.currentState!.save();

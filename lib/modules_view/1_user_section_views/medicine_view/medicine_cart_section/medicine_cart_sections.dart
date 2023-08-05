@@ -10,6 +10,7 @@ import '../../../../constants/constants/constants.dart';
 import '../../../../constants/my_theme.dart';
 import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_address_controller/medicine_address_controller.dart';
 import '../../../../controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
+import '../../../../widgets/circular_loader.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
@@ -25,84 +26,33 @@ class MedicineCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool shouldPop = true;
     Size size = MediaQuery.of(context).size;
+    bool shouldPop = true;
+    // Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         _medicineListController.update();
         _medicineListController.medicineListApi();
-        _medicineListController.onInit();
+        CallLoader.loader();
+        await Future.delayed(Duration(milliseconds: 900));
+        CallLoader.hideLoader();
         //  Get.back();
-        Get.offAll(SearchMedicine());
-
+        Get.to(SearchMedicine());
+        //SignUpList
+        //SignInScreen
+        // Get.offAll(FrRegistrationCatagaryDetails());
         return shouldPop;
       },
-      // onWillPop: () async {
-      //   final shouldPop = await showDialog<bool>(
-      //     context: context,
-      //     builder: (context) {
-      //       return AlertDialog(
-      //         content: Container(
-      //           height: 85,
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               Text(
-      //                 "Do you want add more medicine?",
-      //                 textDirection: TextDirection.ltr,
-      //                 style: GoogleFonts.roboto(
-      //                   fontSize: 15,
-      //                   fontWeight: FontWeight.bold,
-      //                 ),
-      //               ),
-      //               Spacer(),
-      //               Row(
-      //                 children: [
-      //                   Expanded(
-      //                     child: ElevatedButton(
-      //                       onPressed: () {
-      //                         print('yes selected');
-      //
-      //                         _medicineListController.update();
-      //                         _medicineListController.medicineListApi();
-      //                         _medicineListController.onInit();
-      //                         //  Get.back();
-      //                         Get.offAll(SearchMedicine());
-      //                       },
-      //                       child: Text("Yes"),
-      //                       style: ElevatedButton.styleFrom(
-      //                           primary: Colors.red.shade800),
-      //                     ),
-      //                   ),
-      //                   SizedBox(width: 15),
-      //                   Expanded(
-      //                       child: ElevatedButton(
-      //                     onPressed: () {
-      //                       print('no selected');
-      //                       Navigator.pop(context, false);
-      //                       //Navigator.of(context).pop();
-      //                     },
-      //                     child:
-      //                         Text("No", style: TextStyle(color: Colors.black)),
-      //                     style: ElevatedButton.styleFrom(
-      //                       primary: Colors.green,
-      //                     ),
-      //                   ))
-      //                 ],
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //       );
-      //     },
-      //   );
-      //   return shouldPop!;
-      // },
       child: Scaffold(
         backgroundColor: MyTheme.ThemeColors,
         body: Obx(
           () => (_medicineCartListController.isLoading.value)
-              ? Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.red,
+                  ),
+                )
+              //     :
               : SafeArea(
                   child: Container(
                     height: size.height,
@@ -114,15 +64,18 @@ class MedicineCart extends StatelessWidget {
                               horizontal: size.width * 0.05,
                               vertical: size.height * 0.03),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   _medicineListController.update();
                                   _medicineListController.medicineListApi();
-                                  _medicineListController.onInit();
+                                  CallLoader.loader();
+                                  await Future.delayed(
+                                      Duration(milliseconds: 600));
+                                  CallLoader.hideLoader();
                                   //  Get.back();
-                                  Get.offAll(SearchMedicine());
+                                  Get.to(SearchMedicine());
                                 },
                                 child: Icon(
                                   Icons.arrow_back_ios_outlined,
@@ -130,16 +83,10 @@ class MedicineCart extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: size.width * 0.0,
+                                width: size.width * 0.25,
                               ),
                               Text(
                                 'Medicine Cart',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: size.height * 0.02),
-                              ),
-                              Text(
-                                '                 ',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.height * 0.02),
@@ -149,439 +96,440 @@ class MedicineCart extends StatelessWidget {
                         ),
                         Obx(
                           () => (_medicineCartListController.isLoading.value)
-                              ? Center(child: CircularProgressIndicator())
-                              // : _medicineCartListController
-                              //             .medicinecartlistmodel !=
-                              //         null
-                              //     ? Center(
-                              //         child: Text('No List'),
-                              //       )
-                              : SizedBox(
-                                  height: size.height / 1.37,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: _medicineCartListController
-                                          .medicinecartlistmodel?.data?.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: size.width * 0.03,
-                                              vertical: size.height * 0.0005),
-                                          child: Container(
-                                            height: size.height * 0.17,
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 30 / 8),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                gradient: LinearGradient(
-                                                    begin: Alignment.centerLeft,
-                                                    end: Alignment.centerRight,
-                                                    colors: [
-                                                      lightPrimary2,
-                                                      darkPrimary2,
-                                                    ]),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    offset: Offset(-0, -0),
-                                                    spreadRadius: 0,
-                                                    blurRadius: 0,
-                                                    color: darkShadow,
-                                                  ),
-                                                  BoxShadow(
-                                                    offset: Offset(3, 3),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 0,
-                                                    color: lightShadow,
-                                                  ),
-                                                ],
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'),
-                                                    fit: BoxFit.cover)),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(0.0),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SizedBox(
-                                                    height: size.height * 0.17,
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal:
-                                                                  size.width *
-                                                                      0.00),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                  color: Colors.red,
+                                ))
+                              : _medicineCartListController
+                                      .medicinecartlistmodel!.data!.isEmpty
+                                  //null
+                                  ? SizedBox(
+                                      height: size.height / 1.5,
+                                      child: Center(
+                                        child: Image.network(
+                                          "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjJrd3dveWZmcmxuM2Rlbno1bnhldW91MjBidTdrdjZ6aHZiZTlyZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9xI13kuQllph3my5Kv/giphy.gif",
+                                          height: size.height * 0.4,
+                                          width: size.width * 0.6,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: size.height / 1.4,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: _medicineCartListController
+                                              .medicinecartlistmodel
+                                              ?.data
+                                              ?.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: size.width * 0.03,
+                                                  vertical:
+                                                      size.height * 0.0005),
+                                              child: Container(
+                                                height: size.height * 0.17,
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 30 / 8),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    gradient: LinearGradient(
+                                                        begin: Alignment
+                                                            .centerLeft,
+                                                        end: Alignment
+                                                            .centerRight,
+                                                        colors: [
+                                                          lightPrimary2,
+                                                          darkPrimary2,
+                                                        ]),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        offset: Offset(-0, -0),
+                                                        spreadRadius: 0,
+                                                        blurRadius: 0,
+                                                        color: darkShadow,
+                                                      ),
+                                                      BoxShadow(
+                                                        offset: Offset(3, 3),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 0,
+                                                        color: lightShadow,
+                                                      ),
+                                                    ],
+                                                    image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'),
+                                                        fit: BoxFit.cover)),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(0.0),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.17,
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      size.width *
+                                                                          0.00),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets.only(
                                                                     left: size
                                                                             .width *
                                                                         0.03),
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceAround,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  'Medicine Name:',
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                    color: MyTheme
-                                                                        .blueww,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.04,
-                                                                  ),
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Medicine Name:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        color: MyTheme
+                                                                            .blueww,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.04,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      'Brand Name:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        color: MyTheme
+                                                                            .blueww,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.04,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      'Unit Price:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        color: MyTheme
+                                                                            .blueww,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.04,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      'Final Price:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        color: MyTheme
+                                                                            .blueww,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.04,
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                                Text(
-                                                                  'Brand Name:',
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                    color: MyTheme
-                                                                        .blueww,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.04,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  'Unit Price:',
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                    color: MyTheme
-                                                                        .blueww,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.04,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  'Final Price:',
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                    color: MyTheme
-                                                                        .blueww,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.04,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "${_medicineCartListController.medicinecartlistmodel?.data?[index].medicineName}"
+                                                              ),
+                                                              Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    "${_medicineCartListController.medicinecartlistmodel?.data?[index].medicineName}"
 
-                                                                //"${_medicineCartListController.medicinecartlistmodel?.data?[index].medicineName}",
-                                                                //'DOLO 650',
-                                                                ,
-                                                                style:
-                                                                    GoogleFonts
+                                                                    //"${_medicineCartListController.medicinecartlistmodel?.data?[index].medicineName}",
+                                                                    //'DOLO 650',
+                                                                    ,
+                                                                    style: GoogleFonts
                                                                         .roboto(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade900,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w800,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.04,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                "${_medicineCartListController.medicinecartlistmodel?.data?[index].brandName.toString()}",
-                                                                // 'Cipla',
-                                                                style:
-                                                                    GoogleFonts
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade900,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w800,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.04,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    "${_medicineCartListController.medicinecartlistmodel?.data?[index].brandName.toString()}",
+                                                                    // 'Cipla',
+                                                                    style: GoogleFonts
                                                                         .roboto(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade900,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w800,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.04,
-                                                                ),
-                                                              ),
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade900,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w800,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.04,
+                                                                    ),
+                                                                  ),
 
-                                                              Text(
-                                                                "${_medicineCartListController.medicinecartlistmodel?.data?[index].unitPrice.toString()}",
+                                                                  Text(
+                                                                    "${_medicineCartListController.medicinecartlistmodel?.data?[index].unitPrice.toString()}",
 
-                                                                //'Rs 15',
-                                                                style:
-                                                                    GoogleFonts
+                                                                    //'Rs 15',
+                                                                    style: GoogleFonts
                                                                         .roboto(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade900,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w800,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.04,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                "${_medicineCartListController.medicinecartlistmodel?.data?[index].totalPrice.toString()}",
-                                                                //'Rs 15',
-                                                                style:
-                                                                    GoogleFonts
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade900,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w800,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.04,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    "${_medicineCartListController.medicinecartlistmodel?.data?[index].totalPrice.toString()}",
+                                                                    //'Rs 15',
+                                                                    style: GoogleFonts
                                                                         .roboto(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade900,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w800,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.04,
-                                                                ),
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade900,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w800,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.04,
+                                                                    ),
+                                                                  ),
+                                                                  // Align(
+                                                                  //     alignment: Alignment.centerRight,
+                                                                  //     child:
+                                                                  //         Icon(Icons.access_time_outlined)),
+                                                                ],
                                                               ),
-                                                              // Align(
-                                                              //     alignment: Alignment.centerRight,
-                                                              //     child:
-                                                              //         Icon(Icons.access_time_outlined)),
-                                                            ],
-                                                          ),
-                                                          Container(
-                                                            height:
-                                                                size.height *
-                                                                    0.17,
-                                                            width: size.width *
-                                                                0.15,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: MyTheme
-                                                                  .containercolor5,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .only(
-                                                                bottomRight:
-                                                                    Radius
+                                                              Container(
+                                                                height:
+                                                                    size.height *
+                                                                        0.17,
+                                                                width:
+                                                                    size.width *
+                                                                        0.15,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: MyTheme
+                                                                      .containercolor5,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            10),
+                                                                    topRight: Radius
                                                                         .circular(
                                                                             10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10),
-                                                              ),
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    _medicineListController
-                                                                        .medicineListApi();
-                                                                    _medicineCartListController
-                                                                        .cartmdedicineListApi();
-                                                                    _medicineCartListController
-                                                                        .update();
-                                                                    _medicineListController
-                                                                        .medicinepluscartApi(
-                                                                            "${_medicineCartListController.medicinecartlistmodel?.data?[index].id.toString()}");
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    height: size
-                                                                            .height *
-                                                                        0.04,
-                                                                    width: size
-                                                                            .width *
-                                                                        0.085,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
-                                                                    ),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .add_circle,
-                                                                      color: Colors
-                                                                          .red,
-                                                                    ),
                                                                   ),
                                                                 ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.01,
-                                                                ),
-                                                                Container(
-                                                                    height: size
-                                                                            .height *
-                                                                        0.045,
-                                                                    width: size
-                                                                            .width *
-                                                                        0.09,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
-                                                                    ),
-                                                                    child: Center(
-                                                                        child: Text(
-                                                                      "${_medicineCartListController.medicinecartlistmodel?.data?[index].quantity.toString()}",
-
-                                                                      //'2',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        //_medicineListController
+                                                                        //  .medicineListApi();
+                                                                        // _medicineCartListController
+                                                                        //.cartmdedicineListApi();
+                                                                        //  _medicineCartListController
+                                                                        //.update();
+                                                                        _medicineListController
+                                                                            .medicinepluscartApi("${_medicineCartListController.medicinecartlistmodel?.data?[index].id.toString()}");
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        height: size.height *
+                                                                            0.04,
+                                                                        width: size.width *
+                                                                            0.085,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                        ),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .add_circle,
+                                                                          color:
+                                                                              Colors.red,
+                                                                        ),
                                                                       ),
-                                                                    ))),
-                                                                SizedBox(
-                                                                  height:
-                                                                      size.height *
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: size
+                                                                              .height *
                                                                           0.01,
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    _medicineListController
-                                                                        .medicineListApi();
-                                                                    _medicineCartListController
-                                                                        .cartmdedicineListApi();
-                                                                    _medicineCartListController
-                                                                        .update();
-                                                                    //medicineminuscartApi
-                                                                    _medicineListController
-                                                                        .medicineminuscartApi(
-                                                                            "${_medicineCartListController.medicinecartlistmodel?.data?[index].id.toString()}");
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    height: size
-                                                                            .height *
-                                                                        0.04,
-                                                                    width: size
-                                                                            .width *
-                                                                        0.085,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
                                                                     ),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .remove_circle,
-                                                                      color: Colors
-                                                                          .red,
+                                                                    Obx(
+                                                                      () => (_medicineCartListController
+                                                                              .isLoading
+                                                                              .value)
+                                                                          ? Center(
+                                                                              child: CircularProgressIndicator())
+                                                                          : Container(
+                                                                              height: size.height * 0.045,
+                                                                              width: size.width * 0.09,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.white,
+                                                                                borderRadius: BorderRadius.circular(10),
+                                                                              ),
+                                                                              child: Center(
+                                                                                  child: Text(
+                                                                                "${_medicineCartListController.medicinecartlistmodel?.data?[index].quantity.toString()}",
+
+                                                                                //'2',
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                              ))),
                                                                     ),
-                                                                  ),
+                                                                    SizedBox(
+                                                                      height: size
+                                                                              .height *
+                                                                          0.01,
+                                                                    ),
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        // _medicineListController
+                                                                        //     .medicineListApi();
+                                                                        // _medicineCartListController
+                                                                        //     .cartmdedicineListApi();
+                                                                        // _medicineCartListController
+                                                                        //     .update();
+                                                                        //medicineminuscartApi
+                                                                        _medicineListController
+                                                                            .medicineminuscartApi("${_medicineCartListController.medicinecartlistmodel?.data?[index].id.toString()}");
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        height: size.height *
+                                                                            0.04,
+                                                                        width: size.width *
+                                                                            0.085,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                        ),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .remove_circle,
+                                                                          color:
+                                                                              Colors.red,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                              ],
-                                                            ),
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ],
+                                                        ),
                                                       ),
-                                                    ),
+                                                      //Spacer(),
+                                                      // Align(
+                                                      //     alignment: Alignment.centerRight,
+                                                      //     child: PhysicalModel(
+                                                      //       elevation: 15,
+                                                      //       color: Colors.grey,
+                                                      //       borderRadius: BorderRadius.only(
+                                                      //         bottomRight: Radius.circular(10),
+                                                      //         topLeft: Radius.circular(10),
+                                                      //       ),
+                                                      //       child: InkWell(
+                                                      //         onTap: () {
+                                                      //           Get.to(() => MedicineCart());
+                                                      //         },
+                                                      //         child: Container(
+                                                      //             height: size.height * 0.036,
+                                                      //             width: size.width * 0.25,
+                                                      //             decoration: BoxDecoration(
+                                                      //                 color: MyTheme.white,
+                                                      //                 borderRadius:
+                                                      //                     BorderRadius.only(
+                                                      //                   bottomRight:
+                                                      //                       Radius.circular(10),
+                                                      //                   topLeft:
+                                                      //                       Radius.circular(10),
+                                                      //                 )),
+                                                      //             //backgroundColor: Colors.white30,
+                                                      //             child: Center(
+                                                      //                 child: Row(
+                                                      //               mainAxisAlignment:
+                                                      //                   MainAxisAlignment.center,
+                                                      //               children: [
+                                                      //                 Text(
+                                                      //                   'Add to cart',
+                                                      //                   style: GoogleFonts.alegreya(
+                                                      //                     color: MyTheme.blueww,
+                                                      //                     fontWeight:
+                                                      //                         FontWeight.w600,
+                                                      //                   ),
+                                                      //                 ),
+                                                      //                 Icon(
+                                                      //                   Icons.shopping_cart,
+                                                      //                   size: size.height * 0.02,
+                                                      //                 ),
+                                                      //               ],
+                                                      //             ))),
+                                                      //       ),
+                                                      //     )),
+                                                    ],
                                                   ),
-                                                  //Spacer(),
-                                                  // Align(
-                                                  //     alignment: Alignment.centerRight,
-                                                  //     child: PhysicalModel(
-                                                  //       elevation: 15,
-                                                  //       color: Colors.grey,
-                                                  //       borderRadius: BorderRadius.only(
-                                                  //         bottomRight: Radius.circular(10),
-                                                  //         topLeft: Radius.circular(10),
-                                                  //       ),
-                                                  //       child: InkWell(
-                                                  //         onTap: () {
-                                                  //           Get.to(() => MedicineCart());
-                                                  //         },
-                                                  //         child: Container(
-                                                  //             height: size.height * 0.036,
-                                                  //             width: size.width * 0.25,
-                                                  //             decoration: BoxDecoration(
-                                                  //                 color: MyTheme.white,
-                                                  //                 borderRadius:
-                                                  //                     BorderRadius.only(
-                                                  //                   bottomRight:
-                                                  //                       Radius.circular(10),
-                                                  //                   topLeft:
-                                                  //                       Radius.circular(10),
-                                                  //                 )),
-                                                  //             //backgroundColor: Colors.white30,
-                                                  //             child: Center(
-                                                  //                 child: Row(
-                                                  //               mainAxisAlignment:
-                                                  //                   MainAxisAlignment.center,
-                                                  //               children: [
-                                                  //                 Text(
-                                                  //                   'Add to cart',
-                                                  //                   style: GoogleFonts.alegreya(
-                                                  //                     color: MyTheme.blueww,
-                                                  //                     fontWeight:
-                                                  //                         FontWeight.w600,
-                                                  //                   ),
-                                                  //                 ),
-                                                  //                 Icon(
-                                                  //                   Icons.shopping_cart,
-                                                  //                   size: size.height * 0.02,
-                                                  //                 ),
-                                                  //               ],
-                                                  //             ))),
-                                                  //       ),
-                                                  //     )),
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      })),
+                                            );
+                                          })),
                         ),
                         Spacer(),
                         Container(
-                          height: size.height * 0.134,
+                          height: size.height * 0.146,
                           width: size.width,
                           decoration: BoxDecoration(
                               color: Colors.white70,
@@ -593,6 +541,9 @@ class MedicineCart extends StatelessWidget {
                                   fit: BoxFit.fill)),
                           child: Column(
                             children: [
+                              SizedBox(
+                                height: size.height * 0.017,
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -608,7 +559,7 @@ class MedicineCart extends StatelessWidget {
                                         style: TextStyle(
                                             color: Colors.white70,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: size.width * 0.04),
+                                            fontSize: size.width * 0.043),
                                       ),
                                       SizedBox(
                                         height: size.height * 0.012,
@@ -618,7 +569,7 @@ class MedicineCart extends StatelessWidget {
                                         style: TextStyle(
                                             color: Colors.white70,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: size.width * 0.04),
+                                            fontSize: size.width * 0.043),
                                       ),
                                       SizedBox(
                                         width: size.width * 0.05,
