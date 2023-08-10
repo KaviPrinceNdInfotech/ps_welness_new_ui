@@ -129,6 +129,7 @@ class AdddeptSpecialCredentials extends StatelessWidget {
                           value == null ? '  field required' : null,
                       onChanged: (FranchiseDepartment? newValue) {
                         _adddepartmentController.selectedDep.value = newValue!;
+                        _adddepartmentController.selectedSpec.value = null;
                       }),
                 ),
               ),
@@ -168,6 +169,7 @@ class AdddeptSpecialCredentials extends StatelessWidget {
                           value == null ? '  field required' : null,
                       onChanged: (FranchiseSpecialist? newValue) {
                         _adddepartmentController.selectedSpec.value = newValue!;
+                        // _adddepartmentController.selectedSpec.value = newValue = null;
                       }),
                 ),
               ),

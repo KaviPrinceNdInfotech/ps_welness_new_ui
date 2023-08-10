@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/user_list_booking_driver/user_list_booking_driver_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
@@ -30,10 +31,14 @@ class UseracptrejectController extends GetxController {
     http.Response r = await ApiProvider.AcceptrequestdriverApi();
 
     if (r.statusCode == 200) {
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      CallLoader.hideLoader();
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 500),
+          const Duration(milliseconds: 300),
           () {
+            Get.to(DriverHomePage());
             // _viewhealthchkpreviewController.healthreviewratingApi();
             //_viewhealthchkpreviewController.update();
             // Get.snackbar(
@@ -58,10 +63,14 @@ class UseracptrejectController extends GetxController {
     http.Response r = await ApiProvider.RejectrequestdriverApi();
 
     if (r.statusCode == 200) {
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      CallLoader.hideLoader();
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 500),
+          const Duration(milliseconds: 300),
           () {
+            Get.to(DriverHomePage());
             // _viewhealthchkpreviewController.healthreviewratingApi();
             //_viewhealthchkpreviewController.update();
             // Get.snackbar(

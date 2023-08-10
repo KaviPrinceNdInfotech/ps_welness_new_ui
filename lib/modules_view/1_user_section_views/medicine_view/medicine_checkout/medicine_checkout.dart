@@ -76,7 +76,7 @@ class CheckOutMedicine extends StatelessWidget {
         body: Obx(
           () => (_medicinecheckoutController.isLoading.value)
               ? Center(child: CircularProgressIndicator())
-              : _medicinecheckoutController.medicinecheckoutModel!.data == null
+              : _medicinecheckoutController.medicinecheckoutModel?.data == null
                   ? Center(
                       child: Text('No Data Available'),
                     )
@@ -275,24 +275,31 @@ class CheckOutMedicine extends StatelessWidget {
                                               //     .toString(),
                                               style: TextStyle(
                                                 color: AppColors.primarySwatch,
-                                                fontSize: 13,
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 9,
+                                              height: 10,
                                             ),
-                                            Text(
-                                              "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliveryAddress.toString()}",
-                                              // _checkoutController
-                                              //     .getaddressbyid!
-                                              //     .result![index]
-                                              //     .area
-                                              //     .toString(),
-                                              style: TextStyle(
-                                                color: AppColors.primarySwatch,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
+                                            SizedBox(
+                                              width: size.width * 0.58,
+                                              height: size.height * 0.03,
+                                              child: Center(
+                                                child: Text(
+                                                  "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliveryAddress.toString()}",
+                                                  // _checkoutController
+                                                  //     .getaddressbyid!
+                                                  //     .result![index]
+                                                  //     .area
+                                                  //     .toString(),
+                                                  style: TextStyle(
+                                                    color:
+                                                        AppColors.primarySwatch,
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             SizedBox(

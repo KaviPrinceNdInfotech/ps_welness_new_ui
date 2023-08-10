@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/add_dept_spe.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
@@ -24,9 +25,7 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchis
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/galerry_view/gallary_views.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_choose_registration_type/fr_choose_catagary.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/test_name_list/test_name_list.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
-import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,6 +46,10 @@ class FranchiesHomePage extends StatelessWidget {
     GlobalKey<ScaffoldState> _keyfranchise = GlobalKey();
     Fr_Chemist_1_Controller _fr_chemist_1_controller =
         Get.put(Fr_Chemist_1_Controller());
+    FranchiesSpecialistController _franchiesSpecialistController =
+        Get.put(FranchiesSpecialistController());
+    // FranchiesSpecialistController _franchiesSpecialistController =
+    // Get.put(FranchiesSpecialistController());
 
     final List<String> productname = [
       'Edit Profile',
@@ -58,7 +61,7 @@ class FranchiesHomePage extends StatelessWidget {
       'Add Spec & Dept',
       'Add Vehicle Type',
       'View Spe & Dpt',
-      'View Dept & Spec',
+      // 'View Dept & Spec',
       'Registration',
       'Registration Details',
       'My Y/M/W/D Report',
@@ -66,7 +69,7 @@ class FranchiesHomePage extends StatelessWidget {
       'My Commission Report',
       'My Payout Report',
       'My TDS Report',
-      'Contact US'
+      // 'Contact US'
     ];
 
     final List<String> underprocess = [
@@ -79,6 +82,7 @@ class FranchiesHomePage extends StatelessWidget {
       '',
       '',
       '',
+      //'',
       '',
       '',
       '',
@@ -86,8 +90,7 @@ class FranchiesHomePage extends StatelessWidget {
       '',
       '',
       '',
-      '',
-      '',
+      //'',
     ];
     List<Color> colors = [
       Color(0xff11eae0),
@@ -108,7 +111,7 @@ class FranchiesHomePage extends StatelessWidget {
 
       ///
       'lib/assets/icons/frspecial.png',
-      'lib/assets/icons/frspaclist.png',
+      //'lib/assets/icons/frspaclist.png',
       'lib/assets/icons/frregister.png',
       'lib/assets/icons/frregisterdetail.png',
       'lib/assets/icons/fryreport.png',
@@ -116,7 +119,7 @@ class FranchiesHomePage extends StatelessWidget {
       'lib/assets/icons/frcommission.png',
       'lib/assets/icons/frpayout.png',
       'lib/assets/icons/frtds.png',
-      'lib/assets/icons/contact44.png',
+      //'lib/assets/icons/contact44.png',
     ];
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
@@ -427,10 +430,42 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 7) {
                                         Get.to(() => AddVehiclePage());
                                       } else if (index == 8) {
-                                        Get.to(() => DeptSpecList());
-                                      } else if (index == 9) {
-                                        Get.to(() => DeptAndSpecialistView());
-                                      } else if (index == 10) {
+                                        _franchiesSpecialistController
+                                            .franchiesSpecialistListssApi();
+                                        _franchiesSpecialistController.update();
+                                        _franchiesSpecialistController.onInit();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 900));
+                                        CallLoader.hideLoader();
+                                        await SharedPreferences.getInstance()
+                                            .then((value) =>
+                                                Get.to(() => DeptSpecList()));
+
+                                        //Get.to(() => DeptSpecList());
+                                      }
+
+                                      ///9
+                                      // else if (index == 9) {
+                                      //
+                                      //
+                                      //   ///this is not necessary...
+                                      //   _franchiesSpecialistController
+                                      //       .franchiesDeptAndSpecListsApi();
+                                      //   _franchiesSpecialistController.update();
+                                      //   _franchiesSpecialistController.onInit();
+                                      //
+                                      //   CallLoader.loader();
+                                      //   await Future.delayed(
+                                      //       Duration(milliseconds: 900));
+                                      //   CallLoader.hideLoader();
+                                      //   await SharedPreferences.getInstance()
+                                      //       .then((value) => Get.to(
+                                      //           () => DeptAndSpecialistView()));
+                                      //   //Get.to(() => DeptAndSpecialistView());
+                                      // }
+                                      ///
+                                      else if (index == 9) {
                                         CallLoader.loader();
                                         await Future.delayed(
                                             Duration(milliseconds: 900));
@@ -442,9 +477,9 @@ class FranchiesHomePage extends StatelessWidget {
                                         //_fr_chemist_1_controller.onInit();
                                         //Get.to(() =>
                                         // FrRegistrationCatagaryDetails());
-                                      } else if (index == 11) {
+                                      } else if (index == 10) {
                                         Get.to(() => FrRegistrationDetails());
-                                      } else if (index == 12) {
+                                      } else if (index == 11) {
                                         Get.defaultDialog(
                                             backgroundColor:
                                                 MyTheme.ThemeColors,
@@ -828,19 +863,19 @@ class FranchiesHomePage extends StatelessWidget {
                                               ),
                                             ),
                                             radius: 10.0);
-                                      } else if (index == 13) {
+                                      } else if (index == 12) {
                                         Get.to(() => FranchisePaymentReport());
-                                      } else if (index == 14) {
+                                      } else if (index == 13) {
                                         Get.to(
                                             () => FranchiseCommissionReport());
-                                      } else if (index == 15) {
+                                      } else if (index == 14) {
                                         Get.to(() => FranchisePayoutReport());
-                                      } else if (index == 16) {
+                                      } else if (index == 15) {
                                         Get.to(
                                             () => FranchiseTdsHistoryReport());
-                                      } else if (index == 17) {
+                                      } else if (index == 16) {
                                         //Get.back();
-                                        Get.to(() => SupportViewPsComman());
+                                        // Get.to(() => SupportViewPsComman());
                                       }
                                     },
                                     child: Container(
@@ -938,65 +973,69 @@ class Mycrusial extends StatelessWidget {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  height: size.height * 0.28,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Material(
-                      color: MyTheme.ThemeColors,
-                      borderRadius: BorderRadius.circular(10),
-                      elevation: 0,
-                      child: CarouselSlider.builder(
-                        key: _sliderKey,
-                        unlimitedMode: true,
-                        autoSliderTransitionTime: Duration(seconds: 1),
-                        slideBuilder: (index) {
-                          var items = frenchiesBannerController
-                              .getfrenchiesBannerApi?.bannerImageList;
-                          return Padding(
-                            padding: const EdgeInsets.all(7.0),
-                            child: Material(
-                              elevation: 12,
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                height: size.height * 38,
-                                width: size.width,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
+            : frenchiesBannerController
+                        .getfrenchiesBannerApi?.bannerImageList ==
+                    null
+                ? Center(child: Text('No List'))
+                : Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: size.height * 0.28,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: MyTheme.ThemeColors,
+                          borderRadius: BorderRadius.circular(10),
+                          elevation: 0,
+                          child: CarouselSlider.builder(
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime: Duration(seconds: 1),
+                            slideBuilder: (index) {
+                              var items = frenchiesBannerController
+                                  .getfrenchiesBannerApi?.bannerImageList;
+                              return Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Material(
+                                  elevation: 12,
                                   borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.white, width: 3),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          '$img${items?[index].bannerPath}' ??
-                                              ''),
-                                      fit: BoxFit.fill),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.white, width: 3),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              '$img${items?[index].bannerPath}' ??
+                                                  ''),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              );
+                            },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 2,
+                              indicatorRadius: 4,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              padding: EdgeInsets.only(bottom: 0),
                             ),
-                          );
-                        },
-                        slideTransform: DefaultTransform(),
-                        slideIndicator: CircularSlideIndicator(
-                          indicatorBorderWidth: 2,
-                          indicatorRadius: 4,
-                          itemSpacing: 15,
-                          currentIndicatorColor: Colors.white,
-                          padding: EdgeInsets.only(bottom: 0),
+                            itemCount: frenchiesBannerController
+                                .getfrenchiesBannerApi!.bannerImageList.length,
+                            enableAutoSlider: true,
+                          ),
                         ),
-                        itemCount: frenchiesBannerController
-                            .getfrenchiesBannerApi!.bannerImageList.length,
-                        enableAutoSlider: true,
                       ),
                     ),
                   ),
-                ),
-              ),
       ),
     );
   }

@@ -28,31 +28,29 @@ class FranchiseCommissionReportController extends GetxController {
   void getCommissionRoleApi() async {
     role = await ApiProvider.FrenchiesCommissionReportRole();
   }
-  void frenchiesCommissionReportApi()async{
-    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
-    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+
+  void frenchiesCommissionReportApi() async {
+    var d1 = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2 = DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
     isLoading(true);
-    getfrenchiesCommissionReportModel = await ApiProvider.FrenchiesCommissionReportApi(
-      selectedRole.value?.name.toString(),
-      d1.toString(),
-      d2.toString()
-    );
-    if(getfrenchiesCommissionReportModel?.commissionReport != null){
+    getfrenchiesCommissionReportModel =
+        await ApiProvider.FrenchiesCommissionReportApi(
+            selectedRole.value?.name.toString(), d1.toString(), d2.toString());
+    if (getfrenchiesCommissionReportModel?.commissionReport != null) {
       isLoading(false);
     }
     isLoading(false);
   }
+
   ////
-  void frenchiesTotalCommissionAmountApi()async{
-    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
-    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+  void frenchiesTotalCommissionAmountApi() async {
+    var d1 = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2 = DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
     isLoading(true);
-    getfrenchiesTotalCommissionModel = await ApiProvider.FrenchiesTotalCommissionAmountApi(
-        selectedRole.value?.name.toString(),
-        d1.toString(),
-        d2.toString()
-    );
-    if(getfrenchiesTotalCommissionModel?.totalCommissionAmount != null){
+    getfrenchiesTotalCommissionModel =
+        await ApiProvider.FrenchiesTotalCommissionAmountApi(
+            selectedRole.value?.name.toString(), d1.toString(), d2.toString());
+    if (getfrenchiesTotalCommissionModel?.totalCommissionAmount != null) {
       isLoading(false);
     }
   }
@@ -60,8 +58,8 @@ class FranchiseCommissionReportController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    var d3=DateFormat("dd-MM-yyyy").format(selectedDate.value).toString();
-    var d4=DateFormat("dd-MM-yyyy").format(selectedDate2.value).toString();
+    var d3 = DateFormat("dd-MM-yyyy").format(selectedDate.value).toString();
+    var d4 = DateFormat("dd-MM-yyyy").format(selectedDate2.value).toString();
     getCommissionRoleApi();
     frenchiesCommissionReportApi();
     frenchiesTotalCommissionAmountApi();
@@ -78,8 +76,7 @@ class FranchiseCommissionReportController extends GetxController {
   }
 
   @override
-  void onClose() {
-  }
+  void onClose() {}
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
@@ -88,13 +85,13 @@ class FranchiseCommissionReportController extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
 
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Select Date',
 
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
@@ -117,13 +114,13 @@ class FranchiseCommissionReportController extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
 
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Select date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );

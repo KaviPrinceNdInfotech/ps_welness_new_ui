@@ -1,15 +1,8 @@
 import 'package:get/get.dart';
-//import 'package:ps_welness/model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
-//import 'package:ps_welness/servicess_api/api_services_all_api.dart';
-import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_type_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 
-import '../../../../model/1_user_model/medicine_cart_list_model/medicine_cart_list_models.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
-//import '../../../model/1_user_model/ambulance/ambulance_type2_model.dart';
-import '../../../model/banner_image_model/banner_test_list_api.dart';
-
 
 class UserHomepagContreoller extends GetxController {
   RxBool isLoading = true.obs;
@@ -18,8 +11,7 @@ class UserHomepagContreoller extends GetxController {
 
   BannerListModel? banerlistmodel;
 
- // SliderListModel? getsliderbaner;
-
+  // SliderListModel? getsliderbaner;
 
   // void userbannerApi() async {
   //   isLoading(false);
@@ -33,18 +25,20 @@ class UserHomepagContreoller extends GetxController {
   //   }
   // }
 
-
   //crusial slider banner api..........
   void sliderBannerApi() async {
     isLoading(false);
     banerlistmodel = await ApiProvider.getbanneruserApi();
-    if (
-    banerlistmodel!.bannerImageList.isNotEmpty
-    //getsliderbaner!.bannerImageList!.isNotEmpty
-    ) {
+    if (banerlistmodel!.bannerImageList.isNotEmpty
+        //getsliderbaner!.bannerImageList!.isNotEmpty
+        ) {
       isLoading(false);
     }
+    // else {
+    //   isLoading(false);
+    // }
   }
+
   ///.....................
   Ambulancetype? ambulancetype;
 
@@ -61,8 +55,6 @@ class UserHomepagContreoller extends GetxController {
     }
   }
 
-
-
   ///add to cart...api................
 
   //var Id = '';
@@ -75,18 +67,13 @@ class UserHomepagContreoller extends GetxController {
     //userbannerApi();
   }
 
-
   @override
   void onClose() {
-
-
     banerlistmodel = null;
     ambulancetype = null;
 
-
     super.onClose();
   }
-
 
   @override
   void dispose() {

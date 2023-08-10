@@ -175,15 +175,18 @@ class DoctorListController extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Select date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
+
+    ///
+
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController
@@ -192,6 +195,9 @@ class DoctorListController extends GetxController {
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));
     }
+
+    ///
+
     // if (pickedDate != null && pickedDate != selectedDate) {
     //   selectedDate.value = pickedDate;
     //   appointmentController.text =

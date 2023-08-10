@@ -232,6 +232,40 @@ class FranchiesChemist2Credentials extends StatelessWidget {
               ),
             ),
 
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///TODO: gst no.......................
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     // keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.name],
+            //     controller: _fr_chemist_1_controller.gstController,
+            //     onSaved: (value) {
+            //       _fr_chemist_1_controller.gstno = value!;
+            //     },
+            //     validator: (value) {
+            //       return _fr_chemist_1_controller.validLicenceno(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Gst no',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.g_mobiledata,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+
             ///
             // SizedBox(
             //   height: size.height * 0.02,

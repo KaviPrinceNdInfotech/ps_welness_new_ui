@@ -9,7 +9,6 @@ import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/lab_bboking_scedule/lab_booking_schedule_controller.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
-import '../../../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 
 class LabScheduleCredentials extends StatelessWidget {
   LabScheduleCredentials({Key? key, this.bevel = 2.0}) : super(key: key);
@@ -250,143 +249,146 @@ class LabScheduleCredentials extends StatelessWidget {
               height: size.height * 0.005,
             ),
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Book a Time:',
-                style: TextStyle(
-                  fontSize: size.height * 0.016,
-                  fontWeight: FontWeight.bold,
-                  color: MyTheme.blueww,
-                  //color: Colors.red.shade300,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.075,
-              width: size.width,
-              child: Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 30 / 7),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          lightPrimary,
-                          darkPrimary,
-                        ]),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(-1, -1),
-                        spreadRadius: 1,
-                        blurRadius: 3,
-                        color: Colors.white,
-                      ),
-                      BoxShadow(
-                        offset: Offset(2, 2),
-                        spreadRadius: 1,
-                        blurRadius: 0,
-                        color: Colors.grey,
-                      ),
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.01,
-                    //vertical: size.height * 0.02
-                  ),
-                  child: Obx(
-                    () => DropdownButtonFormField<TimeSlot>(
-                        value: _labListController.selectedTimeslot.value,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.alarm,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                        ),
-                        hint: Text('Select Slot'),
-                        items: _labListController.timeslot
-                            .map((TimeSlot timeslot) {
-                          return DropdownMenuItem(
-                            value: timeslot,
-                            child: Text(
-                              timeslot.slotTime.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.015,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (TimeSlot? newValue) {
-                          _labListController.selectedTimeslot.value = newValue!;
-                          // _nurseBooking1Controller.selectedCity.value = null;
-                          // _hospital_2_controller.states.value =
-                          //     newValue! as List<String>;
-                          // _hospital_2_controller.selectedCity.value = null;
-                          // _hospital_2_controller.cities.clear();
-                          // _hospital_2_controller.cities
-                          //     .addAll(stateCityMap[newvalue]!);
-                        }),
-                  ),
-                ),
-              ),
-              // ListView.builder(
-              //     shrinkWrap: true,
-              //     scrollDirection: Axis.horizontal,
-              //     itemCount: 32,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return Padding(
-              //         padding: const EdgeInsets.all(3.0),
-              //         child: PhysicalModel(
-              //           color: MyTheme.white,
-              //           borderRadius: BorderRadius.circular(5),
-              //           elevation: 20,
-              //           child: Padding(
-              //             padding: EdgeInsets.symmetric(
-              //                 horizontal: size.width * 0.01,
-              //                 vertical: size.height * 0.004),
-              //             child: Container(
-              //               //height: size.height * 0.025,
-              //               width: size.width * 0.17,
-              //               decoration: BoxDecoration(
-              //                 color: MyTheme.ThemeColors,
-              //                 borderRadius: BorderRadius.circular(5),
-              //               ),
-              //               child: Column(
-              //                 mainAxisAlignment:
-              //                     MainAxisAlignment.center,
-              //                 children: [
-              //                   Text(
-              //                     'MAR',
-              //                     style: TextStyle(
-              //                       fontSize: size.height * 0.015,
-              //                       fontWeight: FontWeight.w600,
-              //                       color: Colors.white,
-              //                     ),
-              //                   ),
-              //                   SizedBox(
-              //                     height: size.height * 0.01,
-              //                   ),
-              //                   Text(
-              //                     '${index}',
-              //                     style: TextStyle(
-              //                       fontSize: size.height * 0.016,
-              //                       fontWeight: FontWeight.w600,
-              //                       color: Colors.white,
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       );
-              //     }),
-            ),
+            ///todo: time slot.....
+            //
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     'Book a Time:',
+            //     style: TextStyle(
+            //       fontSize: size.height * 0.016,
+            //       fontWeight: FontWeight.bold,
+            //       color: MyTheme.blueww,
+            //       //color: Colors.red.shade300,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.075,
+            //   width: size.width,
+            //   child: Container(
+            //     width: double.infinity,
+            //     margin: EdgeInsets.symmetric(vertical: 30 / 7),
+            //     decoration: BoxDecoration(
+            //         gradient: LinearGradient(
+            //             begin: Alignment.centerLeft,
+            //             end: Alignment.centerRight,
+            //             colors: [
+            //               lightPrimary,
+            //               darkPrimary,
+            //             ]),
+            //         borderRadius: BorderRadius.circular(12),
+            //         boxShadow: [
+            //           BoxShadow(
+            //             offset: Offset(-1, -1),
+            //             spreadRadius: 1,
+            //             blurRadius: 3,
+            //             color: Colors.white,
+            //           ),
+            //           BoxShadow(
+            //             offset: Offset(2, 2),
+            //             spreadRadius: 1,
+            //             blurRadius: 0,
+            //             color: Colors.grey,
+            //           ),
+            //         ]),
+            //     child: Padding(
+            //       padding: EdgeInsets.symmetric(
+            //         horizontal: size.width * 0.01,
+            //         //vertical: size.height * 0.02
+            //       ),
+            //       child: Obx(
+            //         () => DropdownButtonFormField<TimeSlot>(
+            //             value: _labListController.selectedTimeslot.value,
+            //             decoration: InputDecoration(
+            //               prefixIcon: Icon(
+            //                 Icons.alarm,
+            //                 color: Colors.black,
+            //               ),
+            //               enabledBorder: InputBorder.none,
+            //               border: InputBorder.none,
+            //             ),
+            //             hint: Text('Select Slot'),
+            //             items: _labListController.timeslot
+            //                 .map((TimeSlot timeslot) {
+            //               return DropdownMenuItem(
+            //                 value: timeslot,
+            //                 child: Text(
+            //                   timeslot.slotTime.toString(),
+            //                   style: TextStyle(
+            //                     fontWeight: FontWeight.w600,
+            //                     fontSize: size.height * 0.015,
+            //                   ),
+            //                 ),
+            //               );
+            //             }).toList(),
+            //             onChanged: (TimeSlot? newValue) {
+            //               _labListController.selectedTimeslot.value = newValue!;
+            //               // _nurseBooking1Controller.selectedCity.value = null;
+            //               // _hospital_2_controller.states.value =
+            //               //     newValue! as List<String>;
+            //               // _hospital_2_controller.selectedCity.value = null;
+            //               // _hospital_2_controller.cities.clear();
+            //               // _hospital_2_controller.cities
+            //               //     .addAll(stateCityMap[newvalue]!);
+            //             }),
+            //       ),
+            //     ),
+            //   ),
+            //   // ListView.builder(
+            //   //     shrinkWrap: true,
+            //   //     scrollDirection: Axis.horizontal,
+            //   //     itemCount: 32,
+            //   //     itemBuilder: (BuildContext context, int index) {
+            //   //       return Padding(
+            //   //         padding: const EdgeInsets.all(3.0),
+            //   //         child: PhysicalModel(
+            //   //           color: MyTheme.white,
+            //   //           borderRadius: BorderRadius.circular(5),
+            //   //           elevation: 20,
+            //   //           child: Padding(
+            //   //             padding: EdgeInsets.symmetric(
+            //   //                 horizontal: size.width * 0.01,
+            //   //                 vertical: size.height * 0.004),
+            //   //             child: Container(
+            //   //               //height: size.height * 0.025,
+            //   //               width: size.width * 0.17,
+            //   //               decoration: BoxDecoration(
+            //   //                 color: MyTheme.ThemeColors,
+            //   //                 borderRadius: BorderRadius.circular(5),
+            //   //               ),
+            //   //               child: Column(
+            //   //                 mainAxisAlignment:
+            //   //                     MainAxisAlignment.center,
+            //   //                 children: [
+            //   //                   Text(
+            //   //                     'MAR',
+            //   //                     style: TextStyle(
+            //   //                       fontSize: size.height * 0.015,
+            //   //                       fontWeight: FontWeight.w600,
+            //   //                       color: Colors.white,
+            //   //                     ),
+            //   //                   ),
+            //   //                   SizedBox(
+            //   //                     height: size.height * 0.01,
+            //   //                   ),
+            //   //                   Text(
+            //   //                     '${index}',
+            //   //                     style: TextStyle(
+            //   //                       fontSize: size.height * 0.016,
+            //   //                       fontWeight: FontWeight.w600,
+            //   //                       color: Colors.white,
+            //   //                     ),
+            //   //                   ),
+            //   //                 ],
+            //   //               ),
+            //   //             ),
+            //   //           ),
+            //   //         ),
+            //   //       );
+            //   //     }),
+            // ),
+            ///time slot....
 
             ///
 

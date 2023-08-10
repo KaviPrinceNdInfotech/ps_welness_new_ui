@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/add_test_lab_controller/lab_test_add_controller.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_testname_model_new.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -83,11 +83,12 @@ class AddlabtestCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Selected Test'),
-                      items: _labTestListController.tests.map((TestModel test) {
+                      items:
+                          _labTestListController.tests.map((LabTestName test) {
                         return DropdownMenuItem(
                           value: test,
                           child: Text(
-                            test.testName,
+                            test.testDesc.toString(),
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.010,
@@ -95,7 +96,7 @@ class AddlabtestCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      onChanged: (TestModel? newValue) {
+                      onChanged: (LabTestName? newValue) {
                         _labTestListController.selectedTest.value = newValue!;
                       }),
                 ),

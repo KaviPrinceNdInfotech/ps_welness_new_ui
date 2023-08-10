@@ -384,20 +384,6 @@ class LabListPage extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              'Working day:',
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                color: MyTheme
-                                                                    .blueww,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                              ),
-                                                            ),
-                                                            Text(
                                                               'Fees:',
                                                               style: GoogleFonts
                                                                   .poppins(
@@ -504,30 +490,6 @@ class LabListPage extends StatelessWidget {
                                                               //         index]
                                                               //     .openingHours,
                                                               //'10 am to 6 pm',
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              _labListController
-                                                                  .foundlabProducts[
-                                                                      index]
-                                                                  .workingDay
-                                                                  .toString(),
-                                                              // _labListController
-                                                              //     .labListUser!
-                                                              //     .labList[
-                                                              // index]
-                                                              //     .workingDay,
-                                                              //'Mon - Sat',
                                                               style: GoogleFonts
                                                                   .roboto(
                                                                 color: Colors

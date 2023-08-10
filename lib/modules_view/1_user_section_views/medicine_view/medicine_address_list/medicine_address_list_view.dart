@@ -541,7 +541,7 @@ class Medicineaddresslist extends StatelessWidget {
                                                             const Duration(
                                                                 seconds: 1),
                                                             () {
-                                                              Get.offAll(
+                                                              Get.to(
                                                                   CheckOutMedicine());
                                                               //Get.to((page))
                                                               ///

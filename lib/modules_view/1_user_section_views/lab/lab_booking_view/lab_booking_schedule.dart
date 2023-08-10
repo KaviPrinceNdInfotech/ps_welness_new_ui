@@ -260,11 +260,11 @@ class LabSchedule1Page extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: size.height * 0.005,
+                                  height: size.height * 0.002,
                                 ),
 
                                 SizedBox(
-                                  height: size.height * 0.06,
+                                  height: size.height * 0.11,
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -273,7 +273,7 @@ class LabSchedule1Page extends StatelessWidget {
                                       // _labListController.labdetailsbyid!.about
                                       // .toString(),
                                       // 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                                      maxLines: 3,
+                                      maxLines: 5,
                                       style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         //fontWeight: FontWeight.bold,
@@ -285,7 +285,7 @@ class LabSchedule1Page extends StatelessWidget {
                                 ),
 
                                 SizedBox(
-                                    height: size.height * 0.205,
+                                    height: size.height * 0.113,
                                     child: LabScheduleCredentials()),
 
                                 Align(
@@ -306,7 +306,7 @@ class LabSchedule1Page extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: size.height * 0.004),
                                   child: SizedBox(
-                                    height: size.height * 0.2,
+                                    height: size.height * 0.25,
                                     child: Obx(
                                       () => (_labListController
                                                   .isLoading.value &&

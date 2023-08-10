@@ -293,20 +293,23 @@ class LoginpasswordController extends GetxController {
   //User_1_Controller _user_1_controller = Get.put(User_1_Controller());
 
   var Id = '';
+  RxBool isLoading = true.obs;
 
   void emailApi() async {
-    CallLoader.loader();
+    //isLoading(true);
+    //CallLoader.loader();
     http.Response r = await ApiProvider.LoginEmailApi(
       emailController.text,
       passwordController.text,
     );
 
     if (r.statusCode == 200) {
+      // CallLoader.loader();
       print("ACCOUNT ${r.body}");
       final accountData = driverListApiFromJson(r.body);
       print("ACCOUNT ${accountData.toJson()}");
       await accountService.setAccountData(accountData);
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
 
       switch (accountData.role) {
         case 'patient':
@@ -314,7 +317,7 @@ class LoginpasswordController extends GetxController {
           _userprofile.update();
 
           /// we can navigate to user page.....................................
-          Get.to(const UserHomePage());
+          Get.to(UserHomePage());
           break;
         // case 'Patient':
         //
@@ -363,6 +366,15 @@ class LoginpasswordController extends GetxController {
         default:
           break;
       }
+      CallLoader.hideLoader();
+
+      //isLoading(false);
+    } else {
+      //CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
+      Get.snackbar("Failed", "${r.body}");
+      // CallLoader.hideLoader();
+      isLoading(false);
     }
   }
 

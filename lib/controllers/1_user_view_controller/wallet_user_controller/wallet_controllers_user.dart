@@ -117,9 +117,9 @@ class Wallet_2_Controller extends GetxController {
 
   @override
   void dispose() {
-    Get.delete<Wallet_2_Controller>();
+    //Get.delete<Wallet_2_Controller>();
     super.dispose();
-    UserId.dispose();
+    //UserId.dispose();
     //amount.dispose();
   }
 
@@ -130,7 +130,7 @@ class Wallet_2_Controller extends GetxController {
 
   @override
   void onClose() {
-    ammountController.dispose();
+    //ammountController.dispose();
   }
 
   String? validAmount(String value) {

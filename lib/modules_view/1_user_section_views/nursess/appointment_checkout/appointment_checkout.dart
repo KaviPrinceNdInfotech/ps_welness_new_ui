@@ -292,7 +292,7 @@ class AppointmentCheckout extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(size.height * 0.007),
                               child: Container(
-                                height: size.height * 0.10,
+                                height: size.height * 0.05,
                                 width: size.width,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.006),
@@ -345,17 +345,17 @@ class AppointmentCheckout extends StatelessWidget {
                                               ),
                                             ),
                                             Spacer(),
-                                            Text(
-                                              'Selected Time:',
-                                              //doctorcatagary[index],
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w600,
-                                                color: MyTheme.containercolor14,
-                                                fontSize: size.height * 0.017,
-                                              ),
-                                            ),
+                                            // Text(
+                                            //   'Selected Time:',
+                                            //   //doctorcatagary[index],
+                                            //   maxLines: 1,
+                                            //   overflow: TextOverflow.ellipsis,
+                                            //   style: GoogleFonts.poppins(
+                                            //     fontWeight: FontWeight.w600,
+                                            //     color: MyTheme.containercolor14,
+                                            //     fontSize: size.height * 0.017,
+                                            //   ),
+                                            // ),
                                             SizedBox(
                                               height: size.height * 0.000,
                                             ),
@@ -393,24 +393,27 @@ class AppointmentCheckout extends StatelessWidget {
                                               ),
                                             ),
 
-                                            SizedBox(
-                                              width: size.width * 0.37,
-                                              child: Text(
-                                                // _labListController.labCheckoutModel!.slotTime.toString(),
-                                                // '17:30',
-                                                "${_nurseappointmentcheckout.nurseCheckoutModel?.slotTime}",
+                                            ///
 
-                                                //doctorcatagary[index],
-                                                maxLines: 1,
-                                                //overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      MyTheme.containercolor14,
-                                                  fontSize: size.height * 0.015,
-                                                ),
-                                              ),
-                                            ),
+                                            // SizedBox(
+                                            //   width: size.width * 0.37,
+                                            //   child: Text(
+                                            //     // _labListController.labCheckoutModel!.slotTime.toString(),
+                                            //     // '17:30',
+                                            //     "${_nurseappointmentcheckout.nurseCheckoutModel?.slotTime}",
+                                            //
+                                            //     //doctorcatagary[index],
+                                            //     maxLines: 1,
+                                            //     //overflow: TextOverflow.ellipsis,
+                                            //     style: GoogleFonts.poppins(
+                                            //       fontWeight: FontWeight.w600,
+                                            //       color:
+                                            //           MyTheme.containercolor14,
+                                            //       fontSize: size.height * 0.015,
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                            ///
                                             // SizedBox(
                                             //   height: size.height * 0.000,
                                             // ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_testname_model_new.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
@@ -19,7 +20,6 @@ import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import '../../../../../model/1_user_model/city_model/city_modelss.dart';
-import '../../../../../model/1_user_model/test_name_model/test_name_modells.dart';
 import '../../../../../widgets/widgets/rectangular_button.dart';
 
 class LabCredentials extends StatelessWidget {
@@ -209,19 +209,20 @@ class LabCredentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Selected Test'),
-                        items: _chooseLabController.tests.map((TestModel test) {
+                        items:
+                            _chooseLabController.tests.map((LabTestName test) {
                           return DropdownMenuItem(
                             value: test,
                             child: Text(
-                              test.testName,
+                              test.testDesc!,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.010,
+                                fontSize: size.height * 0.014,
                               ),
                             ),
                           );
                         }).toList(),
-                        onChanged: (TestModel? newValue) {
+                        onChanged: (LabTestName? newValue) {
                           _chooseLabController.selectedTest.value = newValue!;
                         }),
                   ),

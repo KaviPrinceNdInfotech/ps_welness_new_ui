@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +13,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_type_mo
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_appointment_history.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_details_api.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_testname_model_new.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/medicine_order/medicine_order_history.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_detail_id.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
@@ -580,7 +583,31 @@ class ApiProvider {
     );
     print(r.body);
     if (r.statusCode == 200) {
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 1200));
+      //CallLoader.hideLoader();
       var prefs = GetStorage();
+
+      ///here we are defining status code.....
+      var status = json.decode(r.body)['Status'];
+      print('ywgefYKUWEFG${status}');
+      if (status == 0) {
+        Get.snackbar('Failed', '${json.decode(r.body)['Message']}',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            duration: (Duration(seconds: 3)));
+        //await CallLoader.hideLoader();
+      } else {
+        Get.snackbar('Sucess', '${json.decode(r.body)['Message']}',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.green.shade400,
+            colorText: Colors.white,
+            duration: (Duration(seconds: 3)));
+        //CallLoader.hideLoader();
+        _getGeoLocationPosition();
+      }
+
       //saved id..........
       prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       Id = prefs.read("Id").toString();
@@ -644,11 +671,24 @@ class ApiProvider {
       // prefs.write("token".toString(), json.decode(r.body)['token']);
       // token = prefs.read("token").toString();
       // print(token);
+      ///
+      // Get.snackbar("Message", "${r.body}",
+      //     duration: Duration(milliseconds: 400));
+      //CallLoader.hideLoader();
       return r;
     } else if (r.statusCode == 401) {
-      Get.snackbar('message', r.body);
-    } else {
+      await Future.delayed(Duration(seconds: 2));
+      // Get.snackbar("Failed", "${r.body}");
+      // CallLoader.hideLoader();
       Get.snackbar('Error', r.body);
+      return r;
+      //Get.snackbar('message', r.body);
+    } else {
+      // CallLoader.loader();
+      await Future.delayed(Duration(seconds: 2));
+      Get.snackbar("Failed", "${r.body}");
+      //CallLoader.hideLoader();
+      // Get.snackbar('Error', r.body);
       return r;
     }
   }
@@ -679,6 +719,9 @@ class ApiProvider {
     print(r.body);
     if (r.statusCode == 200) {
       print("userrrtokenupdateeedd${body}");
+      Get.snackbar('message', "${r.body}",
+          duration: (Duration(milliseconds: 900)));
+
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -2018,7 +2061,7 @@ class ApiProvider {
       "Id": "${nursebooking_Id}",
       "Nurse_Id": "${NurseuserListId}",
       "ServiceDate": ServiceDate,
-      "Slotid": Slotid,
+      "Slotid": "1",
     };
     print(body);
     http.Response r = await http.post(
@@ -2127,7 +2170,7 @@ class ApiProvider {
     var body = {
       "Lab_Id": "$LablistssId",
       "TestDate": TestDate,
-      "Slotid": Slotid,
+      "Slotid": "1",
     };
     print(body);
     http.Response r = await http.post(
@@ -2361,6 +2404,39 @@ class ApiProvider {
       return [];
     }
   }
+
+  ///
+  ///lab test name Api get new 8 august ...........................
+  static Future<List<LabTestName>?> getTestNameNewApi() async {
+    var url = "http://test.pswellness.in/api/CommonApi/TestDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var labTestNamenew = testNameModelNewFromJson(r.body);
+        return labTestNamenew.labTestName;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///new lab test name dropdown....8 august...
+  // static LabTestnamenewlistApi() async {
+  //   var url = "http://test.pswellness.in/api/CommonApi/TestDropdown";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       var MedicineList = testNameModelNewFromJson(r.body);
+  //       return MedicineList;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
 
   ///labtest_dropdown_api....
   ///lab test name Api get ...........................
@@ -5452,7 +5528,63 @@ class ApiProvider {
       return r;
     }
   }
-  //http://test.pswellness.in/api/LabApi/LabUpdateProfiledetail?Id=16
 
+  //http://test.pswellness.in/api/LabApi/LabUpdateProfiledetail?Id=16
+  static _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    await Future.delayed(Duration(seconds: 2));
+    await Get.dialog(
+      // bool barrierDismissible = true
+
+      AlertDialog(
+        title: const Text('Ps Wellness'),
+        content: const Text(
+            """When you grant permission for  location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
+        actions: [
+          TextButton(
+            child: const Text("Reject"),
+            onPressed: () => Get.back(),
+          ),
+          TextButton(
+            child: const Text("Accept"),
+            onPressed: () => Get.back(),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // return Future.value('');
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
 }
 //$nurseLocationId

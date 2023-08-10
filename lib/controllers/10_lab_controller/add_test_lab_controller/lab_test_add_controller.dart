@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/10_lab_module/add_labtest_view/add_test_vieews.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_testname_model_new.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/lab_test_view/add_labtestts/add_test_todo.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
@@ -26,12 +26,15 @@ class LabTestListController extends GetxController {
   //GetskillsModel? viewSkilsReport;
   Labtestaddedlist? labtestaddedlist;
 
-  Rx<TestModel?> selectedTest = (null as TestModel?).obs;
-  List<TestModel> tests = <TestModel>[].obs;
+  // Rx<TestModel?> selectedTest = (null as TestModel?).obs;
+  // List<TestModel> tests = <TestModel>[].obs;
+
+  Rx<LabTestName?> selectedTest = (null as LabTestName?).obs;
+  List<LabTestName> tests = <LabTestName>[].obs;
 
   ///lab test api class.................
   void getTestNameApi() async {
-    tests = await ApiProvider.getTestNamedropdownApi();
+    tests = (await ApiProvider.getTestNameNewApi())!;
     print('Prince lab test  list');
     print(tests);
   }

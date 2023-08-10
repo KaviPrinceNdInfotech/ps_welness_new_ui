@@ -394,17 +394,24 @@ class _UserHomePageState extends State<UserHomePage> {
                         _driverAcceptlistController.driveracceptuserDetailApi();
                         _driverAcceptlistController.update();
                         _driverAcceptlistController.refresh();
+                        _driverAcceptlistController.onInit();
                       });
 
-                      await accountService.getAccountData.then((accountData) {
+                      await accountService.getAccountData
+                          .then((accountData) async {
                         _driverAcceptlistController.driveracceptuserDetailApi();
                         _driverAcceptlistController.update();
                         _driverAcceptlistController.refresh();
+                        _driverAcceptlistController.onInit();
+
                         // CallLoader.loader();
                         // nearlistdriverApi();
+                        CallLoader.loader();
+                        await Future.delayed(Duration(milliseconds: 500));
+                        CallLoader.hideLoader();
 
                         Timer(
-                          const Duration(seconds: 1),
+                          const Duration(milliseconds: 100),
                           () {
                             // nearlistdriverApi();
                             Navigator.push(

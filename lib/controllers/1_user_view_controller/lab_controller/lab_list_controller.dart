@@ -124,7 +124,7 @@ class LabListController extends GetxController {
   ///todo: lab booking 3... post api...28 april 2023...
   ///todo: nurse schedule api by the help of list Id of nurse....
   void labBooking2Api() async {
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.Labbooking2Api(
       labidController.text,
       appointmentController.text,
@@ -136,16 +136,16 @@ class LabListController extends GetxController {
       var data = jsonDecode(r.body);
       labcheckoutApi();
       CallLoader.loader();
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(milliseconds: 100));
       CallLoader.hideLoader();
 
       // CallLoader.hideLoader();
 
       await accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(seconds: 2),
+          const Duration(milliseconds: 700),
           () {
-            // labcheckoutApi();
+            //labcheckoutApi();
             Get.to(() => LabAppointmentCheckout());
 
             //Get.to((page))
@@ -193,12 +193,12 @@ class LabListController extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Select date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );

@@ -2966,7 +2966,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
 
     var url = '${baseUrl}api/FranchisesApi/Dept_spec_List?Id=$adminId';
-    print("urlvvr1: ${url}");
+    // print("urlvvr1: ${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {

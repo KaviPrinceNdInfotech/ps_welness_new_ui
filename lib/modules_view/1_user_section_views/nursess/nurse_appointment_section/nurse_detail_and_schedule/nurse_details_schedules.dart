@@ -17,7 +17,6 @@ import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../../controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
 import '../../../../../controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_user_ratting_review_controller/nurse_user_rating_review_controller.dart';
-import '../../../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import '../nurse_lists/nurse_list_appointment.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
@@ -305,7 +304,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                       height: size.height * 0.00,
                                     ),
                                     SizedBox(
-                                      height: size.height * 0.055,
+                                      height: size.height * 0.095,
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
@@ -313,7 +312,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
 
                                           //_nurseAppointmentDetailController.nursedetailbyId!.about.toString(),
                                           //'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                                          maxLines: 3,
+                                          maxLines: 5,
                                           style: TextStyle(
                                             overflow: TextOverflow.ellipsis,
                                             //fontWeight: FontWeight.bold,
@@ -462,166 +461,169 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                       //       );
                                       //     }),
                                     ),
-                                    SizedBox(
-                                      height: size.height * 0.00,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Book a Time:',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: size.height * 0.02,
-                                          //color: Colors.red.shade300,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: size.height * 0.075,
-                                      width: size.width,
-                                      child: Container(
-                                        width: double.infinity,
-                                        margin: EdgeInsets.symmetric(
-                                            vertical: 30 / 7),
-                                        decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.centerLeft,
-                                                end: Alignment.centerRight,
-                                                colors: [
-                                                  lightPrimary,
-                                                  darkPrimary,
-                                                ]),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: Offset(-1, -1),
-                                                spreadRadius: 1,
-                                                blurRadius: 3,
-                                                color: Colors.white,
-                                              ),
-                                              BoxShadow(
-                                                offset: Offset(2, 2),
-                                                spreadRadius: 1,
-                                                blurRadius: 0,
-                                                color: Colors.grey,
-                                              ),
-                                            ]),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: size.width * 0.01,
-                                            //vertical: size.height * 0.02
-                                          ),
-                                          child: Obx(
-                                            () => DropdownButtonFormField<
-                                                    TimeSlot>(
-                                                value:
-                                                    _nurseAppointmentDetailController
-                                                        .selectedTimeslot.value,
-                                                decoration: InputDecoration(
-                                                  prefixIcon: Icon(
-                                                    Icons.more_time,
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      InputBorder.none,
-                                                  border: InputBorder.none,
-                                                ),
-                                                hint: Text('Select Your Slots'),
-                                                items:
-                                                    _nurseAppointmentDetailController
-                                                        .timeslot
-                                                        .map((TimeSlot
-                                                            timeslot) {
-                                                  return DropdownMenuItem(
-                                                    value: timeslot,
-                                                    child: Text(
-                                                      timeslot.slotTime
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize:
-                                                            size.height * 0.015,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                                onChanged:
-                                                    (TimeSlot? newValue) {
-                                                  _nurseAppointmentDetailController
-                                                      .selectedTimeslot
-                                                      .value = newValue!;
-                                                  // _nurseBooking1Controller.selectedCity.value = null;
-                                                  // _hospital_2_controller.states.value =
-                                                  //     newValue! as List<String>;
-                                                  // _hospital_2_controller.selectedCity.value = null;
-                                                  // _hospital_2_controller.cities.clear();
-                                                  // _hospital_2_controller.cities
-                                                  //     .addAll(stateCityMap[newvalue]!);
-                                                }),
-                                          ),
-                                        ),
-                                      ),
-                                      // ListView.builder(
-                                      //     shrinkWrap: true,
-                                      //     scrollDirection: Axis.horizontal,
-                                      //     itemCount: 32,
-                                      //     itemBuilder: (BuildContext context, int index) {
-                                      //       return Padding(
-                                      //         padding: const EdgeInsets.all(3.0),
-                                      //         child: PhysicalModel(
-                                      //           color: MyTheme.white,
-                                      //           borderRadius: BorderRadius.circular(5),
-                                      //           elevation: 20,
-                                      //           child: Padding(
-                                      //             padding: EdgeInsets.symmetric(
-                                      //                 horizontal: size.width * 0.01,
-                                      //                 vertical: size.height * 0.004),
-                                      //             child: Container(
-                                      //               //height: size.height * 0.025,
-                                      //               width: size.width * 0.17,
-                                      //               decoration: BoxDecoration(
-                                      //                 color: MyTheme.ThemeColors,
-                                      //                 borderRadius: BorderRadius.circular(5),
-                                      //               ),
-                                      //               child: Column(
-                                      //                 mainAxisAlignment:
-                                      //                     MainAxisAlignment.center,
-                                      //                 children: [
-                                      //                   Text(
-                                      //                     'MAR',
-                                      //                     style: TextStyle(
-                                      //                       fontSize: size.height * 0.015,
-                                      //                       fontWeight: FontWeight.w600,
-                                      //                       color: Colors.white,
-                                      //                     ),
-                                      //                   ),
-                                      //                   SizedBox(
-                                      //                     height: size.height * 0.01,
-                                      //                   ),
-                                      //                   Text(
-                                      //                     '${index}',
-                                      //                     style: TextStyle(
-                                      //                       fontSize: size.height * 0.016,
-                                      //                       fontWeight: FontWeight.w600,
-                                      //                       color: Colors.white,
-                                      //                     ),
-                                      //                   ),
-                                      //                 ],
-                                      //               ),
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //       );
-                                      //     }),
-                                    ),
+
+                                    ///
+                                    // SizedBox(
+                                    //   height: size.height * 0.00,
+                                    // ),
+                                    // Align(
+                                    //   alignment: Alignment.centerLeft,
+                                    //   child: Text(
+                                    //     'Book a Time:',
+                                    //     style: TextStyle(
+                                    //       fontWeight: FontWeight.w600,
+                                    //       fontSize: size.height * 0.02,
+                                    //       //color: Colors.red.shade300,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    ///
+                                    // SizedBox(
+                                    //   height: size.height * 0.075,
+                                    //   width: size.width,
+                                    //   child: Container(
+                                    //     width: double.infinity,
+                                    //     margin: EdgeInsets.symmetric(
+                                    //         vertical: 30 / 7),
+                                    //     decoration: BoxDecoration(
+                                    //         gradient: LinearGradient(
+                                    //             begin: Alignment.centerLeft,
+                                    //             end: Alignment.centerRight,
+                                    //             colors: [
+                                    //               lightPrimary,
+                                    //               darkPrimary,
+                                    //             ]),
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(12),
+                                    //         boxShadow: [
+                                    //           BoxShadow(
+                                    //             offset: Offset(-1, -1),
+                                    //             spreadRadius: 1,
+                                    //             blurRadius: 3,
+                                    //             color: Colors.white,
+                                    //           ),
+                                    //           BoxShadow(
+                                    //             offset: Offset(2, 2),
+                                    //             spreadRadius: 1,
+                                    //             blurRadius: 0,
+                                    //             color: Colors.grey,
+                                    //           ),
+                                    //         ]),
+                                    //     child: Padding(
+                                    //       padding: EdgeInsets.symmetric(
+                                    //         horizontal: size.width * 0.01,
+                                    //         //vertical: size.height * 0.02
+                                    //       ),
+                                    //       child: Obx(
+                                    //         () => DropdownButtonFormField<
+                                    //                 TimeSlot>(
+                                    //             value:
+                                    //                 _nurseAppointmentDetailController
+                                    //                     .selectedTimeslot.value,
+                                    //             decoration: InputDecoration(
+                                    //               prefixIcon: Icon(
+                                    //                 Icons.more_time,
+                                    //                 color: Colors.black,
+                                    //               ),
+                                    //               enabledBorder:
+                                    //                   InputBorder.none,
+                                    //               border: InputBorder.none,
+                                    //             ),
+                                    //             hint: Text('Select Your Slots'),
+                                    //             items:
+                                    //                 _nurseAppointmentDetailController
+                                    //                     .timeslot
+                                    //                     .map((TimeSlot
+                                    //                         timeslot) {
+                                    //               return DropdownMenuItem(
+                                    //                 value: timeslot,
+                                    //                 child: Text(
+                                    //                   timeslot.slotTime
+                                    //                       .toString(),
+                                    //                   style: TextStyle(
+                                    //                     fontWeight:
+                                    //                         FontWeight.w600,
+                                    //                     fontSize:
+                                    //                         size.height * 0.015,
+                                    //                   ),
+                                    //                 ),
+                                    //               );
+                                    //             }).toList(),
+                                    //             onChanged:
+                                    //                 (TimeSlot? newValue) {
+                                    //               _nurseAppointmentDetailController
+                                    //                   .selectedTimeslot
+                                    //                   .value = newValue!;
+                                    //               // _nurseBooking1Controller.selectedCity.value = null;
+                                    //               // _hospital_2_controller.states.value =
+                                    //               //     newValue! as List<String>;
+                                    //               // _hospital_2_controller.selectedCity.value = null;
+                                    //               // _hospital_2_controller.cities.clear();
+                                    //               // _hospital_2_controller.cities
+                                    //               //     .addAll(stateCityMap[newvalue]!);
+                                    //             }),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    //   // ListView.builder(
+                                    //   //     shrinkWrap: true,
+                                    //   //     scrollDirection: Axis.horizontal,
+                                    //   //     itemCount: 32,
+                                    //   //     itemBuilder: (BuildContext context, int index) {
+                                    //   //       return Padding(
+                                    //   //         padding: const EdgeInsets.all(3.0),
+                                    //   //         child: PhysicalModel(
+                                    //   //           color: MyTheme.white,
+                                    //   //           borderRadius: BorderRadius.circular(5),
+                                    //   //           elevation: 20,
+                                    //   //           child: Padding(
+                                    //   //             padding: EdgeInsets.symmetric(
+                                    //   //                 horizontal: size.width * 0.01,
+                                    //   //                 vertical: size.height * 0.004),
+                                    //   //             child: Container(
+                                    //   //               //height: size.height * 0.025,
+                                    //   //               width: size.width * 0.17,
+                                    //   //               decoration: BoxDecoration(
+                                    //   //                 color: MyTheme.ThemeColors,
+                                    //   //                 borderRadius: BorderRadius.circular(5),
+                                    //   //               ),
+                                    //   //               child: Column(
+                                    //   //                 mainAxisAlignment:
+                                    //   //                     MainAxisAlignment.center,
+                                    //   //                 children: [
+                                    //   //                   Text(
+                                    //   //                     'MAR',
+                                    //   //                     style: TextStyle(
+                                    //   //                       fontSize: size.height * 0.015,
+                                    //   //                       fontWeight: FontWeight.w600,
+                                    //   //                       color: Colors.white,
+                                    //   //                     ),
+                                    //   //                   ),
+                                    //   //                   SizedBox(
+                                    //   //                     height: size.height * 0.01,
+                                    //   //                   ),
+                                    //   //                   Text(
+                                    //   //                     '${index}',
+                                    //   //                     style: TextStyle(
+                                    //   //                       fontSize: size.height * 0.016,
+                                    //   //                       fontWeight: FontWeight.w600,
+                                    //   //                       color: Colors.white,
+                                    //   //                     ),
+                                    //   //                   ),
+                                    //   //                 ],
+                                    //   //               ),
+                                    //   //             ),
+                                    //   //           ),
+                                    //   //         ),
+                                    //   //       );
+                                    //   //     }),
+                                    // ),
+                                    ///
                                     SizedBox(
                                       height: size.height * 0.002,
                                     ),
-                                    SizedBox(
-                                      height: size.height * 0.0,
-                                    ),
+                                    //
+
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
@@ -638,7 +640,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                       height: size.height * 0.004,
                                     ),
                                     SizedBox(
-                                      height: size.height * 0.20,
+                                      height: size.height * 0.25,
                                       child: Obx(
                                         () => (_nurseAppointmentDetailController
                                                     .isLoading.value &&

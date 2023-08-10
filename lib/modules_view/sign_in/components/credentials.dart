@@ -207,7 +207,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 class Credentials extends StatelessWidget {
   Credentials({Key? key}) : super(key: key);
 
-  LoginpasswordController _loginpasswordController =
+  final LoginpasswordController _loginpasswordController =
       Get.put(LoginpasswordController());
 
   @override
@@ -254,6 +254,8 @@ class Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
+            ///
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 controller: _loginpasswordController.passwordController,
@@ -280,11 +282,15 @@ class Credentials extends StatelessWidget {
                 ),
               ),
             ),
+
+            ///
+
             // RectangularInputField(
             //   hintText: 'Password',
             //   icon: Icons.lock,
             //   obscureText: true,
             // ),
+
             SizedBox(
               height: size.height * 0.00,
               //appPadding / 2,
@@ -322,13 +328,20 @@ class Credentials extends StatelessWidget {
             //     ),
             //   ),
             // ),
-
             RectangularButton(
                 text: 'Sign In',
-                press: () {
-                  CallLoader.loader();
+                press: () async {
+                  // CallLoader.loader();
                   _loginpasswordController.checkLoginpassword();
-                  _getGeoLocationPosition();
+                  // _getGeoLocationPosition();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(seconds: 1));
+                  CallLoader.hideLoader();
+                  //CallLoader.hideLoader();
+
+                  // await Future.delayed(Duration(seconds: 1));
+                  //       // Get.snackbar("Failed", "${r.body}");
+                  //       CallLoader.hideLoader();
                   //Get.to(SignUpList());
                   //_loginpasswordController.checkLoginpassword();
                 })
@@ -341,7 +354,7 @@ class Credentials extends StatelessWidget {
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     await Get.dialog(
       // bool barrierDismissible = true
 

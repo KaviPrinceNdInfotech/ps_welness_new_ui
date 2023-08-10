@@ -61,7 +61,7 @@ class MedicinrHistoryUser extends StatelessWidget {
                           color: Colors.white),
                       width: size.width * 0.9,
                       height: size.height * 0.06,
-                      margin: new EdgeInsets.fromLTRB(15, 2, 10, 20),
+                      margin: new EdgeInsets.fromLTRB(15, 2, 10, 10),
                       padding: new EdgeInsets.fromLTRB(2, 2, 2, 2),
                       child: Theme(
                         data: Theme.of(context)
@@ -83,7 +83,7 @@ class MedicinrHistoryUser extends StatelessWidget {
                             fillColor: Colors.white,
                             hintText: 'Search Medicine..',
                             contentPadding: const EdgeInsets.only(
-                                left: 10.0, bottom: 12.0, top: 12.0),
+                                left: 10.0, bottom: 15.0, top: 12.0),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(25.7),
@@ -402,17 +402,22 @@ class MedicinrHistoryUser extends StatelessWidget {
                                                                     size.width *
                                                                         0.039),
                                                       ),
-                                                      Text(
-                                                        _medicineHistoryController
-                                                            .foundMedicinehistory[
-                                                                index]
-                                                            .deliveryAddress
-                                                            .toString(),
+                                                      SizedBox(
+                                                        height: size.height *
+                                                            0.0266,
+                                                        width:
+                                                            size.width * 0.518,
+                                                        child: Center(
+                                                          child: Text(
+                                                            _medicineHistoryController
+                                                                .foundMedicinehistory[
+                                                                    index]
+                                                                .deliveryAddress
+                                                                .toString(),
 
-                                                        //  _medicineHistoryController.medicinelistmodel!.data[index].brandName.toString(),
-                                                        //'Cipla     ',
-                                                        style:
-                                                            GoogleFonts.raleway(
+                                                            //  _medicineHistoryController.medicinelistmodel!.data[index].brandName.toString(),
+                                                            //'Cipla     ',
+                                                            style: GoogleFonts.raleway(
                                                                 color: Colors
                                                                     .cyanAccent,
                                                                 fontWeight:
@@ -420,7 +425,9 @@ class MedicinrHistoryUser extends StatelessWidget {
                                                                         .w700,
                                                                 fontSize:
                                                                     size.width *
-                                                                        0.039),
+                                                                        0.027),
+                                                          ),
+                                                        ),
                                                       ),
                                                       Text(
                                                         _medicineHistoryController

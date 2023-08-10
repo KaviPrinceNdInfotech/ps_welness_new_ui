@@ -330,7 +330,7 @@ class Fr_Chemist_1_Controller extends GetxController {
       CallLoader.loader();
       await Future.delayed(Duration(milliseconds: 1000));
       CallLoader.hideLoader();
-      Get.offAll(FranchiseChemistSignup2());
+      Get.to(FranchiseChemistSignup2());
       //onDelete();
 
       // onClose();
