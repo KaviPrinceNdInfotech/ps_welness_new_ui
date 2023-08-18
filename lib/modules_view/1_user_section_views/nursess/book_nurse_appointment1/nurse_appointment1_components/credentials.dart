@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -750,6 +751,120 @@ class Nursebooking1Credentials extends StatelessWidget {
             //   icon: Icons.lock,
             //   obscureText: true,
             // ),
+            ///Todo: state............................
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+
+            Text(
+              'Select your state:',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                  () => DropdownButtonFormField<StateModel>(
+                      value: _nurseBooking1Controller.selectedState.value,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.real_estate_agent,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: const Text('Select State'),
+                      items: _nurseBooking1Controller.states
+                          .map((StateModel state) {
+                        return DropdownMenuItem(
+                          value: state,
+                          child: Text(
+                            state.stateName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (StateModel? newValue) {
+                        _nurseBooking1Controller.selectedState.value =
+                            newValue!;
+                        _nurseBooking1Controller.selectedCity.value = null;
+                        // _hospital_2_controller.states.value =
+                        //     newValue! as List<String>;
+                        // _hospital_2_controller.selectedCity.value = null;
+                        // _hospital_2_controller.cities.clear();
+                        // _hospital_2_controller.cities
+                        //     .addAll(stateCityMap[newvalue]!);
+                      }),
+                ),
+              ),
+            ),
+
+            ///Todo: city.....................................
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            Text(
+              'Select your city:',
+              style: TextStyle(
+                fontSize: size.height * 0.016,
+                fontWeight: FontWeight.bold,
+                color: MyTheme.blueww,
+              ),
+            ),
+
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                  () => DropdownButtonFormField<City>(
+                      //icon: Icon(Icons.location_city),
+                      value: _nurseBooking1Controller.selectedCity.value,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.location_city,
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: const Text('Selected City'),
+                      items: _nurseBooking1Controller.cities.map((City city) {
+                        return DropdownMenuItem(
+                          value: city,
+                          child: Text(
+                            city.cityName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onTap: () {
+                        _nurseBooking1Controller.refresh();
+                      },
+                      onChanged: (City? newValue) {
+                        _nurseBooking1Controller.selectedCity.value = newValue!;
+                        // _hospital_2_controller.states.value =
+                        //     newValue! as List<String>;
+                        // _hospital_2_controller.selectedCity.value = null;
+                        // _hospital_2_controller.cities.clear();
+                        // _hospital_2_controller.cities
+                        //     .addAll(stateCityMap[newvalue]!);
+                      }),
+                ),
+              ),
+            ),
 
             SizedBox(
               height: size.height * 0.01,
@@ -758,7 +873,7 @@ class Nursebooking1Credentials extends StatelessWidget {
             ///todo: address value..........
 
             Text(
-              'Enter your Location:',
+              'Enter your Address:',
               style: TextStyle(
                 fontSize: size.height * 0.016,
                 fontWeight: FontWeight.bold,
@@ -766,42 +881,30 @@ class Nursebooking1Credentials extends StatelessWidget {
               ),
             ),
             NeumorphicTextFieldContainer(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
-                child: Obx(
-                  () => DropdownButtonFormField<NurseLocationModel>(
-                      value:
-                          _nurseBooking1Controller.selectedNurseLocation.value,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.place,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: Text('Select Locations'),
-                      items: _nurseBooking1Controller.locations
-                          .map((NurseLocationModel locations) {
-                        return DropdownMenuItem(
-                          value: locations,
-                          child: SizedBox(
-                            height: size.height * 0.06,
-                            width: size.width * 0.55,
-                            child: Text(
-                              locations.locationName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.015,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (NurseLocationModel? newValue) {
-                        _nurseBooking1Controller.selectedNurseLocation.value =
-                            newValue!;
-                      }),
+              child: TextFormField(
+                // autofillHints: [AutofillHints.telephoneNumber],
+                controller: _nurseBooking1Controller.locationcontroller,
+                //keyboardType: TextInputType.t,
+                onSaved: (value) {
+                  _nurseBooking1Controller.Location = value!;
+                },
+                validator: (value) {
+                  return _nurseBooking1Controller.validAddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Address',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.home_filled,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
                 ),
               ),
             ),
@@ -823,6 +926,11 @@ class Nursebooking1Credentials extends StatelessWidget {
                 press: () async {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
+                  //_nurseBooking1Controller.cities
+                  prefs.setString("nurseStateId",
+                      "${_nurseBooking1Controller.selectedState.value?.id.toString()}");
+                  prefs.setString("nurseCityId",
+                      "${_nurseBooking1Controller.selectedCity.value?.id.toString()}");
                   prefs.setString("nurseLocationId",
                       "${_nurseBooking1Controller.selectedNurseLocation.value?.id.toString()}");
                   CallLoader.loader();

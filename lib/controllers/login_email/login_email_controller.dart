@@ -315,6 +315,7 @@ class LoginpasswordController extends GetxController {
         case 'patient':
           _userprofile.userprofileApi();
           _userprofile.update();
+          _userprofile.onInit();
 
           /// we can navigate to user page.....................................
           Get.to(UserHomePage());

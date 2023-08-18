@@ -3475,65 +3475,65 @@ class ApiProvider {
 
   ///todo Register Doctor................Rahul
   static FrenchiesRegisterDoctor(
-      var doctorName,
-      var email,
-      var password,
-      var confirmPassword,
-      var mobileNumber,
-      var phone,
-      var clinicName,
-      var stateId,
-      var cityId,
-      var location,
-      var licenceImage,
-      var licenceBase64,
-      var licenceNumber,
-      var licenceValidity,
-      var pin,
-      var panImage,
-      var panImageBase64,
+      var DoctorName,
+      var EmailId,
+      var Password,
+      var ConfirmPassword,
+      var MobileNumber,
+      var PhoneNumber,
+      var ClinicName,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var Location,
+      var LicenceImage,
+      var LicenceBase64,
+      var LicenceNumber,
+      var LicenseValidity,
+      var PinCode,
+      var PanImage,
+      var PanImageBase64,
       var SlotTime,
       var startTime,
-      var endTime,
+      var EndTime,
       var SlotTime2,
       var StartTime2,
-      var EndTime2) async {
+      var EndTime2,
+      var Experience) async {
     Id = prefs.read("Id").toString();
     final url = '${baseUrl}api/FranchisesApi/fra_DoctorRegistration';
     final body = {
-      "DoctorName": "$doctorName",
-      "EmailId": "$email",
-      "Password": "$password",
-      "ConfirmPassword": "$confirmPassword",
-      "MobileNumber": "$mobileNumber",
-      "PhoneNumber": "$phone",
-      "ClinicName": "$clinicName",
-      "StateMaster_Id": "$stateId",
-      "CityMaster_Id": "$cityId",
-      "Location": "$location",
-      "LicenceImage": "$licenceImage",
-      "LicenceBase64": "$licenceBase64",
-      "LicenceNumber": "$licenceNumber",
-      "LicenseValidity": "$licenceValidity",
-      "PinCode": "$pin",
-      "PanImage": "$panImage",
-      "PanImageBase64": "$panImageBase64",
+      "DoctorName": "$DoctorName",
+      "EmailId": "$EmailId",
+      "Password": "$Password",
+      "ConfirmPassword": "$ConfirmPassword",
+      "MobileNumber": "$MobileNumber",
+      "PhoneNumber": "$PhoneNumber",
+      "ClinicName": "$ClinicName",
+      "StateMaster_Id": "$StateMaster_Id",
+      "CityMaster_Id": "$CityMaster_Id",
+      "Location": "$Location",
+      "LicenceImage": "$LicenceImage",
+      "LicenceBase64": "$LicenceBase64",
+      "LicenceNumber": "$LicenceNumber",
+      "LicenseValidity": "$LicenseValidity",
+      "PinCode": "$PinCode",
+      "PanImage": "$PanImage",
+      "PanImageBase64": "$PanImageBase64",
       "SlotTime": "$SlotTime",
-      "StartTime": "14:27:00.0000000",
-      //startTime,
+      "StartTime": "01:50:00.0000000",
       "EndTime": "14:27:00.0000000",
-      //endTime,
       "SlotTime2": "$SlotTime2",
       "StartTime2": "14:27:00.0000000",
-      //StartTime2,
-      "EndTime2": "14:27:00.0000000",
-      //EndTime2,
-      "Vendor_Id": "$Id"
+      "EndTime2": "18:24:00.0000000",
+      "Vendor_Id": "$Id",
+      "Experience": "$Experience"
     };
     final http.Response r = await http.post(Uri.parse(url), body: body);
     print('FrenchiesRegisterDoctor1212: ${body}');
+    print("ttf:${body}");
     if (r.statusCode == 200) {
       print("ttftft66:${EndTime2}");
+      print("ttftft662323:${Experience}");
 
       Get.snackbar("Successs", "${r.body}");
     }
@@ -3620,20 +3620,23 @@ class ApiProvider {
 
   /// todo Frenchies Register Nurse....................Rahul
   static FrenchiesRegisterNurse(
-      var NurseName,
-      var EmailId,
-      var Password,
-      var ConfirmPassword,
-      var MobileNumber,
-      var Location,
-      var stateId,
-      var cityId,
-      var Certificateimg,
-      var certificateBase64,
-      var CertificateNumber,
-      var PinCode,
-      var NurseType_Id,
-      var fee) async {
+    var NurseName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var Location,
+    var stateId,
+    var cityId,
+    var Certificateimg,
+    var certificateBase64,
+    var CertificateNumber,
+    var PinCode,
+    var NurseType_Id,
+    var fee,
+    //var Location_id,
+    var experience,
+  ) async {
     print("NurseType : ${NurseType_Id}");
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_NurseRegistration';
@@ -3653,7 +3656,8 @@ class ApiProvider {
       "NurseType_Id": "$NurseType_Id",
       "Fee": "$fee",
       "Location_id": "67",
-      "Vendor_Id": "$Id"
+      "Vendor_Id": "$Id",
+      "experience": "$experience",
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterNurse: ${body}");

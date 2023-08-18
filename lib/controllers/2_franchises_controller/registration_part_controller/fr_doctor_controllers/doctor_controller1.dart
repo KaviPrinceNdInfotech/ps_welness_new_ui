@@ -41,7 +41,8 @@ class FrDoctor_1_Controller extends GetxController {
       endTimeController,
       SlotTime2Controller,
       StartTime2Controller,
-      EndTime2Controller;
+      EndTime2Controller,
+      ExperienceController;
 
   var name = '';
   var email = '';
@@ -54,6 +55,7 @@ class FrDoctor_1_Controller extends GetxController {
   var address = '';
   var certificateno = '';
   var certificatevelidity = '';
+  var Experience;
 
   var selectedLicenceImagepath = ''.obs;
   var selectedPanImagepath = ''.obs;
@@ -125,13 +127,12 @@ class FrDoctor_1_Controller extends GetxController {
       selectedPanImagepath.value.split('/').last,
       PanImageAsBase64,
       SlotTimeController?.text,
-
-      ///
-      {selectedTime?.value.hour},
+      selectedTime?.value.hour,
       selectedTime2?.value.hour,
       SlotTime2Controller?.text,
       selectedTime3?.value.hour,
       selectedTime4?.value.hour,
+      ExperienceController?.text,
     );
     if (r.statusCode == 200) {
       print("ttftft${SlotTimeController?.text}");
@@ -181,6 +182,7 @@ class FrDoctor_1_Controller extends GetxController {
     SlotTime2Controller = TextEditingController(text: '');
     StartTime2Controller = TextEditingController(text: '');
     EndTime2Controller = TextEditingController(text: '');
+    ExperienceController = TextEditingController();
     super.onInit();
   }
 

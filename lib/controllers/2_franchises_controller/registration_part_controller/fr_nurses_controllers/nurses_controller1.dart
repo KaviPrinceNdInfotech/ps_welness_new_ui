@@ -52,6 +52,7 @@ class FrNurses_1_controller extends GetxController {
       pinController,
       certificateController,
       addressController,
+      experienceController,
       feeController;
 
   var name = '';
@@ -64,6 +65,7 @@ class FrNurses_1_controller extends GetxController {
   var certificateno = '';
   var day = '';
   var location = '';
+  var experience = '';
   var selectedImagepath = ''.obs;
 
   void getStateLabApi() async {
@@ -109,6 +111,7 @@ class FrNurses_1_controller extends GetxController {
       pinController.text,
       selectedNurse.value?.id.toString(),
       feeController.text,
+      experienceController.text,
     );
     if (r.statusCode == 200) {
       Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
@@ -137,6 +140,7 @@ class FrNurses_1_controller extends GetxController {
     addressController = TextEditingController();
     certificateController = TextEditingController();
     feeController = TextEditingController();
+    experienceController = TextEditingController();
   }
 
   @override

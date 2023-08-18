@@ -451,12 +451,12 @@ class Driver_1111_Controller extends GetxController {
 
   String? validFees(String value) {
     if (value.isEmpty) {
-      return '              Enter your charge per KM';
+      return '                Enter your charge per KM';
     }
-    if (value.length < 2) {
-      return '              maximum fees in 3 digits';
-    }
-    return null;
+    // if (value.length < 2) {
+    //   return '              maximum fees in 3 digits';
+    // }
+    // return null;
   }
 
   String? validPin(String value) {

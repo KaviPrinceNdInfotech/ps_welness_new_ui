@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 
 import '../../../model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import '../../../model/1_user_model/nurse_location_model/nurse_location_models.dart';
@@ -40,9 +42,20 @@ class NurseBooking1Controller extends GetxController {
   var appointment = ''.obs;
 
   ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
+  // Rx<String?> selectedCity = (null as String?).obs;
   final selectednurse = "".obs;
-  RxList<String> cities = <String>[].obs;
+  // RxList<String> cities = <String>[].obs;
+  ///
+
+  ///this is for state.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+
+  ///
   //this is for nurse type.................................
   Rx<NurseModels?> selectedNurse = (null as NurseModels?).obs;
   List<NurseModels> nurse = <NurseModels>[].obs;
@@ -80,8 +93,8 @@ class NurseBooking1Controller extends GetxController {
   }
 
   //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  //Rx<String?> selectedState = (null as String?).obs;
+  // RxList<String> states = <String>[].obs;
 
   NurseList? nurseListUser;
 
@@ -95,6 +108,21 @@ class NurseBooking1Controller extends GetxController {
       isLoading(false);
       //Get.to(()=>Container());
     }
+  }
+
+  void getStateNurseeApi() async {
+    states = await ApiProvider.getSatesApi();
+    print('Prince state  list');
+    print(states);
+  }
+
+  ///get cities api...........
+  void getCityByStateIDNursee(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+    print("Prince cities of $stateID");
+    print(cities);
   }
 
   ///nurse type api class.................
@@ -119,16 +147,15 @@ class NurseBooking1Controller extends GetxController {
   void nurseBooking1Api() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.Nursesebooking1Api(
-      // patientIdController.text,
       selectedNurse.value?.id.toString(),
       selectedhours.value,
       selectedshift.value,
       appointmentController1.text,
       appointmentController2.text,
       mobileNumberController.text,
-      selectedNurseLocation.value?.id.toString(),
-      //selectedState.value?.id.toString(),
-      // selectedCity.value?.id.toString(),
+      locationcontroller.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
     );
 
     if (r.statusCode == 200) {
@@ -137,6 +164,9 @@ class NurseBooking1Controller extends GetxController {
       CallLoader.hideLoader();
       _nurseUserListController.update();
       _nurseUserListController.nurselistsuserApi();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
       Get.offAll(NurseListUser());
       //Get.to(NurseDetailsSchedulePage());
 
@@ -180,6 +210,7 @@ class NurseBooking1Controller extends GetxController {
       serviceTimeController,
       startDateController,
       endDateController,
+      locationcontroller,
       mobileNumberController;
 
   ///todo new user nurse booking 1.....
@@ -191,11 +222,11 @@ class NurseBooking1Controller extends GetxController {
   var StartDate = '';
   var EndDate = '';
   var MobileNumber = '';
-  var LocationId = '';
+  var Location = '';
 
   @override
   void onInit() {
-    states.refresh();
+    //states.refresh();
     super.onInit();
     labListApi();
     getNurseTypeApi();
@@ -209,12 +240,20 @@ class NurseBooking1Controller extends GetxController {
     startDateController = TextEditingController();
     endDateController = TextEditingController();
     mobileNumberController = TextEditingController();
+    locationcontroller = TextEditingController();
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "YYYY-MM-DD";
 
     appointmentController2 = TextEditingController();
     appointmentController2.text = "YYYY-MM-DD";
+    getStateNurseeApi();
+    //getdepartmentApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDNursee("${p0.id}");
+      }
+    });
   }
 
   @override
@@ -306,6 +345,13 @@ class NurseBooking1Controller extends GetxController {
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
+    }
+    return null;
+  }
+
+  String? validlocation(String value) {
+    if (value.length < 2) {
+      return "              Provide Address";
     }
     return null;
   }

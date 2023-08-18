@@ -190,12 +190,43 @@ class FrNurses1Credentials extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: size.height * 0.00,
+              height: size.height * 0.02,
               //appPadding / 2,
             ),
+
+            ///TODO: experience.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _frnurses_1_controller.experienceController,
+                onSaved: (value) {
+                  _frnurses_1_controller.experience = value!;
+                },
+                validator: (value) {
+                  return _frnurses_1_controller.validAddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Enter Experience in year',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.accessibility,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
             SizedBox(
               height: size.height * 0.03,
             ),
+
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),

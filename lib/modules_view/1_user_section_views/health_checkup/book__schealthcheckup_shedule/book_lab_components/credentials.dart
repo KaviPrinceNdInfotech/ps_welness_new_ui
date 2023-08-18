@@ -59,7 +59,7 @@ class LabScheduleCredentials extends StatelessWidget {
             ///todo:selected date starting...
 
             Text(
-              'Choose Date:',
+              'Date of Booking:',
               style: TextStyle(
                 fontSize: size.height * 0.016,
                 fontWeight: FontWeight.bold,

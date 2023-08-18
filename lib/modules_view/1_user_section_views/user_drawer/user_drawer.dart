@@ -7,8 +7,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
+import 'package:ps_welness_new_ui/controllers/profile_u_controller/profile_update_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
@@ -56,9 +58,16 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
     Wallet_2_Controller _wallet_2_controller = Get.put(Wallet_2_Controller());
     LoginpasswordController _loginpasswordControllerr = Get.find();
 
+    ProfileController _profileController = Get.put(ProfileController());
+
     ///
 
-    return SafeArea(
+    return
+        // Obx(
+        // () => (_loginpasswordControllerr.isLoading.isFalse)
+        //     ? CircularProgressIndicator()
+        //     :
+        SafeArea(
       child: Drawer(
         backgroundColor: MyTheme.ContainerUnSelectedColor,
         child: ListView(
@@ -74,39 +83,70 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: size.width * 0.065,
-                      child: Center(
-                          child: Padding(
-                        padding: EdgeInsets.all(size.height * 0.0),
-                        child: Image.asset(
-                          'lib/assets/image/ps_welness2.png',
-                          height: size.height * 0.04,
-                        ),
-                      )),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0,
-                    ),
-                    Text(
-                      "${_userprofile.userProfile?.patientName.toString()}"
-                      //'Kumar Prince',
-                      ,
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.02,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
-                    ),
-                    Text(
-                      "${_userprofile.userProfile?.emailId.toString()}"
+                    Container(
+                        width: 88.0,
+                        height: 80.0,
+                        decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    "lib/assets/image/ps_welness2.png")))),
+                    // Container(
+                    //   width: 100.0,
+                    //   height: 150.0,
+                    //   decoration: BoxDecoration(
+                    //     image: DecorationImage(
+                    //         fit: BoxFit.cover,
+                    //         image: AssetImage(
+                    //             'lib/assets/image/ps_welness2.png')),
+                    //     borderRadius:
+                    //         BorderRadius.all(Radius.circular(8.0)),
+                    //     color: Colors.redAccent,
+                    //   ),
+                    // ),..
+                    ///
+                    // CircleAvatar(
+                    //   backgroundColor: Colors.white,
+                    //   radius: size.width * 0.095,
+                    //   child: Center(
+                    //       child: Padding(
+                    //     padding: EdgeInsets.all(size.height * 0.0),
+                    //     child: Image.asset(
+                    //       'lib/assets/image/ps_welness2.png',
+                    //       height: size.height * 0.06,
+                    //     ),
+                    //   )),
+                    // ),
+                    Spacer(),
 
-                      //'prince@gmail.com',
-                      ,
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.016,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
+                    Obx(
+                      () => (_userprofile.isLoading.value)
+                          ? CircularProgressIndicator()
+                          : Text(
+                              "${_userprofile.userProfile?.patientName.toString()}"
+                              //'Kumar Prince',
+                              ,
+                              style: GoogleFonts.roboto(
+                                  fontSize: size.height * 0.02,
+                                  fontWeight: FontWeight.w700,
+                                  color: MyTheme.blueww),
+                            ),
+                    ),
+                    Spacer(),
+                    Obx(
+                      () => (_userprofile.isLoading.value)
+                          ? CircularProgressIndicator()
+                          : Text(
+                              "${_userprofile.userProfile?.emailId.toString()}"
+
+                              //'prince@gmail.com',
+                              ,
+                              style: GoogleFonts.roboto(
+                                  fontSize: size.height * 0.016,
+                                  fontWeight: FontWeight.w700,
+                                  color: MyTheme.blueww),
+                            ),
                     ),
                   ],
                 ),
@@ -115,6 +155,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
 
             ListTile(
               // horizontalTitleGap: 10,
+
               leading: Icon(
                 FontAwesomeIcons.home,
                 color: MyTheme.blueww,
@@ -267,7 +308,8 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => ProfilePage());
+                // _profileController.onInit();
+                Get.offAll(() => ProfilePage());
                 Get.offNamed('/ProfilePage');
               },
             ),
@@ -330,12 +372,30 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               tileColor: Get.currentRoute == '/DoctorHistoryUser'
                   ? Colors.grey[00]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
                 _doctorHistoryController.update();
                 _doctorHistoryController.doctorListHospitalApi();
-                Get.to(() => DoctorHistoryUser());
+
+                final permissionStatus = await Permission.storage.status;
+                if (permissionStatus.isDenied) {
+                  // Here just ask for the permission for the first time
+                  await Permission.storage.request();
+
+                  // I noticed that sometimes popup won't show after user press deny
+                  // so I do the check once again but now go straight to appSettings
+                  if (permissionStatus.isDenied) {
+                    await openAppSettings();
+                  }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Here open app settings for user to manually enable permission in case
+                  // where permission was permanently denied
+                  await openAppSettings();
+                } else {
+                  // Do stuff that require permission here
+                }
+                Get.back();
+                await Get.to(() => DoctorHistoryUser());
                 Get.offNamed('/DoctorHistoryUser');
               },
             ),
@@ -365,10 +425,28 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               tileColor: Get.currentRoute == '/MedicinrHistoryUser'
                   ? Colors.grey[00]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
+
+                final permissionStatus = await Permission.storage.status;
+                if (permissionStatus.isDenied) {
+                  // Here just ask for the permission for the first time
+                  await Permission.storage.request();
+
+                  // I noticed that sometimes popup won't show after user press deny
+                  // so I do the check once again but now go straight to appSettings
+                  if (permissionStatus.isDenied) {
+                    await openAppSettings();
+                  }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Here open app settings for user to manually enable permission in case
+                  // where permission was permanently denied
+                  await openAppSettings();
+                } else {
+                  // Do stuff that require permission here
+                }
                 Get.back();
-                Get.to(() => MedicinrHistoryUser());
+                await Get.to(() => MedicinrHistoryUser());
                 Get.offNamed('/MedicinrHistoryUser');
               },
             ),
@@ -398,13 +476,31 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               tileColor: Get.currentRoute == '/LabHistoryUser'
                   ? Colors.grey[00]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
                 _labHistoryController.update();
                 _labHistoryController.labHistorybyUserId();
-                Get.to(() => LabHistoryUser());
-                Get.offNamed('/LabHistoryUser');
+
+                final permissionStatus = await Permission.storage.status;
+                if (permissionStatus.isDenied) {
+                  // Here just ask for the permission for the first time
+                  await Permission.storage.request();
+
+                  // I noticed that sometimes popup won't show after user press deny
+                  // so I do the check once again but now go straight to appSettings
+                  if (permissionStatus.isDenied) {
+                    await openAppSettings();
+                  }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Here open app settings for user to manually enable permission in case
+                  // where permission was permanently denied
+                  await openAppSettings();
+                } else {
+                  // Do stuff that require permission here
+                }
+                // Get.offNamed('/LabHistoryUser');
+                await Get.to(() => LabHistoryUser());
               },
             ),
 
@@ -477,8 +573,26 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 1));
                 CallLoader.hideLoader();
+
+                final permissionStatus = await Permission.storage.status;
+                if (permissionStatus.isDenied) {
+                  // Here just ask for the permission for the first time
+                  await Permission.storage.request();
+
+                  // I noticed that sometimes popup won't show after user press deny
+                  // so I do the check once again but now go straight to appSettings
+                  if (permissionStatus.isDenied) {
+                    await openAppSettings();
+                  }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Here open app settings for user to manually enable permission in case
+                  // where permission was permanently denied
+                  await openAppSettings();
+                } else {
+                  // Do stuff that require permission here
+                }
                 Timer(
-                  const Duration(milliseconds: 0),
+                  const Duration(milliseconds: 400),
                   () {
                     Get.to(() => NurseHistoryUser());
                     //Get.to(() => MedicineCart());
@@ -986,6 +1100,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
         ),
       ),
     );
+    //);
   }
 
   Widget confirmBtn() {

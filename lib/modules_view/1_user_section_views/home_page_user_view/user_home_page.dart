@@ -201,6 +201,15 @@ class _UserHomePageState extends State<UserHomePage> {
       // 'service 7',
       // 'service 8',
     ];
+    // Future.delayed(Duration.zero, () {
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return AlertDialog(
+    //           title: Text("How are you?"),
+    //         );
+    //       });
+    // });
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
       child: Container(
@@ -366,7 +375,7 @@ class _UserHomePageState extends State<UserHomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _keyuser.currentState!.openDrawer();
+                _keyuser.currentState?.openDrawer();
               },
             ),
             actions: [
@@ -377,7 +386,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                 .getDriveracceptDetail?.driverName ==
                             null
                         ? SizedBox(
-                            height: size.height * 0.047,
+                            height: size.height * 0.057,
                             width: size.width * 0.1,
                             child: Image.asset(
                                 //'lib/assets/user_assets/12lab.png'
@@ -443,1270 +452,1296 @@ class _UserHomePageState extends State<UserHomePage> {
             // leading: Icon(Icons.read_more_outlined),
           ),
           drawer: UserMainDrawer(),
-          body: Obx(
-            () => (_userHomepagContreoller.isLoading.value)
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: size.height * 0.265,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(1),
-                            child: MySlider(),
-                          ),
+          body:
+              // Obx(
+              //         () => (_userHomepagContreoller.isLoading.value)
+              //             ? Center(
+              //                 child: CircularProgressIndicator(),
+              //               )
+              //             :
+              SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: size.height * 0.265,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.grey)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: MySlider(),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.001,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: size.height * 0.001,
+                      horizontal: size.width * 0.01),
+                  child: SizedBox(
+                    height: size.height * 0.63,
+                    child: GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: size.height * 0.25,
+                          mainAxisExtent: size.height * 0.196,
+                          childAspectRatio: 4 / 3,
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 8,
                         ),
-                        SizedBox(
-                          height: size.height * 0.001,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: size.height * 0.001,
-                              horizontal: size.width * 0.01),
-                          child: SizedBox(
-                            height: size.height * 0.63,
-                            child: GridView.builder(
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: size.height * 0.25,
-                                  mainAxisExtent: size.height * 0.196,
-                                  childAspectRatio: 4 / 3,
-                                  crossAxisSpacing: 4,
-                                  mainAxisSpacing: 8,
-                                ),
-                                itemCount: productname.length,
-                                itemBuilder: (BuildContext ctx, index) {
-                                  return Container(
-                                    height: size.height * 0.08,
-                                    //width: double.,
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: size.height * 0.00131,
-                                        horizontal: size.width * 0.01),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xff11eae0),
-                                        borderRadius: BorderRadius.circular(12),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            offset: Offset(-0, -0),
-                                            spreadRadius: 0,
-                                            blurRadius: 0,
-                                            color: Colors.grey.shade100,
-                                          ),
-                                          BoxShadow(
-                                            offset: Offset(3, 3),
-                                            spreadRadius: 0,
-                                            blurRadius: 0,
-                                            color: Colors.grey.shade300,
-                                          ),
-                                        ]),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: size.height * 0.000,
-                                          horizontal: size.width * 0.000),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              underprocess[index],
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: GoogleFonts.abhayaLibre(
-                                                fontSize: size.height * 0.016,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () async {
-                                              if (index == 0) {
-                                                // _nurseBooking1Controller
-                                                // .getNurseTypeApi();
-                                                //_doctor_1_controller.getdepartmentApi();
-                                                // _doctor_1_controller.update();
-                                                // _nurseBooking1Controller
-                                                //.getNurseLocationApi();
-                                                //RxStatus.loading();
-                                                CallLoader.loader();
-                                                await Future.delayed(
-                                                    Duration(seconds: 1));
-                                                CallLoader.hideLoader();
-                                                //await Get.to(DoctorSignup2());
-                                                await Get.offAll(
-                                                    () => NurseBoooking1());
-                                              } else if (index == 1) {
-                                                CallLoader.loader();
-                                                await Future.delayed(
-                                                    Duration(seconds: 1));
-                                                CallLoader.hideLoader();
-                                                Get.offAll(
-                                                    () => DoctorAddress());
-                                                //Get.to(() => CatagaryDetails());
-                                              } else if (index == 2) {
-                                                Get.defaultDialog(
-                                                    backgroundColor:
-                                                        MyTheme.ThemeColors,
-                                                    title:
-                                                        'Select ambulance Type',
-                                                    actions: <Widget>[
-                                                      Container(
-                                                        height:
-                                                            size.height * 0.04,
-                                                        width:
-                                                            size.width * 0.35,
-                                                        // color: Colors.red,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.red,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        child: TextButton(
-                                                          child: Text(
-                                                            "CLOSE",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  size.width *
-                                                                      0.04,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Get.back();
-                                                          },
-                                                        ),
-                                                      )
-                                                    ],
-                                                    content: Container(
-                                                      height:
-                                                          size.height * 0.34,
-                                                      width: size.width * 0.7,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                      ),
-                                                      child: ListView(
-                                                          physics:
-                                                              NeverScrollableScrollPhysics(),
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  left:
-                                                                      size.width *
-                                                                          0.02,
-                                                                  right:
-                                                                      size.width *
-                                                                          0.02),
-                                                              child:
-                                                                  NeumorphicTextFieldContainer(
-                                                                child:
-                                                                    Container(
-                                                                  // height:
-                                                                  //     size.height *
-                                                                  //         0.05,
-                                                                  width: size
-                                                                      .width,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .white70,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: ListTile(
-                                                                        //leading: const Icon(Icons.list),
-                                                                        trailing: IconButton(
-                                                                          icon:
-                                                                              Icon(
-                                                                            Icons.arrow_circle_right_rounded,
-                                                                            size:
-                                                                                size.width * 0.07,
-                                                                          ),
-                                                                          onPressed:
-                                                                              () async {
-                                                                            SharedPreferences
-                                                                                prefs =
-                                                                                await SharedPreferences.getInstance();
-                                                                            prefs.setString("AmbulancelistssId",
-                                                                                "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
-                                                                            _ambulancegetController.update();
-
-                                                                            accountService.getAccountData.then((accountData) {
-                                                                              CallLoader.loader();
-                                                                              Timer(
-                                                                                const Duration(seconds: 3),
-                                                                                () {
-                                                                                  Get.to(MapView());
-                                                                                  //_ambulancegetController.selectedvhicleCatagary();
-                                                                                  //_ambulancegetController.ambulancecatagaryyApi();
-                                                                                  //Get.to((MapView));
-
-                                                                                  ///
-                                                                                },
-                                                                              );
-                                                                              //CallLoader.hideLoader();
-                                                                            });
-
-                                                                            //Get.off(() => MapUser());
-
-                                                                            // Get.offAll(() =>
-                                                                            //     MapView());
-                                                                          },
-                                                                        ),
-                                                                        // Text(
-                                                                        //   "GFG",
-                                                                        //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
-                                                                        // ),
-                                                                        title: Text(
-                                                                          'Regular',
-                                                                          // _userHomepagContreoller
-                                                                          //     .ambulancetype!
-                                                                          //     .ambulanceT![index]
-                                                                          //     .ambulanceType
-                                                                          //     .toString(),
-                                                                          style: TextStyle(
-                                                                              color: Colors.indigo,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.bold),
-                                                                          // "List item $index"
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  left:
-                                                                      size.width *
-                                                                          0.02,
-                                                                  right:
-                                                                      size.width *
-                                                                          0.02),
-                                                              child:
-                                                                  NeumorphicTextFieldContainer(
-                                                                child:
-                                                                    Container(
-                                                                  // height:
-                                                                  //     size.height *
-                                                                  //         0.05,
-                                                                  width: size
-                                                                      .width,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .white70,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: ListTile(
-                                                                        //leading: const Icon(Icons.list),
-                                                                        trailing: IconButton(
-                                                                          icon:
-                                                                              Icon(
-                                                                            Icons.arrow_circle_right_rounded,
-                                                                            size:
-                                                                                size.width * 0.07,
-                                                                          ),
-                                                                          onPressed:
-                                                                              () async {
-                                                                            SharedPreferences
-                                                                                prefs =
-                                                                                await SharedPreferences.getInstance();
-                                                                            prefs.setString("AmbulancelistssId",
-                                                                                "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
-                                                                            _ambulancegetController.update();
-
-                                                                            accountService.getAccountData.then((accountData) {
-                                                                              CallLoader.loader();
-                                                                              Timer(
-                                                                                const Duration(seconds: 3),
-                                                                                () {
-                                                                                  Get.to(MapView2());
-                                                                                  //_ambulancegetController.selectedvhicleCatagary();
-                                                                                  //_ambulancegetController.ambulancecatagaryyApi();
-                                                                                  //Get.to((MapView));
-
-                                                                                  ///
-                                                                                },
-                                                                              );
-                                                                              //CallLoader.hideLoader();
-                                                                            });
-
-                                                                            //Get.off(() => MapUser());
-
-                                                                            // Get.offAll(() =>
-                                                                            //     MapView());
-                                                                          },
-                                                                        ),
-                                                                        // Text(
-                                                                        //   "GFG",
-                                                                        //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
-                                                                        // ),
-                                                                        title: Text(
-                                                                          'Road Accident',
-                                                                          // _userHomepagContreoller
-                                                                          //     .ambulancetype!
-                                                                          //     .ambulanceT![index]
-                                                                          //     .ambulanceType
-                                                                          //     .toString(),
-                                                                          style: TextStyle(
-                                                                              color: Colors.indigo,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.bold),
-                                                                          // "List item $index"
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  left:
-                                                                      size.width *
-                                                                          0.02,
-                                                                  right:
-                                                                      size.width *
-                                                                          0.02),
-                                                              child:
-                                                                  NeumorphicTextFieldContainer(
-                                                                child:
-                                                                    Container(
-                                                                  // height:
-                                                                  //     size.height *
-                                                                  //         0.05,
-                                                                  width: size
-                                                                      .width,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .white70,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: ListTile(
-                                                                        //leading: const Icon(Icons.list),
-                                                                        trailing: IconButton(
-                                                                          icon:
-                                                                              Icon(
-                                                                            Icons.arrow_circle_right_rounded,
-                                                                            size:
-                                                                                size.width * 0.07,
-                                                                          ),
-                                                                          onPressed:
-                                                                              () async {
-                                                                            SharedPreferences
-                                                                                prefs =
-                                                                                await SharedPreferences.getInstance();
-                                                                            prefs.setString("AmbulancelistssId",
-                                                                                "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
-                                                                            _ambulancegetController.update();
-
-                                                                            accountService.getAccountData.then((accountData) {
-                                                                              CallLoader.loader();
-                                                                              Timer(
-                                                                                const Duration(seconds: 3),
-                                                                                () {
-                                                                                  Get.to(MapView3());
-                                                                                  //_ambulancegetController.selectedvhicleCatagary();
-                                                                                  //_ambulancegetController.ambulancecatagaryyApi();
-                                                                                  //Get.to((MapView));
-
-                                                                                  ///
-                                                                                },
-                                                                              );
-                                                                              //CallLoader.hideLoader();
-                                                                            });
-
-                                                                            //Get.off(() => MapUser());
-
-                                                                            // Get.offAll(() =>
-                                                                            //     MapView());
-                                                                          },
-                                                                        ),
-                                                                        // Text(
-                                                                        //   "GFG",
-                                                                        //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
-                                                                        // ),
-                                                                        title: Text(
-                                                                          'Funeral/MortuaryService',
-                                                                          // _userHomepagContreoller
-                                                                          //     .ambulancetype!
-                                                                          //     .ambulanceT![index]
-                                                                          //     .ambulanceType
-                                                                          //     .toString(),
-                                                                          style: TextStyle(
-                                                                              color: Colors.indigo,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.bold),
-                                                                          // "List item $index"
-                                                                        )),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ]),
-                                                    ),
-                                                    // SingleChildScrollView(
-                                                    //   child:
-                                                    //   Column(
-                                                    //     //mainAxisSize: MainAxisSize.min,
-                                                    //     children: [
-                                                    //       InkWell(
-                                                    //         onTap: () {
-                                                    //           Get.to(() => MapView());
-                                                    //           //OrderTrackingPage());
-                                                    // MapUser());
-                                                    //         },
-                                                    //         child:
-                                                    //         NeumorphicTextFieldContainer(
-                                                    //           child: Container(
-                                                    //               height:
-                                                    //               size.height * 0.05,
-                                                    //               width: size.width,
-                                                    //               decoration:
-                                                    //               BoxDecoration(
-                                                    //                 color: Colors.white70,
-                                                    //                 borderRadius:
-                                                    //                 BorderRadius
-                                                    //                     .circular(10),
-                                                    //               ),
-                                                    //               child: Center(
-                                                    //                 child: Text(
-                                                    //                   'Regular',
-                                                    //                   style: TextStyle(
-                                                    //                     fontWeight:
-                                                    //                     FontWeight
-                                                    //                         .w500,
-                                                    //                     fontSize:
-                                                    //                     size.height *
-                                                    //                         0.02,
-                                                    //                   ),
-                                                    //                 ),
-                                                    //               )
-                                                    //             // ElevatedButton(
-                                                    //             //   onPressed: () {},
-                                                    //             //   child: Text(
-                                                    //             //     'Select Date',
-                                                    //             //     style: TextStyle(
-                                                    //             //       color: Colors.black,
-                                                    //             //     ),
-                                                    //             //   ),
-                                                    //             //   style: ButtonStyle(
-                                                    //             //     backgroundColor:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(Colors
-                                                    //             //                 .white70),
-                                                    //             //     padding:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(EdgeInsets
-                                                    //             //                 .all(50)),
-                                                    //             //     textStyle:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(TextStyle(
-                                                    //             //                 fontSize:
-                                                    //             //                     30,
-                                                    //             //                 color: Colors
-                                                    //             //                     .black)),
-                                                    //             //   ),
-                                                    //             // ),
-                                                    //             // TextFormField(
-                                                    //             //   controller:
-                                                    //             //       _appointmentUserController
-                                                    //             //           .appointmentController,
-                                                    //             //   onTap: () {
-                                                    //             //     _appointmentUserController
-                                                    //             //         .chooseDate();
-                                                    //             //   },
-                                                    //             //
-                                                    //             //   cursorColor: Colors.black,
-                                                    //             //   obscureText: false,
-                                                    //             //   decoration: InputDecoration(
-                                                    //             //     hintText: 'Select date',
-                                                    //             //     helperStyle: TextStyle(
-                                                    //             //       color: black
-                                                    //             //           .withOpacity(0.7),
-                                                    //             //       fontSize: 18,
-                                                    //             //     ),
-                                                    //             //     prefixIcon: Icon(
-                                                    //             //       Icons
-                                                    //             //           .calendar_today_outlined,
-                                                    //             //       color: black
-                                                    //             //           .withOpacity(0.7),
-                                                    //             //       size: 20,
-                                                    //             //     ),
-                                                    //             //     border: InputBorder.none,
-                                                    //             //   ),
-                                                    //             //   keyboardType:
-                                                    //             //       TextInputType.multiline,
-                                                    //             //   maxLines: 1,
-                                                    //             //   autofocus: true,
-                                                    //             //   //obscureText: true,
-                                                    //             //   //controller: _loginpasswordController.mobileController,
-                                                    //             // ),
-                                                    //           ),
-                                                    //         ),
-                                                    //       ),
-                                                    //
-                                                    //       InkWell(
-                                                    //         onTap: () {
-                                                    //           Get.to(() => MapUsers());
-                                                    //         },
-                                                    //         child:
-                                                    //         NeumorphicTextFieldContainer(
-                                                    //           child: Container(
-                                                    //               height:
-                                                    //               size.height * 0.05,
-                                                    //               width: size.width,
-                                                    //               decoration:
-                                                    //               BoxDecoration(
-                                                    //                 color: Colors.white70,
-                                                    //                 borderRadius:
-                                                    //                 BorderRadius
-                                                    //                     .circular(10),
-                                                    //               ),
-                                                    //               child: Center(
-                                                    //                 child: Text(
-                                                    //                   'Road Accident',
-                                                    //                   style: TextStyle(
-                                                    //                     fontWeight:
-                                                    //                     FontWeight
-                                                    //                         .w500,
-                                                    //                     fontSize:
-                                                    //                     size.height *
-                                                    //                         0.02,
-                                                    //                   ),
-                                                    //                 ),
-                                                    //               )
-                                                    //             // ElevatedButton(
-                                                    //             //   onPressed: () {},
-                                                    //             //   child: Text(
-                                                    //             //     'Select Date',
-                                                    //             //     style: TextStyle(
-                                                    //             //       color: Colors.black,
-                                                    //             //     ),
-                                                    //             //   ),
-                                                    //             //   style: ButtonStyle(
-                                                    //             //     backgroundColor:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(Colors
-                                                    //             //                 .white70),
-                                                    //             //     padding:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(EdgeInsets
-                                                    //             //                 .all(50)),
-                                                    //             //     textStyle:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(TextStyle(
-                                                    //             //                 fontSize:
-                                                    //             //                     30,
-                                                    //             //                 color: Colors
-                                                    //             //                     .black)),
-                                                    //             //   ),
-                                                    //             // ),
-                                                    //             // TextFormField(
-                                                    //             //   controller:
-                                                    //             //       _appointmentUserController
-                                                    //             //           .appointmentController,
-                                                    //             //   onTap: () {
-                                                    //             //     _appointmentUserController
-                                                    //             //         .chooseDate();
-                                                    //             //   },
-                                                    //             //
-                                                    //             //   cursorColor: Colors.black,
-                                                    //             //   obscureText: false,
-                                                    //             //   decoration: InputDecoration(
-                                                    //             //     hintText: 'Select date',
-                                                    //             //     helperStyle: TextStyle(
-                                                    //             //       color: black
-                                                    //             //           .withOpacity(0.7),
-                                                    //             //       fontSize: 18,
-                                                    //             //     ),
-                                                    //             //     prefixIcon: Icon(
-                                                    //             //       Icons
-                                                    //             //           .calendar_today_outlined,
-                                                    //             //       color: black
-                                                    //             //           .withOpacity(0.7),
-                                                    //             //       size: 20,
-                                                    //             //     ),
-                                                    //             //     border: InputBorder.none,
-                                                    //             //   ),
-                                                    //             //   keyboardType:
-                                                    //             //       TextInputType.multiline,
-                                                    //             //   maxLines: 1,
-                                                    //             //   autofocus: true,
-                                                    //             //   //obscureText: true,
-                                                    //             //   //controller: _loginpasswordController.mobileController,
-                                                    //             // ),
-                                                    //           ),
-                                                    //         ),
-                                                    //       ),
-                                                    //       // InkWell(
-                                                    //       //   onTap: () {
-                                                    //       //     Get.to(() => MapUser());
-                                                    //       //   },
-                                                    //       //   child:
-                                                    //       //   NeumorphicTextFieldContainer(
-                                                    //       //     child: Container(
-                                                    //       //         height:
-                                                    //       //         size.height * 0.05,
-                                                    //       //         width: size.width,
-                                                    //       //         decoration:
-                                                    //       //         BoxDecoration(
-                                                    //       //           color: Colors.white70,
-                                                    //       //           borderRadius:
-                                                    //       //           BorderRadius
-                                                    //       //               .circular(10),
-                                                    //       //         ),
-                                                    //       //         child: Center(
-                                                    //       //           child: Text(
-                                                    //       //             'Air Ambulance',
-                                                    //       //             style: TextStyle(
-                                                    //       //               fontWeight:
-                                                    //       //               FontWeight
-                                                    //       //                   .w500,
-                                                    //       //               fontSize:
-                                                    //       //               size.height *
-                                                    //       //                   0.02,
-                                                    //       //             ),
-                                                    //       //           ),
-                                                    //       //         )
-                                                    //       //       // ElevatedButton(
-                                                    //       //       //   onPressed: () {},
-                                                    //       //       //   child: Text(
-                                                    //       //       //     'Select Date',
-                                                    //       //       //     style: TextStyle(
-                                                    //       //       //       color: Colors.black,
-                                                    //       //       //     ),
-                                                    //       //       //   ),
-                                                    //       //       //   style: ButtonStyle(
-                                                    //       //       //     backgroundColor:
-                                                    //       //       //         MaterialStateProperty
-                                                    //       //       //             .all(Colors
-                                                    //       //       //                 .white70),
-                                                    //       //       //     padding:
-                                                    //       //       //         MaterialStateProperty
-                                                    //       //       //             .all(EdgeInsets
-                                                    //       //       //                 .all(50)),
-                                                    //       //       //     textStyle:
-                                                    //       //       //         MaterialStateProperty
-                                                    //       //       //             .all(TextStyle(
-                                                    //       //       //                 fontSize:
-                                                    //       //       //                     30,
-                                                    //       //       //                 color: Colors
-                                                    //       //       //                     .black)),
-                                                    //       //       //   ),
-                                                    //       //       // ),
-                                                    //       //       // TextFormField(
-                                                    //       //       //   controller:
-                                                    //       //       //       _appointmentUserController
-                                                    //       //       //           .appointmentController,
-                                                    //       //       //   onTap: () {
-                                                    //       //       //     _appointmentUserController
-                                                    //       //       //         .chooseDate();
-                                                    //       //       //   },
-                                                    //       //       //
-                                                    //       //       //   cursorColor: Colors.black,
-                                                    //       //       //   obscureText: false,
-                                                    //       //       //   decoration: InputDecoration(
-                                                    //       //       //     hintText: 'Select date',
-                                                    //       //       //     helperStyle: TextStyle(
-                                                    //       //       //       color: black
-                                                    //       //       //           .withOpacity(0.7),
-                                                    //       //       //       fontSize: 18,
-                                                    //       //       //     ),
-                                                    //       //       //     prefixIcon: Icon(
-                                                    //       //       //       Icons
-                                                    //       //       //           .calendar_today_outlined,
-                                                    //       //       //       color: black
-                                                    //       //       //           .withOpacity(0.7),
-                                                    //       //       //       size: 20,
-                                                    //       //       //     ),
-                                                    //       //       //     border: InputBorder.none,
-                                                    //       //       //   ),
-                                                    //       //       //   keyboardType:
-                                                    //       //       //       TextInputType.multiline,
-                                                    //       //       //   maxLines: 1,
-                                                    //       //       //   autofocus: true,
-                                                    //       //       //   //obscureText: true,
-                                                    //       //       //   //controller: _loginpasswordController.mobileController,
-                                                    //       //       // ),
-                                                    //       //     ),
-                                                    //       //   ),
-                                                    //       // ),
-                                                    //       InkWell(
-                                                    //         onTap: () {
-                                                    //           Get.to(() => MapUser());
-                                                    //         },
-                                                    //         child:
-                                                    //         NeumorphicTextFieldContainer(
-                                                    //           child: Container(
-                                                    //               height:
-                                                    //               size.height * 0.05,
-                                                    //               width: size.width,
-                                                    //               decoration:
-                                                    //               BoxDecoration(
-                                                    //                 color: Colors.white70,
-                                                    //                 borderRadius:
-                                                    //                 BorderRadius
-                                                    //                     .circular(10),
-                                                    //               ),
-                                                    //               child: Center(
-                                                    //                 child: Text(
-                                                    //                   'Funeral/Mortuary Service',
-                                                    //                   style: TextStyle(
-                                                    //                     fontWeight:
-                                                    //                     FontWeight
-                                                    //                         .w500,
-                                                    //                     fontSize:
-                                                    //                     size.height *
-                                                    //                         0.02,
-                                                    //                   ),
-                                                    //                 ),
-                                                    //               )
-                                                    //             // ElevatedButton(
-                                                    //             //   onPressed: () {},
-                                                    //             //   child: Text(
-                                                    //             //     'Select Date',
-                                                    //             //     style: TextStyle(
-                                                    //             //       color: Colors.black,
-                                                    //             //     ),
-                                                    //             //   ),
-                                                    //             //   style: ButtonStyle(
-                                                    //             //     backgroundColor:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(Colors
-                                                    //             //                 .white70),
-                                                    //             //     padding:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(EdgeInsets
-                                                    //             //                 .all(50)),
-                                                    //             //     textStyle:
-                                                    //             //         MaterialStateProperty
-                                                    //             //             .all(TextStyle(
-                                                    //             //                 fontSize:
-                                                    //             //                     30,
-                                                    //             //                 color: Colors
-                                                    //             //                     .black)),
-                                                    //             //   ),
-                                                    //             // ),
-                                                    //             // TextFormField(
-                                                    //             //   controller:
-                                                    //             //       _appointmentUserController
-                                                    //             //           .appointmentController,
-                                                    //             //   onTap: () {
-                                                    //             //     _appointmentUserController
-                                                    //             //         .chooseDate();
-                                                    //             //   },
-                                                    //             //
-                                                    //             //   cursorColor: Colors.black,
-                                                    //             //   obscureText: false,
-                                                    //             //   decoration: InputDecoration(
-                                                    //             //     hintText: 'Select date',
-                                                    //             //     helperStyle: TextStyle(
-                                                    //             //       color: black
-                                                    //             //           .withOpacity(0.7),
-                                                    //             //       fontSize: 18,
-                                                    //             //     ),
-                                                    //             //     prefixIcon: Icon(
-                                                    //             //       Icons
-                                                    //             //           .calendar_today_outlined,
-                                                    //             //       color: black
-                                                    //             //           .withOpacity(0.7),
-                                                    //             //       size: 20,
-                                                    //             //     ),
-                                                    //             //     border: InputBorder.none,
-                                                    //             //   ),
-                                                    //             //   keyboardType:
-                                                    //             //       TextInputType.multiline,
-                                                    //             //   maxLines: 1,
-                                                    //             //   autofocus: true,
-                                                    //             //   //obscureText: true,
-                                                    //             //   //controller: _loginpasswordController.mobileController,
-                                                    //             // ),
-                                                    //           ),
-                                                    //         ),
-                                                    //       ),
-                                                    //
-                                                    //       // SizedBox(
-                                                    //       //     height: size.height * 0.05,
-                                                    //       //     child: TestPickerWidget()),
-                                                    //       ///..................
-                                                    //       // Obx(
-                                                    //       //   () => Text(
-                                                    //       //     DateFormat("dd-MM-yyyy")
-                                                    //       //         .format(_appointmentController
-                                                    //       //             .selectedDate.value)
-                                                    //       //         .toString(),
-                                                    //       //     style: TextStyle(fontSize: 25),
-                                                    //       //   ),
-                                                    //       // ),
-                                                    //
-                                                    //       // SizedBox(
-                                                    //       //   height: 30.0,
-                                                    //       // ),
-                                                    //       // ElevatedButton(
-                                                    //       //   style:
-                                                    //       //       ElevatedButton.styleFrom(
-                                                    //       //     foregroundColor:
-                                                    //       //         Colors.yellow,
-                                                    //       //     backgroundColor: Colors
-                                                    //       //         .red, // foreground
-                                                    //       //   ),
-                                                    //       //   onPressed: () {
-                                                    //       //     Get.back();
-                                                    //       //     // Get.to(() =>
-                                                    //       //     //     AppointmentHistory()
-                                                    //       //     // );
-                                                    //       //     // todoController.todos.add(
-                                                    //       //     //   Todo(
-                                                    //       //     //     text: textEditingController.text,
-                                                    //       //     //   ),
-                                                    //       //     // );
-                                                    //       //     //Get.back();
-                                                    //       //   },
-                                                    //       //   child: Text(
-                                                    //       //     'Appointment History',
-                                                    //       //     style: TextStyle(
-                                                    //       //         color: Colors.white,
-                                                    //       //         fontSize: 16.0),
-                                                    //       //   ),
-                                                    //       //   //color: Colors.redAccent,
-                                                    //       // )
-                                                    //     ],
-                                                    //   ),
-                                                    // ),
-
-                                                    radius: 10.0);
-                                                //whatsAppOpen();
-                                                // _launchWhatsapp();
-                                                // Get.to(() => ComplainList());
-                                                //Get.to(() => Profoile());
-                                              } else if (index == 3) {
-                                                CallLoader.loader();
-                                                await Future.delayed(
-                                                    Duration(seconds: 1));
-                                                CallLoader.hideLoader();
-                                                Get.offAll(() => ChooseLab());
-                                                //Get.to(() => ReportList());
-
-                                                ///
-                                                //Get.to(() => TheJwelleryStore());
-
-                                                //Get.to(() => CarouselDReportList());
-                                                //HealthCheckup1());
-                                                //Get.defaultDialog(
-                                                //barrierDismissible: true,
-                                              } else if (index == 4) {
-                                                // _medicineListController
-                                                //     .medicineListApi();
-                                                // _medicineListController.update();
-                                                CallLoader.loader();
-                                                await Future.delayed(
-                                                    Duration(seconds: 1));
-                                                CallLoader.hideLoader();
-                                                Get.to(() => ReportList());
-                                                // Get.defaultDialog(
-                                                //     barrierDismissible: true,
-                                                //     backgroundColor: MyTheme.t1containercolor,
-                                                //     title: '',
-                                                //     content: Column(
-                                                //       mainAxisSize: MainAxisSize.min,
-                                                //       children: [
-                                                //         Directionality(
-                                                //           textDirection: TextDirection.ltr,
-                                                //           child: Center(
-                                                //             child: Padding(
-                                                //               padding:
-                                                //                   const EdgeInsets.all(0.0),
-                                                //               child: TextFormField(
-                                                //                 decoration: InputDecoration(
-                                                //                   filled: true,
-                                                //
-                                                //                   fillColor: MyTheme
-                                                //                       .t1bacgroundcolors1,
-                                                //                   hintText:
-                                                //                       'Enter Service Name',
-                                                //                   contentPadding:
-                                                //                       const EdgeInsets.only(
-                                                //                           left: 14.0,
-                                                //                           bottom: 4.0,
-                                                //                           top: 16.0),
-                                                //                   focusedBorder:
-                                                //                       OutlineInputBorder(
-                                                //                     borderSide: new BorderSide(
-                                                //                         color: Colors.green),
-                                                //                     borderRadius:
-                                                //                         new BorderRadius
-                                                //                             .circular(10),
-                                                //                   ),
-                                                //                   enabledBorder:
-                                                //                       UnderlineInputBorder(
-                                                //                     borderSide: new BorderSide(
-                                                //                         color:
-                                                //                             Colors.transparent),
-                                                //                     borderRadius:
-                                                //                         new BorderRadius
-                                                //                             .circular(10.0),
-                                                //                   ),
-                                                //                   //focusedBorder: InputBorder.none,
-                                                //                   //enabledBorder: InputBorder.none,
-                                                //                   // errorBorder: InputBorder.none,
-                                                //                   // border: InputBorder.none,
-                                                //
-                                                //                   border: OutlineInputBorder(
-                                                //                     borderSide: BorderSide(
-                                                //                         color: Colors.red,
-                                                //                         width: 2.0),
-                                                //                     borderRadius:
-                                                //                         BorderRadius.circular(
-                                                //                             10),
-                                                //                   ),
-                                                //                   // labelText: "Password",
-                                                //                   prefixIcon: Padding(
-                                                //                     padding:
-                                                //                         EdgeInsets.symmetric(
-                                                //                             vertical:
-                                                //                                 size.height *
-                                                //                                     0.012,
-                                                //                             horizontal:
-                                                //                                 size.width *
-                                                //                                     0.02),
-                                                //                     child: Image.asset(
-                                                //                       'lib/assets/images/profile.png',
-                                                //                       color:
-                                                //                           MyTheme.t1Iconcolor,
-                                                //                       height: 10,
-                                                //                       width: 10,
-                                                //                     ),
-                                                //                   ),
-                                                //                 ),
-                                                //                 keyboardType: TextInputType
-                                                //                     .visiblePassword,
-                                                //                 //obscureText: true,
-                                                //                 // controller:
-                                                //                 // _registerComplainController.nameController,
-                                                //                 // onSaved: (value) {
-                                                //                 //   _registerComplainController.name = value!;
-                                                //                 // },
-                                                //                 // validator: (value) {
-                                                //                 //   return _registerComplainController
-                                                //                 //       .validateName(value!);
-                                                //                 // },
-                                                //               ),
-                                                //             ),
-                                                //           ),
-                                                //         ),
-                                                //         // TextField(
-                                                //         //   //controller: settingsScreenController.categoryNameController,
-                                                //         //   keyboardType: TextInputType.text,
-                                                //         //   maxLines: 1,
-                                                //         //   decoration: InputDecoration(
-                                                //         //       labelText: 'Service name',
-                                                //         //       hintMaxLines: 1,
-                                                //         //       border: OutlineInputBorder(
-                                                //         //           borderSide: BorderSide(
-                                                //         //               color: Colors.green,
-                                                //         //               width: 4.0))),
-                                                //         // ),
-                                                //         SizedBox(
-                                                //           height: 30.0,
-                                                //         ),
-                                                //         PhysicalModel(
-                                                //           color: Colors.white,
-                                                //           shadowColor: Colors.grey,
-                                                //           elevation: 4,
-                                                //           borderRadius:
-                                                //               BorderRadius.circular(10),
-                                                //           child: Padding(
-                                                //             padding: const EdgeInsets.all(3.0),
-                                                //             child: Container(
-                                                //               height: size.height * 0.04,
-                                                //               width: size.width * 0.4,
-                                                //               decoration: BoxDecoration(
-                                                //                 color: MyTheme.t1Iconcolor,
-                                                //                 borderRadius:
-                                                //                     BorderRadius.circular(10),
-                                                //               ),
-                                                //               child: Center(
-                                                //                 child: Text(
-                                                //                   'ADD SERVICE',
-                                                //                   style: TextStyle(
-                                                //                       color: Colors.white,
-                                                //                       fontSize: 14.0,
-                                                //                       fontWeight:
-                                                //                           FontWeight.w600),
-                                                //                 ),
-                                                //               ),
-                                                //             ),
-                                                //           ),
-                                                //         ),
-                                                //       ],
-                                                //     ),
-                                                //     radius: 10.0);
-                                                ///
-                                                //Get.to(() => ServicesPage());
-                                              } else if (index == 5) {
-                                                _medicineListController
-                                                    .medicineListApi();
-                                                _medicineListController
-                                                    .update();
-                                                CallLoader.loader();
-                                                await Future.delayed(
-                                                    Duration(seconds: 1));
-                                                CallLoader.hideLoader();
-                                                Get.to(() => SearchMedicine());
-
-                                                // Get.defaultDialog(
-                                                //     barrierDismissible: true,
-                                                //     backgroundColor: MyTheme.t1containercolor,
-                                                //     title: '',
-                                                //     content: Column(
-                                                //       mainAxisSize: MainAxisSize.min,
-                                                //       children: [
-                                                //         Directionality(
-                                                //           textDirection: TextDirection.ltr,
-                                                //           child: Center(
-                                                //             child: Padding(
-                                                //               padding:
-                                                //                   const EdgeInsets.all(0.0),
-                                                //               child: TextFormField(
-                                                //                 decoration: InputDecoration(
-                                                //                   filled: true,
-                                                //
-                                                //                   fillColor: MyTheme
-                                                //                       .t1bacgroundcolors1,
-                                                //                   hintText:
-                                                //                       'Enter Service Name',
-                                                //                   contentPadding:
-                                                //                       const EdgeInsets.only(
-                                                //                           left: 14.0,
-                                                //                           bottom: 4.0,
-                                                //                           top: 16.0),
-                                                //                   focusedBorder:
-                                                //                       OutlineInputBorder(
-                                                //                     borderSide: new BorderSide(
-                                                //                         color: Colors.green),
-                                                //                     borderRadius:
-                                                //                         new BorderRadius
-                                                //                             .circular(10),
-                                                //                   ),
-                                                //                   enabledBorder:
-                                                //                       UnderlineInputBorder(
-                                                //                     borderSide: new BorderSide(
-                                                //                         color:
-                                                //                             Colors.transparent),
-                                                //                     borderRadius:
-                                                //                         new BorderRadius
-                                                //                             .circular(10.0),
-                                                //                   ),
-                                                //                   //focusedBorder: InputBorder.none,
-                                                //                   //enabledBorder: InputBorder.none,
-                                                //                   // errorBorder: InputBorder.none,
-                                                //                   // border: InputBorder.none,
-                                                //
-                                                //                   border: OutlineInputBorder(
-                                                //                     borderSide: BorderSide(
-                                                //                         color: Colors.red,
-                                                //                         width: 2.0),
-                                                //                     borderRadius:
-                                                //                         BorderRadius.circular(
-                                                //                             10),
-                                                //                   ),
-                                                //                   // labelText: "Password",
-                                                //                   prefixIcon: Padding(
-                                                //                     padding:
-                                                //                         EdgeInsets.symmetric(
-                                                //                             vertical:
-                                                //                                 size.height *
-                                                //                                     0.012,
-                                                //                             horizontal:
-                                                //                                 size.width *
-                                                //                                     0.02),
-                                                //                     child: Image.asset(
-                                                //                       'lib/assets/images/profile.png',
-                                                //                       color:
-                                                //                           MyTheme.t1Iconcolor,
-                                                //                       height: 10,
-                                                //                       width: 10,
-                                                //                     ),
-                                                //                   ),
-                                                //                 ),
-                                                //                 keyboardType: TextInputType
-                                                //                     .visiblePassword,
-                                                //                 //obscureText: true,
-                                                //                 // controller:
-                                                //                 // _registerComplainController.nameController,
-                                                //                 // onSaved: (value) {
-                                                //                 //   _registerComplainController.name = value!;
-                                                //                 // },
-                                                //                 // validator: (value) {
-                                                //                 //   return _registerComplainController
-                                                //                 //       .validateName(value!);
-                                                //                 // },
-                                                //               ),
-                                                //             ),
-                                                //           ),
-                                                //         ),
-                                                //         // TextField(
-                                                //         //   //controller: settingsScreenController.categoryNameController,
-                                                //         //   keyboardType: TextInputType.text,
-                                                //         //   maxLines: 1,
-                                                //         //   decoration: InputDecoration(
-                                                //         //       labelText: 'Service name',
-                                                //         //       hintMaxLines: 1,
-                                                //         //       border: OutlineInputBorder(
-                                                //         //           borderSide: BorderSide(
-                                                //         //               color: Colors.green,
-                                                //         //               width: 4.0))),
-                                                //         // ),
-                                                //         SizedBox(
-                                                //           height: 30.0,
-                                                //         ),
-                                                //         PhysicalModel(
-                                                //           color: Colors.white,
-                                                //           shadowColor: Colors.grey,
-                                                //           elevation: 4,
-                                                //           borderRadius:
-                                                //               BorderRadius.circular(10),
-                                                //           child: Padding(
-                                                //             padding: const EdgeInsets.all(3.0),
-                                                //             child: Container(
-                                                //               height: size.height * 0.04,
-                                                //               width: size.width * 0.4,
-                                                //               decoration: BoxDecoration(
-                                                //                 color: MyTheme.t1Iconcolor,
-                                                //                 borderRadius:
-                                                //                     BorderRadius.circular(10),
-                                                //               ),
-                                                //               child: Center(
-                                                //                 child: Text(
-                                                //                   'ADD SERVICE',
-                                                //                   style: TextStyle(
-                                                //                       color: Colors.white,
-                                                //                       fontSize: 14.0,
-                                                //                       fontWeight:
-                                                //                           FontWeight.w600),
-                                                //                 ),
-                                                //               ),
-                                                //             ),
-                                                //           ),
-                                                //         ),
-                                                //       ],
-                                                //     ),
-                                                //     radius: 10.0);
-                                                ///
-                                                //Get.to(() => ServicesPage());
-                                              }
-                                              // else if (index == 6) {
-                                              //   Get.to(() => SupportView());
-                                              // }
-                                              ///
-                                              // else if (index == 7) {
-                                              //   Get.to(() => AddBankDetail());
-                                              //
-                                              //   //Get.to(() => TermsMemberPage());
-                                              // }
-                                            },
-                                            child: Container(
-                                              height: size.height * 0.11,
-                                              width: size.width * 0.23,
-                                              padding: EdgeInsets.all(7),
-                                              child: Image.asset(
-                                                productimage[index],
-                                                // "lib/assets/image/icons8-hospital-64.png",
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
+                        itemCount: productname.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return Container(
+                            height: size.height * 0.08,
+                            //width: double.,
+                            margin: EdgeInsets.symmetric(
+                                vertical: size.height * 0.00131,
+                                horizontal: size.width * 0.01),
+                            decoration: BoxDecoration(
+                                color: Color(0xff11eae0),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(-0, -0),
+                                    spreadRadius: 0,
+                                    blurRadius: 0,
+                                    color: Colors.grey.shade100,
+                                  ),
+                                  BoxShadow(
+                                    offset: Offset(3, 3),
+                                    spreadRadius: 0,
+                                    blurRadius: 0,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ]),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: size.height * 0.000,
+                                  horizontal: size.width * 0.000),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      underprocess[index],
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: GoogleFonts.abhayaLibre(
+                                        fontSize: size.height * 0.016,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      if (index == 0) {
+                                        // _nurseBooking1Controller
+                                        // .getNurseTypeApi();
+                                        //_doctor_1_controller.getdepartmentApi();
+                                        // _doctor_1_controller.update();
+                                        // _nurseBooking1Controller
+                                        //.getNurseLocationApi();
+                                        //RxStatus.loading();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        //await Get.to(DoctorSignup2());
+                                        await Get.offAll(
+                                            () => NurseBoooking1());
+                                      } else if (index == 1) {
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        Get.offAll(() => DoctorAddress());
+                                        //Get.to(() => CatagaryDetails());
+                                      } else if (index == 2) {
+                                        Get.defaultDialog(
+                                            backgroundColor:
+                                                MyTheme.ThemeColors,
+                                            title: 'Select ambulance Type',
+                                            actions: <Widget>[
+                                              Container(
+                                                height: size.height * 0.04,
+                                                width: size.width * 0.35,
+                                                // color: Colors.red,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.red,
                                                   borderRadius:
                                                       BorderRadius.circular(10),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color:
-                                                          Colors.grey.shade400,
-                                                      //color: Color(0xFFBEBEBE),
-                                                      offset: Offset(03, 03),
-                                                      blurRadius: 0,
-                                                      spreadRadius: 0,
-                                                    ),
-                                                    const BoxShadow(
+                                                ),
+                                                child: TextButton(
+                                                  child: Text(
+                                                    "CLOSE",
+                                                    style: TextStyle(
                                                       color: Colors.white,
-                                                      offset: Offset(-02, -02),
-                                                      blurRadius: 0,
-                                                      spreadRadius: 0,
+                                                      fontSize:
+                                                          size.width * 0.04,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              )
+                                            ],
+                                            content: Container(
+                                              height: size.height * 0.34,
+                                              width: size.width * 0.7,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                              ),
+                                              child: ListView(
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left:
+                                                              size.width * 0.02,
+                                                          right: size.width *
+                                                              0.02),
+                                                      child:
+                                                          NeumorphicTextFieldContainer(
+                                                        child: Container(
+                                                          // height:
+                                                          //     size.height *
+                                                          //         0.05,
+                                                          width: size.width,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color:
+                                                                Colors.white70,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                          child: Center(
+                                                            child: ListTile(
+                                                                //leading: const Icon(Icons.list),
+                                                                trailing:
+                                                                    IconButton(
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .arrow_circle_right_rounded,
+                                                                    size: size
+                                                                            .width *
+                                                                        0.07,
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    SharedPreferences
+                                                                        prefs =
+                                                                        await SharedPreferences
+                                                                            .getInstance();
+                                                                    prefs.setString(
+                                                                        "AmbulancelistssId",
+                                                                        "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
+                                                                    _ambulancegetController
+                                                                        .update();
+
+                                                                    accountService
+                                                                        .getAccountData
+                                                                        .then(
+                                                                            (accountData) {
+                                                                      CallLoader
+                                                                          .loader();
+                                                                      Timer(
+                                                                        const Duration(
+                                                                            seconds:
+                                                                                3),
+                                                                        () {
+                                                                          Get.to(
+                                                                              MapView());
+                                                                          //_ambulancegetController.selectedvhicleCatagary();
+                                                                          //_ambulancegetController.ambulancecatagaryyApi();
+                                                                          //Get.to((MapView));
+
+                                                                          ///
+                                                                        },
+                                                                      );
+                                                                      //CallLoader.hideLoader();
+                                                                    });
+
+                                                                    //Get.off(() => MapUser());
+
+                                                                    // Get.offAll(() =>
+                                                                    //     MapView());
+                                                                  },
+                                                                ),
+                                                                // Text(
+                                                                //   "GFG",
+                                                                //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
+                                                                // ),
+                                                                title: Text(
+                                                                  'Regular',
+                                                                  // _userHomepagContreoller
+                                                                  //     .ambulancetype!
+                                                                  //     .ambulanceT![index]
+                                                                  //     .ambulanceType
+                                                                  //     .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .indigo,
+                                                                      fontSize:
+                                                                          13,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                  // "List item $index"
+                                                                )),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left:
+                                                              size.width * 0.02,
+                                                          right: size.width *
+                                                              0.02),
+                                                      child:
+                                                          NeumorphicTextFieldContainer(
+                                                        child: Container(
+                                                          // height:
+                                                          //     size.height *
+                                                          //         0.05,
+                                                          width: size.width,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color:
+                                                                Colors.white70,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                          child: Center(
+                                                            child: ListTile(
+                                                                //leading: const Icon(Icons.list),
+                                                                trailing:
+                                                                    IconButton(
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .arrow_circle_right_rounded,
+                                                                    size: size
+                                                                            .width *
+                                                                        0.07,
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    SharedPreferences
+                                                                        prefs =
+                                                                        await SharedPreferences
+                                                                            .getInstance();
+                                                                    prefs.setString(
+                                                                        "AmbulancelistssId",
+                                                                        "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
+                                                                    _ambulancegetController
+                                                                        .update();
+
+                                                                    accountService
+                                                                        .getAccountData
+                                                                        .then(
+                                                                            (accountData) {
+                                                                      CallLoader
+                                                                          .loader();
+                                                                      Timer(
+                                                                        const Duration(
+                                                                            seconds:
+                                                                                3),
+                                                                        () {
+                                                                          Get.to(
+                                                                              MapView2());
+                                                                          //_ambulancegetController.selectedvhicleCatagary();
+                                                                          //_ambulancegetController.ambulancecatagaryyApi();
+                                                                          //Get.to((MapView));
+
+                                                                          ///
+                                                                        },
+                                                                      );
+                                                                      //CallLoader.hideLoader();
+                                                                    });
+
+                                                                    //Get.off(() => MapUser());
+
+                                                                    // Get.offAll(() =>
+                                                                    //     MapView());
+                                                                  },
+                                                                ),
+                                                                // Text(
+                                                                //   "GFG",
+                                                                //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
+                                                                // ),
+                                                                title: Text(
+                                                                  'Road Accident',
+                                                                  // _userHomepagContreoller
+                                                                  //     .ambulancetype!
+                                                                  //     .ambulanceT![index]
+                                                                  //     .ambulanceType
+                                                                  //     .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .indigo,
+                                                                      fontSize:
+                                                                          13,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                  // "List item $index"
+                                                                )),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left:
+                                                              size.width * 0.02,
+                                                          right: size.width *
+                                                              0.02),
+                                                      child:
+                                                          NeumorphicTextFieldContainer(
+                                                        child: Container(
+                                                          // height:
+                                                          //     size.height *
+                                                          //         0.05,
+                                                          width: size.width,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color:
+                                                                Colors.white70,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                          child: Center(
+                                                            child: ListTile(
+                                                                //leading: const Icon(Icons.list),
+                                                                trailing:
+                                                                    IconButton(
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .arrow_circle_right_rounded,
+                                                                    size: size
+                                                                            .width *
+                                                                        0.07,
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    SharedPreferences
+                                                                        prefs =
+                                                                        await SharedPreferences
+                                                                            .getInstance();
+                                                                    prefs.setString(
+                                                                        "AmbulancelistssId",
+                                                                        "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
+                                                                    _ambulancegetController
+                                                                        .update();
+
+                                                                    accountService
+                                                                        .getAccountData
+                                                                        .then(
+                                                                            (accountData) {
+                                                                      CallLoader
+                                                                          .loader();
+                                                                      Timer(
+                                                                        const Duration(
+                                                                            seconds:
+                                                                                3),
+                                                                        () {
+                                                                          Get.to(
+                                                                              MapView3());
+                                                                          //_ambulancegetController.selectedvhicleCatagary();
+                                                                          //_ambulancegetController.ambulancecatagaryyApi();
+                                                                          //Get.to((MapView));
+
+                                                                          ///
+                                                                        },
+                                                                      );
+                                                                      //CallLoader.hideLoader();
+                                                                    });
+
+                                                                    //Get.off(() => MapUser());
+
+                                                                    // Get.offAll(() =>
+                                                                    //     MapView());
+                                                                  },
+                                                                ),
+                                                                // Text(
+                                                                //   "GFG",
+                                                                //   //style: TextStyle(color: Colors.green, fontSize:20,fontWeight: FontWeight.bold),
+                                                                // ),
+                                                                title: Text(
+                                                                  'Funeral/MortuaryService',
+                                                                  // _userHomepagContreoller
+                                                                  //     .ambulancetype!
+                                                                  //     .ambulanceT![index]
+                                                                  //     .ambulanceType
+                                                                  //     .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .indigo,
+                                                                      fontSize:
+                                                                          13,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                  // "List item $index"
+                                                                )),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ]),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.005,
-                                          ),
-                                          Container(
-                                            height: size.height * 0.033,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xffffffff)
-                                                    .withOpacity(0.9),
-                                                //Colors.pink.shade100,
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(10),
-                                                  bottomRight:
-                                                      Radius.circular(10),
-                                                )),
-                                            child: Center(
-                                              child: Text(
-                                                productname[index],
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: GoogleFonts.abhayaLibre(
-                                                  fontSize: size.height * 0.018,
-                                                  letterSpacing: 0.5,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
+                                            // SingleChildScrollView(
+                                            //   child:
+                                            //   Column(
+                                            //     //mainAxisSize: MainAxisSize.min,
+                                            //     children: [
+                                            //       InkWell(
+                                            //         onTap: () {
+                                            //           Get.to(() => MapView());
+                                            //           //OrderTrackingPage());
+                                            // MapUser());
+                                            //         },
+                                            //         child:
+                                            //         NeumorphicTextFieldContainer(
+                                            //           child: Container(
+                                            //               height:
+                                            //               size.height * 0.05,
+                                            //               width: size.width,
+                                            //               decoration:
+                                            //               BoxDecoration(
+                                            //                 color: Colors.white70,
+                                            //                 borderRadius:
+                                            //                 BorderRadius
+                                            //                     .circular(10),
+                                            //               ),
+                                            //               child: Center(
+                                            //                 child: Text(
+                                            //                   'Regular',
+                                            //                   style: TextStyle(
+                                            //                     fontWeight:
+                                            //                     FontWeight
+                                            //                         .w500,
+                                            //                     fontSize:
+                                            //                     size.height *
+                                            //                         0.02,
+                                            //                   ),
+                                            //                 ),
+                                            //               )
+                                            //             // ElevatedButton(
+                                            //             //   onPressed: () {},
+                                            //             //   child: Text(
+                                            //             //     'Select Date',
+                                            //             //     style: TextStyle(
+                                            //             //       color: Colors.black,
+                                            //             //     ),
+                                            //             //   ),
+                                            //             //   style: ButtonStyle(
+                                            //             //     backgroundColor:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(Colors
+                                            //             //                 .white70),
+                                            //             //     padding:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(EdgeInsets
+                                            //             //                 .all(50)),
+                                            //             //     textStyle:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(TextStyle(
+                                            //             //                 fontSize:
+                                            //             //                     30,
+                                            //             //                 color: Colors
+                                            //             //                     .black)),
+                                            //             //   ),
+                                            //             // ),
+                                            //             // TextFormField(
+                                            //             //   controller:
+                                            //             //       _appointmentUserController
+                                            //             //           .appointmentController,
+                                            //             //   onTap: () {
+                                            //             //     _appointmentUserController
+                                            //             //         .chooseDate();
+                                            //             //   },
+                                            //             //
+                                            //             //   cursorColor: Colors.black,
+                                            //             //   obscureText: false,
+                                            //             //   decoration: InputDecoration(
+                                            //             //     hintText: 'Select date',
+                                            //             //     helperStyle: TextStyle(
+                                            //             //       color: black
+                                            //             //           .withOpacity(0.7),
+                                            //             //       fontSize: 18,
+                                            //             //     ),
+                                            //             //     prefixIcon: Icon(
+                                            //             //       Icons
+                                            //             //           .calendar_today_outlined,
+                                            //             //       color: black
+                                            //             //           .withOpacity(0.7),
+                                            //             //       size: 20,
+                                            //             //     ),
+                                            //             //     border: InputBorder.none,
+                                            //             //   ),
+                                            //             //   keyboardType:
+                                            //             //       TextInputType.multiline,
+                                            //             //   maxLines: 1,
+                                            //             //   autofocus: true,
+                                            //             //   //obscureText: true,
+                                            //             //   //controller: _loginpasswordController.mobileController,
+                                            //             // ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //
+                                            //       InkWell(
+                                            //         onTap: () {
+                                            //           Get.to(() => MapUsers());
+                                            //         },
+                                            //         child:
+                                            //         NeumorphicTextFieldContainer(
+                                            //           child: Container(
+                                            //               height:
+                                            //               size.height * 0.05,
+                                            //               width: size.width,
+                                            //               decoration:
+                                            //               BoxDecoration(
+                                            //                 color: Colors.white70,
+                                            //                 borderRadius:
+                                            //                 BorderRadius
+                                            //                     .circular(10),
+                                            //               ),
+                                            //               child: Center(
+                                            //                 child: Text(
+                                            //                   'Road Accident',
+                                            //                   style: TextStyle(
+                                            //                     fontWeight:
+                                            //                     FontWeight
+                                            //                         .w500,
+                                            //                     fontSize:
+                                            //                     size.height *
+                                            //                         0.02,
+                                            //                   ),
+                                            //                 ),
+                                            //               )
+                                            //             // ElevatedButton(
+                                            //             //   onPressed: () {},
+                                            //             //   child: Text(
+                                            //             //     'Select Date',
+                                            //             //     style: TextStyle(
+                                            //             //       color: Colors.black,
+                                            //             //     ),
+                                            //             //   ),
+                                            //             //   style: ButtonStyle(
+                                            //             //     backgroundColor:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(Colors
+                                            //             //                 .white70),
+                                            //             //     padding:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(EdgeInsets
+                                            //             //                 .all(50)),
+                                            //             //     textStyle:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(TextStyle(
+                                            //             //                 fontSize:
+                                            //             //                     30,
+                                            //             //                 color: Colors
+                                            //             //                     .black)),
+                                            //             //   ),
+                                            //             // ),
+                                            //             // TextFormField(
+                                            //             //   controller:
+                                            //             //       _appointmentUserController
+                                            //             //           .appointmentController,
+                                            //             //   onTap: () {
+                                            //             //     _appointmentUserController
+                                            //             //         .chooseDate();
+                                            //             //   },
+                                            //             //
+                                            //             //   cursorColor: Colors.black,
+                                            //             //   obscureText: false,
+                                            //             //   decoration: InputDecoration(
+                                            //             //     hintText: 'Select date',
+                                            //             //     helperStyle: TextStyle(
+                                            //             //       color: black
+                                            //             //           .withOpacity(0.7),
+                                            //             //       fontSize: 18,
+                                            //             //     ),
+                                            //             //     prefixIcon: Icon(
+                                            //             //       Icons
+                                            //             //           .calendar_today_outlined,
+                                            //             //       color: black
+                                            //             //           .withOpacity(0.7),
+                                            //             //       size: 20,
+                                            //             //     ),
+                                            //             //     border: InputBorder.none,
+                                            //             //   ),
+                                            //             //   keyboardType:
+                                            //             //       TextInputType.multiline,
+                                            //             //   maxLines: 1,
+                                            //             //   autofocus: true,
+                                            //             //   //obscureText: true,
+                                            //             //   //controller: _loginpasswordController.mobileController,
+                                            //             // ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //       // InkWell(
+                                            //       //   onTap: () {
+                                            //       //     Get.to(() => MapUser());
+                                            //       //   },
+                                            //       //   child:
+                                            //       //   NeumorphicTextFieldContainer(
+                                            //       //     child: Container(
+                                            //       //         height:
+                                            //       //         size.height * 0.05,
+                                            //       //         width: size.width,
+                                            //       //         decoration:
+                                            //       //         BoxDecoration(
+                                            //       //           color: Colors.white70,
+                                            //       //           borderRadius:
+                                            //       //           BorderRadius
+                                            //       //               .circular(10),
+                                            //       //         ),
+                                            //       //         child: Center(
+                                            //       //           child: Text(
+                                            //       //             'Air Ambulance',
+                                            //       //             style: TextStyle(
+                                            //       //               fontWeight:
+                                            //       //               FontWeight
+                                            //       //                   .w500,
+                                            //       //               fontSize:
+                                            //       //               size.height *
+                                            //       //                   0.02,
+                                            //       //             ),
+                                            //       //           ),
+                                            //       //         )
+                                            //       //       // ElevatedButton(
+                                            //       //       //   onPressed: () {},
+                                            //       //       //   child: Text(
+                                            //       //       //     'Select Date',
+                                            //       //       //     style: TextStyle(
+                                            //       //       //       color: Colors.black,
+                                            //       //       //     ),
+                                            //       //       //   ),
+                                            //       //       //   style: ButtonStyle(
+                                            //       //       //     backgroundColor:
+                                            //       //       //         MaterialStateProperty
+                                            //       //       //             .all(Colors
+                                            //       //       //                 .white70),
+                                            //       //       //     padding:
+                                            //       //       //         MaterialStateProperty
+                                            //       //       //             .all(EdgeInsets
+                                            //       //       //                 .all(50)),
+                                            //       //       //     textStyle:
+                                            //       //       //         MaterialStateProperty
+                                            //       //       //             .all(TextStyle(
+                                            //       //       //                 fontSize:
+                                            //       //       //                     30,
+                                            //       //       //                 color: Colors
+                                            //       //       //                     .black)),
+                                            //       //       //   ),
+                                            //       //       // ),
+                                            //       //       // TextFormField(
+                                            //       //       //   controller:
+                                            //       //       //       _appointmentUserController
+                                            //       //       //           .appointmentController,
+                                            //       //       //   onTap: () {
+                                            //       //       //     _appointmentUserController
+                                            //       //       //         .chooseDate();
+                                            //       //       //   },
+                                            //       //       //
+                                            //       //       //   cursorColor: Colors.black,
+                                            //       //       //   obscureText: false,
+                                            //       //       //   decoration: InputDecoration(
+                                            //       //       //     hintText: 'Select date',
+                                            //       //       //     helperStyle: TextStyle(
+                                            //       //       //       color: black
+                                            //       //       //           .withOpacity(0.7),
+                                            //       //       //       fontSize: 18,
+                                            //       //       //     ),
+                                            //       //       //     prefixIcon: Icon(
+                                            //       //       //       Icons
+                                            //       //       //           .calendar_today_outlined,
+                                            //       //       //       color: black
+                                            //       //       //           .withOpacity(0.7),
+                                            //       //       //       size: 20,
+                                            //       //       //     ),
+                                            //       //       //     border: InputBorder.none,
+                                            //       //       //   ),
+                                            //       //       //   keyboardType:
+                                            //       //       //       TextInputType.multiline,
+                                            //       //       //   maxLines: 1,
+                                            //       //       //   autofocus: true,
+                                            //       //       //   //obscureText: true,
+                                            //       //       //   //controller: _loginpasswordController.mobileController,
+                                            //       //       // ),
+                                            //       //     ),
+                                            //       //   ),
+                                            //       // ),
+                                            //       InkWell(
+                                            //         onTap: () {
+                                            //           Get.to(() => MapUser());
+                                            //         },
+                                            //         child:
+                                            //         NeumorphicTextFieldContainer(
+                                            //           child: Container(
+                                            //               height:
+                                            //               size.height * 0.05,
+                                            //               width: size.width,
+                                            //               decoration:
+                                            //               BoxDecoration(
+                                            //                 color: Colors.white70,
+                                            //                 borderRadius:
+                                            //                 BorderRadius
+                                            //                     .circular(10),
+                                            //               ),
+                                            //               child: Center(
+                                            //                 child: Text(
+                                            //                   'Funeral/Mortuary Service',
+                                            //                   style: TextStyle(
+                                            //                     fontWeight:
+                                            //                     FontWeight
+                                            //                         .w500,
+                                            //                     fontSize:
+                                            //                     size.height *
+                                            //                         0.02,
+                                            //                   ),
+                                            //                 ),
+                                            //               )
+                                            //             // ElevatedButton(
+                                            //             //   onPressed: () {},
+                                            //             //   child: Text(
+                                            //             //     'Select Date',
+                                            //             //     style: TextStyle(
+                                            //             //       color: Colors.black,
+                                            //             //     ),
+                                            //             //   ),
+                                            //             //   style: ButtonStyle(
+                                            //             //     backgroundColor:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(Colors
+                                            //             //                 .white70),
+                                            //             //     padding:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(EdgeInsets
+                                            //             //                 .all(50)),
+                                            //             //     textStyle:
+                                            //             //         MaterialStateProperty
+                                            //             //             .all(TextStyle(
+                                            //             //                 fontSize:
+                                            //             //                     30,
+                                            //             //                 color: Colors
+                                            //             //                     .black)),
+                                            //             //   ),
+                                            //             // ),
+                                            //             // TextFormField(
+                                            //             //   controller:
+                                            //             //       _appointmentUserController
+                                            //             //           .appointmentController,
+                                            //             //   onTap: () {
+                                            //             //     _appointmentUserController
+                                            //             //         .chooseDate();
+                                            //             //   },
+                                            //             //
+                                            //             //   cursorColor: Colors.black,
+                                            //             //   obscureText: false,
+                                            //             //   decoration: InputDecoration(
+                                            //             //     hintText: 'Select date',
+                                            //             //     helperStyle: TextStyle(
+                                            //             //       color: black
+                                            //             //           .withOpacity(0.7),
+                                            //             //       fontSize: 18,
+                                            //             //     ),
+                                            //             //     prefixIcon: Icon(
+                                            //             //       Icons
+                                            //             //           .calendar_today_outlined,
+                                            //             //       color: black
+                                            //             //           .withOpacity(0.7),
+                                            //             //       size: 20,
+                                            //             //     ),
+                                            //             //     border: InputBorder.none,
+                                            //             //   ),
+                                            //             //   keyboardType:
+                                            //             //       TextInputType.multiline,
+                                            //             //   maxLines: 1,
+                                            //             //   autofocus: true,
+                                            //             //   //obscureText: true,
+                                            //             //   //controller: _loginpasswordController.mobileController,
+                                            //             // ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //
+                                            //       // SizedBox(
+                                            //       //     height: size.height * 0.05,
+                                            //       //     child: TestPickerWidget()),
+                                            //       ///..................
+                                            //       // Obx(
+                                            //       //   () => Text(
+                                            //       //     DateFormat("dd-MM-yyyy")
+                                            //       //         .format(_appointmentController
+                                            //       //             .selectedDate.value)
+                                            //       //         .toString(),
+                                            //       //     style: TextStyle(fontSize: 25),
+                                            //       //   ),
+                                            //       // ),
+                                            //
+                                            //       // SizedBox(
+                                            //       //   height: 30.0,
+                                            //       // ),
+                                            //       // ElevatedButton(
+                                            //       //   style:
+                                            //       //       ElevatedButton.styleFrom(
+                                            //       //     foregroundColor:
+                                            //       //         Colors.yellow,
+                                            //       //     backgroundColor: Colors
+                                            //       //         .red, // foreground
+                                            //       //   ),
+                                            //       //   onPressed: () {
+                                            //       //     Get.back();
+                                            //       //     // Get.to(() =>
+                                            //       //     //     AppointmentHistory()
+                                            //       //     // );
+                                            //       //     // todoController.todos.add(
+                                            //       //     //   Todo(
+                                            //       //     //     text: textEditingController.text,
+                                            //       //     //   ),
+                                            //       //     // );
+                                            //       //     //Get.back();
+                                            //       //   },
+                                            //       //   child: Text(
+                                            //       //     'Appointment History',
+                                            //       //     style: TextStyle(
+                                            //       //         color: Colors.white,
+                                            //       //         fontSize: 16.0),
+                                            //       //   ),
+                                            //       //   //color: Colors.redAccent,
+                                            //       // )
+                                            //     ],
+                                            //   ),
+                                            // ),
+
+                                            radius: 10.0);
+                                        //whatsAppOpen();
+                                        // _launchWhatsapp();
+                                        // Get.to(() => ComplainList());
+                                        //Get.to(() => Profoile());
+                                      } else if (index == 3) {
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        Get.offAll(() => ChooseLab());
+                                        //Get.to(() => ReportList());
+
+                                        ///
+                                        //Get.to(() => TheJwelleryStore());
+
+                                        //Get.to(() => CarouselDReportList());
+                                        //HealthCheckup1());
+                                        //Get.defaultDialog(
+                                        //barrierDismissible: true,
+                                      } else if (index == 4) {
+                                        // _medicineListController
+                                        //     .medicineListApi();
+                                        // _medicineListController.update();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        Get.to(() => ReportList());
+                                        // Get.defaultDialog(
+                                        //     barrierDismissible: true,
+                                        //     backgroundColor: MyTheme.t1containercolor,
+                                        //     title: '',
+                                        //     content: Column(
+                                        //       mainAxisSize: MainAxisSize.min,
+                                        //       children: [
+                                        //         Directionality(
+                                        //           textDirection: TextDirection.ltr,
+                                        //           child: Center(
+                                        //             child: Padding(
+                                        //               padding:
+                                        //                   const EdgeInsets.all(0.0),
+                                        //               child: TextFormField(
+                                        //                 decoration: InputDecoration(
+                                        //                   filled: true,
+                                        //
+                                        //                   fillColor: MyTheme
+                                        //                       .t1bacgroundcolors1,
+                                        //                   hintText:
+                                        //                       'Enter Service Name',
+                                        //                   contentPadding:
+                                        //                       const EdgeInsets.only(
+                                        //                           left: 14.0,
+                                        //                           bottom: 4.0,
+                                        //                           top: 16.0),
+                                        //                   focusedBorder:
+                                        //                       OutlineInputBorder(
+                                        //                     borderSide: new BorderSide(
+                                        //                         color: Colors.green),
+                                        //                     borderRadius:
+                                        //                         new BorderRadius
+                                        //                             .circular(10),
+                                        //                   ),
+                                        //                   enabledBorder:
+                                        //                       UnderlineInputBorder(
+                                        //                     borderSide: new BorderSide(
+                                        //                         color:
+                                        //                             Colors.transparent),
+                                        //                     borderRadius:
+                                        //                         new BorderRadius
+                                        //                             .circular(10.0),
+                                        //                   ),
+                                        //                   //focusedBorder: InputBorder.none,
+                                        //                   //enabledBorder: InputBorder.none,
+                                        //                   // errorBorder: InputBorder.none,
+                                        //                   // border: InputBorder.none,
+                                        //
+                                        //                   border: OutlineInputBorder(
+                                        //                     borderSide: BorderSide(
+                                        //                         color: Colors.red,
+                                        //                         width: 2.0),
+                                        //                     borderRadius:
+                                        //                         BorderRadius.circular(
+                                        //                             10),
+                                        //                   ),
+                                        //                   // labelText: "Password",
+                                        //                   prefixIcon: Padding(
+                                        //                     padding:
+                                        //                         EdgeInsets.symmetric(
+                                        //                             vertical:
+                                        //                                 size.height *
+                                        //                                     0.012,
+                                        //                             horizontal:
+                                        //                                 size.width *
+                                        //                                     0.02),
+                                        //                     child: Image.asset(
+                                        //                       'lib/assets/images/profile.png',
+                                        //                       color:
+                                        //                           MyTheme.t1Iconcolor,
+                                        //                       height: 10,
+                                        //                       width: 10,
+                                        //                     ),
+                                        //                   ),
+                                        //                 ),
+                                        //                 keyboardType: TextInputType
+                                        //                     .visiblePassword,
+                                        //                 //obscureText: true,
+                                        //                 // controller:
+                                        //                 // _registerComplainController.nameController,
+                                        //                 // onSaved: (value) {
+                                        //                 //   _registerComplainController.name = value!;
+                                        //                 // },
+                                        //                 // validator: (value) {
+                                        //                 //   return _registerComplainController
+                                        //                 //       .validateName(value!);
+                                        //                 // },
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //         ),
+                                        //         // TextField(
+                                        //         //   //controller: settingsScreenController.categoryNameController,
+                                        //         //   keyboardType: TextInputType.text,
+                                        //         //   maxLines: 1,
+                                        //         //   decoration: InputDecoration(
+                                        //         //       labelText: 'Service name',
+                                        //         //       hintMaxLines: 1,
+                                        //         //       border: OutlineInputBorder(
+                                        //         //           borderSide: BorderSide(
+                                        //         //               color: Colors.green,
+                                        //         //               width: 4.0))),
+                                        //         // ),
+                                        //         SizedBox(
+                                        //           height: 30.0,
+                                        //         ),
+                                        //         PhysicalModel(
+                                        //           color: Colors.white,
+                                        //           shadowColor: Colors.grey,
+                                        //           elevation: 4,
+                                        //           borderRadius:
+                                        //               BorderRadius.circular(10),
+                                        //           child: Padding(
+                                        //             padding: const EdgeInsets.all(3.0),
+                                        //             child: Container(
+                                        //               height: size.height * 0.04,
+                                        //               width: size.width * 0.4,
+                                        //               decoration: BoxDecoration(
+                                        //                 color: MyTheme.t1Iconcolor,
+                                        //                 borderRadius:
+                                        //                     BorderRadius.circular(10),
+                                        //               ),
+                                        //               child: Center(
+                                        //                 child: Text(
+                                        //                   'ADD SERVICE',
+                                        //                   style: TextStyle(
+                                        //                       color: Colors.white,
+                                        //                       fontSize: 14.0,
+                                        //                       fontWeight:
+                                        //                           FontWeight.w600),
+                                        //                 ),
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //         ),
+                                        //       ],
+                                        //     ),
+                                        //     radius: 10.0);
+                                        ///
+                                        //Get.to(() => ServicesPage());
+                                      } else if (index == 5) {
+                                        _medicineListController
+                                            .medicineListApi();
+                                        _medicineListController.update();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        Get.to(() => SearchMedicine());
+
+                                        // Get.defaultDialog(
+                                        //     barrierDismissible: true,
+                                        //     backgroundColor: MyTheme.t1containercolor,
+                                        //     title: '',
+                                        //     content: Column(
+                                        //       mainAxisSize: MainAxisSize.min,
+                                        //       children: [
+                                        //         Directionality(
+                                        //           textDirection: TextDirection.ltr,
+                                        //           child: Center(
+                                        //             child: Padding(
+                                        //               padding:
+                                        //                   const EdgeInsets.all(0.0),
+                                        //               child: TextFormField(
+                                        //                 decoration: InputDecoration(
+                                        //                   filled: true,
+                                        //
+                                        //                   fillColor: MyTheme
+                                        //                       .t1bacgroundcolors1,
+                                        //                   hintText:
+                                        //                       'Enter Service Name',
+                                        //                   contentPadding:
+                                        //                       const EdgeInsets.only(
+                                        //                           left: 14.0,
+                                        //                           bottom: 4.0,
+                                        //                           top: 16.0),
+                                        //                   focusedBorder:
+                                        //                       OutlineInputBorder(
+                                        //                     borderSide: new BorderSide(
+                                        //                         color: Colors.green),
+                                        //                     borderRadius:
+                                        //                         new BorderRadius
+                                        //                             .circular(10),
+                                        //                   ),
+                                        //                   enabledBorder:
+                                        //                       UnderlineInputBorder(
+                                        //                     borderSide: new BorderSide(
+                                        //                         color:
+                                        //                             Colors.transparent),
+                                        //                     borderRadius:
+                                        //                         new BorderRadius
+                                        //                             .circular(10.0),
+                                        //                   ),
+                                        //                   //focusedBorder: InputBorder.none,
+                                        //                   //enabledBorder: InputBorder.none,
+                                        //                   // errorBorder: InputBorder.none,
+                                        //                   // border: InputBorder.none,
+                                        //
+                                        //                   border: OutlineInputBorder(
+                                        //                     borderSide: BorderSide(
+                                        //                         color: Colors.red,
+                                        //                         width: 2.0),
+                                        //                     borderRadius:
+                                        //                         BorderRadius.circular(
+                                        //                             10),
+                                        //                   ),
+                                        //                   // labelText: "Password",
+                                        //                   prefixIcon: Padding(
+                                        //                     padding:
+                                        //                         EdgeInsets.symmetric(
+                                        //                             vertical:
+                                        //                                 size.height *
+                                        //                                     0.012,
+                                        //                             horizontal:
+                                        //                                 size.width *
+                                        //                                     0.02),
+                                        //                     child: Image.asset(
+                                        //                       'lib/assets/images/profile.png',
+                                        //                       color:
+                                        //                           MyTheme.t1Iconcolor,
+                                        //                       height: 10,
+                                        //                       width: 10,
+                                        //                     ),
+                                        //                   ),
+                                        //                 ),
+                                        //                 keyboardType: TextInputType
+                                        //                     .visiblePassword,
+                                        //                 //obscureText: true,
+                                        //                 // controller:
+                                        //                 // _registerComplainController.nameController,
+                                        //                 // onSaved: (value) {
+                                        //                 //   _registerComplainController.name = value!;
+                                        //                 // },
+                                        //                 // validator: (value) {
+                                        //                 //   return _registerComplainController
+                                        //                 //       .validateName(value!);
+                                        //                 // },
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //         ),
+                                        //         // TextField(
+                                        //         //   //controller: settingsScreenController.categoryNameController,
+                                        //         //   keyboardType: TextInputType.text,
+                                        //         //   maxLines: 1,
+                                        //         //   decoration: InputDecoration(
+                                        //         //       labelText: 'Service name',
+                                        //         //       hintMaxLines: 1,
+                                        //         //       border: OutlineInputBorder(
+                                        //         //           borderSide: BorderSide(
+                                        //         //               color: Colors.green,
+                                        //         //               width: 4.0))),
+                                        //         // ),
+                                        //         SizedBox(
+                                        //           height: 30.0,
+                                        //         ),
+                                        //         PhysicalModel(
+                                        //           color: Colors.white,
+                                        //           shadowColor: Colors.grey,
+                                        //           elevation: 4,
+                                        //           borderRadius:
+                                        //               BorderRadius.circular(10),
+                                        //           child: Padding(
+                                        //             padding: const EdgeInsets.all(3.0),
+                                        //             child: Container(
+                                        //               height: size.height * 0.04,
+                                        //               width: size.width * 0.4,
+                                        //               decoration: BoxDecoration(
+                                        //                 color: MyTheme.t1Iconcolor,
+                                        //                 borderRadius:
+                                        //                     BorderRadius.circular(10),
+                                        //               ),
+                                        //               child: Center(
+                                        //                 child: Text(
+                                        //                   'ADD SERVICE',
+                                        //                   style: TextStyle(
+                                        //                       color: Colors.white,
+                                        //                       fontSize: 14.0,
+                                        //                       fontWeight:
+                                        //                           FontWeight.w600),
+                                        //                 ),
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //         ),
+                                        //       ],
+                                        //     ),
+                                        //     radius: 10.0);
+                                        ///
+                                        //Get.to(() => ServicesPage());
+                                      }
+                                      // else if (index == 6) {
+                                      //   Get.to(() => SupportView());
+                                      // }
+                                      ///
+                                      // else if (index == 7) {
+                                      //   Get.to(() => AddBankDetail());
+                                      //
+                                      //   //Get.to(() => TermsMemberPage());
+                                      // }
+                                    },
+                                    child: Container(
+                                      height: size.height * 0.11,
+                                      width: size.width * 0.23,
+                                      padding: EdgeInsets.all(7),
+                                      child: Image.asset(
+                                        productimage[index],
+                                        // "lib/assets/image/icons8-hospital-64.png",
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.shade400,
+                                              //color: Color(0xFFBEBEBE),
+                                              offset: Offset(03, 03),
+                                              blurRadius: 0,
+                                              spreadRadius: 0,
                                             ),
-                                          ),
-                                        ],
+                                            const BoxShadow(
+                                              color: Colors.white,
+                                              offset: Offset(-02, -02),
+                                              blurRadius: 0,
+                                              spreadRadius: 0,
+                                            ),
+                                          ]),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.005,
+                                  ),
+                                  Container(
+                                    height: size.height * 0.033,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color(0xffffffff).withOpacity(0.9),
+                                        //Colors.pink.shade100,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        )),
+                                    child: Center(
+                                      child: Text(
+                                        productname[index],
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: GoogleFonts.abhayaLibre(
+                                          fontSize: size.height * 0.018,
+                                          letterSpacing: 0.5,
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
+                                  ),
+                                ],
+                              ),
+                            ),
 
-                                    // child: child,
-                                  );
-                                  //   Container(
-                                  //   alignment: Alignment.center,
-                                  //   decoration: BoxDecoration(
-                                  //       color: Colors.amber,
-                                  //       borderRadius: BorderRadius.circular(15)),
-                                  //   child: Text(productname[index]),
-                                  // );
-                                }),
-                          ),
-                        )
-                      ],
-                    ),
+                            // child: child,
+                          );
+                          //   Container(
+                          //   alignment: Alignment.center,
+                          //   decoration: BoxDecoration(
+                          //       color: Colors.amber,
+                          //       borderRadius: BorderRadius.circular(15)),
+                          //   child: Text(productname[index]),
+                          // );
+                        }),
                   ),
+                )
+              ],
+            ),
           ),
+          //  ),
         ),
       ),
     );

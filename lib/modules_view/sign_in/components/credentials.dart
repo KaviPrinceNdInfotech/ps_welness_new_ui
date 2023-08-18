@@ -331,11 +331,11 @@ class Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Sign In',
                 press: () async {
-                  // CallLoader.loader();
+                  CallLoader.loader();
                   _loginpasswordController.checkLoginpassword();
                   // _getGeoLocationPosition();
-                  CallLoader.loader();
-                  await Future.delayed(Duration(seconds: 1));
+                  // CallLoader.loader();
+                  await Future.delayed(Duration(milliseconds: 900));
                   CallLoader.hideLoader();
                   //CallLoader.hideLoader();
 

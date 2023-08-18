@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_doctor.dart';
 
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
@@ -57,42 +60,131 @@ class DoctorHistoryUser extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: new BoxDecoration(
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(30.0)),
-                          color: Colors.white),
-                      width: size.width * 0.9,
-                      height: size.height * 0.065,
-                      margin: new EdgeInsets.fromLTRB(20, 20, 20, 20),
-                      padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
-                      child: Theme(
-                        data: Theme.of(context)
-                            .copyWith(splashColor: Colors.transparent),
-                        child: TextField(
-                          onChanged: (value) =>
-                              _doctorHistoryController.filterDoctor(value),
-                          autofocus: false,
-                          style:
-                              TextStyle(fontSize: 15.0, color: MyTheme.blueww),
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.search),
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Search Doctor..',
-                            contentPadding: const EdgeInsets.only(
-                                left: 10.0, bottom: 12.0, top: 6.0),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7),
+                    Row(
+                      children: [
+                        Container(
+                          decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.all(
+                                  new Radius.circular(30.0)),
+                              color: Colors.white),
+                          width: size.width * 0.85,
+                          height: size.height * 0.065,
+                          margin: new EdgeInsets.fromLTRB(20, 20, 10, 20),
+                          padding: new EdgeInsets.fromLTRB(8, 8, 8, 3),
+                          child: Theme(
+                            data: Theme.of(context)
+                                .copyWith(splashColor: Colors.transparent),
+                            child: TextField(
+                              onChanged: (value) =>
+                                  _doctorHistoryController.filterDoctor(value),
+                              autofocus: false,
+                              style: TextStyle(
+                                  fontSize: 15.0, color: MyTheme.blueww),
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: 'Search Doctor..',
+                                contentPadding: const EdgeInsets.only(
+                                    left: 10.0, bottom: 12.0, top: 6.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(25.7),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(25.7),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        //
+                        // InkWell(
+                        //   onTap: () async {
+                        //     CallLoader.loader();
+                        //     await Future.delayed(Duration(milliseconds: 700));
+                        //     CallLoader.hideLoader();
+                        //     Get.to(WebViewPswebsite());
+                        //   },
+                        //   child: NeumorphicbuttonContainer(
+                        //     color: Colors.white,
+                        //     child: Container(
+                        //       width: size.width * 0.13,
+                        //       height: size.height * 0.06,
+                        //       decoration: BoxDecoration(
+                        //         color: Colors.white,
+                        //         shape: BoxShape.circle,
+                        //         image: DecorationImage(
+                        //           image: NetworkImage(
+                        //               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5UX-5262FvS9AkNpnPst9lZon1ZET11ncXw&usqp=CAU'),
+                        //           fit: BoxFit.fill,
+                        //         ),
+                        //       ),
+                        //       //CachedNetworkImage(
+                        //       //         imageUrl: "http://via.placeholder.com/350x150",
+                        //       //         placeholder: (context, url) => CircularProgressIndicator(),
+                        //       //         errorWidget: (context, url, error) => Icon(Icons.error),
+                        //       //      ),
+                        //       child: Lottie.network(
+                        //         'https://lottie.host/722ec229-c3eb-4698-8a89-6ae23fad93ea/svf4Yjk3eL.json',
+                        //         //fit: BoxFit.fill,
+                        //         // 'https://lottie.host/8661be5e-217a-454f-ad46-ee845feaaf46/0A32qb5TKz.json',
+                        //         // 'https://assets1.lottiefiles.com/private_files/lf30_QLsD8M.json',
+                        //         //Lottie.asset(
+                        //         //'assets/anim/developer.json',
+                        //         width: size.width * 0.13,
+                        //         height: size.height * 0.06,
+                        //         repeat: true,
+                        //         reverse: true,
+                        //         animate: true,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
+                        ///
+                        // Material(
+                        //   borderRadius: BorderRadius.circular(10),
+                        //   elevation: 4,
+                        //   // surfaceTintColor: Colors.yellow,
+                        //   color: Colors.cyanAccent,
+                        //   shadowColor: Colors.white,
+                        //   child: Container(
+                        //     height: size.height * 0.065,
+                        //     width: size.width * 0.12,
+                        //     decoration: BoxDecoration(
+                        //         color: Colors.cyanAccent,
+                        //         borderRadius: BorderRadius.circular(10),
+                        //         border: Border.all(color: Colors.white),
+                        //         boxShadow: const [
+                        //           BoxShadow(
+                        //             color: Colors.white,
+                        //             offset: Offset(3, 3),
+                        //             blurRadius: 0,
+                        //             spreadRadius: 0,
+                        //           ),
+                        //           BoxShadow(
+                        //             color: Colors.red,
+                        //             //offset: Offset(-1, -1),
+                        //             blurRadius: 0,
+                        //             spreadRadius: 0,
+                        //           ),
+                        //         ]),
+                        //     child: Lottie.network(
+                        //       'https://lottie.host/722ec229-c3eb-4698-8a89-6ae23fad93ea/svf4Yjk3eL.json',
+                        //       // 'https://lottie.host/8661be5e-217a-454f-ad46-ee845feaaf46/0A32qb5TKz.json',
+                        //       // 'https://assets1.lottiefiles.com/private_files/lf30_QLsD8M.json',
+                        //       //Lottie.asset(
+                        //       //'assets/anim/developer.json',
+                        //       height: 200.0,
+                        //       repeat: true,
+                        //       reverse: true,
+                        //       animate: true,
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
                     ),
                     _doctorHistoryController.foundDoctor.value.isEmpty
                         // Row(
@@ -219,22 +311,22 @@ class DoctorHistoryUser extends StatelessWidget {
                                               fit: BoxFit.cover)),
                                       child: Column(
                                         children: [
-                                          SizedBox(
-                                            height: size.height * 0.08,
-                                            child: Container(
-                                              height: size.height * 0.1,
-                                              width: size.width * 0.16,
-                                              decoration: BoxDecoration(
-                                                color: Colors.yellow.shade200,
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'lib/assets/background_stack_png/doctor20.png'),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // SizedBox(
+                                          //   height: size.height * 0.08,
+                                          //   child: Container(
+                                          //     height: size.height * 0.1,
+                                          //     width: size.width * 0.16,
+                                          //     decoration: BoxDecoration(
+                                          //       color: Colors.yellow.shade200,
+                                          //       shape: BoxShape.circle,
+                                          //       image: DecorationImage(
+                                          //         image: AssetImage(
+                                          //             'lib/assets/background_stack_png/doctor20.png'),
+                                          //         fit: BoxFit.cover,
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           Padding(
                                             padding: EdgeInsets.all(8.0),
                                             child: Row(
@@ -518,6 +610,213 @@ class DoctorHistoryUser extends StatelessWidget {
                                               ],
                                             ),
                                           ),
+                                          SizedBox(
+                                              height: size.height * 0.08,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Material(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      elevation: 4,
+                                                      // surfaceTintColor: Colors.yellow,
+                                                      color: Colors.cyanAccent,
+                                                      shadowColor: Colors.white,
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          CallLoader.loader();
+                                                          await Future.delayed(
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      700));
+                                                          CallLoader
+                                                              .hideLoader();
+                                                          //Get.to(PdfPageLab(),
+                                                          Get.to(
+                                                              () =>
+                                                                  PdfPageDoctor(), //next page class
+
+                                                              /// Get.to(() => PdfPage(), //next page class
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      300), //duration of transitions, default 1 sec
+                                                              transition:
+                                                                  // Transition.leftToRight //transition effect
+                                                                  // Transition.fadeIn
+                                                                  //Transition.size
+                                                                  Transition
+                                                                      .zoom);
+                                                          // Get.to(WebViewPswebsite());
+                                                        },
+                                                        child: Container(
+                                                          height: size.height *
+                                                              0.06,
+                                                          width:
+                                                              size.width * 0.12,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  color: Colors
+                                                                      .cyanAccent,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .red),
+                                                                  image:
+                                                                      DecorationImage(
+                                                                    image: NetworkImage(
+                                                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5UX-5262FvS9AkNpnPst9lZon1ZET11ncXw&usqp=CAU'),
+                                                                    //fit: BoxFit.fitHeight,
+                                                                  ),
+                                                                  boxShadow: const [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .red,
+                                                                  offset:
+                                                                      Offset(
+                                                                          3, 3),
+                                                                  blurRadius: 0,
+                                                                  spreadRadius:
+                                                                      0,
+                                                                ),
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .red,
+                                                                  //offset: Offset(-1, -1),
+                                                                  blurRadius: 0,
+                                                                  spreadRadius:
+                                                                      0,
+                                                                ),
+                                                              ]),
+                                                          child: Lottie.network(
+                                                            'https://lottie.host/722ec229-c3eb-4698-8a89-6ae23fad93ea/svf4Yjk3eL.json',
+                                                            // 'https://lottie.host/8661be5e-217a-454f-ad46-ee845feaaf46/0A32qb5TKz.json',
+                                                            // 'https://assets1.lottiefiles.com/private_files/lf30_QLsD8M.json',
+                                                            //Lottie.asset(
+                                                            //'assets/anim/developer.json',
+                                                            height: 200.0,
+                                                            repeat: true,
+                                                            reverse: true,
+                                                            animate: true,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height:
+                                                          size.height * 0.04,
+                                                      width: size.width * 0.15,
+                                                      child: Material(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        elevation: 2,
+                                                        // surfaceTintColor: Colors.yellow,
+                                                        color: Colors.white38,
+                                                        shadowColor:
+                                                            Colors.white,
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            //CallLoader.loader();
+                                                            // await Future.delayed(Duration(milliseconds: 700));
+                                                            //CallLoader.hideLoader();
+                                                            //Get.to(PdfPageLab(),
+                                                            //Get.to(() => PdfPageLab(), //next page class
+
+                                                            /// Get.to(() => PdfPage(), //next page class
+                                                            // duration: Duration(
+                                                            //     milliseconds:
+                                                            //     300), //duration of transitions, default 1 sec
+                                                            // transition:
+                                                            // // Transition.leftToRight //transition effect
+                                                            // // Transition.fadeIn
+                                                            // //Transition.size
+                                                            // Transition.zoom);
+                                                            // Get.to(WebViewPswebsite());
+                                                          },
+                                                          child: Center(
+                                                            child: Container(
+                                                              height:
+                                                                  size.height *
+                                                                      0.04,
+                                                              width:
+                                                                  size.width *
+                                                                      0.15,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .white38,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .red),
+                                                                  // image: DecorationImage(
+                                                                  //   image: NetworkImage(
+                                                                  //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5UX-5262FvS9AkNpnPst9lZon1ZET11ncXw&usqp=CAU'),
+                                                                  //   //fit: BoxFit.fitHeight,
+                                                                  // ),
+                                                                  boxShadow: const [
+                                                                    BoxShadow(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      offset:
+                                                                          Offset(
+                                                                              3,
+                                                                              3),
+                                                                      blurRadius:
+                                                                          0,
+                                                                      spreadRadius:
+                                                                          0,
+                                                                    ),
+                                                                    BoxShadow(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      //offset: Offset(-1, -1),
+                                                                      blurRadius:
+                                                                          0,
+                                                                      spreadRadius:
+                                                                          0,
+                                                                    ),
+                                                                  ]),
+                                                              child: const Center(
+                                                                  child: Text(
+                                                                      'Cancel')),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                              // Container(
+                                              //   height: size.height * 0.3,
+                                              //   width: size.width * 0.3,
+                                              //   decoration: BoxDecoration(
+                                              //     color: Colors.yellow.shade200,
+                                              //     shape: BoxShape.circle,
+                                              //     image: DecorationImage(
+                                              //       image: NetworkImage(
+                                              //           'https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+                                              //           //'https://images.unsplash.com/photo-1630094556251-2a1e50b60e7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjEyfHxtZWRpY2luZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'
+                                              //           ),
+                                              //       fit: BoxFit.cover,
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              ),
                                         ],
                                       ),
                                     ),

@@ -502,10 +502,18 @@ class ApiProvider {
   ///todo nurse list detail...8 may 2023....after api it will change in future it will based on location id...18 april 2023...................
   static NursListUserrApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    //nurseCityId
+    //nurseStateId
+    var nurseStateId = preferences.getString("nurseStateId");
+    var nurseCityId = preferences.getString("nurseCityId");
     var nurseLocationId = preferences.getString("nurseLocationId");
+    print("nurseStateId: ${nurseLocationId}");
+    print("nurseCityId: ${nurseLocationId}");
     print("nurseLocationId: ${nurseLocationId}");
+
     var url =
-        "http://test.pswellness.in/api/NurseAPI/getNurseList?Loc_id=$nurseLocationId";
+        "http://test.pswellness.in/api/NurseAPI/getNurseList?State_Id=$nurseStateId&City_Id=$nurseCityId";
+    //"http://test.pswellness.in/api/NurseAPI/getNurseList?Loc_id=$nurseLocationId";
 
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
@@ -597,13 +605,13 @@ class ApiProvider {
             backgroundColor: Colors.red,
             colorText: Colors.white,
             duration: (Duration(seconds: 3)));
-        //await CallLoader.hideLoader();
+        CallLoader.hideLoader();
       } else {
         Get.snackbar('Sucess', '${json.decode(r.body)['Message']}',
             snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.green.shade400,
             colorText: Colors.white,
-            duration: (Duration(seconds: 3)));
+            duration: (Duration(seconds: 1)));
         //CallLoader.hideLoader();
         _getGeoLocationPosition();
       }
@@ -1943,7 +1951,9 @@ class ApiProvider {
     var StartDate,
     var EndDate,
     var MobileNumber,
-    var LocationId,
+    var Location,
+    var StateMaster_Id,
+    var CityMaster_Id,
   ) async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -1951,18 +1961,47 @@ class ApiProvider {
     //nursebooking_Id = prefs.read("nursebooking_Id").toString();
 
     var url = baseUrl + 'api/NurseServices/NurseServices';
-
     var body = {
       "Patient_Id": "$userid",
       "NurseTypeId": NurseTypeId,
       "ServiceType": ServiceType,
-      "NurseType_Id": NurseTypeId,
       "ServiceTime": ServiceTime,
       "StartDate": StartDate,
       "EndDate": EndDate,
       "MobileNumber": MobileNumber,
-      "LocationId": LocationId,
+      "Location": Location,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id
     };
+
+    ///
+
+    // var body = {
+    //   "Patient_Id": "$userid",
+    //   "NurseTypeId": NurseTypeId,
+    //   "ServiceType": ServiceType,
+    //   "ServiceTime": ServiceTime,
+    //   "StartDate": StartDate,
+    //   "EndDate": EndDate,
+    //   "MobileNumber": MobileNumber,
+    //   "Location": Location,
+    //   "StateMaster_Id": StateMaster_Id,
+    //   "CityMaster_Id": CityMaster_Id
+    // };
+    //
+
+    //{
+    //     "Patient_Id": "137",
+    //       "NurseTypeId":"2",
+    //       "ServiceType": "24",
+    //       "ServiceTime": "Day",
+    //       "StartDate": "2023-06-24 13:18:57.383",
+    //       "EndDate": "2023-06-26 13:18:57.383",
+    //       "MobileNumber": "7898564534",
+    //       "Location": "Dibai",
+    //       "StateMaster_Id":"3",
+    //       "CityMaster_Id":"840"
+    // }
     print(body);
     http.Response r = await http.post(
       Uri.parse(url), body: body,
@@ -5533,7 +5572,7 @@ class ApiProvider {
   static _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(milliseconds: 500));
     await Get.dialog(
       // bool barrierDismissible = true
 
@@ -5586,5 +5625,54 @@ class ApiProvider {
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
   }
+
+  ///pdf invoice
+  // static invoiceApi(var Invoice) async {
+  //   var prefs = GetStorage();
+  //   var invoiceget = prefs.read("rahul").toString();
+  //   print('mdsjjjjhdgl:${invoiceget}');
+  //   //var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+  //   var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+  //   //'$invoiceget';
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     //  var prefs = GetStorage();
+  //     //  //saved invoice..........
+  //     //  Invoice = prefs.write("Invoice".toString(), json.decode(r.body)['Invoice']);
+  //     //  print('bhngbnhl:${Invoice.toString()}');
+  //     //  Invoice = prefs.read("Invoice").toString();
+  //     // print('mdsflfdgl:${Invoice.toString()}');
+  //
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       // var prefs = GetStorage();
+  //       // //saved invoice..........
+  //       // prefs.write("Invoice".toString() , json.decode(r.body)['Invoice']);
+  //       // print('mjgihjbngiuj:${Invoice.toString()}');
+  //       // Invoice = prefs.read("Invoice").toString();
+  //       // print('mdsflfdgl:${Invoice}');
+  //       //var prefs = GetStorage();
+  //       // //saved invoice..........
+  //       // prefs.write('invoiceget', '${invoiceproductlist.result?.first.invoice}');
+  //       // print('mjgihjbngiuj:${invoiceproductlist.result?.first.invoice}');
+  //       // Invoice = prefs.read("invoiceproductlist.result?.first.invoice").toString();
+  //       // print('mdsflfdgl:${invoiceproductlist.result?.first.invoice}');
+  //       InvoiceModel invoiceproductlist = invoiceModelFromJson(r.body);
+  //       print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+  //
+  //       prefs.write(
+  //           'invoiceget', '${invoiceproductlist.result?.first.invoice}');
+  //       print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+  //
+  //       // print('mdsjjdgl:${invoiceget}');
+  //       //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+  //       return invoiceproductlist;
+  //     }
+  //   } catch (error) {
+  //     print("bduegbfff: ${error}");
+  //     return;
+  //   }
+  // }
 }
+
 //$nurseLocationId

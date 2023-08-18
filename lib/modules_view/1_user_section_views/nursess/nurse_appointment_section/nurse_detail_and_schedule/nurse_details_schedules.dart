@@ -328,7 +328,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Book a Date:',
+                                        'Date of Booking:',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: size.height * 0.02,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
@@ -13,6 +14,7 @@ import '../../modules_view/circular_loader/circular_loaders.dart';
 
 class ProfileController extends GetxController {
   final GlobalKey<FormState> profileformkey = GlobalKey<FormState>();
+  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 
   ///this is for state.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
@@ -75,11 +77,16 @@ class ProfileController extends GetxController {
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
-
+      _userprofile.update();
+      _userprofile.userprofileApi();
+      _userprofile.onInit();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(UserHomePage());
+      Get.offAll(UserHomePage());
     }
   }
 
@@ -142,16 +149,16 @@ class ProfileController extends GetxController {
 
   @override
   void onClose() {
-    patientNameController.dispose();
-    // emailController.dispose();
-    MobileNumberController.dispose();
-    LocationController.dispose();
-    PinCodeController.dispose();
-    AccountNoController.dispose();
-    IFSCCodeController.dispose();
-    BranchNameController.dispose();
-    adminLogin_idController.dispose();
-    idController.dispose();
+    // patientNameController.dispose();
+    // // emailController.dispose();
+    // MobileNumberController.dispose();
+    // LocationController.dispose();
+    // PinCodeController.dispose();
+    // AccountNoController.dispose();
+    // IFSCCodeController.dispose();
+    // BranchNameController.dispose();
+    // adminLogin_idController.dispose();
+    // idController.dispose();
   }
 
   String? validName(String value) {

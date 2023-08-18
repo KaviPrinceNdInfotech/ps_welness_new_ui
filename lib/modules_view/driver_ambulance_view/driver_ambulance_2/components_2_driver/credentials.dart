@@ -50,6 +50,7 @@ class Driver2Credentials extends StatelessWidget {
             ///TODO: Pin.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.password],
                 controller: _driver_1111_controller.pincontroller,
                 onSaved: (value) {
@@ -83,6 +84,7 @@ class Driver2Credentials extends StatelessWidget {
             ///TODO: fees.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _driver_1111_controller.paidamountcontroller,
                 onSaved: (value) {
@@ -376,9 +378,9 @@ class Driver2Credentials extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
+            // ///SizedBox(
+            //   height: 20,
+            // ),
 
             ///image picker....2......
 

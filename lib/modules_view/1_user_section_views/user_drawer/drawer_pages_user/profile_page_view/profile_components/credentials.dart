@@ -510,6 +510,7 @@ class ProfileCredentials extends StatelessWidget {
                   _profileController.checkProfilee();
                   _userprofile.update();
                   _userprofile.userprofileApi();
+                  _userprofile.onInit();
 
                   //_loginpasswordController.checkLoginpassword();
                 })
