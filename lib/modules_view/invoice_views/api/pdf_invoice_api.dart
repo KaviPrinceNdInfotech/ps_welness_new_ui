@@ -25,8 +25,8 @@ class PdfInvoiceApi {
     ///here changed 29 nov 22
 
     //final font = await PdfGoogleFonts.nunitoExtraLight();
-    final font =
-        await rootBundle.load("lib/assets/fonts/Roboto/Roboto-Bold.ttf");
+    final font = await rootBundle
+        .load("lib/assets/fonts/open_sans_cufonfonts/OpenSans-Bold.ttf");
     final ttf = Font.ttf(font);
     final iconImage =
         (await rootBundle.load('lib/assets/image/ps_welness2.png'))

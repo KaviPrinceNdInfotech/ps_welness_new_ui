@@ -15,7 +15,7 @@ class NurseCheckoutModel {
   String? nurseName;
   String? nurseTypeName;
   num? experience;
-  num? fee;
+  double? fee;
   dynamic serviceDate;
   String? slotTime;
 

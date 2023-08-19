@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../drawer_contoller/lab_history_controller/lab_history_controllers.dart';
@@ -47,13 +48,18 @@ class RozarPayNurseController extends GetxController {
   }
 
   void openCheckout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseFee = preferences.getString("NurseFee");
+    print("Fee545454: ${NurseFee}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': int.parse(
+      'amount': double.parse(
               // '100'
+              "${NurseFee?.toString()}"
 
-              '${_nurseappointmentcheckout.nurseCheckoutModel?.fee?.toInt()}') *
+              //'${_nurseappointmentcheckout.nurseCheckoutModel?.fee?.toInt()}'
+              ) *
           100,
       'name':
           //'Kavi Singh',

@@ -1521,13 +1521,18 @@ class ApiProvider {
     var Labfeess = preferences.getString("Labfeess");
     print("Fee545454: ${Labfeess}");
 
+    var LabFee1 = preferences.getString("LabFee1");
+    print("Fee5454543434: ${LabFee1}");
+    //LabFee1
+    //LabFee
+
     //Labfeess
 
     var body = {
       "Id": "$labbooking_Id",
       "Lab_Id": "$LablistssId",
       "Patient_Id": userid,
-      "Amount": "$Labfeess",
+      "Amount": "$LabFee1",
       "IsPaid": "true",
     };
     // print(body);
@@ -1600,8 +1605,8 @@ class ApiProvider {
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistIdrriview: ${NurseuserListId}");
     //Nurseuserfees
-    var Nurseuserfees = preferences.getString("Nurseuserfees");
-    print("Fee545454feeaass: ${Nurseuserfees}");
+    // var Nurseuserfees = preferences.getString("Nurseuserfees");
+    // print("Fee545454feeaass: ${Nurseuserfees}");
 
     ///.....
     //SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -1618,7 +1623,9 @@ class ApiProvider {
       "Id": nursebooking_Id,
       "Nurse_Id": "$NurseuserListId",
       "Patient_Id": userid,
-      "TotalFee": "$Nurseuserfees",
+      "TotalFee": "$NurseFee",
+
+      //"TotalFee": "$Nurseuserfees",
       "IsPaid": "true",
     };
     // print(body);
@@ -1651,6 +1658,7 @@ class ApiProvider {
 //doctor fees...from...lab
     var DoctorFee = preferences.getString("DoctorFee");
     print("Fee545454eeedrr: ${DoctorFee}");
+    //DoctorFee
 
     ///todo: DoctorListFees.....26/7/23.................
     ///

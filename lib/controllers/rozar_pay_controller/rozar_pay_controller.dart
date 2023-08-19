@@ -4,6 +4,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_co
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/post_medicine_order_controller/post_medicine_order_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../1_user_view_controller/drawer_contoller/medicine_history_controller/medicine_history_controller.dart';
@@ -48,6 +49,9 @@ class RozarPayController extends GetxController {
   }
 
   void openCheckout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var MedicineFee = preferences.getString("MedicineFee");
+    print("medicine4eeedrr: ${MedicineFee}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
@@ -56,9 +60,12 @@ class RozarPayController extends GetxController {
 
       // '${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()}') *
       // 100,
-      'amount': int.parse(
+      'amount': double.parse('${MedicineFee
+              //_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()
+              }'
               // '100'
-              '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}') *
+              // '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}'
+              ) *
           100,
       'name':
           //'Kavi Singh',

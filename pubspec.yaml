@@ -57,6 +57,7 @@ dependencies:
   #open_file: ^3.2.1
   open_file:
   share_plus: ^7.1.0
+  
 
   google_maps_flutter: ^2.2.2
   geolocator: ^9.0.2
@@ -109,9 +110,6 @@ flutter_icons:
     #remove_alpha_ios: true
 
     fonts:
-      - family: Helvetica
-        fonts:
-          - asset: lib/assets/fonts/Roboto/Roboto-Bold.ttf
       - family: open_sans_cufonfonts
         fonts:
           - asset: lib/assets/fonts/open_sans_cufonfonts/OpenSans-Regular.ttf
@@ -139,7 +137,7 @@ flutter:
      - lib/assets/background_stack_png/
      - lib/assets/user_assets/
      - lib/assets/fonts/open_sans_cufonfonts/
-     - lib/assets/fonts/Roboto/
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../lab_controller/post_lab_order_controller/post_lab_order_controller.dart';
@@ -40,13 +41,19 @@ class RozarPayLabController extends GetxController {
   }
 
   void openCheckout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var LabFee1 = preferences.getString("LabFee1");
+    print("Fee5454543434: ${LabFee1}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': int.parse(
-          // '100'
+      'amount': double.parse(
+              // '100'
 
-          '${_labListController.labCheckoutModel?.fee!.toInt()}') * 100,
+              '${LabFee1}'
+              //'${_labListController.labCheckoutModel?.fee!.toInt()}'
+              ) *
+          100,
       'name':
           //'Kavi Singh',
           _userrsProfileControllers.userProfile!.patientName.toString(),

@@ -47,6 +47,21 @@ class AppointmentCheckout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///todo: maths logoc....
+    final nurseFee = double.parse(
+        "${_nurseappointmentcheckout.nurseCheckoutModel?.fee?.toDouble()}");
+    //print("${element.price * element.step} c");
+    final nurseFeeGst = double.parse(
+        "${(_nurseappointmentcheckout.nurseCheckoutModel?.fee?.toDouble())! * (18 / 100).toDouble()}");
+    final finalnurseAmounts = "${nurseFee.toDouble() + nurseFeeGst.toDouble()}";
+    var finalamtnurse =
+        double.parse("${nurseFee.toDouble() + nurseFeeGst.toDouble()}");
+    print("nurssseee233:${nurseFee}");
+    print("nurssseeegst:${nurseFeeGst}");
+    print("Nursetotal:${finalnurseAmounts}");
+
+    ///todo: end maths logic....
+
     //Size size = MediaQuery.of(context).size;
     //NurseDetailsSchedulePage
     bool shouldPop = true;
@@ -439,7 +454,7 @@ class AppointmentCheckout extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(size.height * 0.007),
                               child: Container(
-                                height: size.height * 0.14,
+                                height: size.height * 0.16,
                                 width: size.width,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.006),
@@ -500,9 +515,22 @@ class AppointmentCheckout extends StatelessWidget {
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey.shade700,
-                                                fontSize: size.height * 0.017,
+                                                fontSize: size.height * 0.013,
                                               ),
                                             ),
+                                            Text(
+                                              // _labListController.labCheckoutModel!.fee.toString(),
+                                              'Gst Cost',
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black,
+                                                fontSize: size.height * 0.020,
+                                              ),
+                                            ),
+                                            //finalnurseAmounts
                                             Spacer(),
                                             Text(
                                               'To pay:',
@@ -544,20 +572,24 @@ class AppointmentCheckout extends StatelessWidget {
                                                 fontSize: size.height * 0.022,
                                               ),
                                             ),
+
+                                            ///todo:
                                             Text(
-                                              '',
+                                              "₹ ${nurseFeeGst.toDouble()}",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
-                                                color: Colors.grey.shade700,
+                                                color: Colors.black,
                                                 fontSize: size.height * 0.017,
                                               ),
                                             ),
+
+                                            ///todo: final cost...and you have to pay this much ammount....
                                             Text(
                                               '₹ '
-                                              "${_nurseappointmentcheckout.nurseCheckoutModel?.fee}",
+                                              "$finalnurseAmounts",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -606,11 +638,8 @@ class AppointmentCheckout extends StatelessWidget {
                               onTapUp: () async {
                                 SharedPreferences p =
                                     await SharedPreferences.getInstance();
-                                // p.setString(
-                                //   //"rrrrrrrrrr4567",
-                                //    // "${_checkoutController.checkoutModel?.result?.totalCost.toString()
-                                //   // }"
-                                // );
+                                p.setString(
+                                    "rrrrrrrrrr4567", finalnurseAmounts);
                                 var v = p.getString("rrrrrrrrrr4567");
                                 print("object3####################:${v}");
                                 Get.bottomSheet(
@@ -630,7 +659,9 @@ class AppointmentCheckout extends StatelessWidget {
                                                   await SharedPreferences
                                                       .getInstance();
                                               prefs.setString("NurseFee",
-                                                  "${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+                                                  "${finalnurseAmounts}"
+                                                  //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}"
+                                                  );
 
                                               ///todo: end the fees.........
 
@@ -665,7 +696,9 @@ class AppointmentCheckout extends StatelessWidget {
                                                   await SharedPreferences
                                                       .getInstance();
                                               prefs.setString("NurseFee",
-                                                  "${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}");
+                                                  "${finalnurseAmounts}"
+                                                  //"${_nurseappointmentcheckout.nurseCheckoutModel?.fee.toString()}"
+                                                  );
                                               // _postOrderNurseController
                                               //     .postOrdernurseonlineApi()
                                               //     .then((statusCode) {
@@ -686,11 +719,14 @@ class AppointmentCheckout extends StatelessWidget {
                                               //   }
                                               // });
                                               final labFee =
-                                                  _nurseappointmentcheckout
-                                                          .nurseCheckoutModel
-                                                          ?.fee
-                                                          ?.toDouble() ??
-                                                      0;
+                                                  "${finalamtnurse.toDouble() ?? 0}";
+
+                                              ///
+                                              //     _nurseappointmentcheckout
+                                              //             .nurseCheckoutModel
+                                              //             ?.fee
+                                              //             ?.toDouble() ??
+                                              //        0;
 
                                               // _labListController
                                               // .labCheckoutModel?.fee ??
@@ -701,10 +737,12 @@ class AppointmentCheckout extends StatelessWidget {
                                                           ?.result?[0]
                                                           .walletAmount ??
                                                       0;
-                                              print("LABFEEhhh $labFee");
+                                              print(
+                                                  "LABFEEhhh $finalnurseAmounts");
                                               print(
                                                   "WALLET AMOUNTnn $walletAmount");
-                                              if (labFee > walletAmount) {
+                                              if (finalamtnurse >
+                                                  walletAmount) {
                                                 Get.snackbar("Low Amount",
                                                     "Please Add Money");
                                                 Get.to(
@@ -722,7 +760,7 @@ class AppointmentCheckout extends StatelessWidget {
                                                 //     walletAmount - labFee;
 
                                                 final newWalletAmount =
-                                                    labFee - 0;
+                                                    finalamtnurse - 0;
                                                 _walletPostController
                                                     .walletPostUpdateApi(
                                                         newWalletAmount)

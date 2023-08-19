@@ -40,6 +40,21 @@ class LabAppointmentCheckout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///todo: maths logoc....
+    final labFees =
+        double.parse("${_labListController.labCheckoutModel?.fee?.toDouble()}");
+    //print("${element.price * element.step} c");
+    final labFeeGst = double.parse(
+        "${(_labListController.labCheckoutModel?.fee?.toDouble())! * (18 / 100).toDouble()}");
+    // final finalDrAmounts = "${drFee.toDouble() + drFeeGst.toDouble()}";
+    var finalamtlab =
+        double.parse("${labFees.toDouble() + labFeeGst.toDouble()}");
+    print("labFees:${labFees}");
+    print("labFeeGst:${labFeeGst}");
+    // print("Drtotal:${finalDrAmounts}");
+    print("finalamtlab:${finalamtlab}");
+
+    ///todo: end maths logic....
     bool shouldPop = true;
 
     //LabSchedule1Page
@@ -441,7 +456,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(size.height * 0.007),
                               child: Container(
-                                height: size.height * 0.14,
+                                height: size.height * 0.16,
                                 width: size.width,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.006),
@@ -502,7 +517,19 @@ class LabAppointmentCheckout extends StatelessWidget {
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey.shade700,
-                                                fontSize: size.height * 0.017,
+                                                fontSize: size.height * 0.014,
+                                              ),
+                                            ),
+                                            Text(
+                                              // _labListController.labCheckoutModel!.fee.toString(),
+                                              'Gst Cost:',
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black,
+                                                fontSize: size.height * 0.020,
                                               ),
                                             ),
                                             // Spacer(),
@@ -550,7 +577,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '',
+                                              "₹ ${labFeeGst.toDouble()}",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -562,7 +589,9 @@ class LabAppointmentCheckout extends StatelessWidget {
                                             ),
                                             Text(
                                               '₹ '
-                                              "${_labListController.labCheckoutModel?.fee}",
+                                              "${finalamtlab.toDouble()}",
+
+                                              // "${_labListController.labCheckoutModel?.fee}",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -636,8 +665,11 @@ class LabAppointmentCheckout extends StatelessWidget {
                                                 SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
-                                                prefs.setString("LabFee",
-                                                    "${_labListController.labCheckoutModel?.fee.toString()}");
+                                                prefs.setString(
+                                                  "LabFee1",
+                                                  "${finalamtlab.toDouble()}",
+                                                );
+                                                //"${_labListController.labCheckoutModel?.fee.toString()}");
 
                                                 ///todo: end the fees.........
                                                 _rozarPayLabController
@@ -667,6 +699,18 @@ class LabAppointmentCheckout extends StatelessWidget {
                                             ),
                                             InkWell(
                                               onTap: () async {
+                                                /// todo start payment......feess,,,,,...
+
+                                                SharedPreferences prefs =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                prefs.setString(
+                                                  "LabFee1",
+                                                  "${finalamtlab.toDouble()}",
+                                                );
+                                                //"${_labListController.labCheckoutModel?.fee.toString()}");
+
+                                                ///todo: end the fees.........
                                                 // _postOrderController
                                                 //     .postOrderApi()
                                                 //     .then((statusCode) {
@@ -688,20 +732,19 @@ class LabAppointmentCheckout extends StatelessWidget {
                                                 // });
 
                                                 final labFee =
-                                                    _labListController
-                                                            .labCheckoutModel
-                                                            ?.fee ??
-                                                        0;
+                                                    "${finalamtlab.toDouble() ?? 0}";
+
                                                 final walletAmount =
                                                     _walletPostController
                                                             .getwalletlist
                                                             ?.result?[0]
                                                             .walletAmount ??
                                                         0;
-                                                print("LABFEE $labFee");
+                                                print("LABFEE $finalamtlab");
                                                 print(
                                                     "WALLET AMOUNT $walletAmount");
-                                                if (labFee > walletAmount) {
+                                                if (finalamtlab >
+                                                    walletAmount) {
                                                   Get.snackbar("Low Amount",
                                                       "Please Add Money");
                                                   Get.to(
@@ -718,12 +761,12 @@ class LabAppointmentCheckout extends StatelessWidget {
                                                   SharedPreferences prefs =
                                                       await SharedPreferences
                                                           .getInstance();
-                                                  prefs.setString("LabFee",
-                                                      "${_labListController.labCheckoutModel?.fee.toString()}");
+                                                  final labFee =
+                                                      "${finalamtlab.toDouble() ?? 0}";
                                                   // final newWalletAmount =
                                                   //     walletAmount - labFee;
                                                   final newWalletAmount =
-                                                      labFee - 0;
+                                                      finalamtlab - 0;
                                                   _walletPostController
                                                       .walletPostUpdateApi(
                                                           newWalletAmount)

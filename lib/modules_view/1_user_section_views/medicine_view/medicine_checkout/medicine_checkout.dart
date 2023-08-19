@@ -41,6 +41,25 @@ class CheckOutMedicine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///todo: maths logoc....
+    final mediFee = double.parse(
+        "${_medicinecheckoutController.medicinecheckoutModel?.data?.totalPrice?.toDouble()}");
+    //print("${element.price * element.step} c");
+    final mediFeeGst = double.parse(
+        "${(_medicinecheckoutController.medicinecheckoutModel?.data?.totalPrice?.toDouble())! * (18 / 100).toDouble()}");
+    final medideliveryFees = double.parse(
+        "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliverycharge?.toDouble()}");
+    // final finalDrAmounts = "${drFee.toDouble() + drFeeGst.toDouble()}";
+    var finalamtmedi = double.parse(
+        "${mediFee.toDouble() + mediFeeGst.toDouble() + medideliveryFees.toDouble()}");
+    print("mediFee:${mediFee}");
+    print("mediFeeGst:${mediFeeGst}");
+    print("medideliveryFees:${medideliveryFees}");
+    print("finalamtmedi:${finalamtmedi}");
+
+    //medideliveryFees
+
+    ///todo: end maths logic....
     Size size = MediaQuery.of(context).size;
     bool shouldPop = true;
 
@@ -344,7 +363,7 @@ class CheckOutMedicine extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     width: size.width * 0.4,
-                                    height: size.height * 0.14,
+                                    height: size.height * 0.16,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -353,6 +372,12 @@ class CheckOutMedicine extends StatelessWidget {
                                       children: [
                                         Text(
                                           'Total Price:',
+                                          style: GoogleFonts.alegreyaSc(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Text(
+                                          'GST Cost:',
                                           style: GoogleFonts.alegreyaSc(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w700),
@@ -367,7 +392,7 @@ class CheckOutMedicine extends StatelessWidget {
                                           'Final Cost',
                                           style: TextStyle(
                                             color: MyTheme.containercolor7,
-                                            fontSize: 19,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -376,7 +401,7 @@ class CheckOutMedicine extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     width: size.width * 0.4,
-                                    height: size.height * 0.14,
+                                    height: size.height * 0.16,
                                     child:
                                         // Obx(
                                         //       () => (_checkoutController.isLoading.value)
@@ -400,18 +425,34 @@ class CheckOutMedicine extends StatelessWidget {
                                               fontSize: 14,
                                               fontWeight: FontWeight.w700),
                                         ),
-                                        Text(
-                                          '₹ '
-                                          "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliverycharge}",
+                                        SizedBox(
+                                          width: size.width * 0.1,
+                                          height: size.height * 0.02,
+                                          child: Text(
+                                            "₹ ${mediFeeGst.toDouble()}",
+                                            // '${_checkoutController.checkoutModel?.result?.totalPrice.toString()}',
+                                            style: GoogleFonts.alegreyaSc(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.1,
+                                          height: size.height * 0.02,
+                                          child: Text(
+                                            '₹ '
+                                            "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliverycharge}",
 
-                                          //'${_checkoutController.checkoutModel?.result?.discount.toString()}',
-                                          style: GoogleFonts.alegreyaSc(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700),
+                                            //'${_checkoutController.checkoutModel?.result?.discount.toString()}',
+                                            style: GoogleFonts.alegreyaSc(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700),
+                                          ),
                                         ),
                                         Text(
-                                          '₹ '
-                                          "${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice}",
+                                          "₹ ${finalamtmedi.toDouble()}",
+
+                                          //  "${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice}",
                                           //${_checkoutController.checkoutModel?.result?.totalCost.toString()}',
                                           style: TextStyle(
                                             fontSize: 20,
@@ -475,6 +516,13 @@ class CheckOutMedicine extends StatelessWidget {
                                               InkWell(
                                                 onTap: () async {
                                                   /// todo start payment......feess,,,,,...
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  prefs.setString(
+                                                    "MedicineFee",
+                                                    "${finalamtmedi.toDouble()}",
+                                                  );
 
                                                   // SharedPreferences prefs =
                                                   //     await SharedPreferences
@@ -521,7 +569,14 @@ class CheckOutMedicine extends StatelessWidget {
                                                 ),
                                               ),
                                               InkWell(
-                                                onTap: () {
+                                                onTap: () async {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  prefs.setString(
+                                                    "MedicineFee",
+                                                    "${finalamtmedi.toDouble()}",
+                                                  );
                                                   // _postOrderNurseController
                                                   //     .postOrdernurseonlineApi()
                                                   //     .then((statusCode) {
@@ -542,12 +597,13 @@ class CheckOutMedicine extends StatelessWidget {
                                                   //   }
                                                   // });
                                                   final medicineFee =
-                                                      _medicinecheckoutController
-                                                              .medicinecheckoutModel
-                                                              ?.data
-                                                              ?.finalPrice
-                                                              ?.toDouble() ??
-                                                          0;
+                                                      "${finalamtmedi.toDouble() ?? 0}";
+                                                  // _medicinecheckoutController
+                                                  //         .medicinecheckoutModel
+                                                  //         ?.data
+                                                  //         ?.finalPrice
+                                                  //         ?.toDouble() ??
+                                                  //     0;
 
                                                   // _labListController
                                                   // .labCheckoutModel?.fee ??
@@ -559,10 +615,10 @@ class CheckOutMedicine extends StatelessWidget {
                                                               .walletAmount ??
                                                           0;
                                                   print(
-                                                      "LABFEEhhhrrr $medicineFee");
+                                                      "LABFEEhhhrrr $finalamtmedi");
                                                   print(
                                                       "WALLET AMOUNTnntt $walletAmount");
-                                                  if (medicineFee >
+                                                  if (finalamtmedi >
                                                       walletAmount) {
                                                     Get.snackbar("Low Amount",
                                                         "Please Add Money");
@@ -582,7 +638,7 @@ class CheckOutMedicine extends StatelessWidget {
                                                     //     walletAmount - labFee;
 
                                                     final newWalletAmount =
-                                                        medicineFee - 0;
+                                                        finalamtmedi - 0;
                                                     _walletPostController
                                                         .walletPostUpdateApi(
                                                             newWalletAmount)

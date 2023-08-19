@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import '../doctor_sections/doctor_checkout_controller.dart';
@@ -45,13 +46,19 @@ class RozarPayDoctorController extends GetxController {
   }
 
   void openCheckout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorFee = preferences.getString("DoctorFee");
+    print("Fee545454eeedrr: ${DoctorFee}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': int.parse(
+      'amount': double.parse(
               // '100'
 
-              '${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()}') *
+              '${DoctorFee
+              //_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()
+              }'
+              '') *
           100,
       'name':
           //'Kavi Singh',

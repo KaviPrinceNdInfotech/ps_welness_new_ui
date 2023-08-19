@@ -38,6 +38,20 @@ class DoctorAppointmentCheckout extends StatelessWidget {
   @override
   //DetailsSchedulePage
   Widget build(BuildContext context) {
+    ///todo: maths logoc....
+    final drFee = double.parse(
+        "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toDouble()}");
+    //print("${element.price * element.step} c");
+    final drFeeGst = double.parse(
+        "${(_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toDouble())! * (18 / 100).toDouble()}");
+    // final finalDrAmounts = "${drFee.toDouble() + drFeeGst.toDouble()}";
+    var finalamtDr = double.parse("${drFee.toDouble() + drFeeGst.toDouble()}");
+    print("Dreee233:${drFee}");
+    print("Dreeegst:${drFeeGst}");
+    // print("Drtotal:${finalDrAmounts}");
+    print("Drtotal2:${finalamtDr}");
+
+    ///todo: end maths logic....
     Size size = MediaQuery.of(context).size;
     bool shouldPop = true;
     //Size size = MediaQuery.of(context).size;
@@ -394,7 +408,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(size.height * 0.007),
                               child: Container(
-                                height: size.height * 0.14,
+                                height: size.height * 0.16,
                                 width: size.width,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.006),
@@ -438,7 +452,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                           children: [
                                             Text(
                                               // _labListController.labCheckoutModel!.fee.toString(),
-                                              'Total Cost',
+                                              'Fees:',
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -449,14 +463,26 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'Session Fees for doctor',
+                                              'Session Fees for doctor:',
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey.shade700,
-                                                fontSize: size.height * 0.017,
+                                                fontSize: size.height * 0.013,
+                                              ),
+                                            ),
+                                            Text(
+                                              // _labListController.labCheckoutModel!.fee.toString(),
+                                              'Gst Cost:',
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black,
+                                                fontSize: size.height * 0.020,
                                               ),
                                             ),
                                             //Spacer(),
@@ -501,7 +527,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '',
+                                              "₹ ${drFeeGst.toDouble()}",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -513,7 +539,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                             ),
                                             Text(
                                               '₹ '
-                                              "${_doctorappointmentcheckout.doctorCheckoutModel?.fee}",
+                                              "${finalamtDr.toDouble()}",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -584,8 +610,10 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
-                                                prefs.setString("DoctorFee",
-                                                    "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toString()}");
+                                                prefs.setString(
+                                                  "DoctorFee",
+                                                  "${finalamtDr.toDouble()}",
+                                                );
 
                                                 // print("okook: ${fee}");
 
@@ -620,8 +648,12 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
-                                                prefs.setString("DoctorFee",
-                                                    "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toString()}");
+                                                prefs.setString(
+                                                  "DoctorFee",
+                                                  "${finalamtDr.toDouble()}",
+
+                                                  // "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toString()}"
+                                                );
                                                 // _postOrderDoctorController
                                                 //     .postOrderdoctoronlineApi()
                                                 //     .then((statusCode) {
@@ -642,24 +674,27 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 //   }
                                                 // });
                                                 final doctorFee =
-                                                    _doctorappointmentcheckout
-                                                            .doctorCheckoutModel
-                                                            ?.fee
-                                                            ?.toDouble() ??
-                                                        0;
+                                                    "${finalamtDr.toDouble() ?? 0}";
+
+                                                // _doctorappointmentcheckout
+                                                //         .doctorCheckoutModel
+                                                //         ?.fee
+                                                //         ?.toDouble() ??
+                                                // 0
+
                                                 final walletAmount =
                                                     _walletPostController
                                                             .getwalletlist
                                                             ?.result?[0]
                                                             .walletAmount ??
                                                         0;
-                                                print("DoctorFEE $doctorFee");
+                                                print("DoctorFEE $finalamtDr");
                                                 print(
                                                     "DoctorFEEamount $walletAmount");
 
                                                 print(
                                                     "WALLET AMOUNT $walletAmount");
-                                                if (doctorFee > walletAmount) {
+                                                if (finalamtDr > walletAmount) {
                                                   Get.snackbar("Low Amount",
                                                       "Please Add Money");
                                                   Get.to(
@@ -677,7 +712,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                   //     walletAmount - doctorFee;
 
                                                   final newWalletAmount =
-                                                      doctorFee - 0;
+                                                      finalamtDr - 0;
                                                   _walletPostController
                                                       .walletPostUpdateApi(
                                                           newWalletAmount)

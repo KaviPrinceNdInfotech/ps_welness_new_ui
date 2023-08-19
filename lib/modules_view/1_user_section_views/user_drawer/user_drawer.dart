@@ -17,6 +17,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_user_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/my_theme.dart';
@@ -601,11 +602,9 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                   },
                 );
                 Get.back();
-
                 Get.offNamed('/NurseHistoryUser');
               },
             ),
-
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -737,6 +736,37 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 Get.back();
                 Get.to(() => UserAboutUsView());
                 Get.offNamed('/UserAboutUsView');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.share_rounded,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Share with others',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/Sharelinkweight'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                //Get.to(() => ShareData());
+                Get.to(() => Sharelinkweight());
               },
             ),
             ListTile(

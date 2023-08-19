@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>6ACE3397-7E38-446E-9913-1C91D1CFEE65</key>
+		<key>9B0C5927-F457-440E-BEAA-05008100982F</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>6ACE3397-7E38-446E-9913-1C91D1CFEE65.xcactivitylog</string>
+			<string>9B0C5927-F457-440E-BEAA-05008100982F.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -26,21 +26,21 @@
 			<key>schemeIdentifier-containerName</key>
 			<string>Runner project</string>
 			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
+			<string>Flutter Assemble</string>
 			<key>schemeIdentifier-sharedScheme</key>
 			<integer>1</integer>
 			<key>signature</key>
-			<string>Cleaning workspace Runner with scheme Runner</string>
+			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>timeStartedRecording</key>
-			<real>713950649.19432294</real>
+			<real>714131676.06235802</real>
 			<key>timeStoppedRecording</key>
-			<real>713950649.34567499</real>
+			<real>714131676.35542202</real>
 			<key>title</key>
-			<string>Cleaning workspace Runner with scheme Runner</string>
+			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>uniqueIdentifier</key>
-			<string>6ACE3397-7E38-446E-9913-1C91D1CFEE65</string>
+			<string>9B0C5927-F457-440E-BEAA-05008100982F</string>
 		</dict>
-		<key>951973B2-3712-46FD-9DF9-A6D537E5481C</key>
+		<key>E3B93B9D-C235-4243-B158-0DC58DA7A871</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -49,7 +49,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>951973B2-3712-46FD-9DF9-A6D537E5481C.xcactivitylog</string>
+			<string>E3B93B9D-C235-4243-B158-0DC58DA7A871.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -66,13 +66,13 @@
 			<key>signature</key>
 			<string>Cleaning workspace Runner with scheme Runner</string>
 			<key>timeStartedRecording</key>
-			<real>713965639.84298801</real>
+			<real>714131677.49064398</real>
 			<key>timeStoppedRecording</key>
-			<real>713965639.99595904</real>
+			<real>714131677.82653797</real>
 			<key>title</key>
 			<string>Cleaning workspace Runner with scheme Runner</string>
 			<key>uniqueIdentifier</key>
-			<string>951973B2-3712-46FD-9DF9-A6D537E5481C</string>
+			<string>E3B93B9D-C235-4243-B158-0DC58DA7A871</string>
 		</dict>
 	</dict>
 </dict>
