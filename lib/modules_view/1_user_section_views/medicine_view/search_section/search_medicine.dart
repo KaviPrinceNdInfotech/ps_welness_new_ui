@@ -137,43 +137,42 @@ class SearchMedicine extends StatelessWidget {
                                               margin: EdgeInsets.symmetric(
                                                   vertical: 30 / 6),
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  gradient: LinearGradient(
-                                                      begin:
-                                                          Alignment.centerLeft,
-                                                      end:
-                                                          Alignment.centerRight,
-                                                      colors: [
-                                                        lightPrimary2,
-                                                        darkPrimary2,
-                                                      ]),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      offset: Offset(-0, -0),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 0,
-                                                      color: darkShadow,
-                                                    ),
-                                                    BoxShadow(
-                                                      offset: Offset(3, 3),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 0,
-                                                      color: lightShadow,
-                                                    ),
-                                                  ],
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          'https://images.unsplash.com/photo-1628771065518-0d82f1938462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                                          //'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzd8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                          // 'https://images.unsplash.com/photo-1515350540008-a3f566782a3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                                          //  'https://images.unsplash.com/photo-1563213126-a4273aed2016?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                          //'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-                                                          //'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bWVkaWNpbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
-                                                          //'https://images.unsplash.com/photo-1576073719676-aa95576db207?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1673&q=80'
-                                                          // 'lib/assets/background_stack_png/patient3_history.png'
-                                                          ),
-                                                      fit: BoxFit.cover)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                gradient: LinearGradient(
+                                                    begin: Alignment.centerLeft,
+                                                    end: Alignment.centerRight,
+                                                    colors: [
+                                                      lightPrimary2,
+                                                      darkPrimary2,
+                                                    ]),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: Offset(-0, -0),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 0,
+                                                    color: darkShadow,
+                                                  ),
+                                                  BoxShadow(
+                                                    offset: Offset(3, 3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 0,
+                                                    color: lightShadow,
+                                                  ),
+                                                ],
+                                                // image: DecorationImage(
+                                                //     image: NetworkImage(
+                                                //         'https://images.unsplash.com/photo-1628771065518-0d82f1938462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+                                                //         //'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzd8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                                //         // 'https://images.unsplash.com/photo-1515350540008-a3f566782a3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+                                                //         //  'https://images.unsplash.com/photo-1563213126-a4273aed2016?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                                //         //'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+                                                //         //'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bWVkaWNpbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
+                                                //         //'https://images.unsplash.com/photo-1576073719676-aa95576db207?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1673&q=80'
+                                                //         // 'lib/assets/background_stack_png/patient3_history.png'
+                                                //         ),
+                                                //     fit: BoxFit.cover)
+                                              ),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(0.0),
@@ -445,7 +444,7 @@ class SearchMedicine extends StatelessWidget {
                                                                 decoration:
                                                                     BoxDecoration(
                                                                         color: MyTheme
-                                                                            .white,
+                                                                            .ThemeColors,
                                                                         borderRadius:
                                                                             BorderRadius.only(
                                                                           bottomRight:

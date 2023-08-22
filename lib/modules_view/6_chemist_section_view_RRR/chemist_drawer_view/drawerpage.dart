@@ -125,6 +125,40 @@ class ChemistMainDrawer extends StatelessWidget {
                 Get.offNamed('/AboutUs');
               },
             ),
+            ListTile(
+              leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Chemist Profile Detail',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChemistDetailProfile'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _chemistProfileDetailController.chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
+                Get.to(() => ChemistDetailProfile());
+                //Get.offNamed('/ChemistDetailProfile');
+              },
+            ),
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -223,40 +257,7 @@ class ChemistMainDrawer extends StatelessWidget {
                 Get.offNamed('/ComplaintPage');
               },
             ),
-            ListTile(
-              leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: const VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Chemist Profile Detail',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/ChemistDetailProfile'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                _chemistProfileDetailController.chemistProfileDetailsApi();
-                _chemistProfileDetailController.update();
-                Get.to(() => ChemistDetailProfile());
-                //Get.offNamed('/ChemistDetailProfile');
-              },
-            ),
+
             ListTile(
               leading: Icon(
                 Icons.account_box,

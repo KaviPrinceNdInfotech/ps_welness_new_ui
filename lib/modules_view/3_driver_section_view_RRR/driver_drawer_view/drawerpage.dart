@@ -127,6 +127,40 @@ class DriverMainDrawer extends StatelessWidget {
                 Get.offNamed('/AboutUs');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Diver Profile Details',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ComplaintPage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _driverprofile.driverProfileDetailApi();
+                _driverprofile.update();
+                Get.to(() => DriverDetailProfile());
+                Get.offNamed('/ComplaintPage');
+              },
+            ),
 
             ListTile(
               leading: Icon(
@@ -256,41 +290,6 @@ class DriverMainDrawer extends StatelessWidget {
                 Get.back();
                 Get.to(() => AboutUsViewDriver());
                 Get.offNamed('/AboutUsView');
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Diver Profile Details',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/ComplaintPage'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                _driverprofile.driverProfileDetailApi();
-                _driverprofile.update();
-                Get.to(() => DriverDetailProfile());
-                Get.offNamed('/ComplaintPage');
               },
             ),
 

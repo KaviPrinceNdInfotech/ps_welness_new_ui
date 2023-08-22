@@ -128,6 +128,39 @@ class NurseMainDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Profile',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/NurseDetailProfile'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                // _nurseAboutusController.NurseaboutusApi();
+                // _nurseAboutusController.update();
+                Get.to(() => NurseDetailProfile());
+                Get.offNamed('/NurseDetailProfile');
+              },
+            ),
+            ListTile(
+              leading: Icon(
                 FontAwesomeIcons.edit,
                 color: MyTheme.blueww,
                 size: size.height * 0.021,
@@ -260,39 +293,7 @@ class NurseMainDrawer extends StatelessWidget {
                 Get.offNamed('/ComplaintPage');
               },
             ),
-            ListTile(
-              leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Profile',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/NurseDetailProfile'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // _nurseAboutusController.NurseaboutusApi();
-                // _nurseAboutusController.update();
-                Get.to(() => NurseDetailProfile());
-                Get.offNamed('/NurseDetailProfile');
-              },
-            ),
+
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(

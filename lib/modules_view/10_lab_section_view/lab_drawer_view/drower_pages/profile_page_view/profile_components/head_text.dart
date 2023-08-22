@@ -42,9 +42,9 @@ class LabbProfileHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Text(
-            'Organic Lab ',
+            'Update Lab Profile',
             style: GoogleFonts.alatsi(
-                fontSize: 32,
+                fontSize: 26,
                 fontWeight: FontWeight.w600,
                 color: Color(0xff023382)),
           ),
@@ -52,7 +52,7 @@ class LabbProfileHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'organic@gmail.com',
+                  text: '',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,

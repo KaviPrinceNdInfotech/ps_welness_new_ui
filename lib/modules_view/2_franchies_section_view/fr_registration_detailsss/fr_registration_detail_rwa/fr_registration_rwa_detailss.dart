@@ -265,14 +265,14 @@ class ResitrationRwaDetails extends StatelessWidget {
                                                     width: size.width * 0.92,
                                                     padding: EdgeInsets.all(3),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.grey[900],
+                                                        color: Colors.grey[100],
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10),
-                                                        image: DecorationImage(
-                                                            image: NetworkImage(
-                                                                'https://images.unsplash.com/photo-1632749161487-5f38ec89ebdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60'),
-                                                            fit: BoxFit.cover),
+                                                        // image: DecorationImage(
+                                                        //     image: NetworkImage(
+                                                        //         'https://images.unsplash.com/photo-1632749161487-5f38ec89ebdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60'),
+                                                        //     fit: BoxFit.cover),
                                                         boxShadow: [
                                                           const BoxShadow(
                                                             color: Colors.black,

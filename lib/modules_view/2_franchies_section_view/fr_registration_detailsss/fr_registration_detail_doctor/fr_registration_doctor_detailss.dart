@@ -286,28 +286,27 @@ class ResitrationDoctorDetails extends StatelessWidget {
                                                             size.width * 0.92,
                                                         padding:
                                                             EdgeInsets.all(3),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                color: Colors
-                                                                    .grey[200],
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                image:
-                                                                    DecorationImage(
-                                                                        image:
-                                                                            NetworkImage(
-                                                                          //'https://images.unsplash.com/photo-1483821838526-8d9756a6e1ed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1930&q=80'
-                                                                          //'https://images.unsplash.com/photo-1517263904808-5dc91e3e7044?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1976&q=80'
-                                                                          'https://images.unsplash.com/photo-1612776572997-76cc42e058c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTl8YU1uY09rZllTRFV8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60'
-                                                                          //'https://images.unsplash.com/photo-1518783211485-10fd3bfb2ce2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80'
-                                                                          //'https://images.unsplash.com/photo-1543157145-f78c636d023d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'
-                                                                          ,
-                                                                        ),
-                                                                        fit: BoxFit
-                                                                            .cover),
-                                                                boxShadow: [
+                                                        decoration: BoxDecoration(
+                                                            color: Colors
+                                                                .grey[800],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            // image:
+                                                            //     DecorationImage(
+                                                            //         image:
+                                                            //             NetworkImage(
+                                                            //           //'https://images.unsplash.com/photo-1483821838526-8d9756a6e1ed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1930&q=80'
+                                                            //           //'https://images.unsplash.com/photo-1517263904808-5dc91e3e7044?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1976&q=80'
+                                                            //           'https://images.unsplash.com/photo-1612776572997-76cc42e058c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTl8YU1uY09rZllTRFV8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=60'
+                                                            //           //'https://images.unsplash.com/photo-1518783211485-10fd3bfb2ce2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80'
+                                                            //           //'https://images.unsplash.com/photo-1543157145-f78c636d023d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'
+                                                            //           ,
+                                                            //         ),
+                                                            //         fit: BoxFit
+                                                            //             .cover),
+                                                            boxShadow: [
                                                               const BoxShadow(
                                                                 color: Colors
                                                                     .black,

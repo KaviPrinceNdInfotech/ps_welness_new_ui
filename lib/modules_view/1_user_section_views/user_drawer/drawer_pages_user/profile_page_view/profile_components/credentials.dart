@@ -84,6 +84,38 @@ class ProfileCredentials extends StatelessWidget {
             // SizedBox(
             //   height: size.height * 0.02,
             // ),
+            ///TODO: Name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                //initialValue: "I am smart",
+                autofillHints: [AutofillHints.name],
+                controller: _profileController.patientNameController,
+                onSaved: (value) {
+                  _profileController.patientName = value!;
+                },
+                validator: (value) {
+                  return _profileController.validName(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Patient Name',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.home_repair_service_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
 
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
@@ -118,38 +150,7 @@ class ProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///TODO: Name.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                //initialValue: "I am smart",
-                autofillHints: [AutofillHints.name],
-                controller: _profileController.patientNameController,
-                onSaved: (value) {
-                  _profileController.patientName = value!;
-                },
-                validator: (value) {
-                  return _profileController.validName(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Patient Name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.home_repair_service_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+
 
             ///Todo: subject of complain............................
 

@@ -17,7 +17,6 @@ class _WebViewPswebsiteState extends State<WebViewPswebsite> {
     return WillPopScope(
       onWillPop: () async {
         var isLastPage = await inAppWebViewController.canGoBack();
-
         if (isLastPage) {
           inAppWebViewController.goBack();
           return false;
@@ -37,7 +36,7 @@ class _WebViewPswebsiteState extends State<WebViewPswebsite> {
             children: [
               InAppWebView(
                 initialUrlRequest:
-                    URLRequest(url: Uri.parse("http://pswellness.in/")),
+                    URLRequest(url: Uri.parse("http://test.pswellness.in")),
                 onWebViewCreated: (InAppWebViewController controller) {
                   inAppWebViewController = controller;
                 },

@@ -52,12 +52,13 @@ class DoctorDetailProfile extends StatelessWidget {
                                   height: size.height * 0.5,
                                   width: size.width * 0.8,
                                   decoration: BoxDecoration(
-                                      color: Colors.grey.shade200,
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                            'https://images.unsplash.com/photo-1604116395843-94f7b28a8080?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80',
-                                          ),
-                                          fit: BoxFit.fill)),
+                                    color: Colors.grey.shade200,
+                                    // image: const DecorationImage(
+                                    //     image: NetworkImage(
+                                    //       'https://images.unsplash.com/photo-1604116395843-94f7b28a8080?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80',
+                                    //     ),
+                                    //     fit: BoxFit.fill)
+                                  ),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

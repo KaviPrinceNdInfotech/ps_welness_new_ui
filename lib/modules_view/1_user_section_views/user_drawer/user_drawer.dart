@@ -79,78 +79,75 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               decoration: BoxDecoration(
                 color: MyTheme.ThemeColors,
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 1.10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        width: 88.0,
-                        height: 80.0,
-                        decoration: new BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: new DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                    "lib/assets/image/ps_welness2.png")))),
-                    // Container(
-                    //   width: 100.0,
-                    //   height: 150.0,
-                    //   decoration: BoxDecoration(
-                    //     image: DecorationImage(
-                    //         fit: BoxFit.cover,
-                    //         image: AssetImage(
-                    //             'lib/assets/image/ps_welness2.png')),
-                    //     borderRadius:
-                    //         BorderRadius.all(Radius.circular(8.0)),
-                    //     color: Colors.redAccent,
-                    //   ),
-                    // ),..
-                    ///
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.white,
-                    //   radius: size.width * 0.095,
-                    //   child: Center(
-                    //       child: Padding(
-                    //     padding: EdgeInsets.all(size.height * 0.0),
-                    //     child: Image.asset(
-                    //       'lib/assets/image/ps_welness2.png',
-                    //       height: size.height * 0.06,
-                    //     ),
-                    //   )),
-                    // ),
-                    Spacer(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      width: 97.0,
+                      height: 64.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fitHeight,
+                              image: AssetImage(
+                                  "lib/assets/image/ps_welness2.png")))),
+                  // Container(
+                  //   width: 100.0,
+                  //   height: 150.0,
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //         fit: BoxFit.cover,
+                  //         image: AssetImage(
+                  //             'lib/assets/image/ps_welness2.png')),
+                  //     borderRadius:
+                  //         BorderRadius.all(Radius.circular(8.0)),
+                  //     color: Colors.redAccent,
+                  //   ),
+                  // ),..
+                  ///
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.white,
+                  //   radius: size.width * 0.095,
+                  //   child: Center(
+                  //       child: Padding(
+                  //     padding: EdgeInsets.all(size.height * 0.0),
+                  //     child: Image.asset(
+                  //       'lib/assets/image/ps_welness2.png',
+                  //       height: size.height * 0.06,
+                  //     ),
+                  //   )),
+                  // ),
+                  Spacer(),
 
-                    Obx(
-                      () => (_userprofile.isLoading.value)
-                          ? CircularProgressIndicator()
-                          : Text(
-                              "${_userprofile.userProfile?.patientName.toString()}"
-                              //'Kumar Prince',
-                              ,
-                              style: GoogleFonts.roboto(
-                                  fontSize: size.height * 0.02,
-                                  fontWeight: FontWeight.w700,
-                                  color: MyTheme.blueww),
-                            ),
-                    ),
-                    Spacer(),
-                    Obx(
-                      () => (_userprofile.isLoading.value)
-                          ? CircularProgressIndicator()
-                          : Text(
-                              "${_userprofile.userProfile?.emailId.toString()}"
+                  Obx(
+                    () => (_userprofile.isLoading.value)
+                        ? CircularProgressIndicator()
+                        : Text(
+                            "${_userprofile.userProfile?.patientName.toString()}"
+                            //'Kumar Prince',
+                            ,
+                            style: GoogleFonts.roboto(
+                                fontSize: size.height * 0.02,
+                                fontWeight: FontWeight.w700,
+                                color: MyTheme.blueww),
+                          ),
+                  ),
+                  Spacer(),
+                  Obx(
+                    () => (_userprofile.isLoading.value)
+                        ? CircularProgressIndicator()
+                        : Text(
+                            "${_userprofile.userProfile?.emailId.toString()}"
 
-                              //'prince@gmail.com',
-                              ,
-                              style: GoogleFonts.roboto(
-                                  fontSize: size.height * 0.016,
-                                  fontWeight: FontWeight.w700,
-                                  color: MyTheme.blueww),
-                            ),
-                    ),
-                  ],
-                ),
+                            //'prince@gmail.com',
+                            ,
+                            style: GoogleFonts.roboto(
+                                fontSize: size.height * 0.016,
+                                fontWeight: FontWeight.w700,
+                                color: MyTheme.blueww),
+                          ),
+                  ),
+                ],
               ),
             ),
 
@@ -279,6 +276,41 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 // Get.offNamed('/WolletUser');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Profile Detail',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ProfilePage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                // print(Get.currentRoute);
+                Get.back();
+                _userprofile.update();
+                _userprofile.userprofileApi();
+                //UserDetailProfile
+                Get.to(() => UserDetailProfile());
+                //Get.offNamed('/ProfilePage');
+              },
+            ),
             //UserDetailProfile
 
             ListTile(
@@ -315,7 +347,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               },
             ),
 
-            ///BANK
+            ///BANK...........
             // ListTile(
             //   // horizontalTitleGap: 10,
             //   leading: Icon(
@@ -502,42 +534,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 }
                 // Get.offNamed('/LabHistoryUser');
                 await Get.to(() => LabHistoryUser());
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Profile Detail',
-                style: TextStyle(
-                    fontSize: size.height * 0.016,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/ProfilePage'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                // print(Get.currentRoute);
-                Get.back();
-                _userprofile.update();
-                _userprofile.userprofileApi();
-                //UserDetailProfile
-                Get.to(() => UserDetailProfile());
-                //Get.offNamed('/ProfilePage');
               },
             ),
 

@@ -285,16 +285,16 @@ class ResitrationLabDetails extends StatelessWidget {
                                                             EdgeInsets.all(3),
                                                         decoration: BoxDecoration(
                                                             color: Colors
-                                                                .grey[900],
+                                                                .grey[200],
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         10),
-                                                            image: const DecorationImage(
-                                                                image: NetworkImage(
-                                                                    'https://images.unsplash.com/photo-1628921919890-6d79dc5592c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NnxIRjMxcGQ3aFVIMHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60'),
-                                                                fit: BoxFit
-                                                                    .cover),
+                                                            // image: const DecorationImage(
+                                                            //     image: NetworkImage(
+                                                            //         'https://images.unsplash.com/photo-1628921919890-6d79dc5592c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NnxIRjMxcGQ3aFVIMHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60'),
+                                                            //     fit: BoxFit
+                                                            //         .cover),
                                                             boxShadow: const [
                                                               BoxShadow(
                                                                 color: Colors

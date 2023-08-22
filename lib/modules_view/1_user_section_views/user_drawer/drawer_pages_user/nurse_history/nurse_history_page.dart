@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,10 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_nurse.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
+import '../../../../../utils/services/account_service.dart';
 
 class NurseHistoryUser extends StatelessWidget {
   NurseHistoryUser({Key? key}) : super(key: key);
@@ -241,40 +245,40 @@ class NurseHistoryUser extends StatelessWidget {
                                       margin: EdgeInsets.symmetric(
                                           vertical: 30 / 6),
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [
-                                                lightPrimary,
-                                                darkPrimary,
-                                              ]),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(-2, -2),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              color: darkShadow,
-                                            ),
-                                            BoxShadow(
-                                              offset: Offset(2, 2),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              color: lightShadow,
-                                            ),
-                                          ],
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://images.unsplash.com/photo-1605214178469-178b98bb29fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fG51cnNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  //'https://images.unsplash.com/photo-1590105577767-e21a1067899f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1828&q=80'
-                                                  // 'https://images.unsplash.com/photo-1577285930803-df9418bede68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTIwfHxsYWJvcmF0b3J5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  // 'https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjF8fGxhYm9yYXRvcnl8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
-                                                  // 'https://images.unsplash.com/photo-1613843596852-9a6317dae0b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80'
-                                                  // 'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  // 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  ),
-                                              fit: BoxFit.cover)),
+                                        borderRadius: BorderRadius.circular(20),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              lightPrimary,
+                                              darkPrimary,
+                                            ]),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(-2, -2),
+                                            spreadRadius: 1,
+                                            blurRadius: 4,
+                                            color: darkShadow,
+                                          ),
+                                          BoxShadow(
+                                            offset: Offset(2, 2),
+                                            spreadRadius: 1,
+                                            blurRadius: 4,
+                                            color: lightShadow,
+                                          ),
+                                        ],
+                                        // image: DecorationImage(
+                                        //     image: NetworkImage(
+                                        //         'https://images.unsplash.com/photo-1605214178469-178b98bb29fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fG51cnNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         //'https://images.unsplash.com/photo-1590105577767-e21a1067899f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1828&q=80'
+                                        //         // 'https://images.unsplash.com/photo-1577285930803-df9418bede68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTIwfHxsYWJvcmF0b3J5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         // 'https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjF8fGxhYm9yYXRvcnl8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
+                                        //         // 'https://images.unsplash.com/photo-1613843596852-9a6317dae0b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80'
+                                        //         // 'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         // 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         ),
+                                        //     fit: BoxFit.cover)
+                                      ),
                                       child: Column(
                                         children: [
                                           // SizedBox(
@@ -318,7 +322,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'Nurse Name:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -329,7 +334,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'Location:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -340,7 +346,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'Request Date:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -351,7 +358,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'Accepting Date:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -362,7 +370,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'Payment Date',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -373,7 +382,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'Paid Fees:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -384,7 +394,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                         'No of day:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -411,7 +422,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -433,7 +444,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                           style: GoogleFonts
                                                               .raleway(
                                                                   color: Colors
-                                                                      .cyanAccent,
+                                                                      .black,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,
@@ -451,7 +462,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -469,7 +480,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -486,7 +497,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -504,7 +515,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -521,7 +532,7 @@ class NurseHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -651,23 +662,95 @@ class NurseHistoryUser extends StatelessWidget {
                                                             Colors.white,
                                                         child: InkWell(
                                                           onTap: () async {
-                                                            //CallLoader.loader();
-                                                            // await Future.delayed(Duration(milliseconds: 700));
-                                                            //CallLoader.hideLoader();
-                                                            //Get.to(PdfPageLab(),
-                                                            //Get.to(() => PdfPageLab(), //next page class
+                                                            SharedPreferences
+                                                                prefs =
+                                                                await SharedPreferences
+                                                                    .getInstance();
+                                                            prefs.setString(
+                                                                "NurseessId",
+                                                                "${_nurseHistoryController.foundNurse[index].id.toString()}");
+                                                            Get.dialog(
+                                                              AlertDialog(
+                                                                title: const Text(
+                                                                    'Cancel Appointment ?'),
+                                                                content: const Text(
+                                                                    'You Sure Want To Cancel your Appointment?\n'
+                                                                    'If you delete this appointment then your amount will be refunded to your wallet.'),
+                                                                actions: [
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    children: [
+                                                                      TextButton(
+                                                                        child:
+                                                                            const Text(
+                                                                          "Close",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.green,
+                                                                          ),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Get.back(),
+                                                                      ),
+                                                                      TextButton(
+                                                                          child:
+                                                                              const Text(
+                                                                            "Confirm",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.red,
+                                                                            ),
+                                                                          ),
+                                                                          onPressed: () =>
+                                                                              accountService.getAccountData.then((accountData) {
+                                                                                Timer(
+                                                                                  const Duration(milliseconds: 200),
+                                                                                  () {
+                                                                                    _nurseHistoryController.nursehistoryApi();
+                                                                                    //  .skillsListApi();
+                                                                                    _nurseHistoryController.update();
 
-                                                            /// Get.to(() => PdfPage(), //next page class
-                                                            // duration: Duration(
-                                                            //     milliseconds:
-                                                            //     300), //duration of transitions, default 1 sec
-                                                            // transition:
-                                                            // // Transition.leftToRight //transition effect
-                                                            // // Transition.fadeIn
-                                                            // //Transition.size
-                                                            // Transition.zoom);
-                                                            // Get.to(WebViewPswebsite());
+                                                                                    ///calling delete api...
+                                                                                    _nurseHistoryController.deletenurseehistoryApi();
+                                                                                    Get.to(() => NurseHistoryUser());
+                                                                                    Get.back();
+
+                                                                                    //Get.to((page))
+                                                                                    ///
+                                                                                  },
+                                                                                );
+                                                                              })
+                                                                          //Get.back(),
+                                                                          ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
                                                           },
+
+                                                          // onTap: () async {
+                                                          //   //CallLoader.loader();
+                                                          //   // await Future.delayed(Duration(milliseconds: 700));
+                                                          //   //CallLoader.hideLoader();
+                                                          //   //Get.to(PdfPageLab(),
+                                                          //   //Get.to(() => PdfPageLab(), //next page class
+                                                          //
+                                                          //   /// Get.to(() => PdfPage(), //next page class
+                                                          //   // duration: Duration(
+                                                          //   //     milliseconds:
+                                                          //   //     300), //duration of transitions, default 1 sec
+                                                          //   // transition:
+                                                          //   // // Transition.leftToRight //transition effect
+                                                          //   // // Transition.fadeIn
+                                                          //   // //Transition.size
+                                                          //   // Transition.zoom);
+                                                          //   // Get.to(WebViewPswebsite());
+                                                          // },
                                                           child: Center(
                                                             child: Container(
                                                               height:

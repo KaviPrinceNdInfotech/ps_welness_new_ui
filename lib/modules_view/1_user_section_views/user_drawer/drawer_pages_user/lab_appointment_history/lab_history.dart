@@ -122,38 +122,38 @@ class LabHistoryUser extends StatelessWidget {
                                       margin: EdgeInsets.symmetric(
                                           vertical: 30 / 6),
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [
-                                                lightPrimary,
-                                                darkPrimary,
-                                              ]),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(-2, -2),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              color: darkShadow,
-                                            ),
-                                            BoxShadow(
-                                              offset: Offset(2, 2),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              color: lightShadow,
-                                            ),
-                                          ],
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://images.unsplash.com/photo-1577285930803-df9418bede68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTIwfHxsYWJvcmF0b3J5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  // 'https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjF8fGxhYm9yYXRvcnl8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
-                                                  // 'https://images.unsplash.com/photo-1613843596852-9a6317dae0b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80'
-                                                  // 'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  // 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-                                                  ),
-                                              fit: BoxFit.cover)),
+                                        borderRadius: BorderRadius.circular(20),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              lightPrimary,
+                                              darkPrimary,
+                                            ]),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(-2, -2),
+                                            spreadRadius: 1,
+                                            blurRadius: 4,
+                                            color: darkShadow,
+                                          ),
+                                          BoxShadow(
+                                            offset: Offset(2, 2),
+                                            spreadRadius: 1,
+                                            blurRadius: 4,
+                                            color: lightShadow,
+                                          ),
+                                        ],
+                                        // image: DecorationImage(
+                                        //     image: NetworkImage(
+                                        //         'https://images.unsplash.com/photo-1577285930803-df9418bede68?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTIwfHxsYWJvcmF0b3J5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         // 'https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjF8fGxhYm9yYXRvcnl8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'
+                                        //         // 'https://images.unsplash.com/photo-1613843596852-9a6317dae0b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1744&q=80'
+                                        //         // 'https://images.unsplash.com/photo-1587854680352-936b22b91030?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         // 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1lZGljaW5lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+                                        //         ),
+                                        //     fit: BoxFit.cover)
+                                      ),
                                       child: Column(
                                         children: [
                                           Padding(
@@ -177,7 +177,8 @@ class LabHistoryUser extends StatelessWidget {
                                                         'Lab Name:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -188,7 +189,8 @@ class LabHistoryUser extends StatelessWidget {
                                                         'Booking Date:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -199,7 +201,8 @@ class LabHistoryUser extends StatelessWidget {
                                                         'Test Name:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -210,7 +213,8 @@ class LabHistoryUser extends StatelessWidget {
                                                         'Paid Fees:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -221,7 +225,8 @@ class LabHistoryUser extends StatelessWidget {
                                                         'Location:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -255,7 +260,7 @@ class LabHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -272,7 +277,7 @@ class LabHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -289,7 +294,7 @@ class LabHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -307,7 +312,7 @@ class LabHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -324,7 +329,7 @@ class LabHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,

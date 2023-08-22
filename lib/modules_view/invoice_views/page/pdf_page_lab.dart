@@ -164,7 +164,7 @@ class PdfPageLab extends StatelessWidget {
 
                   ///
                   final invoice = Invoice(
-                    supplier: Supplier(
+                    supplier: const Supplier(
                       name: 'Name: Kumar Prince',
                       //'${items!.name.toString()}',
                       email: 'Email: prince@gmail.com',

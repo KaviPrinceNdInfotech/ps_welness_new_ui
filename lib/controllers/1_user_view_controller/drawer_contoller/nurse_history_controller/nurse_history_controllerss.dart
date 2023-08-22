@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/nurse_history/nurse_history_page.dart';
 
 import '../../../../model/4_nurse_all_models/nurse_appointment_details_list.dart';
+import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -26,6 +31,31 @@ class NurseHistoryController extends GetxController {
         ) {
       isLoading(false);
       foundNurse.value = nurseappointmentdetail!.data!;
+    }
+  }
+
+  ///delete_nurse...api...
+  void deletenurseehistoryApi() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.nurseHisdeleteApi();
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+      CallLoader.hideLoader();
+      nursehistoryApi();
+      Get.to(
+        () => NurseHistoryUser(), //next page class
+        duration: Duration(
+            milliseconds: 400), //duration of transitions, default 1 sec
+        transition:
+            // Transition.leftToRight //transition effect
+            // Transition.fadeIn
+            //Transition.size
+            Transition.zoom,
+      );
+
+      //Get.back();
+      //Get.offAll(() => AddSkilsScreen());
+
     }
   }
 

@@ -133,36 +133,36 @@ class MedicineCart extends StatelessWidget {
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 30 / 8),
                                                 decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    gradient: LinearGradient(
-                                                        begin: Alignment
-                                                            .centerLeft,
-                                                        end: Alignment
-                                                            .centerRight,
-                                                        colors: [
-                                                          lightPrimary2,
-                                                          darkPrimary2,
-                                                        ]),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        offset: Offset(-0, -0),
-                                                        spreadRadius: 0,
-                                                        blurRadius: 0,
-                                                        color: darkShadow,
-                                                      ),
-                                                      BoxShadow(
-                                                        offset: Offset(3, 3),
-                                                        spreadRadius: 1,
-                                                        blurRadius: 0,
-                                                        color: lightShadow,
-                                                      ),
-                                                    ],
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'),
-                                                        fit: BoxFit.cover)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  gradient: LinearGradient(
+                                                      begin:
+                                                          Alignment.centerLeft,
+                                                      end:
+                                                          Alignment.centerRight,
+                                                      colors: [
+                                                        lightPrimary2,
+                                                        darkPrimary2,
+                                                      ]),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      offset: Offset(-0, -0),
+                                                      spreadRadius: 0,
+                                                      blurRadius: 0,
+                                                      color: darkShadow,
+                                                    ),
+                                                    BoxShadow(
+                                                      offset: Offset(3, 3),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 0,
+                                                      color: lightShadow,
+                                                    ),
+                                                  ],
+                                                  // image: DecorationImage(
+                                                  //     image: NetworkImage(
+                                                  //         'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'),
+                                                  //     fit: BoxFit.cover)
+                                                ),
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(0.0),

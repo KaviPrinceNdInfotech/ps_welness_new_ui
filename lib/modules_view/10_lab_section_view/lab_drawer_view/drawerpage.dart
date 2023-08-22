@@ -130,6 +130,41 @@ class LabMainDrawer extends StatelessWidget {
                 Get.offNamed('/AboutUs');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Lab Profile Detail',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/LapDetailProfile'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _labprofiledetailController.update();
+                _labprofiledetailController.labprofileApi();
+                //LapDetailProfile
+                Get.to(() => LapDetailProfile());
+                Get.offNamed('/LapDetailProfile');
+              },
+            ),
 
             ///todo: test..add............
             ListTile(
@@ -335,42 +370,6 @@ class LabMainDrawer extends StatelessWidget {
                 Get.back();
                 Get.to(() => ComplaintLabPage());
                 Get.offNamed('/ComplaintPage');
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Lab Profile Detail',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/LapDetailProfile'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                _labprofiledetailController.update();
-                _labprofiledetailController.labprofileApi();
-                //LapDetailProfile
-                Get.to(() => LapDetailProfile());
-                Get.offNamed('/LapDetailProfile');
               },
             ),
 

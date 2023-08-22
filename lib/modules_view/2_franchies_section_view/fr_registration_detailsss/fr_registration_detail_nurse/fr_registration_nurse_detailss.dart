@@ -262,14 +262,14 @@ class ResitrationNurseDetails extends StatelessWidget {
                                                     width: size.width * 0.92,
                                                     padding: EdgeInsets.all(3),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.grey[900],
+                                                        color: Colors.cyan[500],
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10),
-                                                        image: const DecorationImage(
-                                                            image: NetworkImage(
-                                                                'https://images.unsplash.com/photo-1568301956237-25a54f5f0d21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'),
-                                                            fit: BoxFit.cover),
+                                                        // image: const DecorationImage(
+                                                        //     image: NetworkImage(
+                                                        //         'https://images.unsplash.com/photo-1568301956237-25a54f5f0d21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'),
+                                                        //     fit: BoxFit.cover),
                                                         boxShadow: const [
                                                           BoxShadow(
                                                             color: Colors.black,

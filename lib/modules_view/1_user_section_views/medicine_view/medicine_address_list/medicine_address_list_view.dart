@@ -204,35 +204,34 @@ class Medicineaddresslist extends StatelessWidget {
                                               margin: EdgeInsets.symmetric(
                                                   vertical: 30 / 6),
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  gradient: LinearGradient(
-                                                      begin:
-                                                          Alignment.centerLeft,
-                                                      end:
-                                                          Alignment.centerRight,
-                                                      colors: [
-                                                        lightPrimary2,
-                                                        darkPrimary2,
-                                                      ]),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      offset: Offset(-0, -0),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 0,
-                                                      color: darkShadow,
-                                                    ),
-                                                    BoxShadow(
-                                                      offset: Offset(3, 3),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 0,
-                                                      color: lightShadow,
-                                                    ),
-                                                  ],
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          'https://images.unsplash.com/photo-1628771065518-0d82f1938462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
-                                                      fit: BoxFit.cover)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                gradient: LinearGradient(
+                                                    begin: Alignment.centerLeft,
+                                                    end: Alignment.centerRight,
+                                                    colors: [
+                                                      lightPrimary2,
+                                                      darkPrimary2,
+                                                    ]),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: Offset(-0, -0),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 0,
+                                                    color: darkShadow,
+                                                  ),
+                                                  BoxShadow(
+                                                    offset: Offset(3, 3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 0,
+                                                    color: lightShadow,
+                                                  ),
+                                                ],
+                                                // image: DecorationImage(
+                                                //     image: NetworkImage(
+                                                //         'https://images.unsplash.com/photo-1628771065518-0d82f1938462?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
+                                                //     fit: BoxFit.cover)
+                                              ),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -584,6 +583,9 @@ class Medicineaddresslist extends StatelessWidget {
                                                         decoration: BoxDecoration(
                                                             shape:
                                                                 BoxShape.circle,
+                                                            border: Border.all(
+                                                                color:
+                                                                    Colors.red),
                                                             image: DecorationImage(
                                                                 image: AssetImage(
                                                                     'lib/assets/image/43657-arrow-right.gif'),

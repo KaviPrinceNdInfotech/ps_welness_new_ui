@@ -57,12 +57,13 @@ class RwaDetailProfile extends StatelessWidget {
                                     height: size.height * 0.4,
                                     width: size.width * 0.8,
                                     decoration: BoxDecoration(
-                                        color: Colors.red.shade200,
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                              'https://images.unsplash.com/photo-1594135356513-14291e55162a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1424&q=80',
-                                            ),
-                                            fit: BoxFit.cover)),
+                                      color: Colors.red.shade200,
+                                      // image: DecorationImage(
+                                      //     image: NetworkImage(
+                                      //       'https://images.unsplash.com/photo-1594135356513-14291e55162a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1424&q=80',
+                                      //     ),
+                                      //     fit: BoxFit.cover)
+                                    ),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

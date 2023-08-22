@@ -95,15 +95,15 @@ class LabProfileUpdateController extends GetxController {
     //states.refresh();
     super.onInit();
     idController = TextEditingController();
-    labNameController = TextEditingController(text: 'Mrs Ak Singh');
+    labNameController = TextEditingController(text: '');
     //emailController = TextEditingController();
-    MobileNumberController = TextEditingController(text: '9888776655');
-    LocationController = TextEditingController(text: 'Palam');
+    MobileNumberController = TextEditingController(text: '');
+    LocationController = TextEditingController(text: '');
     //feesController = TextEditingController(text: '2000');
-    PinCodeController = TextEditingController(text: '119999');
-    AccountNoController = TextEditingController(text: '4898666666');
-    IFSCCodeController = TextEditingController(text: '149ONSBI');
-    BranchNameController = TextEditingController(text: 'IDBI');
+    PinCodeController = TextEditingController(text: '');
+    AccountNoController = TextEditingController(text: '');
+    IFSCCodeController = TextEditingController(text: '');
+    BranchNameController = TextEditingController(text: '');
     adminLogin_idController = TextEditingController();
 
     getStateLabApi();

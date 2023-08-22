@@ -3737,16 +3737,6 @@ class ApiProvider {
     print(r.body);
     if (r.statusCode == 200) {
       //Get.snackbar("Skills added",r.body);
-      var prefs = GetStorage();
-      //saved id..........
-      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
-      // Id = prefs.read("Id").toString();
-      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
-      ///
-      // //saved token.........
-      // prefs.write("token".toString(), json.decode(r.body)['token']);
-      // token = prefs.read("token").toString();
-      // print(token);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -3785,6 +3775,63 @@ class ApiProvider {
       // prefs.write("token".toString(), json.decode(r.body)['token']);
       // token = prefs.read("token").toString();
       // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete doctor_historyy ......17 june....
+  static doctorHisdeleteApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+
+    var url = '${baseUrl}api/PatientApi/CancelDoctorAppointment';
+
+    var body = {"Id": "1354", "Patient_Id": "$userid"};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      //Get.snackbar("Skills added",r.body);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete nurse_historyy ......17 june....
+  static nurseHisdeleteApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseessId = preferences.getString("NurseessId");
+    print("AmbulancelistssId: ${NurseessId}");
+
+    var url = '${baseUrl}api/PatientApi/CancelNurseAppointment';
+
+    var body = {"Id": "$NurseessId", "Patient_Id": userid};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Your Nurse deleted", r.body);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);

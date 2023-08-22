@@ -1,5 +1,7 @@
 import 'dart:io';
 
+//import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -23,7 +25,6 @@ class PdfInvoiceApi {
     ///here changed 29 nov 22
     //final pdf = Document();
     ///here changed 29 nov 22
-
     //final font = await PdfGoogleFonts.nunitoExtraLight();
     final font = await rootBundle
         .load("lib/assets/fonts/open_sans_cufonfonts/OpenSans-Bold.ttf");
@@ -38,7 +39,6 @@ class PdfInvoiceApi {
     final pdf = pw.Document();
 
     ///here changed 29 nov 22
-
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       build: (context) => [
@@ -62,6 +62,7 @@ class PdfInvoiceApi {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              buildSupplierAddress(invoice.supplier),
               Column(mainAxisSize: MainAxisSize.min, children: [
                 ///logo code
 
@@ -72,26 +73,36 @@ class PdfInvoiceApi {
                 //   height: 10.h,
                 //   width: 16.w,
                 // ),
-                Image(
-                  MemoryImage(iconImage),
-                  height: 60,
-                  width: 60,
+
+                Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: PdfColors.cyan,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image(
+                    MemoryImage(iconImage),
+                    height: 60,
+                    width: 60,
+                  ),
                 ),
                 Text(
                   'Tax Invoice/Bill of Supply',
                   style: TextStyle(
-                    fontSize: 15.0,
+                    fontSize: 13.0,
                     font: ttf,
                     color: PdfColors.grey700,
                   ),
                 ),
               ]),
-              buildSupplierAddress(invoice.supplier),
             ],
           ),
-          //  SizedBox(height: 1 * PdfPageFormat.cm),
+          //SizedBox(height: 1 * PdfPageFormat.cm),
           Divider(),
-          SizedBox(height: 1 * PdfPageFormat.cm),
+
+          ///this divider is after tex invoice..... and id height 6 then it will gape will be more..
+          //SizedBox(height: 1 * PdfPageFormat.cm),
           Row(
             //crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

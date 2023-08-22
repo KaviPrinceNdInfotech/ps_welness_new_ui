@@ -265,14 +265,14 @@ class ResitrationChemistDetails extends StatelessWidget {
                                                     width: size.width * 0.92,
                                                     padding: EdgeInsets.all(3),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.grey[900],
+                                                        color: Colors.cyan[900],
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10),
-                                                        image: const DecorationImage(
-                                                            image: NetworkImage(
-                                                                'https://images.unsplash.com/flagged/photo-1568196978341-fd5e4d1253ed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'),
-                                                            fit: BoxFit.cover),
+                                                        // image: const DecorationImage(
+                                                        //     image: NetworkImage(
+                                                        //         'https://images.unsplash.com/flagged/photo-1568196978341-fd5e4d1253ed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'),
+                                                        //     fit: BoxFit.cover),
                                                         boxShadow: const [
                                                           BoxShadow(
                                                             color: Colors.black,

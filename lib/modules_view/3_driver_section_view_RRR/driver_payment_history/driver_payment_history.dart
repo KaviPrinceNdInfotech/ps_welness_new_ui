@@ -163,10 +163,10 @@ class DriverPaymentHistory extends StatelessWidget {
                                                         EdgeInsets.symmetric(
                                                             vertical: 30 / 5),
                                                     decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: NetworkImage(
-                                                              'https://images.unsplash.com/photo-1633526544365-a98d534c9201?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
-                                                          fit: BoxFit.fill),
+                                                      // image: DecorationImage(
+                                                      //     image: NetworkImage(
+                                                      //         'https://images.unsplash.com/photo-1633526544365-a98d534c9201?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'),
+                                                      //     fit: BoxFit.fill),
                                                       //color: MyTheme.containercolor8,
                                                       borderRadius:
                                                           BorderRadius.circular(

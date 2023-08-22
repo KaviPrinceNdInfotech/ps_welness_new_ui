@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_doctor.dart';
+import 'package:ps_welness_new_ui/utils/services/account_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
@@ -282,33 +286,33 @@ class DoctorHistoryUser extends StatelessWidget {
                                       margin: EdgeInsets.symmetric(
                                           vertical: 30 / 7),
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [
-                                                lightPrimary,
-                                                darkPrimary,
-                                              ]),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(-2, -2),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              color: darkShadow,
-                                            ),
-                                            BoxShadow(
-                                              offset: Offset(2, 2),
-                                              spreadRadius: 1,
-                                              blurRadius: 4,
-                                              color: lightShadow,
-                                            ),
-                                          ],
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://images.unsplash.com/photo-1621619856624-42fd193a0661?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'),
-                                              fit: BoxFit.cover)),
+                                        borderRadius: BorderRadius.circular(20),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              lightPrimary,
+                                              darkPrimary,
+                                            ]),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(-2, -2),
+                                            spreadRadius: 1,
+                                            blurRadius: 4,
+                                            color: darkShadow,
+                                          ),
+                                          BoxShadow(
+                                            offset: Offset(2, 2),
+                                            spreadRadius: 1,
+                                            blurRadius: 4,
+                                            color: lightShadow,
+                                          ),
+                                        ],
+                                        // image: DecorationImage(
+                                        //     image: NetworkImage(
+                                        //         'https://images.unsplash.com/photo-1621619856624-42fd193a0661?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'),
+                                        //     fit: BoxFit.cover)
+                                      ),
                                       child: Column(
                                         children: [
                                           // SizedBox(
@@ -348,7 +352,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Doctor Name:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -359,7 +364,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Specialist:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -370,7 +376,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Service Date:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -381,7 +388,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Time Slot:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -392,7 +400,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Payment Date:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -403,7 +412,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Paid Fees:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -414,7 +424,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         'Location:',
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
+                                                          color: MyTheme
+                                                              .containercolor01,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontSize: size.width *
@@ -446,7 +457,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -464,7 +475,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -495,7 +506,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                             // 'Nov 16,22 - Nov 20,22',
                                                             style: GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -528,7 +539,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                             // 'Nov 16,22 - Nov 20,22',
                                                             style: GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -561,7 +572,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                             // 'Nov 16,22 - Nov 20,22',
                                                             style: GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -577,7 +588,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -596,7 +607,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
-                                                                    .cyanAccent,
+                                                                    .black,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -611,7 +622,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                             ),
                                           ),
                                           SizedBox(
-                                              height: size.height * 0.08,
+                                              height: size.height * 0.07,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
@@ -727,23 +738,94 @@ class DoctorHistoryUser extends StatelessWidget {
                                                             Colors.white,
                                                         child: InkWell(
                                                           onTap: () async {
-                                                            //CallLoader.loader();
-                                                            // await Future.delayed(Duration(milliseconds: 700));
-                                                            //CallLoader.hideLoader();
-                                                            //Get.to(PdfPageLab(),
-                                                            //Get.to(() => PdfPageLab(), //next page class
+                                                            SharedPreferences
+                                                                prefs =
+                                                                await SharedPreferences
+                                                                    .getInstance();
+                                                            prefs.setString(
+                                                                "DoctorssId",
+                                                                "${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].doctorName}");
+                                                            Get.dialog(
+                                                              AlertDialog(
+                                                                title: const Text(
+                                                                    'Cancel Appointment ?'),
+                                                                content: const Text(
+                                                                    'You Sure Want To Cancel your Appointment?\n'
+                                                                    'If you delete this appointment then your amount will be refunded to your wallet.'),
+                                                                actions: [
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    children: [
+                                                                      TextButton(
+                                                                        child:
+                                                                            const Text(
+                                                                          "Close",
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.green,
+                                                                          ),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Get.back(),
+                                                                      ),
+                                                                      TextButton(
+                                                                          child:
+                                                                              const Text(
+                                                                            "Confirm",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.red,
+                                                                            ),
+                                                                          ),
+                                                                          onPressed: () =>
+                                                                              accountService.getAccountData.then((accountData) {
+                                                                                Timer(
+                                                                                  const Duration(milliseconds: 200),
+                                                                                  () {
+                                                                                    _doctorHistoryController.doctorListHospitalApi();
+                                                                                    //  .skillsListApi();
+                                                                                    _doctorHistoryController.update();
 
-                                                            /// Get.to(() => PdfPage(), //next page class
-                                                            // duration: Duration(
-                                                            //     milliseconds:
-                                                            //     300), //duration of transitions, default 1 sec
-                                                            // transition:
-                                                            // // Transition.leftToRight //transition effect
-                                                            // // Transition.fadeIn
-                                                            // //Transition.size
-                                                            // Transition.zoom);
-                                                            // Get.to(WebViewPswebsite());
+                                                                                    ///calling delete api...
+                                                                                    _doctorHistoryController.deletedoctorhistoryApi();
+                                                                                    Get.to(() => DoctorHistoryUser());
+                                                                                    Get.back();
+
+                                                                                    //Get.to((page))
+                                                                                    ///
+                                                                                  },
+                                                                                );
+                                                                              })
+                                                                          //Get.back(),
+                                                                          ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
                                                           },
+                                                          // onTap: () async {
+                                                          //   //CallLoader.loader();
+                                                          //   // await Future.delayed(Duration(milliseconds: 700));
+                                                          //   //CallLoader.hideLoader();
+                                                          //   //Get.to(PdfPageLab(),
+                                                          //   //Get.to(() => PdfPageLab(), //next page class
+                                                          //
+                                                          //   /// Get.to(() => PdfPage(), //next page class
+                                                          //   // duration: Duration(
+                                                          //   //     milliseconds:
+                                                          //   //     300), //duration of transitions, default 1 sec
+                                                          //   // transition:
+                                                          //   // // Transition.leftToRight //transition effect
+                                                          //   // // Transition.fadeIn
+                                                          //   // //Transition.size
+                                                          //   // Transition.zoom);
+                                                          //   // Get.to(WebViewPswebsite());
+                                                          // },
                                                           child: Center(
                                                             child: Container(
                                                               height:
