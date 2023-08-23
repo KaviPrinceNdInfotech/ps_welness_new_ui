@@ -3,20 +3,17 @@ import 'dart:io';
 //import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:ps_welness_new_ui/modules_view/invoice_views/api/pdf_api.dart';
 
-import '../../../controllers/invoice_controller/invoice_controller.dart';
 import '../model/customer.dart';
 import '../model/invoice.dart';
 import '../model/supplier.dart';
 import '../utils.dart';
 
-InvoiceController _invoiceController = Get.put(InvoiceController());
+//InvoiceController _invoiceController = Get.put(InvoiceController());
 
 class PdfInvoiceApi {
   static Future<File> generate(
@@ -35,10 +32,11 @@ class PdfInvoiceApi {
             .asUint8List();
     //(await rootBundle.load(' lib/assets/asset/guser_logo.png')).buffer.asUint8List();
 
-    ///here changed 29 nov 22
+    ///here changed 29 nov 22.........
+
     final pdf = pw.Document();
 
-    ///here changed 29 nov 22
+    ///here changed 29 nov 22...........
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       build: (context) => [

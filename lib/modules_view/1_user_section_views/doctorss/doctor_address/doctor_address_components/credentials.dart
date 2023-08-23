@@ -223,7 +223,7 @@ class DoctorAddressCredentials extends StatelessWidget {
                             department.departmentName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.0134,
+                              fontSize: size.height * 0.013,
                             ),
                           ),
                         );
