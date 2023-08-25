@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,8 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 class FrDoc3Credentials extends StatelessWidget {
   FrDoc3Credentials({Key? key}) : super(key: key);
 
-  FrDoctor_1_Controller _frDoctor_1_controller = Get.put(FrDoctor_1_Controller());
+  FrDoctor_1_Controller _frDoctor_1_controller =
+      Get.put(FrDoctor_1_Controller());
 
   var items = [
     '10',
@@ -33,6 +35,11 @@ class FrDoc3Credentials extends StatelessWidget {
   get newvalue => null!;
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    int hour = now.hour;
+    int minute = now.minute;
+    int second = now.second;
+    print('$hour $minute $second');
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Form(
@@ -75,6 +82,7 @@ class FrDoc3Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.018,
               ),
+
               ///file
               GetBuilder<Hospital_2_Controller>(
                 init: Hospital_2_Controller(), // intialize with the Controller
@@ -93,19 +101,24 @@ class FrDoc3Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _frDoctor_1_controller.selectedLicenceImagepath.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_frDoctor_1_controller.selectedLicenceImagepath.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _frDoctor_1_controller
+                                        .selectedLicenceImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_frDoctor_1_controller
+                                        .selectedLicenceImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -116,6 +129,7 @@ class FrDoc3Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: Licence no.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
@@ -147,6 +161,7 @@ class FrDoc3Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: licence. validity......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
@@ -156,9 +171,10 @@ class FrDoc3Credentials extends StatelessWidget {
                     _frDoctor_1_controller.certificatevelidity = value!;
                   },
                   validator: (value) {
-                    return _frDoctor_1_controller.validcertificatevalidity(value!);
+                    return _frDoctor_1_controller
+                        .validcertificatevalidity(value!);
                   },
-                  onTap: (){
+                  onTap: () {
                     _frDoctor_1_controller.chooseDate();
                   },
                   cursorColor: Colors.black,
@@ -181,6 +197,7 @@ class FrDoc3Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: pin code no.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
@@ -229,19 +246,24 @@ class FrDoc3Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _frDoctor_1_controller.selectedPanImagepath.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_frDoctor_1_controller.selectedPanImagepath.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _frDoctor_1_controller
+                                        .selectedPanImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_frDoctor_1_controller
+                                        .selectedPanImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -249,6 +271,7 @@ class FrDoc3Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///Todo: morning.....................................
               SizedBox(
                 height: size.height * 0.02,
@@ -280,13 +303,16 @@ class FrDoc3Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (String? newValue) {
-                          _frDoctor_1_controller.selectedSlot1.value = newValue!;
+                          _frDoctor_1_controller.selectedSlot1.value =
+                              newValue!;
                         }),
                   ),
                 ),
               ),
+
               ///todo:selected date starting...
               SizedBox(
                 height: size.height * 0.018,
@@ -318,6 +344,7 @@ class FrDoc3Credentials extends StatelessWidget {
                                 width: size.width * 0.03,
                               ),
                               //Spacer(),
+                              //    print('$hour $minute $second');
                               Text(
                                 "${_frDoctor_1_controller.selectedTime.value.hour}:${_frDoctor_1_controller.selectedTime.value.minute}",
                                 style: TextStyle(
@@ -335,6 +362,7 @@ class FrDoc3Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.018,
               ),
+
               ///todo:selected time ending...
               NeumorphicTextFieldContainer(
                 child: Obx(
@@ -377,6 +405,7 @@ class FrDoc3Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///Todo: evening.....................................
               SizedBox(
                 height: size.height * 0.02,
@@ -408,7 +437,8 @@ class FrDoc3Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (String? newValue) {
                           _frDoctor_1_controller.selectedSlot.value = newValue!;
                         }),

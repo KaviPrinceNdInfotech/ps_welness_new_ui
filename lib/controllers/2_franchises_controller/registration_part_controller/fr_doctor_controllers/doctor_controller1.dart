@@ -64,7 +64,6 @@ class FrDoctor_1_Controller extends GetxController {
   var selectedTime3 = TimeOfDay.now().obs;
   var selectedTime4 = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
-
   void getLicenceImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
@@ -91,6 +90,7 @@ class FrDoctor_1_Controller extends GetxController {
   RxList<String> slots = <String>[].obs;
   Rx<String?> selectedSlot1 = (null as String?).obs;
   RxList<String> slots1 = <String>[].obs;
+
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
@@ -127,7 +127,9 @@ class FrDoctor_1_Controller extends GetxController {
       selectedPanImagepath.value.split('/').last,
       PanImageAsBase64,
       SlotTimeController?.text,
-      selectedTime?.value.hour,
+
+      ///todo: this is the main thing to provide time period..
+      selectedTime?.value.toString(),
       selectedTime2?.value.hour,
       SlotTime2Controller?.text,
       selectedTime3?.value.hour,
@@ -283,6 +285,10 @@ class FrDoctor_1_Controller extends GetxController {
 
   ///time 1........................
   chooseTime() async {
+    DateTime now = DateTime.now();
+    int hour = now.hour;
+    int minute = now.minute;
+    int second = now.second;
     TimeOfDay? pickedTime = await showTimePicker(
         context: Get.context!,
         initialTime: selectedTime.value,

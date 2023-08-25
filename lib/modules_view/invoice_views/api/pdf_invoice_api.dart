@@ -1,7 +1,6 @@
 import 'dart:io';
 
 //import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -14,7 +13,6 @@ import '../model/supplier.dart';
 import '../utils.dart';
 
 //InvoiceController _invoiceController = Get.put(InvoiceController());
-
 class PdfInvoiceApi {
   static Future<File> generate(
     Invoice invoice,

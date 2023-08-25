@@ -3530,6 +3530,7 @@ class ApiProvider {
     };
     final http.Response r = await http.post(Uri.parse(url), body: body);
     print('FrenchiesRegisterDoctor1212: ${body}');
+    print('FrenchiesRetimeqw: ${startTime.toString()}');
     print("ttf:${body}");
     if (r.statusCode == 200) {
       print("ttftft66:${EndTime2}");

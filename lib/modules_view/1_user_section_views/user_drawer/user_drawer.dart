@@ -181,6 +181,9 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 // await Future.delayed(Duration(milliseconds: 200));
                 _driverAcceptlistController.driveracceptuserDetailApi();
                 _driverAcceptlistController.update();
+
+                ///todo:new pageee.........
+                //Get.to(GymType());
                 // accountService.getAccountData.then((accountData) {
                 //   // CallLoader.loader();
                 //   // nearlistdriverApi();

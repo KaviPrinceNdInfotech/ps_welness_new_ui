@@ -7,9 +7,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
-import 'package:ps_welness_new_ui/controllers/1_user_view_controller/medicine_controllers/medicine_cart_section/medicine_cart_list.dart';
-import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
-import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map3.dart';
@@ -51,16 +48,10 @@ UserHomepagContreoller _userHomepagContreoller =
     Get.put(UserHomepagContreoller());
 AmbulancegetController _ambulancegetController =
     Get.put(AmbulancegetController());
-MedicineCartListController _medicineCartListController =
-    Get.put(MedicineCartListController());
 final MedicineListController _medicineListController =
     Get.put(MedicineListController());
 DriverAcceptlistController _driverAcceptlistController =
     Get.put(DriverAcceptlistController());
-
-NurseBooking1Controller _nurseBooking1Controller =
-    Get.put(NurseBooking1Controller());
-DevicetokenController _devicetokenController = Get.put(DevicetokenController());
 
 ///
 
