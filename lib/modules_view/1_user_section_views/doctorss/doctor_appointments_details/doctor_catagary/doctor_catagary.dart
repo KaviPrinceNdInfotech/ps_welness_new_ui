@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 
@@ -11,7 +12,7 @@ import '../doctors_lists/doctor_list_appointment.dart';
 //import 'package:ps_welness/modules_view/doctor_appointment_details/doctors_lists/doctor_list_appointment.dart';
 
 class AppointmentDetails extends StatelessWidget {
-  AppointmentDetails({Key? key}) : super(key: key);
+  AppointmentDetails({Key? key, required id}) : super(key: key);
 
   final List<String> doctorcatagary = [
     'Cardiologist',

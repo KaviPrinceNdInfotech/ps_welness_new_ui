@@ -230,7 +230,9 @@ class MedicinrHistoryUser extends StatelessWidget {
                                           //   ),
                                           // ),
                                           Padding(
-                                            padding: EdgeInsets.all(8.0),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: size.width * 0.02,
+                                                vertical: size.height * 0.01),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -524,7 +526,7 @@ class MedicinrHistoryUser extends StatelessWidget {
                                             ),
                                           ),
                                           SizedBox(
-                                              height: size.height * 0.1,
+                                              height: size.height * 0.09,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
@@ -535,6 +537,93 @@ class MedicinrHistoryUser extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.end,
                                                   children: [
+                                                    Container(
+                                                      height:
+                                                          size.height * 0.03,
+                                                      width: size.width * 0.15,
+                                                      child: Material(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        elevation: 0,
+                                                        // surfaceTintColor: Colors.yellow,
+                                                        color:
+                                                            Colors.transparent,
+                                                        shadowColor:
+                                                            Colors.transparent,
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            //CallLoader.loader();
+                                                            // await Future.delayed(Duration(milliseconds: 700));
+                                                            //CallLoader.hideLoader();
+                                                            //Get.to(PdfPageLab(),
+                                                            //Get.to(() => PdfPageLab(), //next page class
+
+                                                            /// Get.to(() => PdfPage(), //next page class
+                                                            // duration: Duration(
+                                                            //     milliseconds:
+                                                            //     300), //duration of transitions, default 1 sec
+                                                            // transition:
+                                                            // // Transition.leftToRight //transition effect
+                                                            // // Transition.fadeIn
+                                                            // //Transition.size
+                                                            // Transition.zoom);
+                                                            // Get.to(WebViewPswebsite());
+                                                          },
+                                                          child: Center(
+                                                            child: Container(
+                                                              height:
+                                                                  size.height *
+                                                                      0.04,
+                                                              width:
+                                                                  size.width *
+                                                                      0.15,
+                                                              // decoration: BoxDecoration(
+                                                              //     color: Colors
+                                                              //         .white38,
+                                                              //     borderRadius:
+                                                              //         BorderRadius
+                                                              //             .circular(
+                                                              //                 10),
+                                                              //     border: Border.all(
+                                                              //         color: Colors
+                                                              //             .red),
+                                                              //     // image: DecorationImage(
+                                                              //     //   image: NetworkImage(
+                                                              //     //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5UX-5262FvS9AkNpnPst9lZon1ZET11ncXw&usqp=CAU'),
+                                                              //     //   //fit: BoxFit.fitHeight,
+                                                              //     // ),
+                                                              //     boxShadow: const [
+                                                              //       BoxShadow(
+                                                              //         color: Colors
+                                                              //             .red,
+                                                              //         offset:
+                                                              //             Offset(
+                                                              //                 3,
+                                                              //                 3),
+                                                              //         blurRadius:
+                                                              //             0,
+                                                              //         spreadRadius:
+                                                              //             0,
+                                                              //       ),
+                                                              //       BoxShadow(
+                                                              //         color: Colors
+                                                              //             .red,
+                                                              //         //offset: Offset(-1, -1),
+                                                              //         blurRadius:
+                                                              //             0,
+                                                              //         spreadRadius:
+                                                              //             0,
+                                                              //       ),
+                                                              //     ]),
+                                                              // child: const Center(
+                                                              //     child: Text(
+                                                              //         'Cancel')),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
                                                     Material(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -625,92 +714,6 @@ class MedicinrHistoryUser extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
-                                                      height:
-                                                          size.height * 0.04,
-                                                      width: size.width * 0.15,
-                                                      child: Material(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        elevation: 2,
-                                                        // surfaceTintColor: Colors.yellow,
-                                                        color: Colors.white38,
-                                                        shadowColor:
-                                                            Colors.white,
-                                                        child: InkWell(
-                                                          onTap: () async {
-                                                            //CallLoader.loader();
-                                                            // await Future.delayed(Duration(milliseconds: 700));
-                                                            //CallLoader.hideLoader();
-                                                            //Get.to(PdfPageLab(),
-                                                            //Get.to(() => PdfPageLab(), //next page class
-
-                                                            /// Get.to(() => PdfPage(), //next page class
-                                                            // duration: Duration(
-                                                            //     milliseconds:
-                                                            //     300), //duration of transitions, default 1 sec
-                                                            // transition:
-                                                            // // Transition.leftToRight //transition effect
-                                                            // // Transition.fadeIn
-                                                            // //Transition.size
-                                                            // Transition.zoom);
-                                                            // Get.to(WebViewPswebsite());
-                                                          },
-                                                          child: Center(
-                                                            child: Container(
-                                                              height:
-                                                                  size.height *
-                                                                      0.04,
-                                                              width:
-                                                                  size.width *
-                                                                      0.15,
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors
-                                                                      .white38,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .red),
-                                                                  // image: DecorationImage(
-                                                                  //   image: NetworkImage(
-                                                                  //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5UX-5262FvS9AkNpnPst9lZon1ZET11ncXw&usqp=CAU'),
-                                                                  //   //fit: BoxFit.fitHeight,
-                                                                  // ),
-                                                                  boxShadow: const [
-                                                                    BoxShadow(
-                                                                      color: Colors
-                                                                          .red,
-                                                                      offset:
-                                                                          Offset(
-                                                                              3,
-                                                                              3),
-                                                                      blurRadius:
-                                                                          0,
-                                                                      spreadRadius:
-                                                                          0,
-                                                                    ),
-                                                                    BoxShadow(
-                                                                      color: Colors
-                                                                          .red,
-                                                                      //offset: Offset(-1, -1),
-                                                                      blurRadius:
-                                                                          0,
-                                                                      spreadRadius:
-                                                                          0,
-                                                                    ),
-                                                                  ]),
-                                                              child: const Center(
-                                                                  child: Text(
-                                                                      'Cancel')),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
                                                   ],
                                                 ),
                                               )

@@ -63,6 +63,14 @@ class DoctorList extends StatelessWidget {
                       ),
                     ),
                     Container(
+                      decoration: new BoxDecoration(
+                          borderRadius:
+                              new BorderRadius.all(new Radius.circular(30.0)),
+                          color: Colors.white),
+                      width: size.width * 0.9,
+                      height: size.height * 0.06,
+                      margin: new EdgeInsets.fromLTRB(20, 20, 20, 210),
+                      padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                       child: Theme(
                         data: Theme.of(context)
                             .copyWith(splashColor: Colors.transparent),
@@ -88,14 +96,6 @@ class DoctorList extends StatelessWidget {
                           ),
                         ),
                       ),
-                      decoration: new BoxDecoration(
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(30.0)),
-                          color: Colors.white),
-                      width: size.width * 0.9,
-                      height: size.height * 0.06,
-                      margin: new EdgeInsets.fromLTRB(20, 20, 20, 210),
-                      padding: new EdgeInsets.fromLTRB(8, 8, 8, 8),
                     ),
                   ],
                 ),

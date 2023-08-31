@@ -49,6 +49,7 @@ dependencies:
   neopop: ^1.0.2
   rating_dialog: ^2.0.4
   velocity_x:
+  flutter_phone_direct_caller: ^2.1.1
 
   #pdf: ^3.8.4
   pdf:
@@ -92,6 +93,8 @@ dependencies:
   cached_network_image: ^3.2.3
   webview_flutter: ^4.2.2
   flutter_inappwebview: ^5.7.2+3
+  zego_uikit_prebuilt_call: ^3.13.0
+  zego_uikit_signaling_plugin: ^2.3.2
 
 dev_dependencies:
   flutter_test:

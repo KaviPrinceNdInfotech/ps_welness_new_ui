@@ -119,6 +119,7 @@ class SharelinkweightState extends State<Sharelinkweight> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             TextFormField(
+                              readOnly: true,
                               controller: TextEditingController(text: text),
                               //         "https://play.google.com/store/apps/details?id=com.ndinfotech.pswellnessapp.ps_welness_new_ui"),
                               decoration: const InputDecoration(
@@ -134,6 +135,7 @@ class SharelinkweightState extends State<Sharelinkweight> {
                               height: 10,
                             ),
                             TextFormField(
+                              readOnly: true,
                               controller: TextEditingController(text: link),
                               decoration: const InputDecoration(
                                 labelText: 'Subject:',

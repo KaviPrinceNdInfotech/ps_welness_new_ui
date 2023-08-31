@@ -60,6 +60,7 @@ import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDVehicleRep
 import 'package:ps_welness_new_ui/model/franchies_models/frenchies_getRole_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchies_testList_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/specialistDW_model.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -425,22 +426,30 @@ class ApiProvider {
 
   ///Todo: from here nurse 3 section.................
   // nurse appointment detail.............................
+
+  //from_here nurse type.........................
+  ///new nuese appointment nurse section.....api....29---aug--2023..
+
   static NurseappointmentApi() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var NurseuserListId = preferences.getString("NurseuserListId");
-    print("nurseuserlistId: ${NurseuserListId}");
+    //
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var NurseuserListId = preferences.getString("NurseuserListId");
+    // print("nurseuserlistId: ${NurseuserListId}");
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
 
     var url =
         //"http://test.pswellness.in/api/NurseAPI/NurseDetails?id=56";
         //"http://test.pswellness.in/api/NurseAPI/NurseDetails?id=$NurseuserListId";
-        "http://test.pswellness.in/api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56";
+        "http://test.pswellness.in/api/NurseAppointmentAPI/NurseAppointmentList?NurseId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
         NurseAppointmentDetail nurseAppointmentDetail =
             nurseAppointmentDetailFromJson(r.body);
-        print("rtrrtrtrtrrahukllllklrrrr:${r.body}");
+        print("rtrrtrtrtrrahukllllkjj:${r.body}");
         print("nurseLisruseIdUrlrrr: ${url}");
 
         return nurseAppointmentDetail;
@@ -450,8 +459,6 @@ class ApiProvider {
       return;
     }
   }
-
-  //from_here nurse type.........................
 
   //doctor profile  api 2..........................
   static NurseTypeApi() async {
@@ -1112,7 +1119,7 @@ class ApiProvider {
     }
   }
 
-  ///todo doctor appoinment detail......Rahul
+  ///todo doctor appoinment detail......Rahul....
   static DoctorAppoinmentDetail() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -3473,34 +3480,53 @@ class ApiProvider {
     }
   }
 
-  ///todo Register Doctor................Rahul
+  ///todo Register Doctor..................26_august....
   static FrenchiesRegisterDoctor(
-      var DoctorName,
-      var EmailId,
-      var Password,
-      var ConfirmPassword,
-      var MobileNumber,
-      var PhoneNumber,
-      var ClinicName,
-      var StateMaster_Id,
-      var CityMaster_Id,
-      var Location,
-      var LicenceImage,
-      var LicenceBase64,
-      var LicenceNumber,
-      var LicenseValidity,
-      var PinCode,
-      var PanImage,
-      var PanImageBase64,
-      var SlotTime,
-      var startTime,
-      var EndTime,
-      var SlotTime2,
-      var StartTime2,
-      var EndTime2,
-      var Experience) async {
+    var DoctorName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var PhoneNumber,
+    var ClinicName,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    var LicenceImage,
+    var LicenceBase64,
+    var LicenceNumber,
+    var LicenseValidity,
+    var PinCode,
+    var PanImage,
+    var PanImageBase64,
+    var SlotTime,
+    TimeOfDay? startTime,
+    TimeOfDay? EndTime,
+    var SlotTime2,
+    TimeOfDay? StartTime2,
+    TimeOfDay? EndTime2,
+    var Experience,
+    var Department_Id,
+    var Specialist_Id,
+    var Fee,
+  ) async {
     Id = prefs.read("Id").toString();
     final url = '${baseUrl}api/FranchisesApi/fra_DoctorRegistration';
+    String formattedTime =
+        '${startTime?.hour.toString().padLeft(2, '0')}:${startTime?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenchies122: ${formattedTime}');
+
+    String formattedTime1 =
+        '${EndTime?.hour.toString().padLeft(2, '0')}:${EndTime?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenc1: ${formattedTime1}');
+
+    String formattedTime2 =
+        '${StartTime2?.hour.toString().padLeft(2, '0')}:${StartTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenchies122: ${formattedTime2}');
+
+    String formattedTime3 =
+        '${EndTime2?.hour.toString().padLeft(2, '0')}:${EndTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenchies122: ${formattedTime3}');
     final body = {
       "DoctorName": "$DoctorName",
       "EmailId": "$EmailId",
@@ -3520,23 +3546,46 @@ class ApiProvider {
       "PanImage": "$PanImage",
       "PanImageBase64": "$PanImageBase64",
       "SlotTime": "$SlotTime",
-      "StartTime": "01:50:00.0000000",
-      "EndTime": "14:27:00.0000000",
+      "StartTime": formattedTime,
+      //"01:50:00.0000000",
+      "EndTime": formattedTime1,
+      //"14:27:00.0000000",
       "SlotTime2": "$SlotTime2",
-      "StartTime2": "14:27:00.0000000",
-      "EndTime2": "18:24:00.0000000",
+      "StartTime2": formattedTime2,
+      //"14:27:00.0000000",
+      "EndTime2": formattedTime3,
+      //"18:24:00.0000000",
       "Vendor_Id": "$Id",
-      "Experience": "$Experience"
+      "Experience": "$Experience",
+      "Department_Id": "$Department_Id",
+      "Specialist_Id": "$Specialist_Id",
+      "Fee": "$Fee",
     };
-    final http.Response r = await http.post(Uri.parse(url), body: body);
+
     print('FrenchiesRegisterDoctor1212: ${body}');
-    print('FrenchiesRetimeqw: ${startTime.toString()}');
+
+    print('FrenchiesRetimeqw: $formattedTime');
+    print('FrenchiesRetimeqw1: $formattedTime1');
+    print('FrenchiesRetimeqw2: $formattedTime2');
+    print('FrenchiesRetimeqw3: $formattedTime3');
+
     print("ttf:${body}");
+
+    final http.Response r = await http.post(Uri.parse(url), body: body);
+
     if (r.statusCode == 200) {
       print("ttftft66:${EndTime2}");
       print("ttftft662323:${Experience}");
 
+      print("ttftftime1:${SlotTime}");
+      print("ttftftime2:${SlotTime2}");
+
+      print('FrenchiesRetimeqw22: $formattedTime');
+      print('FrenchiesRetimeqw221: $formattedTime1');
+      print('FrenchiesRetimeqw222: $formattedTime2');
+      print('FrenchiesRetimeqw223: $formattedTime3');
       Get.snackbar("Successs", "${r.body}");
+      Get.offAll(FranchiesHomePage());
     }
   }
 

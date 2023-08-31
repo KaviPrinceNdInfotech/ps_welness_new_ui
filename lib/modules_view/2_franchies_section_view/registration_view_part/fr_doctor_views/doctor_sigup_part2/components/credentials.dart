@@ -9,6 +9,9 @@ import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
+import '../../../../../../model/1_user_model/get_department_list_model/department_model.dart';
+import '../../../../../../model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
+
 class FrDoctor2Credentials extends StatelessWidget {
   FrDoctor2Credentials({Key? key}) : super(key: key);
 
@@ -95,6 +98,37 @@ class FrDoctor2Credentials extends StatelessWidget {
                 ),
               ),
 
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.name],
+                  controller: _frdoctor_1_controller.FeesController,
+                  onSaved: (value) {
+                    _frdoctor_1_controller.Fees = value!;
+                  },
+                  validator: (value) {
+                    return _frdoctor_1_controller.validfeess(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Fees',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.currency_rupee,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+
               ///Todo: state............................
               SizedBox(
                 height: size.height * 0.01,
@@ -172,6 +206,125 @@ class FrDoctor2Credentials extends StatelessWidget {
                             value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frdoctor_1_controller.selectedCity.value = newValue!;
+                        }),
+                  ),
+                ),
+              ),
+
+              ///Todo: department............................
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+
+              // Text(
+              //   'Choose Department',
+              //   style: TextStyle(
+              //     fontSize: size.height * 0.016,
+              //     fontWeight: FontWeight.bold,
+              //     color: MyTheme.blueww,
+              //   ),
+              // ),
+
+              NeumorphicTextFieldContainer(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  child: Obx(
+                    () => DropdownButtonFormField<DepartmentModel>(
+                        value: _frdoctor_1_controller.selectedDepartment.value,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.space_dashboard_outlined,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: const Text('Select Department'),
+                        items: _frdoctor_1_controller.department
+                            .map((DepartmentModel department) {
+                          return DropdownMenuItem(
+                            value: department,
+                            child: Text(
+                              department.departmentName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.013,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (DepartmentModel? newValue) {
+                          _frdoctor_1_controller.selectedDepartment.value =
+                              newValue!;
+                          _frdoctor_1_controller.selectedSpecialist.value =
+                              null;
+                          // _hospital_2_controller.states.value =
+                          //     newValue! as List<String>;
+                          // _hospital_2_controller.selectedCity.value = null;
+                          // _hospital_2_controller.cities.clear();
+                          // _hospital_2_controller.cities
+                          //     .addAll(stateCityMap[newvalue]!);
+                        }),
+                  ),
+                ),
+              ),
+
+              ///Todo: speacilist.....................................
+
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
+              // Text(
+              //   'Choose Specialist',
+              //   style: TextStyle(
+              //     fontSize: size.height * 0.016,
+              //     fontWeight: FontWeight.bold,
+              //     color: MyTheme.blueww,
+              //   ),
+              // ),
+
+              NeumorphicTextFieldContainer(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  child: Obx(
+                    () => DropdownButtonFormField<SpecialistModel>(
+                        //icon: Icon(Icons.location_city),
+                        value: _frdoctor_1_controller.selectedSpecialist.value,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.folder_special,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: const Text(' Choose Specialist'),
+                        items: _frdoctor_1_controller.specialist
+                            .map((SpecialistModel specialist) {
+                          return DropdownMenuItem(
+                            value: specialist,
+                            child: Text(
+                              specialist.specialistName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.015,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onTap: () {
+                          _frdoctor_1_controller.refresh();
+                        },
+                        onChanged: (SpecialistModel? newValue) {
+                          _frdoctor_1_controller.selectedSpecialist.value =
+                              newValue!;
+                          // _hospital_2_controller.states.value =
+                          //     newValue! as List<String>;
+                          // _hospital_2_controller.selectedCity.value = null;
+                          // _hospital_2_controller.cities.clear();
+                          // _hospital_2_controller.cities
+                          //     .addAll(stateCityMap[newvalue]!);
                         }),
                   ),
                 ),

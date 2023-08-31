@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,8 @@ import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 
 class DoctorHistoryUser extends StatelessWidget {
+  //final String id;
+
   DoctorHistoryUser({Key? key}) : super(key: key);
 
   DoctorHistoryController _doctorHistoryController =
@@ -747,14 +750,11 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                 Colors.white,
                                                             child: InkWell(
                                                               onTap: () async {
-                                                                CallLoader
-                                                                    .loader();
                                                                 await Future.delayed(
                                                                     Duration(
                                                                         milliseconds:
-                                                                            700));
-                                                                CallLoader
-                                                                    .hideLoader();
+                                                                            200));
+
                                                                 //Get.to(PdfPageLab(),
                                                                 Get.to(
                                                                     () =>
@@ -858,7 +858,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                           .getInstance();
                                                                   prefs.setString(
                                                                       "DoctorssId",
-                                                                      "${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].doctorName}");
+                                                                      "${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].id.toString()}");
                                                                   Get.dialog(
                                                                     AlertDialog(
                                                                       title: const Text(
@@ -887,9 +887,10 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                                     color: Colors.red,
                                                                                   ),
                                                                                 ),
-                                                                                onPressed: () => accountService.getAccountData.then((accountData) {
-                                                                                      Timer(
-                                                                                        const Duration(milliseconds: 200),
+                                                                                onPressed: () => accountService.getAccountData.then((accountData) async {
+                                                                                      CallLoader.loader();
+                                                                                      await Timer(
+                                                                                        const Duration(milliseconds: 1000),
                                                                                         () {
                                                                                           _doctorHistoryController.doctorListHospitalApi();
                                                                                           //  .skillsListApi();
@@ -897,13 +898,16 @@ class DoctorHistoryUser extends StatelessWidget {
 
                                                                                           ///calling delete api...
                                                                                           _doctorHistoryController.deletedoctorhistoryApi();
-                                                                                          Get.to(() => DoctorHistoryUser());
-                                                                                          Get.back();
+                                                                                          Get.to(() => DoctorHistoryUser(
+                                                                                              //id: "12345689"
+                                                                                              ));
+                                                                                          //Get.back();
 
                                                                                           //Get.to((page))
                                                                                           ///
                                                                                         },
                                                                                       );
+                                                                                      CallLoader.hideLoader();
                                                                                     })
                                                                                 //Get.back(),
                                                                                 ),
@@ -1269,6 +1273,10 @@ class DoctorHistoryUser extends StatelessWidget {
                                           .foundDoctor.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
+                                        var itemnumber =
+                                            _doctorHistoryController
+                                                .foundDoctor[index]
+                                                .mobileNumber;
                                         return Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: size.width * 0.03,
@@ -1773,7 +1781,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                           .getInstance();
                                                                   prefs.setString(
                                                                       "DoctorssId",
-                                                                      "${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].doctorName}");
+                                                                      "${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].id}");
                                                                   Get.dialog(
                                                                     AlertDialog(
                                                                       title: const Text(
@@ -1812,7 +1820,9 @@ class DoctorHistoryUser extends StatelessWidget {
 
                                                                                           ///calling delete api...
                                                                                           _doctorHistoryController.deletedoctorhistoryApi();
-                                                                                          Get.to(() => DoctorHistoryUser());
+                                                                                          Get.to(() => DoctorHistoryUser(
+                                                                                              //  id: "12345689"
+                                                                                              ));
                                                                                           Get.back();
 
                                                                                           //Get.to((page))
@@ -1897,7 +1907,35 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                 ),
                                                               ),
                                                             ),
-                                                          )
+                                                          ),
+
+                                                          ///todo: call button....
+                                                          ElevatedButton.icon(
+                                                              onPressed: () {
+                                                                _callNumber(_doctorHistoryController
+                                                                    .getdoctorhospitalmodele!
+                                                                    .appointment![
+                                                                        index]
+                                                                    .mobileNumber
+                                                                    .toString());
+                                                              },
+                                                              style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty.all(Colors
+                                                                          .green
+                                                                          .shade500),
+                                                                  padding: MaterialStateProperty.all(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              6)),
+                                                                  textStyle: MaterialStateProperty.all(
+                                                                      TextStyle(
+                                                                          fontSize:
+                                                                              16))),
+                                                              icon: Icon(Icons
+                                                                  .call_rounded),
+                                                              label:
+                                                                  Text('Call')),
                                                         ],
                                                       ),
                                                     )
@@ -1933,5 +1971,12 @@ class DoctorHistoryUser extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _callNumber(String phoneNumber) async {
+    String number = phoneNumber;
+    //String number = "34342222";
+
+    await FlutterPhoneDirectCaller.callNumber(number);
   }
 }

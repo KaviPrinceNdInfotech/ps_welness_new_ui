@@ -33,7 +33,7 @@ class FrRegistrationDetails extends StatelessWidget {
     'Vehicle Details',
     'Driver Details',
     'Doctor Details',
-    'Patient Details',
+    'User Details',
     'Chemist Details',
     'Nurse Details',
     'Lab Details',

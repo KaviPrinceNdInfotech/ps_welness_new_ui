@@ -168,6 +168,7 @@ import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driv
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
@@ -207,6 +208,9 @@ class SplashScreenViewModel extends GetxController
   DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
 
+  DevicetokenController _devicetokenController =
+      Get.put(DevicetokenController());
+
   @override
   void onInit() {
     animationInitilization();
@@ -222,6 +226,7 @@ class SplashScreenViewModel extends GetxController
               case 'patient':
                 _userprofile.userprofileApi();
                 _userprofile.update();
+                _devicetokenController.UsertokenApi();
 
                 /// we can navigate to user page.....................................
                 Get.to(UserHomePage());
@@ -240,17 +245,21 @@ class SplashScreenViewModel extends GetxController
                 break;
               case 'doctor':
                 _doctorProfileControllers.doctorprofileApi();
+                _doctorProfileControllers.onInit();
                 _doctorProfileControllers.update();
+                _devicetokenController.DoctortokenApi();
                 Get.to(DoctorHomePage());
                 break;
               case 'driver':
                 _driverprofile.driverProfileDetailApi();
                 _driverprofile.update();
+                _devicetokenController.DrivertokenApi();
                 Get.to(DriverHomePage());
                 break;
               case 'nurse':
                 _nurseprofileContrller.nurseprofileApi();
                 _nurseprofileContrller.update();
+                _devicetokenController.NursetokenApi();
                 _nursdeUploadReportController.getnursepatientssApi();
                 _nursdeUploadReportController.update();
                 Get.to(NurseHomePage());

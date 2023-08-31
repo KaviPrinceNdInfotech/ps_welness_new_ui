@@ -64,7 +64,7 @@ class DoctorHomepageController extends GetxController {
       finalResults = doctorNewAppoinmentDetailModel!.appointmentDetail!;
     } else {
       finalResults = doctorNewAppoinmentDetailModel!.appointmentDetail!
-          .where((element) => element.doctorName
+          .where((element) => element.patientName
               .toString()
               .toLowerCase()
               .contains(searchproductName.toString().toLowerCase().trim()))

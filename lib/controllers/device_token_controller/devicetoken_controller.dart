@@ -18,7 +18,7 @@ class DevicetokenController extends GetxController {
 
   // var Id = '';
 
-  ///todo: this is user token.....
+  ///todo: this is user token.....28..august..2023...
   void UsertokenApi() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.UserdevicetokenApi();
@@ -36,10 +36,46 @@ class DevicetokenController extends GetxController {
     }
   }
 
-  ///todo: this is device token.....
+  ///todo: this  driver is device token.....28..august..2023...
   void DrivertokenApi() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.DriverdevicetokenApi();
+
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      // _labListController.labListApi();
+      // _labListController.update();
+
+      /// we can navigate to user page.....................................
+      // Get.to(LabCatagaryDetails());
+      ///Get.to(LabListPage());
+    }
+  }
+
+  ///todo: this is doctor device token.....28..august..2023...
+  void DoctortokenApi() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.DoctordevicetokenApi();
+
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      // _labListController.labListApi();
+      // _labListController.update();
+
+      /// we can navigate to user page.....................................
+      // Get.to(LabCatagaryDetails());
+      ///Get.to(LabListPage());
+    }
+  }
+
+  ///todo: this is nurse device token.....api....28----aug 2023
+  void NursetokenApi() async {
+    CallLoader.loader();
+    http.Response r = await ApiProvider.NursedevicetokenApi();
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);

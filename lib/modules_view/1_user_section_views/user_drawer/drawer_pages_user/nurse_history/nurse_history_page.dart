@@ -16,6 +16,8 @@ import '../../../../../controllers/1_user_view_controller/drawer_contoller/nurse
 import '../../../../../utils/services/account_service.dart';
 
 class NurseHistoryUser extends StatelessWidget {
+  //final String id;
+
   NurseHistoryUser({Key? key}) : super(key: key);
 
   NurseHistoryController _nurseHistoryController =
@@ -716,7 +718,9 @@ class NurseHistoryUser extends StatelessWidget {
 
                                                                                     ///calling delete api...
                                                                                     _nurseHistoryController.deletenurseehistoryApi();
-                                                                                    Get.to(() => NurseHistoryUser());
+                                                                                    Get.to(() => NurseHistoryUser(
+                                                                                        // id: "1234568911",
+                                                                                        ));
                                                                                     Get.back();
 
                                                                                     //Get.to((page))

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -90,8 +91,10 @@ import '../model/lab_review_model/lab_view_review_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
 import '../modules_view/1_user_section_views/nursess/nurse_list_userrrr/nurse_list_user_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
+import '../notificationservice/notification_fb_service.dart';
 
 var prefs = GetStorage();
+NotificationServices notificationServices = NotificationServices();
 
 class ApiProvider {
   static var baseUrl = 'http://test.pswellness.in/';
@@ -130,6 +133,10 @@ class ApiProvider {
 
   static String DriverId = ''.toString();
   static String driverpassword = ''.toString();
+
+  static String DoctorId = ''.toString();
+
+  static String NurseId = ''.toString();
 
   // static String ImageBase64 =
   //     "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vc3dpcGVyQDgvc3dpcGVyLWJ1bmRsZS5taW4uY3NzIiAvPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1OdW5pdG8rU2Fuczo0MDAsNDAwaSw3MDAsOTAwJmRpc3BsYXk9c3dhcCIgcmVsPSJzdHlsZXNoZWV0Ij4KICA8bWV0YSBodHRwLWVxdWl2PSJYLVVBLUNvbXBhdGlibGUiIGNvbnRlbnQ9IklFPWVkZ2UiPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL3N3aXBlckA4L3N3aXBlci1idW5kbGUubWluLmpzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCIKICAgIGludGVncml0eT0ic2hhMzg0LTFCbUU0a1dCcTc4aVloRmxkdkt1aGZUQVU2YXVVOHRUOTRXckhmdGpEYnJDRVhTVTFvQm9xeWwyUXZaNmpJVzMiIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL3R3aXR0ZXItYm9vdHN0cmFwLzQuMy4xL2Nzcy9ib290c3RyYXAubWluLmNzcyIgcmVsPSJzdHlsZXNoZWV0IiAvPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2NoZWNrb3V0LnJhem9ycGF5LmNvbS92MS9jaGVja291dC5qcyI+PC9zY3JpcHQ+CiAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJpbmRleC5jc3MiIHR5cGU9InRleHQvY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzLwpmb250LWF3ZXNvbWUvNS4xNS4yL2Nzcy9hbGwubWluLmNzcyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9TWF0ZXJpYWwrSWNvbnN8Um9ib3RvOjQwMCw1MDAsNzAwfFNvdXJjZStDb2RlK1BybyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvbWxhdXJzZW4vcmVhY3QtbWRANS4xLjQvdGhlbWVzL3JlYWN0LW1kLnRlYWwtcGluay0yMDAtbGlnaHQubWluLmNzcyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAuYnVuZGxlLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LWthN1NrMEdsbjRnbXR6Mk1sUW5pa1Qxd1hnWXNPZytPTWh1UCtJbFJIOXNFTkJPMExSbjVxKzhuYlRvdjQrMXAiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9AcG9wcGVyanMvY29yZUAyLjEwLjIvZGlzdC91bWQvcG9wcGVyLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LTcrekNOai9JcUo5NXdvMTZvTXRmc0tiWjljY0VoMzFlT3oxSEd5RHVDUTZ3Z255Sk5TWWRyUGEwM3J0UjF6ZEIiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAubWluLmpzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtUUpIdHZHaG1yOVhPSXBJNllWdXRHKzJRT0s5VCtabk40a3pGTjFSdEszekVGRUlzeGhsbVdsNS9ZRVN2cFoxMyIKICAgIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPjwvc2NyaXB0PgoKICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii8vY29kZS5qcXVlcnkuY29tL3VpLzEuMTMuMi90aGVtZXMvYmFzZS9qcXVlcnktdWkuY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9yZXNvdXJjZXMvZGVtb3Mvc3R5bGUuY3NzIj4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vanF1ZXJ5LTMuNi4wLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vdWkvMS4xMy4yL2pxdWVyeS11aS5qcyI+PC9zY3JpcHQ+CgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8zLjYuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KCgoKICA8c2NyaXB0IHNyYz0iLy9jZG4uanNkZWxpdnIubmV0L25wbS9zd2VldGFsZXJ0MkAxMSI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIiA+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvZm9udC1hd2Vzb21lLzUuMTMuMC9jc3MvYWxsLm1pbi5jc3MiIC8+CgoKCiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9hbHBpbmVqcy9hbHBpbmVAdjIueC54L2Rpc3QvYWxwaW5lLm1pbi5qcyIgZGVmZXI+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC40LjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtVmtvbzh4NENHc08zK0hoeHY4VC9RNVBhWHRrS3R1NnVnNVRPZU5WNmdCaUZlV1BHRk45TXVoT2YyM1E5SWZqaCIgY3Jvc3NPcmlnaW49ImFub255bW91cyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4udGFpbHdpbmRjc3MuY29tIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iLy9jZG4uY2tlZGl0b3IuY29tLzQuNi4xL2Jhc2ljL2NrZWRpdG9yLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvanMvYm9vdHN0cmFwLmJ1bmRsZS5taW4uanMiPjwvc2NyaXB0PgogIDxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9ImpzL3NjcmlwdC5qcyI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Ii4vaW1hZ2VzL2xvZ28ucG5nIiBzaXplcz0iOTZweCo5NnB4IiB0eXBlPSJpbWFnZS9wbmciIC8+CiAgPHRpdGxlPkd5cm9zIC0gTGV0J3MgVHVybiB0byBOYXR1cmUgZm9yIEhlYWx0aHkgRnV0dXJlPC90aXRsZT4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtR241Mzg0eHFRMWFvV1hBKzA1OFJYUHhQZzZmeTRJV3ZUTmgwRTI2M1htRmNKbFNBd2lHZ0ZBVy9kQWlTNkpYbSIgY3Jvc3NvcmlnaW49ImFub255bW91cyI+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvanMvYm9vdHN0cmFwLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LUpaUjZTcGVqaDRVMDJkOGpPdDZ2TEVIZmUvSlFHaVJSU1FReFNmRldwaTFNcXVWZEF5alVhcjUrNzZQVkNtWWwiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiIC8+CiAgPG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiMwMDAwMDAiIC8+CiAgPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IldlYiBzaXRlIGNyZWF0ZWQgdXNpbmcgY3JlYXRlLXJlYWN0LWFwcCIgLz4KICA8IS0tIDxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iL2xvZ28xOTIucG5nIiAvPiAtLT4KCiAgPGxpbmsgcmVsPSJtYW5pZmVzdCIgaHJlZj0iL21hbmlmZXN0Lmpzb24iIC8+CgoKICA8IS0tbW9iaWxlIHZpZXcgbGluay0tPgogIDwhLS0galF1ZXJ5IC0tPgoKPCEtLSBGb250IEF3ZXNvbWUgNC0tPgo8bGluayBocmVmPSJodHRwczovL3N0YWNrcGF0aC5ib290c3RyYXBjZG4uY29tL2ZvbnQtYXdlc29tZS80LjcuMC9jc3MvZm9udC1hd2Vzb21lLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCI+Cgo8c2NyaXB0IHNyYz0ianMvc2lkZWJhci1hY2NvcmRpb24uanMiPjwvc2NyaXB0PgoKICA8IS0tbW9iaWxlIC0tPgoKCgogIDwhLS1oZ2ZoZmhnamhnamdoai0tPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8yLjIuNC9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvbW9kZXJuaXpyLzIuOC4zL21vZGVybml6ci5qcyI+PC9zY3JpcHQ+CiAgPHN0eWxlPgogICAgLm5vLWpzICNsb2FkZXIgewogICAgICBkaXNwbGF5OiBub25lOwogICAgfQoKICAgIC5qcyAjbG9hZGVyIHsKICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICAgICAgbGVmdDogMTAwcHg7CiAgICAgIHRvcDogMDsKICAgIH0KCiAgICAuc2UtcHJlLWNvbiB7CiAgICAgIHBvc2l0aW9uOiBmaXhlZDsKICAgICAgbGVmdDogMHB4OwogICAgICB0b3A6IDBweDsKICAgICAgd2lkdGg6IDEwMCU7CiAgICAgIGhlaWdodDogMTAwJTsKICAgICAgei1pbmRleDogOTk5OTsKICAgICAgIGJhY2tncm91bmQ6IHVybCgpIGNlbnRlciBuby1yZXBlYXQgI2ZmZjsgCiAgICAgIGJhY2tncm91bmQtc2l6ZTogMTAwJSAxMDAlOwogICAgfQogIDwvc3R5bGU+CiAgPHNjcmlwdD4kKHdpbmRvdykubG9hZChmdW5jdGlvbiAoKSB7CiAgICAgIC8vIEFuaW1hdGUgbG9hZGVyIG9mZiBzY3JlZW4KICAgICAgJCgiLnNlLXByZS1jb24iKS5mYWRlT3V0KCJzbG93Iik7OwogICAgfSk7PC9zY3JpcHQ+CgoKCgo8L2hlYWQ+Cgo8Ym9keT4KICA8bm9zY3JpcHQ+WW91IG5lZWQgdG8gZW5hYmxlIEphdmFTY3JpcHQgdG8gcnVuIHRoaXMgYXBwLjwvbm9zY3JpcHQ+CgogIDxkaXYgaWQ9InJvb3QiPjwvZGl2PgogIDwhLS0gPGRpdiBjbGFzcz0ic3Bpbm5lci13cmFwcGVyIj4KICAgCiAgICA8ZGl2IGNsYXNzPSJzcGlubmVyIj48L2Rpdj4gLS0+CgogIDxkaXYgY2xhc3M9InNlLXByZS1jb24iPjwvZGl2PgogIDwvZGl2PgogIDxzY3JpcHQ+CiAgICB2YXIgdXJsID0gJ2h0dHBzOi8vd2F0aS1pbnRlZ3JhdGlvbi1zZXJ2aWNlLmNsYXJlLmFpL1Nob3BpZnlXaWRnZXQvc2hvcGlmeVdpZGdldC5qcz80NDAzJzsKICAgIHZhciBzID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CiAgICBzLnR5cGUgPSAndGV4dC9qYXZhc2NyaXB0JzsKICAgIHMuYXN5bmMgPSB0cnVlOwogICAgcy5zcmMgPSB1cmw7CiAgICB2YXIgb3B0aW9ucyA9IHsKICAgICAgImVuYWJsZWQiOiB0cnVlLAogICAgICAiY2hhdEJ1dHRvblNldHRpbmciOiB7CiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjNGRjMjQ3IiwKICAgICAgICAiY3RhVGV4dCI6ICIiLAogICAgICAgICJib3JkZXJSYWRpdXMiOiAiMjUiLAogICAgICAgICJtYXJnaW5MZWZ0IjogIjAiLAogICAgICAgICJtYXJnaW5Cb3R0b20iOiAiNTAiLAogICAgICAgICJtYXJnaW5SaWdodCI6ICI1MCIsCiAgICAgICAgInBvc2l0aW9uIjogInJpZ2h0IgogICAgICB9LAogICAgICAiYnJhbmRTZXR0aW5nIjogewogICAgICAgICJicmFuZE5hbWUiOiAiR3lyb3MiLAogICAgICAgICJicmFuZFN1YlRpdGxlIjogIlR5cGljYWxseSByZXBsaWVzIHdpdGhpbiBhIGRheSIsCiAgICAgICAgImJyYW5kSW1nIjogImh0dHBzOi8vZ3lyb3MuZmFybS9zdGF0aWMvbWVkaWEvbG9nby5mZGRiYjRmNC5wbmciLAogICAgICAgICJ3ZWxjb21lVGV4dCI6ICJIaSB0aGVyZSFcbkhvdyBjYW4gSSBoZWxwIHlvdT8iLAogICAgICAgICJtZXNzYWdlVGV4dCI6ICJIZWxsbywgSSBoYXZlIGEgcXVlc3Rpb24gYWJvdXQge3twYWdlX2xpbmt9fSIsCiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjMGE1ZjU0IiwKICAgICAgICAiY3RhVGV4dCI6ICJTdGFydCBDaGF0IiwKICAgICAgICAiYm9yZGVyUmFkaXVzIjogIjI1IiwKICAgICAgICAiYXV0b1Nob3ciOiBmYWxzZSwKICAgICAgICAicGhvbmVOdW1iZXIiOiAiOTE4OTUwODAwNjMzIgogICAgICB9CiAgICB9OwogICAgcy5vbmxvYWQgPSBmdW5jdGlvbiAoKSB7CiAgICAgIENyZWF0ZVdoYXRzYXBwQ2hhdFdpZGdldChvcHRpb25zKTsKICAgIH07CiAgICB2YXIgeCA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCdzY3JpcHQnKVswXTsKICAgIHgucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUocywgeCk7CiAgPC9zY3JpcHQ+CgogIDxzY3JpcHQ+CiAgICAkKGRvY3VtZW50KS5yZWFkeShmdW5jdGlvbiAoKSB7CiAgICAgIC8vUHJlbG9hZGVyCiAgICAgIHByZWxvYWRlckZhZGVPdXRUaW1lID0gMTAwMDAwOwogICAgICBmdW5jdGlvbiBoaWRlUHJlbG9hZGVyKCkgewogICAgICAgIHZhciBwcmVsb2FkZXIgPSAkKCcuc3Bpbm5lci13cmFwcGVyJyk7CiAgICAgICAgcHJlbG9hZGVyLmZhZGVPdXQocHJlbG9hZGVyRmFkZU91dFRpbWUpOwogICAgICB9CiAgICAgIGhpZGVQcmVsb2FkZXIoKTsKCgogICAgfSk7CiAgPC9zY3JpcHQ+CgoKCiAgPHNjcmlwdD4KICAgICQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uICgpIHsKICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICQoIiNwMyIpLmhpZGUoKTsKICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAkKCIjcDUiKS5oaWRlKCk7CgogICAgICAkKCIjdDEiKS5zaG93KCk7CiAgICAgICQoIi5idXQxIikuY2xpY2soZnVuY3Rpb24gKCkgewogICAgICAgICQoIiNwMSIpLnNob3coKTsKICAgICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICAgJCgiI3AzIikuaGlkZSgpOwogICAgICAgICQoIiNwNCIpLmhpZGUoKTsKICAgICAgICAkKCIjcDUiKS5oaWRlKCk7CiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDIiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLnNob3coKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDMiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5zaG93KCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwoKICAgICAgICAkKCIjdDEiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1IikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDQiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0Iikuc2hvdygpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDUiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CgogICAgICAgICQoIiN0MSIpLmhpZGUoKTsKICAgICAgICAkKCIjcDQiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1Iikuc2hvdygpOwogICAgICB9KTsKICAgIH0pOwogIDwvc2NyaXB0Pgo8c2NyaXB0IHNyYz0iL3N0YXRpYy9qcy9idW5kbGUuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzLzIuY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzL21haW4uY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvbWFpbi4wZDViNDIyYjZhMTg5YzM0OTAzZi5ob3QtdXBkYXRlLmpzIj48L3NjcmlwdD48L2JvZHk+Cgo8L2h0bWw+"
@@ -614,6 +621,80 @@ class ApiProvider {
             duration: (Duration(seconds: 1)));
         //CallLoader.hideLoader();
         _getGeoLocationPosition();
+
+        ///from here we have call devide id and token....
+        ///
+        await Future.delayed(Duration(milliseconds: 900));
+
+        ///indirect___use of user ----api......28_august...2023
+        UserdevicetokenApi();
+
+        ///indirect___use of driver ----api......28_august...2023
+        DriverdevicetokenApi();
+
+        ///indirect___use of doctor ----api......28_august...2023
+        DoctordevicetokenApi();
+
+        ///indirect___use of nurse ----api......28_august...2023
+
+        NursedevicetokenApi();
+
+        print('princee notificationdsfvdsvdsv');
+
+        ///direct___call_user....
+        // notificationServices.getDeviceToken().then((value) async {
+        //   var data = {
+        //     //this the particular device id.....
+        //     'to':
+        //         //this is dummy token...
+        //         "ugug6t878",
+        //
+        //     ///this is same device token....
+        //   };
+        //
+        //   await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        //       body: jsonEncode(data),
+        //       headers: {
+        //         'Content-Type': 'application/json; charset=UTF-8',
+        //         'Authorization':
+        //             //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+        //             'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+        //       }).then((value) {
+        //     if (kDebugMode) {
+        //       print(value.body.toString());
+        //     }
+        //   }).onError((error, stackTrace) {
+        //     if (kDebugMode) {
+        //       print(error);
+        //     }
+        //   });
+        //   //DriverId
+        //   var body = {
+        //     "UserId": "${PatientRegNo}",
+        //     "DeviceId": value.toString(),
+        //   };
+        //   print("userrrtokenupdateuser${body}");
+        //   http.Response r = await http.post(
+        //     Uri.parse(
+        //         'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        //     body: body,
+        //   );
+        //
+        //   print(r.body);
+        //   if (r.statusCode == 200) {
+        //     print("userrrtokenupdatdricvfe3333${body}");
+        //     return r;
+        //   } else if (r.statusCode == 401) {
+        //     Get.snackbar('message', r.body);
+        //   } else {
+        //     Get.snackbar('Error', r.body);
+        //     return r;
+        //   }
+        //
+        //   ///todo end post api from backend...
+        // });
+        ///
+        CallLoader.hideLoader();
       }
 
       //saved id..........
@@ -625,6 +706,12 @@ class ApiProvider {
       prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
       userid = prefs.read("Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+      //  static String DoctorId = ''.toString();
+
+      prefs.write(
+          "DoctorId".toString(), json.decode(r.body)['data']['DoctorId']);
+      DoctorId = prefs.read("DoctorId").toString();
+      print('&&&&&&&&&&&&&&&&&&&&&doctorrrr:${DoctorId}');
 
       //saved user credentials..........
       prefs.write("PatientRegNo".toString(),
@@ -654,6 +741,11 @@ class ApiProvider {
           "DriverId".toString(), json.decode(r.body)['data']['DriverId']);
       DriverId = prefs.read("DriverId").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&usecredentialspassword:${DriverId}');
+
+      //device nurseId........
+      prefs.write("NurseId".toString(), json.decode(r.body)['data']['NurseId']);
+      NurseId = prefs.read("NurseId").toString();
+      print('&&&&&&&&&&&&&&nnurse:${NurseId}');
 //adminId
       //StatemasterId = ''.toString();
       //   static String CitymasterId
@@ -675,19 +767,11 @@ class ApiProvider {
           json.decode(r.body)['data']['AdminLogin_Id']);
       adminId = prefs.read("AdminLogin_Id").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
-      //saved token.........
-      // prefs.write("token".toString(), json.decode(r.body)['token']);
-      // token = prefs.read("token").toString();
-      // print(token);
+
       ///
-      // Get.snackbar("Message", "${r.body}",
-      //     duration: Duration(milliseconds: 400));
-      //CallLoader.hideLoader();
       return r;
     } else if (r.statusCode == 401) {
       await Future.delayed(Duration(seconds: 2));
-      // Get.snackbar("Failed", "${r.body}");
-      // CallLoader.hideLoader();
       Get.snackbar('Error', r.body);
       return r;
       //Get.snackbar('message', r.body);
@@ -701,7 +785,7 @@ class ApiProvider {
     }
   }
 
-  ///todo: device token for user........
+  ///todo: device  user token for user........
 
   static UserdevicetokenApi() async {
     var url = '${baseUrl}api/DriverApi/UpadateDiviceId';
@@ -709,66 +793,347 @@ class ApiProvider {
     var prefs = GetStorage();
     PatientRegNo = prefs.read("PatientRegNo").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+    //var prefs = GetStorage();
+    DriverId = prefs.read("DriverId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usecredentialspassword:${DriverId}');
+    notificationServices.getDeviceToken().then((value) async {
+      var data = {
+        //this the particular device id.....
+        'to':
+            //this is dummy token...
+            "ugug6t878",
+
+        ///this is same device token....
+      };
+
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          body: jsonEncode(data),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization':
+                //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+          }).then((value) {
+        if (kDebugMode) {
+          print(value.body.toString());
+        }
+      }).onError((error, stackTrace) {
+        if (kDebugMode) {
+          print(error);
+        }
+      });
+      //DriverId
+      var body = {
+        "UserId": "${PatientRegNo}",
+        "DeviceId": value.toString(),
+      };
+      print("userrrtokenupdateuser${body}");
+      http.Response r = await http.post(
+        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        body: body,
+      );
+
+      print(r.body);
+      if (r.statusCode == 200) {
+        print("userrrtokenupdatdricvfe3333${body}");
+        return r;
+      } else if (r.statusCode == 401) {
+        Get.snackbar('message', r.body);
+      } else {
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+
+      ///todo end post api from backend...
+    });
+
+    ///
 //user password........
-    userPassword = prefs.read("Password").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&usecredentialspassword:${userPassword}');
-
-    var body = {
-      "UserId": "$PatientRegNo",
-      "DeviceId": "fefewfefewf21331",
-    };
-    print("userrrtokenupdateeeddbefore${body}");
-
-    //print(body);
-    http.Response r = await http.post(
-      Uri.parse(url), body: body,
-      //headers: headers
-    );
-    print(r.body);
-    if (r.statusCode == 200) {
-      print("userrrtokenupdateeedd${body}");
-      Get.snackbar('message', "${r.body}",
-          duration: (Duration(milliseconds: 900)));
-
-      return r;
-    } else if (r.statusCode == 401) {
-      Get.snackbar('message', r.body);
-    } else {
-      Get.snackbar('Error', r.body);
-      return r;
-    }
+//     userPassword = prefs.read("Password").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&usecredentialspassword:${userPassword}');
+//
+//     var body = {
+//       "UserId": "$PatientRegNo",
+//       "DeviceId": "fefewfefewf21331",
+//     };
+//     print("userrrtokenupdateeeddbefore${body}");
+//
+//     //print(body);
+//     http.Response r = await http.post(
+//       Uri.parse(url), body: body,
+//       //headers: headers
+//     );
+//     print(r.body);
+//     if (r.statusCode == 200) {
+//       print("userrrtokenupdateeedd${body}");
+//       Get.snackbar('message', "${r.body}",
+//           duration: (Duration(milliseconds: 900)));
+//
+//       return r;
+//     } else if (r.statusCode == 401) {
+//       Get.snackbar('message', r.body);
+//     } else {
+//       Get.snackbar('Error', r.body);
+//       return r;
+//     }
   }
 
-  ///todo: device user token for driver.....
+  ///todo: device driver token for driver.....
 
   static DriverdevicetokenApi() async {
-    var url = '${baseUrl}api/DriverApi/UpadateDiviceId';
-
     var prefs = GetStorage();
     DriverId = prefs.read("DriverId").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${DriverId}');
-//user password........
-    driverpassword = prefs.read("driverpassword").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&drivecredentialspassword:${driverpassword}');
+    print('&&&&&&&&&&&&&&&&&&&&&&usecredentialspassword:${DriverId}');
+    notificationServices.getDeviceToken().then((value) async {
+      var data = {
+        //this the particular device id.....
+        'to':
+            //this is dummy token...
+            "ugug6t878",
 
-    var body = {
-      "UserId": "$DriverId".toString(),
-      "DeviceId": "fefewfefewf21331werwqrwqr".toString(),
-    };
-    print(body);
-    http.Response r = await http.post(
-      Uri.parse(url), body: body,
-      //headers: headers
-    );
-    print(r.body);
-    if (r.statusCode == 200) {
-      return r;
-    } else if (r.statusCode == 401) {
-      Get.snackbar('message', r.body);
-    } else {
-      Get.snackbar('Error', r.body);
-      return r;
-    }
+        ///this is same device token....
+      };
+
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          body: jsonEncode(data),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization':
+                //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+          }).then((value) {
+        if (kDebugMode) {
+          print(value.body.toString());
+        }
+      }).onError((error, stackTrace) {
+        if (kDebugMode) {
+          print(error);
+        }
+      });
+      //DriverId
+      var body = {
+        "UserId": "${DriverId}",
+        "DeviceId": value.toString(),
+      };
+      print("userrrtokenupdateuser${body}");
+      http.Response r = await http.post(
+        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        body: body,
+      );
+
+      print(r.body);
+      if (r.statusCode == 200) {
+        print("userrrtokenupdatdricvfe3333${body}");
+        return r;
+      } else if (r.statusCode == 401) {
+        Get.snackbar('message', r.body);
+      } else {
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+
+      ///todo end post api from backend...
+    });
+
+//     var url = '${baseUrl}api/DriverApi/UpadateDiviceId';
+//
+//     var prefs = GetStorage();
+//     DriverId = prefs.read("DriverId").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${DriverId}');
+// //user password........
+//     driverpassword = prefs.read("driverpassword").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&drivecredentialspassword:${driverpassword}');
+//
+//     var body = {
+//       "UserId": "$DriverId".toString(),
+//       "DeviceId": "fefewfefewf21331werwqrwqr".toString(),
+//     };
+//     print(body);
+//     http.Response r = await http.post(
+//       Uri.parse(url), body: body,
+//       //headers: headers
+//     );
+//     print(r.body);
+//     if (r.statusCode == 200) {
+//       return r;
+//     } else if (r.statusCode == 401) {
+//       Get.snackbar('message', r.body);
+//     } else {
+//       Get.snackbar('Error', r.body);
+//       return r;
+//     }
+  }
+
+  ///todo: device doctor token for driver.....
+
+  static DoctordevicetokenApi() async {
+    var prefs = GetStorage();
+    DoctorId = prefs.read("DoctorId").toString();
+    print('&&&&&&&&&&&&&&&&&drrrr:${DoctorId}');
+    notificationServices.getDeviceToken().then((value) async {
+      var data = {
+        //this the particular device id.....
+        'to':
+            //this is dummy token...
+            "ugug6t878",
+
+        ///this is same device token....
+      };
+
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          body: jsonEncode(data),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization':
+                //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+          }).then((value) {
+        if (kDebugMode) {
+          print(value.body.toString());
+        }
+      }).onError((error, stackTrace) {
+        if (kDebugMode) {
+          print(error);
+        }
+      });
+      //DriverId
+      var body = {
+        "UserId": "${DoctorId}",
+        "DeviceId": value.toString(),
+      };
+      print("userrrtokenupdateuser${body}");
+      http.Response r = await http.post(
+        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        body: body,
+      );
+
+      print(r.body);
+      if (r.statusCode == 200) {
+        print("userrrtokenupdatdricvfe3333${body}");
+        return r;
+      } else if (r.statusCode == 401) {
+        Get.snackbar('message', r.body);
+      } else {
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+
+      ///todo end post api from backend...
+    });
+
+//     var url = '${baseUrl}api/DriverApi/UpadateDiviceId';
+//
+//     var prefs = GetStorage();
+//     DriverId = prefs.read("DriverId").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${DriverId}');
+// //user password........
+//     driverpassword = prefs.read("driverpassword").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&drivecredentialspassword:${driverpassword}');
+//
+//     var body = {
+//       "UserId": "$DriverId".toString(),
+//       "DeviceId": "fefewfefewf21331werwqrwqr".toString(),
+//     };
+//     print(body);
+//     http.Response r = await http.post(
+//       Uri.parse(url), body: body,
+//       //headers: headers
+//     );
+//     print(r.body);
+//     if (r.statusCode == 200) {
+//       return r;
+//     } else if (r.statusCode == 401) {
+//       Get.snackbar('message', r.body);
+//     } else {
+//       Get.snackbar('Error', r.body);
+//       return r;
+//     }
+  }
+
+  ///todo: device nurse token for driver.....
+
+  static NursedevicetokenApi() async {
+    var prefs = GetStorage();
+    DriverId = prefs.read("NurseId").toString();
+    print('&&&&&&&&&&&&&&&&nurse:${NurseId}');
+    notificationServices.getDeviceToken().then((value) async {
+      var data = {
+        //this the particular device id.....
+        'to':
+            //this is dummy token...
+            "ugug6t878",
+
+        ///this is same device token....
+      };
+
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          body: jsonEncode(data),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization':
+                //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+          }).then((value) {
+        if (kDebugMode) {
+          print(value.body.toString());
+        }
+      }).onError((error, stackTrace) {
+        if (kDebugMode) {
+          print(error);
+        }
+      });
+      //DriverId
+      var body = {
+        "UserId": "${NurseId}",
+        "DeviceId": value.toString(),
+      };
+      print("userrrtokenupdnursee${body}");
+      http.Response r = await http.post(
+        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        body: body,
+      );
+
+      print(r.body);
+      if (r.statusCode == 200) {
+        print("userrrtokenupdatdricvfe3333${body}");
+        return r;
+      } else if (r.statusCode == 401) {
+        Get.snackbar('message', r.body);
+      } else {
+        Get.snackbar('Error', r.body);
+        return r;
+      }
+
+      ///todo end post api from backend...
+    });
+
+//     var url = '${baseUrl}api/DriverApi/UpadateDiviceId';
+//
+//     var prefs = GetStorage();
+//     DriverId = prefs.read("DriverId").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${DriverId}');
+// //user password........
+//     driverpassword = prefs.read("driverpassword").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&drivecredentialspassword:${driverpassword}');
+//
+//     var body = {
+//       "UserId": "$DriverId".toString(),
+//       "DeviceId": "fefewfefewf21331werwqrwqr".toString(),
+//     };
+//     print(body);
+//     http.Response r = await http.post(
+//       Uri.parse(url), body: body,
+//       //headers: headers
+//     );
+//     print(r.body);
+//     if (r.statusCode == 200) {
+//       return r;
+//     } else if (r.statusCode == 401) {
+//       Get.snackbar('message', r.body);
+//     } else {
+//       Get.snackbar('Error', r.body);
+//       return r;
+//     }
   }
 
   ///Change password in user 26 april 2023.....
@@ -3786,22 +4151,27 @@ class ApiProvider {
 
   ///todo: Delete doctor_historyy ......17 june....
   static doctorHisdeleteApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorssId = preferences.getString("DoctorssId");
+    print("DoctorssId: ${DoctorssId}");
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
+    //DoctorssId
+    print('&&&&doctor:${DoctorssId}');
 
     var url = '${baseUrl}api/PatientApi/CancelDoctorAppointment';
 
-    var body = {"Id": "1354", "Patient_Id": "$userid"};
+    var body = {"Id": "$DoctorssId", "Patient_Id": "$userid"};
     print(body);
     http.Response r = await http.post(
       Uri.parse(url), body: body,
       //headers: headers
     );
-    print(r.body);
+    print("ookdfs:${r.body}");
     if (r.statusCode == 200) {
-      //Get.snackbar("Skills added",r.body);
+      Get.snackbar("booking canceled", r.body);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);

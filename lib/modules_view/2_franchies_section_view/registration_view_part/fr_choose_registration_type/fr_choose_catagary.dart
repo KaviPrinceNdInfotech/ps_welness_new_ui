@@ -65,7 +65,7 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
     'Register Vehicle',
     'Register Driver',
     'Register Doctor',
-    'Register patient',
+    'Register User',
     'Register Chemist',
     'Register Nurse',
     'Register Lab',

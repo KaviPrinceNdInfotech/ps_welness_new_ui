@@ -9,6 +9,7 @@ import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_doctor_controllers/doctor_controller1.dart';
 import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -280,8 +281,8 @@ class FrDoc3Credentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                   child: Obx(
-                    () => DropdownButtonFormField(
-                        value: _frDoctor_1_controller.selectedSlot1.value,
+                    () => DropdownButtonFormField<TimeSlot>(
+                        value: _frDoctor_1_controller.selectedTimeslot.value,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(
                             Icons.sunny,
@@ -291,11 +292,12 @@ class FrDoc3Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: const Text('Slot Timing Morning'),
-                        items: items1.map((String items) {
+                        items: _frDoctor_1_controller.timeslot
+                            .map((TimeSlot timeslot) {
                           return DropdownMenuItem(
-                            value: items,
+                            value: timeslot,
                             child: Text(
-                              items,
+                              timeslot.slotTime.toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: size.height * 0.015,
@@ -304,9 +306,9 @@ class FrDoc3Credentials extends StatelessWidget {
                           );
                         }).toList(),
                         validator: (value) =>
-                            value == null ? 'field required' : null,
-                        onChanged: (String? newValue) {
-                          _frDoctor_1_controller.selectedSlot1.value =
+                            value == null ? '        field required' : null,
+                        onChanged: (TimeSlot? newValue) {
+                          _frDoctor_1_controller.selectedTimeslot.value =
                               newValue!;
                         }),
                   ),
@@ -414,8 +416,8 @@ class FrDoc3Credentials extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                   child: Obx(
-                    () => DropdownButtonFormField(
-                        value: _frDoctor_1_controller.selectedSlot.value,
+                    () => DropdownButtonFormField<TimeSlot>(
+                        value: _frDoctor_1_controller.selectedTimeslot2.value,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(
                             Icons.shield_moon_rounded,
@@ -425,11 +427,12 @@ class FrDoc3Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Slot Timing Evening'),
-                        items: items.map((String items) {
+                        items: _frDoctor_1_controller.timeslot2
+                            .map((TimeSlot timeslot2) {
                           return DropdownMenuItem(
-                            value: items,
+                            value: timeslot2,
                             child: Text(
-                              items,
+                              timeslot2.slotTime.toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: size.height * 0.015,
@@ -438,9 +441,10 @@ class FrDoc3Credentials extends StatelessWidget {
                           );
                         }).toList(),
                         validator: (value) =>
-                            value == null ? 'field required' : null,
-                        onChanged: (String? newValue) {
-                          _frDoctor_1_controller.selectedSlot.value = newValue!;
+                            value == null ? '          field required' : null,
+                        onChanged: (TimeSlot? newValue) {
+                          _frDoctor_1_controller.selectedTimeslot2.value =
+                              newValue!;
                         }),
                   ),
                 ),

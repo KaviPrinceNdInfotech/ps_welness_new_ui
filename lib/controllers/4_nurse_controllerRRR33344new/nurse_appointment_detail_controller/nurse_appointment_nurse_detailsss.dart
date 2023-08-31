@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_appointment_details_list.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
-import '../../../model/4_nurse_all_models_RRR/nurse_appointment_details_list.dart';
+//import '../../../servicess_api/api_services_all_api.dart';
+//import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+
+//import '../../../model/4_nurse_all_models_RRR/nurse_appointment_details_list.dart';
 // import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //
 // import '../../../model/4_nurse_all_models/nurse_appointment_details_list.dart';
@@ -30,6 +34,23 @@ class NurseAppointmentNurseDetailController extends GetxController {
   void nurseappointmentApi() async {
     isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
+    // if (NurseAppointmentDetail?.result!. == null) {
+    //   Timer(
+    //     const Duration(seconds: 1),
+    //         () {
+    //       //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+    //       //Get.to(() => MedicineCart());
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    //   isLoading(true);
+    //   medicinecheckoutModel = await ApiProvider.GetMedicineCheckoutApi();
+    //   //Get.to(() => TotalPrice());
+    //
+    //   //foundProducts.value = medicinelistmodel!.data;
+    //   //Get.to(()=>Container());
+    // }
     if (
         //nurseappointmentdetail?.result != null
         nurseappointmentdetail != null
@@ -44,8 +65,8 @@ class NurseAppointmentNurseDetailController extends GetxController {
   void onInit() {
     super.onInit();
     nurseappointmentApi();
-    appointmentController = TextEditingController();
-    appointmentController.text = "DD-MM-YYYY";
+    //appointmentController = TextEditingController();
+    //appointmentController.text = "DD-MM-YYYY";
   }
 
   @override

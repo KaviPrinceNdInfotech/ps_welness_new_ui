@@ -7,7 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_signup3/fr_doctor_signup_3.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_sigup_part2/doctor_signup_part2.dart';
@@ -18,6 +21,7 @@ class FrDoctor_1_Controller extends GetxController {
   final GlobalKey<FormState> frdoctor1formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> frdoctor2formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> frdoctor3formkey = GlobalKey<FormState>();
+
   RxBool isLoading = false.obs;
   TextEditingController? doctorNameController,
       emailController,
@@ -42,7 +46,8 @@ class FrDoctor_1_Controller extends GetxController {
       SlotTime2Controller,
       StartTime2Controller,
       EndTime2Controller,
-      ExperienceController;
+      ExperienceController,
+      FeesController;
 
   var name = '';
   var email = '';
@@ -55,7 +60,8 @@ class FrDoctor_1_Controller extends GetxController {
   var address = '';
   var certificateno = '';
   var certificatevelidity = '';
-  var Experience;
+  var Experience = '';
+  var Fees = '';
 
   var selectedLicenceImagepath = ''.obs;
   var selectedPanImagepath = ''.obs;
@@ -91,6 +97,37 @@ class FrDoctor_1_Controller extends GetxController {
   Rx<String?> selectedSlot1 = (null as String?).obs;
   RxList<String> slots1 = <String>[].obs;
 
+  Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
+  List<TimeSlot> timeslot = <TimeSlot>[].obs;
+
+  Rx<TimeSlot?> selectedTimeslot2 = (null as TimeSlot?).obs;
+  List<TimeSlot> timeslot2 = <TimeSlot>[].obs;
+
+  ///this is for department.................................
+  Rx<DepartmentModel?> selectedDepartment = (null as DepartmentModel?).obs;
+  List<DepartmentModel> department = <DepartmentModel>[].obs;
+
+  ///this is for department.................................
+  Rx<SpecialistModel?> selectedSpecialist = (null as SpecialistModel?).obs;
+  List<SpecialistModel> specialist = <SpecialistModel>[].obs;
+
+  ///get department api.........
+
+  void getdepartmentApi2() async {
+    department = await ApiProvider.getDortorDepartmentApi();
+    print('Prince departmrntttss  list');
+    print(department);
+  }
+
+  ///get specialist api...........
+  void getspecialistByDeptID2(String depId) async {
+    specialist.clear();
+    final localList = await ApiProvider.getSpeaclistbyIdApi(depId);
+    specialist.addAll(localList);
+    print("Prince cities of $depId");
+    print(specialist);
+  }
+
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
@@ -100,6 +137,20 @@ class FrDoctor_1_Controller extends GetxController {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
     cities.addAll(localList);
+  }
+
+  ///slot morning1 api class.................
+  void timeslotApidr1() async {
+    timeslot = (await ApiProvider.gettimeslotApi())!;
+    print('Prince time slot  list');
+    print(timeslot);
+  }
+
+  ///slot morning1 api class.................
+  void timeslotApidr2() async {
+    timeslot2 = (await ApiProvider.gettimeslotApi())!;
+    print('Prince time slot  list');
+    print(timeslot2);
   }
 
   void FrenchiesDoctorRegistration() async {
@@ -126,15 +177,18 @@ class FrDoctor_1_Controller extends GetxController {
       pinController?.text,
       selectedPanImagepath.value.split('/').last,
       PanImageAsBase64,
-      SlotTimeController?.text,
+      selectedTimeslot.value?.slotid.toString(),
 
       ///todo: this is the main thing to provide time period..
-      selectedTime?.value.toString(),
-      selectedTime2?.value.hour,
-      SlotTime2Controller?.text,
-      selectedTime3?.value.hour,
-      selectedTime4?.value.hour,
+      selectedTime?.value,
+      selectedTime2?.value,
+      selectedTimeslot2.value?.slotid.toString(),
+      selectedTime3?.value,
+      selectedTime4?.value,
       ExperienceController?.text,
+      selectedDepartment.value?.id.toString(),
+      selectedSpecialist.value?.id.toString(),
+      FeesController?.text,
     );
     if (r.statusCode == 200) {
       print("ttftft${SlotTimeController?.text}");
@@ -155,9 +209,18 @@ class FrDoctor_1_Controller extends GetxController {
   @override
   void onInit() {
     getStateLabApi();
+    timeslotApidr1();
+    timeslotApidr2();
+    getdepartmentApi2();
+
     selectedState.listen((p0) {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
+      }
+    });
+    selectedDepartment.listen((p0) {
+      if (p0 != null) {
+        getspecialistByDeptID2("${p0.id}");
       }
     });
     doctorNameController = TextEditingController(text: '');
@@ -185,6 +248,7 @@ class FrDoctor_1_Controller extends GetxController {
     StartTime2Controller = TextEditingController(text: '');
     EndTime2Controller = TextEditingController(text: '');
     ExperienceController = TextEditingController();
+    FeesController = TextEditingController();
     super.onInit();
   }
 
@@ -283,12 +347,21 @@ class FrDoctor_1_Controller extends GetxController {
     return null;
   }
 
+  String? validfeess(String value) {
+    if (value.isEmpty) {
+      return '              Fees is required';
+    }
+    return null;
+  }
+
   ///time 1........................
   chooseTime() async {
-    DateTime now = DateTime.now();
-    int hour = now.hour;
-    int minute = now.minute;
-    int second = now.second;
+    // DateTime now = DateTime.now();
+    // int hour = now.hour;
+    // int minute = now.minute;
+    // int second = now.second;
+
+    ///todo: time format not correct...............
     TimeOfDay? pickedTime = await showTimePicker(
         context: Get.context!,
         initialTime: selectedTime.value,

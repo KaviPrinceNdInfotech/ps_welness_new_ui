@@ -654,6 +654,8 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                         () {
                                                                           Get.to(
                                                                               MapView());
+                                                                          // CallLoader
+                                                                          //     .hideLoader();
                                                                           //_ambulancegetController.selectedvhicleCatagary();
                                                                           //_ambulancegetController.ambulancecatagaryyApi();
                                                                           //Get.to((MapView));

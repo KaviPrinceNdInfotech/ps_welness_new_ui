@@ -43,7 +43,9 @@ class NurseHistoryController extends GetxController {
       CallLoader.hideLoader();
       nursehistoryApi();
       Get.to(
-        () => NurseHistoryUser(), //next page class
+        () => NurseHistoryUser(
+            //id: "1234568911",
+            ), //next page class
         duration: Duration(
             milliseconds: 400), //duration of transitions, default 1 sec
         transition:

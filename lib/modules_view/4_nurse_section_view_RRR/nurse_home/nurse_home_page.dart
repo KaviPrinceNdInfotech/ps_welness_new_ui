@@ -19,7 +19,9 @@ import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_re
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_upload_report/nurse_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 
+import '../../../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
 import '../../../controllers/9_doctor_controllers_RRR/apointment_history/apointment_historydetail.dart';
+import '../../../widgets/circular_loader.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
 
 class NurseHomePage extends StatelessWidget {
@@ -33,6 +35,8 @@ class NurseHomePage extends StatelessWidget {
 
   NurseAppoointmentHistoryControllerss _appoointmentHistoryControllerss =
       Get.put(NurseAppoointmentHistoryControllerss());
+  NurseAppointmentNurseDetailController _nurseappointmentnursedetailController =
+      Get.put(NurseAppointmentNurseDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class NurseHomePage extends StatelessWidget {
     GlobalKey<ScaffoldState> _keynurse = GlobalKey();
 
     final List<String> productname = [
-      'Appointment Detail',
+      'Upcoming Appointment',
       'Upload Report',
       'Payment History',
       'Appointment History',
@@ -216,9 +220,21 @@ class NurseHomePage extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
-                                        Get.to(() => NurseeAppointmentDetail());
+                                        _nurseappointmentnursedetailController
+                                            .nurseappointmentApi();
+                                        _nurseappointmentnursedetailController
+                                            .update();
+                                        _nurseappointmentnursedetailController
+                                            .onInit();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 900));
+                                        CallLoader.hideLoader();
+                                        await Get.to(() =>
+                                            NurseeAppointmentDetail(
+                                                id: "123456891100"));
                                       } else if (index == 1) {
                                         // _nursdeUploadReportController
                                         //.getnursepatientApi();

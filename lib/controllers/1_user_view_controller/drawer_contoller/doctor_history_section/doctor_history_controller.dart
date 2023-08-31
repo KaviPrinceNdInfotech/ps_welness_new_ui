@@ -46,15 +46,18 @@ class DoctorHistoryController extends GetxController {
       CallLoader.hideLoader();
       doctorListHospitalApi();
       Get.to(
-        () => DoctorHistoryUser(), //next page class
+        () => DoctorHistoryUser(
+            //id: "12345689",
+            ), //next page class
         duration: Duration(
-            milliseconds: 400), //duration of transitions, default 1 sec
+            milliseconds: 900), //duration of transitions, default 1 sec
         transition:
             // Transition.leftToRight //transition effect
             // Transition.fadeIn
             //Transition.size
             Transition.zoom,
       );
+      CallLoader.hideLoader();
 
       //Get.back();
       //Get.offAll(() => AddSkilsScreen());
@@ -107,11 +110,11 @@ class DoctorHistoryController extends GetxController {
     states.refresh();
     super.onInit();
 
-    appointmentController1 = TextEditingController();
-    appointmentController1.text = "DD-MM-YYYY";
+    //appointmentController1 = TextEditingController();
+    // appointmentController1.text = "DD-MM-YYYY";
 
-    appointmentController2 = TextEditingController();
-    appointmentController2.text = "DD-MM-YYYY";
+    //appointmentController2 = TextEditingController();
+    // appointmentController2.text = "DD-MM-YYYY";
     doctorListHospitalApi();
   }
 

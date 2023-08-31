@@ -30,6 +30,7 @@ import '../../../utils/services/account_service.dart';
 import '../../../widgets/circular_loader.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
 import '../../sign_in/sigin_screen.dart';
+import '../test_pages/test1_pages.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'drawer_pages_user/medicine_history/medicine_history_page.dart';
 import 'drawer_pages_user/nurse_history/nurse_history_page.dart';
@@ -183,7 +184,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 _driverAcceptlistController.update();
 
                 ///todo:new pageee.........
-                //Get.to(GymType());
+                Get.to(MyTest());
                 // accountService.getAccountData.then((accountData) {
                 //   // CallLoader.loader();
                 //   // nearlistdriverApi();
@@ -217,7 +218,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 //     ));
                 //Get.to(() => UserHomePage());
                 //Get.offNamed('/UserHomePage');
-                Get.back();
+                //Get.back();
               },
             ),
 
@@ -431,7 +432,9 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                   // Do stuff that require permission here
                 }
                 Get.back();
-                await Get.to(() => DoctorHistoryUser());
+                await Get.to(() => DoctorHistoryUser(
+                    // id: "12345689"
+                    ));
                 Get.offNamed('/DoctorHistoryUser');
               },
             ),
