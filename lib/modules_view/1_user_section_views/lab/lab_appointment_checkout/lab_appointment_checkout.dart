@@ -45,7 +45,7 @@ class LabAppointmentCheckout extends StatelessWidget {
         double.parse("${_labListController.labCheckoutModel?.fee?.toDouble()}");
     //print("${element.price * element.step} c");
     final labFeeGst = double.parse(
-        "${(_labListController.labCheckoutModel?.fee?.toDouble())! * (18 / 100).toDouble()}");
+        "${(_labListController.labCheckoutModel?.fee?.toDouble())! * ((_labListController.labCheckoutModel?.gst?.toDouble())! / 100).toDouble()}");
     // final finalDrAmounts = "${drFee.toDouble() + drFeeGst.toDouble()}";
     var finalamtlab =
         double.parse("${labFees.toDouble() + labFeeGst.toDouble()}");
@@ -339,17 +339,18 @@ class LabAppointmentCheckout extends StatelessWidget {
                                     ]),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: SizedBox(
-                                        width: size.width * 0.5,
+                                        //  width: size.width,
                                         child: Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.center,
                                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
@@ -363,79 +364,54 @@ class LabAppointmentCheckout extends StatelessWidget {
                                                 fontSize: size.height * 0.017,
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: size.height / 56,
-                                            ),
-                                            // Spacer(),
-                                            // Text(
-                                            //   'Selected Time:',
-                                            //   //doctorcatagary[index],
-                                            //   maxLines: 1,
-                                            //   overflow: TextOverflow.ellipsis,
-                                            //   style: GoogleFonts.poppins(
-                                            //     fontWeight: FontWeight.w600,
-                                            //     color: MyTheme.containercolor14,
-                                            //     fontSize: size.height * 0.016,
-                                            //   ),
-                                            // ),
-                                            SizedBox(
-                                              height: size.height * 0.000,
-                                            ),
                                           ],
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: size.width * 0.29,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: size.width * 0.23,
-                                              height: size.height * 0.02,
-                                              child: Text(
-                                                //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
-                                                //'Jan 26, 2023',
-                                                "${_labListController.labCheckoutModel?.testDate}",
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            //_labListController.labCheckoutModel!.testDate!.toIso8601String(),
+                                            //'Jan 26, 2023',
+                                            "${_labListController.labCheckoutModel?.testDate}",
 
-                                                //doctorcatagary[index],
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: MyTheme.blueww,
-                                                  fontSize: size.height * 0.015,
-                                                ),
-                                              ),
+                                            //doctorcatagary[index],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              color: MyTheme.blueww,
+                                              fontSize: size.height * 0.015,
                                             ),
+                                          ),
 
-                                            ///
+                                          ///
 
-                                            // Text(
-                                            //   // _labListController.labCheckoutModel!.slotTime.toString(),
-                                            //   // '17:30',
-                                            //   "${_labListController.labCheckoutModel?.slotTime}",
-                                            //
-                                            //   //doctorcatagary[index],
-                                            //   maxLines: 1,
-                                            //   overflow: TextOverflow.ellipsis,
-                                            //   style: GoogleFonts.poppins(
-                                            //     fontWeight: FontWeight.w600,
-                                            //     color: MyTheme.containercolor14,
-                                            //     fontSize: size.height * 0.012,
-                                            //   ),
-                                            // ),
-                                            ///
-                                            // SizedBox(
-                                            //   height: size.height * 0.000,
-                                            // ),
-                                          ],
-                                        ),
+                                          // Text(
+                                          //   // _labListController.labCheckoutModel!.slotTime.toString(),
+                                          //   // '17:30',
+                                          //   "${_labListController.labCheckoutModel?.slotTime}",
+                                          //
+                                          //   //doctorcatagary[index],
+                                          //   maxLines: 1,
+                                          //   overflow: TextOverflow.ellipsis,
+                                          //   style: GoogleFonts.poppins(
+                                          //     fontWeight: FontWeight.w600,
+                                          //     color: MyTheme.containercolor14,
+                                          //     fontSize: size.height * 0.012,
+                                          //   ),
+                                          // ),
+                                          ///
+                                          // SizedBox(
+                                          //   height: size.height * 0.000,
+                                          // ),
+                                        ],
                                       ),
                                     ),
                                     // SizedBox(
@@ -446,9 +422,9 @@ class LabAppointmentCheckout extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: size.height * 0.002,
-                          ),
+                          // SizedBox(
+                          //   height: size.height * 0.002,
+                          // ),
                           InkWell(
                             onTap: () {
                               //Get.to(() => DoctorListUser());
@@ -492,6 +468,7 @@ class LabAppointmentCheckout extends StatelessWidget {
                                       padding: const EdgeInsets.all(8.0),
                                       child: SizedBox(
                                         width: size.width * 0.55,
+                                        //height: size.height * 0.4,
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -532,10 +509,10 @@ class LabAppointmentCheckout extends StatelessWidget {
                                                 fontSize: size.height * 0.020,
                                               ),
                                             ),
-                                            // Spacer(),
-                                            SizedBox(
-                                              height: size.height / 40,
-                                            ),
+                                            Spacer(),
+                                            // SizedBox(
+                                            //   height: size.height / 60,
+                                            // ),
                                             Text(
                                               'To pay:',
                                               //doctorcatagary[index],

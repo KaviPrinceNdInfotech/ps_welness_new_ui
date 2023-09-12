@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
 
+import '../../../../model/1_user_model/doctor_appointment_history_model/doctor_onlinebooking_history/online_booking_history.dart';
 import '../../../../model/1_user_model/doctor_appointment_history_model/user_doctor_apointment_history.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../../../../servicess_api/api_services_all_api.dart';
@@ -20,10 +21,11 @@ class DoctorHistoryController extends GetxController {
   //RxBool isLoading = false.obs;
 
   RxBool isLoading = true.obs;
+  OnlineDrHistory? getonlinedr;
 
   UserDoctorAppointmentHistory? getdoctorhospitalmodele;
 
-  void doctorListHospitalApi() async {
+  Future<void> doctorListHospitalApi() async {
     // isLoading(false);
     getdoctorhospitalmodele = await ApiProvider.userdoctorApi();
     //getListOfDoctorApi();
@@ -37,6 +39,21 @@ class DoctorHistoryController extends GetxController {
     }
   }
 
+  ///online_dr_booking...12sep...2023..
+  Future<void> doctorbookingOnlineApi() async {
+    // isLoading(false);
+    getonlinedr = await ApiProvider.userdoctorOnlineApi();
+    //getListOfDoctorApi();
+    print('Prince lab list');
+    print(getonlinedr);
+    if (getonlinedr?.appointment2 != null) {
+      //Get.to(() => TotalPrice());
+      isLoading(true);
+      foundDoctor2.value = getonlinedr!.appointment2!;
+      //Get.to(()=>Container());
+    }
+  }
+
   //doctorSkillDeleteApi
   void deletedoctorhistoryApi() async {
     CallLoader.loader();
@@ -44,13 +61,14 @@ class DoctorHistoryController extends GetxController {
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
       CallLoader.hideLoader();
-      doctorListHospitalApi();
-      Get.to(
+      await doctorListHospitalApi();
+      await doctorbookingOnlineApi();
+      await Get.to(
         () => DoctorHistoryUser(
             //id: "12345689",
             ), //next page class
         duration: Duration(
-            milliseconds: 900), //duration of transitions, default 1 sec
+            milliseconds: 600), //duration of transitions, default 1 sec
         transition:
             // Transition.leftToRight //transition effect
             // Transition.fadeIn
@@ -109,6 +127,8 @@ class DoctorHistoryController extends GetxController {
   void onInit() {
     states.refresh();
     super.onInit();
+    doctorbookingOnlineApi();
+    //doctorbookingOnlineApi();
 
     //appointmentController1 = TextEditingController();
     // appointmentController1.text = "DD-MM-YYYY";
@@ -224,5 +244,23 @@ class DoctorHistoryController extends GetxController {
     }
     print(finalResult!.length);
     foundDoctor.value = finalResult!;
+  }
+
+  ///online.......
+  RxList<Appointmentonline> foundDoctor2 = RxList<Appointmentonline>([]);
+  void filterDoctor2(String searcdoctorName) {
+    List<Appointmentonline>? finalResult = [];
+    if (searcdoctorName.isEmpty) {
+      finalResult = getonlinedr!.appointment2;
+    } else {
+      finalResult = getonlinedr!.appointment2!
+          .where((element) => element.doctorName
+              .toString()
+              .toLowerCase()
+              .contains(searcdoctorName.toString().toLowerCase().trim()))
+          .toList();
+    }
+    print(finalResult!.length);
+    foundDoctor2.value = finalResult!;
   }
 }

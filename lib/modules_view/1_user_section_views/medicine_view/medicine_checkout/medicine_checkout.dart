@@ -46,7 +46,7 @@ class CheckOutMedicine extends StatelessWidget {
         "${_medicinecheckoutController.medicinecheckoutModel?.data?.totalPrice?.toDouble()}");
     //print("${element.price * element.step} c");
     final mediFeeGst = double.parse(
-        "${(_medicinecheckoutController.medicinecheckoutModel?.data?.totalPrice?.toDouble())! * (18 / 100).toDouble()}");
+        "${(_medicinecheckoutController.medicinecheckoutModel?.data?.totalPrice?.toDouble())! * ((_medicinecheckoutController.medicinecheckoutModel?.data?.gst?.toDouble())! / 100).toDouble()}");
     final medideliveryFees = double.parse(
         "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliverycharge?.toDouble()}");
     // final finalDrAmounts = "${drFee.toDouble() + drFeeGst.toDouble()}";
@@ -304,9 +304,12 @@ class CheckOutMedicine extends StatelessWidget {
                                             SizedBox(
                                               width: size.width * 0.58,
                                               height: size.height * 0.03,
-                                              child: Center(
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
                                                 child: Text(
                                                   "${_medicinecheckoutController.medicinecheckoutModel?.data?.deliveryAddress.toString()}",
+                                                  //textAlign: TextAlign.left,
+
                                                   // _checkoutController
                                                   //     .getaddressbyid!
                                                   //     .result![index]

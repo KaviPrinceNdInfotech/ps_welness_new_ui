@@ -130,6 +130,22 @@ class _MessageScreen2State extends State<MessageScreen2> {
     Size size = MediaQuery.of(context).size;
     var base = 'http://test.pswellness.in/Images/';
 
+    ///todo: maths logoc....
+    final driverFee =
+        _driverAcceptlistController.getDriveracceptDetail?.totalPrice ?? 00;
+    //print("${element.price * element.step} c");
+    final driverFeesdiscount = (_driverAcceptlistController
+                .getDriveracceptDetail?.totalPrice
+                ?.toDouble() ??
+            00)! *
+        (90 / 100);
+    final finaldriverAmounts = driverFee - driverFeesdiscount;
+    var finalamtdriver =
+        double.parse("${driverFee.toDouble() - driverFeesdiscount.toDouble()}");
+    print("driverfees:${driverFee}");
+    print("driverdiscount:${driverFeesdiscount}");
+    print("drivertotal:${finaldriverAmounts}");
+
     return Container(
       color: MyTheme.ThemeColors,
       height: size.height,
@@ -423,7 +439,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                               //       .grey.shade600,
                                               // ),
                                               SizedBox(
-                                                width: size.width * 0.01,
+                                                width: size.width * 0.005,
                                               ),
                                               Text(
                                                 "${_driverAcceptlistController.getDriveracceptDetail?.mobileNumber}",
@@ -440,7 +456,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: size.height * 0.02,
+                                            height: size.height * 0.015,
                                           ),
                                           Row(
                                             children: [
@@ -479,7 +495,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: size.height * 0.02,
+                                            height: size.height * 0.015,
                                           ),
                                           Row(
                                             children: [
@@ -510,7 +526,39 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: size.height * 0.02,
+                                            height: size.height * 0.015,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Payable Price :',
+                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                style: GoogleFonts.actor(
+                                                  fontSize: size.width * 0.04,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color(0xff12BFC4),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: size.width * 0.01,
+                                              ),
+                                              Text(
+                                                "\u{20B9}${finaldriverAmounts}",
+
+                                                //"100",
+                                                // '121234333377',
+                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                style: GoogleFonts.roboto(
+                                                  fontSize: size.width * 0.04,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.grey.shade900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          //finaldriverAmounts
+                                          SizedBox(
+                                            height: size.height * 0.015,
                                           ),
                                           Row(
                                             children: [
@@ -543,7 +591,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: size.height * 0.02,
+                                            height: size.height * 0.015,
                                           ),
                                           Row(
                                             children: [
@@ -576,7 +624,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: size.height * 0.02,
+                                            height: size.height * 0.015,
                                           ),
                                           Row(
                                             children: [
@@ -643,11 +691,15 @@ class _MessageScreen2State extends State<MessageScreen2> {
 
                                                     ///
                                                     final Ambulancefees =
-                                                        _driverAcceptlistController
-                                                                .getDriveracceptDetail
-                                                                ?.totalPrice
-                                                                ?.toDouble() ??
-                                                            0;
+                                                        //finaldriverAmounts
+                                                        driverFee.toDouble() -
+                                                            driverFeesdiscount
+                                                                .toDouble();
+                                                    //     _driverAcceptlistController
+                                                    //             .getDriveracceptDetail
+                                                    //             ?.totalPrice
+                                                    //             ?.toDouble() ??
+                                                    //         0;
                                                     final walletAmount =
                                                         _walletPostController
                                                                 .getwalletlist
@@ -861,7 +913,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                             .getInstance();
                                                     prefs.setString(
                                                         "ambulanceFee",
-                                                        "${_driverAcceptlistController.getDriveracceptDetail?.totalPrice.toString()}");
+                                                        "${finaldriverAmounts}");
                                                     //print("iikyihyih${ambulanceFee}");
 
                                                     // print("okook: ${fee}");

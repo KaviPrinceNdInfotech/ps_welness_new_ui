@@ -5,11 +5,15 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
-import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_medicine.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+//import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_medicine.dart';
 
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/drawer_contoller/medicine_history_controller/medicine_history_controller.dart';
+import '../../../invoice_views/invoice_medicine/page/pdf_page_medicine.dart';
+//import '../../../invoice_views/page/pdf_page_medicine.dart';
 
 class MedicinrHistoryUser extends StatelessWidget {
   MedicinrHistoryUser({Key? key}) : super(key: key);
@@ -634,6 +638,13 @@ class MedicinrHistoryUser extends StatelessWidget {
                                                       shadowColor: Colors.white,
                                                       child: InkWell(
                                                         onTap: () async {
+                                                          SharedPreferences
+                                                              prefs =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          prefs.setString(
+                                                              "MedicineInvoiceNo",
+                                                              "${_medicineHistoryController.foundMedicinehistory[index].invoiceNumber.toString()}");
                                                           CallLoader.loader();
                                                           await Future.delayed(
                                                               Duration(

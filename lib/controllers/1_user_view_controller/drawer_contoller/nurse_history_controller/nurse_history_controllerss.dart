@@ -22,7 +22,7 @@ class NurseHistoryController extends GetxController {
 
   //all catagary list .........
 
-  void nursehistoryApi() async {
+  Future<void> nursehistoryApi() async {
     isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApibyuser();
     if (nurseappointmentdetail?.data != null
@@ -35,25 +35,26 @@ class NurseHistoryController extends GetxController {
   }
 
   ///delete_nurse...api...
-  void deletenurseehistoryApi() async {
-    CallLoader.loader();
+  Future<void> deletenurseehistoryApi() async {
+    //await  CallLoader.loader();
     http.Response r = await ApiProvider.nurseHisdeleteApi();
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
-      CallLoader.hideLoader();
-      nursehistoryApi();
-      Get.to(
+      await nursehistoryApi();
+      await Get.to(
         () => NurseHistoryUser(
             //id: "1234568911",
             ), //next page class
         duration: Duration(
-            milliseconds: 400), //duration of transitions, default 1 sec
+            milliseconds: 600), //duration of transitions, default 1 sec
         transition:
             // Transition.leftToRight //transition effect
             // Transition.fadeIn
             //Transition.size
             Transition.zoom,
       );
+      Get.back();
+      await CallLoader.hideLoader();
 
       //Get.back();
       //Get.offAll(() => AddSkilsScreen());

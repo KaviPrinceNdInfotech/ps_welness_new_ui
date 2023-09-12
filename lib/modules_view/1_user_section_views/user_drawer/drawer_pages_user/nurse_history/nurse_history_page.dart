@@ -1,27 +1,93 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_nurse/page_nurse/nrs_page_invoice.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
-import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_nurse.dart';
+//import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_nurse.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
+import '../../../../../notificationservice/local_notification_service.dart';
+import '../../../../../notificationservice/notification_fb_service.dart';
 import '../../../../../utils/services/account_service.dart';
+//import '../../../invoice_views/page/pdf_page_nurse.dart';
 
-class NurseHistoryUser extends StatelessWidget {
+class NurseHistoryUser extends StatefulWidget {
   //final String id;
 
   NurseHistoryUser({Key? key}) : super(key: key);
 
+  @override
+  State<NurseHistoryUser> createState() => _NurseHistoryUserState();
+}
+
+class _NurseHistoryUserState extends State<NurseHistoryUser> {
   NurseHistoryController _nurseHistoryController =
       Get.put(NurseHistoryController());
+
+  NotificationServices notificationServices = NotificationServices();
+
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+    });
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+        }
+      },
+    );
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+
+          ///you can call local notification....
+          LocalNotificationService.createanddisplaynotification(message);
+        }
+      },
+    );
+
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -570,6 +636,20 @@ class NurseHistoryUser extends StatelessWidget {
                                                       shadowColor: Colors.white,
                                                       child: InkWell(
                                                         onTap: () async {
+                                                          _nurseHistoryController
+                                                              .nursehistoryApi();
+                                                          _nurseHistoryController
+                                                              .update();
+                                                          _nurseHistoryController
+                                                              .onInit();
+                                                          SharedPreferences
+                                                              prefs =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          prefs.setString(
+                                                              "NurseInvoiceNo",
+                                                              "${_nurseHistoryController.foundNurse[index].invoiceNumber.toString()}");
+                                                          // CallLoader.loader();
                                                           CallLoader.loader();
                                                           await Future.delayed(
                                                               Duration(
@@ -711,16 +791,87 @@ class NurseHistoryUser extends StatelessWidget {
                                                                               accountService.getAccountData.then((accountData) {
                                                                                 Timer(
                                                                                   const Duration(milliseconds: 200),
-                                                                                  () {
+                                                                                  () async {
                                                                                     _nurseHistoryController.nursehistoryApi();
                                                                                     //  .skillsListApi();
                                                                                     _nurseHistoryController.update();
 
                                                                                     ///calling delete api...
                                                                                     _nurseHistoryController.deletenurseehistoryApi();
-                                                                                    Get.to(() => NurseHistoryUser(
-                                                                                        // id: "1234568911",
-                                                                                        ));
+
+                                                                                    ///todo: firebase messages......
+                                                                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                    prefs.setString("NrDeviceids", "${_nurseHistoryController.foundNurse?[index].deviceId}");
+                                                                                    //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
+
+                                                                                    prefs.setString("Nruseids", "${_nurseHistoryController.foundNurse?[index].id}");
+
+                                                                                    notificationServices.getDeviceToken().then((value) async {
+                                                                                      var data = {
+                                                                                        ///not same controller
+                                                                                        //this the particular device id.....
+                                                                                        'to':
+                                                                                            //"df_xO9RNRvicZkE9JxMPV7:APA91bFkZmPaBORZLPUSLNAxN3xDWVbZe60YHzqwAet8GvAh2AqhMRRci0Ia5bYYJHiaU9KGep8uhfnADGl4xDKDnzefJu4nZt5_w9JeMwsTqJnO80osctPN1uvlFAN9hVVpplLZs_Ay",
+                                                                                            //"fMPtWMb5QUebGlV5QqHGnk:APA91bG8u4GG0JBUhazLdS3QiVMxJ1MEpg_b-1NyVcJaznD3TDJ3q1YChOZtzHL_L_InZrIvawkTRWJQQJE8mmIQSaFzbq-0rMVvRQFd_QV2zB4-tYLXtMroycPZvxTTvjnl9Q5PvsJc",
+                                                                                            "${_nurseHistoryController.foundNurse?[index].deviceId}",
+
+                                                                                        //"${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}",
+
+                                                                                        //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                                        //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                                        //.toString(),
+
+                                                                                        ///this is same device token....
+                                                                                        //value
+                                                                                        //.toString(),
+                                                                                        'notification': {
+                                                                                          'title': 'Ps_Wellness User',
+                                                                                          'body': 'Your Booking has been Canceled by user.',
+                                                                                          //"sound": "jetsons_doorbell.mp3"
+                                                                                        },
+                                                                                        'android': {
+                                                                                          'notification': {
+                                                                                            'notification_count': 23,
+                                                                                          },
+                                                                                        },
+                                                                                        // 'data': {
+                                                                                        //   'type': 'cancel_case_doctor',
+                                                                                        //   'id': '12345689'
+                                                                                        // }
+                                                                                      };
+                                                                                      // print("dataccept:${data}");
+
+                                                                                      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'), body: jsonEncode(data), headers: {
+                                                                                        'Content-Type': 'application/json; charset=UTF-8',
+                                                                                        'Authorization':
+                                                                                            //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                                            'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                                      }).then((value) {
+                                                                                        if (kDebugMode) {
+                                                                                          print("princedriver${value.body.toString()}");
+                                                                                        }
+                                                                                      }).onError((error, stackTrace) {
+                                                                                        if (kDebugMode) {
+                                                                                          print(error);
+                                                                                        }
+                                                                                      });
+                                                                                      CallLoader.loader();
+                                                                                      await Future.delayed(Duration(seconds: 1));
+                                                                                      await accountService.getAccountData.then((accountData) {
+                                                                                        Timer(
+                                                                                          const Duration(seconds: 0),
+                                                                                          () {
+                                                                                            //Get.offAll(UserHomePage());
+                                                                                            //Get.to((page))
+                                                                                            ///
+                                                                                          },
+                                                                                        );
+                                                                                      });
+                                                                                    });
+
+                                                                                    // Get.to(() => NurseHistoryUser(
+                                                                                    //     // id: "1234568911",
+                                                                                    //     ));
                                                                                     Get.back();
 
                                                                                     //Get.to((page))
@@ -736,25 +887,6 @@ class NurseHistoryUser extends StatelessWidget {
                                                               ),
                                                             );
                                                           },
-
-                                                          // onTap: () async {
-                                                          //   //CallLoader.loader();
-                                                          //   // await Future.delayed(Duration(milliseconds: 700));
-                                                          //   //CallLoader.hideLoader();
-                                                          //   //Get.to(PdfPageLab(),
-                                                          //   //Get.to(() => PdfPageLab(), //next page class
-                                                          //
-                                                          //   /// Get.to(() => PdfPage(), //next page class
-                                                          //   // duration: Duration(
-                                                          //   //     milliseconds:
-                                                          //   //     300), //duration of transitions, default 1 sec
-                                                          //   // transition:
-                                                          //   // // Transition.leftToRight //transition effect
-                                                          //   // // Transition.fadeIn
-                                                          //   // //Transition.size
-                                                          //   // Transition.zoom);
-                                                          //   // Get.to(WebViewPswebsite());
-                                                          // },
                                                           child: Center(
                                                             child: Container(
                                                               height:
@@ -807,6 +939,8 @@ class NurseHistoryUser extends StatelessWidget {
                                                             ),
                                                           ),
                                                         ),
+
+                                                        ///
                                                       ),
                                                     )
                                                   ],

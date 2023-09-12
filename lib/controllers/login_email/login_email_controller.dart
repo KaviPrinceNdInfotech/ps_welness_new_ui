@@ -265,6 +265,7 @@ import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_
 import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import '../5_rwa_controller_RRR/rwaBanner_controller.dart';
+import '../device_token_controller/devicetoken_controller.dart';
 
 class LoginpasswordController extends GetxController {
   final GlobalKey<FormState> loginpasswordformkey =
@@ -288,6 +289,8 @@ class LoginpasswordController extends GetxController {
 
   final DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
+  DevicetokenController _devicetokenController =
+      Get.put(DevicetokenController());
 
   ///new experiment....
   //User_1_Controller _user_1_controller = Get.put(User_1_Controller());
@@ -309,6 +312,7 @@ class LoginpasswordController extends GetxController {
       final accountData = driverListApiFromJson(r.body);
       print("ACCOUNT ${accountData.toJson()}");
       await accountService.setAccountData(accountData);
+
       //CallLoader.hideLoader();
 
       switch (accountData.role) {
@@ -316,9 +320,11 @@ class LoginpasswordController extends GetxController {
           _userprofile.userprofileApi();
           _userprofile.update();
           _userprofile.onInit();
+          _devicetokenController.UsertokenApi();
 
           /// we can navigate to user page.....................................
-          Get.to(UserHomePage());
+          await Get.to(UserHomePage());
+
           break;
         // case 'Patient':
         //
@@ -327,7 +333,7 @@ class LoginpasswordController extends GetxController {
         //   break;
         /// we can navigate to franchise page.....................................
         case 'Franchise':
-          Get.to(FranchiesHomePage());
+          await Get.to(FranchiesHomePage());
           break;
         case 'lab':
           _labprofiledetailController.update();
@@ -335,34 +341,38 @@ class LoginpasswordController extends GetxController {
           _labUploadReportController.getlabpatientApi();
           _labUploadReportController.update();
 
-          Get.to(LabHomePage());
+          await Get.to(LabHomePage());
           break;
         case 'doctor':
           _doctorProfileControllers.doctorprofileApi();
           _doctorProfileControllers.update();
-          Get.to(DoctorHomePage());
+          _devicetokenController.DoctortokenApi();
+
+          await Get.to(DoctorHomePage());
           break;
         case 'driver':
           _driverprofile.driverProfileDetailApi();
           _driverprofile.update();
-          Get.to(DriverHomePage());
+          _devicetokenController.DrivertokenApi();
+          await Get.to(DriverHomePage());
           break;
         case 'nurse':
           _nursdeUploadReportController.getnursepatientssApi();
           _nursdeUploadReportController.update();
           _nurseprofileContrller.nurseprofileApi();
           _nurseprofileContrller.update();
-          Get.to(NurseHomePage());
+          _devicetokenController.NursetokenApi();
+          await Get.to(NurseHomePage());
           break;
         case 'RWA':
           _rwaBannerController.RwaBannerApi();
           _rwaBannerController.update();
-          Get.to(RwaHomePage());
+          await Get.to(RwaHomePage());
           break;
         case 'chemist':
           _chemistProfileDetailController.chemistProfileDetailsApi();
           _chemistProfileDetailController.update();
-          Get.to(ChemistHomePage());
+          await Get.to(ChemistHomePage());
           break;
         default:
           break;

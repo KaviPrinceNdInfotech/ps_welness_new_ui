@@ -289,6 +289,8 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                       color:
                                                           Colors.red.shade300,
                                                     ),
+
+                                                    ///todo:box........
                                                     BoxShadow(
                                                       offset: Offset(4, 4),
                                                       spreadRadius: 0,
@@ -346,7 +348,34 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                     size.width *
                                                                         0.01),
                                                         child: ElevatedButton(
-                                                          onPressed: () {
+                                                          onPressed: () async {
+                                                            SharedPreferences
+                                                                prefs =
+                                                                await SharedPreferences
+                                                                    .getInstance();
+                                                            prefs.setString(
+                                                              "NurseesspartprodId",
+                                                              "${item?[index]?.nurseId}"
+                                                                  .toString(),
+                                                              // "${_nurseHistoryController.foundNurse[index].id.toString()}"
+                                                            );
+
+                                                            print({
+                                                              "myyyyynurse${item?[index]?.nurseId}"
+                                                                  .toString(),
+                                                            });
+
+                                                            prefs.setString(
+                                                              "NurseesspartId",
+                                                              "${item?[index]?.id}"
+                                                                  .toString(),
+                                                              // "${_nurseHistoryController.foundNurse[index].id.toString()}"
+                                                            );
+                                                            print({
+                                                              "myyyyynurse22${item?[index]?.id}"
+                                                                  .toString(),
+                                                            });
+
                                                             Get.dialog(
                                                               Column(
                                                                 mainAxisAlignment:
@@ -438,6 +467,11 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                                       ),
                                                                                       onPressed: () async {
                                                                                         SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                        _nurseappointmentnursedetailController.nurseappointmentApi();
+                                                                                        _nurseappointmentnursedetailController.update();
+
+                                                                                        ///delete api of user section......
+                                                                                        _nurseappointmentnursedetailController.deleteusernursaptApi();
                                                                                         //prefs.setString("doctorrjctDeviceid", "${_doctorHomepageController.founddoctoraptProducts?[index].deviceId}");
                                                                                         //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
 
@@ -481,7 +515,8 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                                           var data = {
                                                                                             ///not same controller
                                                                                             //this the particular device id.....
-                                                                                            'to': "dTGRa4G1R52G3-jH5PlZ-k:APA91bGAv4zj_ESom1qgGInKfIvpbfjI-fWuuFys1kchlmNX1ZcimYsVqEsN93beY5VQ7awY0azT",
+                                                                                            'to': item![index].deviceId,
+                                                                                            //"dTGRa4G1R52G3-jH5PlZ-k:APA91bGAv4zj_ESom1qgGInKfIvpbfjI-fWuuFys1kchlmNX1ZcimYsVqEsN93beY5VQ7awY0azT",
                                                                                             //"dTGRa4G1R52G3-jH5PlZ-k:APA91bGAv4zj_ESom1qgGInKfIvpbfjI-fWuuFys1kchlmNX1ZcimYsVqEsN93beY5VQ7awY0azT9CiHOOQz_qb2kHobs11ZxPp9dbfDlO9QQPN9Ncm51LzkV0GAkJaVpyp2fjXYs2J-",
                                                                                             //"eQ2dTRG2SbSHAWf85I8SCh:APA91bF44wEbOIn1-ny73ml8EDpfLxhKBS4_rFTvY4WNGVmPhvnGdiNpZB5FiEuHKkr0CW64KL3CklKGASahH_xVSc72QZKkJJj3slYwZE6Zap3TKp9-sT1e5ERI9H5KzGzziZU2GBfg",
                                                                                             //"f2pjDU69RnyUi6Ree-l4cJ:APA91bEkJZg12WVXoY8q6AjD3fNfdjXAbTZKD75aN_6SzetXuvu3A7RQ2YwtCWGuoPobIhN5iKSeH2KdLMcr_8WTohi3pDue4mh6fmDKq4OusjZvN856lgka80NN2MGsyMSjiioVdYky",
@@ -514,7 +549,6 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                                             // }
                                                                                           };
                                                                                           print("dataccept:${data}");
-
                                                                                           await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'), body: jsonEncode(data), headers: {
                                                                                             'Content-Type': 'application/json; charset=UTF-8',
                                                                                             'Authorization':

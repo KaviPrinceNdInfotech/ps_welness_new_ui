@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_lab/page_lab/lab_page_invoice.dart';
+//import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/page/pdf_page_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
-import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_lab.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness_new_ui/modules_view/invoice_views_lab/page/pdf_page.dart';
 
@@ -451,13 +453,27 @@ class LabHistoryUser extends StatelessWidget {
                                                       shadowColor: Colors.white,
                                                       child: InkWell(
                                                         onTap: () async {
+                                                          _labHistoryController
+                                                              .labHistorybyUserId();
+                                                          _labHistoryController
+                                                              .update();
+                                                          _labHistoryController
+                                                              .onInit();
+                                                          SharedPreferences
+                                                              prefs =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          prefs.setString(
+                                                              "LabInvoiceNo",
+                                                              "${_labHistoryController.foundLab[index].invoiceNumber.toString()}");
                                                           CallLoader.loader();
                                                           await Future.delayed(
                                                               Duration(
                                                                   milliseconds:
-                                                                      700));
+                                                                      900));
                                                           CallLoader
                                                               .hideLoader();
+
                                                           //Get.to(PdfPageLab(),
                                                           Get.to(
                                                               () =>

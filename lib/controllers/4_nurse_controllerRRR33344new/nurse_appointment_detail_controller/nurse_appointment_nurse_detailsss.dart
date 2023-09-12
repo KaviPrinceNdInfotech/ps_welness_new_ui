@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_appointment_details_list.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_details/nurse_appointment_details.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 //import '../../../servicess_api/api_services_all_api.dart';
@@ -31,7 +36,7 @@ class NurseAppointmentNurseDetailController extends GetxController {
 
   //all catagary list .........
 
-  void nurseappointmentApi() async {
+  Future<void> nurseappointmentApi() async {
     isLoading(true);
     nurseappointmentdetail = await ApiProvider.NurseappointmentApi();
     // if (NurseAppointmentDetail?.result!. == null) {
@@ -58,6 +63,35 @@ class NurseAppointmentNurseDetailController extends GetxController {
         ) {
       isLoading(false);
       foundAppointmentnurse.value = nurseappointmentdetail!.result!;
+    }
+  }
+
+  ///delete user----apiby---nurseee....5 sep 2023...
+
+  Future<void> deleteusernursaptApi() async {
+    //await  CallLoader.loader();
+    http.Response r = await ApiProvider.userAptnrsdeleteApi();
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+      await nurseappointmentApi();
+      await Get.to(
+        () => NurseeAppointmentDetail(
+          id: "123456891199",
+        ), //next page class
+        duration: Duration(
+            milliseconds: 600), //duration of transitions, default 1 sec
+        transition:
+            // Transition.leftToRight //transition effect
+            // Transition.fadeIn
+            //Transition.size
+            Transition.zoom,
+      );
+      Get.back();
+      await CallLoader.hideLoader();
+
+      //Get.back();
+      //Get.offAll(() => AddSkilsScreen());
+
     }
   }
 

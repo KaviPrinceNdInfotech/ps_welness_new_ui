@@ -1,6 +1,0 @@
-version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
-options: "069a8fa61df60e28e3444b3948a06ad720f8132f5e8e0fc459abbe5b141a7def"
-build_start_time: [1683209771, 860188000]
-build_end_time: [1683209771, 886360000]
-inputs:
-  "/Users/ndinfotech/Desktop/ps_welness_new_ui/ios/Runner/AppDelegate.swift": !private [1676616369, 75120936]

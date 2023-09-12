@@ -191,8 +191,10 @@ class DoctorHomePage extends StatelessWidget {
                                       _doctorHomepageController
                                           .doctorAppoinmentDetail();
                                       _doctorHomepageController.update();
-                                      Get.to(() =>
-                                          AppointmentDetails(id: "1234568900"));
+                                      _doctorHomepageController
+                                          .doctorAppoinmentOnline();
+                                      _doctorHomepageController.onInit();
+                                      Get.to(() => AppointmentDetails());
                                     } else if (index == 1) {
                                       // _doctorrUploadReportController
                                       // .getdoctorrpatientApi();

@@ -171,15 +171,16 @@ class _UserHomePageState extends State<UserHomePage> {
       // 'service 8',
     ];
 
-    List<Color> colors = [
-      Color(0xff11eae0),
-      Color(0xffe68cf7),
-      Colors.yellow,
-      Colors.lightGreenAccent,
-      Colors.lightGreen
-    ];
+    // List<Color> colors = [
+    //   Color(0xff11eae0),
+    //   Color(0xffe68cf7),
+    //   Colors.yellow,
+    //   Colors.lightGreenAccent,
+    //   Colors.lightGreen
+    // ];
 
     final List<String> productimage = [
+      //'lib/assets/user_assets_svg/1nurse.svg',
       'lib/assets/user_assets/1nurse.png',
       'lib/assets/user_assets/4doctor.png',
       'lib/assets/user_assets/6ambulance.png',
@@ -1663,10 +1664,6 @@ class _UserHomePageState extends State<UserHomePage> {
                                       height: size.height * 0.11,
                                       width: size.width * 0.23,
                                       padding: EdgeInsets.all(7),
-                                      child: Image.asset(
-                                        productimage[index],
-                                        // "lib/assets/image/icons8-hospital-64.png",
-                                      ),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -1686,6 +1683,16 @@ class _UserHomePageState extends State<UserHomePage> {
                                               spreadRadius: 0,
                                             ),
                                           ]),
+                                      child: Image.asset(
+                                        //  SvgPicture.asset(
+                                        // 'lib/assets/user_assets_svg/1nurse.svg'
+                                        productimage[index],
+                                        // color: Colors.amber,
+                                        // semanticsLabel: 'My SVG Image',
+                                        height: 100,
+                                        width: 70,
+                                        // "lib/assets/image/icons8-hospital-64.png",
+                                      ),
                                     ),
                                   ),
                                   SizedBox(

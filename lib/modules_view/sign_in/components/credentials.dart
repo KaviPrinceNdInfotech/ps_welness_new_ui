@@ -415,7 +415,10 @@ class _CredentialsState extends State<Credentials> {
                 text: 'Sign In',
                 press: () async {
                   CallLoader.loader();
+                  // await Future.delayed(Duration(milliseconds: 500));
+                  //await _getGeoLocationPosition();
                   _loginpasswordController.checkLoginpassword();
+
                   // _getGeoLocationPosition();
                   // CallLoader.loader();
                   // await Future.delayed(Duration(milliseconds: 900));

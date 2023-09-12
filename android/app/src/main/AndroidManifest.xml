@@ -39,12 +39,12 @@
             <data android:scheme="tel" />
         </intent>
     </queries>
-   <application
-       android:requestLegacyExternalStorage="true"
-       android:label="P S Wellness"
+    <application
+        android:requestLegacyExternalStorage="true"
+        android:label="P S Wellness"
         android:name="${applicationName}"
-       android:usesCleartextTraffic="true"
-       android:icon="@mipmap/ic_launcher">
+        android:usesCleartextTraffic="true"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -60,9 +60,9 @@
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="pswellnesspushnotification"/>
@@ -76,11 +76,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-       <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw"/>
-       <meta-data
-           android:name="com.google.firebase.messaging.default_notification_channel_id"
-           android:value="high_importance_channel" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel" />
     </application>
 
 </manifest>

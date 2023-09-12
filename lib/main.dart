@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,9 +33,7 @@ import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dar
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 
-//import 'package:ps_welness/controllers/1_user_view_controller/nurse_appointment_controller/nurse_booking_1_controller.dart';
-//import 'package:ps_welness/widgets/controller_bindingss.dart';
-
+///import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'controllers/10_lab_controller/lab_appointment_history_controller/lab_pay_hist_controller.dart';
 import 'controllers/10_lab_controller/lab_home_controllers/lab_home_controller.dart';
 import 'controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
@@ -83,7 +82,6 @@ import 'controllers/6_chemist_view_controllers_RRR/chemist_profile_detailControl
 import 'controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
 import 'controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'controllers/complaint_controller/complaint_controller.dart';
-import 'controllers/device_token_controller/devicetoken_controller.dart';
 import 'controllers/lab_controller/lab_controller1/lab_controller_1.dart';
 import 'controllers/login_email/login_email_controller.dart';
 import 'controllers/profile_u_controller/profile_update_controller.dart';
@@ -178,7 +176,7 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => Fr_Lab_1_Controller());
     Get.lazyPut(() => FrRwa_1_controller());
 
-    Get.lazyPut(() => DevicetokenController());
+    ///Get.lazyPut(() => DevicetokenController());
     Get.lazyPut(() => Ambulanceget3Controller());
     Get.lazyPut(() => Ambulanceget2Controller());
     Get.lazyPut(() => DriverAcceptlistController());
@@ -187,6 +185,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => NurseAppoointmentHistoryControllerss());
 
     Get.lazyPut(() => Fr_common_Controller());
+
+    // Get.lazyPut(() => InvoiceController());
 
     ///
     /// Get.lazyPut(() => CheckoutMedicineController());
@@ -221,6 +221,7 @@ void main() async {
   await Firebase.initializeApp();
   final fcmToken = await FirebaseMessaging.instance.getToken();
   print("mytoken${fcmToken}");
+
   // ///other token...
   //
   // ///call background function firebase....27...jun...2023..old
@@ -238,7 +239,9 @@ void main() async {
   // }
   ///todo new for background message........
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  //ZegoUIKit().initLog().then((value) {
   runApp(const MyApp());
+  //});
 }
 
 ///my newwwww,,,,,git update 15 july 2023...
@@ -247,7 +250,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    // var widget;
     return GetMaterialApp(
+      /// 1.1.3: register the navigator key to MaterialApp
+      //navigatorKey: widget.navigatorKey,
       initialBinding: ControllerBinding(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -280,5 +286,26 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+/// on App's user login
+// void onUserLogin() {
+//   /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
+//   /// when app's user is logged in or re-logged in
+//   /// We recommend calling this method as soon as the user logs in to your app.
+//   ZegoUIKitPrebuiltCallInvitationService().init(
+//     appID: 123 /*input your AppID*/,
+//     appSign: "yourAppSign" /*input your AppSign*/,
+//     userID: "12344",
+//     userName: "currentUser.name",
+//     plugins: [ZegoUIKitSignalingPlugin()],
+//   );
+// }
+
+// /// on App's user logout
+// void onUserLogout() {
+//   /// 1.2.2. de-initialization ZegoUIKitPrebuiltCallInvitationService
+//   /// when app's user is logged out
+//   ZegoUIKitPrebuiltCallInvitationService().uninit();
+// }
 
 ///31.... august 2023....live ........before video

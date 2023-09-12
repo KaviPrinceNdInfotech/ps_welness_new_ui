@@ -7,6 +7,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/d
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../user_profile_controller/user_profile_controllerss.dart';
 
@@ -48,13 +49,18 @@ class RozarPayAmbulanceController extends GetxController {
   }
 
   void openCheckout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var ambulanceFee = preferences.getString("ambulanceFee");
+    print("ambulance: ${ambulanceFee}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': int.parse(
+      'amount': double.parse(
               // '100'
+              '${ambulanceFee}'
 
-              '${_driverAcceptlistController.getDriveracceptDetail?.totalPrice?.toInt()}') *
+              // '${_driverAcceptlistController.getDriveracceptDetail?.totalPrice?.toInt()}'
+              ) *
           100,
       'name':
           //'Kavi Singh',

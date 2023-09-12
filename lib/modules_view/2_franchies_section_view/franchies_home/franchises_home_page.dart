@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/add_dept_spe.dart';
@@ -48,6 +49,9 @@ class FranchiesHomePage extends StatelessWidget {
         Get.put(Fr_Chemist_1_Controller());
     FranchiesSpecialistController _franchiesSpecialistController =
         Get.put(FranchiesSpecialistController());
+    AddVehicleController _addVehicleController =
+        Get.put(AddVehicleController());
+
     // FranchiesSpecialistController _franchiesSpecialistController =
     // Get.put(FranchiesSpecialistController());
 

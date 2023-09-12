@@ -106,6 +106,7 @@
 // }
 ///
 ///
+///
 import 'dart:convert';
 
 DoctorCheckoutModel doctorCheckoutModelFromJson(String str) =>
@@ -117,8 +118,9 @@ String doctorCheckoutModelToJson(DoctorCheckoutModel data) =>
 class DoctorCheckoutModel {
   int? id;
   String? doctorName;
+  num? gst;
   String? specialistName;
-  int? experience;
+  num? experience;
   num? fee;
   num? totalFee;
   DateTime? appointmentDate;
@@ -127,6 +129,7 @@ class DoctorCheckoutModel {
   DoctorCheckoutModel({
     this.id,
     this.doctorName,
+    this.gst,
     this.specialistName,
     this.experience,
     this.fee,
@@ -139,6 +142,7 @@ class DoctorCheckoutModel {
       DoctorCheckoutModel(
         id: json["Id"],
         doctorName: json["DoctorName"],
+        gst: json["GST"],
         specialistName: json["SpecialistName"],
         experience: json["Experience"],
         fee: json["Fee"],
@@ -152,6 +156,7 @@ class DoctorCheckoutModel {
   Map<String, dynamic> toJson() => {
         "Id": id,
         "DoctorName": doctorName,
+        "GST": gst,
         "SpecialistName": specialistName,
         "Experience": experience,
         "Fee": fee,

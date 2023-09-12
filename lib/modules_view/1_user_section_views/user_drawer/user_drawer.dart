@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/controllers/profile_u_controller/profile_update_controller.dart';
@@ -30,7 +29,6 @@ import '../../../utils/services/account_service.dart';
 import '../../../widgets/circular_loader.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
 import '../../sign_in/sigin_screen.dart';
-import '../test_pages/test1_pages.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'drawer_pages_user/medicine_history/medicine_history_page.dart';
 import 'drawer_pages_user/nurse_history/nurse_history_page.dart';
@@ -184,7 +182,9 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 _driverAcceptlistController.update();
 
                 ///todo:new pageee.........
-                Get.to(MyTest());
+                ///Get.to(MyTest());
+                //Get.to(UserVideoAudio());
+
                 // accountService.getAccountData.then((accountData) {
                 //   // CallLoader.loader();
                 //   // nearlistdriverApi();
@@ -413,24 +413,26 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 print(Get.currentRoute);
                 _doctorHistoryController.update();
                 _doctorHistoryController.doctorListHospitalApi();
+                _doctorHistoryController.doctorbookingOnlineApi();
+                _doctorHistoryController.onInit();
 
-                final permissionStatus = await Permission.storage.status;
-                if (permissionStatus.isDenied) {
-                  // Here just ask for the permission for the first time
-                  await Permission.storage.request();
-
-                  // I noticed that sometimes popup won't show after user press deny
-                  // so I do the check once again but now go straight to appSettings
-                  if (permissionStatus.isDenied) {
-                    await openAppSettings();
-                  }
-                } else if (permissionStatus.isPermanentlyDenied) {
-                  // Here open app settings for user to manually enable permission in case
-                  // where permission was permanently denied
-                  await openAppSettings();
-                } else {
-                  // Do stuff that require permission here
-                }
+                // final permissionStatus = await Permission.storage.status;
+                // if (permissionStatus.isDenied) {
+                //   // Here just ask for the permission for the first time
+                //   await Permission.storage.request();
+                //
+                //   // I noticed that sometimes popup won't show after user press deny
+                //   // so I do the check once again but now go straight to appSettings
+                //   if (permissionStatus.isDenied) {
+                //     await openAppSettings();
+                //   }
+                // } else if (permissionStatus.isPermanentlyDenied) {
+                //   // Here open app settings for user to manually enable permission in case
+                //   // where permission was permanently denied
+                //   await openAppSettings();
+                // } else {
+                //   // Do stuff that require permission here
+                // }
                 Get.back();
                 await Get.to(() => DoctorHistoryUser(
                     // id: "12345689"
@@ -467,23 +469,23 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
               onTap: () async {
                 print(Get.currentRoute);
 
-                final permissionStatus = await Permission.storage.status;
-                if (permissionStatus.isDenied) {
-                  // Here just ask for the permission for the first time
-                  await Permission.storage.request();
-
-                  // I noticed that sometimes popup won't show after user press deny
-                  // so I do the check once again but now go straight to appSettings
-                  if (permissionStatus.isDenied) {
-                    await openAppSettings();
-                  }
-                } else if (permissionStatus.isPermanentlyDenied) {
-                  // Here open app settings for user to manually enable permission in case
-                  // where permission was permanently denied
-                  await openAppSettings();
-                } else {
-                  // Do stuff that require permission here
-                }
+                // final permissionStatus = await Permission.storage.status;
+                // if (permissionStatus.isDenied) {
+                //   // Here just ask for the permission for the first time
+                //   await Permission.storage.request();
+                //
+                //   // I noticed that sometimes popup won't show after user press deny
+                //   // so I do the check once again but now go straight to appSettings
+                //   if (permissionStatus.isDenied) {
+                //     await openAppSettings();
+                //   }
+                // } else if (permissionStatus.isPermanentlyDenied) {
+                //   // Here open app settings for user to manually enable permission in case
+                //   // where permission was permanently denied
+                //   await openAppSettings();
+                // } else {
+                //   // Do stuff that require permission here
+                // }
                 Get.back();
                 await Get.to(() => MedicinrHistoryUser());
                 Get.offNamed('/MedicinrHistoryUser');
@@ -517,29 +519,32 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                   : Colors.transparent,
               onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
                 _labHistoryController.update();
                 _labHistoryController.labHistorybyUserId();
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 1));
+                CallLoader.hideLoader();
 
-                final permissionStatus = await Permission.storage.status;
-                if (permissionStatus.isDenied) {
-                  // Here just ask for the permission for the first time
-                  await Permission.storage.request();
-
-                  // I noticed that sometimes popup won't show after user press deny
-                  // so I do the check once again but now go straight to appSettings
-                  if (permissionStatus.isDenied) {
-                    await openAppSettings();
-                  }
-                } else if (permissionStatus.isPermanentlyDenied) {
-                  // Here open app settings for user to manually enable permission in case
-                  // where permission was permanently denied
-                  await openAppSettings();
-                } else {
-                  // Do stuff that require permission here
-                }
+                // final permissionStatus = await Permission.storage.status;
+                // if (permissionStatus.isDenied) {
+                //   // Here just ask for the permission for the first time
+                //   await Permission.storage.request();
+                //
+                //   // I noticed that sometimes popup won't show after user press deny
+                //   // so I do the check once again but now go straight to appSettings
+                //   if (permissionStatus.isDenied) {
+                //     await openAppSettings();
+                //   }
+                // } else if (permissionStatus.isPermanentlyDenied) {
+                //   // Here open app settings for user to manually enable permission in case
+                //   // where permission was permanently denied
+                //   await openAppSettings();
+                // } else {
+                //   // Do stuff that require permission here
+                // }
                 // Get.offNamed('/LabHistoryUser');
                 await Get.to(() => LabHistoryUser());
+                Get.back();
               },
             ),
 
@@ -577,23 +582,23 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 await Future.delayed(Duration(seconds: 1));
                 CallLoader.hideLoader();
 
-                final permissionStatus = await Permission.storage.status;
-                if (permissionStatus.isDenied) {
-                  // Here just ask for the permission for the first time
-                  await Permission.storage.request();
-
-                  // I noticed that sometimes popup won't show after user press deny
-                  // so I do the check once again but now go straight to appSettings
-                  if (permissionStatus.isDenied) {
-                    await openAppSettings();
-                  }
-                } else if (permissionStatus.isPermanentlyDenied) {
-                  // Here open app settings for user to manually enable permission in case
-                  // where permission was permanently denied
-                  await openAppSettings();
-                } else {
-                  // Do stuff that require permission here
-                }
+                // final permissionStatus = await Permission.storage.status;
+                // if (permissionStatus.isDenied) {
+                //   // Here just ask for the permission for the first time
+                //   await Permission.storage.request();
+                //
+                //   // I noticed that sometimes popup won't show after user press deny
+                //   // so I do the check once again but now go straight to appSettings
+                //   if (permissionStatus.isDenied) {
+                //     await openAppSettings();
+                //   }
+                // } else if (permissionStatus.isPermanentlyDenied) {
+                //   // Here open app settings for user to manually enable permission in case
+                //   // where permission was permanently denied
+                //   await openAppSettings();
+                // } else {
+                //   // Do stuff that require permission here
+                // }
                 Timer(
                   const Duration(milliseconds: 400),
                   () {

@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/doctor_user_time_slot_drop/doctor_user_timeslot.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
+import '../../../model/1_user_model/dr_booking_mode_dropdown/dr_booking_mode_drp_dn.dart';
 import '../../../model/1_user_model/hlthchkp_detail_model/healthchkp_detail_model.dart';
-import '../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
 // import '../../../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../../../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../../../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
@@ -30,8 +31,14 @@ class DoctorListController extends GetxController {
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
   RxBool isLoading = true.obs;
-  Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
-  List<TimeSlot> timeslot = <TimeSlot>[].obs;
+  // Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
+  // List<TimeSlot> timeslot = <TimeSlot>[].obs;
+
+  Rx<TimeSlotDoctor?> selectedTimeslotdoctor = (null as TimeSlotDoctor?).obs;
+  List<TimeSlotDoctor> timeSlotdoctor = <TimeSlotDoctor>[].obs;
+
+  Rx<BookingMode?> selectedmodedoctor = (null as BookingMode?).obs;
+  List<BookingMode> bookingMode = <BookingMode>[].obs;
 
   //late TextEditingController appointmentController;
   var appointment = ''.obs;
@@ -66,18 +73,33 @@ class DoctorListController extends GetxController {
   }
 
   ///nurse type api class.................
-  void timeslotApi() async {
-    timeslot = (await ApiProvider.gettimeslotApi())!;
+  // void timeslotApi() async {
+  //   timeslot = (await ApiProvider.gettimeslotApi())!;
+  //   print('Prince time slot  list');
+  //   print(timeslot);
+  // }
+
+  ///doctor api class.................
+  void timeslotdoctorApi() async {
+    timeSlotdoctor = (await ApiProvider.gettimeslotdoctorApi())!;
     print('Prince time slot  list');
-    print(timeslot);
+    print("okortyug:${timeSlotdoctor}");
+  }
+
+  ///doctor mode api class.................
+  void modeofdoctorApi() async {
+    bookingMode = (await ApiProvider.getmodeofdoctorApi())!;
+    print('Prince time slot  list');
+    print(bookingMode);
   }
 
   void doctorBooking2Api() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.Doctorbooking2Api(
       doctoridController.text,
-      selectedTimeslot.value?.slotid.toString(),
+      selectedTimeslotdoctor.value?.id.toString(),
       appointmentController.text,
+      selectedmodedoctor.value?.id.toString(),
 
       //selectedState.value?.id.toString(),
       // selectedCity.value?.id.toString(),
@@ -86,7 +108,6 @@ class DoctorListController extends GetxController {
       var data = jsonDecode(r.body);
 
       ///todo:for it it will call next screen apis and update....
-
       _doctorappointmentcheckout.doctoorcheckoutApi();
       _doctorappointmentcheckout.onInit();
       _doctorappointmentcheckout.update();
@@ -148,8 +169,11 @@ class DoctorListController extends GetxController {
   void onInit() {
     super.onInit();
     doctorListApi();
-    timeslotApi();
+
+    /// timeslotApi();
+    timeslotdoctorApi();
     doctordetailApi();
+    modeofdoctorApi();
     doctoridController = TextEditingController();
     appointmentController = TextEditingController();
     appointmentController.text = "DD-MM-YYYY";

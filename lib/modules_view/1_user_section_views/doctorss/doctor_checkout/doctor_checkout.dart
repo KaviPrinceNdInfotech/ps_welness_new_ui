@@ -43,7 +43,7 @@ class DoctorAppointmentCheckout extends StatelessWidget {
         "${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toDouble()}");
     //print("${element.price * element.step} c");
     final drFeeGst = double.parse(
-        "${(_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toDouble())! * (18 / 100).toDouble()}");
+        "${(_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toDouble())! * ((_doctorappointmentcheckout.doctorCheckoutModel?.gst?.toDouble())! / 100).toDouble()}");
     // final finalDrAmounts = "${drFee.toDouble() + drFeeGst.toDouble()}";
     var finalamtDr = double.parse("${drFee.toDouble() + drFeeGst.toDouble()}");
     print("Dreee233:${drFee}");

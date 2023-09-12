@@ -1,31 +1,98 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_doctor/page_dr/pdf_page_doctor.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
-import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_doctor.dart';
+//import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_doctor.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+///import 'package:velocity_x/velocity_x.dart';
 import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
+import '../../../../../notificationservice/local_notification_service.dart';
+import '../../../../../notificationservice/notification_fb_service.dart';
+//import '../../../invoice_views/page/pdf_page_doctor.dart';
 
-class DoctorHistoryUser extends StatelessWidget {
+class DoctorHistoryUser extends StatefulWidget {
   //final String id;
 
   DoctorHistoryUser({Key? key}) : super(key: key);
 
+  @override
+  State<DoctorHistoryUser> createState() => _DoctorHistoryUserState();
+}
+
+class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
   DoctorHistoryController _doctorHistoryController =
       Get.put(DoctorHistoryController());
 
   //get index => null;
+
+  NotificationServices notificationServices = NotificationServices();
+
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+    });
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+        }
+      },
+    );
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+
+          ///you can call local notification....
+          LocalNotificationService.createanddisplaynotification(message);
+        }
+      },
+    );
+
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -750,6 +817,19 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                 Colors.white,
                                                             child: InkWell(
                                                               onTap: () async {
+                                                                _doctorHistoryController
+                                                                    .doctorListHospitalApi();
+                                                                _doctorHistoryController
+                                                                    .update();
+                                                                _doctorHistoryController
+                                                                    .onInit();
+                                                                SharedPreferences
+                                                                    prefs =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+                                                                prefs.setString(
+                                                                    "DoctorInvoiceNo",
+                                                                    "${_doctorHistoryController.foundDoctor[index].invoiceNumber.toString()}");
                                                                 await Future.delayed(
                                                                     Duration(
                                                                         milliseconds:
@@ -891,16 +971,86 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                                       CallLoader.loader();
                                                                                       await Timer(
                                                                                         const Duration(milliseconds: 1000),
-                                                                                        () {
+                                                                                        () async {
                                                                                           _doctorHistoryController.doctorListHospitalApi();
                                                                                           //  .skillsListApi();
                                                                                           _doctorHistoryController.update();
 
                                                                                           ///calling delete api...
                                                                                           _doctorHistoryController.deletedoctorhistoryApi();
-                                                                                          Get.to(() => DoctorHistoryUser(
-                                                                                              //id: "12345689"
-                                                                                              ));
+                                                                                          // await Get.to(() => DoctorHistoryUser(
+                                                                                          //     //id: "12345689"
+                                                                                          //     )
+                                                                                          // );
+
+                                                                                          ///todo: firebase messages......
+                                                                                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                          prefs.setString("DrDeviceids", "${_doctorHistoryController.foundDoctor?[index].deviceId}");
+                                                                                          //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
+
+                                                                                          prefs.setString("Druseids", "${_doctorHistoryController.foundDoctor?[index].id}");
+                                                                                          notificationServices.getDeviceToken().then((value) async {
+                                                                                            var data = {
+                                                                                              ///not same controller
+                                                                                              //this the particular device id.....
+                                                                                              'to':
+                                                                                                  //"df_xO9RNRvicZkE9JxMPV7:APA91bFkZmPaBORZLPUSLNAxN3xDWVbZe60YHzqwAet8GvAh2AqhMRRci0Ia5bYYJHiaU9KGep8uhfnADGl4xDKDnzefJu4nZt5_w9JeMwsTqJnO80osctPN1uvlFAN9hVVpplLZs_Ay",
+                                                                                                  //"fMPtWMb5QUebGlV5QqHGnk:APA91bG8u4GG0JBUhazLdS3QiVMxJ1MEpg_b-1NyVcJaznD3TDJ3q1YChOZtzHL_L_InZrIvawkTRWJQQJE8mmIQSaFzbq-0rMVvRQFd_QV2zB4-tYLXtMroycPZvxTTvjnl9Q5PvsJc",
+                                                                                                  "${_doctorHistoryController.foundDoctor?[index].deviceId}",
+
+                                                                                              //"${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}",
+
+                                                                                              //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                                              //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                                              //.toString(),
+
+                                                                                              ///this is same device token....
+                                                                                              //value
+                                                                                              //.toString(),
+                                                                                              'notification': {
+                                                                                                'title': 'Ps_Wellness User',
+                                                                                                'body': 'Your request has been Canceled by user.',
+                                                                                                //"sound": "jetsons_doorbell.mp3"
+                                                                                              },
+                                                                                              'android': {
+                                                                                                'notification': {
+                                                                                                  'notification_count': 23,
+                                                                                                },
+                                                                                              },
+                                                                                              // 'data': {
+                                                                                              //   'type': 'cancel_case_doctor',
+                                                                                              //   'id': '12345689'
+                                                                                              // }
+                                                                                            };
+                                                                                            // print("dataccept:${data}");
+
+                                                                                            await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'), body: jsonEncode(data), headers: {
+                                                                                              'Content-Type': 'application/json; charset=UTF-8',
+                                                                                              'Authorization':
+                                                                                                  //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                                                  'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                                            }).then((value) {
+                                                                                              if (kDebugMode) {
+                                                                                                print("princedriver${value.body.toString()}");
+                                                                                              }
+                                                                                            }).onError((error, stackTrace) {
+                                                                                              if (kDebugMode) {
+                                                                                                print(error);
+                                                                                              }
+                                                                                            });
+                                                                                            CallLoader.loader();
+                                                                                            await Future.delayed(Duration(seconds: 1));
+                                                                                            await accountService.getAccountData.then((accountData) {
+                                                                                              Timer(
+                                                                                                const Duration(seconds: 0),
+                                                                                                () {
+                                                                                                  //Get.offAll(UserHomePage());
+                                                                                                  //Get.to((page))
+                                                                                                  ///
+                                                                                                },
+                                                                                              );
+                                                                                            });
+                                                                                          });
                                                                                           //Get.back();
 
                                                                                           //Get.to((page))
@@ -1071,7 +1221,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                   child: TextField(
                                     onChanged: (value) =>
                                         _doctorHistoryController
-                                            .filterDoctor(value),
+                                            .filterDoctor2(value),
                                     autofocus: false,
                                     style: TextStyle(
                                         fontSize: 15.0, color: MyTheme.blueww),
@@ -1185,7 +1335,7 @@ class DoctorHistoryUser extends StatelessWidget {
                               // ),
                             ],
                           ),
-                          _doctorHistoryController.foundDoctor.value.isEmpty
+                          _doctorHistoryController.foundDoctor2.value.isEmpty
                               // Row(
                               //   children: [
                               //     Container(
@@ -1270,12 +1420,12 @@ class DoctorHistoryUser extends StatelessWidget {
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _doctorHistoryController
-                                          .foundDoctor.length,
+                                          .foundDoctor2.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         var itemnumber =
                                             _doctorHistoryController
-                                                .foundDoctor[index]
+                                                .foundDoctor2[index]
                                                 .mobileNumber;
                                         return Padding(
                                           padding: EdgeInsets.symmetric(
@@ -1465,14 +1615,13 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                   .start,
                                                           children: [
                                                             Text(
-                                                              _doctorHistoryController
-                                                                  .foundDoctor[
-                                                                      index]
-                                                                  .doctorName
-                                                                  .toString()
+                                                              "${_doctorHistoryController.getonlinedr!.appointment2![index].doctorName.toString()},",
+
+                                                              // .doctorName
+                                                              //         .toString()
                                                               // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].doctorName.toString()
                                                               //'Dr.Vineet Mishra',
-                                                              ,
+                                                              //  ,
                                                               style: GoogleFonts.raleway(
                                                                   color: Colors
                                                                       .black,
@@ -1484,12 +1633,18 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                       0.039),
                                                             ),
                                                             Text(
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .visible,
                                                               _doctorHistoryController
-                                                                  .getdoctorhospitalmodele!
-                                                                  .appointment![
+                                                                  .foundDoctor2[
                                                                       index]
                                                                   .specialistName
                                                                   .toString(),
+                                                              // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].appointmentDate.toString(),
+                                                              maxLines: 1,
+                                                              textScaleFactor:
+                                                                  1.0,
                                                               //'22:37',
                                                               style: GoogleFonts.raleway(
                                                                   color: Colors
@@ -1513,7 +1668,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                       TextOverflow
                                                                           .visible,
                                                                   _doctorHistoryController
-                                                                      .foundDoctor[
+                                                                      .foundDoctor2[
                                                                           index]
                                                                       .appointmentDate
                                                                       .toString(),
@@ -1547,8 +1702,9 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                   overflow:
                                                                       TextOverflow
                                                                           .visible,
+
                                                                   _doctorHistoryController
-                                                                      .foundDoctor[
+                                                                      .foundDoctor2[
                                                                           index]
                                                                       .slotTime
                                                                       .toString(),
@@ -1583,7 +1739,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                       TextOverflow
                                                                           .visible,
                                                                   _doctorHistoryController
-                                                                      .foundDoctor[
+                                                                      .foundDoctor2[
                                                                           index]
                                                                       .paymentDate
                                                                       .toString(),
@@ -1606,7 +1762,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              "₹ ${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].totalFee.toString()},",
+                                                              "₹ ${_doctorHistoryController.getonlinedr!.appointment2![index].totalFee.toString()},",
                                                               //'Rs.500',
                                                               style: GoogleFonts.raleway(
                                                                   color: Colors
@@ -1620,8 +1776,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               _doctorHistoryController
-                                                                  .getdoctorhospitalmodele!
-                                                                  .appointment![
+                                                                  .getonlinedr!
+                                                                  .appointment2![
                                                                       index]
                                                                   .location
                                                                   .toString(),
@@ -1670,6 +1826,19 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                 Colors.white,
                                                             child: InkWell(
                                                               onTap: () async {
+                                                                _doctorHistoryController
+                                                                    .doctorbookingOnlineApi();
+                                                                _doctorHistoryController
+                                                                    .update();
+                                                                _doctorHistoryController
+                                                                    .onInit();
+                                                                SharedPreferences
+                                                                    prefs =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+                                                                prefs.setString(
+                                                                    "DoctorInvoiceNo",
+                                                                    "${_doctorHistoryController.foundDoctor2[index].invoiceNumber.toString()}");
                                                                 CallLoader
                                                                     .loader();
                                                                 await Future.delayed(
@@ -1781,7 +1950,7 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                           .getInstance();
                                                                   prefs.setString(
                                                                       "DoctorssId",
-                                                                      "${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].id}");
+                                                                      "${_doctorHistoryController.getonlinedr!.appointment2![index].id.toString()}");
                                                                   Get.dialog(
                                                                     AlertDialog(
                                                                       title: const Text(
@@ -1810,25 +1979,98 @@ class DoctorHistoryUser extends StatelessWidget {
                                                                                     color: Colors.red,
                                                                                   ),
                                                                                 ),
-                                                                                onPressed: () => accountService.getAccountData.then((accountData) {
-                                                                                      Timer(
-                                                                                        const Duration(milliseconds: 200),
-                                                                                        () {
-                                                                                          _doctorHistoryController.doctorListHospitalApi();
+                                                                                onPressed: () => accountService.getAccountData.then((accountData) async {
+                                                                                      CallLoader.loader();
+                                                                                      await Timer(
+                                                                                        const Duration(milliseconds: 300),
+                                                                                        () async {
+                                                                                          _doctorHistoryController.doctorbookingOnlineApi();
                                                                                           //  .skillsListApi();
                                                                                           _doctorHistoryController.update();
+                                                                                          _doctorHistoryController.onInit();
 
                                                                                           ///calling delete api...
                                                                                           _doctorHistoryController.deletedoctorhistoryApi();
-                                                                                          Get.to(() => DoctorHistoryUser(
-                                                                                              //  id: "12345689"
-                                                                                              ));
-                                                                                          Get.back();
+                                                                                          // await Get.to(() => DoctorHistoryUser(
+                                                                                          //     //id: "12345689"
+                                                                                          //     )
+                                                                                          // );
+
+                                                                                          ///todo: firebase messages......
+                                                                                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                          prefs.setString("DrDeviceids", "${_doctorHistoryController.foundDoctor2?[index].deviceId}");
+                                                                                          //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
+
+                                                                                          prefs.setString("Druseids", "${_doctorHistoryController.foundDoctor2?[index].id}");
+                                                                                          notificationServices.getDeviceToken().then((value) async {
+                                                                                            var data = {
+                                                                                              ///not same controller
+                                                                                              //this the particular device id.....
+                                                                                              'to':
+                                                                                                  //"df_xO9RNRvicZkE9JxMPV7:APA91bFkZmPaBORZLPUSLNAxN3xDWVbZe60YHzqwAet8GvAh2AqhMRRci0Ia5bYYJHiaU9KGep8uhfnADGl4xDKDnzefJu4nZt5_w9JeMwsTqJnO80osctPN1uvlFAN9hVVpplLZs_Ay",
+                                                                                                  //"fMPtWMb5QUebGlV5QqHGnk:APA91bG8u4GG0JBUhazLdS3QiVMxJ1MEpg_b-1NyVcJaznD3TDJ3q1YChOZtzHL_L_InZrIvawkTRWJQQJE8mmIQSaFzbq-0rMVvRQFd_QV2zB4-tYLXtMroycPZvxTTvjnl9Q5PvsJc",
+                                                                                                  "${_doctorHistoryController.foundDoctor2?[index].deviceId}",
+
+                                                                                              //"${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}",
+
+                                                                                              //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                                              //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                                              //.toString(),
+
+                                                                                              ///this is same device token....
+                                                                                              //value
+                                                                                              //.toString(),
+                                                                                              'notification': {
+                                                                                                'title': 'Ps_Wellness User',
+                                                                                                'body': 'Your request has been Canceled by user.',
+                                                                                                //"sound": "jetsons_doorbell.mp3"
+                                                                                              },
+                                                                                              'android': {
+                                                                                                'notification': {
+                                                                                                  'notification_count': 23,
+                                                                                                },
+                                                                                              },
+                                                                                              // 'data': {
+                                                                                              //   'type': 'cancel_case_doctor',
+                                                                                              //   'id': '12345689'
+                                                                                              // }
+                                                                                            };
+                                                                                            // print("dataccept:${data}");
+
+                                                                                            await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'), body: jsonEncode(data), headers: {
+                                                                                              'Content-Type': 'application/json; charset=UTF-8',
+                                                                                              'Authorization':
+                                                                                                  //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                                                  'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                                            }).then((value) {
+                                                                                              if (kDebugMode) {
+                                                                                                print("princedriver${value.body.toString()}");
+                                                                                              }
+                                                                                            }).onError((error, stackTrace) {
+                                                                                              if (kDebugMode) {
+                                                                                                print(error);
+                                                                                              }
+                                                                                            });
+                                                                                            CallLoader.loader();
+                                                                                            await Future.delayed(Duration(seconds: 1));
+                                                                                            await accountService.getAccountData.then((accountData) {
+                                                                                              Timer(
+                                                                                                const Duration(seconds: 0),
+                                                                                                () {
+                                                                                                  //Get.offAll(UserHomePage());
+                                                                                                  //Get.to((page))
+                                                                                                  ///
+                                                                                                },
+                                                                                              );
+                                                                                            });
+                                                                                          });
+                                                                                          //Get.back();
 
                                                                                           //Get.to((page))
                                                                                           ///
                                                                                         },
                                                                                       );
+                                                                                      CallLoader.hideLoader();
                                                                                     })
                                                                                 //Get.back(),
                                                                                 ),
@@ -1913,8 +2155,8 @@ class DoctorHistoryUser extends StatelessWidget {
                                                           ElevatedButton.icon(
                                                               onPressed: () {
                                                                 _callNumber(_doctorHistoryController
-                                                                    .getdoctorhospitalmodele!
-                                                                    .appointment![
+                                                                    .getonlinedr!
+                                                                    .appointment2![
                                                                         index]
                                                                     .mobileNumber
                                                                     .toString());

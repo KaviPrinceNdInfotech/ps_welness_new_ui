@@ -43,7 +43,6 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_l
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_report_view_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/complaint_controller/complaint_controller.dart';
-import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/controllers/franchies_controller/franchies1_controllers.dart';
 //import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
@@ -211,7 +210,8 @@ class ControllerBinding extends Bindings {
     Get.put(FranchiseCommissionReportController()); //Rahul
     Get.put(AddVehicleController());
     Get.put(Patients_Controller());
-    Get.put(DevicetokenController());
+
+    ///Get.put(DevicetokenController());
     Get.put(Fr_Lab_1_Controller());
     Get.put(FrRwa_1_controller());
     Get.put(Ambulanceget3Controller());
@@ -221,6 +221,7 @@ class ControllerBinding extends Bindings {
     Get.put(SkillsListController());
     Get.put(NurseAppoointmentHistoryControllerss());
     Get.put(Fr_common_Controller());
+    //Get.put(InvoiceController());
 
     /// Get.put(CheckoutMedicineController());
 

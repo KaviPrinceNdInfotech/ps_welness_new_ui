@@ -221,6 +221,9 @@ class SplashScreenViewModel extends GetxController
         () {
           if (accountData == null) {
             Get.to(OnboardingPage());
+
+            ///todo: 2 sep....2023..
+            throw Exception();
           } else {
             switch (accountData.role) {
               case 'patient':
@@ -230,6 +233,9 @@ class SplashScreenViewModel extends GetxController
 
                 /// we can navigate to user page.....................................
                 Get.to(UserHomePage());
+
+                ///todo: through exception....
+                throw Exception();
                 break;
 
               /// we can navigate to franchise page.....................................

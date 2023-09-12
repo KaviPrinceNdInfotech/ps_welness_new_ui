@@ -88,6 +88,7 @@ import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_bannerModel.da
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_order_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payment_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payoutModel.dart';
+import '../../model/9_doctors_model/doctor_homepage_model/doctor_appointment_online.dart';
 import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
 import '../../model/9_doctors_model_RRR/doctor_profile_model.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
@@ -472,6 +473,70 @@ class ApiProvider {
       }
     } catch (error) {
       return;
+    }
+  }
+
+  ///todo: Delete user from nurse appointmrnt ......5 sep 2023....
+  static userAptnrsdeleteApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseesspartId = preferences.getString("NurseesspartId");
+    print("userrrlistssId111: ${NurseesspartId}");
+
+    var url = '${baseUrl}api/PatientApi/CancelAppointment_ByNurse';
+
+    var body = {"Id": "$NurseesspartId", "Pro_Id": userid};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Your Booking deleted", r.body);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete user from dr appointmrnt ......5 sep 2023....
+  static userAptdrdeleteApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrIds = preferences.getString("DrIds");
+    print("userrrlistssId111211: ${DrIds}");
+
+    var url = '${baseUrl}api/PatientApi/CancelAppointment_ByDoctor';
+
+    var body = {"Id": "$DrIds", "Pro_Id": userid};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    print("draptbodywqdwrrwewewe12:${r.body}");
+
+    if (r.statusCode == 200) {
+      Get.snackbar("Your Booking deleted", r.body);
+      print("draptdddd:${url}");
+      print("draptbodywqdwrrwewewe:${r.body}");
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
     }
   }
 
@@ -1119,7 +1184,7 @@ class ApiProvider {
     }
   }
 
-  ///todo doctor appoinment detail......Rahul....
+  ///todo doctor appoinment detail..........
   static DoctorAppoinmentDetail() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -1138,6 +1203,29 @@ class ApiProvider {
       }
     } catch (error) {
       print(":::::::::${error}");
+      return;
+    }
+  }
+
+  ///todo doctor appoinment detail..........
+  static DoctorAppoinmentOnline() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+    //http://test.pswellness.in/api/DoctorApi/GetVirtualAppointmentDetail?Id=242
+    var url = '${baseUrl}api/DoctorApi/GetVirtualAppointmentDetail?Id=$userid';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        var OnlineDoctorApt = onlineDoctorAptFromJson(r.body);
+        print("draptee:${url}");
+        print("draptbodyeeere:${r.body}");
+        // print(
+        //"doctorAppoinmentDetail: ${doctorAppoinmentDetail?.doctorAppoinmentDetail..[0].doctorName}");
+        return OnlineDoctorApt;
+      }
+    } catch (error) {
+      print("::::::::errr:${error}");
       return;
     }
   }
@@ -4116,5 +4204,40 @@ class ApiProvider {
     if (r.statusCode == 200) {
       Get.snackbar("Deleted", "Item Deleted");
     } else {}
+  }
+
+  /// add new vehicle.......franchise...
+
+  static AddnewVehicleApi(
+    var VehicleTypeName,
+    var CategoryName,
+  ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusdoctorr:${userid}');
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
+    var url = baseUrl + 'api/FranchisesApi/AddVehCat_Type';
+    var body = {
+      "VehicleTypeName": "$VehicleTypeName",
+      "CategoryName": "$CategoryName"
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
+
+      ///todo:nursebookingid.........5  june 2023....
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
   }
 }

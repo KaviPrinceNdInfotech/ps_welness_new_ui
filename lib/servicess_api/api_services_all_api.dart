@@ -39,6 +39,7 @@ import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_homepage_mode
 import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_homepage_model/doctor_view_report11_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_lab/model_lab/models_lab/lab_modelss.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/10_lab_module/lab_about_us/lab_about_us_detail.dart';
@@ -53,9 +54,12 @@ import '../model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import '../model/1_user_model/ambulance/driver_list_model.dart';
 import '../model/1_user_model/city_model/city_modelss.dart';
 import '../model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
+import '../model/1_user_model/doctor_appointment_history_model/doctor_onlinebooking_history/online_booking_history.dart';
 import '../model/1_user_model/doctor_appointment_history_model/user_doctor_apointment_history.dart';
 import '../model/1_user_model/doctor_checkout_model/doctor_checkout_modell.dart';
 import '../model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
+import '../model/1_user_model/doctor_user_time_slot_drop/doctor_user_timeslot.dart';
+import '../model/1_user_model/dr_booking_mode_dropdown/dr_booking_mode_drp_dn.dart';
 import '../model/1_user_model/get_department_list_model/department_model.dart';
 import '../model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 import '../model/1_user_model/health_checkup_list/health_checkup_list.dart';
@@ -89,6 +93,10 @@ import '../model/9_prince_doctors_model/doctor_payment_history.dart';
 import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/lab_review_model/lab_view_review_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
+import '../modules_view/1_user_section_views/invoice_views/invoice_doctor/model_dr/models_drr/doctorr_modelss.dart';
+import '../modules_view/1_user_section_views/invoice_views/invoice_medicine/model/models/medicine_modelss.dart';
+//import '../modules_view/1_user_section_views/invoice_views/model/models/medicine_modelss.dart';
+import '../modules_view/1_user_section_views/invoice_views/invoice_nurse/model_nurse/models_nrs/nrs_modelss.dart';
 import '../modules_view/1_user_section_views/nursess/nurse_list_userrrr/nurse_list_user_model.dart';
 import '../modules_view/circular_loader/circular_loaders.dart';
 import '../notificationservice/notification_fb_service.dart';
@@ -137,6 +145,9 @@ class ApiProvider {
   static String DoctorId = ''.toString();
 
   static String NurseId = ''.toString();
+  //Invoice
+
+  static String Invoice = ''.toString();
 
   // static String ImageBase64 =
   //     "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vc3dpcGVyQDgvc3dpcGVyLWJ1bmRsZS5taW4uY3NzIiAvPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1OdW5pdG8rU2Fuczo0MDAsNDAwaSw3MDAsOTAwJmRpc3BsYXk9c3dhcCIgcmVsPSJzdHlsZXNoZWV0Ij4KICA8bWV0YSBodHRwLWVxdWl2PSJYLVVBLUNvbXBhdGlibGUiIGNvbnRlbnQ9IklFPWVkZ2UiPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL3N3aXBlckA4L3N3aXBlci1idW5kbGUubWluLmpzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCIKICAgIGludGVncml0eT0ic2hhMzg0LTFCbUU0a1dCcTc4aVloRmxkdkt1aGZUQVU2YXVVOHRUOTRXckhmdGpEYnJDRVhTVTFvQm9xeWwyUXZaNmpJVzMiIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL3R3aXR0ZXItYm9vdHN0cmFwLzQuMy4xL2Nzcy9ib290c3RyYXAubWluLmNzcyIgcmVsPSJzdHlsZXNoZWV0IiAvPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2NoZWNrb3V0LnJhem9ycGF5LmNvbS92MS9jaGVja291dC5qcyI+PC9zY3JpcHQ+CiAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJpbmRleC5jc3MiIHR5cGU9InRleHQvY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzLwpmb250LWF3ZXNvbWUvNS4xNS4yL2Nzcy9hbGwubWluLmNzcyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9TWF0ZXJpYWwrSWNvbnN8Um9ib3RvOjQwMCw1MDAsNzAwfFNvdXJjZStDb2RlK1BybyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvbWxhdXJzZW4vcmVhY3QtbWRANS4xLjQvdGhlbWVzL3JlYWN0LW1kLnRlYWwtcGluay0yMDAtbGlnaHQubWluLmNzcyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAuYnVuZGxlLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LWthN1NrMEdsbjRnbXR6Mk1sUW5pa1Qxd1hnWXNPZytPTWh1UCtJbFJIOXNFTkJPMExSbjVxKzhuYlRvdjQrMXAiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9AcG9wcGVyanMvY29yZUAyLjEwLjIvZGlzdC91bWQvcG9wcGVyLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LTcrekNOai9JcUo5NXdvMTZvTXRmc0tiWjljY0VoMzFlT3oxSEd5RHVDUTZ3Z255Sk5TWWRyUGEwM3J0UjF6ZEIiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAubWluLmpzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtUUpIdHZHaG1yOVhPSXBJNllWdXRHKzJRT0s5VCtabk40a3pGTjFSdEszekVGRUlzeGhsbVdsNS9ZRVN2cFoxMyIKICAgIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPjwvc2NyaXB0PgoKICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii8vY29kZS5qcXVlcnkuY29tL3VpLzEuMTMuMi90aGVtZXMvYmFzZS9qcXVlcnktdWkuY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9yZXNvdXJjZXMvZGVtb3Mvc3R5bGUuY3NzIj4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vanF1ZXJ5LTMuNi4wLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vdWkvMS4xMy4yL2pxdWVyeS11aS5qcyI+PC9zY3JpcHQ+CgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8zLjYuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KCgoKICA8c2NyaXB0IHNyYz0iLy9jZG4uanNkZWxpdnIubmV0L25wbS9zd2VldGFsZXJ0MkAxMSI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIiA+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvZm9udC1hd2Vzb21lLzUuMTMuMC9jc3MvYWxsLm1pbi5jc3MiIC8+CgoKCiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9hbHBpbmVqcy9hbHBpbmVAdjIueC54L2Rpc3QvYWxwaW5lLm1pbi5qcyIgZGVmZXI+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC40LjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtVmtvbzh4NENHc08zK0hoeHY4VC9RNVBhWHRrS3R1NnVnNVRPZU5WNmdCaUZlV1BHRk45TXVoT2YyM1E5SWZqaCIgY3Jvc3NPcmlnaW49ImFub255bW91cyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4udGFpbHdpbmRjc3MuY29tIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iLy9jZG4uY2tlZGl0b3IuY29tLzQuNi4xL2Jhc2ljL2NrZWRpdG9yLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvanMvYm9vdHN0cmFwLmJ1bmRsZS5taW4uanMiPjwvc2NyaXB0PgogIDxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9ImpzL3NjcmlwdC5qcyI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Ii4vaW1hZ2VzL2xvZ28ucG5nIiBzaXplcz0iOTZweCo5NnB4IiB0eXBlPSJpbWFnZS9wbmciIC8+CiAgPHRpdGxlPkd5cm9zIC0gTGV0J3MgVHVybiB0byBOYXR1cmUgZm9yIEhlYWx0aHkgRnV0dXJlPC90aXRsZT4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtR241Mzg0eHFRMWFvV1hBKzA1OFJYUHhQZzZmeTRJV3ZUTmgwRTI2M1htRmNKbFNBd2lHZ0ZBVy9kQWlTNkpYbSIgY3Jvc3NvcmlnaW49ImFub255bW91cyI+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvanMvYm9vdHN0cmFwLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LUpaUjZTcGVqaDRVMDJkOGpPdDZ2TEVIZmUvSlFHaVJSU1FReFNmRldwaTFNcXVWZEF5alVhcjUrNzZQVkNtWWwiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiIC8+CiAgPG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiMwMDAwMDAiIC8+CiAgPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IldlYiBzaXRlIGNyZWF0ZWQgdXNpbmcgY3JlYXRlLXJlYWN0LWFwcCIgLz4KICA8IS0tIDxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iL2xvZ28xOTIucG5nIiAvPiAtLT4KCiAgPGxpbmsgcmVsPSJtYW5pZmVzdCIgaHJlZj0iL21hbmlmZXN0Lmpzb24iIC8+CgoKICA8IS0tbW9iaWxlIHZpZXcgbGluay0tPgogIDwhLS0galF1ZXJ5IC0tPgoKPCEtLSBGb250IEF3ZXNvbWUgNC0tPgo8bGluayBocmVmPSJodHRwczovL3N0YWNrcGF0aC5ib290c3RyYXBjZG4uY29tL2ZvbnQtYXdlc29tZS80LjcuMC9jc3MvZm9udC1hd2Vzb21lLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCI+Cgo8c2NyaXB0IHNyYz0ianMvc2lkZWJhci1hY2NvcmRpb24uanMiPjwvc2NyaXB0PgoKICA8IS0tbW9iaWxlIC0tPgoKCgogIDwhLS1oZ2ZoZmhnamhnamdoai0tPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8yLjIuNC9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvbW9kZXJuaXpyLzIuOC4zL21vZGVybml6ci5qcyI+PC9zY3JpcHQ+CiAgPHN0eWxlPgogICAgLm5vLWpzICNsb2FkZXIgewogICAgICBkaXNwbGF5OiBub25lOwogICAgfQoKICAgIC5qcyAjbG9hZGVyIHsKICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICAgICAgbGVmdDogMTAwcHg7CiAgICAgIHRvcDogMDsKICAgIH0KCiAgICAuc2UtcHJlLWNvbiB7CiAgICAgIHBvc2l0aW9uOiBmaXhlZDsKICAgICAgbGVmdDogMHB4OwogICAgICB0b3A6IDBweDsKICAgICAgd2lkdGg6IDEwMCU7CiAgICAgIGhlaWdodDogMTAwJTsKICAgICAgei1pbmRleDogOTk5OTsKICAgICAgIGJhY2tncm91bmQ6IHVybCgpIGNlbnRlciBuby1yZXBlYXQgI2ZmZjsgCiAgICAgIGJhY2tncm91bmQtc2l6ZTogMTAwJSAxMDAlOwogICAgfQogIDwvc3R5bGU+CiAgPHNjcmlwdD4kKHdpbmRvdykubG9hZChmdW5jdGlvbiAoKSB7CiAgICAgIC8vIEFuaW1hdGUgbG9hZGVyIG9mZiBzY3JlZW4KICAgICAgJCgiLnNlLXByZS1jb24iKS5mYWRlT3V0KCJzbG93Iik7OwogICAgfSk7PC9zY3JpcHQ+CgoKCgo8L2hlYWQ+Cgo8Ym9keT4KICA8bm9zY3JpcHQ+WW91IG5lZWQgdG8gZW5hYmxlIEphdmFTY3JpcHQgdG8gcnVuIHRoaXMgYXBwLjwvbm9zY3JpcHQ+CgogIDxkaXYgaWQ9InJvb3QiPjwvZGl2PgogIDwhLS0gPGRpdiBjbGFzcz0ic3Bpbm5lci13cmFwcGVyIj4KICAgCiAgICA8ZGl2IGNsYXNzPSJzcGlubmVyIj48L2Rpdj4gLS0+CgogIDxkaXYgY2xhc3M9InNlLXByZS1jb24iPjwvZGl2PgogIDwvZGl2PgogIDxzY3JpcHQ+CiAgICB2YXIgdXJsID0gJ2h0dHBzOi8vd2F0aS1pbnRlZ3JhdGlvbi1zZXJ2aWNlLmNsYXJlLmFpL1Nob3BpZnlXaWRnZXQvc2hvcGlmeVdpZGdldC5qcz80NDAzJzsKICAgIHZhciBzID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CiAgICBzLnR5cGUgPSAndGV4dC9qYXZhc2NyaXB0JzsKICAgIHMuYXN5bmMgPSB0cnVlOwogICAgcy5zcmMgPSB1cmw7CiAgICB2YXIgb3B0aW9ucyA9IHsKICAgICAgImVuYWJsZWQiOiB0cnVlLAogICAgICAiY2hhdEJ1dHRvblNldHRpbmciOiB7CiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjNGRjMjQ3IiwKICAgICAgICAiY3RhVGV4dCI6ICIiLAogICAgICAgICJib3JkZXJSYWRpdXMiOiAiMjUiLAogICAgICAgICJtYXJnaW5MZWZ0IjogIjAiLAogICAgICAgICJtYXJnaW5Cb3R0b20iOiAiNTAiLAogICAgICAgICJtYXJnaW5SaWdodCI6ICI1MCIsCiAgICAgICAgInBvc2l0aW9uIjogInJpZ2h0IgogICAgICB9LAogICAgICAiYnJhbmRTZXR0aW5nIjogewogICAgICAgICJicmFuZE5hbWUiOiAiR3lyb3MiLAogICAgICAgICJicmFuZFN1YlRpdGxlIjogIlR5cGljYWxseSByZXBsaWVzIHdpdGhpbiBhIGRheSIsCiAgICAgICAgImJyYW5kSW1nIjogImh0dHBzOi8vZ3lyb3MuZmFybS9zdGF0aWMvbWVkaWEvbG9nby5mZGRiYjRmNC5wbmciLAogICAgICAgICJ3ZWxjb21lVGV4dCI6ICJIaSB0aGVyZSFcbkhvdyBjYW4gSSBoZWxwIHlvdT8iLAogICAgICAgICJtZXNzYWdlVGV4dCI6ICJIZWxsbywgSSBoYXZlIGEgcXVlc3Rpb24gYWJvdXQge3twYWdlX2xpbmt9fSIsCiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjMGE1ZjU0IiwKICAgICAgICAiY3RhVGV4dCI6ICJTdGFydCBDaGF0IiwKICAgICAgICAiYm9yZGVyUmFkaXVzIjogIjI1IiwKICAgICAgICAiYXV0b1Nob3ciOiBmYWxzZSwKICAgICAgICAicGhvbmVOdW1iZXIiOiAiOTE4OTUwODAwNjMzIgogICAgICB9CiAgICB9OwogICAgcy5vbmxvYWQgPSBmdW5jdGlvbiAoKSB7CiAgICAgIENyZWF0ZVdoYXRzYXBwQ2hhdFdpZGdldChvcHRpb25zKTsKICAgIH07CiAgICB2YXIgeCA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCdzY3JpcHQnKVswXTsKICAgIHgucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUocywgeCk7CiAgPC9zY3JpcHQ+CgogIDxzY3JpcHQ+CiAgICAkKGRvY3VtZW50KS5yZWFkeShmdW5jdGlvbiAoKSB7CiAgICAgIC8vUHJlbG9hZGVyCiAgICAgIHByZWxvYWRlckZhZGVPdXRUaW1lID0gMTAwMDAwOwogICAgICBmdW5jdGlvbiBoaWRlUHJlbG9hZGVyKCkgewogICAgICAgIHZhciBwcmVsb2FkZXIgPSAkKCcuc3Bpbm5lci13cmFwcGVyJyk7CiAgICAgICAgcHJlbG9hZGVyLmZhZGVPdXQocHJlbG9hZGVyRmFkZU91dFRpbWUpOwogICAgICB9CiAgICAgIGhpZGVQcmVsb2FkZXIoKTsKCgogICAgfSk7CiAgPC9zY3JpcHQ+CgoKCiAgPHNjcmlwdD4KICAgICQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uICgpIHsKICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICQoIiNwMyIpLmhpZGUoKTsKICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAkKCIjcDUiKS5oaWRlKCk7CgogICAgICAkKCIjdDEiKS5zaG93KCk7CiAgICAgICQoIi5idXQxIikuY2xpY2soZnVuY3Rpb24gKCkgewogICAgICAgICQoIiNwMSIpLnNob3coKTsKICAgICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICAgJCgiI3AzIikuaGlkZSgpOwogICAgICAgICQoIiNwNCIpLmhpZGUoKTsKICAgICAgICAkKCIjcDUiKS5oaWRlKCk7CiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDIiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLnNob3coKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDMiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5zaG93KCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwoKICAgICAgICAkKCIjdDEiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1IikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDQiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0Iikuc2hvdygpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDUiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CgogICAgICAgICQoIiN0MSIpLmhpZGUoKTsKICAgICAgICAkKCIjcDQiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1Iikuc2hvdygpOwogICAgICB9KTsKICAgIH0pOwogIDwvc2NyaXB0Pgo8c2NyaXB0IHNyYz0iL3N0YXRpYy9qcy9idW5kbGUuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzLzIuY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzL21haW4uY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvbWFpbi4wZDViNDIyYjZhMTg5YzM0OTAzZi5ob3QtdXBkYXRlLmpzIj48L3NjcmlwdD48L2JvZHk+Cgo8L2h0bWw+"
@@ -599,7 +610,7 @@ class ApiProvider {
     print(r.body);
     if (r.statusCode == 200) {
       //CallLoader.loader();
-      await Future.delayed(Duration(milliseconds: 1200));
+      await Future.delayed(Duration(milliseconds: 500));
       //CallLoader.hideLoader();
       var prefs = GetStorage();
 
@@ -614,30 +625,39 @@ class ApiProvider {
             duration: (Duration(seconds: 3)));
         CallLoader.hideLoader();
       } else {
+        //CallLoader.hideLoader();
+
+        //await CallLoader.loader();
+
         Get.snackbar('Sucess', '${json.decode(r.body)['Message']}',
             snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.green.shade400,
             colorText: Colors.white,
-            duration: (Duration(seconds: 1)));
-        //CallLoader.hideLoader();
-        _getGeoLocationPosition();
+            duration: (Duration(seconds: 3)));
+
+        ///
+        await CallLoader.loader();
 
         ///from here we have call devide id and token....
         ///
-        await Future.delayed(Duration(milliseconds: 900));
+        await Future.delayed(Duration(milliseconds: 100));
+
+        ///todo: accept location permission....
+
+        await _getGeoLocationPosition();
 
         ///indirect___use of user ----api......28_august...2023
-        UserdevicetokenApi();
+        /// UserdevicetokenApi();
 
         ///indirect___use of driver ----api......28_august...2023
-        DriverdevicetokenApi();
+        /// DriverdevicetokenApi();
 
         ///indirect___use of doctor ----api......28_august...2023
-        DoctordevicetokenApi();
+        ///DoctordevicetokenApi();
 
         ///indirect___use of nurse ----api......28_august...2023
 
-        NursedevicetokenApi();
+        ///NursedevicetokenApi();
 
         print('princee notificationdsfvdsvdsv');
 
@@ -771,7 +791,7 @@ class ApiProvider {
       ///
       return r;
     } else if (r.statusCode == 401) {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 3));
       Get.snackbar('Error', r.body);
       return r;
       //Get.snackbar('message', r.body);
@@ -825,7 +845,7 @@ class ApiProvider {
       //DriverId
       var body = {
         "UserId": "${PatientRegNo}",
-        "DeviceId": value.toString(),
+        "DeviceId": "${value.toString()}",
       };
       print("userrrtokenupdateuser${body}");
       http.Response r = await http.post(
@@ -2562,6 +2582,42 @@ class ApiProvider {
     }
   }
 
+  ///time slots Api get...........................6 sep 2023.....slot........
+
+  static Future<List<TimeSlotDoctor>?> gettimeslotdoctorApi() async {
+    var url = "http://test.pswellness.in/api/DoctorApi/Doctor_TimeSlot";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var timeslotData = timeslotDoctorModelFromJson(r.body);
+        return timeslotData.timeSlotdoctor;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///doctor mode Api get...........................6 sep 2023.....slot........
+
+  static getmodeofdoctorApi() async {
+    var url = "http://test.pswellness.in/api/DoctorApi/BookingMode";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var modeData = doctorbookingModeFromJson(r.body);
+        return modeData.bookingMode;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
   ///todo: lab booking 2 api........27 april 2023...
 
   static Labbooking2Api(
@@ -2628,6 +2684,7 @@ class ApiProvider {
     var Doctor_Id,
     var Slot_id,
     var AppointmentDate,
+    var BookingMode_Id,
   ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var DoctorListId = preferences.getString("DoctorListId");
@@ -2639,7 +2696,9 @@ class ApiProvider {
       "Doctor_Id": "$DoctorListId",
       "Slot_id": Slot_id,
       "AppointmentDate": AppointmentDate,
+      "BookingMode_Id": BookingMode_Id,
     };
+
     print(body);
     http.Response r = await http.post(
       Uri.parse(url), body: body,
@@ -4730,6 +4789,33 @@ class ApiProvider {
     }
   }
 
+  ///online_dr_booking_by_user..........
+  ///
+  static userdoctorOnlineApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    //OnlineDrHistory onlineDrHistoryFromJson
+    print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
+    print(userid);
+    var url =
+        "http://test.pswellness.in/api/PatientApi/DoctorVirtualAptByPatient?PatientId=$userid";
+    // var url = "http://test.pswellness.in/api/PatientApi/ShowAppointMent?PatientId=137";
+    //var url = baseUrl + "api/PatientApi/ShowAppointMent?PatientId=137";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("doctoruserrronline: ${url}");
+      if (r.statusCode == 200) {
+        OnlineDrHistory? userdoctorappointmentonline =
+            onlineDrHistoryFromJson(r.body);
+        return userdoctorappointmentonline;
+      }
+    } catch (error) {
+      print("some errror ");
+      return;
+    }
+  }
+
   ///todo: lab payment history..........by lab Id.......11 may 2023...prince..
 
   static LabpaymenthistoryApi() async {
@@ -5964,13 +6050,16 @@ class ApiProvider {
     //doctor fees.....
     var drivertotalamount = preferences.getString("drivertotalamount");
     print("drivertotalamount: ${drivertotalamount}");
+    var ambulanceFee = preferences.getString("ambulanceFee");
+    print("ambulanceFee: ${drivertotalamount}");
+    // ambulanceFee
 
     //Labfeess......
 
     var body = {
       "PatientId": userid,
       "Driver_Id": "$driverlistssId",
-      "Amount": "$drivertotalamount",
+      "Amount": "$ambulanceFee",
     };
     print("ambulanceonline444:${body}");
 
@@ -5997,7 +6086,7 @@ class ApiProvider {
   static _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 100));
     await Get.dialog(
       // bool barrierDismissible = true
 
@@ -6098,6 +6187,167 @@ class ApiProvider {
   //     return;
   //   }
   // }
+
+  ///mredicine:invoice.................................................
+  ///pdf invoice medicine....
+
+  static invoiceMedicineApi() async {
+    //MedicineInvoiceNo
+    var prefs = GetStorage();
+    var invoiceget = prefs.read("prince").toString();
+    print('mdsjjjjhdgl:${invoiceget}');
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var MedicineInvoiceNo = preferences.getString("MedicineInvoiceNo");
+    print("MedicineInvoiceNo: ${MedicineInvoiceNo}");
+    //var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+    var url =
+        '${baseUrl}api/PatientMedicine/MedicineInvoice/{Invoice}?Invoice=$MedicineInvoiceNo';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("MedicineInvoiceNo: $url");
+
+      if (r.statusCode == 200) {
+        MedicineInvoiceModelpdf invoiceproductmedicinelist =
+            medicineInvoiceModelpdfFromJson(r.body);
+        print(
+            "invoiceget: ${invoiceproductmedicinelist.invoiceNumber.toString()}");
+
+        prefs.write(
+            'invoiceget', invoiceproductmedicinelist.invoiceNumber.toString());
+        print(
+            "invoiceget: ${invoiceproductmedicinelist.invoiceNumber.toString()}");
+
+        // print('mdsjjdgl:${invoiceget}');
+        //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+        return invoiceproductmedicinelist;
+      }
+    } catch (error) {
+      print("bduegbfff: ${error}");
+      return;
+    }
+  }
+
+  ///pdf invoice lab....
+
+  static invoiceLabApi() async {
+    //MedicineInvoiceNo
+    var prefs = GetStorage();
+    var invoiceget = prefs.read("prince").toString();
+    print('mdsjjjjhdgl:${invoiceget}');
+
+    ///LabInvoiceNo
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var LabInvoiceNo = preferences.getString("LabInvoiceNo");
+    print("LabInvoiceNo: ${LabInvoiceNo}");
+    //var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+    var url = '${baseUrl}api/LabApi/LabInvoice/{Invoice}?Invoice=$LabInvoiceNo';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("MedicineInvoiceNo: $url");
+
+      if (r.statusCode == 200) {
+        LabInvoiceModelpdf invoicelabinvoicelist =
+            labInvoiceModelpdfFromJson(r.body);
+        print("invoiceget: ${invoicelabinvoicelist.invoiceNumber.toString()}");
+
+        prefs.write(
+            'invoiceget', invoicelabinvoicelist.invoiceNumber.toString());
+        print("invoiceget: ${invoicelabinvoicelist.invoiceNumber.toString()}");
+
+        // print('mdsjjdgl:${invoiceget}');
+        //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+        return invoicelabinvoicelist;
+      }
+    } catch (error) {
+      print("bduegbfff: ${error}");
+      return;
+    }
+  }
+
+  //drInvoiceModelpdfFromJson
+  ///pdf invoice doctor....
+
+  static invoiceDrApi() async {
+    //MedicineInvoiceNo
+    var prefs = GetStorage();
+    var invoiceget = prefs.read("prince").toString();
+    print('mdsjjjjhdgl:${invoiceget}');
+
+    ///drInvoiceNo
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorInvoiceNo = preferences.getString("DoctorInvoiceNo");
+    print("DoctorInvoiceNo: ${DoctorInvoiceNo}");
+    //var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+    var url =
+        '${baseUrl}api/DoctorApi/DoctorInvoice/{Invoice}?Invoice=$DoctorInvoiceNo';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("MedicineInvoiceNo: $url");
+
+      if (r.statusCode == 200) {
+        DrInvoiceModelpdf invoicedrinvoicelist =
+            drInvoiceModelpdfFromJson(r.body);
+        print("invoiceget: ${invoicedrinvoicelist.invoiceNumber.toString()}");
+        prefs.write(
+            'invoiceget', invoicedrinvoicelist.invoiceNumber.toString());
+        print("invoiceget: ${invoicedrinvoicelist.invoiceNumber.toString()}");
+
+        // print('mdsjjdgl:${invoiceget}');
+        //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+        return invoicedrinvoicelist;
+      }
+    } catch (error) {
+      print("bduegbfff: ${error}");
+      return;
+    }
+  }
+
+  ///pdf invoice nurse........
+
+  static invoiceNrsApi() async {
+    //MedicineInvoiceNo
+    var prefs = GetStorage();
+    var invoiceget = prefs.read("prince").toString();
+    print('mdsjjjjhdgl:${invoiceget}');
+
+    ///NrsInvoiceNo
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseInvoiceNo = preferences.getString("NurseInvoiceNo");
+    print("NurseInvoiceNo: ${NurseInvoiceNo}");
+    //var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+    var url =
+        '${baseUrl}api/NurseAPI/NurseInvoice/{Invoice}?Invoice=$NurseInvoiceNo';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("MedicineInvoiceNowewe: $url");
+
+      if (r.statusCode == 200) {
+        NurseModelpdf invoicenrsinvoicelist = nurseModelpdfFromJson(r.body);
+        print(
+            "invoicegetwdwd: ${invoicenrsinvoicelist.invoiceNumber.toString()}");
+
+        prefs.write(
+            'invoiceget', invoicenrsinvoicelist.invoiceNumber.toString());
+        print(
+            "invoicegetsxsa: ${invoicenrsinvoicelist.invoiceNumber.toString()}");
+
+        // print('mdsjjdgl:${invoiceget}');
+        //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+        return invoicenrsinvoicelist;
+      }
+    } catch (error) {
+      print("bduegbfff: ${error}");
+      return;
+    }
+  }
 }
 
 //$nurseLocationId
