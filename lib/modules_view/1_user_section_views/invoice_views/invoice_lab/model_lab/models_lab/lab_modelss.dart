@@ -21,6 +21,7 @@ class LabInvoiceModelpdf {
   String? orderId;
   DateTime? orderDate;
   num? gst;
+  num? gstAmount;
   num? grandTotal;
   num? finalAmount;
   num? status;
@@ -37,6 +38,7 @@ class LabInvoiceModelpdf {
     this.orderId,
     this.orderDate,
     this.gst,
+    this.gstAmount,
     this.grandTotal,
     this.finalAmount,
     this.status,
@@ -60,7 +62,8 @@ class LabInvoiceModelpdf {
             ? null
             : DateTime.parse(json["OrderDate"]),
         gst: json["GST"],
-        grandTotal: json["GrandTotal"]?.toDouble(),
+        gstAmount: json["GSTAmount"],
+        grandTotal: json["GrandTotal"],
         finalAmount: json["finalAmount"],
         status: json["Status"],
         message: json["Message"],
@@ -79,6 +82,7 @@ class LabInvoiceModelpdf {
         "OrderId": orderId,
         "OrderDate": orderDate?.toIso8601String(),
         "GST": gst,
+        "GSTAmount": gstAmount,
         "GrandTotal": grandTotal,
         "finalAmount": finalAmount,
         "Status": status,

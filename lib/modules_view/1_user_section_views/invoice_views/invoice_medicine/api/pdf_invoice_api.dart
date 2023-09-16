@@ -200,7 +200,10 @@ class PdfInvoiceApi {
       //final total = item.unitPrice * item.quantity * (1 + item.vat);
 
       return [
-        item.description,
+        // Column(
+        //   children: items.map((e) => Text(_invoiceController.getmedicineinvoice!.invoiceData![0].medicineName.toString())).toList(),
+        // ),
+        '${item.description}',
         // Utils.formatDate(item.date),
         '${item.quantity}',
         //'${_invoiceController.getinvoidelist!.result![0].totalItem.toString()}',
@@ -287,7 +290,6 @@ class PdfInvoiceApi {
                   ),
                   value:
                       "${_invoiceController.getmedicineinvoice?.grandTotal?.toDouble()}",
-
                   //value: Utils.formatPrice(total),
                   unite: true,
                 ),
@@ -309,8 +311,7 @@ class PdfInvoiceApi {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(
-              title: 'Return Policy: ', value: invoice.supplier.returnPolicy),
+          buildSimpleText(title: 'Note: ', value: invoice.supplier.note),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(
               title: 'Regd. office: ', value: invoice.supplier.office),

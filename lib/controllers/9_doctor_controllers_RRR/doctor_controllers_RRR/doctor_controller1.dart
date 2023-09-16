@@ -53,7 +53,8 @@ class Doctor_1_Controller extends GetxController {
     print(specialist);
   }
 
-  TextEditingController? idController,
+  TextEditingController? panController,
+      idController,
       doctorNameController,
       emailIdController,
       passwordController,
@@ -77,6 +78,7 @@ class Doctor_1_Controller extends GetxController {
       licenceBase64Controller,
       experienceController;
 
+  var pan = '';
   var Id = '';
   var DoctorName = '';
   var EmailId = '';
@@ -131,6 +133,7 @@ class Doctor_1_Controller extends GetxController {
     final licenceImageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.signDoctorUpApi(
+      panController?.text,
       doctorNameController?.text,
       emailIdController?.text,
       passwordController?.text,
@@ -192,6 +195,7 @@ class Doctor_1_Controller extends GetxController {
         getspecialistByDeptID("${p0.id}");
       }
     });
+    panController = TextEditingController();
     idController = TextEditingController(text: '143');
     doctorNameController = TextEditingController();
     emailIdController = TextEditingController();
@@ -247,6 +251,16 @@ class Doctor_1_Controller extends GetxController {
     cityMaster_IdController?.dispose();
     endTimeController?.dispose();
     licenceBase64Controller?.dispose();
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid Pan number should be of 10 digits';
+    }
+    return null;
   }
 
   String? validName(String value) {

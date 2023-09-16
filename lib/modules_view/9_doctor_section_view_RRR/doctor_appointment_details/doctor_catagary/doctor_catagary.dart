@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/prescriptions_pages/prescriptions_page.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
@@ -861,7 +862,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                 child: Material(
                                                   elevation: 5,
                                                   child: Container(
-                                                    height: size.height * 0.16,
+                                                    height: size.height * 0.19,
                                                     decoration: BoxDecoration(
                                                       color: MyTheme.white,
                                                     ),
@@ -881,10 +882,10 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                             child: Container(
                                                               width:
                                                                   size.width *
-                                                                      0.25,
+                                                                      0.27,
                                                               height:
                                                                   size.height *
-                                                                      0.11,
+                                                                      0.16,
                                                               decoration:
                                                                   BoxDecoration(
                                                                       color: Colors
@@ -944,6 +945,41 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                       .shade300,
                                                                 ),
                                                               ),
+                                                              SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.03,
+                                                                width:
+                                                                    size.width *
+                                                                        0.3,
+                                                                child: Center(
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .place,
+                                                                        color: Colors
+                                                                            .green,
+                                                                        size: size.height *
+                                                                            0.022,
+                                                                      ),
+                                                                      Text(
+                                                                        "${_doctorHomepageController.founddoctoraptProducts2?[index].location}",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              size.height * 0.014,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          color: Colors
+                                                                              .grey
+                                                                              .shade600,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
                                                               //Spacer(),
                                                               SizedBox(
                                                                 width:
@@ -979,37 +1015,181 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                               MainAxisAlignment
                                                                   .spaceBetween,
                                                           children: [
-                                                            SizedBox(
-                                                              height:
-                                                                  size.height *
-                                                                      0.03,
-                                                              width:
-                                                                  size.width *
-                                                                      0.3,
-                                                              child: Center(
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          size.width *
+                                                                              0.01),
+                                                              child:
+                                                                  ElevatedButton(
+                                                                onPressed:
+                                                                    () async {
+                                                                  SharedPreferences
+                                                                      prefs =
+                                                                      await SharedPreferences
+                                                                          .getInstance();
+                                                                  prefs
+                                                                      .setString(
+                                                                    "patientIds",
+                                                                    "${_doctorHomepageController.founddoctoraptProducts2?[index].patientId}"
+                                                                        .toString(),
+                                                                    // "${_nurseHistoryController.foundNurse[index].id.toString()}"
+                                                                  );
+                                                                  print(
+                                                                      "patientooodd${_doctorHomepageController.founddoctoraptProducts2?[index].patientId}");
+                                                                  Get.dialog(
+                                                                    Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.symmetric(horizontal: 30),
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                const BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: BorderRadius.all(
+                                                                                Radius.circular(20),
+                                                                              ),
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(20.0),
+                                                                              child: Material(
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    const SizedBox(height: 10),
+                                                                                    Text(
+                                                                                      "You want give prescription ?",
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 16,
+                                                                                        color: Colors.cyan.shade700,
+                                                                                        fontWeight: FontWeight.w800,
+                                                                                      ),
+                                                                                    ),
+                                                                                    const SizedBox(height: 15),
+                                                                                    const Text(
+                                                                                      "You can give your prescriptions and suggest your medicine.",
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                    const SizedBox(height: 20),
+                                                                                    //Buttons
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        Expanded(
+                                                                                          child: ElevatedButton(
+                                                                                            style: ElevatedButton.styleFrom(
+                                                                                              minimumSize: const Size(0, 45),
+                                                                                              primary: Colors.red,
+                                                                                              onPrimary: const Color(0xFFFFFFFF),
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                              ),
+                                                                                            ),
+                                                                                            onPressed: () {
+                                                                                              Get.back();
+                                                                                            },
+                                                                                            child: const Text(
+                                                                                              'NO',
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        const SizedBox(width: 10),
+                                                                                        Expanded(
+                                                                                          child: ElevatedButton(
+                                                                                            style: ElevatedButton.styleFrom(
+                                                                                              minimumSize: const Size(0, 45),
+                                                                                              primary: Colors.green.shade800,
+                                                                                              onPrimary: const Color(0xFFFFFFFF),
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                              ),
+                                                                                            ),
+                                                                                            onPressed: () async {
+                                                                                              // await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
+                                                                                              Get.back();
+                                                                                              Get.to(PrescriptionsDoctor());
+                                                                                            },
+                                                                                            child: const Text(
+                                                                                              'Yes',
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                  //print(
+                                                                  //"mobilee:${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}");
+
+                                                                  //   Get.to(
+                                                                  //       UserVideoAudio());
+                                                                },
+                                                                style:
+                                                                    ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty.all(
+                                                                          Colors
+                                                                              .black38),
+
+                                                                  shadowColor:
+                                                                      MaterialStateProperty.all(
+                                                                          Colors
+                                                                              .black),
+
+                                                                  elevation:
+                                                                      MaterialStateProperty
+                                                                          .all(
+                                                                              12),
+
+                                                                  minimumSize:
+                                                                      MaterialStateProperty.all(
+                                                                          const Size(
+                                                                              50,
+                                                                              30)),
+
+                                                                  // fixedSize:
+                                                                  //     MaterialStateProperty
+                                                                  //         .all(
+                                                                  //             const Size(
+                                                                  //                 70,
+                                                                  //                 20)),
+                                                                  shape:
+                                                                      MaterialStateProperty
+                                                                          .all(
+                                                                    RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              30),
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                                 child: Row(
                                                                   children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .place,
-                                                                      color: Colors
-                                                                          .green,
-                                                                      size: size
-                                                                              .height *
-                                                                          0.022,
-                                                                    ),
                                                                     Text(
-                                                                      "${_doctorHomepageController.founddoctoraptProducts2?[index].location}",
+                                                                      'Done',
                                                                       style:
                                                                           TextStyle(
                                                                         fontSize:
-                                                                            size.height *
-                                                                                0.014,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .shade600,
+                                                                            10,
                                                                       ),
                                                                     ),
                                                                   ],
@@ -1043,16 +1223,6 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                         .toString(),
                                                                   });
 
-                                                                  // prefs.setString(
-                                                                  //   "NurseesspartId",
-                                                                  //   "${item?[index]?.id}"
-                                                                  //       .toString(),
-                                                                  //   // "${_nurseHistoryController.foundNurse[index].id.toString()}"
-                                                                  // );
-                                                                  // print({
-                                                                  //   "myyyyynurse22${item?[index]?.id}"
-                                                                  //       .toString(),
-                                                                  // });
                                                                   Get.dialog(
                                                                     Column(
                                                                       mainAxisAlignment:
@@ -1140,35 +1310,6 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                               //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
 
                                                                                               prefs.setString("doctorrejectlistid", "${_doctorHomepageController.founddoctoraptProducts2?[index].id}");
-                                                                                              // SharedPreferences
-                                                                                              // prefs =
-                                                                                              // await SharedPreferences
-                                                                                              //     .getInstance();
-                                                                                              // prefs.setString(
-                                                                                              //     "driverlistssId",
-                                                                                              //     "${widget.driverlist?.message?[index].driverId.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "lng1",
-                                                                                              //     "${widget.driverlist?.startLong.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "lat1",
-                                                                                              //     "${widget.driverlist?.startLat.toString()}");
-                                                                                              //
-                                                                                              // prefs.setString(
-                                                                                              //     "lng2",
-                                                                                              //     "${widget.driverlist?.endLong.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "lat2",
-                                                                                              //     "${widget.driverlist?.endLat.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "ambulance1",
-                                                                                              //     "${widget.driverlist?.ambulanceTypeId.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "vehicle1",
-                                                                                              //     "${widget.driverlist?.vehicleTypeId.toString()}");
-
-                                                                                              // _ambulancegetController
-                                                                                              // .postAmbulancerequestApi2();
 
                                                                                               _doctorHomepageController.doctorAppoinmentDetail();
                                                                                               _doctorHomepageController.doctorAppoinmentOnline();
@@ -1320,9 +1461,107 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                               child:
                                                                   ElevatedButton(
                                                                 onPressed: () {
-                                                                  _callNumber(
-                                                                      "${_doctorHomepageController.founddoctoraptProducts?[index].mobileNumber}"
-                                                                          .toString());
+                                                                  Get.dialog(
+                                                                    Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.symmetric(horizontal: 40),
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                const BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: BorderRadius.all(
+                                                                                Radius.circular(20),
+                                                                              ),
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(20.0),
+                                                                              child: Material(
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    const SizedBox(height: 10),
+                                                                                    Text(
+                                                                                      "You Want to call doctor now ?",
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 16,
+                                                                                        color: Colors.cyan.shade700,
+                                                                                        fontWeight: FontWeight.w800,
+                                                                                      ),
+                                                                                    ),
+                                                                                    const SizedBox(height: 15),
+                                                                                    const Text(
+                                                                                      "If you will call then this appointment will be disappear in user panel.",
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                    const SizedBox(height: 20),
+                                                                                    //Buttons
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        Expanded(
+                                                                                          child: ElevatedButton(
+                                                                                            style: ElevatedButton.styleFrom(
+                                                                                              minimumSize: const Size(0, 45),
+                                                                                              primary: Colors.red,
+                                                                                              onPrimary: const Color(0xFFFFFFFF),
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                              ),
+                                                                                            ),
+                                                                                            onPressed: () {
+                                                                                              Get.back();
+                                                                                            },
+                                                                                            child: const Text(
+                                                                                              'NO',
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        const SizedBox(width: 10),
+                                                                                        Expanded(
+                                                                                          child: ElevatedButton(
+                                                                                            style: ElevatedButton.styleFrom(
+                                                                                              minimumSize: const Size(0, 45),
+                                                                                              primary: Colors.green.shade800,
+                                                                                              onPrimary: const Color(0xFFFFFFFF),
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                              ),
+                                                                                            ),
+                                                                                            onPressed: () async {
+                                                                                              await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
+                                                                                              Get.back();
+                                                                                            },
+                                                                                            child: const Text(
+                                                                                              'Call Now',
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                  print(
+                                                                      "mobilee:${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}");
+
                                                                   //   Get.to(
                                                                   //       UserVideoAudio());
                                                                 },

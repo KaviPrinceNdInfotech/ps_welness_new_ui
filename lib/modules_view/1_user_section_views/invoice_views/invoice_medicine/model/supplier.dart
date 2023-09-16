@@ -4,7 +4,7 @@ class Supplier {
   final String address;
   final String mobile;
   final String pin;
-  final String returnPolicy;
+  final String note;
   final String office;
 
   const Supplier({
@@ -13,7 +13,7 @@ class Supplier {
     required this.address,
     required this.mobile,
     required this.pin,
-    required this.returnPolicy,
+    required this.note,
     required this.office,
   });
 }

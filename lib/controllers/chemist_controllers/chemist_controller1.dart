@@ -161,7 +161,8 @@ class Chemist_1_Controller extends GetxController {
     }
   }
 
-  TextEditingController? ChemistName,
+  TextEditingController? panController,
+      ChemistName,
       ShopName,
       EmailId,
       Password,
@@ -177,6 +178,7 @@ class Chemist_1_Controller extends GetxController {
       LicenseValidity,
       PinCode;
 
+  var pan = '';
   var Fee = '';
   var PhoneNumber = '';
   var StartTime = '';
@@ -211,6 +213,7 @@ class Chemist_1_Controller extends GetxController {
         base64Encode(await File(selectedPath.value).readAsBytes());
     print("imagebaseeee644:${imageAsBase64}");
     http.Response r = await ApiProvider.ChemistSignupApi(
+        panController?.text,
         ChemistName?.text,
         ShopName?.text,
         EmailId?.text,
@@ -285,6 +288,7 @@ class Chemist_1_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
+    panController = TextEditingController();
     ChemistName = TextEditingController(text: '');
     ShopName = TextEditingController(text: '');
     EmailId = TextEditingController(text: '');
@@ -412,6 +416,16 @@ class Chemist_1_Controller extends GetxController {
     }
     if (value.length != 6) {
       return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan should be of 10 digits';
     }
     return null;
   }

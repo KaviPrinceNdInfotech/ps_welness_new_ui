@@ -113,7 +113,8 @@ class Lab_1_Controller extends GetxController {
     }
   }
 
-  TextEditingController? nameController,
+  TextEditingController? panController,
+      nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -145,6 +146,7 @@ class Lab_1_Controller extends GetxController {
     print("imagebaseeee64411122:${imageAsBase641}");
 
     http.Response r = await ApiProvider.LabSignupApi(
+        panController?.text,
         nameController?.text,
         emailController?.text,
         passwordController?.text,
@@ -193,6 +195,7 @@ class Lab_1_Controller extends GetxController {
     } else {}
   }
 
+  var pan = '';
   var labName = '';
   var emailId = '';
   var password = '';
@@ -224,6 +227,7 @@ class Lab_1_Controller extends GetxController {
     //states.refresh();
     super.onInit();
 
+    panController = TextEditingController();
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -343,6 +347,16 @@ class Lab_1_Controller extends GetxController {
     }
     if (value.length != 6) {
       return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid Pan number should be of 10 digits';
     }
     return null;
   }

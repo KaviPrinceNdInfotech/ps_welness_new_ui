@@ -139,9 +139,9 @@ class PdfInvoiceApi {
   static Widget buildInvoiceInfo(InvoiceInfo info) {
     // final paymentTerms = '${info.orderDate.difference(info.invoiceDate).inDays} days';
     final titles = <String>[
-      'Order Date: ',
+      'Booking Date: ',
       'Invoice Date: ',
-      'OrderStatus: ',
+      // 'OrderStatus: ',
       'PaymentStatus: ',
     ];
     final data = <String>[
@@ -170,8 +170,8 @@ class PdfInvoiceApi {
           Text(supplier.email, style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(supplier.address, style: TextStyle(fontWeight: FontWeight.bold)),
-          SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.mobile, style: TextStyle(fontWeight: FontWeight.bold)),
+          //SizedBox(height: 1 * PdfPageFormat.mm),
+          // Text(supplier.mobile, style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(supplier.pin, style: TextStyle(fontWeight: FontWeight.bold)),
         ],
@@ -192,10 +192,10 @@ class PdfInvoiceApi {
 
   static Widget buildInvoice(Invoice invoice) {
     final headers = [
-      'Description',
+      'Name',
       // 'Date',
-      'Quantity',
-      'Unit Price',
+      //'Quantity',
+      'Fees',
       'GST',
       'Total'
     ];
@@ -205,7 +205,7 @@ class PdfInvoiceApi {
       return [
         item.description,
         // Utils.formatDate(item.date),
-        '${item.quantity}',
+        // '${item.quantity}',
         //'${_invoiceController.getinvoidelist!.result![0].totalItem.toString()}',
         '${item.unitPrice}',
         '${item.vat}%',
@@ -271,7 +271,7 @@ class PdfInvoiceApi {
                   title: 'Gst:',
                   //'${_invoiceController.getmedicineinvoice?.gst} %',
                   value:
-                      "${_invoicelabController.getlabinvoice?.gst?.toDouble()}",
+                      "${_invoicelabController.getlabinvoice?.gstAmount?.toDouble()}",
                   unite: true,
                 ),
                 // buildText(
@@ -313,11 +313,10 @@ class PdfInvoiceApi {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: 'Return Policy: ',
-              value: invoice.supplierlab.returnPolicy),
+              title: 'Note: ', value: invoice.supplierlab.cancellationPolicy),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(
-              title: 'Regd. office PsDr: ', value: invoice.supplierlab.office),
+              title: 'Reg Office: ', value: invoice.supplierlab.officelab),
         ],
       );
 

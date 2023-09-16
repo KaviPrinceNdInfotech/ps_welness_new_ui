@@ -173,7 +173,8 @@ class Nurses_22_Controller extends GetxController {
     print(nurse);
   }
 
-  TextEditingController? NurseType_IdController,
+  TextEditingController? panController,
+      NurseType_IdController,
       CertificateNumberController,
       CityNameController,
       PinCodeController,
@@ -196,6 +197,7 @@ class Nurses_22_Controller extends GetxController {
       CertificateImageController,
       experienceController;
 
+  var pan = '';
   var Id = '';
   var Name = '';
   var EmailId = '';
@@ -242,6 +244,7 @@ class Nurses_22_Controller extends GetxController {
     //     base64Encode(await File(selectedPath4.value).readAsBytes());
     // print("imagebaseeee6444555:${imageAsBase644}");
     http.Response r = await ApiProvider.NurseSignupApi(
+      panController?.text,
       NurseNameController?.text,
       EmailIdController?.text,
       PasswordController?.text,
@@ -304,6 +307,7 @@ class Nurses_22_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
+    panController = TextEditingController();
     experienceController = TextEditingController();
     NurseType_IdController = TextEditingController();
     CertificateNumberController = TextEditingController();
@@ -389,6 +393,16 @@ class Nurses_22_Controller extends GetxController {
     }
     if (value.length != 10) {
       return '              A valid phone number should be of 10 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

@@ -84,30 +84,28 @@ class PdfPageNurse extends StatelessWidget {
                           ///
                           final invoice = InvoiceNrs(
                             suppliernrs: SupplierNrs(
-                              name:
-                                  "${_invoicenrsController.getnurseinvoice!.name.toString()}",
-                              // name: 'N S Bhatt',
-                              //"${_invoiceController.getinvoidelist?.name.toString()}",
-                              email:
-                                  "${_invoicenrsController.getnurseinvoice!.email.toString()}",
-                              //"${_invoiceController.getinvoidelist?.email.toString()}",
-                              address:
-                                  "${_invoicenrsController.getnurseinvoice!.address.toString()}",
-                              //"${_invoiceController.getinvoidelist?.address.toString()}",
-                              mobile:
-                                  "Mobile:${_invoicenrsController.getnurseinvoice!.mobileNo.toString()}",
-                              // "${_invoiceController.getinvoidelist?.mobile.toString()}",
-                              pin:
-                                  "Pin:${_invoicenrsController.getnurseinvoice!.pinCode.toString()}",
-                              // "${_invoiceController.getinvoidelist?.pinCode.toString()}",
-                              returnPolicy:
-                                  'If the item is defective or not as described,you may return it during delivery directly or you may request for'
-                                  'return within 10 days of delivery for items that are defective or are different from what you ordered.'
-                                  ' items must be complete, free from damages and for items returned for being different from what you Ps Lab'
-                                  'ordred, they must be unopened as well.',
-                              office:
-                                  "PS Wellness,3nd floor,plot No. 82,Noida,UttarPradesh",
-                            ),
+                                name:
+                                    "${_invoicenrsController.getnurseinvoice!.name.toString()}",
+                                // name: 'N S Bhatt',
+                                //"${_invoiceController.getinvoidelist?.name.toString()}",
+                                email:
+                                    "${_invoicenrsController.getnurseinvoice!.email.toString()}",
+                                //"${_invoiceController.getinvoidelist?.email.toString()}",
+                                address:
+                                    "${_invoicenrsController.getnurseinvoice!.address.toString()}",
+                                //"${_invoiceController.getinvoidelist?.address.toString()}",
+                                //mobile:
+                                // "Mobile:${_invoicenrsController.getnurseinvoice!.mobileNo.toString()}",
+                                // "${_invoiceController.getinvoidelist?.mobile.toString()}",
+                                pin:
+                                    "Pin:${_invoicenrsController.getnurseinvoice!.pinCode.toString()}",
+                                // "${_invoiceController.getinvoidelist?.pinCode.toString()}",
+                                returnPolicy:
+                                    'Thank-you We are available for you 24*7 and we will provide the best services and solutions of medical field ',
+                                office:
+                                    '278B, 1ST FLOOR, LEERA RAM MARKET MASJID MOTH'
+                                    'SOUTH EX. PAPER-2, Masjid Moth Village, South Extension'
+                                    'II, New Delhi, Delhi 110049.'),
                             customer: Customer(
                               order:
                                   //"pending",
@@ -129,9 +127,9 @@ class PdfPageNurse extends StatelessWidget {
                               // invoiceDate: items.date,
                               // orderDate: DateTime.now(),
                               invoiceDate: DateTime.now(),
-                              orderStatus: "Delivered",
+                              orderStatus: "done",
                               //  "${_invoiceController.getinvoidelist?.result?.first.orderStatus.toString()}",
-                              paymentStatus: "Done",
+                              paymentStatus: "done",
                               // "${_invoiceController.getinvoidelist?.result?.first.paymentStatus.toString()}",
                             ),
                             items: [

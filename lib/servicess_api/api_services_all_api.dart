@@ -222,6 +222,8 @@ class ApiProvider {
     var CityMasterId,
     var Location,
     var Pincode,
+    var DOB,
+    var Gender,
   ) async {
     var url = baseUrl + 'api/SignupApi/PatientRegistration';
     var body = {
@@ -234,6 +236,8 @@ class ApiProvider {
       "CityMaster_Id": CityMasterId,
       "Location": Location,
       "Pincode": Pincode,
+      "DOB": "$DOB",
+      "Gender": "$Gender"
     };
     http.Response r = await http.post(
       Uri.parse(url), body: body,
@@ -397,7 +401,7 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        print("nurseuserlistIdcheckout:${r.body}");
+        // print("nurseuserlistIdcheckout:${r.body}");
         // print("DoctorListId2222bodyrr: {body}");
 
         NurseCheckoutModel? nursecheckout = nurseCheckoutModelFromJson(r.body);
@@ -5053,6 +5057,7 @@ class ApiProvider {
 
   /// todo LAb Signup api..........rahul .............
   static LabSignupApi(
+    var PAN,
     var LabName,
     var EmailId,
     var Password,
@@ -5075,6 +5080,7 @@ class ApiProvider {
   ) async {
     var url = baseUrl + 'api/SignupApi/LabRegistration';
     var body = {
+      "PAN": "$PAN",
       "LabName": LabName,
       "EmailId": EmailId,
       "Password": Password,
@@ -6346,6 +6352,125 @@ class ApiProvider {
     } catch (error) {
       print("bduegbfff: ${error}");
       return;
+    }
+  }
+
+  ///todo: prescriptions....doctro....15 sep 2013...
+  static DoctorPrescriptionsApi(
+    //var Doctor_Id,
+    //var Patient_Id,
+    var Weight,
+    var PresentComplaint,
+    var Allergies,
+    var Primarydiagnosis,
+    var MedicineName1,
+    var Dosage1,
+    var Instruction1,
+    var MedicineName2,
+    var Dosage2,
+    var Instruction2,
+    var MedicineName3,
+    var Dosage3,
+    var Instruction3,
+    var MedicineName4,
+    var Dosage4,
+    var Instruction4,
+    var MedicineName5,
+    var Dosage5,
+    var Instruction5,
+    var MedicineName6,
+    var Dosage6,
+    var Instruction6,
+    var MedicineName7,
+    var Dosage7,
+    var Instruction7,
+    var MedicineName8,
+    var Dosage8,
+    var Instruction8,
+    var MedicineName9,
+    var Dosage9,
+    var Instruction9,
+    var MedicineName10,
+    var Dosage10,
+    var Instruction10,
+    var TestPrescribed,
+    var PastMedical_SurgicalHistory,
+  ) async {
+    var url = '${baseUrl}api/DoctorApi/AddMedicinePrescription';
+
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var patientIds = preferences.getString("patientIds");
+    print("patientIdsfd: ${patientIds}");
+    var body = {
+      "Doctor_Id": "$userid",
+      "Patient_Id": "$patientIds",
+      "Weight": "$Weight",
+      "PresentComplaint": "$PresentComplaint",
+      "Allergies": "$Allergies",
+      "Primarydiagnosis": "$Primarydiagnosis",
+      "MedicineName1": "$MedicineName1",
+      "Dosage1": "$Dosage1",
+      "Instruction1": "$Instruction1",
+      "MedicineName2": "$MedicineName2",
+      "Dosage2": "$Dosage2",
+      "Instruction2": "$Instruction2",
+      "MedicineName3": "$MedicineName3",
+      "Dosage3": "$Dosage3",
+      "Instruction3": "$Instruction3",
+      "MedicineName4": "$MedicineName4",
+      "Dosage4": "$Dosage4",
+      "Instruction4": "$Instruction4",
+      "MedicineName5": "$MedicineName5",
+      "Dosage5": "$Dosage5",
+      "Instruction5": "$Instruction5",
+      "MedicineName6": "$MedicineName6",
+      "Dosage6": "$Dosage6",
+      "Instruction6": "$Instruction6",
+      "MedicineName7": "$MedicineName7",
+      "Dosage7": "$Dosage7",
+      "Instruction7": "$Instruction7",
+      "MedicineName8": "$MedicineName8",
+      "Dosage8": "$Dosage8",
+      "Instruction8": "$Instruction8",
+      "MedicineName9": "$MedicineName9",
+      "Dosage9": "$Dosage9",
+      "Instruction9": "$Instruction9",
+      "MedicineName10": "$MedicineName10",
+      "Dosage10": "$Dosage10",
+      "Instruction10": "$Instruction10",
+      "TestPrescribed": "$TestPrescribed",
+      "PastMedical_SurgicalHistory": "$PastMedical_SurgicalHistory"
+    };
+
+    print("Frenchies Signupbody:: $body");
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      //CallLoader.loader();
+      Get.snackbar(
+        'Success',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
+      CallLoader.hideLoader();
+      print("Frenchies SignupApi: ${r.body}");
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar(
+        'message',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
+    } else {
+      Get.snackbar(
+        "Failed",
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
+      return r;
     }
   }
 }

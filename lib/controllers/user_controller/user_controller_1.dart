@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,11 +28,20 @@ class User_1_Controller extends GetxController {
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
 
+  ///date.....
+  var selectedDate = DateTime.now().obs;
+
   //this is for City.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
 
-  ///
+  ///.....
   List<StateModel> states = <StateModel>[];
+
+  final selectedgender = "".obs;
+
+  onChangeGender(String servicee) {
+    selectedgender.value = servicee;
+  }
 
   ///
 
@@ -60,6 +71,8 @@ class User_1_Controller extends GetxController {
       selectedCity.value?.id.toString(),
       addressController?.text,
       pinController?.text,
+      appointmentController.text,
+      selectedgender.value,
     );
 
     if (r.statusCode == 200) {
@@ -94,7 +107,7 @@ class User_1_Controller extends GetxController {
     }
   }
 
-  late TextEditingController? nameController,
+  late TextEditingController nameController,
       emailController,
       // confirmpasswordController,
       mobileController,
@@ -103,7 +116,8 @@ class User_1_Controller extends GetxController {
       StateController,
       CityController,
       addressController,
-      pinController;
+      pinController,
+      appointmentController;
 
   var name = '';
   var email = '';
@@ -114,6 +128,7 @@ class User_1_Controller extends GetxController {
   var city = '';
   var address = '';
   var pin = '';
+  var date = '';
 
   @override
   void onInit() {
@@ -134,6 +149,8 @@ class User_1_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
+    appointmentController = TextEditingController();
+    appointmentController.text = "YYY-MM-DD";
 
     // Get.delete<User_1_Controller>();
     // _loginpasswordControllerr = Get.find(User_1_Controller());
@@ -160,6 +177,38 @@ class User_1_Controller extends GetxController {
   void dispose() {
     Get.delete<User_1_Controller>();
     super.dispose();
+  }
+
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2025),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select DOB',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'Selected Date',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      appointmentController
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: appointmentController.text.length,
+            affinity: TextAffinity.upstream));
+    }
+    // if (pickedDate != null && pickedDate != selectedDate) {
+    //   selectedDate.value = pickedDate;
+    //   appointmentController.text =
+    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
+    // }
   }
 
   String? validName(String value) {

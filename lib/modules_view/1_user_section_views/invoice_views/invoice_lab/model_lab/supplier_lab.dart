@@ -4,8 +4,8 @@ class SupplierLab {
   final String address;
   final String mobile;
   final String pin;
-  final String returnPolicy;
-  final String office;
+  final String cancellationPolicy;
+  final String officelab;
 
   const SupplierLab({
     required this.name,
@@ -13,7 +13,7 @@ class SupplierLab {
     required this.address,
     required this.mobile,
     required this.pin,
-    required this.returnPolicy,
-    required this.office,
+    required this.cancellationPolicy,
+    required this.officelab,
   });
 }

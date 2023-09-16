@@ -49,7 +49,7 @@ class AppointmentCheckout extends StatelessWidget {
   Widget build(BuildContext context) {
     ///todo: maths logoc....
     final nurseFee = double.parse(
-        "${_nurseappointmentcheckout.nurseCheckoutModel?.fee?.toDouble()}");
+        "${_nurseappointmentcheckout.nurseCheckoutModel?.totalFee?.toDouble()}");
     //print("${element.price * element.step} c");
     final nurseFeeGst = double.parse(
         "${(_nurseappointmentcheckout.nurseCheckoutModel?.fee?.toDouble())! * ((_nurseappointmentcheckout.nurseCheckoutModel?.gst?.toDouble())! / 100).toDouble()}");
@@ -454,7 +454,7 @@ class AppointmentCheckout extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(size.height * 0.007),
                               child: Container(
-                                height: size.height * 0.16,
+                                height: size.height * 0.18,
                                 width: size.width,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * 0.006),
@@ -493,7 +493,8 @@ class AppointmentCheckout extends StatelessWidget {
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               // _labListController.labCheckoutModel!.fee.toString(),
@@ -507,15 +508,27 @@ class AppointmentCheckout extends StatelessWidget {
                                                 fontSize: size.height * 0.022,
                                               ),
                                             ),
+                                            // Text(
+                                            //   'Session Fees for Nurse.',
+                                            //   //doctorcatagary[index],
+                                            //   maxLines: 1,
+                                            //   overflow: TextOverflow.ellipsis,
+                                            //   style: GoogleFonts.poppins(
+                                            //     fontWeight: FontWeight.w500,
+                                            //     color: Colors.grey.shade700,
+                                            //     fontSize: size.height * 0.013,
+                                            //   ),
+                                            // ),
+
                                             Text(
-                                              'Session Fees for Nurse.',
+                                              'No of days',
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey.shade700,
-                                                fontSize: size.height * 0.013,
+                                                fontSize: size.height * 0.018,
                                               ),
                                             ),
                                             Text(
@@ -531,7 +544,7 @@ class AppointmentCheckout extends StatelessWidget {
                                               ),
                                             ),
                                             //finalnurseAmounts
-                                            Spacer(),
+                                            //Spacer(),
                                             Text(
                                               'To pay:',
                                               //doctorcatagary[index],
@@ -570,6 +583,18 @@ class AppointmentCheckout extends StatelessWidget {
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                                 fontSize: size.height * 0.022,
+                                              ),
+                                            ),
+
+                                            Text(
+                                              "${_nurseappointmentcheckout.nurseCheckoutModel?.totalNumberofdays}",
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: MyTheme.blueww,
+                                                fontSize: size.height * 0.017,
                                               ),
                                             ),
 

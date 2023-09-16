@@ -1,8 +1,58 @@
-// To parse this JSON data, do
+// // To parse this JSON data, do
+// //
+// //     final nurseCheckoutModel = nurseCheckoutModelFromJson(jsonString);
+// ///
+// ///
+// // import 'dart:convert';
+// //
+// // NurseCheckoutModel nurseCheckoutModelFromJson(String str) =>
+// //     NurseCheckoutModel.fromJson(json.decode(str));
+// //
+// // String nurseCheckoutModelToJson(NurseCheckoutModel data) =>
+// //     json.encode(data.toJson());
+// //
+// // class NurseCheckoutModel {
+// //   int? id;
+// //   String? nurseName;
+// //   String? nurseTypeName;
+// //   num? experience;
+// //   double? fee;
+// //   dynamic serviceDate;
+// //   String? slotTime;
+// //
+// //   NurseCheckoutModel({
+// //     this.id,
+// //     this.nurseName,
+// //     this.nurseTypeName,
+// //     this.experience,
+// //     this.fee,
+// //     this.serviceDate,
+// //     this.slotTime,
+// //   });
+// //
+// //   factory NurseCheckoutModel.fromJson(Map<String, dynamic> json) =>
+// //       NurseCheckoutModel(
+// //         id: json["Id"],
+// //         nurseName: json["NurseName"],
+// //         nurseTypeName: json["NurseTypeName"],
+// //         experience: json["Experience"],
+// //         fee: json["Fee"],
+// //         serviceDate: json["ServiceDate"],
+// //         slotTime: json["SlotTime"],
+// //       );
+// //
+// //   Map<String, dynamic> toJson() => {
+// //         "Id": id,
+// //         "NurseName": nurseName,
+// //         "NurseTypeName": nurseTypeName,
+// //         "Experience": experience,
+// //         "Fee": fee,
+// //         "ServiceDate": serviceDate,
+// //         "SlotTime": slotTime,
+// //       };
+// // }
 //
-//     final nurseCheckoutModel = nurseCheckoutModelFromJson(jsonString);
-///
-///
+// ///
 // import 'dart:convert';
 //
 // NurseCheckoutModel nurseCheckoutModelFromJson(String str) =>
@@ -16,8 +66,10 @@
 //   String? nurseName;
 //   String? nurseTypeName;
 //   num? experience;
-//   double? fee;
-//   dynamic serviceDate;
+//   num? fee;
+//   num? gst;
+//   num? totalFee;
+//   DateTime? serviceDate;
 //   String? slotTime;
 //
 //   NurseCheckoutModel({
@@ -26,6 +78,8 @@
 //     this.nurseTypeName,
 //     this.experience,
 //     this.fee,
+//     this.gst,
+//     this.totalFee,
 //     this.serviceDate,
 //     this.slotTime,
 //   });
@@ -37,7 +91,11 @@
 //         nurseTypeName: json["NurseTypeName"],
 //         experience: json["Experience"],
 //         fee: json["Fee"],
-//         serviceDate: json["ServiceDate"],
+//         gst: json["GST"],
+//         totalFee: json["TotalFee"],
+//         serviceDate: json["ServiceDate"] == null
+//             ? null
+//             : DateTime.parse(json["ServiceDate"]),
 //         slotTime: json["SlotTime"],
 //       );
 //
@@ -47,11 +105,12 @@
 //         "NurseTypeName": nurseTypeName,
 //         "Experience": experience,
 //         "Fee": fee,
-//         "ServiceDate": serviceDate,
+//         "GST": gst,
+//         "TotalFee": totalFee,
+//         "ServiceDate": serviceDate?.toIso8601String(),
 //         "SlotTime": slotTime,
 //       };
 // }
-
 ///
 import 'dart:convert';
 
@@ -69,8 +128,10 @@ class NurseCheckoutModel {
   num? fee;
   num? gst;
   num? totalFee;
+  num? totalFeeWithGst;
   DateTime? serviceDate;
   String? slotTime;
+  num? totalNumberofdays;
 
   NurseCheckoutModel({
     this.id,
@@ -80,8 +141,10 @@ class NurseCheckoutModel {
     this.fee,
     this.gst,
     this.totalFee,
+    this.totalFeeWithGst,
     this.serviceDate,
     this.slotTime,
+    this.totalNumberofdays,
   });
 
   factory NurseCheckoutModel.fromJson(Map<String, dynamic> json) =>
@@ -93,10 +156,12 @@ class NurseCheckoutModel {
         fee: json["Fee"],
         gst: json["GST"],
         totalFee: json["TotalFee"],
+        totalFeeWithGst: json["TotalFeeWithGST"],
         serviceDate: json["ServiceDate"] == null
             ? null
             : DateTime.parse(json["ServiceDate"]),
         slotTime: json["SlotTime"],
+        totalNumberofdays: json["TotalNumberofdays"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -107,7 +172,9 @@ class NurseCheckoutModel {
         "Fee": fee,
         "GST": gst,
         "TotalFee": totalFee,
+        "TotalFeeWithGST": totalFeeWithGst,
         "ServiceDate": serviceDate?.toIso8601String(),
         "SlotTime": slotTime,
+        "TotalNumberofdays": totalNumberofdays,
       };
 }

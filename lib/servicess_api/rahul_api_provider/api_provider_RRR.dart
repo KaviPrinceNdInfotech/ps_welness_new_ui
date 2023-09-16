@@ -544,6 +544,7 @@ class ApiProvider {
   ///
   //sign up  Api doctor Api 1........................................................
   static signDoctorUpApi(
+      var PAN,
       var DoctorName,
       var EmailId,
       var Password,
@@ -568,7 +569,8 @@ class ApiProvider {
     try {
       var url = '${baseUrl}api/SignupApi/DoctorRegistration';
       var body = {
-        "Id": "143",
+        "PAN": "$PAN",
+        //"Id": "143",
         "DoctorName": "$DoctorName",
         "EmailId": "$EmailId",
         "Password": "$Password",
@@ -1707,6 +1709,7 @@ class ApiProvider {
 
   /// todo Nurse Signup api..........rahul .............
   static NurseSignupApi(
+      var PAN,
       var NurseName,
       var EmailId,
       var Password,
@@ -1729,6 +1732,7 @@ class ApiProvider {
       var experience) async {
     var url = baseUrl + 'api/SignupApi/NurseRegistration';
     var body = {
+      "PAN": "$PAN",
       "NurseName": NurseName,
       "EmailId": EmailId,
       "Password": Password,
@@ -2489,6 +2493,7 @@ class ApiProvider {
 
   /// todo Chemist SignUp............
   static ChemistSignupApi(
+      var PAN,
       var ChemistName,
       var ShopName,
       var EmailId,
@@ -2512,6 +2517,7 @@ class ApiProvider {
     //userid
     var url = '${baseUrl}api/SignupApi/ChemistRegistration';
     var body = {
+      "PAN": "$PAN",
       "ChemistName": ChemistName,
       "ShopName": ShopName,
       "EmailId": EmailId,

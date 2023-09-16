@@ -191,6 +191,39 @@ class Doctor1Credentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo: pan number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _doctor_1_controller.panController,
+                onSaved: (value) {
+                  _doctor_1_controller.pan = value!;
+                },
+                validator: (value) {
+                  return _doctor_1_controller.validPan(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pan number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.add_card_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
             ///todo : Fee .................
             NeumorphicTextFieldContainer(
               child: TextFormField(

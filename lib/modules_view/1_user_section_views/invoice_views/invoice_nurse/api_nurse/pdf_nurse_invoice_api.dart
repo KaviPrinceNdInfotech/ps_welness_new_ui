@@ -168,9 +168,9 @@ class PdfInvoiceApi {
           Text(suppliernrs.address,
               style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(suppliernrs.mobile,
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          SizedBox(height: 1 * PdfPageFormat.mm),
+          // Text(suppliernrs.mobile,
+          //  style: TextStyle(fontWeight: FontWeight.bold)),
+          //SizedBox(height: 1 * PdfPageFormat.mm),
           Text(suppliernrs.pin, style: TextStyle(fontWeight: FontWeight.bold)),
         ],
       );
@@ -190,9 +190,9 @@ class PdfInvoiceApi {
 
   static Widget buildInvoice(InvoiceNrs invoice) {
     final headers = [
-      'Description',
+      'Name',
       // 'Date',
-      'Quantity',
+      'No Of days',
       'Unit Price',
       'GST',
       'Total'
@@ -311,11 +311,10 @@ class PdfInvoiceApi {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: 'Return Policy: ',
-              value: invoice.suppliernrs.returnPolicy),
+              title: 'Note: ', value: invoice.suppliernrs.returnPolicy),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(
-              title: 'Regd. office PsDr: ', value: invoice.suppliernrs.office),
+              title: 'Reg office: ', value: invoice.suppliernrs.office),
         ],
       );
 

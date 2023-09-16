@@ -91,12 +91,11 @@ class PdfPageDoctor extends StatelessWidget {
                                   "Pin:${_invoicedrControllerdr.getdrinvoice!.pinCode.toString()}",
                               // "${_invoiceController.getinvoidelist?.pinCode.toString()}",
                               returnPolicy:
-                                  'If the item is defective or not as described,you may return it during delivery directly or you may request for'
-                                  'return within 10 days of delivery for items that are defective or are different from what you ordered.'
-                                  ' items must be complete, free from damages and for items returned for being different from what you '
-                                  'ordred, they must be unopened as well.',
+                                  'Thank-you We are available for you 24*7 and we will provide the best services and solutions of medical field ',
                               office:
-                                  "PS Wellness,2nd floor,plot No. 82,Noida,UttarPradesh",
+                                  '278B, 1ST FLOOR, LEERA RAM MARKET MASJID MOTH,'
+                                  'SOUTH EX. PAPER-2, Masjid Moth Village, South Extension.'
+                                  'II, New Delhi, Delhi 110049.',
                             ),
                             customer: Customer(
                               order:
@@ -119,7 +118,7 @@ class PdfPageDoctor extends StatelessWidget {
                               // invoiceDate: items.date,
                               // orderDate: DateTime.now(),
                               invoiceDate: DateTime.now(),
-                              orderStatus: "Delivered",
+                              orderStatus: "Done",
                               //  "${_invoiceController.getinvoidelist?.result?.first.orderStatus.toString()}",
                               paymentStatus: "Done",
                               // "${_invoiceController.getinvoidelist?.result?.first.paymentStatus.toString()}",
@@ -131,7 +130,7 @@ class PdfPageDoctor extends StatelessWidget {
                                     // "ps wellness healthcare sector service",
                                     "${_invoicedrControllerdr.getdrinvoice!.invoiceData![0].doctorName.toString()}",
                                 // date: DateTime.now(),
-                                quantity: int.parse('1'),
+                                //  specialist: int.parse("${_invoicedrControllerdr.getdrinvoice!.invoiceData![0]..toString()}"),
                                 //"{_invoiceController.getmedicineinvoice!.invoiceData![0].medicineName()}",
                                 vat: double.parse(
                                     '${_invoicedrControllerdr.getdrinvoice!.invoiceData![0].gst.toString()}'),

@@ -134,9 +134,9 @@ class PdfInvoiceApi {
   static Widget buildInvoiceInfo(InvoiceInfo info) {
     // final paymentTerms = '${info.orderDate.difference(info.invoiceDate).inDays} days';
     final titles = <String>[
-      'Order Date: ',
+      'Booking Date: ',
       'Invoice Date: ',
-      'OrderStatus: ',
+      // 'Booking Status: ',
       'PaymentStatus: ',
     ];
     final data = <String>[
@@ -167,8 +167,8 @@ class PdfInvoiceApi {
           Text(supplierdr.address,
               style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplierdr.mobile,
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          // Text(supplierdr.mobile,
+          //     style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(supplierdr.pin, style: TextStyle(fontWeight: FontWeight.bold)),
         ],
@@ -189,10 +189,10 @@ class PdfInvoiceApi {
 
   static Widget buildInvoice(Invoice invoice) {
     final headers = [
-      'Description',
+      'Doctor name',
       // 'Date',
-      'Quantity',
-      'Unit Price',
+      //'Specialist',
+      'Fees',
       'GST',
       'Total'
     ];
@@ -202,7 +202,7 @@ class PdfInvoiceApi {
       return [
         item.description,
         // Utils.formatDate(item.date),
-        '${item.quantity}',
+        //'${item.specialist}',
         //'${_invoiceController.getinvoidelist!.result![0].totalItem.toString()}',
         '${item.unitPrice}',
         '${item.vat}%',
@@ -309,10 +309,10 @@ class PdfInvoiceApi {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: 'Return Policy: ', value: invoice.supplierdr.returnPolicy),
+              title: 'Note: ', value: invoice.supplierdr.returnPolicy),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(
-              title: 'Regd. office PsDr: ', value: invoice.supplierdr.office),
+              title: 'Reg Office: ', value: invoice.supplierdr.office),
         ],
       );
 
