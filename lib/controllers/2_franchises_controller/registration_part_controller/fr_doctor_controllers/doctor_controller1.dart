@@ -23,7 +23,8 @@ class FrDoctor_1_Controller extends GetxController {
   final GlobalKey<FormState> frdoctor3formkey = GlobalKey<FormState>();
 
   RxBool isLoading = false.obs;
-  TextEditingController? doctorNameController,
+  TextEditingController? panController,
+      doctorNameController,
       emailController,
       passwordController,
       confirmPasswordController,
@@ -49,6 +50,7 @@ class FrDoctor_1_Controller extends GetxController {
       ExperienceController,
       FeesController;
 
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -160,6 +162,7 @@ class FrDoctor_1_Controller extends GetxController {
     final PanImageAsBase64 =
         base64Encode(await File(selectedPanImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterDoctor(
+      panController?.text,
       doctorNameController?.text,
       emailController?.text,
       passwordController?.text,
@@ -223,6 +226,7 @@ class FrDoctor_1_Controller extends GetxController {
         getspecialistByDeptID2("${p0.id}");
       }
     });
+    panController = TextEditingController();
     doctorNameController = TextEditingController(text: '');
     emailController = TextEditingController(text: '');
     passwordController = TextEditingController(text: '');
@@ -336,6 +340,16 @@ class FrDoctor_1_Controller extends GetxController {
   String? validcertificate(String value) {
     if (value.isEmpty) {
       return '              This field is required';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

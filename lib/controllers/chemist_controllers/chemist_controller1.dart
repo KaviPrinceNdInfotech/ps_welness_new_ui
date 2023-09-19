@@ -161,7 +161,8 @@ class Chemist_1_Controller extends GetxController {
     }
   }
 
-  TextEditingController? panController,
+  TextEditingController? pannumberController,
+      panController,
       ChemistName,
       ShopName,
       EmailId,
@@ -178,6 +179,7 @@ class Chemist_1_Controller extends GetxController {
       LicenseValidity,
       PinCode;
 
+  var psnnumber = '';
   var pan = '';
   var Fee = '';
   var PhoneNumber = '';
@@ -288,6 +290,7 @@ class Chemist_1_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
+    pannumberController = TextEditingController();
     panController = TextEditingController();
     ChemistName = TextEditingController(text: '');
     ShopName = TextEditingController(text: '');
@@ -303,7 +306,7 @@ class Chemist_1_Controller extends GetxController {
     LicenseValidity = TextEditingController(text: '');
     PinCode = TextEditingController(text: '');
     appointmentController = TextEditingController();
-    appointmentController.text = "YYY-MM-DD";
+    appointmentController.text = "Select licence validity date";
   }
 
   @override
@@ -319,12 +322,12 @@ class Chemist_1_Controller extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select licence Validity',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Valid date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );

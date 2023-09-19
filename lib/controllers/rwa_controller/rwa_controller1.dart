@@ -80,7 +80,8 @@ class Rwa_11_controller extends GetxController {
     selectedService.value = plan;
   }
 
-  late TextEditingController nameController,
+  late TextEditingController panController,
+      nameController,
       phoneController,
       stateController,
       cityController,
@@ -92,6 +93,7 @@ class Rwa_11_controller extends GetxController {
       landlineController,
       certificateNoController;
 
+  var pan = '';
   var name = '';
   var phone = '';
   var state = '';
@@ -114,6 +116,7 @@ class Rwa_11_controller extends GetxController {
         base64Encode(await File(selectedPath.value).readAsBytes());
     print("imagebaseeee644:${imageAsBase64}");
     http.Response r = await ApiProvider.RwaSignupApi(
+      panController.text,
       nameController.text,
       phoneController.text,
       emailController.text,
@@ -131,6 +134,7 @@ class Rwa_11_controller extends GetxController {
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
+
       Get.snackbar(
         'message', "${r.body}",
         // r.body,
@@ -179,6 +183,7 @@ class Rwa_11_controller extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    panController = TextEditingController();
     nameController = TextEditingController();
     phoneController = TextEditingController();
     emailController = TextEditingController();
@@ -272,6 +277,16 @@ class Rwa_11_controller extends GetxController {
     }
     if (value.length != 10) {
       return '              A valid phone number should be of 10 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

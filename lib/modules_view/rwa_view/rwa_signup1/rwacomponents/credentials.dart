@@ -163,6 +163,38 @@ class Rwa1Credentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            ///todo: pan number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _rwa_11_controller.panController,
+                onSaved: (value) {
+                  _rwa_11_controller.pan = value!;
+                },
+                validator: (value) {
+                  return _rwa_11_controller.validPan(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pan number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.add_card_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(

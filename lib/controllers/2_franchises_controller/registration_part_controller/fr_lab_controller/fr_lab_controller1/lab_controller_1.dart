@@ -20,7 +20,8 @@ class Fr_Lab_1_Controller extends GetxController {
   var selectedPanImagepath = ''.obs;
   var selectedTime = TimeOfDay.now().obs;
   var selectedTime2 = TimeOfDay.now().obs;
-  TextEditingController? nameController,
+  TextEditingController? panController,
+      nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -31,6 +32,7 @@ class Fr_Lab_1_Controller extends GetxController {
       certificateController,
       gstNoController;
 
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -83,6 +85,7 @@ class Fr_Lab_1_Controller extends GetxController {
     final panimageAsBase64 =
         base64Encode(await File(selectedPanImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterLab(
+        panController?.text,
         nameController?.text,
         emailController?.text,
         passwordController?.text,
@@ -118,6 +121,7 @@ class Fr_Lab_1_Controller extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
+    panController = TextEditingController();
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -137,6 +141,7 @@ class Fr_Lab_1_Controller extends GetxController {
 
   @override
   void onClose() {
+    panController?.dispose();
     nameController?.dispose();
     emailController?.dispose();
     passwordController?.dispose();
@@ -205,6 +210,16 @@ class Fr_Lab_1_Controller extends GetxController {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     ).hasMatch(value)) {
       return "              Please enter a valid email";
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

@@ -44,7 +44,8 @@ class FrNurses_1_controller extends GetxController {
     selectedService.value = plan;
   }
 
-  late TextEditingController nameController,
+  late TextEditingController panController,
+      nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -55,6 +56,7 @@ class FrNurses_1_controller extends GetxController {
       experienceController,
       feeController;
 
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -97,6 +99,7 @@ class FrNurses_1_controller extends GetxController {
     final licenceimageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterNurse(
+      panController.text,
       nameController.text,
       emailController.text,
       passwordController.text,
@@ -131,6 +134,7 @@ class FrNurses_1_controller extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
+    panController = TextEditingController();
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -246,6 +250,16 @@ class FrNurses_1_controller extends GetxController {
   String? validDay(String value) {
     if (value.isEmpty) {
       return '              This field is required';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

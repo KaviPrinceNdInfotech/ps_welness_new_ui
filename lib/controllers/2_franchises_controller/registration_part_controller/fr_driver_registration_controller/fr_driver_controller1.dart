@@ -15,7 +15,8 @@ class Fr_Driver_1_Controller extends GetxController {
   final GlobalKey<FormState> frdriver1formkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
 
-  TextEditingController? nameController,
+  TextEditingController? panController,
+      nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -24,6 +25,7 @@ class Fr_Driver_1_Controller extends GetxController {
       addressController,
       dlNumber;
 
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -101,6 +103,7 @@ class Fr_Driver_1_Controller extends GetxController {
     final Aadhar2imageAsBase64 =
         base64Encode(await File(selectedAadharImage2path.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterDriver(
+      panController?.text,
       nameController?.text,
       passwordController?.text,
       confirmpasswordController?.text,
@@ -139,6 +142,7 @@ class Fr_Driver_1_Controller extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
+    panController = TextEditingController();
     nameController = TextEditingController();
     passwordController = TextEditingController();
     confirmpasswordController = TextEditingController();
@@ -178,6 +182,16 @@ class Fr_Driver_1_Controller extends GetxController {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     ).hasMatch(value)) {
       return "              Please enter a valid email";
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

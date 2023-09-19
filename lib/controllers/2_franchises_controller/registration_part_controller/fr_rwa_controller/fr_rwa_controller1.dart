@@ -16,7 +16,8 @@ class FrRwa_1_controller extends GetxController {
   final GlobalKey<FormState> frrwa1formkey = GlobalKey<FormState>();
   final GlobalKey<FormState> frrwa2formkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
-  TextEditingController? nameController,
+  TextEditingController? panController,
+      nameController,
       emailController,
       passwordController,
       confirmpasswordController,
@@ -24,6 +25,8 @@ class FrRwa_1_controller extends GetxController {
       pinController,
       landlineController,
       addressController;
+
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -78,6 +81,7 @@ class FrRwa_1_controller extends GetxController {
     final licenceimageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterRWA(
+        panController?.text,
         nameController?.text,
         mobileController?.text,
         emailController?.text,
@@ -112,6 +116,7 @@ class FrRwa_1_controller extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
+    panController = TextEditingController();
     nameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -154,6 +159,16 @@ class FrRwa_1_controller extends GetxController {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     ).hasMatch(value)) {
       return "              Please enter a valid email";
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

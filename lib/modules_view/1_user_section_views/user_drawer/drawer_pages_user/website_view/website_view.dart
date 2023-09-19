@@ -11,7 +11,6 @@ class WebViewPswebsite extends StatefulWidget {
 class _WebViewPswebsiteState extends State<WebViewPswebsite> {
   double _progress = 0;
   late InAppWebViewController inAppWebViewController;
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

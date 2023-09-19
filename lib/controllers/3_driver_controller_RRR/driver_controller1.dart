@@ -149,7 +149,8 @@ class Driver_1111_Controller extends GetxController {
     print(cities);
   }
 
-  late TextEditingController? nameController,
+  late TextEditingController? panController,
+      nameController,
       pincontroller,
       mobileController,
       emailController,
@@ -174,6 +175,7 @@ class Driver_1111_Controller extends GetxController {
       vehicletypecontroller,
       paidamountcontroller;
 
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -227,6 +229,7 @@ class Driver_1111_Controller extends GetxController {
         base64Encode(await File(selectedPath4.value).readAsBytes());
     print("imagebaseeee6444:${imageAsBase644}");
     http.Response r = await ApiProvider.DriverSignupApi(
+      panController?.text,
       nameController?.text,
       pincontroller?.text,
       mobileController?.text,
@@ -305,7 +308,7 @@ class Driver_1111_Controller extends GetxController {
     ambulancecatagaryyApi();
 
     /// ambulancecatagaryyApi();
-
+    panController = TextEditingController();
     nameController = TextEditingController();
     pincontroller = TextEditingController();
     mobileController = TextEditingController();
@@ -346,7 +349,7 @@ class Driver_1111_Controller extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2026),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select DL Validity',
@@ -445,6 +448,16 @@ class Driver_1111_Controller extends GetxController {
     }
     if (value.length != 10) {
       return '              A valid phone number should be of 10 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

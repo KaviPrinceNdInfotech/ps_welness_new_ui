@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
@@ -17,13 +18,23 @@ class Patients_Controller extends GetxController {
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
 
-  TextEditingController? nameController,
+  final selectedgender = "".obs;
+
+  onChangeGender(String servicee) {
+    selectedgender.value = servicee;
+  }
+
+  ///date.....
+  var selectedDate = DateTime.now().obs;
+
+  late TextEditingController nameController,
       emailController,
       passwordController,
       confirmpasswordController,
       mobileController,
       addressController,
-      pinController;
+      pinController,
+      appointmentController;
 
   var name = '';
   var email = '';
@@ -32,6 +43,7 @@ class Patients_Controller extends GetxController {
   var mobile = '';
   var address = '';
   var pin = '';
+  var date = '';
   void getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
   }
@@ -54,6 +66,8 @@ class Patients_Controller extends GetxController {
       addressController?.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
+      appointmentController.text,
+      selectedgender.value,
       pinController?.text,
     );
     if (r.statusCode == 200) {
@@ -81,6 +95,9 @@ class Patients_Controller extends GetxController {
     mobileController = TextEditingController();
     addressController = TextEditingController();
     pinController = TextEditingController();
+    appointmentController = TextEditingController();
+    appointmentController = TextEditingController();
+    appointmentController?.text = "YYY-MM-DD";
   }
 
   @override
@@ -97,6 +114,38 @@ class Patients_Controller extends GetxController {
     mobileController?.dispose();
     addressController?.dispose();
     pinController?.dispose();
+  }
+
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2025),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select DOB',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'Selected Date',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      appointmentController
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: appointmentController.text.length,
+            affinity: TextAffinity.upstream));
+    }
+    // if (pickedDate != null && pickedDate != selectedDate) {
+    //   selectedDate.value = pickedDate;
+    //   appointmentController.text =
+    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
+    // }
   }
 
   String? validName(String value) {

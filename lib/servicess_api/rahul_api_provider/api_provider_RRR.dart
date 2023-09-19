@@ -578,7 +578,7 @@ class ApiProvider {
         "MobileNumber": "$MobileNumber",
         "Fee": "$Fee",
         "PhoneNumber": "$PhoneNumber",
-        "StartTime": "14:27:00.0000000", //"$StartTime",
+        "StartTime": "09:27:00.0000000", //"$StartTime",
         "SlotTiming": "5", //"$SlotTiming",
         "Department_Id": "$Department_Id",
         "Specialist_Id": "$Specialist_Id",
@@ -589,7 +589,7 @@ class ApiProvider {
         "Location": "$Location",
         "StateMaster_Id": "$StateMaster_Id",
         "CityMaster_Id": "$CityMaster_Id",
-        "EndTime": "14:27:00.0000000", //"$EndTime",
+        "EndTime": "22:27:00.0000000", //"$EndTime",
         "LicenceBase64": "$LicenceBase64",
         "experience": experience,
       };
@@ -600,6 +600,8 @@ class ApiProvider {
         body: body,
       );
       if (r.statusCode == 200) {
+        print("Bodydr200: ${body}");
+
         Get.snackbar(
           'Success',
           r.body,
@@ -1758,6 +1760,8 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("Nurse Signup Api: ${body}");
     if (r.statusCode == 200) {
+      print("Nurse 200: ${body}");
+
       Get.snackbar('message', r.body);
       return r;
     } else {
@@ -2564,6 +2568,7 @@ class ApiProvider {
   ///todo:from here we have signup Api for RWA....31 may 2023 prince
 
   static RwaSignupApi(
+    var PAN,
     var AuthorityName,
     var PhoneNumber,
     var EmailId,
@@ -2580,6 +2585,7 @@ class ApiProvider {
     //var Patient_Id,
   ) async {
     var body = {
+      "PAN": "$PAN",
       "AuthorityName": AuthorityName,
       "PhoneNumber": PhoneNumber,
       "EmailId": EmailId,
@@ -2600,6 +2606,8 @@ class ApiProvider {
       print("nlmknmkmk:${r.body}");
       print("###3###3####1rrrererttrrrrr: ${body}");
       if (r.statusCode == 200) {
+        print("body3200:${body}");
+
         print("###3###3####1rwwwrr: ${r.body}");
         print('&&&&&&&&&&&&&&&&&&&&&&rwausewwwreportrerer:${userid}');
         //print("####userid: ${r.Patient_Id}");
@@ -2618,6 +2626,7 @@ class ApiProvider {
 
   ///driver signup.........16 june....
   static DriverSignupApi(
+    var PAN,
     var DriverName,
     var PinCode,
     var MobileNumber,
@@ -2645,6 +2654,7 @@ class ApiProvider {
     //var Patient_Id,
   ) async {
     var body = {
+      "PAN": "$PAN",
       "DriverName": DriverName,
       "PinCode": PinCode,
       "MobileNumber": MobileNumber,
@@ -2675,6 +2685,7 @@ class ApiProvider {
       print("nlmknmkmkdriveree:${r.body}");
       print("###3###3####1rrrererttrrrrrrttt: ${body}");
       if (r.statusCode == 200) {
+        print("###3###3###200: ${body}");
         print("###3###3####1drriver22: ${r.body}");
         print('&&&&&&&&&&&&&&&&&&&&&driverrsq:${userid}');
         //print("####userid: ${r.Patient_Id}");
@@ -2783,6 +2794,8 @@ class ApiProvider {
     print("Frenchies Signupbody:: $body");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
+      print("Frenchies Signupbody2000:: $body");
+
       Get.snackbar(
         'Success',
         "${r.body}",
@@ -3489,8 +3502,9 @@ class ApiProvider {
     }
   }
 
-  ///todo Registration, Register Vehicle..............Rahul
+  ///todo Registration, Register Vehicle.............prince,.....
   static FrenchiesRegisterVehicle(
+      var PAN,
       var name,
       var number,
       var accountNo,
@@ -3504,6 +3518,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistration';
     final body = {
+      "PAN": "$PAN",
       "VehicleName": "$name",
       "VehicleNumber": "$number",
       "AccountNo": "$accountNo",
@@ -3525,6 +3540,7 @@ class ApiProvider {
 
   ///todo  Register Driver..............Rahul
   static FrenchiesRegisterDriver(
+      var PAN,
       var name,
       var password,
       var confirmPassword,
@@ -3545,6 +3561,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_DriverRegistration';
     final body = {
+      "PAN": "$PAN",
       "DriverName": "$name",
       "Password": "$password",
       "ConfirmPassword": "$confirmPassword",
@@ -3576,6 +3593,7 @@ class ApiProvider {
 
   ///todo Register Doctor..................26_august....
   static FrenchiesRegisterDoctor(
+    var PAN,
     var DoctorName,
     var EmailId,
     var Password,
@@ -3622,6 +3640,7 @@ class ApiProvider {
         '${EndTime2?.hour.toString().padLeft(2, '0')}:${EndTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
     print('Frenchies122: ${formattedTime3}');
     final body = {
+      "PAN": "$PAN",
       "DoctorName": "$DoctorName",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3693,11 +3712,13 @@ class ApiProvider {
       var Location,
       var stateId,
       var cityId,
+      var DOB,
+      var Gender,
       var pinCode) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_PatientRegistration';
     final body = {
-      "PatientName": "$PatientName}",
+      "PatientName": "$PatientName",
       "MobileNumber": "$MobileNumber",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3706,16 +3727,23 @@ class ApiProvider {
       "StateMaster_Id": "$stateId",
       "CityMaster_Id": "$cityId",
       "PinCode": "$pinCode",
-      "vendorId": "$Id"
+      "vendorId": "$Id",
+      "DOB": "$DOB",
+      "Gender": "$Gender",
     };
+
     http.Response r = await http.post(Uri.parse(url), body: body);
+    print("ttfpatient:${body}");
     if (r.statusCode == 200) {
+      print("ttfpatient200:${body}");
+
       Get.snackbar("Success", "${r.body}");
     }
   }
 
   /// todo Frenchies Register Chemist
   static FrenchiesRegisterChemist(
+      var PAN,
       var ChemistName,
       var ShopName,
       var EmailId,
@@ -3733,6 +3761,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_ChemistReg';
     final body = {
+      "PAN": "$PAN",
       "ChemistName": "$ChemistName",
       "ShopName": "$ShopName",
       "EmailId": "$EmailId",
@@ -3764,6 +3793,7 @@ class ApiProvider {
 
   /// todo Frenchies Register Nurse....................Rahul
   static FrenchiesRegisterNurse(
+    var PAN,
     var NurseName,
     var EmailId,
     var Password,
@@ -3785,6 +3815,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_NurseRegistration';
     final body = {
+      "PAN": "$PAN",
       "NurseName": "$NurseName",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3814,6 +3845,7 @@ class ApiProvider {
 
   /// todo Frenchies Register Lab....................Rahul
   static FrenchiesRegisterLab(
+      var PAN,
       var LabName,
       var EmailId,
       var Password,
@@ -3835,6 +3867,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_LabRegistration';
     final body = {
+      "PAN": "$PAN",
       "LabName": "$LabName",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3868,6 +3901,7 @@ class ApiProvider {
   }
 
   static FrenchiesRegisterRWA(
+      var PAN,
       var AuthorityName,
       var MobileNumber,
       var EmailId,
@@ -3883,6 +3917,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_RWARegistration';
     final body = {
+      "PAN": "$PAN",
       "AuthorityName": "$AuthorityName",
       "MobileNumber": "$MobileNumber",
       "EmailId": "$EmailId",

@@ -14,7 +14,8 @@ import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_
 class Franchies_vehicle_Controller extends GetxController {
   final GlobalKey<FormState> frvehicleformkey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
-  TextEditingController? nameController,
+  TextEditingController? panController,
+      nameController,
       vehiclenumberController,
       accountController,
       confirmaccountController,
@@ -23,6 +24,7 @@ class Franchies_vehicle_Controller extends GetxController {
       IfscController,
       vendorIdController;
 
+  var pan = '';
   var name = '';
   var vehiclenumber = '';
   var account = '';
@@ -62,6 +64,7 @@ class Franchies_vehicle_Controller extends GetxController {
     final imageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterVehicle(
+        panController?.text,
         nameController?.text,
         vehiclenumberController?.text,
         accountController?.text,
@@ -86,6 +89,7 @@ class Franchies_vehicle_Controller extends GetxController {
         getVehicleByCategoryID("${p0.id}");
       }
     });
+    panController = TextEditingController();
     nameController = TextEditingController();
     vehiclenumberController = TextEditingController();
     accountController = TextEditingController();
@@ -171,6 +175,16 @@ class Franchies_vehicle_Controller extends GetxController {
     // if (value.length != 6) {
     //   return '              A valid ifsc should be of 6 digits';
     // }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
+    }
     return null;
   }
 

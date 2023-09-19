@@ -5105,6 +5105,8 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("Lab Signup Api: ${body}");
     if (r.statusCode == 200) {
+      print("Lab Signup Api200: ${body}");
+
       Get.snackbar('message', r.body);
       return r;
     } else {

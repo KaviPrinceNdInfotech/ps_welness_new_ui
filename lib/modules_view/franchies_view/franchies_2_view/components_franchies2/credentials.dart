@@ -215,7 +215,7 @@ class Franchies2Credentials extends StatelessWidget {
                 height: size.height * 0.02,
               ),
 
-              ///TODO: Pan card.......................
+              ///TODO: Pan card..number.....................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
                   autofillHints: [AutofillHints.name],

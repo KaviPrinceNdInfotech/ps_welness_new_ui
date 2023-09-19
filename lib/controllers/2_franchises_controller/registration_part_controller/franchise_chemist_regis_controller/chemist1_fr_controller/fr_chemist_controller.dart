@@ -22,7 +22,8 @@ class Fr_Chemist_1_Controller extends GetxController {
   RxBool isLoading = false.obs;
   var selectedDate = DateTime.now().obs;
 
-  TextEditingController? nameController,
+  TextEditingController? panController,
+      nameController,
       emailController,
       passwordController,
       shopController,
@@ -33,11 +34,11 @@ class Fr_Chemist_1_Controller extends GetxController {
       franchiesController,
       gstController,
       licencenumberController,
-      panController,
       licencevalidityController,
       aadharController,
       regicertiController;
 
+  var pan = '';
   var name = '';
   var shopname = '';
   var email = '';
@@ -50,7 +51,7 @@ class Fr_Chemist_1_Controller extends GetxController {
   var gstno = '';
   var licenceno = '';
   var licencevalidity = '';
-  var pan = '';
+  //var pan = '';
   var aadhar = '';
   var registercertificate = '';
   var selectedImagepath = ''.obs;
@@ -85,6 +86,7 @@ class Fr_Chemist_1_Controller extends GetxController {
     final licenceimageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterChemist(
+        panController?.text,
         nameController?.text,
         shopController?.text,
         emailController?.text,
@@ -104,11 +106,8 @@ class Fr_Chemist_1_Controller extends GetxController {
     if (r.statusCode == 200) {
       print("licencee${licencenumberController?.text}");
       print("licencee2${licencevalidityController?.text}");
-
       print("licencee${pinController?.text}");
-
       // print("licencee${licencenumberController?.text}");
-
       isLoading(false);
     }
   }
@@ -137,6 +136,7 @@ class Fr_Chemist_1_Controller extends GetxController {
     licencevalidityController = TextEditingController();
     aadharController = TextEditingController();
     regicertiController = TextEditingController();
+    // panController = TextEditingController();
   }
 
   @override
@@ -190,6 +190,16 @@ class Fr_Chemist_1_Controller extends GetxController {
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }
