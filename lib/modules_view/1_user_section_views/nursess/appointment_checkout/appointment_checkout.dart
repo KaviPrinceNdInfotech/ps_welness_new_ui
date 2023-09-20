@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
@@ -32,6 +33,11 @@ class AppointmentCheckout extends StatelessWidget {
   final NurseCheckoutController _nurseappointmentcheckout =
       Get.put(NurseCheckoutController());
 
+  static String noofdays = ''.toString();
+  static String nursetypeiid = ''.toString();
+  //   static String nursestateid = ''.toString();
+  //   static String nursecityid = ''.toString();
+
   ///LabListController _labListController = Get.put(LabListController());
   //LabListController _labListController = Get.put(LabListController());
   UserProfileControllers _userrsProfileControllers =
@@ -59,6 +65,17 @@ class AppointmentCheckout extends StatelessWidget {
     print("nurssseee233:${nurseFee}");
     print("nurssseeegst:${nurseFeeGst}");
     print("Nursetotal:${finalnurseAmounts}");
+
+    var prefs = GetStorage();
+    //prefs.write("noofdays".toString(), json.decode(r.body)['NumberOfDay']);
+    noofdays = prefs.read("noofdays").toString();
+    print('&&&&&&&&&noofdayyyssttrr:${noofdays}');
+
+    //nurse type id...
+    //prefs.write(
+    //"nursetypeiid".toString(), json.decode(r.body)['NurseTypeId']);
+    nursetypeiid = prefs.read("nursetypeiid").toString();
+    print('&&&&&&&nursetypeiduser:${nursetypeiid}');
 
     ///todo: end maths logic....
 
@@ -587,7 +604,8 @@ class AppointmentCheckout extends StatelessWidget {
                                             ),
 
                                             Text(
-                                              "${_nurseappointmentcheckout.nurseCheckoutModel?.totalNumberofdays}",
+                                              noofdays,
+                                              // "${_nurseappointmentcheckout.nurseCheckoutModel?.totalNumberofdays?.toInt()}",
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,

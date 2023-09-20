@@ -933,6 +933,8 @@ class Nursebooking1Credentials extends StatelessWidget {
                       "${_nurseBooking1Controller.selectedCity.value?.id.toString()}");
                   prefs.setString("nurseLocationId",
                       "${_nurseBooking1Controller.selectedNurseLocation.value?.id.toString()}");
+                  prefs.setString("selectedNurseId",
+                      "${_nurseBooking1Controller.selectedNurse.value?.id.toString()}");
                   CallLoader.loader();
                   _nurseBooking1Controller.checkNurse1();
                   //Get.to(()=>NurseListUser());
