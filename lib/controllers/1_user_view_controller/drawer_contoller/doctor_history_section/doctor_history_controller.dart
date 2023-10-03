@@ -243,7 +243,7 @@ class DoctorHistoryController extends GetxController {
           .toList();
     }
     print(finalResult!.length);
-    foundDoctor.value = finalResult!;
+    foundDoctor.value = finalResult;
   }
 
   ///online.......
@@ -261,6 +261,6 @@ class DoctorHistoryController extends GetxController {
           .toList();
     }
     print(finalResult!.length);
-    foundDoctor2.value = finalResult!;
+    foundDoctor2.value = finalResult;
   }
 }

@@ -362,7 +362,7 @@ class Driver_1111_Controller extends GetxController {
       //selectableDayPredicate: disableDate,
     );
     if (newpickedDate != null) {
-      selectedDate?.value = newpickedDate;
+      selectedDate.value = newpickedDate;
       dlvaliditycontroller
         ?..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(

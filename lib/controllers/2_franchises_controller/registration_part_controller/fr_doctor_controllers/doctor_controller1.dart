@@ -183,11 +183,11 @@ class FrDoctor_1_Controller extends GetxController {
       selectedTimeslot.value?.slotid.toString(),
 
       ///todo: this is the main thing to provide time period..
-      selectedTime?.value,
-      selectedTime2?.value,
+      selectedTime.value,
+      selectedTime2.value,
       selectedTimeslot2.value?.slotid.toString(),
-      selectedTime3?.value,
-      selectedTime4?.value,
+      selectedTime3.value,
+      selectedTime4.value,
       ExperienceController?.text,
       selectedDepartment.value?.id.toString(),
       selectedSpecialist.value?.id.toString(),

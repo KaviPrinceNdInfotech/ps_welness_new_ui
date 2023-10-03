@@ -150,6 +150,6 @@ class LabAppointmentDetailController extends GetxController {
           .toList();
     }
     print(finalResult!.length);
-    foundpatientlab.value = finalResult!;
+    foundpatientlab.value = finalResult;
   }
 }

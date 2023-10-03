@@ -216,16 +216,17 @@ class Credentials extends StatefulWidget {
   State<Credentials> createState() => _CredentialsState();
 }
 
+///todo: this is the main state for login status.....
+
 class _CredentialsState extends State<Credentials> {
   final LoginpasswordController _loginpasswordController =
       Get.put(LoginpasswordController());
   NotificationServices notificationServices = NotificationServices();
   // DriverPayoutHistoryController _driverPayoutHistoryController =
   // Get.put(DriverPayoutHistoryController());
-
   String userId = ''.toString();
 
-  ///implement firebase....28...august..2023
+  ///implement firebase.......27..september..2023...........
   @override
   void initState() {
     super.initState();
@@ -254,6 +255,7 @@ class _CredentialsState extends State<Credentials> {
         print("FirebaseMessaging.instance.getInitialMessage");
         if (message != null) {
           print("New Notification");
+
           // if (message.data['_id'] != null) {
           //   Navigator.of(context).push(
           //     MaterialPageRoute(
@@ -372,7 +374,9 @@ class _CredentialsState extends State<Credentials> {
             //   hintText: 'Password',
             //   icon: Icons.lock,
             //   obscureText: true,
-            // ),
+            // ),..
+
+            ///
 
             SizedBox(
               height: size.height * 0.00,

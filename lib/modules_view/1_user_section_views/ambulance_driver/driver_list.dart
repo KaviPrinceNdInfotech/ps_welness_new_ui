@@ -1020,6 +1020,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                             ///
                                                             _driverAcceptlistController
                                                                 .driveracceptuserDetailApi();
+
+                                                            ///accept______reject....
                                                             _driverAcceptlistController
                                                                 .update();
                                                             accountService
@@ -1220,9 +1222,12 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                 ///todo end post api from backend..
                                                                 ///
                                                                 ///call message 2 screen....from book driver....21 july..
+                                                                ///todo:api....accept reject.........22 sep.......kumar prince...............
 
-                                                                _driverAcceptlistController
-                                                                    .driveracceptuserDetailApi();
+                                                                // _driverAcceptlistController
+                                                                //     .driveracceptuserDetailApi();
+                                                                ///todo:api...end .accept reject.........22 sep.......kumar prince...............
+
                                                                 _driverAcceptlistController
                                                                     .update();
                                                                 accountService

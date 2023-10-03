@@ -152,6 +152,6 @@ class NurseHistoryController extends GetxController {
           .toList();
     }
     print(finalResult!.length);
-    foundNurse.value = finalResult!;
+    foundNurse.value = finalResult;
   }
 }

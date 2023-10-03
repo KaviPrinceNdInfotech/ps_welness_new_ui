@@ -105,7 +105,6 @@ class NurseAppointmentDetailController extends GetxController {
     print('Prince time slot  list');
     print(timeslot);
   }
-
   //all catagary list .........
 
   // void nurseappointmentApi() async {
@@ -119,7 +118,6 @@ class NurseAppointmentDetailController extends GetxController {
   //     isLoading(false);
   //   }
   // }
-
   ///todo: nurse schedule api by the help of list Id of nurse....
   void nurseBooking2Api() async {
     CallLoader.loader();
@@ -135,9 +133,7 @@ class NurseAppointmentDetailController extends GetxController {
       _nurseappointmentcheckout.nursecheckoutApi();
       _nurseappointmentcheckout.onInit();
       _nurseappointmentcheckout.update();
-
       CallLoader.hideLoader();
-
       await accountService.getAccountData.then((accountData) {
         Timer(
           const Duration(seconds: 1),

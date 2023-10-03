@@ -61,11 +61,12 @@ class RozarPayController extends GetxController {
       // '${_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()}') *
       // 100,
       'amount': double.parse('${MedicineFee
-              //_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()
-              }'
-              // '100'
-              // '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}'
-              ) *
+                  //_doctorappointmentcheckout.doctorCheckoutModel?.fee?.toInt()
+                  }'
+                  // '100'
+                  // '${_medicinecheckoutController.medicinecheckoutModel?.data?.finalPrice?.toInt()}'
+                  )
+              .toInt() *
           100,
       'name':
           //'Kavi Singh',

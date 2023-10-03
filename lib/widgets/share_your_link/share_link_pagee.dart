@@ -50,6 +50,7 @@ class SharelinkweightState extends State<Sharelinkweight> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Ps Wellness Share App'),
+          elevation: 0,
           backgroundColor: Colors.cyan,
           centerTitle: true,
           leading: InkWell(
@@ -64,8 +65,12 @@ class SharelinkweightState extends State<Sharelinkweight> {
           decoration: const BoxDecoration(
             image: DecorationImage(
                 image: NetworkImage(
+                    //"https://images.unsplash.com/photo-1573883430060-1678c9cd4221?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    //"https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    "https://images.unsplash.com/photo-1584308878768-57d3387b1882?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2082&q=80"
                     //"https://images.unsplash.com/photo-1544108182-8810058c3a7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2669&q=80"
-                    "https://images.unsplash.com/photo-1517196084897-498e0abd7c2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60"),
+                    //"https://images.unsplash.com/photo-1517196084897-498e0abd7c2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60"
+                    ),
                 fit: BoxFit.cover),
 
             //https://images.unsplash.com/photo-1513366208864-87536b8bd7b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80
@@ -104,6 +109,8 @@ class SharelinkweightState extends State<Sharelinkweight> {
                     SizedBox(
                       height: size.height * 0.02,
                     ),
+
+                    ///.......................
                     Container(
                       height: size.height * 0.34,
                       width: size.width * 0.90,
@@ -168,6 +175,8 @@ class SharelinkweightState extends State<Sharelinkweight> {
                         ),
                       ),
                     ),
+
+                    ///...................
                   ],
                 ),
               ),

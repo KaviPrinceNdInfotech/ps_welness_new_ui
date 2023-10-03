@@ -74,6 +74,6 @@ class LabAppointmentHistoryyController extends GetxController {
           .toList();
     }
     print(finalResult!.length);
-    foundpatienthistorylab.value = finalResult!;
+    foundpatienthistorylab.value = finalResult;
   }
 }

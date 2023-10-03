@@ -58,17 +58,17 @@ class Patients_Controller extends GetxController {
   void frenchiesRegisterPatientApi() async {
     isLoading(true);
     http.Response r = await ApiProvider.FrenchiesRegisterPatient(
-      nameController?.text,
-      mobileController?.text,
-      emailController?.text,
-      passwordController?.text,
-      confirmpasswordController?.text,
-      addressController?.text,
+      nameController.text,
+      mobileController.text,
+      emailController.text,
+      passwordController.text,
+      confirmpasswordController.text,
+      addressController.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
       appointmentController.text,
       selectedgender.value,
-      pinController?.text,
+      pinController.text,
     );
     if (r.statusCode == 200) {
       CallLoader.loader();
@@ -107,13 +107,13 @@ class Patients_Controller extends GetxController {
 
   @override
   void onClose() {
-    nameController?.dispose();
-    emailController?.dispose();
-    passwordController?.dispose();
-    confirmpasswordController?.dispose();
-    mobileController?.dispose();
-    addressController?.dispose();
-    pinController?.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmpasswordController.dispose();
+    mobileController.dispose();
+    addressController.dispose();
+    pinController.dispose();
   }
 
   chooseDate() async {

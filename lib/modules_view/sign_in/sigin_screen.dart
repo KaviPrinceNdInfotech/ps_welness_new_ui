@@ -56,6 +56,14 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                ///
+                ///
+                ///
+                ///
+                ///
+                ///
+
                 Positioned(
                   bottom: -size.height * 0.32,
                   //left: -30,
@@ -66,7 +74,11 @@ class SignInScreen extends StatelessWidget {
                       height: size.height * 0.406,
                       width: size.width,
                       decoration: BoxDecoration(
-                          //color: Colors.,
+
+                          ///
+                          ///
+                          ///color: Colors............
+
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
                           ),
@@ -100,6 +112,8 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                ///
                 Positioned(
                   bottom: size.height * 0.0,
                   //left: -30,
@@ -124,6 +138,9 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                ///
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

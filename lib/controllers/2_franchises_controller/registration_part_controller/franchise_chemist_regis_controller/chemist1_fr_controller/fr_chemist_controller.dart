@@ -173,7 +173,7 @@ class Fr_Chemist_1_Controller extends GetxController {
       //selectableDayPredicate: disableDate,
     );
     if (newpickedDate != null) {
-      selectedDate?.value = newpickedDate;
+      selectedDate.value = newpickedDate;
       licencevalidityController
         ?..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(

@@ -643,25 +643,20 @@ class ApiProvider {
             duration: (Duration(seconds: 3)));
         CallLoader.hideLoader();
       } else {
+        //await _getGeoLocationPosition();
         //CallLoader.hideLoader();
-
         //await CallLoader.loader();
 
         Get.snackbar('Sucess', '${json.decode(r.body)['Message']}',
             snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.green.shade400,
             colorText: Colors.white,
-            duration: (Duration(seconds: 3)));
-
-        ///
-        await CallLoader.loader();
+            duration: (Duration(seconds: 2)));
 
         ///from here we have call devide id and token....
-        ///
-        await Future.delayed(Duration(milliseconds: 100));
-
+        // await Future.delayed(Duration(milliseconds: 100));
         ///todo: accept location permission....
-
+        await CallLoader.loader();
         await _getGeoLocationPosition();
 
         ///indirect___use of user ----api......28_august...2023
@@ -6008,7 +6003,8 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driacceptrejectlistid = preferences.getString("driacceptrejectlistid");
     print("driacceptrejectlistid: ${driacceptrejectlistid}");
-    var url = '${baseUrl}api/DriverApi/BookingAmbulanceAcceptReject';
+    //http://test.pswellness.in/api/DriverApi/AmbulanceReject
+    var url = '${baseUrl}api/DriverApi/AmbulanceReject';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
@@ -6016,7 +6012,7 @@ class ApiProvider {
     var body = {
       "Id": "${driacceptrejectlistid}",
       "DriverId": userid,
-      "StatusId": "${0}",
+      //"StatusId": "${0}",
     };
     //
     print("rejectt:${body}");
