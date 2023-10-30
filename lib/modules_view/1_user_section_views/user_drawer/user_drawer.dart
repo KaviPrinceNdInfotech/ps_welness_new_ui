@@ -7,9 +7,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_user_payment_list_controller/driver_user_paymenthistory_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/controllers/profile_u_controller/profile_update_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/ambulance_driver/comming_driver/comming_drivers.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/complaint_page_user/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
@@ -25,10 +28,12 @@ import '../../../controllers/1_user_view_controller/drawer_contoller/doctor_hist
 import '../../../controllers/1_user_view_controller/drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import '../../../controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
+import '../../../controllers/3_driver_view_controllers_RRR/driver_payment_history_controller.dart';
 import '../../../utils/services/account_service.dart';
 import '../../../widgets/circular_loader.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
 import '../../sign_in/sigin_screen.dart';
+import '../ambulance_driver/ambulance_payment_history/ambulance_payment_history.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'drawer_pages_user/medicine_history/medicine_history_page.dart';
 import 'drawer_pages_user/nurse_history/nurse_history_page.dart';
@@ -59,6 +64,14 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
     LoginpasswordController _loginpasswordControllerr = Get.find();
 
     ProfileController _profileController = Get.put(ProfileController());
+
+    DriverPaymentHistoryController _driverPaymentHistoryController =
+        Get.put(DriverPaymentHistoryController());
+
+    DriverUserPaymentHistoryController _driverUserPaymentHistoryController =
+        Get.put(DriverUserPaymentHistoryController());
+    CommingDriverController _commingDriverController =
+        Get.put(CommingDriverController());
 
     ///
 
@@ -776,6 +789,158 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 Get.to(() => Sharelinkweight());
               },
             ),
+
+            ///AmbulancePaymentHistory
+            ///
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.history,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Ambulance Payment History',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/Sharelinkweight'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () async {
+                await accountService.getAccountData.then((accountData) async {
+                  _driverUserPaymentHistoryController
+                      .driveruserPaymentHistoryApi();
+                  _driverUserPaymentHistoryController.update();
+                  _driverUserPaymentHistoryController.refresh();
+                  _driverUserPaymentHistoryController.onInit();
+
+                  ///
+                  // CallLoader.loader();
+                  // nearlistdriverApi();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(milliseconds: 300));
+                  CallLoader.hideLoader();
+
+                  Timer(
+                    const Duration(milliseconds: 100),
+                    () {
+                      // nearlistdriverApi();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AmbulancePaymentHistory()));
+                      // Get.to(MessageScreen(
+                      //   id: message.data['id'],
+                      // ));
+                      //Get.to((MapView));
+                      //postAmbulancerequestApi(markers);
+
+                      ///
+                    },
+                  );
+                  CallLoader.hideLoader();
+                });
+
+                // CallLoader.loader();
+                // nearlistdriverApi();
+                /// CallLoader.loader();
+                //await Future.delayed(Duration(milliseconds: 500));
+                /// CallLoader.hideLoader();
+
+                Get.back();
+                //Get.to(() => ShareData());
+                // Get.to(() => ComingDriver());
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.car_crash_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Your coming Ambulance',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ComingDriver'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+
+              onTap: () async {
+                await accountService.getAccountData.then((accountData) {
+                  _commingDriverController.drivercominguserDetailApi();
+                  _commingDriverController.update();
+                  _commingDriverController.refresh();
+                  _commingDriverController.onInit();
+                });
+
+                await accountService.getAccountData.then((accountData) async {
+                  _commingDriverController.drivercominguserDetailApi();
+                  _commingDriverController.update();
+                  _commingDriverController.refresh();
+                  _commingDriverController.onInit();
+
+                  // CallLoader.loader();
+                  // nearlistdriverApi();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(milliseconds: 500));
+                  CallLoader.hideLoader();
+
+                  Timer(
+                    const Duration(milliseconds: 100),
+                    () {
+                      // nearlistdriverApi();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComingDriver(
+                                  //id: "12345678",
+                                  )));
+                      // Get.to(MessageScreen(
+                      //   id: message.data['id'],
+                      // ));
+                      //Get.to((MapView));
+                      //postAmbulancerequestApi(markers);
+
+                      ///
+                    },
+                  );
+                  CallLoader.hideLoader();
+                });
+
+                /// CallLoader.loader();
+                //await Future.delayed(Duration(milliseconds: 500));
+                /// CallLoader.hideLoader();
+
+                Get.back();
+                //Get.to(() => ShareData());
+                // Get.to(() => ComingDriver());
+              },
+            ),
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -806,7 +971,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 Get.to(() => PrivacyPolicyView());
               },
             ),
-
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -839,7 +1003,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 Get.offNamed('/SupportViewPsComman');
               },
             ),
-
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -872,7 +1035,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 Get.offNamed('/ChangePassword');
               },
             ),
-
             ListTile(
               leading: Icon(
                 Icons.delete_forever_outlined,
@@ -916,7 +1078,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                 //     MaterialPageRoute(builder: (context) => Wollet()));
               }, //PersonalDetails
             ),
-
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(

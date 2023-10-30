@@ -48,7 +48,11 @@ class FrDoctor_1_Controller extends GetxController {
       StartTime2Controller,
       EndTime2Controller,
       ExperienceController,
-      FeesController;
+      FeesController,
+      qualificationController,
+      registrationController,
+      signaturepicController,
+      signaturepicbase64Controller;
 
   var pan = '';
   var name = '';
@@ -67,6 +71,8 @@ class FrDoctor_1_Controller extends GetxController {
 
   var selectedLicenceImagepath = ''.obs;
   var selectedPanImagepath = ''.obs;
+  var selectedImagepath2 = ''.obs;
+
   var selectedTime = TimeOfDay.now().obs;
   var selectedTime2 = TimeOfDay.now().obs;
   var selectedTime3 = TimeOfDay.now().obs;
@@ -84,6 +90,15 @@ class FrDoctor_1_Controller extends GetxController {
     if (pickedFile != null) {
       selectedPanImagepath.value = pickedFile.path;
     } else {}
+  }
+
+  void getImage2(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedImagepath2.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
   }
 
   ///this is for State....................................
@@ -161,6 +176,8 @@ class FrDoctor_1_Controller extends GetxController {
         base64Encode(await File(selectedLicenceImagepath.value).readAsBytes());
     final PanImageAsBase64 =
         base64Encode(await File(selectedPanImagepath.value).readAsBytes());
+    final licenceImage2AsBase64 =
+        base64Encode(await File(selectedImagepath2.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterDoctor(
       panController?.text,
       doctorNameController?.text,
@@ -192,6 +209,12 @@ class FrDoctor_1_Controller extends GetxController {
       selectedDepartment.value?.id.toString(),
       selectedSpecialist.value?.id.toString(),
       FeesController?.text,
+
+      ///.....todo:....new thing.........
+      qualificationController?.text,
+      registrationController?.text,
+      selectedImagepath2.value.split('/').last,
+      licenceImage2AsBase64,
     );
     if (r.statusCode == 200) {
       print("ttftft${SlotTimeController?.text}");
@@ -253,6 +276,9 @@ class FrDoctor_1_Controller extends GetxController {
     EndTime2Controller = TextEditingController(text: '');
     ExperienceController = TextEditingController();
     FeesController = TextEditingController();
+    qualificationController = TextEditingController();
+    registrationController = TextEditingController();
+    signaturepicController = TextEditingController();
     super.onInit();
   }
 

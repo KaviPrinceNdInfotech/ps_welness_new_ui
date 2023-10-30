@@ -537,6 +537,123 @@ class FrDoc3Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
+              ///TODO: qualification.......................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.password],
+                  controller: _frDoctor_1_controller.qualificationController,
+                  onSaved: (value) {
+                    _frDoctor_1_controller.name = value!;
+                  },
+                  validator: (value) {
+                    return _frDoctor_1_controller.validfeess(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Qualification ',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_card,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.018,
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
+              ///TODO: registration no.......................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.password],
+                  controller: _frDoctor_1_controller.registrationController,
+                  onSaved: (value) {
+                    _frDoctor_1_controller.name = value!;
+                  },
+                  validator: (value) {
+                    return _frDoctor_1_controller.validfeess(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Registration Number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_chart_rounded,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.018,
+              ),
+
+              GetBuilder<Hospital_2_Controller>(
+                init: Hospital_2_Controller(), // intialize with the Controller
+                builder: (value) => InkWell(
+                  onTap: () {
+                    _frDoctor_1_controller.getImage2(ImageSource.gallery);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Signature Image file',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Obx(
+                            () =>
+                                _frDoctor_1_controller.selectedImagepath2 == ''
+                                    ? const Center(child: Text("No Image"))
+                                    : Image.file(
+                                        File(_frDoctor_1_controller
+                                            .selectedImagepath2.value),
+                                        fit: BoxFit.cover,
+                                      ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.018,
+              ),
+
               RectangularButton(
                   text: 'SUBMIT',
                   press: () {

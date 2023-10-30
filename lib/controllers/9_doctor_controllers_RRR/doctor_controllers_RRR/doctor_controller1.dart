@@ -24,6 +24,8 @@ class Doctor_1_Controller extends GetxController {
   ///TODO: image picker.................
   ///
   var selectedImagepath = ''.obs;
+  var selectedImagepath2 = ''.obs;
+
   var selectedStartTime = TimeOfDay.now().obs;
   var selectedEndTime = TimeOfDay.now().obs;
   var selectedSlotTime = TimeOfDay.now().obs;
@@ -76,7 +78,11 @@ class Doctor_1_Controller extends GetxController {
       cityMaster_IdController,
       endTimeController,
       licenceBase64Controller,
-      experienceController;
+      experienceController,
+      qualificationController,
+      registrationController,
+      signaturepicController,
+      signaturepicbase64Controller;
 
   var pan = '';
   var Id = '';
@@ -112,6 +118,15 @@ class Doctor_1_Controller extends GetxController {
     }
   }
 
+  void getImage2(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedImagepath2.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+
   ///this is for State....................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
   List<StateModel> states = <StateModel>[].obs;
@@ -132,6 +147,8 @@ class Doctor_1_Controller extends GetxController {
     CallLoader.loader();
     final licenceImageAsBase64 =
         base64Encode(await File(selectedImagepath.value).readAsBytes());
+    final licenceImage2AsBase64 =
+        base64Encode(await File(selectedImagepath2.value).readAsBytes());
     http.Response r = await ApiProvider.signDoctorUpApi(
       panController?.text,
       doctorNameController?.text,
@@ -155,6 +172,10 @@ class Doctor_1_Controller extends GetxController {
       selectedEndTime.value.hour,
       licenceImageAsBase64,
       experienceController?.text,
+      qualificationController?.text,
+      registrationController?.text,
+      selectedImagepath2.value.split('/').last,
+      licenceImage2AsBase64,
     );
     if (r.statusCode == 200) {
       Get.snackbar(
@@ -219,6 +240,13 @@ class Doctor_1_Controller extends GetxController {
     endTimeController = TextEditingController(text: '14:27:00.0000000');
     licenceBase64Controller = TextEditingController();
     experienceController = TextEditingController();
+
+    qualificationController = TextEditingController();
+    registrationController = TextEditingController();
+    signaturepicController = TextEditingController();
+    signaturepicbase64Controller = TextEditingController();
+    //signaturepicController,
+    //   signaturepicbase64Controller;
   }
 
   @override

@@ -43,7 +43,6 @@ String driverpassword = ''.toString();
 
 AppointmentUserController _appointmentUserController =
     Get.put(AppointmentUserController());
-
 UserHomepagContreoller _userHomepagContreoller =
     Get.put(UserHomepagContreoller());
 AmbulancegetController _ambulancegetController =
@@ -109,6 +108,7 @@ class _UserHomePageState extends State<UserHomePage> {
       },
     );
     // 2. This method only call when App in forground it mean app must be opened
+
     FirebaseMessaging.onMessage.listen(
       (message) {
         print("FirebaseMessaging.onMessage.listen");
@@ -117,11 +117,16 @@ class _UserHomePageState extends State<UserHomePage> {
           print(message.notification!.body);
           print("message.data11 ${message.data}");
 
-          ///you can call local notification....
+          ///you can call local notification.............................
+
           LocalNotificationService.createanddisplaynotification(message);
+
+          ///you can call local notification....................................
+
         }
       },
     );
+
     // 3. This method only call when App in background and not terminated(not closed)
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {

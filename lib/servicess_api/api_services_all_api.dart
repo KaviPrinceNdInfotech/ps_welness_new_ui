@@ -51,6 +51,7 @@ import '../model/10_lab_module/lab_report_view_model/lab_report_image.dart';
 import '../model/10_lab_module/lab_report_view_model/lab_report_view_model.dart';
 import '../model/1_user_model/ambulance/accepted_driver_models.dart';
 import '../model/1_user_model/ambulance/ambulance_catagary2_model.dart';
+import '../model/1_user_model/ambulance/coming_driver_user.dart';
 import '../model/1_user_model/ambulance/driver_list_model.dart';
 import '../model/1_user_model/city_model/city_modelss.dart';
 import '../model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
@@ -373,6 +374,37 @@ class ApiProvider {
     );
     // print(r.body);
     if (r.statusCode == 200) {
+      print(r.body);
+      print(body);
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo:here doctor apt done api of user.............4_oct.... 2023...
+
+  static doctorappointmentDoneApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrIds = preferences.getString("DrIds");
+    print("DrIdsssd: ${DrIds}");
+    //DrIds
+    //http://test.pswellness.in/api/DoctorApi/AppointmentDone
+    var url = '${baseUrl}api/DoctorApi/AppointmentDone';
+    var body = {"Id": "$DrIds"};
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print("donnee:${body}");
+
+    // print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('message', r.body);
       print(r.body);
       print(body);
 
@@ -6059,6 +6091,33 @@ class ApiProvider {
         DriveracceptModeluser driveracceptuserDetail =
             driveracceptModeluserFromJson(r.body);
         return driveracceptuserDetail;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: accepted driver coming list  21 october 2023....user api...
+  static ComingDriverDetailUserApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogleewew:${userid}');
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistbookingId = preferences.getString("driverlistbookingId");
+    print("driverlistbookingId: ${driverlistbookingId}");
+    //driverlistbookingId
+    //http://test.pswellness.in/api/DriverApi/GetAcceptedandPaidamtDriverDetail?Id=268
+    var url =
+        '${baseUrl}api/DriverApi/GetAcceptedandPaidamtDriverDetail?Id=$userid';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("ambulanceonlinerrreeeww:${r.body}");
+        print("ambulanceonlinerrreeeww:${url}");
+
+        AmbulanceComingUser comingdriveracceptuserDetail =
+            ambulanceComingUserFromJson(r.body);
+        return comingdriveracceptuserDetail;
       }
     } catch (error) {
       return;

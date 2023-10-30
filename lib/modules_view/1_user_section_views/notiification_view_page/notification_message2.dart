@@ -145,6 +145,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
     print("driverfees:${driverFee}");
     print("driverdiscount:${driverFeesdiscount}");
     print("drivertotal:${finaldriverAmounts}");
+    print("drivertotalremaining:${finalamtdriver}");
 
     return Container(
       color: MyTheme.ThemeColors,
@@ -668,6 +669,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                           Row(
                                             children: [
                                               ///payamoutnt.......wallet....
+                                              /////finalamtdriver
                                               SizedBox(
                                                 height: size.height * 0.05,
                                                 width: size.width * 0.35,
@@ -699,6 +701,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                     //             .getDriveracceptDetail
                                                     //             ?.totalPrice
                                                     //             ?.toDouble() ??
+                                                    //  finaldriverAmounts
                                                     //         0;
                                                     final walletAmount =
                                                         _walletPostController
@@ -707,13 +710,13 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                                 .walletAmount ??
                                                             0;
                                                     print(
-                                                        "AmbulanceFEE $Ambulancefees");
+                                                        "AmbulanceFEE $finalamtdriver");
                                                     // print(
                                                     //     "Ambulanceamount $walletAmount");
 
                                                     print(
                                                         "WALLET AMOUNT $walletAmount");
-                                                    if (Ambulancefees >
+                                                    if (finalamtdriver >
                                                         walletAmount) {
                                                       Get.snackbar("Low Amount",
                                                           "Please Add Money");
@@ -727,14 +730,13 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                         transition:
                                                             Transition.zoom,
                                                       );
-
                                                       /// Not possibble from wallet go to add page
                                                     } else {
                                                       // final newWalletAmount =
                                                       //     walletAmount -
                                                       //         Ambulancefees;
                                                       final newWalletAmount =
-                                                          Ambulancefees - 0;
+                                                          finalamtdriver - 0;
                                                       _walletPostController
                                                           .walletPostUpdateApi(
                                                               newWalletAmount)
@@ -759,10 +761,12 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                                           700));
 
                                                               ///
-                                                              _driverAcceptlistController
+                                                              await _driverAcceptlistController
                                                                   .driveracceptuserDetailApi();
                                                               _driverAcceptlistController
                                                                   .update();
+                                                              _driverAcceptlistController
+                                                                  .onInit();
                                                               _driverAcceptlistController
                                                                   .refresh();
                                                               accountService
@@ -775,9 +779,9 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                                   const Duration(
                                                                       milliseconds:
                                                                           500),
-                                                                  () {
+                                                                  () async {
                                                                     // nearlistdriverApi();
-                                                                    Get.to(
+                                                                    await Get.to(
                                                                         UserHomePage());
                                                                     // Get.to(MessageScreen(
                                                                     //   id: message.data['id'],

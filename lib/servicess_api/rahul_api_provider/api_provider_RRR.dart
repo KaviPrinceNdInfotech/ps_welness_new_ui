@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_booking_history.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
@@ -544,28 +545,33 @@ class ApiProvider {
   ///
   //sign up  Api doctor Api 1........................................................
   static signDoctorUpApi(
-      var PAN,
-      var DoctorName,
-      var EmailId,
-      var Password,
-      var ConfirmPassword,
-      var MobileNumber,
-      var Fee,
-      var PhoneNumber,
-      var StartTime,
-      var SlotTiming,
-      var Department_Id,
-      var Specialist_Id,
-      var LicenceNumber,
-      var LicenceImage,
-      var PinCode,
-      var ClinicName,
-      var Location,
-      var StateMaster_Id,
-      var CityMaster_Id,
-      var EndTime,
-      var LicenceBase64,
-      var experience) async {
+    var PAN,
+    var DoctorName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var Fee,
+    var PhoneNumber,
+    var StartTime,
+    var SlotTiming,
+    var Department_Id,
+    var Specialist_Id,
+    var LicenceNumber,
+    var LicenceImage,
+    var PinCode,
+    var ClinicName,
+    var Location,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var EndTime,
+    var LicenceBase64,
+    var experience,
+    var Qualification,
+    var RegistrationNumber,
+    var SignaturePic,
+    var SignaturePicBase64,
+  ) async {
     try {
       var url = '${baseUrl}api/SignupApi/DoctorRegistration';
       var body = {
@@ -592,6 +598,10 @@ class ApiProvider {
         "EndTime": "22:27:00.0000000", //"$EndTime",
         "LicenceBase64": "$LicenceBase64",
         "experience": experience,
+        "Qualification": "$Qualification",
+        "RegistrationNumber": "$RegistrationNumber",
+        "SignaturePic": "$SignaturePic",
+        "SignaturePicBase64": "$SignaturePicBase64"
       };
       print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%: ${body}");
       print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%Time: ${StartTime}");
@@ -1418,9 +1428,33 @@ class ApiProvider {
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        //DriverAppoinmentDetailModel driverAppoinmentDetail =
+        //             driverAppoinmentDetailModelFromJson(r.body);
         List<DriverPaymentHistoryModel> driverPaymentHistoryModel =
             driverPaymentHistoryModelFromJson(r.body);
         return driverPaymentHistoryModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  /// todo driverPaymentHistory.....user---side..................
+  static DriverUserPaymentHistory() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
+    var url =
+        '${baseUrl}api/DriverApi/GetDriverBookingHistory?PatientId=$userid';
+    //176
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        //DriverAppoinmentDetailModel driverAppoinmentDetail =
+        //             driverAppoinmentDetailModelFromJson(r.body);
+        AmbulanceUserPaymentHistory driveruserPaymentHistoryModel =
+            ambulanceUserPaymentHistoryFromJson(r.body);
+        return driveruserPaymentHistoryModel;
       }
     } catch (error) {
       return;
@@ -3621,6 +3655,10 @@ class ApiProvider {
     var Department_Id,
     var Specialist_Id,
     var Fee,
+    var Qualification,
+    var RegistrationNumber,
+    var SignaturePic,
+    var SignaturePicBase64,
   ) async {
     Id = prefs.read("Id").toString();
     final url = '${baseUrl}api/FranchisesApi/fra_DoctorRegistration';
@@ -3673,6 +3711,10 @@ class ApiProvider {
       "Department_Id": "$Department_Id",
       "Specialist_Id": "$Specialist_Id",
       "Fee": "$Fee",
+      "Qualification": "$Qualification",
+      "RegistrationNumber": "$RegistrationNumber",
+      "SignaturePic": "$SignaturePic",
+      "SignaturePicBase64": "$SignaturePicBase64"
     };
 
     print('FrenchiesRegisterDoctor1212: ${body}');

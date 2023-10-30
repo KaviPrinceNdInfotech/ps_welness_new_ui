@@ -213,7 +213,15 @@ class User1Credentials extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
+            ),
+
+            Text(
+              'Date of Birth.',
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.w500,
+              ),
             ),
 
             ///date..

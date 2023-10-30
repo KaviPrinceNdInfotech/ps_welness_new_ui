@@ -428,6 +428,120 @@ class Doctor2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
+              ///todo : Qualification .................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _doctor_1_controller.qualificationController,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  onSaved: (value) {
+                    _doctor_1_controller.experience = value!;
+                  },
+                  validator: (value) {
+                    return _doctor_1_controller.validexperince(value!);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Licence number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.local_police,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.00,
+                //appPadding / 2,
+              ),
+
+              ///todo : RegistrationNumber .................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _doctor_1_controller.registrationController,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  onSaved: (value) {
+                    _doctor_1_controller.experience = value!;
+                  },
+                  validator: (value) {
+                    return _doctor_1_controller.validexperince(value!);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Enter Your Registration Number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.pin,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.00,
+                //appPadding / 2,
+              ),
+
+              ///todo : signature image .................
+              GetBuilder<Hospital_2_Controller>(
+                init: Hospital_2_Controller(), // intialize with the Controller
+                builder: (value) => InkWell(
+                  onTap: () {
+                    _doctor_1_controller.getImage2(ImageSource.gallery);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Signature Image ',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Obx(
+                            () =>
+                                _doctor_1_controller.selectedImagepath2.value ==
+                                        ''
+                                    ? const Center(child: Text("No Image"))
+                                    : Image.file(
+                                        File(_doctor_1_controller
+                                            .selectedImagepath2.value),
+                                        fit: BoxFit.cover,
+                                      ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.00,
+                //appPadding / 2,
+              ),
               // SizedBox(
               //   height: size.height * 0.00,
               //   //appPadding / 2,

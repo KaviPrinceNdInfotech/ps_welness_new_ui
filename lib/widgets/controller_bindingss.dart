@@ -57,6 +57,7 @@ import '../controllers/10_lab_controller/lab_home_controllers/lab_home_controlle
 import '../controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../controllers/10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
+import '../controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
 import '../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype2_controller.dart';
 import '../controllers/1_user_view_controller/ambulance/get_ambulancetype3_controller.dart';
@@ -221,6 +222,7 @@ class ControllerBinding extends Bindings {
     Get.put(SkillsListController());
     Get.put(NurseAppoointmentHistoryControllerss());
     Get.put(Fr_common_Controller());
+    Get.put(CommingDriverController());
     //Get.put(InvoiceController());
 
     /// Get.put(CheckoutMedicineController());

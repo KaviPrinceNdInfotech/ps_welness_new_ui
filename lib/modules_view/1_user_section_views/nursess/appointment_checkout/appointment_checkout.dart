@@ -63,14 +63,14 @@ class AppointmentCheckout extends StatelessWidget {
     var finalamtnurse =
         double.parse("${nurseFee.toDouble() + nurseFeeGst.toDouble()}");
     print("nurssseee233:${nurseFee}");
+
+    ///...........
     print("nurssseeegst:${nurseFeeGst}");
     print("Nursetotal:${finalnurseAmounts}");
-
     var prefs = GetStorage();
     //prefs.write("noofdays".toString(), json.decode(r.body)['NumberOfDay']);
     noofdays = prefs.read("noofdays").toString();
     print('&&&&&&&&&noofdayyyssttrr:${noofdays}');
-
     //nurse type id...
     //prefs.write(
     //"nursetypeiid".toString(), json.decode(r.body)['NurseTypeId']);

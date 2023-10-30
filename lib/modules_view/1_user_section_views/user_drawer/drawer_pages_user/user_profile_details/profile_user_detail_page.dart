@@ -193,7 +193,10 @@ class UserDetailProfile extends StatelessWidget {
                                                 height: size.height * 0.01,
                                               ),
                                               Text(
-                                                '7089706632',
+                                                _userrsProfileControllers
+                                                    .userProfile!.mobileNumber
+                                                    .toString(),
+                                                // '7089706632',
                                                 style: GoogleFonts.poppins(
                                                   fontSize: size.height * 0.018,
                                                   fontWeight: FontWeight.w600,
@@ -209,7 +212,7 @@ class UserDetailProfile extends StatelessWidget {
                                                     .toString(),
                                                 // 'Sec,C53',
                                                 style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
+                                                  fontSize: size.height * 0.014,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.yellow.shade800,
                                                 ),
@@ -237,7 +240,7 @@ class UserDetailProfile extends StatelessWidget {
                                                     .toString(),
                                                 //'Bihar',
                                                 style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
+                                                  fontSize: size.height * 0.014,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.yellow.shade800,
                                                 ),

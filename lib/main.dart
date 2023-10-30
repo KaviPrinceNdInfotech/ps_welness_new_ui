@@ -9,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_payment_report/franchise_payment_report.dart';
@@ -185,6 +186,8 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => NurseAppoointmentHistoryControllerss());
 
     Get.lazyPut(() => Fr_common_Controller());
+
+    Get.lazyPut(() => CommingDriverController());
 
     // Get.lazyPut(() => InvoiceController());
 

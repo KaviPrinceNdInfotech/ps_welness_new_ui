@@ -53,7 +53,8 @@ class RozarPayNurseController extends GetxController {
     print("Fee545454: ${NurseFee}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
-      'key': 'rzp_test_aeRns0u8gPpOUK',
+      'key': 'rzp_test_s1VIQAlF8CZRCE',
+      // 'key': 'rzp_test_aeRns0u8gPpOUK',
       'amount': double.parse(
               // '100'
               "${NurseFee?.toString()}"

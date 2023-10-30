@@ -373,7 +373,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            """Update\nLocation""",
+                            """Complete\nYour Ride""",
                             // '\u{20B9}',
                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                             style: GoogleFonts.actor(
@@ -386,7 +386,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
                             width: size.width * 0.00,
                           ),
                           Icon(
-                            Icons.place_rounded,
+                            // Icons.place_rounded,
+                            Icons.cable_rounded,
+
                             color: Colors.red,
                           ),
                           // Text(

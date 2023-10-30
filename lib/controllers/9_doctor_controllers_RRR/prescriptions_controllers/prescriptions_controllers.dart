@@ -335,35 +335,39 @@ class Prescriptions_doctor_Controller extends GetxController {
     return null;
   }
 
-  String? Med1(String value) {
-    if (value.isEmpty) {
-      return 'This field is required';
-    }
-    // if (value.length != 10) {
-    //   return '              A valid phone number should be of 10 digits';
-    // }
-    return null;
-  }
+  // String? Med1(String value) {
+  //   if (value.isEmpty) {
+  //     return 'This field is required';
+  //   }
+  //   // if (value.length != 10) {
+  //   //   return '              A valid phone number should be of 10 digits';
+  //   // }
+  //   return null;
+  // }............
 
-  String? Dose1(String value) {
-    if (value.isEmpty) {
-      return 'This field is required';
-    }
-    // if (value.length != 10) {
-    //   return '              A valid phone number should be of 10 digits';
-    // }
-    return null;
-  }
+  ///............................................
 
-  String? Inst1(String value) {
-    if (value.isEmpty) {
-      return 'This field is required';
-    }
-    // if (value.length != 10) {
-    //   return '              A valid phone number should be of 10 digits';
-    // }
-    return null;
-  }
+  // String? Dose1(String value) {
+  //   if (value.isEmpty) {
+  //     return 'This field is required';
+  //   }
+  //   // if (value.length != 10) {
+  //   //   return '              A valid phone number should be of 10 digits';
+  //   // }
+  //   return null;
+  // }.................
+
+  ///
+
+  // String? Inst1(String value) {
+  //   if (value.isEmpty) {
+  //     return 'This field is required';
+  //   }
+  //   // if (value.length != 10) {
+  //   //   return '              A valid phone number should be of 10 digits';
+  //   // }
+  //   return null;
+  // }
 
   void checkPrescription1() {
     if (prescriptionsdrformkey.currentState!.validate()) {

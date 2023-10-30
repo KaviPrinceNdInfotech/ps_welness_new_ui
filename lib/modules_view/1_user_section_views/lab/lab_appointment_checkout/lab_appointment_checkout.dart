@@ -54,9 +54,8 @@ class LabAppointmentCheckout extends StatelessWidget {
     // print("Drtotal:${finalDrAmounts}");
     print("finalamtlab:${finalamtlab}");
 
-    ///todo: end maths logic....
+    ///todo: end maths logic......
     bool shouldPop = true;
-
     //LabSchedule1Page
     Size size = MediaQuery.of(context).size;
     return WillPopScope(

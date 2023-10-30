@@ -10,6 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_done_apt_controller/doctor_donee_controllerr.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/prescriptions_pages/prescriptions_page.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
@@ -39,6 +40,8 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
   // Get.put(UseracptrejectController());
 
   NotificationServices notificationServices = NotificationServices();
+
+  DoctorDoneController _doctorDoneController = Get.put(DoctorDoneController());
 
   @override
   void initState() {
@@ -862,7 +865,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                 child: Material(
                                                   elevation: 5,
                                                   child: Container(
-                                                    height: size.height * 0.19,
+                                                    height: size.height * 0.20,
                                                     decoration: BoxDecoration(
                                                       color: MyTheme.white,
                                                     ),
@@ -1038,7 +1041,23 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                   );
                                                                   print(
                                                                       "patientooodd${_doctorHomepageController.founddoctoraptProducts2?[index].patientId}");
-                                                                  Get.dialog(
+
+                                                                  ///todo: doctor..done.................
+                                                                  await SharedPreferences
+                                                                      .getInstance();
+                                                                  prefs
+                                                                      .setString(
+                                                                    "DrIds",
+                                                                    "${_doctorHomepageController.founddoctoraptProducts2?[index].id}"
+                                                                        .toString(),
+
+                                                                    // "${_nurseHistoryController.foundNurse[index].id.toString()}"
+                                                                  );
+
+                                                                  ///todo: from here data base
+
+                                                                  await Get
+                                                                      .dialog(
                                                                     Column(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
@@ -1078,7 +1097,8 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                       textAlign: TextAlign.center,
                                                                                     ),
                                                                                     const SizedBox(height: 20),
-                                                                                    //Buttons
+
+                                                                                    ///Buttons.......................
                                                                                     Row(
                                                                                       children: [
                                                                                         Expanded(
@@ -1114,9 +1134,15 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                               ),
                                                                                             ),
                                                                                             onPressed: () async {
+                                                                                              await _doctorDoneController.doctordoneaptApi();
+                                                                                              await _doctorHomepageController.doctorAppoinmentOnline();
+                                                                                              _doctorHomepageController.update();
                                                                                               // await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
-                                                                                              Get.back();
-                                                                                              Get.to(PrescriptionsDoctor());
+                                                                                              // Get.back();
+                                                                                              CallLoader.loader();
+                                                                                              await Future.delayed(Duration(seconds: 1));
+                                                                                              CallLoader.hideLoader();
+                                                                                              await Get.to(PrescriptionsDoctor());
                                                                                             },
                                                                                             child: const Text(
                                                                                               'Yes',
@@ -1137,6 +1163,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                       ],
                                                                     ),
                                                                   );
+
                                                                   //print(
                                                                   //"mobilee:${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}");
 
@@ -1215,8 +1242,18 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                     "DrIds",
                                                                     "${_doctorHomepageController.founddoctoraptProducts2?[index].id}"
                                                                         .toString(),
+
                                                                     // "${_nurseHistoryController.foundNurse[index].id.toString()}"
                                                                   );
+
+                                                                  ///todo: from here data base
+                                                                  //
+                                                                  // await _doctorDoneController
+                                                                  //     .doctordoneaptApi();
+                                                                  // await _doctorHomepageController
+                                                                  //     .doctorAppoinmentOnline();
+                                                                  // _doctorHomepageController
+                                                                  //     .update();
 
                                                                   print({
                                                                     "mydr${_doctorHomepageController.founddoctoraptProducts2?[index].id}"

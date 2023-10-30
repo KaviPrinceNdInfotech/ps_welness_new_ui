@@ -115,9 +115,7 @@ class _MyLocationState extends State<MyLocation> {
   late GoogleMapController mapController;
   late GoogleMapController newGoogleMapController;
   double mapbottompadding = 0;
-
   final _scaffoldKey1 = GlobalKey<ScaffoldState>();
-
   String? _currentAddress;
   Position? _currentPosition;
 

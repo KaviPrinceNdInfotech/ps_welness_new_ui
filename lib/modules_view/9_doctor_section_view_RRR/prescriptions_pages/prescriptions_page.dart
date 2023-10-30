@@ -173,9 +173,9 @@ class _PrescriptionsDoctorState extends State<PrescriptionsDoctor> {
                         onSaved: (value) {
                           _prescriptions_doctor_controller.med1 = value!;
                         },
-                        validator: (value) {
-                          return _prescriptions_doctor_controller.Med1(value!);
-                        },
+                        // validator: (value) {
+                        //   return _prescriptions_doctor_controller.Med1(value!);
+                        // },
                       ),
                     ),
                     SizedBox(
@@ -192,9 +192,9 @@ class _PrescriptionsDoctorState extends State<PrescriptionsDoctor> {
                         onSaved: (value) {
                           _prescriptions_doctor_controller.dose1 = value!;
                         },
-                        validator: (value) {
-                          return _prescriptions_doctor_controller.Dose1(value!);
-                        },
+                        // validator: (value) {
+                        //   return _prescriptions_doctor_controller.Dose1(value!);
+                        // },
                       ),
                     ),
                     SizedBox(
@@ -212,9 +212,9 @@ class _PrescriptionsDoctorState extends State<PrescriptionsDoctor> {
                           _prescriptions_doctor_controller.instruction1 =
                               value!;
                         },
-                        validator: (value) {
-                          return _prescriptions_doctor_controller.Inst1(value!);
-                        },
+                        // validator: (value) {
+                        //   return _prescriptions_doctor_controller.Inst1(value!);
+                        // },
                       ),
                     ),
                   ],

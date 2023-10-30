@@ -72,7 +72,10 @@ class DoctorAppointmentCheckout extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.grey.shade300,
           body: SingleChildScrollView(
+            ///.....................................
             physics: NeverScrollableScrollPhysics(),
+
+            ///...........
             child: Obx(
               () => (_doctorappointmentcheckout.isLoading.value)
                   ? Center(child: CircularProgressIndicator())

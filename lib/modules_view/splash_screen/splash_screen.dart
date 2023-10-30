@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+
 //import 'package:ps_welness/constants/my_theme.dart';
 
 import '../../controllers/splash_controller/splash_controllerss.dart';
@@ -71,7 +72,7 @@ class SplashScreen extends StatelessWidget {
                       //     ),
                       //   ),
                       // ),
-                      ///
+                      /////.........
                       // Image.asset(
                       //   'lib/assets/background_stack_png/welcome002.png',
                       //   fit: BoxFit.fill,
