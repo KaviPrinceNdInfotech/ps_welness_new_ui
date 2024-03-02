@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +21,7 @@ class DriverProfileCredentials extends StatelessWidget {
   User_1_Controller _user_1_controller = Get.put(User_1_Controller());
   DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
+
   var items = [
     'Item 1',
     'Item 2',
@@ -102,22 +101,22 @@ class DriverProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///todo: Vehicle name..........
+            ///todo: Email Id..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _driverProfileController.VehicleNameEditText,
+                controller: _driverProfileController.EmailId,
                 // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Vehicle name',
+                  hintText: 'EmailId',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.car_crash_sharp,
+                    Icons.email,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -144,7 +143,8 @@ class DriverProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
+                      hint: Text(
+                          "${_driverprofile.getDriverProfileDetail?.stateName.toString()}"),
                       items: _driverProfileController.states
                           .map((StateModel state) {
                         return DropdownMenuItem(
@@ -161,7 +161,7 @@ class DriverProfileCredentials extends StatelessWidget {
                       onChanged: (StateModel? newValue) {
                         _driverProfileController.selectedState.value =
                             newValue!;
-                        _driverProfileController.selectedCity.value = null;
+                        // _driverProfileController.selectedCity.value = null;
                         // _driverProfileController.selectedState.value = newValue!;
                       }),
                 ),
@@ -186,7 +186,8 @@ class DriverProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
+                      hint: Text(
+                          "${_driverprofile.getDriverProfileDetail?.cityName.toString()}"),
                       items: _driverProfileController.cities.map((City city) {
                         return DropdownMenuItem(
                           value: city,
@@ -199,6 +200,9 @@ class DriverProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      onTap: () {
+                        _driverProfileController.refresh();
+                      },
                       onChanged: (City? newValue) {
                         _driverProfileController.selectedCity.value = newValue!;
                       }),
@@ -236,22 +240,22 @@ class DriverProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///todo: Dl number.........
+            ///todo:pin code.........
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _driverProfileController.DlNumberEditText,
+                controller: _driverProfileController.PinCode,
                 // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Dl number',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.dataset_linked,
+                    Icons.numbers,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -264,62 +268,63 @@ class DriverProfileCredentials extends StatelessWidget {
             ),
 
             ///todo: Dl image.........
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                    width: size.width * 0.5,
-                    child: Text(
-                      "Upload DL Image:",
-                      style: TextStyle(
-                        fontSize: size.height * 0.017,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    )),
-                Container(
-                  height: size.height * 0.1,
-                  width: size.width * 0.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.cyanAccent, width: 2),
-                  ),
-                  child: Obx(
-                    () => _driverProfileController.selectedPath.value != ''
-                        ? Image.file(
-                            File(_driverProfileController.selectedPath.value))
-                        : Center(
-                            child: InkWell(
-                              onTap: (() {
-                                optionsImage();
-                              }),
-                              child: Container(
-                                height: size.height * 0.4,
-                                width: size.width * 0.95,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                    border: Border.all(
-                                        width: 5,
-                                        color:
-                                            Color.fromARGB(255, 58, 141, 208))),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.camera_enhance_rounded,
-                                    color: Color.fromARGB(255, 58, 141, 208),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                    // Image.file(File(
-                    //         _labUploadReportController.selectedImagePath.value)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     SizedBox(
+            //         width: size.width * 0.5,
+            //         child: Text(
+            //           "Upload DL Image:",
+            //           style: TextStyle(
+            //             fontSize: size.height * 0.017,
+            //             fontWeight: FontWeight.w800,
+            //           ),
+            //         )),
+            //     Container(
+            //       height: size.height * 0.1,
+            //       width: size.width * 0.3,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         border: Border.all(color: Colors.cyanAccent, width: 2),
+            //       ),
+            //       child: Obx(
+            //         () => _driverProfileController.selectedPath.value != ''
+            //             ? Image.file(
+            //                 File(_driverProfileController.selectedPath.value))
+            //             : Center(
+            //                 child: InkWell(
+            //                   onTap: (() {
+            //                     optionsImage();
+            //                   }),
+            //                   child: Container(
+            //                     height: size.height * 0.4,
+            //                     width: size.width * 0.95,
+            //                     decoration: BoxDecoration(
+            //                         borderRadius:
+            //                             BorderRadius.all(Radius.circular(12)),
+            //                         border: Border.all(
+            //                             width: 5,
+            //                             color:
+            //                                 Color.fromARGB(255, 58, 141, 208))),
+            //                     child: Center(
+            //                       child: Icon(
+            //                         Icons.camera_enhance_rounded,
+            //                         color: Color.fromARGB(255, 58, 141, 208),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //         // Image.file(File(
+            //         //         _labUploadReportController.selectedImagePath.value)),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
+            ///
 
             ///todo: Dl image name.........
             // NeumorphicTextFieldContainer(
@@ -353,10 +358,16 @@ class DriverProfileCredentials extends StatelessWidget {
             ),
             RectangularButton(
                 text: 'UPDATE',
-                press: () {
+                press: () async {
                   _driverProfileController.checkDriverUpdateProfile();
                   _driverprofile.driverProfileDetailApi();
                   _driverprofile.update();
+                  _driverprofile.onInit();
+
+                  //_driverProfileController.onInit();
+                  _driverProfileController.clearSelectedState();
+                  // await Future.delayed(Duration(seconds: 1));
+                  // await Get.to(DriverHomePage());
                 })
           ],
         ),

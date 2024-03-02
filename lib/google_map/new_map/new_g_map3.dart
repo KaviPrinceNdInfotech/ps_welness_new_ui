@@ -16,6 +16,7 @@ import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoke
 import 'package:ps_welness_new_ui/google_map/new_map/secrets.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_catagary2_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/ambulance/vehicle_type3_model.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 
 import '../../controllers/map_controllers/map_controller.dart';
@@ -376,426 +377,438 @@ class _MapView3State extends State<MapView3> {
     Size size = MediaQuery.of(context).size;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      height: height,
-      width: width,
-      child: Scaffold(
-        key: _scaffoldKey,
-        body: Stack(
-          children: <Widget>[
-            // Map View
-            GoogleMap(
-              markers: Set<Marker>.from(markers),
-              initialCameraPosition: _initialLocation,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              mapType: MapType.normal,
-              zoomGesturesEnabled: true,
-              zoomControlsEnabled: false,
-              polylines: Set<Polyline>.of(polylines.values),
-              onMapCreated: (GoogleMapController controller) {
-                mapController = controller;
-                newGoogleMapController = controller;
-                _getCurrentLocation();
-              },
-            ),
-            // Positioned(
-            //   top: size.height*0.03,
-            //   left:size.width*0.05,
-            //   child: InkWell(
-            //     onTap: () {
-            //       //Get.back();
-            //     },
-            //     child: Container(
-            //       height: size.height*0.035,
-            //       width: size.width*0.065,
-            //       decoration: BoxDecoration(
-            //         color: Colors.grey.shade300,
-            //         shape: BoxShape.circle,
-            //       ),
-            //         child: InkWell(
-            //           onTap: () {
-            //             Navigator.pop(context);
-            //           },
-            //             child: Icon(Icons.arrow_back_ios_new_outlined))),
-            //   ),
-            // ),
-            Positioned(
-              bottom: size.height * 0.04,
-              left: size.height * 0.00,
-              right: size.width * 0,
-              child: Container(
-                // height: size.height * 0.23,
-                width: size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white30,
-                ),
-                child: Column(
-                  children: [
-                    ///.......selected....ambulance catagary....
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.03),
-                        child: Obx(
-                          () => DropdownButtonFormField<Vehicle>(
-                              value: _ambulanceget3Controller
-                                  .selectedambCatagary.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.bus_alert,
-                                  color: Colors.black,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Ambulance Catagary'),
-                              items: _ambulanceget3Controller
-                                  .ambulancvecatagarys
-                                  .map((Vehicle ambulancvecatagarys) {
-                                return DropdownMenuItem(
-                                  value: ambulancvecatagarys,
-                                  child: Text(
-                                    ambulancvecatagarys.categoryName.toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: size.height * 0.012,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (Vehicle? newValue) {
-                                _ambulanceget3Controller
-                                    .selectedambCatagary.value = newValue!;
-                                _ambulanceget3Controller
-                                    .selectedvhicleCatagary.value = null;
-                                // _hospital_2_controller.states.value =
-                                //     newValue! as List<String>;
-                                // _hospital_2_controller.selectedCity.value = null;
-                                // _hospital_2_controller.cities.clear();
-                                // _hospital_2_controller.cities
-                                //     .addAll(stateCityMap[newvalue]!);
-                              }),
-                        ),
-                      ),
-                    ),
+    bool shouldPop = true;
 
-                    ///.........selected vhicle..by catagary id.....
-                    NeumorphicTextFieldContainer(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.0),
-                        child: Obx(
-                          () => DropdownButtonFormField<VehicleDetaile>(
-                              //icon: Icon(Icons.location_city),
-                              value: _ambulanceget3Controller
-                                  .selectedvhicleCatagary.value,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.car_crash_sharp,
-                                  color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async {
+        //Get.offAll(LabHomePage());
+        //Get.offAll(() => LabHomePage());
+        Get.to(() => UserHomePage());
+        return shouldPop;
+      },
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: Stack(
+            children: <Widget>[
+              // Map View
+              GoogleMap(
+                markers: Set<Marker>.from(markers),
+                initialCameraPosition: _initialLocation,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                mapType: MapType.normal,
+                zoomGesturesEnabled: true,
+                zoomControlsEnabled: false,
+                polylines: Set<Polyline>.of(polylines.values),
+                onMapCreated: (GoogleMapController controller) {
+                  mapController = controller;
+                  newGoogleMapController = controller;
+                  _getCurrentLocation();
+                },
+              ),
+              // Positioned(
+              //   top: size.height*0.03,
+              //   left:size.width*0.05,
+              //   child: InkWell(
+              //     onTap: () {
+              //       //Get.back();
+              //     },
+              //     child: Container(
+              //       height: size.height*0.035,
+              //       width: size.width*0.065,
+              //       decoration: BoxDecoration(
+              //         color: Colors.grey.shade300,
+              //         shape: BoxShape.circle,
+              //       ),
+              //         child: InkWell(
+              //           onTap: () {
+              //             Navigator.pop(context);
+              //           },
+              //             child: Icon(Icons.arrow_back_ios_new_outlined))),
+              //   ),
+              // ),
+              Positioned(
+                bottom: size.height * 0.04,
+                left: size.height * 0.00,
+                right: size.width * 0,
+                child: Container(
+                  // height: size.height * 0.23,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.white30,
+                  ),
+                  child: Column(
+                    children: [
+                      ///.......selected....ambulance catagary....
+                      NeumorphicTextFieldContainer(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.03),
+                          child: Obx(
+                            () => DropdownButtonFormField<Vehicle>(
+                                value: _ambulanceget3Controller
+                                    .selectedambCatagary.value,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.bus_alert,
+                                    color: Colors.black,
+                                  ),
+                                  enabledBorder: InputBorder.none,
+                                  border: InputBorder.none,
                                 ),
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
-                              hint: Text('Vehicle Type'),
-                              items: _ambulanceget3Controller.vhicletypes
-                                  .map((VehicleDetaile vhiclee) {
-                                return DropdownMenuItem(
-                                  value: vhiclee,
-                                  child: SizedBox(
-                                    width: size.width * 0.8,
+                                hint: Text('Ambulance Catagary'),
+                                items: _ambulanceget3Controller
+                                    .ambulancvecatagarys
+                                    .map((Vehicle ambulancvecatagarys) {
+                                  return DropdownMenuItem(
+                                    value: ambulancvecatagarys,
                                     child: Text(
-                                      vhiclee.vehicleTypeName.toString(),
+                                      ambulancvecatagarys.categoryName
+                                          .toString(),
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: size.height * 0.015,
+                                        fontSize: size.height * 0.012,
                                       ),
                                     ),
+                                  );
+                                }).toList(),
+                                onChanged: (Vehicle? newValue) {
+                                  _ambulanceget3Controller
+                                      .selectedambCatagary.value = newValue!;
+                                  _ambulanceget3Controller
+                                      .selectedvhicleCatagary.value = null;
+                                  // _hospital_2_controller.states.value =
+                                  //     newValue! as List<String>;
+                                  // _hospital_2_controller.selectedCity.value = null;
+                                  // _hospital_2_controller.cities.clear();
+                                  // _hospital_2_controller.cities
+                                  //     .addAll(stateCityMap[newvalue]!);
+                                }),
+                          ),
+                        ),
+                      ),
+
+                      ///.........selected vhicle..by catagary id.....
+                      NeumorphicTextFieldContainer(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.0),
+                          child: Obx(
+                            () => DropdownButtonFormField<VehicleDetaile>(
+                                //icon: Icon(Icons.location_city),
+                                value: _ambulanceget3Controller
+                                    .selectedvhicleCatagary.value,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.car_crash_sharp,
+                                    color: Colors.black,
                                   ),
-                                );
-                              }).toList(),
-                              onTap: () {
-                                _ambulanceget3Controller.refresh();
-                              },
-                              onChanged: (VehicleDetaile? newValue) {
-                                _ambulanceget3Controller
-                                    .selectedvhicleCatagary.value = newValue!;
-                                // _hospital_2_controller.states.value =
-                                //     newValue! as List<String>;
-                                // _hospital_2_controller.selectedCity.value = null;
-                                // _hospital_2_controller.cities.clear();
-                                // _hospital_2_controller.cities
-                                //     .addAll(stateCityMap[newvalue]!);
-                              }),
-                        ),
-                      ),
-                    ),
-
-                    PhysicalModel(
-                      color: Colors.grey.shade300,
-                      elevation: 2,
-                      shadowColor: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Padding(
-                        padding: EdgeInsets.all(1.0),
-                        child: InkWell(
-                          onTap: () {
-                            // _ambulancegetController.update();
-                            // _ambulancegetController.ambulancecatagaryyApi();
-
-                            CallLoader.loader();
-                            _ambulanceget3Controller
-                                .googlerequestambulance(markers);
-
-                            ///todo: user device token saved..........
-
-                            ///_devicetokenController.UsertokenApi();
-
-                            //_ambulancegetController.googlerequestambulance();
-                          },
-                          child: Container(
-                            height: size.height * 0.045,
-                            width: size.width * 0.6,
-                            decoration: BoxDecoration(
-                              color: Colors.indigo,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.01),
-                              child: Center(
-                                  child: Text(
-                                'Send Request',
-                                style: TextStyle(
-                                  fontSize: size.height * 0.02,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  enabledBorder: InputBorder.none,
+                                  border: InputBorder.none,
                                 ),
-                              )),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Spacer(),
-                  ],
-                ),
-              ),
-            ),
-            // Show zoom buttons
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ClipOval(
-                      child: Material(
-                        color: Colors.blue.shade100, // button color
-                        child: InkWell(
-                          splashColor: Colors.blue, // inkwell color
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Icon(Icons.add),
-                          ),
-                          onTap: () {
-                            mapController.animateCamera(
-                              CameraUpdate.zoomIn(),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    ClipOval(
-                      child: Material(
-                        color: Colors.blue.shade100, // button color
-                        child: InkWell(
-                          splashColor: Colors.blue, // inkwell color
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Icon(Icons.remove),
-                          ),
-                          onTap: () {
-                            mapController.animateCamera(
-                              CameraUpdate.zoomOut(),
-                            );
-                          },
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            // Show the place input fields & button for
-            // showing the route
-            SafeArea(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
-                      ),
-                    ),
-                    width: width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            'Places',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                          SizedBox(height: 10),
-                          _textField(
-                              label: 'Start',
-                              hint: 'Choose starting point',
-                              prefixIcon: Icon(Icons.looks_one),
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.my_location),
-                                onPressed: () {
-                                  startAddressController.text = _currentAddress;
-                                  _startAddress = _currentAddress;
+                                hint: Text('Vehicle Type'),
+                                items: _ambulanceget3Controller.vhicletypes
+                                    .map((VehicleDetaile vhiclee) {
+                                  return DropdownMenuItem(
+                                    value: vhiclee,
+                                    child: SizedBox(
+                                      width: size.width * 0.8,
+                                      child: Text(
+                                        vhiclee.vehicleTypeName.toString(),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: size.height * 0.015,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onTap: () {
+                                  _ambulanceget3Controller.refresh();
                                 },
-                              ),
-                              controller: startAddressController,
-                              focusNode: startAddressFocusNode,
-                              width: width,
-                              locationCallback: (String value) {
-                                setState(() {
-                                  _startAddress = value;
-                                });
-                              }),
-                          SizedBox(height: 10),
-                          _textField(
-                              label: 'Destination',
-                              hint: 'Choose destination',
-                              prefixIcon: Icon(Icons.looks_two),
-                              controller: destinationAddressController,
-                              focusNode: desrinationAddressFocusNode,
-                              width: width,
-                              locationCallback: (String value) {
-                                setState(() {
-                                  _destinationAddress = value;
-                                });
-                              }),
-                          SizedBox(height: 10),
-                          Visibility(
-                            visible: _placeDistance == null ? false : true,
-                            child: Text(
-                              'DISTANCE: $_placeDistance km',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                                onChanged: (VehicleDetaile? newValue) {
+                                  _ambulanceget3Controller
+                                      .selectedvhicleCatagary.value = newValue!;
+                                  // _hospital_2_controller.states.value =
+                                  //     newValue! as List<String>;
+                                  // _hospital_2_controller.selectedCity.value = null;
+                                  // _hospital_2_controller.cities.clear();
+                                  // _hospital_2_controller.cities
+                                  //     .addAll(stateCityMap[newvalue]!);
+                                }),
                           ),
-                          SizedBox(height: 5),
-                          ElevatedButton(
-                            onPressed: (_startAddress != '' &&
-                                    _destinationAddress != '')
-                                ? () async {
-                                    startAddressFocusNode.unfocus();
-                                    desrinationAddressFocusNode.unfocus();
-                                    setState(() {
-                                      if (markers.isNotEmpty) markers.clear();
-                                      if (polylines.isNotEmpty)
-                                        polylines.clear();
-                                      if (polylineCoordinates.isNotEmpty)
-                                        polylineCoordinates.clear();
-                                      _placeDistance = null;
-                                    });
-
-                                    _calculateDistance().then((isCalculated) {
-                                      if (isCalculated) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                'Distance Calculated Sucessfully'),
-                                          ),
-                                        );
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                'Error Calculating Distance'),
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  }
-                                : null,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Show Route'.toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.red.shade400,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            // Show current location button
-            SafeArea(
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 0.7, bottom: 0.9),
-                  child: ClipOval(
-                    child: Material(
-                      color: Colors.orange.shade100, // button color
-                      child: InkWell(
-                        splashColor: Colors.orange, // inkwell color
-                        child: SizedBox(
-                          width: 36,
-                          height: 36,
-                          child: Icon(Icons.my_location),
                         ),
-                        onTap: () {
-                          mapController.animateCamera(
-                            CameraUpdate.newCameraPosition(
-                              CameraPosition(
-                                target: LatLng(
-                                  _currentPosition.latitude,
-                                  _currentPosition.longitude,
-                                ),
-                                zoom: 18.0,
+                      ),
+
+                      PhysicalModel(
+                        color: Colors.grey.shade300,
+                        elevation: 2,
+                        shadowColor: Colors.grey.shade900,
+                        borderRadius: BorderRadius.circular(10),
+                        child: Padding(
+                          padding: EdgeInsets.all(1.0),
+                          child: InkWell(
+                            onTap: () {
+                              // _ambulancegetController.update();
+                              // _ambulancegetController.ambulancecatagaryyApi();
+
+                              CallLoader.loader();
+                              _ambulanceget3Controller
+                                  .googlerequestambulance(markers);
+
+                              ///todo: user device token saved..........
+
+                              ///_devicetokenController.UsertokenApi();
+
+                              //_ambulancegetController.googlerequestambulance();
+                            },
+                            child: Container(
+                              height: size.height * 0.045,
+                              width: size.width * 0.6,
+                              decoration: BoxDecoration(
+                                color: Colors.indigo,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.01),
+                                child: Center(
+                                    child: Text(
+                                  'Send Request',
+                                  style: TextStyle(
+                                    fontSize: size.height * 0.02,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                )),
                               ),
                             ),
-                          );
-                        },
+                          ),
+                        ),
+                      ),
+                      // Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+              // Show zoom buttons
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ClipOval(
+                        child: Material(
+                          color: Colors.blue.shade100, // button color
+                          child: InkWell(
+                            splashColor: Colors.blue, // inkwell color
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: Icon(Icons.add),
+                            ),
+                            onTap: () {
+                              mapController.animateCamera(
+                                CameraUpdate.zoomIn(),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ClipOval(
+                        child: Material(
+                          color: Colors.blue.shade100, // button color
+                          child: InkWell(
+                            splashColor: Colors.blue, // inkwell color
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: Icon(Icons.remove),
+                            ),
+                            onTap: () {
+                              mapController.animateCamera(
+                                CameraUpdate.zoomOut(),
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              // Show the place input fields & button for
+              // showing the route
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
+                      ),
+                      width: width,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              'Places',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            SizedBox(height: 10),
+                            _textField(
+                                label: 'Start',
+                                hint: 'Choose starting point',
+                                prefixIcon: Icon(Icons.looks_one),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.my_location),
+                                  onPressed: () {
+                                    startAddressController.text =
+                                        _currentAddress;
+                                    _startAddress = _currentAddress;
+                                  },
+                                ),
+                                controller: startAddressController,
+                                focusNode: startAddressFocusNode,
+                                width: width,
+                                locationCallback: (String value) {
+                                  setState(() {
+                                    _startAddress = value;
+                                  });
+                                }),
+                            SizedBox(height: 10),
+                            _textField(
+                                label: 'Destination',
+                                hint: 'Choose destination',
+                                prefixIcon: Icon(Icons.looks_two),
+                                controller: destinationAddressController,
+                                focusNode: desrinationAddressFocusNode,
+                                width: width,
+                                locationCallback: (String value) {
+                                  setState(() {
+                                    _destinationAddress = value;
+                                  });
+                                }),
+                            SizedBox(height: 10),
+                            Visibility(
+                              visible: _placeDistance == null ? false : true,
+                              child: Text(
+                                'DISTANCE: $_placeDistance km',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            ElevatedButton(
+                              onPressed: (_startAddress != '' &&
+                                      _destinationAddress != '')
+                                  ? () async {
+                                      startAddressFocusNode.unfocus();
+                                      desrinationAddressFocusNode.unfocus();
+                                      setState(() {
+                                        if (markers.isNotEmpty) markers.clear();
+                                        if (polylines.isNotEmpty)
+                                          polylines.clear();
+                                        if (polylineCoordinates.isNotEmpty)
+                                          polylineCoordinates.clear();
+                                        _placeDistance = null;
+                                      });
+
+                                      _calculateDistance().then((isCalculated) {
+                                        if (isCalculated) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'Distance Calculated Sucessfully'),
+                                            ),
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                  'Error Calculating Distance'),
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    }
+                                  : null,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Show Route'.toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.red.shade400,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              // Show current location button
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 0.7, bottom: 0.9),
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.orange.shade100, // button color
+                        child: InkWell(
+                          splashColor: Colors.orange, // inkwell color
+                          child: SizedBox(
+                            width: 36,
+                            height: 36,
+                            child: Icon(Icons.my_location),
+                          ),
+                          onTap: () {
+                            mapController.animateCamera(
+                              CameraUpdate.newCameraPosition(
+                                CameraPosition(
+                                  target: LatLng(
+                                    _currentPosition.latitude,
+                                    _currentPosition.longitude,
+                                  ),
+                                  zoom: 18.0,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

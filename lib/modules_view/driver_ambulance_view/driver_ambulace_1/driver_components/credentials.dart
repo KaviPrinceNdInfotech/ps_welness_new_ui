@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
-import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/driver_ambulance_view/driver_ambulance_2/driver_registation_2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
@@ -231,55 +230,58 @@ class Driver1Credentials extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
 
-            NeumorphicTextFieldContainer(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-                child: Obx(
-                  () => DropdownButtonFormField<VehicleTypeElement>(
-                      value: _driver_1111_controller.selectevehicletype.value,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.real_estate_agent,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: const Text('Select Vehicle'),
-                      items: _driver_1111_controller.vehicletype
-                          .map((VehicleTypeElement vehicletype) {
-                        return DropdownMenuItem(
-                          value: vehicletype,
-                          child: SizedBox(
-                            width: size.width * 0.5,
-                            child: Text(
-                              vehicletype.vehicleTypeName.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.013,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (VehicleTypeElement? newValue) {
-                        _driver_1111_controller.selectevehicletype.value =
-                            newValue!;
-                        //_driver_1111_controller.selectedCity.value = null;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
-                      }),
-                ),
-              ),
-            ),
+            ///
+            // SizedBox(
+            //   height: size.height * 0.01,
+            // ),
+            //
+            // NeumorphicTextFieldContainer(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+            //     child: Obx(
+            //       () => DropdownButtonFormField<VehicleTypeElement>(
+            //           value: _driver_1111_controller.selectevehicletype.value,
+            //           decoration: const InputDecoration(
+            //             prefixIcon: Icon(
+            //               Icons.real_estate_agent,
+            //               color: Colors.black,
+            //             ),
+            //             enabledBorder: InputBorder.none,
+            //             border: InputBorder.none,
+            //           ),
+            //           hint: const Text('Select Vehicle'),
+            //           items: _driver_1111_controller.vehicletype
+            //               .map((VehicleTypeElement vehicletype) {
+            //             return DropdownMenuItem(
+            //               value: vehicletype,
+            //               child: SizedBox(
+            //                 width: size.width * 0.5,
+            //                 child: Text(
+            //                   vehicletype.vehicleTypeName.toString(),
+            //                   style: TextStyle(
+            //                     fontWeight: FontWeight.w600,
+            //                     fontSize: size.height * 0.013,
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           onChanged: (VehicleTypeElement? newValue) {
+            //             _driver_1111_controller.selectevehicletype.value =
+            //                 newValue!;
+            //             //_driver_1111_controller.selectedCity.value = null;
+            //             // _hospital_2_controller.states.value =
+            //             //     newValue! as List<String>;
+            //             // _hospital_2_controller.selectedCity.value = null;
+            //             // _hospital_2_controller.cities.clear();
+            //             // _hospital_2_controller.cities
+            //             //     .addAll(stateCityMap[newvalue]!);
+            //           }),
+            //     ),
+            //   ),
+            // ),
+            ///
             SizedBox(
               height: size.height * 0.02,
             ),

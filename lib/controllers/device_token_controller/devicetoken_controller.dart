@@ -19,8 +19,8 @@ class DevicetokenController extends GetxController {
   // var Id = '';
 
   ///todo: this is user token.....28..august..2023...
-  void UsertokenApi() async {
-    CallLoader.loader();
+  Future<void> UsertokenApi() async {
+    //CallLoader.loader();
     http.Response r = await ApiProvider.UserdevicetokenApi();
 
     if (r.statusCode == 200) {

@@ -7,11 +7,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_controllers_RRR/doctor_controller1.dart';
-import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/week_day_off/week_day_off_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -175,17 +175,17 @@ class Doctor2Credentials extends StatelessWidget {
               ),
 
               ///todo : Licence image .................
-              GetBuilder<Hospital_2_Controller>(
-                init: Hospital_2_Controller(), // intialize with the Controller
+              GetBuilder<Doctor_1_Controller>(
+                init: Doctor_1_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _doctor_1_controller.getImage(ImageSource.gallery);
+                    _doctor_1_controller.getLicenceImage(ImageSource.gallery);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Licence Image ',
+                        'Licence Image file',
                         style: TextStyle(
                           fontSize: size.width * 0.03,
                           fontWeight: FontWeight.w700,
@@ -201,15 +201,15 @@ class Doctor2Credentials extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: Obx(
-                            () =>
-                                _doctor_1_controller.selectedImagepath.value ==
-                                        ''
-                                    ? const Center(child: Text("No Image"))
-                                    : Image.file(
-                                        File(_doctor_1_controller
-                                            .selectedImagepath.value),
-                                        fit: BoxFit.cover,
-                                      ),
+                            () => _doctor_1_controller
+                                        .selectedLicenceImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_doctor_1_controller
+                                        .selectedLicenceImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -316,6 +316,53 @@ class Doctor2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
+              ///todo : week off Id...............
+              NeumorphicTextFieldContainer(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  child: Obx(
+                    () => DropdownButtonFormField<Day>(
+                        value: _doctor_1_controller.selectedweekdayId.value,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.calendar_view_day,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: Text('Select Week Off'),
+                        items:
+                            _doctor_1_controller.weekdayid.map((Day weekdayid) {
+                          return DropdownMenuItem(
+                            value: weekdayid,
+                            child: SizedBox(
+                              height: size.height * 0.05,
+                              width: size.width * 0.61,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "${weekdayid.name.toString()}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.017,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        // validator: (value) =>
+                        // value == null ? '          field required' : null,
+                        onChanged: (Day? newValue) {
+                          _doctor_1_controller.selectedweekdayId.value =
+                              newValue!;
+                        }),
+                  ),
+                ),
+              ),
               SizedBox(
                 height: size.height * 0.00,
                 //appPadding / 2,
@@ -383,6 +430,8 @@ class Doctor2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) =>
+                            value == null ? '            field required' : null,
                         onChanged: (StateModel? newValue) {
                           _doctor_1_controller.selectedState.value = newValue!;
                         }),
@@ -409,7 +458,7 @@ class Doctor2Credentials extends StatelessWidget {
                           enabledBorder: InputBorder.none,
                           border: InputBorder.none,
                         ),
-                        hint: Text('Select City'),
+                        hint: const Text('Selected City'),
                         items: _doctor_1_controller.cities.map((City items) {
                           return DropdownMenuItem(
                             value: items,
@@ -422,6 +471,8 @@ class Doctor2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                        validator: (value) =>
+                            value == null ? '            field required' : null,
                         onChanged: (City? newValue) {
                           _doctor_1_controller.selectedCity.value = newValue!;
                         }),
@@ -443,13 +494,46 @@ class Doctor2Credentials extends StatelessWidget {
                     return _doctor_1_controller.validexperince(value!);
                   },
                   decoration: InputDecoration(
-                    hintText: 'Licence number',
+                    hintText: 'Qualification',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.local_police,
+                      Icons.description,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.00,
+                //appPadding / 2,
+              ),
+
+              ///todo : About us .................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _doctor_1_controller.aboutController,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  onSaved: (value) {
+                    _doctor_1_controller.about = value!;
+                  },
+                  validator: (value) {
+                    return _doctor_1_controller.validexperince(value!);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'About Us',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.account_box,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -472,11 +556,11 @@ class Doctor2Credentials extends StatelessWidget {
                   onSaved: (value) {
                     _doctor_1_controller.experience = value!;
                   },
-                  validator: (value) {
-                    return _doctor_1_controller.validexperince(value!);
-                  },
+                  // validator: (value) {
+                  //   return _doctor_1_controller.validexperince(value!);
+                  // },
                   decoration: InputDecoration(
-                    hintText: 'Enter Your Registration Number',
+                    hintText: 'Registration Number',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,
@@ -496,8 +580,8 @@ class Doctor2Credentials extends StatelessWidget {
               ),
 
               ///todo : signature image .................
-              GetBuilder<Hospital_2_Controller>(
-                init: Hospital_2_Controller(), // intialize with the Controller
+              GetBuilder<Doctor_1_Controller>(
+                init: Doctor_1_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
                     _doctor_1_controller.getImage2(ImageSource.gallery);

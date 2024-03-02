@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 
 import '../../../constants/constants/constants.dart';
 import '../../../constants/my_theme.dart';
@@ -60,7 +61,7 @@ class AddVehiclePage extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Get.offAll(FranchiesHomePage());
                             },
                             child: Container(
                               height: size.height * 0.03,

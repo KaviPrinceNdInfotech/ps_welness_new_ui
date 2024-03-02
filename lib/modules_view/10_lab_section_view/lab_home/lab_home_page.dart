@@ -56,10 +56,10 @@ class LabHomePage extends StatelessWidget {
     GlobalKey<ScaffoldState> _keylab = GlobalKey();
 
     final List<String> productname = [
-      'Appointment Detail',
+      'Booking Request',
       'Upload Report',
       'Payment History',
-      'Appointment History',
+      'Booking History',
       'Report view',
       'Update Bank Details',
 

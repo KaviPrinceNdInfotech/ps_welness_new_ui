@@ -19,6 +19,7 @@ import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registrati
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/fr_rwa_controller/fr_rwa_controller1.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/patient_user_controller/patient_user_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
@@ -29,6 +30,7 @@ import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/che
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/apointment_history/apointment_historydetail.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
@@ -188,6 +190,11 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => Fr_common_Controller());
 
     Get.lazyPut(() => CommingDriverController());
+
+    Get.lazyPut(() => DoctorrUploadReportController());
+    Get.lazyPut(() => NurseBannerContreoller());
+
+    ///Get.lazyPut(() => UserProfileControllers());
 
     // Get.lazyPut(() => InvoiceController());
 

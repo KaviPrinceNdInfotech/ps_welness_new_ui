@@ -129,6 +129,39 @@ class FrDoctor2Credentials extends StatelessWidget {
                 ),
               ),
 
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
+              ///todo : Fee ..virtual...............
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _frdoctor_1_controller.virtualfeesController,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  onSaved: (value) {
+                    _frdoctor_1_controller.Fees = value!;
+                  },
+                  validator: (value) {
+                    return _frdoctor_1_controller.validName(value!);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Fee Virtual',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.currency_rupee,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+
               ///Todo: state............................
               SizedBox(
                 height: size.height * 0.01,

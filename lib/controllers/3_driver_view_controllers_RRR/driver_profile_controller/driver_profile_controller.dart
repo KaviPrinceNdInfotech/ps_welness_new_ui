@@ -1,13 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
@@ -16,7 +15,11 @@ class DriverProfileController extends GetxController {
   final GlobalKey<FormState> driverrprofileformkey = GlobalKey<FormState>();
 
   var selectedPath = ''.obs;
-
+  // DriverProfileController _driverProfileController =
+  // Get.put(DriverProfileController());
+  //User_1_Controller _user_1_controller = Get.put(User_1_Controller());
+  final DriverProfileDetailController _driverprofile =
+      Get.put(DriverProfileDetailController());
   void getImage(ImageSource imageSource) async {
     final pickedFiles = await ImagePicker().pickImage(source: imageSource);
     if (pickedFiles != null) {
@@ -44,6 +47,8 @@ class DriverProfileController extends GetxController {
       adminLogin_idEditTxt,
       AccountNoEditTxt,
       IFSCCodeEditTxt,
+      EmailId,
+      PinCode,
       BranchName;
 
   // void getImage(ImageSource imageSource) async {
@@ -64,6 +69,10 @@ class DriverProfileController extends GetxController {
     states = await ApiProvider.getSatesApi();
   }
 
+  void clearSelectedState() {
+    selectedState.value = null;
+  }
+
   void getCityByStateID(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
@@ -71,22 +80,31 @@ class DriverProfileController extends GetxController {
   }
 
   void driverUpdateProfileApi() async {
-    final imageAsBase64 =
-        base64Encode(await File(selectedPath.value).readAsBytes());
-    print("imagebaseeee64467:${imageAsBase64}");
+    // final imageAsBase64 =
+    //     base64Encode(await File(selectedPath.value).readAsBytes());
+    //print("imagebaseeee64467:${imageAsBase64}");
     http.Response r = await ApiProvider.DriverUpdateProfile(
       DriverNameEditText?.text,
       PhoneEditText?.text,
-      VehicleNameEditText?.text,
-      selectedState.value?.id.toString(),
-      selectedCity.value?.id.toString(),
+      //VehicleNameEditText?.text,
+      selectedState.value?.id.toString() ??
+          _driverprofile.getDriverProfileDetail?.stateMasterId.toString(),
+      selectedCity.value?.id.toString() ??
+          _driverprofile.getDriverProfileDetail?.cityMasterId.toString(),
       LocationEditText?.text,
-      DlNumberEditText?.text,
-      selectedPath.value.split('/').last,
-      imageAsBase64,
+      EmailId?.text,
+      PinCode?.text,
+      //selectedPath.value.split('/').last,
+      //imageAsBase64,
     );
     if (r.statusCode == 200) {
-      Get.to(DriverHomePage());
+      await Future.delayed(Duration(milliseconds: 1300));
+      CallLoader.hideLoader();
+      // states?.clear();
+      Get.offAll(DriverHomePage());
+      await Future.delayed(Duration(milliseconds: 900));
+      await _driverprofile.driverProfileDetailApi();
+      // Get.to(DriverHomePage());
     } else {}
   }
 
@@ -100,12 +118,23 @@ class DriverProfileController extends GetxController {
       }
     });
     // IdEditText = TextEditingController(text: '88');
-    DriverNameEditText = TextEditingController(text: '');
-    PhoneEditText = TextEditingController(text: '');
+    //_driverprofile
+    DriverNameEditText = TextEditingController(
+        text:
+            "${_driverprofile.getDriverProfileDetail?.driverName.toString() ?? 0}");
+    PhoneEditText = TextEditingController(
+        text:
+            "${_driverprofile.getDriverProfileDetail?.mobileNumber.toString() ?? 0}");
     VehicleNameEditText = TextEditingController(text: '');
-    LocationEditText = TextEditingController(text: '');
-    DlNumberEditText = TextEditingController(text: '');
-    DlImageEditText = TextEditingController(text: '');
+    LocationEditText = TextEditingController(
+        text:
+            "${_driverprofile.getDriverProfileDetail?.location.toString() ?? 0}");
+    EmailId = TextEditingController(
+        text:
+            "${_driverprofile.getDriverProfileDetail?.emailId.toString() ?? 0}");
+    PinCode = TextEditingController(
+        text:
+            "${_driverprofile.getDriverProfileDetail?.pinCode.toString() ?? 0}");
     DlImageNameEditText = TextEditingController(text: '');
     adminLogin_idEditTxt = TextEditingController(text: '');
     AccountNoEditTxt = TextEditingController(text: '');
@@ -205,11 +234,18 @@ class DriverProfileController extends GetxController {
   }
 
   void checkDriverUpdateProfile() {
-    final isValid = driverrprofileformkey.currentState!.validate();
-    driverUpdateProfileApi();
-    if (!isValid) {
-      return;
+    if (driverrprofileformkey.currentState!.validate()) {
+      driverUpdateProfileApi();
     }
     driverrprofileformkey.currentState!.save();
   }
+
+  // void checkDriverUpdateProfile() {
+  //   final isValid = driverrprofileformkey.currentState!.validate();
+  //   driverUpdateProfileApi();
+  //   if (!isValid) {
+  //     return;
+  //   }
+  //   driverrprofileformkey.currentState!.save();
+  // }
 }

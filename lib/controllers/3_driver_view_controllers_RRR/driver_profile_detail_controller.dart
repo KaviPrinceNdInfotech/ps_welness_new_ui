@@ -11,7 +11,7 @@ class DriverProfileDetailController extends GetxController {
   //List<DriverProfileDetailModel>? getDriverProfileDetail;
   DriverProfileDetailModel? getDriverProfileDetail;
 
-  void driverProfileDetailApi() async {
+  Future<void> driverProfileDetailApi() async {
     isLoading(true);
     getDriverProfileDetail = await ApiProvider.DriverProfileDetailApi();
     if (getDriverProfileDetail != null) {

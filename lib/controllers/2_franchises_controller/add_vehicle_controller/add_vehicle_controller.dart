@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesAddVehicleList_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class AddVehicleController extends GetxController {
@@ -29,21 +31,31 @@ class AddVehicleController extends GetxController {
 
   ///todo view list button.............
   Future<void> FrenchiesAddVehicleList() async {
-    isLoading(true);
     getfrenchiesAddVehicleList = await ApiProvider.FrenchiesAddVehicleListApi();
     if (getfrenchiesAddVehicleList?.vehicleList != null) {
       isLoading(false);
     }
   }
 
-  void getVehicleCategoryApi() async {
+  Future<void> getVehicleCategoryApi() async {
+    isLoading(false);
+
     vehiclesCat = await ApiProvider.getVehicleCategoryApi();
+    if (vehiclesCat != null) {
+      isLoading(false);
+    }
   }
 
-  void getCityByStateID(String stateID) async {
+  Future<void> getCityByStateID(String stateID) async {
+    isLoading(false);
+
     vehicleType.clear();
     final localList = await ApiProvider.getVehicleTypeApi(stateID);
     vehicleType.addAll(localList);
+
+    if (vehicleType != null) {
+      isLoading(false);
+    }
   }
 
   Future<void> FrenchiesAddVehicleType() async {
@@ -61,6 +73,13 @@ class AddVehicleController extends GetxController {
     );
 
     if (r.statusCode == 200) {
+      CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
+      CallLoader.hideLoader();
+
+      await Get.to(FranchiesHomePage());
+      // await getVehicleCategoryApi();
+
       // await FrenchiesAddVehicleType();
       //await FrenchiesAddVehicleList();
       //CallLoader.loader();
@@ -136,7 +155,7 @@ class AddVehicleController extends GetxController {
 
   Future<void> checkvehicleAdd() async {
     if (addvehicleformkey.currentState!.validate()) {
-      await addVeciclenewApi();
+      addVeciclenewApi();
       //await Get.to(VehicleList());
     }
     addvehicleformkey.currentState!.save();

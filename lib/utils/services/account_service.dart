@@ -10,12 +10,12 @@ class AccountService {
     if (accountDataEncoded == null) {
       return null;
     }
+
     return driverListApiFromJson(accountDataEncoded);
   }
 
   Future<void> setAccountData(Message? accountData) async {
     final SharedPreferences getStorage = await SharedPreferences.getInstance();
-
     print("WHILE SET ACCOUNT $accountData");
     getStorage.setString(_accountKey, accountModelToJson(accountData!));
   }

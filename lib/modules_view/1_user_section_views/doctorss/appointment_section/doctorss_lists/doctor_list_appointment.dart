@@ -212,7 +212,7 @@ class DoctorListUser extends StatelessWidget {
                                                             size.height * 0.12,
                                                       ),
                                                       Text(
-                                                        'Fees: ₹ "${_doctorListController.foundDoctors[index].fee}"',
+                                                        'Fees: ₹ ${_doctorListController.foundDoctors[index].fee}',
                                                         //'${_doctorListController.doctorListUser?.getDoctor![index].fee.toString()}'
                                                         //doctorcatagary[index],
                                                         maxLines: 1,

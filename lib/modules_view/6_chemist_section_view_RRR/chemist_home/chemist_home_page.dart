@@ -16,6 +16,7 @@ import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemis
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payout_history/chemist_payout_histories.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
 import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 //s/support_view.dart';
 import '../chemist_appointment_history_view/chemist_order_history.dart';
@@ -312,7 +313,8 @@ class Mycrusial extends StatelessWidget {
   Mycrusial({Key? key}) : super(key: key);
   ChemistBannerController _chemistBannerController =
       Get.put(ChemistBannerController());
-  var image = 'http://test.pswellness.in/Images/';
+
+  ///var image = 'http://test.pswellness.in/Images/';
   final List<Color> colors = [
     Colors.red,
     Colors.orange,
@@ -369,7 +371,7 @@ class Mycrusial extends StatelessWidget {
                                           color: Colors.white, width: 3),
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              '$image${item?[index].bannerPath}' ??
+                                              '$IMAGE_BASE_URL${item?[index].bannerPath}' ??
                                                   ''),
                                           fit: BoxFit.fill),
                                     ),

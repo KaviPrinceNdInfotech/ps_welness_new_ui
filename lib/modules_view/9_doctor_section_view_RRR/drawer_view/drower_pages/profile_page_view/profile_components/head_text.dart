@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class DoctorProfileHeadText extends StatelessWidget {
@@ -24,7 +25,7 @@ class DoctorProfileHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(DoctorHomePage());
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(

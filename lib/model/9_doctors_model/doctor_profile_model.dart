@@ -21,6 +21,8 @@ class DoctorProfile {
     this.clinicName,
     this.departmentName,
     this.availableTime,
+    this.stateMasterId,
+    this.cityMasterId,
   });
 
   int? id;
@@ -33,6 +35,8 @@ class DoctorProfile {
   String? clinicName;
   String? departmentName;
   String? availableTime;
+  dynamic stateMasterId;
+  dynamic cityMasterId;
 
   factory DoctorProfile.fromJson(Map<String, dynamic> json) => DoctorProfile(
         id: json["Id"],
@@ -45,6 +49,8 @@ class DoctorProfile {
         clinicName: json["ClinicName"],
         departmentName: json["DepartmentName"],
         availableTime: json["AvailableTime"],
+        stateMasterId: json["StateMaster_Id"],
+        cityMasterId: json["CityMaster_Id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,5 +64,7 @@ class DoctorProfile {
         "ClinicName": clinicName,
         "DepartmentName": departmentName,
         "AvailableTime": availableTime,
+        "StateMaster_Id": stateMasterId,
+        "CityMaster_Id": cityMasterId,
       };
 }

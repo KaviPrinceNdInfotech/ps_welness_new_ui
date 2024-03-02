@@ -166,7 +166,7 @@ class Fr_Driver_1_Controller extends GetxController {
 
   String? validAddress(String value) {
     if (value.length < 2) {
-      return "              Provide valid address";
+      return "              This field is required";
     }
     return null;
   }

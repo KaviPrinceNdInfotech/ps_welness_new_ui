@@ -32,196 +32,208 @@ class RwaDetailProfile extends StatelessWidget {
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (context, index) {
-                          final item = _rwaProfileDetailController
-                              .getRwaProfileDetail?.rwaProfileDetails;
-                          return Column(
-                            children: [
-                              Container(
-                                height: size.height * 0.25,
-                                width: size.width,
-                                color: MyTheme.ThemeColors,
+                    // ListView.builder(
+                    //     itemCount: 1,
+                    //     itemBuilder: (context, index) {
+                    ///  var item = _rwaProfileDetailController
+                    ///.getRwaProfileDetail?.rwaProfileDetails;
+                    /// return
+                    Column(
+                      children: [
+                        Container(
+                          height: size.height * 0.25,
+                          width: size.width,
+                          color: MyTheme.ThemeColors,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.1,
+                        ),
+                        PhysicalModel(
+                          color: Colors.yellow.shade300,
+                          shadowColor: Colors.cyan.shade700,
+                          elevation: 10,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Container(
+                              height: size.height * 0.4,
+                              width: size.width * 0.8,
+                              decoration: BoxDecoration(
+                                color: Colors.red.shade200,
+                                // image: DecorationImage(
+                                //     image: NetworkImage(
+                                //       'https://images.unsplash.com/photo-1594135356513-14291e55162a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1424&q=80',
+                                //     ),
+                                //     fit: BoxFit.cover)
                               ),
-                              SizedBox(
-                                height: size.height * 0.1,
-                              ),
-                              PhysicalModel(
-                                color: Colors.yellow.shade300,
-                                shadowColor: Colors.cyan.shade700,
-                                elevation: 10,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Container(
-                                    height: size.height * 0.4,
-                                    width: size.width * 0.8,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red.shade200,
-                                      // image: DecorationImage(
-                                      //     image: NetworkImage(
-                                      //       'https://images.unsplash.com/photo-1594135356513-14291e55162a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1424&q=80',
-                                      //     ),
-                                      //     fit: BoxFit.cover)
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Icon(
+                                          FontAwesomeIcons.person,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        const Icon(
+                                          FontAwesomeIcons.solidMessage,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        const Icon(
+                                          FontAwesomeIcons.phone,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        const Icon(
+                                          FontAwesomeIcons.addressCard,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        const Icon(
+                                          FontAwesomeIcons.city,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        const Icon(
+                                          FontAwesomeIcons.locationPinLock,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        const Icon(
+                                          FontAwesomeIcons.sortNumericAsc,
+                                          color: Colors.red,
+                                        ),
+                                      ],
                                     ),
-                                    child: Row(
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Icon(
-                                                FontAwesomeIcons.person,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              const Icon(
-                                                FontAwesomeIcons.solidMessage,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              const Icon(
-                                                FontAwesomeIcons.phone,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              const Icon(
-                                                FontAwesomeIcons.addressCard,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              const Icon(
-                                                FontAwesomeIcons.city,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              const Icon(
-                                                FontAwesomeIcons
-                                                    .locationPinLock,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              const Icon(
-                                                FontAwesomeIcons.sortNumericAsc,
-                                                color: Colors.red,
-                                              ),
-                                            ],
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.authorityName.toString()
+                                          //item?[index].authorityName
+                                          }',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                '${item?[index].authorityName}',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              Text(
-                                                '${item?[index].emailId}',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              Text(
-                                                '${item?[index].phoneNumber}',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              Text(
-                                                '${item?[index].location}',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              Text(
-                                                '${item?[index].stateName}',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              Text(
-                                                '${item?[index].cityName}' ??
-                                                    '',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.01,
-                                              ),
-                                              Text(
-                                                '${item?[index].pincode}' ?? '',
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: size.height * 0.018,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.emailId.toString()}',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.phoneNumber.toString()}',
+
+                                          //  '${phoneNumber}',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.location.toString()}',
+
+                                          // '${item?[index].location}',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.stateName.toString()}',
+
+                                          // '${item?[index].stateName}',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.cityName.toString()}',
+
+                                          //
+                                          // '${item?[index].cityName}' ??
+                                          //     '',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          '${_rwaProfileDetailController.getRwaProfileDetail?.pincode.toString()}',
+
+                                          //  '${item?[index].pincode}' ?? '',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: size.height * 0.018,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          );
-                        }),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    //}),
                     Positioned(
                       top: size.height * 0.14,
                       left: size.width * 0.35,

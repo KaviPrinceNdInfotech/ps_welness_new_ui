@@ -15,6 +15,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/1_user_view_controller/ambulance/ambulance_payment_controller.dart';
@@ -128,7 +129,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var base = 'http://test.pswellness.in/Images/';
+    // var base = 'http://pswellness.in/Images/';
 
     ///todo: maths logoc....
     final driverFee =
@@ -357,8 +358,8 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                   ),
                                                   child: ClipRect(
                                                     child: CachedNetworkImage(
-                                                      imageUrl: base +
-                                                          '${_driverAcceptlistController.getDriveracceptDetail?.driverImage}',
+                                                      imageUrl:
+                                                          '$IMAGE_BASE_URL${_driverAcceptlistController.getDriveracceptDetail?.driverImage}',
                                                       //'https://pbs.twimg.com/profile_images/945853318273761280/0U40alJG_400x400.jpg',
                                                       imageBuilder: (context,
                                                               imageProvider) =>
@@ -730,6 +731,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                         transition:
                                                             Transition.zoom,
                                                       );
+
                                                       /// Not possibble from wallet go to add page
                                                     } else {
                                                       // final newWalletAmount =

@@ -30,7 +30,6 @@ class User_1_Controller extends GetxController {
 
   ///date.....
   var selectedDate = DateTime.now().obs;
-
   //this is for City.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
 

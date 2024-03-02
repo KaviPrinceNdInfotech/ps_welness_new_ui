@@ -457,7 +457,9 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                             child: Row(
                               children: [
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
+                                    await CallLoader.hideLoader();
+
                                     Get.back();
                                   },
                                   child: Container(

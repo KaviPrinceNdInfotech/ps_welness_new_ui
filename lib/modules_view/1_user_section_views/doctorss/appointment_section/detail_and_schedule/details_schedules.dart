@@ -10,6 +10,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/doctor_checkout_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../../controllers/1_user_view_controller/doctor_rating_review_controller/doctor_rating_review.dart';
@@ -39,7 +40,7 @@ class DetailsSchedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
 
     Size size = MediaQuery.of(context).size;
     bool shouldPop = true;
@@ -406,7 +407,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                                                             ),
                                                                             child:
                                                                                 Image.network(
-                                                                              '$base${_viewdoctorreviewController.doctorviewreview?.rating?[index].image.toString()}',
+                                                                              '$IMAGE_BASE_URL${_viewdoctorreviewController.doctorviewreview?.rating?[index].image.toString()}',
                                                                               //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                                                               fit: BoxFit.fill,
                                                                               errorBuilder: (context, error, stackTrace) {

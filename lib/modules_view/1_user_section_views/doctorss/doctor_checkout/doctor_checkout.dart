@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/doctor_history/doctor_history_user.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants/constants/constants.dart';
@@ -18,6 +25,7 @@ import '../../../../controllers/1_user_view_controller/rozar_pay_doctor_controll
 import '../../../../controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
 import '../../user_drawer/drawer_pages_user/walet_user/wallet_user.dart';
 import '../appointment_section/detail_and_schedule/details_schedules.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/controllers/rozar_pay_controller/rozar_pay_controller.dart';
@@ -34,6 +42,10 @@ class DoctorAppointmentCheckout extends StatelessWidget {
       Get.put(PostOrderDoctorController());
   //PostOrderController _postOrderController = Get.put(PostOrderController());
   Wallet_2_Controller _walletPostController = Get.put(Wallet_2_Controller());
+  UserProfileControllers _userrsProfileControllers =
+      Get.put(UserProfileControllers());
+
+  //UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 
   @override
   //DetailsSchedulePage
@@ -613,6 +625,9 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
+
+                                                prefs.setString("DeviceId",
+                                                    "${_doctorappointmentcheckout.doctorCheckoutModel?.id}");
                                                 prefs.setString(
                                                   "DoctorFee",
                                                   "${finalamtDr.toDouble()}",
@@ -621,8 +636,44 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 // print("okook: ${fee}");
 
                                                 ///todo: end the fees.........
-                                                _rozarPaydoctorController
+                                                await _rozarPaydoctorController
                                                     .openCheckout();
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 1));
+                                                //isLoading(false);
+                                                CallLoader.hideLoader();
+
+                                                // await Navigator.pushReplacement(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (BuildContext
+                                                //                 context) =>
+                                                //             UserHomePage()));
+
+                                                await Get.to(
+                                                  () =>
+                                                      DoctorHistoryUser(), //next page class
+                                                  duration: Duration(
+                                                      milliseconds:
+                                                          500), //duration of transitions, default 1 sec
+                                                  transition: Transition.zoom,
+                                                );
+
+                                                CallLoader.loader();
+                                                await Future.delayed(
+                                                    Duration(seconds: 05));
+                                                //isLoading(false);
+                                                CallLoader.hideLoader();
+
+                                                await _userrsProfileControllers
+                                                    .userprofileApi();
+                                                _userrsProfileControllers
+                                                    .update();
+
+                                                ///This is the main thing to provide updated list history...
+                                                await _doctorHistoryController
+                                                    .doctorListHospitalApi();
                                                 // _addressListController.update();
                                               },
                                               child: Container(
@@ -719,27 +770,119 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                   _walletPostController
                                                       .walletPostUpdateApi(
                                                           newWalletAmount)
-                                                      .then((statusCode) {
+                                                      .then((statusCode) async {
                                                     if (statusCode == 200) {
                                                       ///post order apis.....
-                                                      _postOrderDoctorController
+                                                      await _postOrderDoctorController
                                                           .postOrderdoctoronlineApi()
-                                                          .then((statusCode) {
+                                                          .then(
+                                                              (statusCode) async {
                                                         if (statusCode == 200) {
+                                                          ///...1
+                                                          ///todo: this is api call delete list of api.....
+                                                          print(
+                                                              'princee notification');
+                                                          notificationServices
+                                                              .getDeviceToken()
+                                                              .then(
+                                                                  (value) async {
+                                                            var data = {
+                                                              ///not same controller
+                                                              //this the particular device id.....
+                                                              'to':
+                                                                  //"${
+
+                                                                  _doctorappointmentcheckout
+                                                                          .doctorCheckoutModel
+                                                                          ?.deviceId
+                                                                          .toString() ??
+                                                                      value
+                                                                          .toString(),
+
+                                                              //_doctorHomepageController.founddoctoraptProducts?[index].deviceId
+                                                              // }",
+
+                                                              ///this is same device token....
+                                                              //value.toString(),
+                                                              'notification': {
+                                                                'title':
+                                                                    'Ps_Wellness Patient',
+                                                                'body':
+                                                                    'Your payment done by "${_userrsProfileControllers.userProfile!.patientName.toString()}" and request generated',
+                                                                //"sound": "jetsons_doorbell.mp3"
+                                                              },
+                                                              'android': {
+                                                                'notification':
+                                                                    {
+                                                                  'notification_count':
+                                                                      23,
+                                                                },
+                                                              },
+                                                              // 'data': {
+                                                              //   'type': 'cancel_case_doctor',
+                                                              //   'id': '12345689'
+                                                              // }
+                                                            };
+                                                            // print("dataccept:${data}");
+
+                                                            await http.post(
+                                                                Uri.parse(
+                                                                    'https://fcm.googleapis.com/fcm/send'),
+                                                                body:
+                                                                    jsonEncode(
+                                                                        data),
+                                                                headers: {
+                                                                  'Content-Type':
+                                                                      'application/json; charset=UTF-8',
+                                                                  'Authorization':
+                                                                      //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                      'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                }).then(
+                                                                (value) {
+                                                              if (kDebugMode) {
+                                                                print(
+                                                                    "princedriver${value.body.toString()}");
+                                                              }
+                                                            }).onError((error,
+                                                                stackTrace) {
+                                                              if (kDebugMode) {
+                                                                print(error);
+                                                              }
+                                                            });
+                                                            // CallLoader.loader();
+                                                            // await Future.delayed(Duration(seconds: 1));
+                                                            // await accountService.getAccountData.then((accountData) {
+                                                            //   Timer(
+                                                            //     const Duration(seconds: 0),
+                                                            //         () {
+                                                            //       Get.offAll(UserHomePage());
+                                                            //       //Get.to((page))
+                                                            //       ///
+                                                            //     },
+                                                            //   );
+                                                            // });
+                                                          });
+
+                                                          ///..1..
                                                           Get.snackbar(
                                                               "Payment Success",
                                                               "Your booking confirmed");
 
                                                           ///todo:home page.....
-                                                          Get.to(
+                                                          await Get.to(
                                                             () =>
-                                                                UserHomePage(), //next page class
+                                                                DoctorHistoryUser(), //next page class
                                                             duration: Duration(
                                                                 milliseconds:
                                                                     500), //duration of transitions, default 1 sec
                                                             transition:
                                                                 Transition.zoom,
                                                           );
+
+                                                          await _userrsProfileControllers
+                                                              .userprofileApi();
+                                                          _userrsProfileControllers
+                                                              .update();
 
                                                           ///This is the main thing to provide updated list history...
                                                           _doctorHistoryController

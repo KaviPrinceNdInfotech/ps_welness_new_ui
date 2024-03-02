@@ -339,7 +339,7 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                       ),
                                                     ),
                                                     Positioned(
-                                                      top: 155,
+                                                      top: 145,
                                                       right: 4,
                                                       child: Padding(
                                                         padding: EdgeInsets

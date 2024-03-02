@@ -223,25 +223,31 @@ class Rwa2Credentials extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       )),
-                  Container(
-                    height: size.height * 0.1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.cyanAccent, width: 2),
-                    ),
-                    child: Obx(
-                      () => _rwa_11_controller.selectedPath.value != ''
-                          ? Image.file(
-                              File(_rwa_11_controller.selectedPath.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage();
-                              }),
-                              child: Center(
-                                child: Icon(Icons.camera_enhance_rounded),
+                  InkWell(
+                    onTap: () {
+                      _rwa_11_controller
+                          .clearImage(); // Call a method to clear the selected image
+                    },
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _rwa_11_controller.selectedPath.value != ''
+                            ? Image.file(
+                                File(_rwa_11_controller.selectedPath.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
+                                ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
                 ],
@@ -374,7 +380,7 @@ class Rwa2Credentials extends StatelessWidget {
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: 'Pin',
+                    hintText: 'Pin Code',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,

@@ -25,7 +25,7 @@ final Uri emailLaunchUri = Uri.parse('info@pswellness.in/');
 //launchUrl(emailLaunchUri);
 
 _launchWhatsapp() async {
-  var whatsapp = "+919350016581";
+  var whatsapp = "+919868476173";
   var whatsappAndroid =
       Uri.parse("whatsapp://send?phone=$whatsapp&text=Hi Ps wellness");
   if (await canLaunchUrl(whatsappAndroid)) {
@@ -168,7 +168,7 @@ class SupportViewPsComman extends StatelessWidget {
                         height: size.height * 0.03,
                       ),
                       Text(
-                        'Head Office:-',
+                        'Registered Office:-',
                         style: GoogleFonts.poppins(
                             color: MyTheme.blueww,
                             fontSize: size.width * 0.04,
@@ -178,9 +178,10 @@ class SupportViewPsComman extends StatelessWidget {
                         height: size.height * 0.005,
                       ),
                       Text(
-                        '278B, 1ST FLOOR, LEERA RAM MARKET MASJID MOTH,'
-                        'SOUTH EX. PAPER-2, Masjid Moth Village, South Extension.'
-                        'II, New Delhi, Delhi 110049.',
+                        'A 151, Gali No 8, Nasirpur Colony, Palam, South West Delhi 110045',
+                        // '278B, 1ST FLOOR, LEERA RAM MARKET MASJID MOTH,'
+                        // 'SOUTH EX. PAPER-2, Masjid Moth Village, South Extension.'
+                        // 'II, New Delhi, Delhi 110049.',
                         style: GoogleFonts.roboto(
                             color: MyTheme.blueww,
                             fontSize: size.width * 0.037,
@@ -190,7 +191,7 @@ class SupportViewPsComman extends StatelessWidget {
                         height: size.height * 0.03,
                       ),
                       Text(
-                        'Branch Office',
+                        'Corporate Office',
                         style: GoogleFonts.poppins(
                             color: MyTheme.blueww,
                             fontSize: size.width * 0.04,
@@ -200,7 +201,8 @@ class SupportViewPsComman extends StatelessWidget {
                         height: size.height * 0.005,
                       ),
                       Text(
-                        'No. 224, 1st Floor, Humayunpur, safdasrjang Enclav,Humayupur, Safadrazganj Enclav, Humayupiur, safdarjung Enclav, New Delhi, Delhi 110029.',
+                        '278 B 1st Floor, Leela Ram Market,South Extension Part 2, New Delhi 110049',
+                        //'No. 224, 1st Floor, Humayunpur, safdasrjang Enclav,Humayupur, Safadrazganj Enclav, Humayupiur, safdarjung Enclav, New Delhi, Delhi 110029.',
                         style: GoogleFonts.roboto(
                             color: MyTheme.blueww,
                             fontSize: size.width * 0.037,
@@ -210,13 +212,35 @@ class SupportViewPsComman extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      Text(
-                        'Noida:',
-                        style: GoogleFonts.poppins(
-                            color: MyTheme.blueww,
-                            fontSize: size.width * 0.04,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      // Text(
+                      //   'Noida:',
+                      //   style: GoogleFonts.poppins(
+                      //       color: MyTheme.blueww,
+                      //       fontSize: size.width * 0.04,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      // // SizedBox(
+                      // //   height: size.height * 0.005,
+                      // // ),
+                      // // Text(
+                      // //   'No. 224, 1st Floor, Humayunpur, safdasrjang Enclav,Humayupur, Safadrazganj Enclav, Humayupiur, safdarjung Enclav, New Delhi, Delhi 110029.',
+                      // //   style: GoogleFonts.raleway(
+                      // //       color: MyTheme.blueww,
+                      // //       fontSize: size.width * 0.033,
+                      // //       fontWeight: FontWeight.w500),
+                      // // ),
+                      //
+                      // SizedBox(
+                      //   height: size.height * 0.03,
+                      // ),
+                      // Text(
+                      //   'Gurgaon:',
+                      //   style: GoogleFonts.poppins(
+                      //       color: MyTheme.blueww,
+                      //       fontSize: size.width * 0.04,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      ///
                       // SizedBox(
                       //   height: size.height * 0.005,
                       // ),
@@ -231,34 +255,13 @@ class SupportViewPsComman extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      Text(
-                        'Gurgaon:',
-                        style: GoogleFonts.poppins(
-                            color: MyTheme.blueww,
-                            fontSize: size.width * 0.04,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      // SizedBox(
-                      //   height: size.height * 0.005,
-                      // ),
                       // Text(
-                      //   'No. 224, 1st Floor, Humayunpur, safdasrjang Enclav,Humayupur, Safadrazganj Enclav, Humayupiur, safdarjung Enclav, New Delhi, Delhi 110029.',
-                      //   style: GoogleFonts.raleway(
+                      //   'Punjab:',
+                      //   style: GoogleFonts.poppins(
                       //       color: MyTheme.blueww,
-                      //       fontSize: size.width * 0.033,
-                      //       fontWeight: FontWeight.w500),
+                      //       fontSize: size.width * 0.04,
+                      //       fontWeight: FontWeight.bold),
                       // ),
-
-                      SizedBox(
-                        height: size.height * 0.03,
-                      ),
-                      Text(
-                        'Punjab:',
-                        style: GoogleFonts.poppins(
-                            color: MyTheme.blueww,
-                            fontSize: size.width * 0.04,
-                            fontWeight: FontWeight.bold),
-                      ),
                       SizedBox(
                         height: size.height * 0.005,
                       ),
@@ -277,7 +280,7 @@ class SupportViewPsComman extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Contact : +9111126194230',
+                            'Contact : 01141101286',
                             style: GoogleFonts.poppins(
                                 color: MyTheme.blueww,
                                 fontSize: size.width * 0.04,
@@ -302,7 +305,7 @@ class SupportViewPsComman extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () async {
                                             String telephoneNumber =
-                                                '+9111126194230';
+                                                '01141101286';
                                             String telephoneUrl =
                                                 "tel:$telephoneNumber";
                                             if (await canLaunch(telephoneUrl)) {
@@ -503,7 +506,7 @@ class SupportViewPsComman extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  'http://test.pswellness.in/',
+                                  'www.pswellness.in',
                                   style: GoogleFonts.poppins(
                                     color: MyTheme.blueww,
                                     fontSize: size.width * 0.04,

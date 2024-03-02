@@ -15,10 +15,10 @@ class DoctorProfileControllers extends GetxController {
 
   //all catagary list .........
 
-  void doctorprofileApi() async {
+  Future<void> doctorprofileApi() async {
     isLoading(true);
-    doctorProfile = await ApiProvider. DoctorProfileApi();
-    if (doctorProfile != null
+    doctorProfile = await ApiProvider.DoctorProfileApi();
+    if (doctorProfile?.doctorName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

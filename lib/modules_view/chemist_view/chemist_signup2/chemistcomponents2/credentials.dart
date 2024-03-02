@@ -500,7 +500,7 @@ class Chemist2Credentials extends StatelessWidget {
               ///TODO: licence no.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.name],
                   controller: _chemist_1_controller.LicenceNumber,
                   cursorColor: Colors.black,
@@ -682,7 +682,7 @@ class Chemist2Credentials extends StatelessWidget {
                     return _chemist_1_controller.validPin(value!);
                   },
                   decoration: InputDecoration(
-                    hintText: 'Pin',
+                    hintText: 'Pin Code',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,

@@ -199,8 +199,8 @@ class SplashScreenViewModel extends GetxController
   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
   ChemistProfileDetailController _chemistProfileDetailController =
       Get.put(ChemistProfileDetailController());
-  NurseProfileControllers _nurseprofileContrller =
-      Get.put(NurseProfileControllers());
+  NurseProfileControllersdetail _nurseprofileContrller =
+      Get.put(NurseProfileControllersdetail());
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
   NurseUploadReportController _nursdeUploadReportController =
@@ -217,7 +217,7 @@ class SplashScreenViewModel extends GetxController
     super.onInit();
     accountService.getAccountData.then((accountData) {
       Timer(
-        const Duration(seconds: 4),
+        const Duration(seconds: 0),
         () {
           if (accountData == null) {
             Get.to(OnboardingPage());
@@ -230,6 +230,7 @@ class SplashScreenViewModel extends GetxController
                 _userprofile.userprofileApi();
                 _userprofile.update();
                 _devicetokenController.UsertokenApi();
+                // _userprofile.userprofileApi();
 
                 /// we can navigate to user page.....................................
                 Get.to(UserHomePage());
@@ -251,7 +252,7 @@ class SplashScreenViewModel extends GetxController
                 break;
               case 'doctor':
                 _doctorProfileControllers.doctorprofileApi();
-                _doctorProfileControllers.onInit();
+                // _doctorProfileControllers.onInit();
                 _doctorProfileControllers.update();
                 _devicetokenController.DoctortokenApi();
                 Get.to(DoctorHomePage());

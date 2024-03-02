@@ -17,31 +17,32 @@ class UserProfileControllers extends GetxController {
 
   //all catagary list .........
 
-  void userprofileApi() async {
+  Future<void> userprofileApi() async {
     isLoading(true);
     userProfile = await ApiProvider.UserProfileApi();
-    if (userProfile == null) {
-      Timer(
-        const Duration(seconds: 1),
-        () {
-          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
-          //Get.to(() => MedicineCart());
-          //Get.to((page))
-          ///
-        },
-      );
-      isLoading(true);
-      userProfile = await ApiProvider.UserProfileApi();
-      //Get.to(() => TotalPrice());
-
-      //foundProducts.value = medicinelistmodel!.data;
-      //Get.to(()=>Container());
-    }
-    if (userProfile != null
+    // if (userProfile == null) {
+    //   Timer(
+    //     const Duration(seconds: 1),
+    //     () {
+    //       //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+    //       //Get.to(() => MedicineCart());
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    //   isLoading(true);
+    //   userProfile = await ApiProvider.UserProfileApi();
+    //   //Get.to(() => TotalPrice());
+    //
+    //   //foundProducts.value = medicinelistmodel!.data;
+    //   //Get.to(()=>Container());
+    // }
+    if (userProfile?.patientName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
     }
+    //else {}
   }
 
   @override

@@ -251,8 +251,9 @@ class Driver_1111_Controller extends GetxController {
       imageAsBase643,
       selectedPath3.value.split('/').last,
       imageAsBase644,
-      selectevehicletype.value?.id.toString(),
-      paidamountcontroller?.text,
+
+      ///selectevehicletype.value?.id.toString(),
+      /// paidamountcontroller?.text,
       // selectedPath.value.split('/').last,
       //imageAsBase64,
     );
@@ -349,7 +350,7 @@ class Driver_1111_Controller extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime(2018),
-      lastDate: DateTime(2026),
+      lastDate: DateTime(2060),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select DL Validity',

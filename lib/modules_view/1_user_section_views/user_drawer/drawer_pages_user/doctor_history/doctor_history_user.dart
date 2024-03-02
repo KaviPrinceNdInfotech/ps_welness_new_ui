@@ -11,6 +11,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_doctor/page_dr/pdf_page_doctor.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_doctor.dart';
@@ -118,7 +119,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
             Icons.arrow_back_ios_new,
             color: Colors.black,
           ).onTap(() {
-            Get.back();
+            Get.to(UserHomePage());
+            //Get.back();
           }),
           bottom: PreferredSize(
             preferredSize: Size(20, 30),

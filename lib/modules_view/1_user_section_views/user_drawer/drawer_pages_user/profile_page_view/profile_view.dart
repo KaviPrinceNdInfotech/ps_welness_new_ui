@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(UserHomePage());
+        Get.to(UserHomePage());
         return shouldPop;
       },
       child: Container(

@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map3.dart';
@@ -14,6 +16,7 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_l
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_message2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/slider_user/slider_userss.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_list.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/user_drawer.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
@@ -31,7 +34,6 @@ import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 import '../doctorss/doctor_address/doctor_address.dart';
 import '../medicine_view/search_section/search_medicine.dart';
 import '../nursess/book_nurse_appointment1/nurse_booking_1.dart';
-import '../user_drawer/user_drawer.dart';
 
 String PatientRegNo = ''.toString();
 String userPassword = ''.toString();
@@ -45,12 +47,18 @@ AppointmentUserController _appointmentUserController =
     Get.put(AppointmentUserController());
 UserHomepagContreoller _userHomepagContreoller =
     Get.put(UserHomepagContreoller());
+UserProfileControllers _userprofiledetail = Get.put(UserProfileControllers());
 AmbulancegetController _ambulancegetController =
     Get.put(AmbulancegetController());
 final MedicineListController _medicineListController =
     Get.put(MedicineListController());
 DriverAcceptlistController _driverAcceptlistController =
     Get.put(DriverAcceptlistController());
+
+Doctor_appointment_1_Controller _doctor_appointment_1_controller =
+    Get.put(Doctor_appointment_1_Controller());
+
+RxBool isLoading = true.obs;
 
 ///
 
@@ -64,12 +72,16 @@ class UserHomePage extends StatefulWidget {
 }
 
 class _UserHomePageState extends State<UserHomePage> {
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   NotificationServices notificationServices = NotificationServices();
 
   ///implement firebase....27...jun..2023
   @override
   void initState() {
     super.initState();
+    //_userprofiledetail.userprofileApi();
+    //_userprofiledetail.update();
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
     notificationServices.firebaseInit(context);
@@ -126,7 +138,6 @@ class _UserHomePageState extends State<UserHomePage> {
         }
       },
     );
-
     // 3. This method only call when App in background and not terminated(not closed)
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {
@@ -143,7 +154,7 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _keyuser = GlobalKey();
+    GlobalKey<ScaffoldState> _keyuser2 = GlobalKey();
 
     final List<String> productname = [
       'Book Nurse',
@@ -219,7 +230,11 @@ class _UserHomePageState extends State<UserHomePage> {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _keyuser,
+          //key: _keyuser2,
+          drawer: UserMainDrawer(),
+
+          key: _scaffoldKey,
+          // key: _keyuser,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -365,16 +380,23 @@ class _UserHomePageState extends State<UserHomePage> {
             backgroundColor: Colors.transparent,
 
             //MyTheme.ThemeColors,
-            leading: IconButton(
-              icon: Icon(
-                Icons.dehaze_rounded,
-                size: 23,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _keyuser.currentState?.openDrawer();
-              },
+            leading: Builder(
+              builder: (context) => // Ensure Scaffold is in context
+                  IconButton(
+                      icon: Icon(
+                        Icons.dehaze_rounded,
+                        size: 23,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _userprofiledetail.userprofileApi();
+                        _userprofiledetail.update();
+                        Scaffold.of(context).openDrawer();
+                      }),
             ),
+            // onPressed: () {
+            //   _keyuser.currentState?.openDrawer();
+            // },
             actions: [
               Padding(
                   padding: EdgeInsets.only(right: size.height * 0.02),
@@ -448,7 +470,7 @@ class _UserHomePageState extends State<UserHomePage> {
             ],
             // leading: Icon(Icons.read_more_outlined),
           ),
-          drawer: UserMainDrawer(),
+          //drawer: UserMainDrawer(),
           body:
               // Obx(
               //         () => (_userHomepagContreoller.isLoading.value)
@@ -553,11 +575,34 @@ class _UserHomePageState extends State<UserHomePage> {
                                         await Get.offAll(
                                             () => NurseBoooking1());
                                       } else if (index == 1) {
+                                        // _doctor_appointment_1_controller.selectedCity.close();
+                                        // _doctor_appointment_1_controller.cities
+                                        //     .clear();
+                                        // _doctor_appointment_1_controller.states
+                                        //     .clear();
+                                        // _doctor_appointment_1_controller
+                                        //     .specialist
+                                        //     .clear();
+                                        // _doctor_appointment_1_controller
+                                        //     .department
+                                        //     .clear();
+
+                                        // await _doctor_appointment_1_controller
+                                        //     .getStateLabApi();
+                                        // await _doctor_appointment_1_controller
+                                        //     .getdepartmentApi();
+                                        // _doctor_appointment_1_controller
+                                        //     .onInit();
+                                        // _doctor_appointment_1_controller
+                                        //     .update();
+                                        ///
+                                        // _doctor_appointment_1_controller
+                                        //     .refresh();
                                         CallLoader.loader();
                                         await Future.delayed(
                                             Duration(seconds: 1));
                                         CallLoader.hideLoader();
-                                        Get.offAll(() => DoctorAddress());
+                                        await Get.to(() => DoctorAddress());
                                         //Get.to(() => CatagaryDetails());
                                       } else if (index == 2) {
                                         Get.defaultDialog(

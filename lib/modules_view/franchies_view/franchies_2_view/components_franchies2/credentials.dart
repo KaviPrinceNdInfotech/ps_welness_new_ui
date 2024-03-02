@@ -185,7 +185,7 @@ class Franchies2Credentials extends StatelessWidget {
               ///TODO: Gst.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.telephoneNumber],
                   controller: _franchies_1_controller.GSTNumber,
                   onSaved: (value) {

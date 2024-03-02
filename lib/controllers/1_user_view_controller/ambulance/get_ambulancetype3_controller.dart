@@ -112,7 +112,8 @@ class Ambulanceget3Controller extends GetxController {
 
     final endLat = markers.last.position.latitude;
     final endLong = markers.last.position.longitude;
-    CallLoader.loader();
+
+    ///CallLoader.loader();
     http.Response r = await ApiProvider.GooglebookambulanceApi3(
       startLat.toDouble(),
       startLong.toDouble(),
@@ -141,7 +142,7 @@ class Ambulanceget3Controller extends GetxController {
       //_nearambulancelistController.update();
 
       accountService.getAccountData.then((accountData) {
-        CallLoader.loader();
+        //CallLoader.loader();
         // nearlistdriverApi();
 
         Timer(
@@ -173,7 +174,7 @@ class Ambulanceget3Controller extends GetxController {
   ///todo: google book ambulance api post Api...........2 may 2023.....
 
   void postAmbulancerequestApi2() async {
-    CallLoader.loader();
+    // CallLoader.loader();
     http.Response r = await ApiProvider.Googlebookambulance2Api();
 
     if (r.statusCode == 200) {

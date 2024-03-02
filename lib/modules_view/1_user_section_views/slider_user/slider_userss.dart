@@ -7,6 +7,7 @@ import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 
@@ -43,8 +44,8 @@ class MySlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
-    var image = 'http://test.pswellness.in/Images/';
+    // var base = 'http://pswellness.in/Images/';
+    // var image = 'http://pswellness.in/Images/';
 
     //var base = 'https://api.gyros.farm/Images/';
     Size size = MediaQuery.of(context).size;
@@ -110,7 +111,7 @@ class MySlider extends StatelessWidget {
                                     ),
                                     child: CachedNetworkImage(
                                       imageUrl:
-                                          "$image${item?[index].bannerPath}" ??
+                                          "$IMAGE_BASE_URL${item?[index].bannerPath}" ??
                                               '',
                                       fit: BoxFit.fill,
                                       imageBuilder: (context, imageProvider) =>

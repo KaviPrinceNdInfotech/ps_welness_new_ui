@@ -1,15 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
+///import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/slot_duration_common_model/slot_duration_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/week_day_off/week_day_off_model.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
@@ -21,22 +26,49 @@ class Doctor_1_Controller extends GetxController {
   LoginpasswordController _loginpasswordControllerr =
       Get.put(LoginpasswordController());
 
+  //getfranchiseDurationsApi
+
   ///TODO: image picker.................
   ///
-  var selectedImagepath = ''.obs;
-  var selectedImagepath2 = ''.obs;
+  // var selectedImagepath = ''.obs;
+  //
+  // ///var selectedImagepath2 = ''.obs;
+  //
+  // var selectedStartTime = TimeOfDay.now().obs;
+  // var selectedEndTime = TimeOfDay.now().obs;
+  // var selectedSlotTime = TimeOfDay.now().obs;
 
-  var selectedStartTime = TimeOfDay.now().obs;
-  var selectedEndTime = TimeOfDay.now().obs;
-  var selectedSlotTime = TimeOfDay.now().obs;
+  // Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
+  // List<TimeSlot> timeslot = <TimeSlot>[].obs;
+
+  //TimeDurationSlot
+
+  ///this is slot duration...
+  Rx<DurationSlot?> selectedtimeslotDurations = (null as DurationSlot?).obs;
+  List<DurationSlot> timeduration = <DurationSlot>[].obs;
+
+  ///this is slot duration...2
+  Rx<DurationSlot?> selectedtimeslotDurations2 = (null as DurationSlot?).obs;
+  List<DurationSlot> timeduration2 = <DurationSlot>[].obs;
 
   ///this is for department.................................
   Rx<DepartmentModel?> selectedDepartment = (null as DepartmentModel?).obs;
   List<DepartmentModel> department = <DepartmentModel>[].obs;
 
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
+
+  ///this is for day id.................................
+  Rx<Day?> selectedweekdayId = (null as Day?).obs;
+  List<Day> weekdayid = <Day>[].obs;
+
   ///this is for department.................................
   Rx<SpecialistModel?> selectedSpecialist = (null as SpecialistModel?).obs;
   List<SpecialistModel> specialist = <SpecialistModel>[].obs;
+
+  // Rx<TimeSlot?> selectedTimeslot2 = (null as TimeSlot?).obs;
+  // List<TimeSlot> timeslot2 = <TimeSlot>[].obs;
 
   ///get department api.........
 
@@ -45,6 +77,74 @@ class Doctor_1_Controller extends GetxController {
     print('Prince departmrntttss  list');
     print(department);
   }
+
+  ///slot duration..1.
+  // void getdurationApi() async {
+  //   List<Durationss>? durationsList =
+  //       await ApiProvider.gettimeslotDurationsApi();
+  //   if (durationsList != null && durationsList.isNotEmpty) {
+  //     // Assuming you want to assign the first element of the list
+  //     timeslotDurations.value = durationsList.first;
+  //     // Or if you want to assign the whole list
+  //     // timeduration = durationsList;
+  //     print('Prince timeslot durations list');
+  //     print(timeslotDurations.value);
+  //   } else {
+  //     print('No durations received from API');
+  //   }
+  // }
+
+  ///slot duration..2.
+  // void getdurationApi2() async {
+  //   List<Durationss>? durationsList =
+  //       await ApiProvider.gettimeslotDurationsApi();
+  //   if (durationsList != null && durationsList.isNotEmpty) {
+  //     // Assuming you want to assign the first element of the list
+  //     timeslotDurations2.value = durationsList.first;
+  //     // Or if you want to assign the whole list
+  //     // timeduration = durationsList;
+  //     print('Prince timeslot durations list');
+  //     print(timeslotDurations2.value);
+  //   } else {
+  //     print('No durations received from API');
+  //   }
+  // }
+
+  ///slot morning1 duration api class........45  1.........
+  Future<void> timeslotApidr11() async {
+    timeduration = (await ApiProvider.gettimeslotDurationsApi())!;
+    print('Prince time slot  list');
+    print(timeduration);
+  }
+
+  ///slot evening duration api class........45  1.........
+  Future<void> timeslotApidr22() async {
+    timeduration2 = (await ApiProvider.gettimeslotDurationsApi())!;
+    print('Prince time slot  list');
+    print(timeduration2);
+  }
+
+  ///franchise id api class........45  1.........
+  Future<void> franchiseIdApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
+  }
+  //getweekoffApi
+
+  ///franchise id api class........45  1.........
+  Future<void> weekoffIdApi() async {
+    weekdayid = (await ApiProvider.getweekoffApi())!;
+    print('Prince day  list');
+    print(weekdayid);
+  }
+
+  ///slot morning1 api class.................
+  // void timeslotApidr22() async {
+  //   timeslot2 = (await ApiProvider.gettimeslotApi())!;
+  //   print('Prince time slot  list');
+  //   print(timeslot2);
+  // }
 
   ///get specialist api...........
   void getspecialistByDeptID(String depId) async {
@@ -69,20 +169,41 @@ class Doctor_1_Controller extends GetxController {
       departmentIdController,
       specialistIdController,
       licenceNumberController,
+      licenceValidityController,
       licenceImageController,
       licenceImageNameController,
-      pinCodeController,
       clinicNameController,
       locationController,
       stateMaster_IdController,
       cityMaster_IdController,
+      SlotTimeController,
+
+      ///startTimeController,
       endTimeController,
+      SlotTime2Controller,
+      StartTime2Controller,
+      EndTime2Controller,
+      pinCodeController,
+      //phoneController,
+
+      ///endTimeController,
       licenceBase64Controller,
       experienceController,
       qualificationController,
       registrationController,
       signaturepicController,
-      signaturepicbase64Controller;
+      signaturepicbase64Controller,
+
+      ///
+      dayIdController,
+      virtualfeesController,
+      aboutController,
+      vendotidController;
+
+  var day = '';
+  var virtualfee = '';
+  var about = '';
+  var vendorId = '';
 
   var pan = '';
   var Id = '';
@@ -91,6 +212,7 @@ class Doctor_1_Controller extends GetxController {
   var Password = '';
   var ConfirmPassword = '';
   var MobileNumber = '';
+  var phonenumber = '';
   var Fee = '';
   var PhoneNumber = '';
   var StartTime = '';
@@ -108,14 +230,31 @@ class Doctor_1_Controller extends GetxController {
   var EndTime = '';
   var LicenceBase64 = '';
   var experience = '';
+  var certificatevelidity = '';
 
-  void getImage(ImageSource imageSource) async {
+  var selectedLicenceImagepath = ''.obs;
+  var selectedPanImagepath = ''.obs;
+  var selectedImagepath2 = ''.obs;
+
+  var selectedTime = TimeOfDay.now().obs;
+  var selectedTime2 = TimeOfDay.now().obs;
+  var selectedTime3 = TimeOfDay.now().obs;
+  var selectedTime4 = TimeOfDay.now().obs;
+  var selectedDate = DateTime.now().obs;
+
+  void getLicenceImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
-      selectedImagepath.value = pickedFile.path;
-    } else {
-      print('No image selected');
-    }
+      selectedLicenceImagepath.value = pickedFile.path;
+    } else {}
+  }
+  //getPanImage
+
+  void getPanImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedPanImagepath.value = pickedFile.path;
+    } else {}
   }
 
   void getImage2(ImageSource imageSource) async {
@@ -145,57 +284,79 @@ class Doctor_1_Controller extends GetxController {
 
   void doctorSignupApi() async {
     CallLoader.loader();
-    final licenceImageAsBase64 =
-        base64Encode(await File(selectedImagepath.value).readAsBytes());
-    final licenceImage2AsBase64 =
-        base64Encode(await File(selectedImagepath2.value).readAsBytes());
-    http.Response r = await ApiProvider.signDoctorUpApi(
-      panController?.text,
-      doctorNameController?.text,
-      emailIdController?.text,
-      passwordController?.text,
-      confirmPasswordController?.text,
-      mobileNumberController?.text,
-      feeController?.text,
-      phoneNumberController?.text,
-      selectedStartTime.value.toString(),
-      selectedSlotTime.value.hour,
-      selectedDepartment.value?.id.toString(),
-      selectedSpecialist.value?.id.toString(),
-      licenceNumberController?.text,
-      selectedImagepath.value.split('/').last,
-      pinCodeController?.text,
-      clinicNameController?.text,
-      locationController?.text,
-      selectedState.value?.id.toString(),
-      selectedCity.value?.id.toString(),
-      selectedEndTime.value.hour,
-      licenceImageAsBase64,
-      experienceController?.text,
-      qualificationController?.text,
-      registrationController?.text,
-      selectedImagepath2.value.split('/').last,
-      licenceImage2AsBase64,
-    );
-    if (r.statusCode == 200) {
-      Get.snackbar(
-        'Success',
-        "${r.body}",
-        duration: const Duration(seconds: 1),
+    try {
+      final licenceimageAsBase64 = base64Encode(
+          await File(selectedLicenceImagepath.value).readAsBytes());
+      final PanImageAsBase64 =
+          base64Encode(await File(selectedPanImagepath.value).readAsBytes());
+      final licenceImage2AsBase64 =
+          base64Encode(await File(selectedImagepath2.value).readAsBytes());
+
+      http.Response r = await ApiProvider.signDoctorUpApi(
+        panController?.text,
+        doctorNameController?.text,
+        emailIdController?.text,
+        passwordController?.text,
+        confirmPasswordController?.text,
+        mobileNumberController?.text,
+        phoneNumberController?.text,
+        clinicNameController?.text,
+        selectedState.value?.id.toString(),
+        selectedCity.value?.id.toString(),
+        locationController?.text,
+        selectedLicenceImagepath.value.split('/').last,
+        licenceimageAsBase64,
+        licenceNumberController?.text,
+        licenceValidityController?.text,
+        pinCodeController?.text,
+        selectedPanImagepath.value.split('/').last,
+        PanImageAsBase64,
+        selectedtimeslotDurations.value?.durationId.toString(),
+        selectedTime.value,
+        selectedTime2.value,
+        selectedtimeslotDurations2.value?.durationId.toString(),
+        selectedTime3.value,
+        selectedTime4.value,
+        experienceController?.text,
+        selectedDepartment.value?.id.toString(),
+        selectedSpecialist.value?.id.toString(),
+        feeController?.text,
+        qualificationController?.text,
+        registrationController?.text,
+        selectedImagepath2.value.split('/').last,
+        licenceImage2AsBase64,
+
+        ///this is dropdown after api
+        selectedweekdayId.value?.id.toString(),
+        virtualfeesController?.text,
+        aboutController?.text,
+
+        ///this is remaining part
+        selectedFranchiseId.value?.id,
       );
-      //Get.snackbar('message', "${r.body}");
-      /// we can navigate to user page.....................................
-      // Get.to(SignInScreen());
-      _loginpasswordControllerr.onInit();
-      //CallLoader.loader();
-      await Future.delayed(Duration(milliseconds: 500));
-      //CallLoader.hideLoader();
-      await SharedPreferences.getInstance()
-          .then((value) => Get.offAll(() => SignInScreen()));
-    } else {
+
+      if (r.statusCode == 200) {
+        Get.snackbar(
+          'Success',
+          "${r.body}",
+          duration: const Duration(seconds: 1),
+        );
+        _loginpasswordControllerr.onInit();
+        await Future.delayed(Duration(milliseconds: 500));
+        await SharedPreferences.getInstance()
+            .then((value) => Get.offAll(() => SignInScreen()));
+      } else {
+        Get.snackbar(
+          'Error',
+          "${r.body}",
+          duration: const Duration(seconds: 1),
+        );
+      }
+    } catch (e) {
+      print("Error in doctorSignupApi: $e");
       Get.snackbar(
         'Error',
-        "${r.body}",
+        "An error occurred while signing up: $e",
         duration: const Duration(seconds: 1),
       );
     }
@@ -205,6 +366,12 @@ class Doctor_1_Controller extends GetxController {
   void onInit() {
     super.onInit();
     getStateLabApi();
+    timeslotApidr11();
+    timeslotApidr22();
+    franchiseIdApi();
+    weekoffIdApi();
+    //timeslotApidr11();
+    timeslotApidr22();
     getdepartmentApi();
     selectedState.listen((p0) {
       if (p0 != null) {
@@ -217,16 +384,18 @@ class Doctor_1_Controller extends GetxController {
       }
     });
     panController = TextEditingController();
-    idController = TextEditingController(text: '143');
+    //idController = TextEditingController(text: '143');
     doctorNameController = TextEditingController();
     emailIdController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
     mobileNumberController = TextEditingController();
     feeController = TextEditingController();
+    licenceValidityController = TextEditingController();
+    licenceValidityController?.text = "DD-MM-YYYY";
     phoneNumberController = TextEditingController();
-    startTimeController = TextEditingController(text: '01:50:00.0000000');
-    slotTimingController = TextEditingController(text: '5');
+    startTimeController = TextEditingController();
+    slotTimingController = TextEditingController();
     departmentIdController = TextEditingController();
     specialistIdController = TextEditingController();
     licenceNumberController = TextEditingController();
@@ -237,7 +406,7 @@ class Doctor_1_Controller extends GetxController {
     locationController = TextEditingController();
     stateMaster_IdController = TextEditingController();
     cityMaster_IdController = TextEditingController();
-    endTimeController = TextEditingController(text: '14:27:00.0000000');
+    endTimeController = TextEditingController(text: '');
     licenceBase64Controller = TextEditingController();
     experienceController = TextEditingController();
 
@@ -245,6 +414,12 @@ class Doctor_1_Controller extends GetxController {
     registrationController = TextEditingController();
     signaturepicController = TextEditingController();
     signaturepicbase64Controller = TextEditingController();
+    dayIdController = TextEditingController();
+    virtualfeesController = TextEditingController();
+    aboutController = TextEditingController();
+
+    ///this is remaining part
+    vendotidController = TextEditingController();
     //signaturepicController,
     //   signaturepicbase64Controller;
   }
@@ -265,6 +440,7 @@ class Doctor_1_Controller extends GetxController {
     mobileNumberController?.dispose();
     feeController?.dispose();
     phoneNumberController?.dispose();
+
     startTimeController?.dispose();
     slotTimingController?.dispose();
     departmentIdController?.dispose();
@@ -294,6 +470,13 @@ class Doctor_1_Controller extends GetxController {
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid value";
+    }
+    return null;
+  }
+
+  String? validcertificatevalidity(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
     }
     return null;
   }
@@ -342,7 +525,7 @@ class Doctor_1_Controller extends GetxController {
       return '              This field is required';
     }
     if (value.length != 10) {
-      return '              A valid phone number should be of 10 digits';
+      return '              A valid  number should be of 10 digits';
     }
     return null;
   }
@@ -367,10 +550,17 @@ class Doctor_1_Controller extends GetxController {
     //return null;
   }
 
-  chooseEndTime() async {
+  ///time 1........................
+  chooseTime() async {
+    // DateTime now = DateTime.now();
+    // int hour = now.hour;
+    // int minute = now.minute;
+    // int second = now.second;
+
+    ///todo: time format not correct...............
     TimeOfDay? pickedTime = await showTimePicker(
         context: Get.context!,
-        initialTime: selectedEndTime.value,
+        initialTime: selectedTime.value,
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
         },
@@ -382,15 +572,16 @@ class Doctor_1_Controller extends GetxController {
         hourLabelText: 'Select Hour',
         minuteLabelText: 'Select Minute');
 
-    if (pickedTime != null && pickedTime != selectedEndTime.value) {
-      selectedEndTime.value = pickedTime;
+    if (pickedTime != null && pickedTime != selectedTime.value) {
+      selectedTime.value = pickedTime;
     }
   }
 
-  chooseStartTime() async {
+  ///time 2...................
+  chooseTime2() async {
     TimeOfDay? pickedTime = await showTimePicker(
         context: Get.context!,
-        initialTime: selectedStartTime.value,
+        initialTime: selectedTime2.value,
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
         },
@@ -401,16 +592,16 @@ class Doctor_1_Controller extends GetxController {
         errorInvalidText: 'Provide valid time',
         hourLabelText: 'Select Hour',
         minuteLabelText: 'Select Minute');
-
-    if (pickedTime != null && pickedTime != selectedStartTime.value) {
-      selectedStartTime.value = pickedTime;
+    if (pickedTime != null && pickedTime != selectedTime2.value) {
+      selectedTime2.value = pickedTime;
     }
   }
 
-  chooseSlotTime() async {
+  ///time3
+  chooseTime3() async {
     TimeOfDay? pickedTime = await showTimePicker(
         context: Get.context!,
-        initialTime: selectedSlotTime.value,
+        initialTime: selectedTime3.value,
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child!);
         },
@@ -421,11 +612,121 @@ class Doctor_1_Controller extends GetxController {
         errorInvalidText: 'Provide valid time',
         hourLabelText: 'Select Hour',
         minuteLabelText: 'Select Minute');
-
-    if (pickedTime != null && pickedTime != selectedSlotTime.value) {
-      selectedSlotTime.value = pickedTime;
+    if (pickedTime != null && pickedTime != selectedTime3.value) {
+      selectedTime3.value = pickedTime;
     }
   }
+
+  ///time4
+  chooseTime4() async {
+    TimeOfDay? pickedTime = await showTimePicker(
+        context: Get.context!,
+        initialTime: selectedTime4.value,
+        builder: (context, child) {
+          return Theme(data: ThemeData.dark(), child: child!);
+        },
+        initialEntryMode: TimePickerEntryMode.input,
+        helpText: 'Select Departure Time',
+        cancelText: 'Close',
+        confirmText: 'Confirm',
+        errorInvalidText: 'Provide valid time',
+        hourLabelText: 'Select Hour',
+        minuteLabelText: 'Select Minute');
+    if (pickedTime != null && pickedTime != selectedTime4.value) {
+      selectedTime4.value = pickedTime;
+    }
+  }
+
+  ///data...
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2018),
+      lastDate: DateTime(2070),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select Date',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'validity',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      licenceValidityController
+        ?..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: licenceValidityController!.text.length,
+            affinity: TextAffinity.upstream));
+    }
+  }
+
+  ///
+
+  // chooseEndTime() async {
+  //   TimeOfDay? pickedTime = await showTimePicker(
+  //       context: Get.context!,
+  //       initialTime: selectedEndTime.value,
+  //       builder: (context, child) {
+  //         return Theme(data: ThemeData.dark(), child: child!);
+  //       },
+  //       initialEntryMode: TimePickerEntryMode.input,
+  //       helpText: 'Select Departure Time',
+  //       cancelText: 'Close',
+  //       confirmText: 'Confirm',
+  //       errorInvalidText: 'Provide valid time',
+  //       hourLabelText: 'Select Hour',
+  //       minuteLabelText: 'Select Minute');
+  //
+  //   if (pickedTime != null && pickedTime != selectedEndTime.value) {
+  //     selectedEndTime.value = pickedTime;
+  //   }
+  // }
+  //
+  // chooseStartTime() async {
+  //   TimeOfDay? pickedTime = await showTimePicker(
+  //       context: Get.context!,
+  //       initialTime: selectedStartTime.value,
+  //       builder: (context, child) {
+  //         return Theme(data: ThemeData.dark(), child: child!);
+  //       },
+  //       initialEntryMode: TimePickerEntryMode.input,
+  //       helpText: 'Select Departure Time',
+  //       cancelText: 'Close',
+  //       confirmText: 'Confirm',
+  //       errorInvalidText: 'Provide valid time',
+  //       hourLabelText: 'Select Hour',
+  //       minuteLabelText: 'Select Minute');
+  //
+  //   if (pickedTime != null && pickedTime != selectedStartTime.value) {
+  //     selectedStartTime.value = pickedTime;
+  //   }
+  // }
+  //
+  // chooseSlotTime() async {
+  //   TimeOfDay? pickedTime = await showTimePicker(
+  //       context: Get.context!,
+  //       initialTime: selectedSlotTime.value,
+  //       builder: (context, child) {
+  //         return Theme(data: ThemeData.dark(), child: child!);
+  //       },
+  //       initialEntryMode: TimePickerEntryMode.input,
+  //       helpText: 'Select Departure Time',
+  //       cancelText: 'Close',
+  //       confirmText: 'Confirm',
+  //       errorInvalidText: 'Provide valid time',
+  //       hourLabelText: 'Select Hour',
+  //       minuteLabelText: 'Select Minute');
+  //
+  //   if (pickedTime != null && pickedTime != selectedSlotTime.value) {
+  //     selectedSlotTime.value = pickedTime;
+  //   }
+  // }
+  ///
 
   void checkDoctor1() {
     //  final isValid = doctor11formkey.currentState?.validate();
@@ -433,7 +734,20 @@ class Doctor_1_Controller extends GetxController {
     //   return;
     // }
     // doctor11formkey.currentState!.save();
-    doctorSignupApi();
+    /// doctorSignupApi();
+
+    final isValid = doctor11formkey.currentState!.validate();
+    if (isValid &&
+        selectedLicenceImagepath.value != '' &&
+        selectedPanImagepath.value != '' &&
+        selectedImagepath2 != '') {
+      doctorSignupApi();
+      return;
+    } else {
+      Get.snackbar("Failed", "Please select all data and image",
+          duration: Duration(seconds: 3));
+    }
+    doctor11formkey.currentState!.save();
     //Get.to(() => HomePage());
   }
 }

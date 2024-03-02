@@ -25,6 +25,10 @@ class Rwa_11_controller extends GetxController {
   var selectedPath = ''.obs;
   //var selectedPath = ''.obs;
 
+  void clearImage() {
+    selectedPath.value = ''; // Clear the selected image path
+  }
+
   void getImage(ImageSource imageSource) async {
     final pickedFiles = await ImagePicker().pickImage(source: imageSource);
     if (pickedFiles != null) {

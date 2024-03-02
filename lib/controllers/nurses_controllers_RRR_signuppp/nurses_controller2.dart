@@ -42,6 +42,26 @@ class Nurses_22_Controller extends GetxController {
   RxInt selectedimg4 = 0.obs;
   var selectedPath4 = ''.obs;
 
+  void clearImage() {
+    selectedPath.value = ''; // Clear the selected image path
+  }
+
+  void clearImage1() {
+    selectedPath1.value = ''; // Clear the selected image path
+  }
+
+  void clearImage2() {
+    selectedPath2.value = ''; // Clear the selected image path
+  }
+
+  void clearImage3() {
+    selectedPath3.value = ''; // Clear the selected image path
+  }
+
+  void clearImage4() {
+    selectedPath4.value = ''; // Clear the selected image path
+  }
+
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {

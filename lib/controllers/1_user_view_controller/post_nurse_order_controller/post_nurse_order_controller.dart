@@ -14,13 +14,13 @@ class PostOrderNurseController extends GetxController {
   ///online nurse......
   Future<int> postOrdernurseonlineApi() async {
     //isLoading(true);
-    CallLoader.loader();
+    //CallLoader.loader();
     //print(ProductName.text);
     http.Response r = await ApiProvider.NursepaynowOnlineApi();
     if (r.statusCode == 200) {
       //Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage()));
       //Get.to(()=> LoginPage());
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
       isLoading(false);
       // Get.to(() => NavBar());
       //_timeController.email = Email.text;

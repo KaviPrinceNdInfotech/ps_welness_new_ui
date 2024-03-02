@@ -243,8 +243,12 @@ class SignUpList extends StatelessWidget {
                                   await SharedPreferences.getInstance().then(
                                       (value) =>
                                           Get.offAll(() => DoctorSignup1()));
-                                  _doctor_1_controller.dispose();
+                                  // _doctor_1_controller.dispose();
                                   _doctor_1_controller.onInit();
+                                  await _doctor_1_controller.timeslotApidr11();
+                                  await _doctor_1_controller.timeslotApidr22();
+                                  await _doctor_1_controller.franchiseIdApi();
+
                                   //Get.to(() => HospitalSignup1());
                                   ///edited by 11 may 2023.... doctor should be here
                                   ///Get.to(() => DoctorSignup1());

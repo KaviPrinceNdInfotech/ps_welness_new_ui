@@ -10,11 +10,13 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_pa
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_view_reportt/doctor_view_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/patient_lists/patient_list.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 import '../../../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 //import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/patient_lists/patient_list.dart';
@@ -30,6 +32,8 @@ class DoctorHomePage extends StatelessWidget {
   //Get.put(DoctorHomepageController());
   DoctorHomepageController _doctorHomepageController =
       Get.put(DoctorHomepageController());
+  PatientListController _patientListController =
+      Get.put(PatientListController());
   final DoctorPaymentViewControllers _paymentViewControllers =
       Get.put(DoctorPaymentViewControllers());
   DoctorProfileControllers _doctorProfileControllers =
@@ -39,6 +43,7 @@ class DoctorHomePage extends StatelessWidget {
 
   DoctorreportviewController _doctorreportviewController =
       Get.put(DoctorreportviewController());
+
   RxBool isLoading = true.obs;
 
   @override
@@ -47,10 +52,10 @@ class DoctorHomePage extends StatelessWidget {
     GlobalKey<ScaffoldState> _keydoctor = GlobalKey();
 
     final List<String> productname = [
-      'Appointment Detail',
+      'Booking Request',
       'Upload Report',
       'Payment History',
-      'Appointment History',
+      'Booking History',
       'Report view',
       'Add Bank',
     ];
@@ -196,22 +201,29 @@ class DoctorHomePage extends StatelessWidget {
                                       _doctorHomepageController.onInit();
                                       Get.to(() => AppointmentDetails());
                                     } else if (index == 1) {
+                                      _doctorrUploadReportController.update();
+                                      _doctorrUploadReportController.refresh();
                                       // _doctorrUploadReportController
                                       // .getdoctorrpatientApi();
                                       //.getlabpatientApi();
                                       // _doctorrUploadReportController.update();
+                                      await _doctorrUploadReportController
+                                          .getdoctorrpatientApi2();
                                       CallLoader.loader();
+
                                       await Future.delayed(
-                                          Duration(seconds: 1));
+                                          Duration(seconds: 3));
                                       CallLoader.hideLoader();
                                       //await Get.to(DoctorSignup2());
                                       // await Get.offAll(
                                       //         () => NurseBoooking1());
 
-                                      Get.to(DoctorUploadReport());
+                                      await Get.to(DoctorUploadReport());
                                     } else if (index == 2) {
                                       _paymentViewControllers
                                           .doctorPaymentHistoryApi();
+                                      // _doctorreportviewController.refresh();
+                                      // _doctorreportviewController.onInit();
                                       _paymentViewControllers.update();
                                       // isLoading(true);
                                       CallLoader.loader();
@@ -224,6 +236,12 @@ class DoctorHomePage extends StatelessWidget {
                                       _doctorHomepageController
                                           .doctorAppoinmentHistory();
                                       _doctorHomepageController.update();
+
+                                      ///patientListApi
+                                      _patientListController.patientListApi();
+                                      _patientListController.onInit();
+                                      _patientListController.update();
+
                                       // doctorHomepageController
                                       //.doctorAppoinmentHistory();
                                       //doctorHomepageController.update();
@@ -323,7 +341,7 @@ class Mycrusial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var imgpath = 'http://test.pswellness.in/Images/';
+    ///var imgpath = 'http://pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Obx(
@@ -369,7 +387,7 @@ class Mycrusial extends StatelessWidget {
                                           color: Colors.white, width: 3),
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              '$imgpath${items?[index].bannerPath}' ??
+                                              '$IMAGE_BASE_URL${items?[index].bannerPath}' ??
                                                   ''),
                                           fit: BoxFit.cover,
                                           onError: (error, stackTrace) {

@@ -47,6 +47,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_report_view/nurse_report_image_view.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/circular_loader.dart';
@@ -68,7 +69,7 @@ class NurseReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
     return Container(
       color: MyTheme.ThemeColors,
@@ -326,32 +327,6 @@ class NurseReportView extends StatelessWidget {
                                                             size.width * 0.18,
                                                         padding:
                                                             EdgeInsets.all(8),
-                                                        child: Image.network(
-                                                          base +
-                                                              '${_nursereportviewController.foundNurseviewProducts[index].file.toString()}',
-                                                          //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                          fit: BoxFit.fill,
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                            //if image not comming in catagary then we have to purchase
-
-                                                            return Center(
-                                                              child: Text(
-                                                                'No Image',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      size.height *
-                                                                          0.013,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
                                                         // Image.asset(
                                                         //   'lib/assets/icons/user.png',
                                                         //   // "lib/assets/image/icons8-hospital-64.png",
@@ -381,6 +356,32 @@ class NurseReportView extends StatelessWidget {
                                                                 spreadRadius: 1,
                                                               ),
                                                             ]),
+                                                        child: Image.network(
+                                                          IMAGE_BASE_URL +
+                                                              '${_nursereportviewController.foundNurseviewProducts[index].file.toString()}',
+                                                          //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                          fit: BoxFit.fill,
+                                                          errorBuilder:
+                                                              (context, error,
+                                                                  stackTrace) {
+                                                            //if image not comming in catagary then we have to purchase
+
+                                                            return Center(
+                                                              child: Text(
+                                                                'No Image',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.013,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                     Column(

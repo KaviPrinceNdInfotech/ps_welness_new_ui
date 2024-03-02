@@ -124,6 +124,7 @@ class Nurses2Credentials extends StatelessWidget {
                         }).toList(),
                         onChanged: (StateModel? newValue) {
                           _nurses_22_controller.selectedState.value = newValue!;
+                          _nurses_22_controller.selectedCity.value = null;
                         }),
                   ),
                 ),
@@ -285,49 +286,55 @@ class Nurses2Credentials extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       )),
-                  Container(
-                    height: size.height * 0.1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.cyanAccent, width: 2),
-                    ),
-                    child: Obx(
-                      () => _nurses_22_controller.selectedPath.value != ''
-                          ? Image.file(
-                              File(_nurses_22_controller.selectedPath.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage();
-                              }),
-                              child: Center(
-                                child: Icon(Icons.camera_enhance_rounded),
+                  InkWell(
+                    onTap: () {
+                      _nurses_22_controller
+                          .clearImage(); // Call a method to clear the selected image
+                    },
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _nurses_22_controller.selectedPath.value != ''
+                            ? Image.file(
+                                File(_nurses_22_controller.selectedPath.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
+                                ),
+                                // NeumorphicTextFieldContainer(
+                                //   child: Container(
+                                //     height: size.height * 0.07,
+                                //     //width: size.width * 0.5,
+                                //     child: Padding(
+                                //       padding: EdgeInsets.symmetric(
+                                //           horizontal: size.width * 0.1),
+                                //       child: Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Text(
+                                //             'User Image',
+                                //             style: TextStyle(
+                                //               fontSize: size.width * 0.03,
+                                //               fontWeight: FontWeight.w700,
+                                //             ),
+                                //           ),
+                                //           Icon(Icons.camera_alt),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ),
-                              // NeumorphicTextFieldContainer(
-                              //   child: Container(
-                              //     height: size.height * 0.07,
-                              //     //width: size.width * 0.5,
-                              //     child: Padding(
-                              //       padding: EdgeInsets.symmetric(
-                              //           horizontal: size.width * 0.1),
-                              //       child: Row(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.spaceBetween,
-                              //         children: [
-                              //           Text(
-                              //             'User Image',
-                              //             style: TextStyle(
-                              //               fontSize: size.width * 0.03,
-                              //               fontWeight: FontWeight.w700,
-                              //             ),
-                              //           ),
-                              //           Icon(Icons.camera_alt),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ),
+                      ),
                     ),
                   ),
                 ],
@@ -354,49 +361,54 @@ class Nurses2Credentials extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       )),
-                  Container(
-                    height: size.height * 0.1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.cyanAccent, width: 2),
-                    ),
-                    child: Obx(
-                      () => _nurses_22_controller.selectedPath1.value != ''
-                          ? Image.file(
-                              File(_nurses_22_controller.selectedPath1.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage1();
-                              }),
-                              child: Center(
-                                child: Icon(Icons.camera_enhance_rounded),
+                  InkWell(
+                    onTap: () {
+                      _nurses_22_controller.clearImage1();
+                    },
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _nurses_22_controller.selectedPath1.value != ''
+                            ? Image.file(
+                                File(_nurses_22_controller.selectedPath1.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage1();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
+                                ),
+                                // NeumorphicTextFieldContainer(
+                                //   child: Container(
+                                //     height: size.height * 0.07,
+                                //     //width: size.width * 0.5,
+                                //     child: Padding(
+                                //       padding: EdgeInsets.symmetric(
+                                //           horizontal: size.width * 0.1),
+                                //       child: Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Text(
+                                //             'DL Image',
+                                //             style: TextStyle(
+                                //               fontSize: size.width * 0.03,
+                                //               fontWeight: FontWeight.w700,
+                                //             ),
+                                //           ),
+                                //           Icon(Icons.camera_alt),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ),
-                              // NeumorphicTextFieldContainer(
-                              //   child: Container(
-                              //     height: size.height * 0.07,
-                              //     //width: size.width * 0.5,
-                              //     child: Padding(
-                              //       padding: EdgeInsets.symmetric(
-                              //           horizontal: size.width * 0.1),
-                              //       child: Row(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.spaceBetween,
-                              //         children: [
-                              //           Text(
-                              //             'DL Image',
-                              //             style: TextStyle(
-                              //               fontSize: size.width * 0.03,
-                              //               fontWeight: FontWeight.w700,
-                              //             ),
-                              //           ),
-                              //           Icon(Icons.camera_alt),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ),
+                      ),
                     ),
                   ),
                 ],
@@ -420,49 +432,54 @@ class Nurses2Credentials extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       )),
-                  Container(
-                    height: size.height * 0.1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.cyanAccent, width: 2),
-                    ),
-                    child: Obx(
-                      () => _nurses_22_controller.selectedPath2.value != ''
-                          ? Image.file(
-                              File(_nurses_22_controller.selectedPath2.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage2();
-                              }),
-                              child: Center(
-                                child: Icon(Icons.camera_enhance_rounded),
+                  InkWell(
+                    onTap: () {
+                      _nurses_22_controller.clearImage2();
+                    },
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _nurses_22_controller.selectedPath2.value != ''
+                            ? Image.file(
+                                File(_nurses_22_controller.selectedPath2.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage2();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
+                                ),
+                                // NeumorphicTextFieldContainer(
+                                //   child: Container(
+                                //     height: size.height * 0.07,
+                                //     //width: size.width * 0.5,
+                                //     child: Padding(
+                                //       padding: EdgeInsets.symmetric(
+                                //           horizontal: size.width * 0.1),
+                                //       child: Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Text(
+                                //             'DL Image2',
+                                //             style: TextStyle(
+                                //               fontSize: size.width * 0.03,
+                                //               fontWeight: FontWeight.w700,
+                                //             ),
+                                //           ),
+                                //           Icon(Icons.camera_alt),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ),
-                              // NeumorphicTextFieldContainer(
-                              //   child: Container(
-                              //     height: size.height * 0.07,
-                              //     //width: size.width * 0.5,
-                              //     child: Padding(
-                              //       padding: EdgeInsets.symmetric(
-                              //           horizontal: size.width * 0.1),
-                              //       child: Row(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.spaceBetween,
-                              //         children: [
-                              //           Text(
-                              //             'DL Image2',
-                              //             style: TextStyle(
-                              //               fontSize: size.width * 0.03,
-                              //               fontWeight: FontWeight.w700,
-                              //             ),
-                              //           ),
-                              //           Icon(Icons.camera_alt),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ),
+                      ),
                     ),
                   ),
                 ],
@@ -475,7 +492,7 @@ class Nurses2Credentials extends StatelessWidget {
                 //appPadding / 2,
               ),
               RectangularButton(
-                  text: 'Submit >',
+                  text: 'Submit',
                   press: () {
                     _nurses_22_controller.checknurse2();
                     //_nurses_22_controller.onInit();

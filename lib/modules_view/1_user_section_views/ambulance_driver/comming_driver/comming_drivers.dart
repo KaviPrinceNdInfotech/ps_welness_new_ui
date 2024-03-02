@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 class ComingDriver extends StatelessWidget {
   // final String id;
@@ -21,7 +22,7 @@ class ComingDriver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
 
     ///todo: maths logoc....
     // final driverFee =
@@ -248,8 +249,8 @@ class ComingDriver extends StatelessWidget {
                                                   ),
                                                   child: ClipRect(
                                                     child: CachedNetworkImage(
-                                                      imageUrl: base +
-                                                          '${_commingDriverController.getDrivercomingDetail?.driverImage}',
+                                                      imageUrl:
+                                                          '$IMAGE_BASE_URL${_commingDriverController.getDrivercomingDetail?.driverImage}',
                                                       //'https://pbs.twimg.com/profile_images/945853318273761280/0U40alJG_400x400.jpg',
                                                       imageBuilder: (context,
                                                               imageProvider) =>

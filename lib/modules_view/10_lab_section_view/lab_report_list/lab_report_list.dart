@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controllers/10_lab_controller/lab_view_report1_controller/lab_viewreport_controller.dart';
@@ -22,7 +23,7 @@ class LabViewReport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    // var base = 'http://test.pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
     bool shouldPop = true;
     return WillPopScope(
@@ -292,32 +293,6 @@ class LabViewReport extends StatelessWidget {
                                                               size.width * 0.18,
                                                           padding:
                                                               EdgeInsets.all(8),
-                                                          child: Image.network(
-                                                            base +
-                                                                '${_labreportviewController.foundlabviewProducts[index].file.toString()}',
-                                                            //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                            fit: BoxFit.fill,
-                                                            errorBuilder:
-                                                                (context, error,
-                                                                    stackTrace) {
-                                                              //if image not comming in catagary then we have to purchase
-
-                                                              return Center(
-                                                                child: Text(
-                                                                  'No Image',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        size.height *
-                                                                            0.013,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
                                                           // Image.asset(
                                                           //   'lib/assets/icons/user.png',
                                                           //   // "lib/assets/image/icons8-hospital-64.png",
@@ -353,6 +328,31 @@ class LabViewReport extends StatelessWidget {
                                                                       1,
                                                                 ),
                                                               ]),
+                                                          child: Image.network(
+                                                            '$IMAGE_BASE_URL${_labreportviewController.foundlabviewProducts[index].file.toString()}',
+                                                            //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                            fit: BoxFit.fill,
+                                                            errorBuilder:
+                                                                (context, error,
+                                                                    stackTrace) {
+                                                              //if image not comming in catagary then we have to purchase
+
+                                                              return Center(
+                                                                child: Text(
+                                                                  'No Image',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.013,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
                                                         ),
                                                       ),
                                                       Column(

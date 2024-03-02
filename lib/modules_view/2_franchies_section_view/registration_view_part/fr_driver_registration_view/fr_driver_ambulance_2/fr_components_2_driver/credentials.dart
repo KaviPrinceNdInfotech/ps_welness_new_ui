@@ -72,7 +72,7 @@ class FrDriver2Credentials extends StatelessWidget {
               ),
               NeumorphicTextFieldContainer(
                 child: TextFormField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.addressCityAndState],
                   controller: _fr_driver_1_controller.dlNumber,
                   onSaved: (value) {
@@ -90,7 +90,7 @@ class FrDriver2Credentials extends StatelessWidget {
                       fontSize: 18,
                     ),
                     prefixIcon: Icon(
-                      Icons.location_city_outlined,
+                      Icons.numbers,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),
@@ -131,8 +131,9 @@ class FrDriver2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) =>
-                            value == null ? '  field required' : null,
+                        validator: (value) => value == null
+                            ? '              field required'
+                            : null,
                         onChanged: (StateModel? newValue) {
                           _fr_driver_1_controller.selectedState.value =
                               newValue!;
@@ -172,8 +173,9 @@ class FrDriver2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) =>
-                            value == null ? '  field required' : null,
+                        validator: (value) => value == null
+                            ? '                field required'
+                            : null,
                         onChanged: (City? newValue) {
                           _fr_driver_1_controller.selectedCity.value =
                               newValue!;
@@ -392,7 +394,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: 'Pin',
+                    hintText: 'Pin Code',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,

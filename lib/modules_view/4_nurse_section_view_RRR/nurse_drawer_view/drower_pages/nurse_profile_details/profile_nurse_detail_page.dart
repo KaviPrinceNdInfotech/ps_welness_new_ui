@@ -15,8 +15,8 @@ class NurseDetailProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    NurseProfileControllers _nurseprofileContrller =
-        Get.put(NurseProfileControllers());
+    NurseProfileControllersdetail _nurseprofileContrller =
+        Get.put(NurseProfileControllersdetail());
 
     return Scaffold(
       backgroundColor: MyTheme.white,

@@ -9,12 +9,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/add_dept_spe.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drawerpage.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/franchiese_profile.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/franchise_commission_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_payment_report/franchise_payment_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_historyy_report.dart';
@@ -22,11 +25,11 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchis
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_galary_page_view/gallary_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_newdrivre_update/new_driver_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_olddrivre_update/old_driver_view.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_profile_page_view/profile_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/galerry_view/gallary_views.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_choose_registration_type/fr_choose_catagary.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/test_name_list/test_name_list.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,6 +54,13 @@ class FranchiesHomePage extends StatelessWidget {
         Get.put(FranchiesSpecialistController());
     AddVehicleController _addVehicleController =
         Get.put(AddVehicleController());
+    FrenchiesProfileDetailController _frenchiesProfileDetailController =
+        Get.put(FrenchiesProfileDetailController());
+
+    DraweerFranchiesProfileController _draweerFranchiesProfileController =
+        Get.put(DraweerFranchiesProfileController());
+
+    //AddVehicleController _addVehicleController = Get.put(AddVehicleController());
 
     // FranchiesSpecialistController _franchiesSpecialistController =
     // Get.put(FranchiesSpecialistController());
@@ -181,6 +191,8 @@ class FranchiesHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
+                _frenchiesProfileDetailController.frenchiesProfileDetailApi();
+                _frenchiesProfileDetailController.update();
                 _keyfranchise.currentState!.openDrawer();
               },
             ),
@@ -267,7 +279,34 @@ class FranchiesHomePage extends StatelessWidget {
                                   InkWell(
                                     onTap: () async {
                                       if (index == 0) {
-                                        Get.to(() => FranchisesProfilePage());
+                                        _frenchiesProfileDetailController
+                                            .frenchiesProfileDetailApi();
+                                        _frenchiesProfileDetailController
+                                            .update();
+                                        _frenchiesProfileDetailController
+                                            .onInit();
+                                        _draweerFranchiesProfileController
+                                            .onInit();
+                                        // _frenchiesProfileDetailController.
+                                        _draweerFranchiesProfileController
+                                            .clearSelectedState();
+
+                                        /// _draweerFranchiesProfileController.refresh();
+                                        // _draweerFranchiesProfileController.update();
+
+                                        await Future.delayed(
+                                            Duration(milliseconds: 1000));
+
+                                        await Get.offAll(
+                                            () => FranchiessProfilePage());
+
+                                        await Future.delayed(
+                                            Duration(milliseconds: 10));
+
+                                        await _frenchiesProfileDetailController
+                                            .frenchiesProfileDetailApi();
+
+                                        ///Get.to(() => FranchisesProfilePage());
                                       } else if (index == 1) {
                                         Get.to(
                                             () => FranchisesBankProfilePage());
@@ -432,7 +471,23 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 6) {
                                         Get.to(() => AdddeptSpecPage());
                                       } else if (index == 7) {
-                                        Get.to(() => AddVehiclePage());
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        _addVehicleController
+                                            .vehiclecatagaryvehicleController
+                                            .clear();
+                                        _addVehicleController
+                                            .vehicletypeController
+                                            .clear();
+
+                                        //await _addVehicleController
+                                        // .getVehicleCategoryApi();
+                                        // _addVehicleController.update();
+                                        // _addVehicleController.onInit();
+                                        await Get.offAll(
+                                            () => AddVehiclePage());
                                       } else if (index == 8) {
                                         _franchiesSpecialistController
                                             .franchiesSpecialistListssApi();
@@ -445,7 +500,6 @@ class FranchiesHomePage extends StatelessWidget {
                                         await SharedPreferences.getInstance()
                                             .then((value) =>
                                                 Get.to(() => DeptSpecList()));
-
                                         //Get.to(() => DeptSpecList());
                                       }
 
@@ -967,7 +1021,7 @@ class Mycrusial extends StatelessWidget {
   ];
 
   final bool _isPlaying = true;
-  final img = 'http://test.pswellness.in/Images/';
+  //final img = 'http://pswellness.in/Images/';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -1016,7 +1070,7 @@ class Mycrusial extends StatelessWidget {
                                           color: Colors.white, width: 3),
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              '$img${items?[index].bannerPath}' ??
+                                              '$IMAGE_BASE_URL${items?[index].bannerPath}' ??
                                                   ''),
                                           fit: BoxFit.fill),
                                     ),

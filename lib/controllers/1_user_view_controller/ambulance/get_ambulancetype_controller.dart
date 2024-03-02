@@ -111,7 +111,7 @@ class AmbulancegetController extends GetxController {
 
     final endLat = markers.last.position.latitude;
     final endLong = markers.last.position.longitude;
-    //CallLoader.loader();
+    CallLoader.loader();
     http.Response r = await ApiProvider.GooglebookambulanceApi(
       startLat.toDouble(),
       startLong.toDouble(),
@@ -127,11 +127,9 @@ class AmbulancegetController extends GetxController {
       //final accountData = driverListApiFromJson(r.body);
       //print("ACCOUNT ${accountData.toJson()}");
       //await accountService.setAccountData(accountData);
-      Get.snackbar('List', "This is driver's nearby list ");
+      ///Get.snackbar('List', "This is driver's nearby list ");
       var data = jsonDecode(r.body);
       //nearlistdriverApi();
-
-      CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       //Get.offAll(UserHomePage());
@@ -154,6 +152,7 @@ class AmbulancegetController extends GetxController {
             );
             //Get.to((MapView));
             //postAmbulancerequestApi(markers);
+            CallLoader.hideLoader();
 
             ///
           },
@@ -172,11 +171,12 @@ class AmbulancegetController extends GetxController {
   ///todo: google book ambulance api post Api...........2 may 2023.....
 
   void postAmbulancerequestApi2() async {
-    //CallLoader.loader();
+    CallLoader.loader();
     http.Response r = await ApiProvider.Googlebookambulance2Api();
     if (r.statusCode == 200) {
       print("ACCOUNT ${r.body}");
       Get.snackbar('Successfully', "Request send");
+      CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       //Get.offAll(UserHomePage());
@@ -204,7 +204,6 @@ class AmbulancegetController extends GetxController {
             ///
           },
         );
-        CallLoader.hideLoader();
       });
 
       //Get.to(Driver_List_LocationId());

@@ -4,16 +4,20 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 
 class FranchiesProfileCredentials extends StatelessWidget {
   FranchiesProfileCredentials({Key? key}) : super(key: key);
+  FrenchiesProfileDetailController _frenchiesProfileDetailController =
+      Get.put(FrenchiesProfileDetailController());
 
-  DraweerFranchiesProfileController _draweerFranchiesProfileController = Get.put(DraweerFranchiesProfileController());
+  DraweerFranchiesProfileController _draweerFranchiesProfileController =
+      Get.put(DraweerFranchiesProfileController());
 
   var items = [
     'Item 1',
@@ -35,6 +39,75 @@ class FranchiesProfileCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///TODO: Name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _draweerFranchiesProfileController.VendorName,
+                onSaved: (value) {
+                  _draweerFranchiesProfileController.vendornamerr = value!;
+                },
+                validator: (value) {
+                  return _draweerFranchiesProfileController.validName(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Vendor Name',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.account_circle,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///TODO: email.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _draweerFranchiesProfileController.EmailId,
+                onSaved: (value) {
+                  _draweerFranchiesProfileController.emailId = value!;
+                },
+                validator: (value) {
+                  return _draweerFranchiesProfileController.validEmail(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'EmailId',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -67,7 +140,8 @@ class FranchiesProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-            ///TODO: Name.......................
+
+            ///TODO:clinic  Name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
@@ -98,12 +172,15 @@ class FranchiesProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: state............................
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
-                child: Obx(() => DropdownButtonFormField<StateModel>(
-                      value: _draweerFranchiesProfileController.selectedState.value,
+                child: Obx(
+                  () => DropdownButtonFormField<StateModel>(
+                      value: _draweerFranchiesProfileController
+                          .selectedState.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
@@ -112,8 +189,10 @@ class FranchiesProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
-                      items: _draweerFranchiesProfileController.states?.map((StateModel items) {
+                      hint: Text(
+                          "${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.stateName.toString()}"),
+                      items: _draweerFranchiesProfileController.states
+                          ?.map((StateModel items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(
@@ -126,11 +205,15 @@ class FranchiesProfileCredentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (StateModel? newValue) {
-                        _draweerFranchiesProfileController.selectedState.value = newValue!;
+                        _draweerFranchiesProfileController.selectedState.value =
+                            newValue!;
+                        _draweerFranchiesProfileController.selectedCityy.value =
+                            null;
                       }),
                 ),
               ),
             ),
+
             ///Todo: city.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -140,7 +223,8 @@ class FranchiesProfileCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<City>(
-                      value: _draweerFranchiesProfileController.selectedCityy.value,
+                      value: _draweerFranchiesProfileController
+                          .selectedCityy.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
@@ -149,12 +233,14 @@ class FranchiesProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
-                      items: _draweerFranchiesProfileController.cities.map((City items) {
+                      hint: Text(
+                          "${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.cityname.toString()}"),
+                      items: _draweerFranchiesProfileController.cities
+                          .map((City city) {
                         return DropdownMenuItem(
-                          value: items,
+                          value: city,
                           child: Text(
-                            items.cityName,
+                            city.cityName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.015,
@@ -162,8 +248,12 @@ class FranchiesProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      onTap: () {
+                        _draweerFranchiesProfileController.refresh();
+                      },
                       onChanged: (City? newValue) {
-                        _draweerFranchiesProfileController.selectedCityy.value = newValue!;
+                        _draweerFranchiesProfileController.selectedCityy.value =
+                            newValue!;
                       }),
                 ),
               ),
@@ -177,8 +267,7 @@ class FranchiesProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller:
-                    _draweerFranchiesProfileController.Location,
+                controller: _draweerFranchiesProfileController.Location,
                 onSaved: (value) {
                   _draweerFranchiesProfileController.location = value!;
                 },
@@ -206,6 +295,7 @@ class FranchiesProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: Pin.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -220,7 +310,7 @@ class FranchiesProfileCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -243,8 +333,17 @@ class FranchiesProfileCredentials extends StatelessWidget {
 
             RectangularButton(
                 text: 'UPDATE',
-                press: () {
-                  _draweerFranchiesProfileController.checkFrenchiesEditProfilee();
+                press: () async {
+                  _draweerFranchiesProfileController
+                      .checkFrenchiesEditProfilee();
+
+                  await _frenchiesProfileDetailController
+                      .frenchiesProfileDetailApi();
+                  _frenchiesProfileDetailController.onInit();
+                  _draweerFranchiesProfileController.clearSelectedState();
+                  // _draweerFranchiesProfileController.states?.clear();
+                  await Future.delayed(Duration(seconds: 0));
+                  await Get.offAll(FranchiesHomePage());
                 })
           ],
         ),

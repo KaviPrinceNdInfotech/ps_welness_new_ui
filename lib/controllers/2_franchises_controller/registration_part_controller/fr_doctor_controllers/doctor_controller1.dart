@@ -9,8 +9,11 @@ import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/slot_duration_common_model/slot_duration_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/week_day_off/week_day_off_model.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_signup3/fr_doctor_signup_3.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_doctor_views/doctor_sigup_part2/doctor_signup_part2.dart';
@@ -52,6 +55,9 @@ class FrDoctor_1_Controller extends GetxController {
       qualificationController,
       registrationController,
       signaturepicController,
+      dayIdController,
+      virtualfeesController,
+      aboutController,
       signaturepicbase64Controller;
 
   var pan = '';
@@ -68,6 +74,9 @@ class FrDoctor_1_Controller extends GetxController {
   var certificatevelidity = '';
   var Experience = '';
   var Fees = '';
+  var day = '';
+  var virtualfee = '';
+  var about = '';
 
   var selectedLicenceImagepath = ''.obs;
   var selectedPanImagepath = ''.obs;
@@ -101,6 +110,14 @@ class FrDoctor_1_Controller extends GetxController {
     }
   }
 
+  ///this is slot duration...
+  Rx<DurationSlot?> selectedtimeslotDurations = (null as DurationSlot?).obs;
+  List<DurationSlot> timeduration = <DurationSlot>[].obs;
+
+  ///this is slot duration...2...
+  Rx<DurationSlot?> selectedtimeslotDurations2 = (null as DurationSlot?).obs;
+  List<DurationSlot> timeduration2 = <DurationSlot>[].obs;
+
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
@@ -128,12 +145,48 @@ class FrDoctor_1_Controller extends GetxController {
   Rx<SpecialistModel?> selectedSpecialist = (null as SpecialistModel?).obs;
   List<SpecialistModel> specialist = <SpecialistModel>[].obs;
 
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
+
+  ///this is for day id.................................
+  Rx<Day?> selectedweekdayId = (null as Day?).obs;
+  List<Day> weekdayid = <Day>[].obs;
+
   ///get department api.........
 
   void getdepartmentApi2() async {
     department = await ApiProvider.getDortorDepartmentApi();
     print('Prince departmrntttss  list');
     print(department);
+  }
+
+  ///slot morning1 duration api class........45  1.........
+  Future<void> timeslotApidr11() async {
+    timeduration = (await ApiProvider.gettimeslotDurationsApi())!;
+    print('Prince time slot  list');
+    print(timeduration);
+  }
+
+  ///slot evening duration api class........45  1.........
+  Future<void> timeslotApidr22() async {
+    timeduration2 = (await ApiProvider.gettimeslotDurationsApi())!;
+    print('Prince time slot  list');
+    print(timeduration2);
+  }
+
+  ///franchise id api class........45  1.........
+  Future<void> franchiseIdApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
+  }
+
+  ///weekday of id api class........45  1.........
+  Future<void> weekoffIdApi() async {
+    weekdayid = (await ApiProvider.getweekoffApi())!;
+    print('Prince day  list');
+    print(weekdayid);
   }
 
   ///get specialist api...........
@@ -156,19 +209,19 @@ class FrDoctor_1_Controller extends GetxController {
     cities.addAll(localList);
   }
 
-  ///slot morning1 api class.................
-  void timeslotApidr1() async {
-    timeslot = (await ApiProvider.gettimeslotApi())!;
-    print('Prince time slot  list');
-    print(timeslot);
-  }
-
-  ///slot morning1 api class.................
-  void timeslotApidr2() async {
-    timeslot2 = (await ApiProvider.gettimeslotApi())!;
-    print('Prince time slot  list');
-    print(timeslot2);
-  }
+  // ///slot morning1 api class.................
+  // void timeslotApidr1() async {
+  //   timeslot = (await ApiProvider.gettimeslotApi())!;
+  //   print('Prince time slot  list');
+  //   print(timeslot);
+  // }
+  //
+  // ///slot morning1 api class.................
+  // void timeslotApidr2() async {
+  //   timeslot2 = (await ApiProvider.gettimeslotApi())!;
+  //   print('Prince time slot  list');
+  //   print(timeslot2);
+  // }
 
   void FrenchiesDoctorRegistration() async {
     isLoading(true);
@@ -197,12 +250,12 @@ class FrDoctor_1_Controller extends GetxController {
       pinController?.text,
       selectedPanImagepath.value.split('/').last,
       PanImageAsBase64,
-      selectedTimeslot.value?.slotid.toString(),
+      selectedtimeslotDurations.value?.durationId.toString(),
 
       ///todo: this is the main thing to provide time period..
       selectedTime.value,
       selectedTime2.value,
-      selectedTimeslot2.value?.slotid.toString(),
+      selectedtimeslotDurations2.value?.durationId.toString(),
       selectedTime3.value,
       selectedTime4.value,
       ExperienceController?.text,
@@ -215,6 +268,11 @@ class FrDoctor_1_Controller extends GetxController {
       registrationController?.text,
       selectedImagepath2.value.split('/').last,
       licenceImage2AsBase64,
+
+      ///this is dropdown after api
+      selectedweekdayId.value?.id.toString(),
+      virtualfeesController?.text,
+      aboutController?.text,
     );
     if (r.statusCode == 200) {
       print("ttftft${SlotTimeController?.text}");
@@ -235,9 +293,14 @@ class FrDoctor_1_Controller extends GetxController {
   @override
   void onInit() {
     getStateLabApi();
-    timeslotApidr1();
-    timeslotApidr2();
+
+    ///timeslotApidr1();
+    ///timeslotApidr2();
     getdepartmentApi2();
+    timeslotApidr11();
+    timeslotApidr22();
+    franchiseIdApi();
+    weekoffIdApi();
 
     selectedState.listen((p0) {
       if (p0 != null) {
@@ -279,6 +342,9 @@ class FrDoctor_1_Controller extends GetxController {
     qualificationController = TextEditingController();
     registrationController = TextEditingController();
     signaturepicController = TextEditingController();
+    dayIdController = TextEditingController();
+    virtualfeesController = TextEditingController();
+    aboutController = TextEditingController();
     super.onInit();
   }
 
@@ -292,7 +358,7 @@ class FrDoctor_1_Controller extends GetxController {
 
   String? validName(String value) {
     if (value.length < 2) {
-      return "              Provide valid name";
+      return "              This field is required";
     }
     return null;
   }
@@ -389,7 +455,7 @@ class FrDoctor_1_Controller extends GetxController {
 
   String? validfeess(String value) {
     if (value.isEmpty) {
-      return '              Fees is required';
+      return '              Field is required';
     }
     return null;
   }
@@ -487,7 +553,7 @@ class FrDoctor_1_Controller extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2070),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select Date',

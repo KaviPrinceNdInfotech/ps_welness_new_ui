@@ -17,7 +17,7 @@ class DoctorAddress extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(UserHomePage());
+        Get.to(UserHomePage());
         return shouldPop;
       },
       child: Container(
@@ -68,7 +68,7 @@ class DoctorAddress extends StatelessWidget {
                       padding: const EdgeInsets.all(2.0),
                       child: InkWell(
                           onTap: () {
-                            Get.offAll(UserHomePage());
+                            Get.to(UserHomePage());
                             //navigator?.pop();
                           },
                           child: Icon(Icons.arrow_back_ios_new_outlined)),

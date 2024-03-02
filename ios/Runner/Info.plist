@@ -12,6 +12,10 @@
 	<true/>
 	<key>NSAllowsArbitraryLoadsInWebContent</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>It is used to upload users photo and product feedback</string>
 	<key>CFBundleDevelopmentRegion</key>

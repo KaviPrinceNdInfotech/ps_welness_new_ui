@@ -23,7 +23,7 @@ class AdddBankController extends GetxController {
   var mobileNumber = '';
 
   void addchemistBankDetailApi() async {
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.AddAllBankDetailApi(
       AccountNo?.text,
       IFSCCode?.text,
@@ -34,7 +34,9 @@ class AdddBankController extends GetxController {
     );
     if (r.statusCode == 200) {
       CallLoader.hideLoader();
-      //Get.back();
+      Get.snackbar("Success", "${r.body}");
+
+      Get.back();
 
       /// we can navigate to user page.....................................
       //Get.to(ChemistHomePage());

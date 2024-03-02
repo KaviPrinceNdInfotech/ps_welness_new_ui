@@ -13,6 +13,7 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_check
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controller/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../../controllers/1_user_view_controller/rating_review_controller/rating_review_nurse_controller.dart';
@@ -40,7 +41,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    // var base = 'http://test.pswellness.in/Images/';
     // var base = 'https://api.gyros.farm/Images/';
     //Size size = MediaQuery.of(context).size;
     ///NurseListUser
@@ -725,7 +726,7 @@ class NurseDetailsSchedulePage extends StatelessWidget {
                                                                                       color: Colors.red,
                                                                                     ),
                                                                                     child: Image.network(
-                                                                                      '$base${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].image.toString()}',
+                                                                                      '$IMAGE_BASE_URL${_nurseviewssRatingReviewController.nurseviewreview?.rating?[index].image.toString()}',
                                                                                       //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                                                                       fit: BoxFit.fill,
                                                                                       errorBuilder: (context, error, stackTrace) {

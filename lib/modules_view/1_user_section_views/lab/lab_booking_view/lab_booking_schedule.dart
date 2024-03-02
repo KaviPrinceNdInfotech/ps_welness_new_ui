@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/lab_lists/lab_listpage.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 //import 'package:ps_welness/constants/my_theme.dart';
@@ -37,7 +38,7 @@ class LabSchedule1Page extends StatelessWidget {
   Widget build(BuildContext context) {
     bool shouldPop = true;
     Size size = MediaQuery.of(context).size;
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
 
     return WillPopScope(
       onWillPop: () async {
@@ -391,7 +392,7 @@ class LabSchedule1Page extends StatelessWidget {
                                                                                 color: Colors.red,
                                                                               ),
                                                                               child: Image.network(
-                                                                                '$base${_viewlabreviewController.labviewreview?.rating?[index].image.toString()}',
+                                                                                '$IMAGE_BASE_URL${_viewlabreviewController.labviewreview?.rating?[index].image.toString()}',
                                                                                 //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                                                                 fit: BoxFit.fill,
                                                                                 errorBuilder: (context, error, stackTrace) {

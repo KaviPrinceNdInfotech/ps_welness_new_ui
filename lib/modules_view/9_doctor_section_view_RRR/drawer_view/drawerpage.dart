@@ -9,9 +9,9 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/about_us_doctor_controller/doctor_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_update_profile/doctor_updateprofile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
@@ -19,6 +19,8 @@ import 'package:ps_welness_new_ui/modules_view/change_password_view/change_passw
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'drower_pages/complaint_page/complaint_page.dart';
@@ -36,6 +38,8 @@ class MainDrawer extends StatelessWidget {
       Get.put(UserAboutusController());
   SkillsListController _skillsListController = Get.put(SkillsListController());
   LoginpasswordController _loginpasswordControllerr6 = Get.find();
+  DoctorUpdateProfileController _doctorUpdateProfileController =
+      Get.put(DoctorUpdateProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,46 +55,43 @@ class MainDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                 color: MyTheme.ThemeColors,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 1.70),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: size.width * 0.10,
-                      child: Center(
-                          child: Padding(
-                        padding: EdgeInsets.all(size.height * 0.02),
-                        child: Image.asset(
-                          'lib/assets/image/ps_welness2.png',
-                          height: size.height * 0.05,
-                        ),
-                      )),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.003,
-                    ),
-                    Text(
-                      "${_doctorProfileControllers.doctorProfile?.doctorName.toString()}"
-                          .toString(),
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.02,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
-                    ),
-                    Text(
-                      "${_doctorProfileControllers.doctorProfile?.emailId.toString()}"
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: size.width * 0.10,
+                    child: Center(
+                        child: Padding(
+                      padding: EdgeInsets.all(size.height * 0.02),
+                      child: Image.asset(
+                        'lib/assets/image/ps_welness2.png',
+                        height: size.height * 0.05,
+                      ),
+                    )),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.003,
+                  ),
+                  Text(
+                    "${_doctorProfileControllers.doctorProfile?.doctorName.toString()}"
+                        .toString(),
+                    style: GoogleFonts.roboto(
+                        fontSize: size.height * 0.02,
+                        fontWeight: FontWeight.w700,
+                        color: MyTheme.blueww),
+                  ),
+                  Text(
+                    "${_doctorProfileControllers.doctorProfile?.emailId.toString()}"
 
-                          // _doctorProfileControllers.doctorProfile!.emailId
-                          .toString(),
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.018,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
-                    ),
-                  ],
-                ),
+                        // _doctorProfileControllers.doctorProfile!.emailId
+                        .toString(),
+                    style: GoogleFonts.roboto(
+                        fontSize: size.height * 0.016,
+                        fontWeight: FontWeight.w700,
+                        color: MyTheme.blueww),
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -154,8 +155,10 @@ class MainDrawer extends StatelessWidget {
                 Get.back();
                 _doctorProfileControllers.doctorprofileApi();
                 _doctorProfileControllers.update();
+                //_doctorProfileControllers.onInit();
+
                 Get.to(() => DoctorDetailProfile());
-                Get.offNamed('/DoctorDetailProfile');
+                // Get.offNamed('/DoctorDetailProfile');
               },
             ),
             ListTile(
@@ -316,11 +319,28 @@ class MainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/DoctorProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
-                Get.to(() => DoctorUpdateProfilePage());
-                Get.offNamed('/DoctorProfilePage');
+                //Get.back();
+                _doctorProfileControllers.doctorprofileApi();
+                _doctorProfileControllers.onInit();
+                _doctorProfileControllers.update();
+                // _doctorProfileControllers.doctorProfile?.stateMasterId = '';
+                _doctorUpdateProfileController.onInit();
+                // _doctorUpdateProfileController.selectedState.value = null;
+                //_doctorUpdateProfileController.selectedCity.value = null;
+
+                _doctorUpdateProfileController.clearSelectedState();
+                // _doctorUpdateProfileController.dispose();
+
+                // _doctorUpdateProfileController.onClose();
+                // _doctorUpdateProfileController.isClosed;
+
+                //_doctorUpdateProfileController.getStateApi();
+                await Future.delayed(Duration(seconds: 0));
+
+                await Get.offAll(() => DoctorUpdateProfilePage());
+                // Get.offNamed('/DoctorProfilePage');
               },
             ),
             ListTile(
@@ -380,13 +400,48 @@ class MainDrawer extends StatelessWidget {
                   : Colors.transparent,
               onTap: () {
                 Get.back();
-                _userAboutusController.update();
-                _userAboutusController.useraboutusApi();
+
+                ///_userAboutusController.update();
+                /// _userAboutusController.useraboutusApi();
                 //_doctorAboutusController.update();
                 //_doctorAboutusController.doctoraboutusApi();
                 // Get.to(() => AboutUsView());
-                Get.to(() => UserAboutUsView());
-                Get.offNamed('/UserAboutUsView');
+                Get.to(() => WebViewPswebsiteabout());
+
+                ///UserAboutUsView());
+                Get.offNamed('/WebViewPswebsiteabout');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/WebViewPswebsiteprivecy'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => WebViewPswebsiteprivecy()
+                    // PrivacyPolicyView()
+                    );
               },
             ),
             ListTile(

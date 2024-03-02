@@ -380,7 +380,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                     child: Text(
                                                                       _driverPaymentHistoryController
                                                                               ?.foundpaymenthistorydriver?[index]
-                                                                              .location ??
+                                                                              .pickUpLoaction ??
                                                                           "no data",
                                                                       style: GoogleFonts.raleway(
                                                                           color: MyTheme

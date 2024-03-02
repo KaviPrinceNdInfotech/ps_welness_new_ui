@@ -195,10 +195,10 @@ class DoctorListController extends GetxController {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: selectedDate.value,
-      firstDate: DateTime(2018),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
-      initialDatePickerMode: DatePickerMode.year,
+      //initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
@@ -214,7 +214,7 @@ class DoctorListController extends GetxController {
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController
-        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-dd').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController.text.length,
             affinity: TextAffinity.upstream));

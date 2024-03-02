@@ -279,8 +279,8 @@ class LoginpasswordController extends GetxController {
       Get.put(ChemistProfileDetailController());
   final RwaBannerController _rwaBannerController =
       Get.put(RwaBannerController());
-  final NurseProfileControllers _nurseprofileContrller =
-      Get.put(NurseProfileControllers());
+  final NurseProfileControllersdetail _nurseprofileContrller =
+      Get.put(NurseProfileControllersdetail());
   final DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
 
@@ -323,7 +323,7 @@ class LoginpasswordController extends GetxController {
           _devicetokenController.UsertokenApi();
 
           /// we can navigate to user page.....................................
-          await Get.to(UserHomePage());
+          Get.to(UserHomePage());
 
           break;
         // case 'Patient':

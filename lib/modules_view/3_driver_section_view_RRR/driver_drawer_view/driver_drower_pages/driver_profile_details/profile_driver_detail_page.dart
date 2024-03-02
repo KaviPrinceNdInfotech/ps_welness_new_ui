@@ -145,7 +145,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               '${_driverprofile.getDriverProfileDetail?.emailId.toString()}',
                                               // 'gaurav@gmail.com',
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.016,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.yellow.shade900,
                                               ),
@@ -186,12 +186,16 @@ class DriverDetailProfile extends StatelessWidget {
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Text(
-                                              '${_driverprofile.getDriverProfileDetail?.location}',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.yellow.shade900,
+                                            SizedBox(
+                                              height: size.height * 0.035,
+                                              width: size.width * 0.6,
+                                              child: Text(
+                                                '${_driverprofile.getDriverProfileDetail?.location}',
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: size.height * 0.013,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.yellow.shade900,
+                                                ),
                                               ),
                                             ),
                                             SizedBox(

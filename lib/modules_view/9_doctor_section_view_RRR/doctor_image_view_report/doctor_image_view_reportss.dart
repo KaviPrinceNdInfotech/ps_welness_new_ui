@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 class DoctorReportImageView extends StatelessWidget {
   DoctorreportviewController _doctorreportviewController =
@@ -12,7 +13,9 @@ class DoctorReportImageView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    /// var base = 'http://test.pswellness.in/Images/';
+
+    ///  //IMAGE_BASE_URL
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -54,8 +57,7 @@ class DoctorReportImageView extends StatelessWidget {
                                       border: Border.all(
                                           color: Colors.black12, width: 4)),
                                   child: Image.network(
-                                    base +
-                                        '${_doctorreportviewController.doctorImageviewModel?.doctorViewReportFile?[index].image1.toString()}',
+                                    '$IMAGE_BASE_URL${_doctorreportviewController.doctorImageviewModel?.doctorViewReportFile?[index].image1.toString()}',
                                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                     fit: BoxFit.fill,
                                     errorBuilder: (context, error, stackTrace) {

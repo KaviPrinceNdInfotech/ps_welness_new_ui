@@ -22,6 +22,7 @@ import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registrati
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/registration_part_controller/vehicle_part_controller/vehicle_part_controller.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
@@ -38,6 +39,7 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_ho
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_payment_controller/doctor_payment_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_update_profile/doctor_updateprofile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_report_view_controller.dart';
@@ -148,7 +150,7 @@ class ControllerBinding extends Bindings {
     Get.put(LabListController());
     Get.put(RozarPayLabController());
     Get.put(AmbulancegetController());
-    Get.put(NurseProfileController()); // Rahul
+    Get.put(NurseProfileUpdateController()); // Rahul
     Get.put(NurseComplaintController()); // Rahul
     Get.put(DriverProfileController()); // Rahul
     Get.put(DoctorUpdateProfileController()); // Rahul
@@ -223,6 +225,11 @@ class ControllerBinding extends Bindings {
     Get.put(NurseAppoointmentHistoryControllerss());
     Get.put(Fr_common_Controller());
     Get.put(CommingDriverController());
+
+    Get.put(DoctorrUploadReportController());
+    Get.put(NurseBannerContreoller());
+
+    ///  Get.put(DoctorrUploadReportController());
     //Get.put(InvoiceController());
 
     /// Get.put(CheckoutMedicineController());

@@ -319,7 +319,7 @@ class Chemist_1_Controller extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2070),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select licence Validity',

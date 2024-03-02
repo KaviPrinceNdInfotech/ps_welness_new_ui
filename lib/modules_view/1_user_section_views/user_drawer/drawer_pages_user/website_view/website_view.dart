@@ -35,7 +35,7 @@ class _WebViewPswebsiteState extends State<WebViewPswebsite> {
             children: [
               InAppWebView(
                 initialUrlRequest:
-                    URLRequest(url: Uri.parse("http://test.pswellness.in")),
+                    URLRequest(url: Uri.parse("http://pswellness.in")),
                 onWebViewCreated: (InAppWebViewController controller) {
                   inAppWebViewController = controller;
                 },

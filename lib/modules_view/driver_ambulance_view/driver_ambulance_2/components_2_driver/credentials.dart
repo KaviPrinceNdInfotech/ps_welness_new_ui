@@ -77,39 +77,39 @@ class Driver2Credentials extends StatelessWidget {
               ),
             ),
 
-            SizedBox(
-              height: size.height * 0.01,
-            ),
+            // SizedBox(
+            //   height: size.height * 0.01,
+            // ),
 
             ///TODO: fees.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _driver_1111_controller.paidamountcontroller,
-                onSaved: (value) {
-                  _driver_1111_controller.Paidamount = value!;
-                },
-                validator: (value) {
-                  return _driver_1111_controller.validFees(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Enter Charge per KM',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.currency_rupee,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.telephoneNumber],
+            //     controller: _driver_1111_controller.paidamountcontroller,
+            //     onSaved: (value) {
+            //       _driver_1111_controller.Paidamount = value!;
+            //     },
+            //     validator: (value) {
+            //       return _driver_1111_controller.validFees(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Enter Charge per KM',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.currency_rupee,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
 
             SizedBox(
               height: size.height * 0.01,

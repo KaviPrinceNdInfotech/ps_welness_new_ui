@@ -19,8 +19,9 @@ class SharelinkweightState extends State<Sharelinkweight> {
   @override
   void initState() {
     super.initState();
-    //AccountNoController = TextEditingController(text: '9898666666');
 
+    ///....///.....///.....///.....///......///.......///.......///......///......
+    //AccountNoController = TextEditingController(text: '9898666666');
     _controller.addListener(() {
       final String text = _controller.text.toLowerCase();
       _controller.value = _controller.value.copyWith(
@@ -40,12 +41,14 @@ class SharelinkweightState extends State<Sharelinkweight> {
   }
 
   String text =
-      "https://play.google.com/store/apps/details?id=com.ndinfotech.pswellnessapp.ps_welness_new_ui";
+      "This Is My New P S Wellness App Link You can Download and Share It :- ${"https://play.google.com/store/apps/details?id=com.ndinfotech.pswellnessapp.ps_welness_new_ui"}";
   String link = 'Ps Wellness App link';
   //'https://play.google.com/store/apps/details?id=com.ndinfotech.pswellnessapp.ps_welness_new_ui';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    ///todo:......///.....todo:....///....///.......///......///...
 
     return Scaffold(
         appBar: AppBar(
@@ -63,11 +66,15 @@ class SharelinkweightState extends State<Sharelinkweight> {
           height: size.height,
           width: size.width,
           decoration: const BoxDecoration(
+            ///todo:.........///todo:.........///todo:...........//todo:...........
             image: DecorationImage(
                 image: NetworkImage(
+
+                    ///
+                    "https://images.unsplash.com/photo-1663836657800-39ab390d80b9?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     //"https://images.unsplash.com/photo-1573883430060-1678c9cd4221?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                     //"https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                    "https://images.unsplash.com/photo-1584308878768-57d3387b1882?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2082&q=80"
+                    // "https://images.unsplash.com/photo-1584308878768-57d3387b1882?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2082&q=80"
                     //"https://images.unsplash.com/photo-1544108182-8810058c3a7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2669&q=80"
                     //"https://images.unsplash.com/photo-1517196084897-498e0abd7c2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=800&q=60"
                     ),

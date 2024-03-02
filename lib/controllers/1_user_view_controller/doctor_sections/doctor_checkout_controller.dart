@@ -13,7 +13,7 @@ class DoctorCheckoutController extends GetxController {
   DoctorCheckoutModel? doctorCheckoutModel;
 
   ///todo from here we have get nurse checkout by location id...
-  void doctoorcheckoutApi() async {
+  Future<void> doctoorcheckoutApi() async {
     //isLoading(true);
     doctorCheckoutModel = await ApiProvider.DoctoercheckoutApi();
     print('Prince doctor list');

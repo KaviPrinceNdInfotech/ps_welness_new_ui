@@ -58,9 +58,6 @@
 
 import 'dart:convert';
 
-///
-/// import 'dart:convert';
-
 DriverBookingHistoryModel driverBookingHistoryModelFromJson(String str) =>
     DriverBookingHistoryModel.fromJson(json.decode(str));
 
@@ -68,24 +65,21 @@ String driverBookingHistoryModelToJson(DriverBookingHistoryModel data) =>
     json.encode(data.toJson());
 
 class DriverBookingHistoryModel {
-  List<BookingHistory>? bookingHistory;
+  List<BookingHistory> bookingHistory;
 
   DriverBookingHistoryModel({
-    this.bookingHistory,
+    required this.bookingHistory,
   });
 
   factory DriverBookingHistoryModel.fromJson(Map<String, dynamic> json) =>
       DriverBookingHistoryModel(
-        bookingHistory: json["BookingHistory"] == null
-            ? []
-            : List<BookingHistory>.from(
-                json["BookingHistory"]!.map((x) => BookingHistory.fromJson(x))),
+        bookingHistory: List<BookingHistory>.from(
+            json["BookingHistory"].map((x) => BookingHistory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "BookingHistory": bookingHistory == null
-            ? []
-            : List<dynamic>.from(bookingHistory!.map((x) => x.toJson())),
+        "BookingHistory":
+            List<dynamic>.from(bookingHistory.map((x) => x.toJson())),
       };
 }
 
@@ -96,6 +90,13 @@ class BookingHistory {
   String? stateName;
   String? cityName;
   String? location;
+  String? pinCode;
+  double? endLat;
+  double? endLong;
+  double? startLat;
+  double? startLong;
+  String? pickUpLoaction;
+  String? dropLocation;
 
   BookingHistory({
     this.id,
@@ -104,6 +105,13 @@ class BookingHistory {
     this.stateName,
     this.cityName,
     this.location,
+    this.pinCode,
+    this.endLat,
+    this.endLong,
+    this.startLat,
+    this.startLong,
+    this.pickUpLoaction,
+    this.dropLocation,
   });
 
   factory BookingHistory.fromJson(Map<String, dynamic> json) => BookingHistory(
@@ -113,6 +121,13 @@ class BookingHistory {
         stateName: json["StateName"],
         cityName: json["CityName"],
         location: json["Location"],
+        pinCode: json["PinCode"],
+        endLat: json["end_Lat"].toDouble(),
+        endLong: json["end_Long"].toDouble(),
+        startLat: json["start_Lat"].toDouble(),
+        startLong: json["start_Long"].toDouble(),
+        pickUpLoaction: json["PickUpLoaction"],
+        dropLocation: json["DropLocation"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -122,5 +137,78 @@ class BookingHistory {
         "StateName": stateName,
         "CityName": cityName,
         "Location": location,
+        "PinCode": pinCode,
+        "end_Lat": endLat,
+        "end_Long": endLong,
+        "start_Lat": startLat,
+        "start_Long": startLong,
+        "PickUpLoaction": pickUpLoaction,
+        "DropLocation": dropLocation,
       };
 }
+
+///
+
+// DriverBookingHistoryModel driverBookingHistoryModelFromJson(String str) =>
+//     DriverBookingHistoryModel.fromJson(json.decode(str));
+//
+// String driverBookingHistoryModelToJson(DriverBookingHistoryModel data) =>
+//     json.encode(data.toJson());
+//
+// class DriverBookingHistoryModel {
+//   List<BookingHistory>? bookingHistory;
+//
+//   DriverBookingHistoryModel({
+//     this.bookingHistory,
+//   });
+//
+//   factory DriverBookingHistoryModel.fromJson(Map<String, dynamic> json) =>
+//       DriverBookingHistoryModel(
+//         bookingHistory: json["BookingHistory"] == null
+//             ? []
+//             : List<BookingHistory>.from(
+//                 json["BookingHistory"]!.map((x) => BookingHistory.fromJson(x))),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "BookingHistory": bookingHistory == null
+//             ? []
+//             : List<dynamic>.from(bookingHistory!.map((x) => x.toJson())),
+//       };
+// }
+//
+// class BookingHistory {
+//   int? id;
+//   String? patientName;
+//   String? mobileNumber;
+//   String? stateName;
+//   String? cityName;
+//   String? location;
+//
+//   BookingHistory({
+//     this.id,
+//     this.patientName,
+//     this.mobileNumber,
+//     this.stateName,
+//     this.cityName,
+//     this.location,
+//   });
+//
+//   factory BookingHistory.fromJson(Map<String, dynamic> json) => BookingHistory(
+//         id: json["Id"],
+//         patientName: json["PatientName"],
+//         mobileNumber: json["MobileNumber"],
+//         stateName: json["StateName"],
+//         cityName: json["CityName"],
+//         location: json["Location"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Id": id,
+//         "PatientName": patientName,
+//         "MobileNumber": mobileNumber,
+//         "StateName": stateName,
+//         "CityName": cityName,
+//         "Location": location,
+//       };
+// }

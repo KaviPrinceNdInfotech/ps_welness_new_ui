@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 //import '../../../servicess_api/api_services_all_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:ps_welness_new_ui/widgets/circular_loader.dart';
 
-class NurseProfileController extends GetxController {
+class NurseProfileUpdateController extends GetxController {
   final GlobalKey<FormState> nurseprofileformkey = GlobalKey<FormState>();
+
+  NurseProfileControllersdetail _nurseprofileContrller =
+      Get.put(NurseProfileControllersdetail());
+  // NurseProfileControllersdetail _nurseprofileContrller =
+  // Get.put(NurseProfileControllersdetail());
 
   ///todo nurse controller working here...........................
   ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
-  RxList<String> cities = <String>[].obs;
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  // Rx<String?> selectedCity = (null as String?).obs;
+  // RxList<String> cities = <String>[].obs;
+  ///
+  // Rx<String?> selectedState = (null as String?).obs;
+  // RxList<String> states = <String>[].obs;
   /////////do here......................
   Rx<City?> selectedCityy = (null as City?).obs;
   RxList<City> citiess = <City>[].obs;
@@ -25,6 +33,11 @@ class NurseProfileController extends GetxController {
 
   void getStateApi() async {
     statess = await ApiProvider.getSatesApi();
+  }
+
+  void clearSelectedState() {
+    selectedStatee.value = null;
+    //states?.clear();
   }
 
   void getCityByStateID(String stateID) async {
@@ -43,6 +56,7 @@ class NurseProfileController extends GetxController {
       adminLoginIdController,
       accountnoController,
       ifscController,
+      EmailIdController,
       branchNameController;
 
   void nurseEditProfileApi() async {
@@ -50,19 +64,29 @@ class NurseProfileController extends GetxController {
       //idController?.text,
       nameController?.text,
       mobileController?.text,
-      selectedStatee.value?.id.toString(),
-      selectedCityy.value?.id.toString(),
+      selectedStatee.value?.id.toString() ??
+          _nurseprofileContrller.getNurseProfile?.stateMasterId.toString(),
+      selectedCityy.value?.id.toString() ??
+          _nurseprofileContrller.getNurseProfile?.cityMasterId.toString(),
       locationController?.text,
       pinController?.text,
-      clinicNameController?.text,
-      feeController?.text,
+      //clinicNameController?.text,
+      EmailIdController?.text,
+      // feeController?.text,
       //adminLoginIdController?.text,
       // accountnoController?.text,
       // ifscController?.text,
       // branchNameController?.text
     );
     if (r.statusCode == 200) {
-      Get.to(NurseHomePage());
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 100));
+      CallLoader.hideLoader();
+      // Get.offAll(NurseHomePage());
+      Get.offAll(() => NurseHomePage());
+      await Future.delayed(Duration(milliseconds: 900));
+      await _nurseprofileContrller.nurseprofileApi();
+      clearSelectedState();
     } else {
       Get.snackbar('Error', "Please fill correctly");
     }
@@ -70,25 +94,39 @@ class NurseProfileController extends GetxController {
 
   @override
   void onInit() {
-    states.refresh();
-    super.onInit();
+    //statess.
     getStateApi();
     selectedStatee.listen((p0) {
       if (p0 != null) {
         getCityByStateID("${p0.id}");
       }
     });
-    idController = TextEditingController();
-    nameController = TextEditingController();
-    mobileController = TextEditingController();
-    locationController = TextEditingController();
-    pinController = TextEditingController();
+    idController = TextEditingController(
+        text: "${_nurseprofileContrller.getNurseProfile?.id.toString() ?? 0}");
+    EmailIdController = TextEditingController(
+        text:
+            "${_nurseprofileContrller.getNurseProfile?.emailId.toString() ?? 0}");
+    //_nurseprofileContrller
+    nameController = TextEditingController(
+        text:
+            "${_nurseprofileContrller.getNurseProfile?.nurseName.toString() ?? 0}");
+    mobileController = TextEditingController(
+        text:
+            "${_nurseprofileContrller.getNurseProfile?.mobileNumber.toString() ?? 0}");
+    locationController = TextEditingController(
+        text:
+            "${_nurseprofileContrller.getNurseProfile?.location.toString() ?? 0}");
+    pinController = TextEditingController(
+        text:
+            "${_nurseprofileContrller.getNurseProfile?.pinCode.toString() ?? 0}");
     clinicNameController = TextEditingController();
     feeController = TextEditingController();
     adminLoginIdController = TextEditingController();
     accountnoController = TextEditingController();
     ifscController = TextEditingController();
     branchNameController = TextEditingController();
+
+    super.onInit();
   }
 
   @override
@@ -183,12 +221,18 @@ class NurseProfileController extends GetxController {
   }
 
   void checkProfilee() {
-    nurseEditProfileApi();
-    // final isValid = nurseprofileformkey.currentState!.validate();
-    // if (!isValid) {
-    //   return;
-    // }
-    // nurseprofileformkey.currentState!.save();
-    //Get.to(() => HomePage());
+    if (nurseprofileformkey.currentState!.validate()) {
+      nurseEditProfileApi();
+    }
+    nurseprofileformkey.currentState!.save();
   }
+  // void checkProfilee() {
+  //   nurseEditProfileApi();
+  //   // final isValid = nurseprofileformkey.currentState!.validate();
+  //   // if (!isValid) {
+  //   //   return;
+  //   // }
+  //   // nurseprofileformkey.currentState!.save();
+  //   //Get.to(() => HomePage());
+  // }
 }

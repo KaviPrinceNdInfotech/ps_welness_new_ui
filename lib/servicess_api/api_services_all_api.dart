@@ -106,7 +106,11 @@ var prefs = GetStorage();
 NotificationServices notificationServices = NotificationServices();
 
 class ApiProvider {
-  static var baseUrl = 'http://test.pswellness.in/';
+  /// static var baseUrl = 'http://test.pswellness.in/';
+
+  static var baseUrl = 'http://pswellness.in/';
+
+  //http://pswellness.in/
   //static var baseUrl1 = 'https://api.gyros.farm/';
   //'http://pswellness.in/';
   static String token = '';
@@ -183,7 +187,7 @@ class ApiProvider {
   ) async {
     //var a= int.parse(State).toString();
     //var b= int.parse(City).toString();
-    var url = baseUrl + 'api/PatientApi/PatientRegistration';
+    var url = '${baseUrl}api/PatientApi/PatientRegistration';
 
     var body = {
       "PatientName": PatientName,
@@ -230,7 +234,7 @@ class ApiProvider {
     var DOB,
     var Gender,
   ) async {
-    var url = baseUrl + 'api/SignupApi/PatientRegistration';
+    var url = '${baseUrl}api/SignupApi/PatientRegistration';
     var body = {
       "PatientName": PatientName,
       "EmailId": EmailId,
@@ -287,7 +291,7 @@ class ApiProvider {
     var PinCode,
     //var Patient_Id,
   ) async {
-    var url = baseUrl + 'api/PatientApi/MedicineAddress';
+    var url = '${baseUrl}api/PatientApi/MedicineAddress';
     //saved id..........
     var prefs = GetStorage();
     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -329,7 +333,7 @@ class ApiProvider {
     var CityMasterId,
     var testId,
   ) async {
-    var url = baseUrl + 'api/LabApi/LabBooking';
+    var url = '${baseUrl}api/LabApi/LabBooking';
     var body = {
       "StateMaster_Id": StateMasterId,
       "CityMaster_Id": CityMasterId,
@@ -361,7 +365,7 @@ class ApiProvider {
     var StateMaster_Id,
     var CityMaster_Id,
   ) async {
-    var url = baseUrl + 'api/DoctorApi/DoctorChoose';
+    var url = '${baseUrl}api/DoctorApi/DoctorChoose';
     var body = {
       "Department_id": Department_id,
       "Specialist_id": Specialist_id,
@@ -427,9 +431,10 @@ class ApiProvider {
     // prefs.write("nursebooking_Id".toString(), json.decode(r.body)['NurseBookingId']);
     nursebooking_Id = prefs.read("nursebooking_Id").toString();
     // print('&&&&&&&&&&&&&&&&&nurse:${nursebooking_Id}’),
+    //    var url = '${baseUrl}api/DoctorApi/AppointmentDone';
 
     var url =
-        "http://test.pswellness.in/api/NurseServices/NurseAptmt?Nurse_Id=$NurseuserListId&NurseBookingId=$nursebooking_Id";
+        "${baseUrl}api/NurseServices/NurseAptmt?Nurse_Id=$NurseuserListId&NurseBookingId=$nursebooking_Id";
     // "http://test.pswellness.in/api/NurseServices/NurseAptmt?Nurse_Id=$NurseuserListId";//56 // 650
     // "$NurseuserListId";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
@@ -438,7 +443,7 @@ class ApiProvider {
       print(r.body.toString());
       if (r.statusCode == 200) {
         // print("nurseuserlistIdcheckout:${r.body}");
-        // print("DoctorListId2222bodyrr: {body}");
+        print("DoctorListId2222bodyrr:${url}");
 
         NurseCheckoutModel? nursecheckout = nurseCheckoutModelFromJson(r.body);
         return nursecheckout;
@@ -463,7 +468,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&doctor:${doctorbooking_Id}');
     var url =
         //http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=145&PA_Id=1232
-        "http://test.pswellness.in/api/DoctorApi/DoctorApt?Doctor_Id=$DoctorListId&PA_Id=$doctorbooking_Id";
+        "${baseUrl}api/DoctorApi/DoctorApt?Doctor_Id=$DoctorListId&PA_Id=$doctorbooking_Id";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -492,19 +497,20 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&lllbbb:${BookingId}');
 
     var url =
-        "http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=$LablistssId&Bookid=$BookingId";
+        "${baseUrl}api/LabApi/LabAptmt?Lab_Id=$LablistssId&Bookid=$BookingId";
 
     // "http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=16&Bookid=333";
     //"http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=$LablistssId&Bookid=333";
     //'${baseUrl}api/LabApi/LabAptmt?Lab_Id=$LablistssId';
     //"http://test.pswellness.in/api/LabApi/LabAptmt?Lab_Id=16";
+
     print("okokklaburlll:${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
         print("&&&&checkout:${r.body}");
-        print("&&&&checkouturl:${url}");
+        print("checkouturl12:${url}");
         Labcheckoutmodel? labcheckout = labcheckoutmodelFromJson(r.body);
         return labcheckout;
       }
@@ -542,7 +548,7 @@ class ApiProvider {
 
   ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
   static NursListApi() async {
-    var url = "http://test.pswellness.in/api/NurseAPI/getNurseList?cityid=67";
+    var url = "${baseUrl}api/NurseAPI/getNurseList?cityid=67";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -580,7 +586,7 @@ class ApiProvider {
     //http://test.pswellness.in/api/NurseAPI/getNurseList?State_Id=3&City_Id=840&NurseType_Id=3
 
     var url =
-        "http://test.pswellness.in/api/NurseAPI/getNurseList?State_Id=$nurseStateId&City_Id=$nurseCityId&NurseType_Id=$nursetypeiid";
+        "${baseUrl}api/NurseAPI/getNurseList?State_Id=$nurseStateId&City_Id=$nurseCityId&NurseType_Id=$nursetypeiid";
     //"http://test.pswellness.in/api/NurseAPI/getNurseList?Loc_id=$nurseLocationId";
 
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
@@ -603,8 +609,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var nurseLocationId = preferences.getString("nurseLocationId");
     print("nurseLocationId: ${nurseLocationId}");
-    var url =
-        "http://test.pswellness.in/api/DriverApi/UserListForBookingAmbulance";
+    var url = "${baseUrl}api/DriverApi/UserListForBookingAmbulance";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -646,7 +651,7 @@ class ApiProvider {
     var Username,
     var Password,
   ) async {
-    var url = baseUrl + 'api/SignupApi/Login';
+    var url = '${baseUrl}api/SignupApi/Login';
 
     var body = {
       "Username": Username,
@@ -894,7 +899,7 @@ class ApiProvider {
       };
       print("userrrtokenupdateuser${body}");
       http.Response r = await http.post(
-        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        Uri.parse('${baseUrl}api/DriverApi/UpadateDiviceId'),
         body: body,
       );
 
@@ -982,7 +987,7 @@ class ApiProvider {
       };
       print("userrrtokenupdateuser${body}");
       http.Response r = await http.post(
-        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        Uri.parse('${baseUrl}api/DriverApi/UpadateDiviceId'),
         body: body,
       );
 
@@ -1068,7 +1073,7 @@ class ApiProvider {
       };
       print("userrrtokenupdateuser${body}");
       http.Response r = await http.post(
-        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        Uri.parse('${baseUrl}api/DriverApi/UpadateDiviceId'),
         body: body,
       );
 
@@ -1154,7 +1159,7 @@ class ApiProvider {
       };
       print("userrrtokenupdnursee${body}");
       http.Response r = await http.post(
-        Uri.parse('http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+        Uri.parse('${baseUrl}api/DriverApi/UpadateDiviceId'),
         body: body,
       );
 
@@ -1204,7 +1209,7 @@ class ApiProvider {
   ///Change password in user 26 april 2023.....
 
   static ChangePasswordApi(var id, var Password, var ConfirmPassword) async {
-    var url = baseUrl + 'api/SignupApi/ChangePassword';
+    var url = '${baseUrl}api/SignupApi/ChangePassword';
     var prefs = GetStorage();
     //saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -1255,7 +1260,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
     print("AmbulancelistssId: ${AmbulancelistssId}");
-    var url = baseUrl + 'api/DriverApi/AddAmbulance';
+    var url = '${baseUrl}api/DriverApi/AddAmbulance';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
@@ -1346,7 +1351,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
     print("AmbulancelistssId: ${AmbulancelistssId}");
-    var url = baseUrl + 'api/DriverApi/AddAmbulance';
+    var url = '${baseUrl}api/DriverApi/AddAmbulance';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
@@ -1437,7 +1442,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
     print("AmbulancelistssId: ${AmbulancelistssId}");
-    var url = baseUrl + 'api/DriverApi/AddAmbulance';
+    var url = '${baseUrl}api/DriverApi/AddAmbulance';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
@@ -1658,7 +1663,7 @@ class ApiProvider {
     var Lat,
     var Lang,
   ) async {
-    var url = baseUrl + 'api/DriverApi/UpdateDriverLocation';
+    var url = '${baseUrl}api/DriverApi/UpdateDriverLocation';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogledriver:${userid}');
@@ -1694,7 +1699,7 @@ class ApiProvider {
     var Complaints,
     var LoginId,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/PatientComplaints';
+    var url = '${baseUrl}api/ComplaintApi/PatientComplaints';
     var prefs = GetStorage();
     //saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -1731,7 +1736,7 @@ class ApiProvider {
     var Subjects,
     var Others,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/LabComplaint';
+    var url = '${baseUrl}api/ComplaintApi/LabComplaint';
     var prefs = GetStorage();
     //saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -1766,7 +1771,7 @@ class ApiProvider {
     var Complaints,
     var Others,
   ) async {
-    var url = baseUrl + 'api/PatientApi/Add_RWAComplaint';
+    var url = '${baseUrl}api/PatientApi/Add_RWAComplaint';
     var prefs = GetStorage();
     //saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -1816,7 +1821,7 @@ class ApiProvider {
   ) async {
     //var a= int.parse(State).toString();
     //var b= int.parse(City).toString();
-    var url = baseUrl + 'api/PatientApi/UpdateProfilebyPatient';
+    var url = '${baseUrl}api/PatientApi/UpdateProfilebyPatient';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -1884,7 +1889,7 @@ class ApiProvider {
   ) async {
     //var a= int.parse(State).toString();
     //var b= int.parse(City).toString();
-    var url = baseUrl + 'api/PatientApi/UpdateProfilebyPatient';
+    var url = '${baseUrl}api/PatientApi/UpdateProfilebyPatient';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -1935,7 +1940,7 @@ class ApiProvider {
   ///lab_paynow.ONLINE.lab....api..of...user........29 april 2023...........
 
   static LabpaynowOnlineApi() async {
-    var url = baseUrl + 'api/LabApi/LabPayNow';
+    var url = '${baseUrl}api/LabApi/LabPayNow';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
@@ -2030,7 +2035,7 @@ class ApiProvider {
 
   ///nurse_paynow.ONLINE.....api..of...user........29 april 2023...........
   static NursepaynowOnlineApi() async {
-    var url = baseUrl + 'api/NurseServices/NursePayNow';
+    var url = '${baseUrl}api/NurseServices/NursePayNow';
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistIdrriview: ${NurseuserListId}");
@@ -2080,7 +2085,7 @@ class ApiProvider {
 
   ///doctor_paynow.ONLINE.....api..of...user........2 may 2023...........
   static DoctorpaynowOnlineApi() async {
-    var url = baseUrl + 'api/DoctorApi/DoctorPayNow';
+    var url = '${baseUrl}api/DoctorApi/DoctorPayNow';
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId: ${DoctorListId}");
@@ -2131,7 +2136,7 @@ class ApiProvider {
 
   ///healthchkp_paynow.ONLINE.....api..of...user........2 may 2023...........
   static HealthchkppaynowOnlineApi() async {
-    var url = baseUrl + 'api/HealthCheckUpApi/HealthPayNow';
+    var url = '${baseUrl}api/HealthCheckUpApi/HealthPayNow';
     var prefs = GetStorage();
     // adminId = prefs.read("AdminLogin_Id").toString();
     // print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -2168,7 +2173,7 @@ class ApiProvider {
   ///lab_paynow.OFFLINE.....api..of...user........29 april 2023...........
 
   static LabpaynowOfflineApi() async {
-    var url = baseUrl + 'api/LabApi/LabPayNow';
+    var url = '${baseUrl}api/LabApi/LabPayNow';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -2202,7 +2207,7 @@ class ApiProvider {
   ///nurse_paynow.OFFLINE.....api..of...user........1 may 2023...........
 
   static NursepaynowOfflineApi() async {
-    var url = baseUrl + 'api/NurseServices/NursePayNow';
+    var url = '${baseUrl}api/NurseServices/NursePayNow';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -2236,7 +2241,7 @@ class ApiProvider {
   ///doctor_paynow.OFFLINE.....api..of...user........1 may 2023...........
 
   static DoctorpaynowOfflineApi() async {
-    var url = baseUrl + 'api/DoctorApi/DoctorPayNow';
+    var url = '${baseUrl}api/DoctorApi/DoctorPayNow';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -2270,7 +2275,7 @@ class ApiProvider {
   ///doctor_paynow.OFFLINE.....api..of...user........1 may 2023...........
 
   static HealthchkppaynowOfflineApi() async {
-    var url = baseUrl + 'api/HealthCheckUpApi/HealthPayNow';
+    var url = '${baseUrl}api/HealthCheckUpApi/HealthPayNow';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -2309,7 +2314,7 @@ class ApiProvider {
     print(userid);
     var url =
         //"http://test.pswellness.in/api/PatientApi/PatientProfiledetail?PatientId=137";
-        "http://test.pswellness.in/api/PatientApi/PatientProfiledetail?PatientId=$userid";
+        "${baseUrl}api/PatientApi/PatientProfiledetail?PatientId=$userid";
     //http://test.pswellness.in/api/PatientApi/PatientProfiledetail?PatientId=137
     //var url = baseUrl + 'api/PatientApi/PatientProfiledetail?PatientId=$userid';
     try {
@@ -2338,7 +2343,7 @@ class ApiProvider {
     var EndDate,
     var LocationId,
   ) async {
-    var url = baseUrl + 'api/ApiTest/BookAppointment';
+    var url = '${baseUrl}api/ApiTest/BookAppointment';
 
     var body = {
       "ServiceType": ServiceType,
@@ -2401,7 +2406,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&labusdoctorr:${userid}');
     //nursebooking_Id = prefs.read("nursebooking_Id").toString();
 
-    var url = baseUrl + 'api/NurseServices/NurseServices';
+    var url = '${baseUrl}api/NurseServices/NurseServices';
     var body = {
       "Patient_Id": "$userid",
       "NurseTypeId": NurseTypeId,
@@ -2543,7 +2548,7 @@ class ApiProvider {
     //"nursebooking_Id".toString(), json.decode(r.body)['NurseBookingId']);
     nursebooking_Id = prefs.read("nursebooking_Id").toString();
     // print('&&&&&&&&&&&&&&&&&nurse:${nursebooking_Id}’);
-    var url = baseUrl + 'api/NurseServices/NurseBookings';
+    var url = '${baseUrl}api/NurseServices/NurseBookings';
 
     var body = {
       "Id": "${nursebooking_Id}",
@@ -2601,8 +2606,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistId: ${NurseuserListId}");
-    var url =
-        "http://test.pswellness.in/api/NurseAPI/NurseDetails?id=$NurseuserListId";
+    var url = "${baseUrl}api/NurseAPI/NurseDetails?id=$NurseuserListId";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -2623,7 +2627,7 @@ class ApiProvider {
   ///time slots Api get...........................26 april 2023.....slot........
 
   static Future<List<TimeSlot>?> gettimeslotApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TimeSlot";
+    var url = "${baseUrl}api/CommonApi/TimeSlot";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2641,7 +2645,7 @@ class ApiProvider {
   ///time slots Api get...........................6 sep 2023.....slot........
 
   static Future<List<TimeSlotDoctor>?> gettimeslotdoctorApi() async {
-    var url = "http://test.pswellness.in/api/DoctorApi/Doctor_TimeSlot";
+    var url = "${baseUrl}api/DoctorApi/Doctor_TimeSlot";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2659,7 +2663,7 @@ class ApiProvider {
   ///doctor mode Api get...........................6 sep 2023.....slot........
 
   static getmodeofdoctorApi() async {
-    var url = "http://test.pswellness.in/api/DoctorApi/BookingMode";
+    var url = "${baseUrl}api/DoctorApi/BookingMode";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2682,7 +2686,7 @@ class ApiProvider {
     var Slotid,
   ) async {
     //LablistssId
-    var url = baseUrl + 'api/LabApi/Booknow';
+    var url = '${baseUrl}api/LabApi/Booknow';
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var LablistssId = preferences.getString("LablistssId");
@@ -2746,7 +2750,7 @@ class ApiProvider {
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId: ${DoctorListId}");
     //DoctorListId
-    var url = baseUrl + 'api/DoctorApi/DoctorBooknow';
+    var url = '${baseUrl}api/DoctorApi/DoctorBooknow';
 
     var body = {
       "Doctor_Id": "$DoctorListId",
@@ -2793,7 +2797,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var HealthchkpListId = preferences.getString("HealthchkpListId");
     print("HealthchkpListId: ${HealthchkpListId}");
-    var url = baseUrl + 'api/LabApi/Booknow';
+    var url = '${baseUrl}api/LabApi/Booknow';
 
     var body = {
       "Test_Id": "$HealthchkpListId",
@@ -2823,7 +2827,7 @@ class ApiProvider {
     var CityMaster_Id,
     var testId,
   ) async {
-    var url = baseUrl + 'api/HealthCheckUpApi/HealthCheckUpBooking';
+    var url = '${baseUrl}api/HealthCheckUpApi/HealthCheckUpBooking';
 
     var body = {
       "StateMaster_Id": StateMaster_Id,
@@ -2867,7 +2871,7 @@ class ApiProvider {
     var Others,
     var Doctor,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/PatientComplaint';
+    var url = '${baseUrl}api/ComplaintApi/PatientComplaint';
     // var prefs = GetStorage();
     // //saved id..........
     // //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -2917,7 +2921,7 @@ class ApiProvider {
 
   ///lab test name Api get ...........................
   static Future<List<TestModel>> getTestNameApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TestList";
+    var url = "${baseUrl}api/CommonApi/TestList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2935,7 +2939,7 @@ class ApiProvider {
   ///
   ///lab test name Api get new 8 august ...........................
   static Future<List<LabTestName>?> getTestNameNewApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TestDropdown";
+    var url = "${baseUrl}api/CommonApi/TestDropdown";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2969,7 +2973,7 @@ class ApiProvider {
   ///lab test name Api get ...........................
   /////Testmodeldropdown
   static Future<List<TestModel>> getTestNamedropdownApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TestList";
+    var url = "${baseUrl}api/CommonApi/TestList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2986,7 +2990,7 @@ class ApiProvider {
 
   ///Todo: from here franchies 2 section.................
   static FranchiesSpealistApi() async {
-    var url = baseUrl + 'api/CommonApi/GetSpecialist?depId=87';
+    var url = '${baseUrl}api/CommonApi/GetSpecialist?depId=87';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3007,8 +3011,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&usercart:${userid}');
     print(userid);
     // print(url);
-    var url =
-        "http://test.pswellness.in/api/PatientApi/AppoinmentHistory?Id=$userid";
+    var url = "${baseUrl}api/PatientApi/AppoinmentHistory?Id=$userid";
     // "http://test.pswellness.in/api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
 
@@ -3030,7 +3033,7 @@ class ApiProvider {
 
   //doctor profile  api 2..........................
   static NurseTypeApi() async {
-    var url = baseUrl + 'api/CommonApi/NurseList';
+    var url = '${baseUrl}api/CommonApi/NurseList';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3079,7 +3082,7 @@ class ApiProvider {
     // var ConfirmPassWord,
   ) async {
     try {
-      var url = baseUrl + 'api/SignupApi/DoctorRegistration';
+      var url = '${baseUrl}api/SignupApi/DoctorRegistration';
       var body = {
         "PinCode": PinCode,
         "Id": Id,
@@ -3144,7 +3147,7 @@ class ApiProvider {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&sdcfsdfdsuserid:${userid}');
-    var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=$userid';
+    var url = '${baseUrl}api/DoctorApi/DoctorProfile?DoctorId=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3169,7 +3172,7 @@ class ApiProvider {
     var IsResolved,
     var Others,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/DoctorComplaint';
+    var url = '${baseUrl}api/ComplaintApi/DoctorComplaint';
 
     var body = {
       "Login_Id": LoginId,
@@ -3215,7 +3218,7 @@ class ApiProvider {
     var IsResolved,
     var Others,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/NurseComplaints';
+    var url = '${baseUrl}api/ComplaintApi/NurseComplaints';
 
     var body = {
       "Subjects": Subjects,
@@ -3258,7 +3261,7 @@ class ApiProvider {
 
   static ViewPatientReportsApi() async {
     var url =
-        baseUrl + 'api/DoctorApi/PatientReports?DoctorId=151&PatientId=77';
+        '${baseUrl}api/DoctorApi/PatientReports?DoctorId=151&PatientId=77';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3275,7 +3278,7 @@ class ApiProvider {
   //view_payment_history.............
 
   static ViewPaymentHistoryApi() async {
-    var url = baseUrl + 'api/DoctorApi/paymentHistory?id=151&Date=2023-01-10';
+    var url = '${baseUrl}api/DoctorApi/paymentHistory?id=151&Date=2023-01-10';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3288,14 +3291,19 @@ class ApiProvider {
     }
   }
 
-  //patient_list_api..........................
+  //patient_list_api.......dorctor appointment history...................
   static ViewPatientsListApi() async {
-    var url =
-        "http://test.pswellness.in/api/DoctorApi/ViewPatientList?DoctorId=146";
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&sdcfsdfdsuserid:${userid}');
+    // var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=$userid';
+    var url = "${baseUrl}api/DoctorApi/ViewPatientList?DoctorId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print('pkpkpkpk');
+        print(r.body);
         var PatientList = patientListFromJson(r.body);
         return PatientList;
       }
@@ -3316,7 +3324,7 @@ class ApiProvider {
     print("labtestId: ${labtestId}");
 
     var url =
-        "http://test.pswellness.in/api/LabApi/LabsList?CityId=$labcityId&StateId=$labstateId&testId=$labtestId";
+        "${baseUrl}api/LabApi/LabsList?CityId=$labcityId&StateId=$labstateId&testId=$labtestId";
     //var url = "http://test.pswellness.in/api/LabApi/LabsList?CityId=786";
     //67,2,623..
     try {
@@ -3338,7 +3346,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var LablistssId = preferences.getString("LablistssId");
     print("LablistssId: ${LablistssId}");
-    var url = "http://test.pswellness.in/api/LabApi/LabDetails?id=$LablistssId";
+    var url = "${baseUrl}api/LabApi/LabDetails?id=$LablistssId";
     //http://test.pswellness.in/api/LabApi/LabDetails?id=16
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -3364,7 +3372,7 @@ class ApiProvider {
     print("HealthchkpListId: ${HealthchkpListId}");
     //HealthchkpListId
     var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/ViewMore?HealthId=$HealthchkpListId";
+        "${baseUrl}api/HealthCheckUpApi/ViewMore?HealthId=$HealthchkpListId";
     try {
       http.Response r = await http.get(Uri.parse(url));
 
@@ -3383,7 +3391,7 @@ class ApiProvider {
 
   ///todo: ambulance_type_api..........................23april.....2023.........
   static ViewAmbulanceTypeApi() async {
-    var url = "http://test.pswellness.in/api/VehicleTypeApi/AmbulanceTypeList";
+    var url = "${baseUrl}api/VehicleTypeApi/AmbulanceTypeList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3408,7 +3416,7 @@ class ApiProvider {
     var doctorspeacilistId = preferences.getString("doctorspeacilistId");
     print("doctorspeacilistId: ${doctorspeacilistId}");
     var url =
-        "http://test.pswellness.in/api/DoctorApi/DoctorChooseDep?Department_id=$doctordepartmentId&Specialist_id=$doctorspeacilistId&StateMaster_Id=$doctorstateId&CityMaster_Id=$doctorcityId";
+        "${baseUrl}api/DoctorApi/DoctorChooseDep?Department_id=$doctordepartmentId&Specialist_id=$doctorspeacilistId&StateMaster_Id=$doctorstateId&CityMaster_Id=$doctorcityId";
 
     // "http://test.pswellness.in/api/DoctorApi/DoctorChooseDep?Department_id=1&Specialist_id=1&StateMaster_Id=33&CityMaster_Id=771";
     try {
@@ -3426,14 +3434,14 @@ class ApiProvider {
     }
   }
 
-  ///todo: doctor details by Id 17 april 2023.............
+  ///todo: doctor details by Id 17 april 2023.............121
   static ViewDoctorDetailApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var DoctorListId = preferences.getString("DoctorListId");
     print("DoctorListId: ${DoctorListId}");
     var url =
         //"http://test.pswellness.in/api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=$DoctorListId";
-        "http://test.pswellness.in/api/DoctorApi/DoctorDetails?id=$DoctorListId";
+        "${baseUrl}api/DoctorApi/DoctorDetails?id=$DoctorListId";
     // http://test.pswellness.in/api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=13
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -3454,7 +3462,7 @@ class ApiProvider {
 
   ///todo:add to cart......................................................add to cart...
   static Addtocartmedicineapi(MedicineId, Quantity) async {
-    var url = baseUrl + 'api/PatientMedicine/AddMedicineToCart';
+    var url = '${baseUrl}api/PatientMedicine/AddMedicineToCart';
     var prefs = GetStorage();
     //saved id..........
     final PatientId = prefs.read("Id").toString();
@@ -3492,7 +3500,7 @@ class ApiProvider {
   static AddToCartMedicineApi(
     var MedicineId,
   ) async {
-    var url = baseUrl + 'api/PatientMedicine/AddMedicineCart';
+    var url = '${baseUrl}api/PatientMedicine/AddMedicineCart';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercart:${userid}');
@@ -3530,7 +3538,7 @@ class ApiProvider {
   static AddToCartPlusMedicineApi(
     var MedicineId,
   ) async {
-    var url = baseUrl + 'api/PatientMedicine/PlusAddToCart';
+    var url = '${baseUrl}api/PatientMedicine/PlusAddToCart';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
@@ -3570,7 +3578,7 @@ class ApiProvider {
   static AddToCartMinusMedicineApi(
     var MedicineId,
   ) async {
-    var url = baseUrl + 'api/PatientMedicine/minusAddToCart';
+    var url = '${baseUrl}api/PatientMedicine/minusAddToCart';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
@@ -3616,7 +3624,7 @@ class ApiProvider {
         preferences.getString("MedicineaddresslistssId");
     print("MedicineaddresslistssId: ${MedicineaddresslistssId}");
     var url =
-        'http://test.pswellness.in/api/PatientMedicine/OrderPlacedDetails?PatientId=$userid&id=$MedicineaddresslistssId';
+        '${baseUrl}api/PatientMedicine/OrderPlacedDetails?PatientId=$userid&id=$MedicineaddresslistssId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3642,8 +3650,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineDetails?PatientId=$userid";
+    var url = "${baseUrl}api/PatientMedicine/MedicineDetails?PatientId=$userid";
     //"http://test.pswellness.in/api/PatientMedicine/MedicineCart?patientId=$PatientId";
     //"http://test.pswellness.in/api/PatientMedicine/MedicineDetails?PatientId=$PatientId";
     try {
@@ -3666,7 +3673,7 @@ class ApiProvider {
   //
   /// user medicine_list_api..........................
   static MedicinelistApi() async {
-    var url = "http://test.pswellness.in/api/PatientMedicine/GetMedicines";
+    var url = "${baseUrl}api/PatientMedicine/GetMedicines";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3685,8 +3692,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/PatientApi/GetMedicineAddress?Patient_id=$userid";
+    var url = "${baseUrl}api/PatientApi/GetMedicineAddress?Patient_id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3708,7 +3714,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineDetailsByPatient?PatientId=$userid";
+        "${baseUrl}api/PatientMedicine/MedicineDetailsByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3725,8 +3731,7 @@ class ApiProvider {
 
   ///lab_list_2..................................
   static LabListDrowerApi() async {
-    var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/ViewMore?HealthId=18";
+    var url = "${baseUrl}api/HealthCheckUpApi/ViewMore?HealthId=18";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3746,7 +3751,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userlabhist:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/LabApi/BookedTestHistory?LabId=12";
+    var url = "${baseUrl}api/LabApi/BookedTestHistory?LabId=12";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3769,8 +3774,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userlabhist:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/PatientApi/LabDetailsByPatient?PatientId=$userid";
+    var url = "${baseUrl}api/PatientApi/LabDetailsByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3790,8 +3794,7 @@ class ApiProvider {
 
   ///checkup_history_3...........................
   static LabHistoryApi() async {
-    var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/H_CheckUpList?cityId=67";
+    var url = "${baseUrl}api/HealthCheckUpApi/H_CheckUpList?cityId=67";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3815,7 +3818,7 @@ class ApiProvider {
     print("healthchkptestId: ${healthchkptestId}");
 
     var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/HCheckUpList?StateId=$healthchkpstateId&CityId=$healthchkpcityId&testId=$healthchkptestId";
+        "${baseUrl}api/HealthCheckUpApi/HCheckUpList?StateId=$healthchkpstateId&CityId=$healthchkpcityId&testId=$healthchkptestId";
 
     //"http://test.pswellness.in/api/HealthCheckUpApi/HCheckUpList?StateId=2&CityId=66&testId=1";
     try {
@@ -3834,7 +3837,7 @@ class ApiProvider {
   //
   ///state Api get...........................
   static Future<List<StateModel>> getSatesApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/GetStates";
+    var url = "${baseUrl}api/CommonApi/GetStates";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3851,8 +3854,7 @@ class ApiProvider {
 
   ///get_cities_api...........
   static Future<List<City>> getCitiesApi(String stateID) async {
-    var url =
-        "http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
+    var url = "${baseUrl}api/CommonApi/GetCitiesByState?stateId=$stateID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -3905,7 +3907,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
     print("AmbulancelistssId: ${AmbulancelistssId}");
-    var url = "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=1";
+    var url = "${baseUrl}api/VehicleTypeApi/Vehicle?id=1";
 
     ///"http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=$AmbulancelistssId";
     //"1";
@@ -3931,7 +3933,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
     print("AmbulancelistssId: ${AmbulancelistssId}");
-    var url = "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=2";
+    var url = "${baseUrl}api/VehicleTypeApi/Vehicle?id=2";
 
     // "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=$AmbulancelistssId";
     //"1";
@@ -3957,7 +3959,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
     print("AmbulancelistssId: ${AmbulancelistssId}");
-    var url = "http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=3";
+    var url = "${baseUrl}api/VehicleTypeApi/Vehicle?id=3";
 
     //"http://test.pswellness.in/api/VehicleTypeApi/Vehicle?id=$AmbulancelistssId";
     //"1";
@@ -3984,7 +3986,7 @@ class ApiProvider {
       //Future<List<VehicleDetaile>?>
       getvechilebyidApi(String ambulancecatagaryID) async {
     var url =
-        "http://test.pswellness.in/api/VehicleTypeApi/VehicleType?id=$ambulancecatagaryID";
+        "${baseUrl}api/VehicleTypeApi/VehicleType?id=$ambulancecatagaryID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4005,7 +4007,7 @@ class ApiProvider {
       //Future<List<VehicleDetaile>?>
       getvechilebyid2Api(String ambulancecatagaryID) async {
     var url =
-        "http://test.pswellness.in/api/VehicleTypeApi/VehicleType?id=$ambulancecatagaryID";
+        "${baseUrl}api/VehicleTypeApi/VehicleType?id=$ambulancecatagaryID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4026,7 +4028,7 @@ class ApiProvider {
       //Future<List<VehicleDetaile>?>
       getvechilebyid3Api(String ambulancecatagaryID) async {
     var url =
-        "http://test.pswellness.in/api/VehicleTypeApi/VehicleType?id=$ambulancecatagaryID";
+        "${baseUrl}api/VehicleTypeApi/VehicleType?id=$ambulancecatagaryID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4043,7 +4045,7 @@ class ApiProvider {
 
   ///doctor department Api get..dropdownapi user.........................
   static Future<List<DepartmentModel>> getDortorDepartmentApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/GetDepartments";
+    var url = "${baseUrl}api/CommonApi/GetDepartments";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4061,8 +4063,7 @@ class ApiProvider {
   ///get_cities_api...........
 
   static Future<List<SpecialistModel>> getSpeaclistbyIdApi(String depId) async {
-    var url =
-        "http://test.pswellness.in/api/CommonApi/GetSpecialist?depId=$depId";
+    var url = "${baseUrl}api/CommonApi/GetSpecialist?depId=$depId";
     //"http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4085,8 +4086,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
-    var url =
-        'http://test.pswellness.in/api/DoctorApi/GetDoctorSkills?doctorId=$userid';
+    var url = '${baseUrl}api/DoctorApi/GetDoctorSkills?doctorId=$userid';
     //'111';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4107,7 +4107,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
-    var url = 'http://test.pswellness.in/api/LabApi/LabTestList?Id=$userid';
+    var url = '${baseUrl}api/LabApi/LabTestList?Id=$userid';
     //'111';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4126,7 +4126,7 @@ class ApiProvider {
 
   ///nurse Api get...........................
   static Future<List<NurseModels>> getnursetypeApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/NurseList";
+    var url = "${baseUrl}api/CommonApi/NurseList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4143,7 +4143,7 @@ class ApiProvider {
 
   ///todo:complain_subject..user.of...user...id.....getapidropdown...25apr...2023..
   static Future<List<Complaint41Patient>> getsubjecttypeApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/PatientSubjects";
+    var url = "${baseUrl}api/CommonApi/PatientSubjects";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4177,7 +4177,7 @@ class ApiProvider {
 
   ///nurse location Api get.........................................................
   static Future<List<NurseLocationModel>> getnurselocationtApi() async {
-    var url = "http://pswellness.in/api/CommonApi/GetLocation";
+    var url = "${baseUrl}api/CommonApi/GetLocation";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4203,7 +4203,7 @@ class ApiProvider {
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
 
-    var url = baseUrl + 'api/DoctorApi/AddSkill';
+    var url = '${baseUrl}api/DoctorApi/AddSkill';
 
     var body = {
       "Doctor_Id": "$userid",
@@ -4236,7 +4236,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
-    var url = baseUrl + 'api/DoctorApi/RemoveSkill?id=$SkilsId';
+    var url = '${baseUrl}api/DoctorApi/RemoveSkill?id=$SkilsId';
 
     http.Response r = await http.post(
       Uri.parse(url),
@@ -4380,7 +4380,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&skilsprofiledetail:${userid}');
     print(userid);
-    var url = baseUrl + 'api/LabApi/RemoveTest?Id=$TestaddedId';
+    var url = '${baseUrl}api/LabApi/RemoveTest?Id=$TestaddedId';
 
     http.Response r = await http.post(
       Uri.parse(url),
@@ -4425,7 +4425,7 @@ class ApiProvider {
     var CityMasterId,
     var Patient,
   ) async {
-    var url = baseUrl + 'api/LabApi/BookLabTest';
+    var url = '${baseUrl}api/LabApi/BookLabTest';
 
     var body = {
       "Lab_Id": "12",
@@ -4477,8 +4477,7 @@ class ApiProvider {
   ///get_skils_api...........
 
   static getListOfDoctorApi() async {
-    var url =
-        'http://test.pswellness.in/api/HospitalAPI/DoctorList?hospitalId=209';
+    var url = '${baseUrl}api/HospitalAPI/DoctorList?hospitalId=209';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4519,7 +4518,7 @@ class ApiProvider {
     var EndTime,
     var LicenceBase64,
   ) async {
-    var url = baseUrl + 'api/SignupApi/DoctorRegistration';
+    var url = '${baseUrl}api/SignupApi/DoctorRegistration';
     var body = {
       "DoctorName": DoctorName,
       "EmailId": EmailId,
@@ -4566,7 +4565,7 @@ class ApiProvider {
   static getbanneruserApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
     //var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4586,7 +4585,7 @@ class ApiProvider {
   static getbannerfrachiseApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
     //var url = baseUrl + 'api/SignupApi/getBanner/?id=2';
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=2";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=2";
 
     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
@@ -4607,7 +4606,7 @@ class ApiProvider {
   static getbannerhealthcheckupApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
     //var url = baseUrl + 'api/SignupApi/getBanner/?id=3';
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=3";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=3";
     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4626,7 +4625,7 @@ class ApiProvider {
 
   static getbannerdoctorApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=4';
+    var url = '${baseUrl}api/SignupApi/getBanner/?id=4';
     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4644,7 +4643,7 @@ class ApiProvider {
 
   static getbannerdriverApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=5';
+    var url = '${baseUrl}api/SignupApi/getBanner/?id=5';
     //var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=1";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4663,7 +4662,7 @@ class ApiProvider {
   static getbannernurseApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
     // var url = baseUrl + 'api/SignupApi/getBanner/?id=6';
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=6";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=6";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4682,7 +4681,7 @@ class ApiProvider {
   static getbannerrawApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
     // var url = baseUrl + 'api/SignupApi/getBanner/?id=7';
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=7";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=7";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4701,7 +4700,7 @@ class ApiProvider {
   static getbannerchemistApi() async {
     //var url = 'https://api.gyros.farm/api/AdminApi/BannerImage';
     //var url = baseUrl + 'api/SignupApi/getBanner/?id=8';
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=8";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=8";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4723,7 +4722,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&prince:${Id}');
     //var url = baseUrl + 'api/AdminApi/ListWalletMoney/27';
     //var url = baseUrl1 + 'api/AdminApi/ListWalletMoney/$Id';
-    var url = baseUrl + 'api/Wallet/ListWalletMoney/$Id';
+    var url = '${baseUrl}api/Wallet/ListWalletMoney/$Id';
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4744,7 +4743,7 @@ class ApiProvider {
   ///wallet post api..........................................wallet......section.....
   static WalletPostApi(var UserId, var walletAmount) async {
     //var url = baseUrl1 + 'api/AdminApi/AddWalletMoney';
-    var url = baseUrl + 'api/Wallet/AddWalletMoney';
+    var url = '${baseUrl}api/Wallet/AddWalletMoney';
     var prefs = GetStorage();
     // saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['Id']);
@@ -4785,7 +4784,7 @@ class ApiProvider {
 
   ///wallet post update api..........................................11...april..2023....gyros..
   static WalletPostUpdateApi(var UserId, var walletAmount) async {
-    var url = baseUrl + 'api/Wallet/UpdateWalletMoney';
+    var url = '${baseUrl}api/Wallet/UpdateWalletMoney';
     var prefs = GetStorage();
     // saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['Id']);
@@ -4826,8 +4825,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/PatientApi/DoctorAptP?PatientId=$userid";
+    var url = "${baseUrl}api/PatientApi/DoctorAptP?PatientId=$userid";
     // var url = "http://test.pswellness.in/api/PatientApi/ShowAppointMent?PatientId=137";
     //var url = baseUrl + "api/PatientApi/ShowAppointMent?PatientId=137";
     try {
@@ -4854,7 +4852,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&usercartplus:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientApi/DoctorVirtualAptByPatient?PatientId=$userid";
+        "${baseUrl}api/PatientApi/DoctorVirtualAptByPatient?PatientId=$userid";
     // var url = "http://test.pswellness.in/api/PatientApi/ShowAppointMent?PatientId=137";
     //var url = baseUrl + "api/PatientApi/ShowAppointMent?PatientId=137";
     try {
@@ -4882,7 +4880,7 @@ class ApiProvider {
     var url =
         //"http://test.pswellness.in/api/PatientApi/PatientProfiledetail?PatientId=137";
         //"http://test.pswellness.in/api/PatientApi/PatientProfiledetail?PatientId=$userid";
-        "http://test.pswellness.in/api/LabApi/LabPayHis?Id=$userid";
+        "${baseUrl}api/LabApi/LabPayHis?Id=$userid";
 
     //http://test.pswellness.in/api/PatientApi/PatientProfiledetail?PatientId=137
     //var url = baseUrl + 'api/PatientApi/PatientProfiledetail?PatientId=$userid';
@@ -4906,8 +4904,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labprofiledetail:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/LabApi/LabUpdateProfiledetail?Id=$userid";
+    var url = "${baseUrl}api/LabApi/LabUpdateProfiledetail?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4929,8 +4926,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labappointmentdetail:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/LabApi/AppoinmentDetail?Id=$userid";
+    var url = "${baseUrl}api/LabApi/AppoinmentDetail?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4955,7 +4951,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labappointmenthistory:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/LabApi/LabAppoinH?Id=$userid";
+    var url = "${baseUrl}api/LabApi/LabAppoinH?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4978,7 +4974,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labappointmenthistory:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/LabApi/LabAbout?Id=$userid";
+    var url = "${baseUrl}api/LabApi/LabAbout?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5000,7 +4996,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&drr:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/DoctorApi/DoctorAbout?Id=$userid";
+    var url = "${baseUrl}api/DoctorApi/DoctorAbout?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5023,7 +5019,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&nurseabout:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/NurseAPI/Nurse_About?Id=$userid";
+    var url = "${baseUrl}api/NurseAPI/Nurse_About?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5046,7 +5042,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&nurseabout:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/PatientApi/User_About";
+    var url = "${baseUrl}api/PatientApi/User_About";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5068,7 +5064,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labappointmenthistory:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/PatientApi/RWA_About?Id=$userid";
+    var url = "${baseUrl}api/PatientApi/RWA_About?Id=$userid";
     //http://test.pswellness.in/api/PatientApi/RWA_About?Id=12
 
     try {
@@ -5091,8 +5087,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&chemistaboutus:${userid}');
     print(userid);
-    var url =
-        "http://test.pswellness.in/api/ChemistApi/ChemistAbout?Id=$userid";
+    var url = "${baseUrl}api/ChemistApi/ChemistAbout?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5130,7 +5125,7 @@ class ApiProvider {
     var AadharNumber,
     var PinCode,
   ) async {
-    var url = baseUrl + 'api/SignupApi/LabRegistration';
+    var url = '${baseUrl}api/SignupApi/LabRegistration';
     var body = {
       "PAN": "$PAN",
       "LabName": LabName,
@@ -5187,7 +5182,7 @@ class ApiProvider {
       "FileBase64": '$FileBase64',
     };
     try {
-      var url = baseUrl + 'api/LabApi/Lab_UploadReport';
+      var url = '${baseUrl}api/LabApi/Lab_UploadReport';
       var r = await http.post(Uri.parse(url), body: body);
       if (r.statusCode == 200) {
         print("###3###3####1: ${r.body}");
@@ -5222,7 +5217,7 @@ class ApiProvider {
       "FileBase64": '$FileBase64',
     };
     try {
-      var url = baseUrl + 'api/NurseAPI/Nurse_UploadReport';
+      var url = '${baseUrl}api/NurseAPI/Nurse_UploadReport';
       var r = await http.post(Uri.parse(url), body: body);
       if (r.statusCode == 200) {
         print("###3###3####1: ${r.body}");
@@ -5252,13 +5247,17 @@ class ApiProvider {
     print(userid);
     var body = {
       "Doctor_Id": userid,
-      "Patient_Id": Patient_Id,
+      "Patient_Id":
+          //"52",
+          Patient_Id,
       "Image1": '$Image1',
       "Image1Base64": '$Image1Base64',
     };
     try {
-      var url = baseUrl + 'api/DoctorApi/Doctor_UploadReport';
+      var url = '${baseUrl}api/DoctorApi/Doctor_UploadReport';
       var r = await http.post(Uri.parse(url), body: body);
+      print("###3###3####ww1: ${r.body}");
+
       if (r.statusCode == 200) {
         print("###3###3####1: ${r.body}");
         print("okokolanreportii: ${body}");
@@ -5282,7 +5281,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labusereport:${userid}');
     print(userid);
-    var url = baseUrl + "api/CommonApi/Lab_report?Id=$userid";
+    var url = "${baseUrl}api/CommonApi/Lab_report?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5305,7 +5304,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&doctorereport:${userid}');
     print(userid);
-    var url = baseUrl + "api/DoctorApi/DoctorPatientList?Id=$userid";
+    var url = "${baseUrl}api/DoctorApi/DoctorPatientList?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5328,7 +5327,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&doctorereport:${userid}');
     print(userid);
-    var url = baseUrl + "api/NurseAPI/NursePatientList?Id=$userid";
+    var url = "${baseUrl}api/NurseAPI/NursePatientList?Id=$userid";
 
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5356,7 +5355,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
     print(userid);
-    var url = "http://test.pswellness.in/api/LabApi/Lab_ViewReport?Id=$userid";
+    var url = "${baseUrl}api/LabApi/Lab_ViewReport?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5379,7 +5378,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientApi/ViewLabReportByPatient?PatientId=$userid";
+        "${baseUrl}api/PatientApi/ViewLabReportByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5403,7 +5402,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&nurseuserrrview:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientApi/NurseViewReportByPatient?PatientId=$userid";
+        "${baseUrl}api/PatientApi/NurseViewReportByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5427,7 +5426,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&doctoruserrrview:${userid}');
     print(userid);
     var url =
-        "http://test.pswellness.in/api/PatientApi/DoctorViewReportByPatient?PatientId=$userid";
+        "${baseUrl}api/PatientApi/DoctorViewReportByPatient?PatientId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5453,8 +5452,7 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&labuserrrview:${userid}');
     print(userid);
 
-    var url =
-        "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport?Id=$userid";
+    var url = "${baseUrl}api/NurseAPI/Nurse_ViewReport?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5478,7 +5476,7 @@ class ApiProvider {
     print(userid);
     var url =
         //'http://test.pswellness.in/api/DoctorApi/Doctor_ViewReport?Id=146'
-        "http://test.pswellness.in/api/DoctorApi/Doctor_ViewReport?Id=$userid";
+        "${baseUrl}api/DoctorApi/Doctor_ViewReport?Id=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5499,8 +5497,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var labreportlistId = preferences.getString("labreportlistId");
     print("labreportlistlisttIdhh: ${labreportlistId}");
-    var url =
-        "http://test.pswellness.in/api/LabApi/Lab_ViewReport_File?Id=$labreportlistId";
+    var url = "${baseUrl}api/LabApi/Lab_ViewReport_File?Id=$labreportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5521,8 +5518,7 @@ class ApiProvider {
     var labuserreportlistId = preferences.getString("labuserreportlistId");
     print("labuserreportlistId: ${labuserreportlistId}");
     //http://test.pswellness.in/api/PatientApi/LabReport_File?Id=21
-    var url =
-        "http://test.pswellness.in/api/PatientApi/LabReport_File?Id=$labuserreportlistId";
+    var url = "${baseUrl}api/PatientApi/LabReport_File?Id=$labuserreportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5545,7 +5541,7 @@ class ApiProvider {
     print("nurseuserreportlistId: ${nurseuserreportlistId}");
     //http://test.pswellness.in/api/PatientApi/LabReport_File?Id=21
     var url =
-        "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport_File?Id=$nurseuserreportlistId";
+        "${baseUrl}api/NurseAPI/Nurse_ViewReport_File?Id=$nurseuserreportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5569,7 +5565,7 @@ class ApiProvider {
     print("doctoruserreportlistId: ${doctoruserreportlistId}");
     //http://test.pswellness.in/api/PatientApi/LabReport_File?Id=21
     var url =
-        "http://test.pswellness.in/api/PatientApi/DoctorViewReportFile?Id=$doctoruserreportlistId";
+        "${baseUrl}api/PatientApi/DoctorViewReportFile?Id=$doctoruserreportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -5591,7 +5587,7 @@ class ApiProvider {
     var nursereportlistId = preferences.getString("nursereportlistId");
     print("nursereportlistId: ${nursereportlistId}");
     var url =
-        "http://test.pswellness.in/api/NurseAPI/Nurse_ViewReport_File?Id=$nursereportlistId";
+        "${baseUrl}api/NurseAPI/Nurse_ViewReport_File?Id=$nursereportlistId";
     //"$nursereportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5615,7 +5611,7 @@ class ApiProvider {
     var doctorreportlistId = preferences.getString("doctorreportlistId");
     print("doctorreportlistId: ${doctorreportlistId}");
     var url =
-        "http://test.pswellness.in/api/DoctorApi/Doctor_ViewReport_File?Id=$doctorreportlistId";
+        "${baseUrl}api/DoctorApi/Doctor_ViewReport_File?Id=$doctorreportlistId";
     //"$nursereportlistId";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5674,7 +5670,7 @@ class ApiProvider {
     };
 
     try {
-      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var url = '${baseUrl}api/PatientApi/DoctorRatingReview';
       var r = await http.post(Uri.parse(url), body: body);
       print("###3###3####1rrrerertt: ${body}");
       if (r.statusCode == 200) {
@@ -5733,7 +5729,7 @@ class ApiProvider {
     };
 
     try {
-      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var url = '${baseUrl}api/PatientApi/DoctorRatingReview';
       var r = await http.post(Uri.parse(url), body: body);
       print("###3###3####1rrrererttdoctor: ${body}");
       if (r.statusCode == 200) {
@@ -5788,7 +5784,7 @@ class ApiProvider {
     };
 
     try {
-      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var url = '${baseUrl}api/PatientApi/DoctorRatingReview';
       var r = await http.post(Uri.parse(url), body: body);
       print("###3###3####1rrrererttdoctor: ${body}");
       if (r.statusCode == 200) {
@@ -5843,7 +5839,7 @@ class ApiProvider {
     };
 
     try {
-      var url = 'http://test.pswellness.in/api/PatientApi/DoctorRatingReview';
+      var url = '${baseUrl}api/PatientApi/DoctorRatingReview';
       var r = await http.post(Uri.parse(url), body: body);
       print("###3###3####1rrrererttdoctor: ${body}");
       if (r.statusCode == 200) {
@@ -5870,7 +5866,7 @@ class ApiProvider {
     print("NurseuserListId: ${NurseuserListId}");
     //NurseuserListId
     var url =
-        "http://test.pswellness.in/api/PatientApi/GetTotalRating?pro_Id=$NurseuserListId&Professional=Nurse";
+        "${baseUrl}api/PatientApi/GetTotalRating?pro_Id=$NurseuserListId&Professional=Nurse";
     // "http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=Nurse";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5894,7 +5890,7 @@ class ApiProvider {
     // var url =
     //"http://test.pswellness.in/api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=$DoctorListId";
     var url =
-        "http://test.pswellness.in/api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=$DoctorListId";
+        "${baseUrl}api/PatientApi/GetTotalRating?Professional=Doctor&Pro_Id=$DoctorListId";
 
     //"http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=Doctor";
     try {
@@ -5919,7 +5915,7 @@ class ApiProvider {
     var LablistssId = preferences.getString("LablistssId");
     print("LablistssId: ${LablistssId}");
     var url =
-        "http://test.pswellness.in/api/PatientApi/GetTotalRating?pro_Id=$LablistssId&Professional=Lab";
+        "${baseUrl}api/PatientApi/GetTotalRating?pro_Id=$LablistssId&Professional=Lab";
     // "http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=Lab";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -5939,7 +5935,7 @@ class ApiProvider {
 
   static ViewHealthchkpreviewApi() async {
     var url =
-        "http://test.pswellness.in/api/PatientApi/GETDoctorRatingReview?Professional=HealthCheckup";
+        "${baseUrl}api/PatientApi/GETDoctorRatingReview?Professional=HealthCheckup";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -6127,7 +6123,7 @@ class ApiProvider {
   ///ambulance_paynow.ONLINE.lab....api..of...user........29 april 2023...........
 
   static AmbulancepaynowOnlineApi() async {
-    var url = baseUrl + 'api/DriverApi/DriverPayNow';
+    var url = '${baseUrl}api/DriverApi/DriverPayNow';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');

@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmentdetail_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmenthistory_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_banner_model.dart';
-import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_appointment_details/doctor_catagary/doctor_catagary.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 import '../../../model/9_doctors_model/doctor_homepage_model/doctor_appointment_online.dart';
@@ -16,6 +17,9 @@ class DoctorHomepageController extends GetxController {
   RxBool isLoading = true.obs;
   String MedicineId = "";
   var cartId = "";
+
+  DoctorProfileControllers _doctorProfileControllers =
+      Get.put(DoctorProfileControllers());
 
   DoctorBannerModel? getdoctorbannerlist;
   DoctorNewAppoinmentDetailModel? doctorNewAppoinmentDetailModel;
@@ -73,7 +77,7 @@ class DoctorHomepageController extends GetxController {
       var data = jsonDecode(r.body);
       await doctorAppoinmentDetail();
       await Get.to(
-        () => AppointmentDetails(
+        () => DoctorHomePage(
             // id: "12345689119911",
             ), //next page class
         duration: Duration(
@@ -100,6 +104,7 @@ class DoctorHomepageController extends GetxController {
     doctorAppoinmentDetail();
     doctorAppoinmentHistory();
     doctorAppoinmentOnline();
+    _doctorProfileControllers.doctorprofileApi();
   }
 
   @override

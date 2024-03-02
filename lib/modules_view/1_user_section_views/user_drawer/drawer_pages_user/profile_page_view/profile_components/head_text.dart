@@ -25,7 +25,7 @@ class ProfileHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.offAll(UserHomePage());
+                    Get.to(UserHomePage());
 
                     //Get.back();
                   },

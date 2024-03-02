@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/about_us/about_us.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/driver_profile_details/profile_driver_detail_page.dart';
 
@@ -19,6 +19,8 @@ import 'package:ps_welness_new_ui/modules_view/change_password_view/change_passw
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_drawer_view/driver_drower_pages/about_us/about_us.dart';
@@ -40,6 +42,8 @@ class DriverMainDrawer extends StatelessWidget {
     UseracptrejectController _useracptrejectController =
         Get.put(UseracptrejectController());
     LoginpasswordController _loginpasswordControllerr2 = Get.find();
+    DriverProfileController _driverProfileControlleredit =
+        Get.put(DriverProfileController());
 
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -72,21 +76,37 @@ class DriverMainDrawer extends StatelessWidget {
                     SizedBox(
                       height: size.height * 0.01,
                     ),
-                    Text(
-                      "${_driverprofile.getDriverProfileDetail?.driverName.toString()}",
-                      //'Kumar Gaurav',
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.019,
-                          fontWeight: FontWeight.w800,
-                          color: MyTheme.blueww),
+                    Obx(
+                      () => (_driverprofile.isLoading.value)
+                          ? SizedBox(
+                              height: size.height * 0.03,
+                              child: CircularProgressIndicator(
+                                  //value: 2,
+                                  ))
+                          : Text(
+                              "${_driverprofile.getDriverProfileDetail?.driverName.toString()}",
+                              //'Kumar Gaurav',
+                              style: GoogleFonts.roboto(
+                                  fontSize: size.height * 0.019,
+                                  fontWeight: FontWeight.w800,
+                                  color: MyTheme.blueww),
+                            ),
                     ),
-                    Text(
-                      "${_driverprofile.getDriverProfileDetail?.emailId.toString()}",
-                      //'kumar@gmail.com',
-                      style: GoogleFonts.roboto(
-                          fontSize: size.height * 0.016,
-                          fontWeight: FontWeight.w700,
-                          color: MyTheme.blueww),
+                    Obx(
+                      () => (_driverprofile.isLoading.value)
+                          ? SizedBox(
+                              height: size.height * 0.03,
+                              child: CircularProgressIndicator(
+                                  //value: 2,
+                                  ))
+                          : Text(
+                              "${_driverprofile.getDriverProfileDetail?.emailId.toString()}",
+                              //'kumar@gmail.com',
+                              style: GoogleFonts.roboto(
+                                  fontSize: size.height * 0.016,
+                                  fontWeight: FontWeight.w700,
+                                  color: MyTheme.blueww),
+                            ),
                     ),
                   ],
                 ),
@@ -219,12 +239,19 @@ class DriverMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/DriverProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
+                // Get.back();
+                _driverprofile.driverProfileDetailApi();
+                _driverprofile.update();
+                _driverprofile.onInit();
 
-                Get.to(() => DriverProfilePage());
-                Get.offNamed('/DriverProfilePage');
+                _driverProfileControlleredit.onInit();
+                _driverProfileControlleredit.clearSelectedState();
+                await Future.delayed(Duration(seconds: 1));
+
+                await Get.to(() => DriverProfilePage());
+                // Get.offNamed('/DriverProfilePage');
               },
             ),
             ListTile(
@@ -276,20 +303,55 @@ class DriverMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'About Driver',
+                'About Us',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AboutUsView'
+              tileColor: Get.currentRoute == '/WebViewPswebsiteabout'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => AboutUsViewDriver());
-                Get.offNamed('/AboutUsView');
+                Get.to(() => WebViewPswebsiteabout()
+                    //AboutUsViewDriver()
+                    );
+                Get.offNamed('/WebViewPswebsiteabout');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/WebViewPswebsiteprivecy'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => WebViewPswebsiteprivecy()
+                    // PrivacyPolicyView()
+                    );
               },
             ),
 

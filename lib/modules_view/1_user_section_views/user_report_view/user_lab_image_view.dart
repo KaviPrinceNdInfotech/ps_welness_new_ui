@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_controller/lab_report_user_controller.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 class LabUserReportView extends StatelessWidget {
   LabreportuserviewController _labreportuserviewController =
       Get.put(LabreportuserviewController());
-  final List item = [
-    "https://www.thenewsminute.com/sites/all/var/www/images/dhanush%20medical%20report(1).jpeg",
-    "https://www.thenewsminute.com/sites/all/var/www/images/dhanush%20medical%20report(1).jpeg"
-  ];
+  // final List item = [
+  //   "https://www.thenewsminute.com/sites/all/var/www/images/dhanush%20medical%20report(1).jpeg",
+  //   "https://www.thenewsminute.com/sites/all/var/www/images/dhanush%20medical%20report(1).jpeg"
+  // ];
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -52,8 +53,7 @@ class LabUserReportView extends StatelessWidget {
                                       border: Border.all(
                                           color: Colors.black12, width: 4)),
                                   child: Image.network(
-                                    base +
-                                        '${_labreportuserviewController.labReportUserImage?.labViewReportFile?[index].file.toString()}',
+                                    '$IMAGE_BASE_URL${_labreportuserviewController.labReportUserImage?.labViewReportFile?[index].file.toString()}',
                                     //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                     fit: BoxFit.fill,
                                     errorBuilder: (context, error, stackTrace) {

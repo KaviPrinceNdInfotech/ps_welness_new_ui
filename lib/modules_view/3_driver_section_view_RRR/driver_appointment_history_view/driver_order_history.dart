@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_booking_history_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //import '../../../controllers/10_lab_controller/lab_appointment_controller/nurse_appointment_controller.dart';
 
@@ -333,7 +334,7 @@ class DriverOrderHistory extends StatelessWidget {
                                                                   size.width *
                                                                       0.3,
                                                               child: Text(
-                                                                'Patient Address:',
+                                                                'Pickup Address:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -437,18 +438,158 @@ class DriverOrderHistory extends StatelessWidget {
                                                                           .width *
                                                                       0.035),
                                                             ),
-                                                            Text(
-                                                              '${item?[index].mobileNumber}',
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  '${item?[index].mobileNumber}',
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          size.width *
+                                                                              0.02),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap: () {
+                                                                      Get.defaultDialog(
+                                                                          barrierDismissible: true,
+                                                                          title: "Welcome to PS Wellness",
+                                                                          confirm: Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(6.0),
+                                                                            child:
+                                                                                PhysicalModel(
+                                                                              color: MyTheme.white,
+                                                                              shadowColor: Colors.blueGrey,
+                                                                              elevation: 0,
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.all(3.0),
+                                                                                child: InkWell(
+                                                                                  onTap: () async {
+                                                                                    String telephoneNumber = '${item?[index].mobileNumber}';
+                                                                                    String telephoneUrl = "tel:$telephoneNumber";
+                                                                                    if (await canLaunch(telephoneUrl)) {
+                                                                                      await launch(telephoneUrl);
+                                                                                    } else {
+                                                                                      throw "Error occured trying to call that number.";
+                                                                                    }
+                                                                                    // launch('tel:+9111126194230');
+                                                                                  },
+                                                                                  child: Container(
+                                                                                      height: size.height * 0.04,
+
+                                                                                      /// width: size.width * 0.26,
+                                                                                      color: MyTheme.ThemeColors,
+                                                                                      child: Center(
+                                                                                          child: Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                                        children: [
+                                                                                          Icon(
+                                                                                            Icons.phone,
+                                                                                            color: Colors.white,
+                                                                                            size: size.width * 0.05,
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            width: size.width * 0.03,
+                                                                                          ),
+                                                                                          Text(
+                                                                                            'Call User',
+                                                                                            style: TextStyle(
+                                                                                              color: MyTheme.white,
+                                                                                              fontSize: size.width * 0.03,
+                                                                                              fontWeight: FontWeight.bold,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ))),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          // cancel: Padding(
+                                                                          //   padding:
+                                                                          //       const EdgeInsets.all(8.0),
+                                                                          //   child:
+                                                                          //       PhysicalModel(
+                                                                          //     color: MyTheme.blueww,
+                                                                          //     shadowColor: Colors.blueGrey,
+                                                                          //     elevation: 0,
+                                                                          //     child: Padding(
+                                                                          //       padding: const EdgeInsets.all(3.0),
+                                                                          //       child: InkWell(
+                                                                          //         onTap: () {
+                                                                          //           Get.back();
+                                                                          //           // _launchWhatsapp();
+                                                                          //         },
+                                                                          //         child: Container(
+                                                                          //             height: size.height * 0.04,
+                                                                          //             width: size.width * 0.26,
+                                                                          //             color: MyTheme.ThemeColors,
+                                                                          //             child: Center(
+                                                                          //                 child: Row(
+                                                                          //               mainAxisAlignment: MainAxisAlignment.center,
+                                                                          //               children: [
+                                                                          //                 Icon(
+                                                                          //                   Icons.cancel,
+                                                                          //                   color: Colors.white,
+                                                                          //                   size: size.height * 0.03,
+                                                                          //                 ),
+                                                                          //                 SizedBox(
+                                                                          //                   width: size.width * 0.03,
+                                                                          //                 ),
+                                                                          //                 Text(
+                                                                          //                   'NO',
+                                                                          //                   style: TextStyle(color: MyTheme.white, fontWeight: FontWeight.bold, fontSize: size.width * 0.03),
+                                                                          //                 ),
+                                                                          //               ],
+                                                                          //             ))),
+                                                                          //       ),
+                                                                          //     ),
+                                                                          //   ),
+                                                                          // ),
+                                                                          middleText: "Call User ?.",
+                                                                          backgroundColor: MyTheme.blueww,
+                                                                          titleStyle: GoogleFonts.alatsi(color: MyTheme.white, fontSize: size.height * 0.03, fontWeight: FontWeight.bold),
+                                                                          middleTextStyle: TextStyle(color: MyTheme.text1),
+                                                                          radius: 10);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height: size
+                                                                              .height *
+                                                                          0.04,
+                                                                      width: size
+                                                                              .width *
+                                                                          0.08,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Colors
+                                                                            .white30,
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                      ),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .call,
+                                                                        color: Colors
+                                                                            .red,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
+
                                                             // Text(
                                                             //   '${item?[index].paidAmount}',
                                                             //   style: GoogleFonts.raleway(
@@ -469,7 +610,7 @@ class DriverOrderHistory extends StatelessWidget {
                                                                   size.width *
                                                                       0.5,
                                                               child: Text(
-                                                                '${item?[index].location}',
+                                                                '${item?[index].pickUpLoaction}',
                                                                 style: GoogleFonts.raleway(
                                                                     color: Colors
                                                                         .white,

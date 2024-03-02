@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/week_day_off/week_day_off_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -249,6 +250,57 @@ class FrDoctor1Credentials extends StatelessWidget {
                     size: 20,
                   ),
                   border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo : week off Id...............
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                  () => DropdownButtonFormField<Day>(
+                      value: _frdoctor_1_controller.selectedweekdayId.value,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.calendar_view_day,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Week Off'),
+                      items:
+                          _frdoctor_1_controller.weekdayid.map((Day weekdayid) {
+                        return DropdownMenuItem(
+                          value: weekdayid,
+                          child: SizedBox(
+                            height: size.height * 0.05,
+                            width: size.width * 0.61,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "${weekdayid.name.toString()}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.017,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      // validator: (value) =>
+                      // value == null ? '          field required' : null,
+                      onChanged: (Day? newValue) {
+                        _frdoctor_1_controller.selectedweekdayId.value =
+                            newValue!;
+                      }),
                 ),
               ),
             ),
