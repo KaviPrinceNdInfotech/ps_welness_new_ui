@@ -411,7 +411,7 @@ class _NurseHistoryUserState extends State<NurseHistoryUser> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'Request Date:',
+                                                        'Start Date:',
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: MyTheme
@@ -423,7 +423,7 @@ class _NurseHistoryUserState extends State<NurseHistoryUser> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'Accepting Date:',
+                                                        'End Date:',
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: MyTheme
@@ -435,7 +435,7 @@ class _NurseHistoryUserState extends State<NurseHistoryUser> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'Payment Date',
+                                                        'Booking Date',
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: MyTheme
@@ -502,7 +502,7 @@ class _NurseHistoryUserState extends State<NurseHistoryUser> {
                                                         width:
                                                             size.width * 0.45,
                                                         height:
-                                                            size.height * 0.025,
+                                                            size.height * 0.026,
                                                         child: Text(
                                                           _nurseHistoryController
                                                               .foundNurse[index]
@@ -518,7 +518,7 @@ class _NurseHistoryUserState extends State<NurseHistoryUser> {
                                                                           .w700,
                                                                   fontSize: size
                                                                           .width *
-                                                                      0.039),
+                                                                      0.027),
                                                         ),
                                                       ),
                                                       Text(

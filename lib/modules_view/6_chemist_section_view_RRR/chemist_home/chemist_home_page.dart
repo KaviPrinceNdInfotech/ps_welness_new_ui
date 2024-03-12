@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/che
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payment_history/chemist_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payout_history/chemist_payout_histories.dart';
@@ -31,6 +32,8 @@ class ChemistHomePage extends StatelessWidget {
       Get.put(ChemispaymentController());
   ChemistPayoutController _chemistPayoutController =
       Get.put(ChemistPayoutController());
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +127,10 @@ class ChemistHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
+              onPressed: () async {
+                await _chemistProfileDetailController
+                    .chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
                 _keychemist.currentState!.openDrawer();
               },
             ),
@@ -214,7 +220,7 @@ class ChemistHomePage extends StatelessWidget {
                                       if (index == 0) {
                                         Get.to(() => ChemistProfilePage());
                                       } else if (index == 1) {
-                                        Get.to(() => AddBankDetail());
+                                        Get.to(() => AddChemistBankDetail());
                                       } else if (index == 2) {
                                         _chemistOrderController
                                             .chemistOrderHistorysApi();

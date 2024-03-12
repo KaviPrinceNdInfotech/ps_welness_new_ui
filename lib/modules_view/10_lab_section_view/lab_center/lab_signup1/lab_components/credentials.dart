@@ -432,7 +432,7 @@ class Lab1Credentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,

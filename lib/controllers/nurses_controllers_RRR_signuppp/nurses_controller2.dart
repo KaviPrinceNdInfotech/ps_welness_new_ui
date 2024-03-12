@@ -215,7 +215,8 @@ class Nurses_22_Controller extends GetxController {
       CertificateImageNameController,
       VerificationDocController,
       CertificateImageController,
-      experienceController;
+      experienceController,
+      aboutController;
 
   var pan = '';
   var Id = '';
@@ -241,6 +242,7 @@ class Nurses_22_Controller extends GetxController {
   var EndTime = '';
   var LicenceBase64 = '';
   var experience = '';
+  var about = '';
 
   void nurseSignupApi() async {
     CallLoader.loader();
@@ -288,6 +290,7 @@ class Nurses_22_Controller extends GetxController {
       FeeController?.text,
       selectedNurseLocation.value?.id.toString(),
       experienceController?.text,
+      aboutController?.text,
     );
     if (r.statusCode == 200) {
       // Get.snackbar(
@@ -331,7 +334,7 @@ class Nurses_22_Controller extends GetxController {
     experienceController = TextEditingController();
     NurseType_IdController = TextEditingController();
     CertificateNumberController = TextEditingController();
-    CityNameController = TextEditingController(text: 'noida');
+    CityNameController = TextEditingController();
     PinCodeController = TextEditingController();
     NurseNameController = TextEditingController();
     PhoneNumberController = TextEditingController();
@@ -350,6 +353,8 @@ class Nurses_22_Controller extends GetxController {
     CertificateImageNameController = TextEditingController();
     VerificationDocController = TextEditingController(text: '6985');
     CertificateImageController = TextEditingController(text: 'dr1.jpg');
+    aboutController = TextEditingController();
+
     super.onInit();
   }
 

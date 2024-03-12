@@ -533,20 +533,22 @@ class ResitrationLabDetails extends StatelessWidget {
                                                                         .shade600,
                                                                   ),
                                                                 ),
-                                                                Text(
-                                                                  '${item?[index].labName}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
+                                                                SizedBox(
+                                                                  child: Text(
+                                                                    '${item?[index].labName}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                                 Text(

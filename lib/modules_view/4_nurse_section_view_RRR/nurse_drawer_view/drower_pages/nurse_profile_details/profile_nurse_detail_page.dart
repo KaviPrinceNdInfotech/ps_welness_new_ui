@@ -163,14 +163,21 @@ class NurseDetailProfile extends StatelessWidget {
                                         SizedBox(
                                           height: size.height * 0.01,
                                         ),
-                                        Text(
-                                          _nurseprofileContrller
-                                              .getNurseProfile!.location
-                                              .toString(),
-                                          style: GoogleFonts.poppins(
-                                            fontSize: size.height * 0.018,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
+                                        SizedBox(
+                                          height: size.height * 0.05,
+                                          width: size.width * 0.6,
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              _nurseprofileContrller
+                                                  .getNurseProfile!.location
+                                                  .toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontSize: size.height * 0.016,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(

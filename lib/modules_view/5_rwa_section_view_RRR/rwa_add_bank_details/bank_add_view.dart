@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_update_bank_details/bank_profile_components/head_text.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_add_bank_details/bank_profile_components/head_text.dart';
+
+//import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_update_bank_details/bank_update_components/head_text.dart';
 
 import 'bank_profile_components/credentials.dart';
 
-class UpdateRwaBankDetail extends StatelessWidget {
-  UpdateRwaBankDetail({Key? key}) : super(key: key);
+class AddRwaBankDetail extends StatelessWidget {
+  AddRwaBankDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,8 @@ class UpdateRwaBankDetail extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    UpdateRwaBankHeadText(),
-                    UpdateRwaBankCredentials(),
+                    AddRwaBankHeadText(),
+                    AddRwaBankCredentials(),
                     //HospitalSocial(),
                     //Spacer(),
                   ],

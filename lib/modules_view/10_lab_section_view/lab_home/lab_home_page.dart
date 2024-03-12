@@ -7,10 +7,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/add_bank_for_lab/add_bnk_view_lab/view_bank_add_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_home/lab_slider.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_payment_history/lab_payment_history.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,6 +45,8 @@ LabreportviewController _labreportviewController =
     Get.put(LabreportviewController());
 LabUploadReportController _labUploadReportController =
     Get.put(LabUploadReportController());
+LabprofiledetailController _labprofiledetailController =
+    Get.put(LabprofiledetailController());
 
 // AppointmentController _appointmentController =
 //     Get.put(AppointmentController());
@@ -61,7 +64,7 @@ class LabHomePage extends StatelessWidget {
       'Payment History',
       'Booking History',
       'Report view',
-      'Update Bank Details',
+      'Add Bank Details',
 
       // 'service 7',
       // 'service 8',
@@ -163,7 +166,9 @@ class LabHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
+              onPressed: () async {
+                _labprofiledetailController.update();
+                await _labprofiledetailController.labprofileApi();
                 _keylab.currentState!.openDrawer();
               },
             ),
@@ -307,7 +312,7 @@ class LabHomePage extends StatelessWidget {
                                             .labreportviewApi();
                                         Get.to(LabViewReport());
                                       } else if (index == 5) {
-                                        Get.to(() => AddBankDetail());
+                                        Get.to(() => AddLabBankDetail());
                                       }
                                     },
                                     child: Container(

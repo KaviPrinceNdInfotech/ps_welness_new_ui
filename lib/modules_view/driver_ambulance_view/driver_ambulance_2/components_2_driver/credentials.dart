@@ -35,6 +35,44 @@ class Driver2Credentials extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    ///todo: Function to handle image selection
+    ///1
+    Future<void> handleImageSelection1() async {
+      optionsImage();
+      await optionsController2.selectOption1();
+      //await _doctorrUploadReportController.getdoctorrpatientApi();
+    }
+
+    ///2
+    Future<void> handleImageSelection2() async {
+      optionsImage1();
+      await optionsController2.selectOption2();
+      //await _doctorrUploadReportController.getdoctorrpatientApi();
+    }
+
+    ///3
+
+    Future<void> handleImageSelection3() async {
+      optionsImage2();
+      await optionsController2.selectOption3();
+      //await _doctorrUploadReportController.getdoctorrpatientApi();
+    }
+
+    ///4
+    Future<void> handleImageSelection4() async {
+      optionsImage3();
+      await optionsController2.selectOption4();
+      //await _doctorrUploadReportController.getdoctorrpatientApi();
+    }
+
+    ///5
+    Future<void> handleImageSelection5() async {
+      optionsImage4();
+      await optionsController2.selectOption5();
+      //await _doctorrUploadReportController.getdoctorrpatientApi();
+    }
+
     return Form(
       key: _driver_1111_controller.driver1111formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -62,7 +100,7 @@ class Driver2Credentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -338,42 +376,16 @@ class Driver2Credentials extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.cyanAccent, width: 2),
                   ),
-                  child: Obx(
-                    () => _driver_1111_controller.selectedPath.value != ''
-                        ? Image.file(
-                            File(_driver_1111_controller.selectedPath.value))
-                        : InkWell(
-                            onTap: (() {
-                              optionsImage();
-                            }),
-                            child: Center(
+                  child: GestureDetector(
+                    onTap: handleImageSelection1,
+                    child: Obx(
+                      () => _driver_1111_controller.selectedPath.value != ''
+                          ? Image.file(
+                              File(_driver_1111_controller.selectedPath.value))
+                          : Center(
                               child: Icon(Icons.camera_enhance_rounded),
                             ),
-                            // NeumorphicTextFieldContainer(
-                            //   child: Container(
-                            //     height: size.height * 0.07,
-                            //     //width: size.width * 0.5,
-                            //     child: Padding(
-                            //       padding: EdgeInsets.symmetric(
-                            //           horizontal: size.width * 0.1),
-                            //       child: Row(
-                            //         mainAxisAlignment:
-                            //             MainAxisAlignment.spaceBetween,
-                            //         children: [
-                            //           Text(
-                            //             'User Image',
-                            //             style: TextStyle(
-                            //               fontSize: size.width * 0.03,
-                            //               fontWeight: FontWeight.w700,
-                            //             ),
-                            //           ),
-                            //           Icon(Icons.camera_alt),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
+                    ),
                   ),
                 ),
               ],
@@ -407,42 +419,16 @@ class Driver2Credentials extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.cyanAccent, width: 2),
                   ),
-                  child: Obx(
-                    () => _driver_1111_controller.selectedPath1.value != ''
-                        ? Image.file(
-                            File(_driver_1111_controller.selectedPath1.value))
-                        : InkWell(
-                            onTap: (() {
-                              optionsImage1();
-                            }),
-                            child: Center(
+                  child: GestureDetector(
+                    onTap: handleImageSelection2,
+                    child: Obx(
+                      () => _driver_1111_controller.selectedPath1.value != ''
+                          ? Image.file(
+                              File(_driver_1111_controller.selectedPath1.value))
+                          : Center(
                               child: Icon(Icons.camera_enhance_rounded),
                             ),
-                            // NeumorphicTextFieldContainer(
-                            //   child: Container(
-                            //     height: size.height * 0.07,
-                            //     //width: size.width * 0.5,
-                            //     child: Padding(
-                            //       padding: EdgeInsets.symmetric(
-                            //           horizontal: size.width * 0.1),
-                            //       child: Row(
-                            //         mainAxisAlignment:
-                            //             MainAxisAlignment.spaceBetween,
-                            //         children: [
-                            //           Text(
-                            //             'DL Image',
-                            //             style: TextStyle(
-                            //               fontSize: size.width * 0.03,
-                            //               fontWeight: FontWeight.w700,
-                            //             ),
-                            //           ),
-                            //           Icon(Icons.camera_alt),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
+                    ),
                   ),
                 ),
               ],
@@ -521,42 +507,16 @@ class Driver2Credentials extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.cyanAccent, width: 2),
                   ),
-                  child: Obx(
-                    () => _driver_1111_controller.selectedPath2.value != ''
-                        ? Image.file(
-                            File(_driver_1111_controller.selectedPath2.value))
-                        : InkWell(
-                            onTap: (() {
-                              optionsImage2();
-                            }),
-                            child: Center(
+                  child: GestureDetector(
+                    onTap: handleImageSelection3,
+                    child: Obx(
+                      () => _driver_1111_controller.selectedPath2.value != ''
+                          ? Image.file(
+                              File(_driver_1111_controller.selectedPath2.value))
+                          : Center(
                               child: Icon(Icons.camera_enhance_rounded),
                             ),
-                            // NeumorphicTextFieldContainer(
-                            //   child: Container(
-                            //     height: size.height * 0.07,
-                            //     //width: size.width * 0.5,
-                            //     child: Padding(
-                            //       padding: EdgeInsets.symmetric(
-                            //           horizontal: size.width * 0.1),
-                            //       child: Row(
-                            //         mainAxisAlignment:
-                            //             MainAxisAlignment.spaceBetween,
-                            //         children: [
-                            //           Text(
-                            //             'DL Image2',
-                            //             style: TextStyle(
-                            //               fontSize: size.width * 0.03,
-                            //               fontWeight: FontWeight.w700,
-                            //             ),
-                            //           ),
-                            //           Icon(Icons.camera_alt),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
+                    ),
                   ),
                 ),
               ],
@@ -635,42 +595,16 @@ class Driver2Credentials extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.cyanAccent, width: 2),
                   ),
-                  child: Obx(
-                    () => _driver_1111_controller.selectedPath3.value != ''
-                        ? Image.file(
-                            File(_driver_1111_controller.selectedPath3.value))
-                        : InkWell(
-                            onTap: (() {
-                              optionsImage3();
-                            }),
-                            child: Center(
+                  child: GestureDetector(
+                    onTap: handleImageSelection4,
+                    child: Obx(
+                      () => _driver_1111_controller.selectedPath3.value != ''
+                          ? Image.file(
+                              File(_driver_1111_controller.selectedPath3.value))
+                          : Center(
                               child: Icon(Icons.camera_enhance_rounded),
                             ),
-                            // NeumorphicTextFieldContainer(
-                            //   child: Container(
-                            //     height: size.height * 0.07,
-                            //     //width: size.width * 0.5,
-                            //     child: Padding(
-                            //       padding: EdgeInsets.symmetric(
-                            //           horizontal: size.width * 0.1),
-                            //       child: Row(
-                            //         mainAxisAlignment:
-                            //             MainAxisAlignment.spaceBetween,
-                            //         children: [
-                            //           Text(
-                            //             'Aadhar Image',
-                            //             style: TextStyle(
-                            //               fontSize: size.width * 0.03,
-                            //               fontWeight: FontWeight.w700,
-                            //             ),
-                            //           ),
-                            //           Icon(Icons.camera_alt),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
+                    ),
                   ),
                 ),
               ],
@@ -750,42 +684,16 @@ class Driver2Credentials extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.cyanAccent, width: 2),
                   ),
-                  child: Obx(
-                    () => _driver_1111_controller.selectedPath4.value != ''
-                        ? Image.file(
-                            File(_driver_1111_controller.selectedPath4.value))
-                        : InkWell(
-                            onTap: (() {
-                              optionsImage4();
-                            }),
-                            child: Center(
+                  child: GestureDetector(
+                    onTap: handleImageSelection5,
+                    child: Obx(
+                      () => _driver_1111_controller.selectedPath4.value != ''
+                          ? Image.file(
+                              File(_driver_1111_controller.selectedPath4.value))
+                          : Center(
                               child: Icon(Icons.camera_enhance_rounded),
                             ),
-                            // NeumorphicTextFieldContainer(
-                            //   child: Container(
-                            //     height: size.height * 0.07,
-                            //     //width: size.width * 0.5,
-                            //     child: Padding(
-                            //       padding: EdgeInsets.symmetric(
-                            //           horizontal: size.width * 0.1),
-                            //       child: Row(
-                            //         mainAxisAlignment:
-                            //             MainAxisAlignment.spaceBetween,
-                            //         children: [
-                            //           Text(
-                            //             'Aadhar Image2',
-                            //             style: TextStyle(
-                            //               fontSize: size.width * 0.03,
-                            //               fontWeight: FontWeight.w700,
-                            //             ),
-                            //           ),
-                            //           Icon(Icons.camera_alt),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
+                    ),
                   ),
                 ),
               ],
@@ -845,8 +753,28 @@ class Driver2Credentials extends StatelessWidget {
 
             RectangularButton(
                 text: 'SUBMIT',
-                press: () {
+                press: () async {
                   _driver_1111_controller.checkDriver1111();
+
+                  await Future.delayed(Duration(milliseconds: 900));
+
+                  ///Clear dropdown value
+                  _driver_1111_controller.selectedState.value = null;
+                  // _driver_1111_controller.selectedimg4.close();
+
+                  _driver_1111_controller.selectedPath.close();
+                  _driver_1111_controller.selectedPath1.close();
+                  _driver_1111_controller.selectedPath2.close();
+                  _driver_1111_controller.selectedPath3.close();
+                  _driver_1111_controller.selectedPath4.close();
+
+                  //resetSelection();
+                  optionsController2.resetSelection1();
+                  optionsController2.resetSelection2();
+                  optionsController2.resetSelection3();
+                  optionsController2.resetSelection4();
+                  optionsController2.resetSelection5();
+
                   //_driver_1111_controller.driverSignupApi();
                   // Get.to(DriverHomePage());
                   //_loginpasswordController.checkLoginpassword();
@@ -856,6 +784,8 @@ class Driver2Credentials extends StatelessWidget {
       ),
     );
   }
+
+  final OptionsController2 optionsController2 = Get.put(OptionsController2());
 
   void optionsImage() {
     Get.defaultDialog(
@@ -1211,5 +1141,59 @@ class Driver2Credentials extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// Define a controller class to manage the state
+class OptionsController2 extends GetxController {
+  RxBool isOptionSelected1 = false.obs;
+  RxBool isOptionSelected2 = false.obs;
+  RxBool isOptionSelected3 = false.obs;
+  RxBool isOptionSelected4 = false.obs;
+  RxBool isOptionSelected5 = false.obs;
+
+  void resetSelection1() {
+    isOptionSelected1.value = false;
+  }
+
+  Future<void> selectOption1() async {
+    isOptionSelected1.value = true;
+  }
+
+  ///2
+
+  void resetSelection2() {
+    isOptionSelected2.value = false;
+  }
+
+  Future<void> selectOption2() async {
+    isOptionSelected2.value = true;
+  }
+
+  ///3
+  void resetSelection3() {
+    isOptionSelected3.value = false;
+  }
+
+  Future<void> selectOption3() async {
+    isOptionSelected3.value = true;
+  }
+
+  ///4
+  void resetSelection4() {
+    isOptionSelected4.value = false;
+  }
+
+  Future<void> selectOption4() async {
+    isOptionSelected4.value = true;
+  }
+
+  ///5
+  void resetSelection5() {
+    isOptionSelected5.value = false;
+  }
+
+  Future<void> selectOption5() async {
+    isOptionSelected5.value = true;
   }
 }

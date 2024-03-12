@@ -490,7 +490,6 @@ class NurseProfileCredentials extends StatelessWidget {
                   await Future.delayed(Duration(milliseconds: 100));
                   await Get.offAll(() => NurseHomePage());
                   _nurseprofileUpdateController.selectedStatee.value = null;
-
                   //  await _nurseprofileContrller.nurseprofileApi();
                 })
           ],

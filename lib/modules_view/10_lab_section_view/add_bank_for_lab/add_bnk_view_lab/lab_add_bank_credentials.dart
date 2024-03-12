@@ -3,16 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/add_bank_for_lab/add_bank_lab_controllers/bank_add_lab_controllers.dart';
+//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+// import 'package:ps_welness/constants/constants/constants.dart';
+// import 'package:ps_welness/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+// //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
+// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
+// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
 
-import '../../../../controllers/5_rwa_controller_RRR/rwa_update_bankDetail_controller.dart';
+//import '../../../../controllers/6_chemist_view_controllers/update_bank_controller/update_bank_detail_controller.dart';
 
-class UpdateRwaBankCredentials extends StatelessWidget {
-  UpdateRwaBankCredentials({Key? key}) : super(key: key);
-  // UpdateRwaBankController _updateRwaBankController = Get.put(UpdateRwaBankController());
-  RWAUpdateBankDetailController _rwaUpdateBankDetailController =
-      Get.put(RWAUpdateBankDetailController());
+class AdddBankLabCredentials extends StatelessWidget {
+  AdddBankLabCredentials({Key? key}) : super(key: key);
+  // DoctorUpdateBankDetailController _doctorUpdateBankDetailController =
+  //     Get.put(DoctorUpdateBankDetailController());
+
+  AdddlabBankController _adddBankController = Get.put(AdddlabBankController());
+
   var items = [
     'Item 1',
     'Item 2',
@@ -27,7 +36,7 @@ class UpdateRwaBankCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      // key: _updateRwaBankController.updatebankformskey,
+      key: _adddBankController.addbanklabformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -35,10 +44,10 @@ class UpdateRwaBankCredentials extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.0,
             ),
             Text(
-              'Update Details:',
+              'Add Details:',
               style: TextStyle(
                   fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
             ),
@@ -50,15 +59,14 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             ///TODO: bankAc  no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                //keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _rwaUpdateBankDetailController.AccountNo,
+                controller: _adddBankController.AccountNo,
                 onSaved: (value) {
-                  _rwaUpdateBankDetailController.accountNo = value!;
+                  _adddBankController.accountNo = value!;
                 },
                 validator: (value) {
-                  return _rwaUpdateBankDetailController
-                      .validbankaccount(value!);
+                  return _adddBankController.validbankaccount(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -86,12 +94,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _rwaUpdateBankDetailController.IFSCCode,
+                controller: _adddBankController.IFSCCode,
                 onSaved: (value) {
-                  _rwaUpdateBankDetailController.iFSCCode = value!;
+                  _adddBankController.iFSCCode = value!;
                 },
                 validator: (value) {
-                  return _rwaUpdateBankDetailController.validifsc(value!);
+                  return _adddBankController.validifsc(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -119,17 +127,17 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _rwaUpdateBankDetailController.BranchName,
+                controller: _adddBankController.BranchName,
                 onSaved: (value) {
-                  _rwaUpdateBankDetailController.branchName = value!;
+                  _adddBankController.branchName = value!;
                 },
                 validator: (value) {
-                  return _rwaUpdateBankDetailController.validbranch(value!);
+                  return _adddBankController.validbranch(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Branch name.',
+                  hintText: 'Bank name.',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -152,13 +160,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _rwaUpdateBankDetailController.BranchAddress,
+                controller: _adddBankController.BranchAddress,
                 onSaved: (value) {
-                  _rwaUpdateBankDetailController.branchAddress = value!;
+                  _adddBankController.branchAddress = value!;
                 },
                 validator: (value) {
-                  return _rwaUpdateBankDetailController
-                      .validbranchaddress(value!);
+                  return _adddBankController.validbranchaddress(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -186,12 +193,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _rwaUpdateBankDetailController.HolderName,
+                controller: _adddBankController.HolderName,
                 onSaved: (value) {
-                  _rwaUpdateBankDetailController.accountNo = value!;
+                  _adddBankController.accountNo = value!;
                 },
                 validator: (value) {
-                  return _rwaUpdateBankDetailController.validname(value!);
+                  return _adddBankController.validname(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -219,12 +226,12 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.newPassword],
-                controller: _rwaUpdateBankDetailController.MobileNumber,
+                controller: _adddBankController.MobileNumber,
                 onSaved: (value) {
-                  _rwaUpdateBankDetailController.mobileNumber = value!;
+                  _adddBankController.mobileNumber = value!;
                 },
                 validator: (value) {
-                  return _rwaUpdateBankDetailController.validmobile(value!);
+                  return _adddBankController.validmobile(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -249,9 +256,9 @@ class UpdateRwaBankCredentials extends StatelessWidget {
             ),
 
             RectangularButton(
-                text: 'UPDATE',
+                text: 'Add Bank',
                 press: () {
-                  _rwaUpdateBankDetailController.rwaUpdateBankDetailApi();
+                  _adddBankController.checkAddddBankDetail();
                 })
           ],
         ),

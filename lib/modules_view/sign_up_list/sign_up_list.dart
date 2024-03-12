@@ -59,6 +59,8 @@ class SignUpList extends StatelessWidget {
   ///chemist...
   Chemist_1_Controller _chemist_1_controller = Get.put(Chemist_1_Controller());
 
+  //Rwa_11_controller _rwa_11_controller = Get.put(Rwa_11_controller());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -289,7 +291,6 @@ class SignUpList extends StatelessWidget {
                                   await SharedPreferences.getInstance().then(
                                       (value) =>
                                           Get.offAll(() => NursesSignup11()));
-
                                   _nurses_22_controller.dispose();
                                   _nurses_22_controller.onInit();
 
@@ -443,6 +444,9 @@ class SignUpList extends StatelessWidget {
                                   await Future.delayed(
                                       Duration(milliseconds: 800));
                                   CallLoader.hideLoader();
+
+                                  ///await _rwa_11_controller.RwafranchiseIdApi();
+
                                   await SharedPreferences.getInstance().then(
                                       (value) =>
                                           Get.offAll(() => RwaSignup1()));

@@ -8,15 +8,15 @@ import '../../servicess_api/api_services_all_api.dart';
 class PatientListController extends GetxController {
   RxBool isLoading = true.obs;
 
-  PatientList? patientList;
+  DoctorBookingHistoryModel? bookinghistory;
 
-  void patientListApi() async {
+  Future<void> patientListApi() async {
     isLoading(false);
-    patientList = await ApiProvider.ViewPatientsListApi();
-    print(patientList);
-    if (patientList?.response != null) {
+    bookinghistory = await ApiProvider.ViewPatientsListApi();
+    print(bookinghistory);
+    if (bookinghistory?.bookingHistory != null) {
       isLoading(false);
-      founlistpatientappointment.value = patientList!.response!;
+      founlistpatientappointment.value = bookinghistory!.bookingHistory!;
     }
   }
 
@@ -28,23 +28,24 @@ class PatientListController extends GetxController {
 
   @override
   void onClose() {
-    patientList = null;
+    bookinghistory = null;
     super.onClose();
   }
 
   @override
   void dispose() {
-    patientList = null;
+    bookinghistory = null;
     super.dispose();
   }
 
-  RxList<PatientListss> founlistpatientappointment = RxList<PatientListss>([]);
+  RxList<BookingHistory> founlistpatientappointment =
+      RxList<BookingHistory>([]);
   void filterappointmentt(String searclistpatientName) {
-    List<PatientListss>? finalResult = [];
+    List<BookingHistory>? finalResult = [];
     if (searclistpatientName.isEmpty) {
-      finalResult = patientList!.response!;
+      finalResult = bookinghistory!.bookingHistory!;
     } else {
-      finalResult = patientList!.response!
+      finalResult = bookinghistory!.bookingHistory!
           .where((element) => element.patientName
               .toString()
               .toLowerCase()

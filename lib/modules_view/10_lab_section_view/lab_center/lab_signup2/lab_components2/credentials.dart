@@ -148,7 +148,7 @@ class Lab2Credentials extends StatelessWidget {
               ///todo: Gst Number.................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.addressCityAndState],
                   controller: _lab_1_controller.GSTNumberController,
                   onSaved: (value) {
@@ -278,25 +278,30 @@ class Lab2Credentials extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       )),
-                  Container(
-                    height: size.height * 0.1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.cyanAccent, width: 2),
-                    ),
-                    child: Obx(
-                      () => _lab_1_controller.selectedPath.value != ''
-                          ? Image.file(
-                              File(_lab_1_controller.selectedPath.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage();
-                              }),
-                              child: Center(
-                                child: Icon(Icons.camera_enhance_rounded),
+                  InkWell(
+                    onTap: () {
+                      _lab_1_controller.clearImage1();
+                    },
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _lab_1_controller.selectedPath1.value != ''
+                            ? Image.file(
+                                File(_lab_1_controller.selectedPath1.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage1();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
+                                ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
                 ],
@@ -323,25 +328,30 @@ class Lab2Credentials extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       )),
-                  Container(
-                    height: size.height * 0.1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.cyanAccent, width: 2),
-                    ),
-                    child: Obx(
-                      () => _lab_1_controller.selectedPath1.value != ''
-                          ? Image.file(
-                              File(_lab_1_controller.selectedPath1.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage1();
-                              }),
-                              child: Center(
-                                child: Icon(Icons.camera_enhance_rounded),
+                  InkWell(
+                    onTap: () {
+                      _lab_1_controller.clearImage2();
+                    },
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _lab_1_controller.selectedPath2.value != ''
+                            ? Image.file(
+                                File(_lab_1_controller.selectedPath2.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage2();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
+                                ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
                 ],
@@ -461,78 +471,6 @@ class Lab2Credentials extends StatelessWidget {
     );
   }
 
-  void optionsImage() {
-    Get.defaultDialog(
-      title: "Selcet an option",
-      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-      content: SizedBox(
-        width: 780,
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () {
-                //var ImageSource1;
-                _lab_1_controller.getImage(ImageSource.camera);
-                Get.back();
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.camera_enhance,
-                    color: Color.fromARGB(255, 34, 126, 201),
-                    size: 25,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Camera",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 34, 126, 201),
-                      fontSize: 25,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Divider(
-              color: Color.fromARGB(255, 34, 126, 201),
-              endIndent: 70,
-              indent: 70,
-            ),
-            InkWell(
-              onTap: () {
-                _lab_1_controller.getImage(ImageSource.gallery);
-                Get.back();
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.photo,
-                    color: Color.fromARGB(255, 34, 126, 201),
-                    size: 25,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Gallery",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 34, 126, 201),
-                      fontSize: 25,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void optionsImage1() {
     Get.defaultDialog(
       title: "Selcet an option",
@@ -576,6 +514,78 @@ class Lab2Credentials extends StatelessWidget {
             InkWell(
               onTap: () {
                 _lab_1_controller.getImage1(ImageSource.gallery);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Gallery",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void optionsImage2() {
+    Get.defaultDialog(
+      title: "Selcet an option",
+      titleStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+      content: SizedBox(
+        width: 780,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                //var ImageSource1;
+                _lab_1_controller.getImage2(ImageSource.camera);
+                Get.back();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.camera_enhance,
+                    color: Color.fromARGB(255, 34, 126, 201),
+                    size: 25,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 34, 126, 201),
+                      fontSize: 25,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Divider(
+              color: Color.fromARGB(255, 34, 126, 201),
+              endIndent: 70,
+              indent: 70,
+            ),
+            InkWell(
+              onTap: () {
+                _lab_1_controller.getImage2(ImageSource.gallery);
                 Get.back();
               },
               child: Row(

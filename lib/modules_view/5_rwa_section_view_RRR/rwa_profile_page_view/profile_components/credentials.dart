@@ -8,7 +8,7 @@ import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_d
 //import 'package:ps_welness_new_ui/controllers/5_rwa_controller/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
 //import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -385,9 +385,8 @@ class RwaProfileCredentials extends StatelessWidget {
                   _rwaProfileDetailController.onInit();
                   //_nurseprofileContrller.update();
                   _rwaProfileController.clearSelectedState();
-
                   await Future.delayed(Duration(milliseconds: 100));
-                  await Get.offAll(() => FranchiesHomePage());
+                  await Get.offAll(() => RwaHomePage());
                   _rwaProfileController.selectedState.value = null;
                 })
           ],

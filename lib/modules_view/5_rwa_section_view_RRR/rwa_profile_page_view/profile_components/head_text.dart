@@ -29,8 +29,8 @@ class RwaProfileHeadText extends StatelessWidget {
               InkWell(
                   onTap: () {
                     Get.to(RwaHomePage());
-                    _rwaProfileController.update();
-                    _rwaProfileController.rwaProfileApi();
+                    // _rwaProfileController.update();
+                    // _rwaProfileController.rwaProfileApi();
 
                     //Get.back();
                   },

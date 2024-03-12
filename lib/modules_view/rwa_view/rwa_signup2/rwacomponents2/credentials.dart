@@ -397,8 +397,12 @@ class Rwa2Credentials extends StatelessWidget {
 
               RectangularButton(
                   text: 'SUBMIT',
-                  press: () {
+                  press: () async {
                     _rwa_11_controller.checkRwa11();
+                    await Future.delayed(Duration(seconds: 3));
+
+                    _rwa_11_controller.selectedFranchiseId.value = null;
+                    _rwa_11_controller.selectedState.value = null;
                     //Get.to(RwaHomePage());
                     //_loginpasswordController.checkLoginpassword();
                   })

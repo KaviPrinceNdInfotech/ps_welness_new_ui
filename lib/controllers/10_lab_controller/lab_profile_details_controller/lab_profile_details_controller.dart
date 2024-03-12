@@ -8,7 +8,7 @@ class LabprofiledetailController extends GetxController {
 
   LabprofileModel? labprofileModel;
 
-  void labprofileApi() async {
+  Future<void> labprofileApi() async {
     isLoading(true);
     labprofileModel = await ApiProvider.LabprofiledetailApi();
     if (labprofileModel != null

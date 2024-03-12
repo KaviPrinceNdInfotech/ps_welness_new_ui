@@ -9,7 +9,7 @@ class FrenchiesProfileDetailController extends GetxController {
     isLoading(true);
     getfrenchiesProfileDetailModel =
         await ApiProvider.FrenchiesProfileDetailApi();
-    if (getfrenchiesProfileDetailModel != null) {
+    if (getfrenchiesProfileDetailModel?.companyName != null) {
       isLoading(false);
     }
   }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class UpdateBankFranchiseSeperateHeadText extends StatelessWidget {
@@ -23,7 +24,8 @@ class UpdateBankFranchiseSeperateHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(FranchiesHomePage());
+                    // Get.back();
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(
@@ -47,6 +49,8 @@ class UpdateBankFranchiseSeperateHeadText extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: Color(0xff023382)),
           ),
+
+          ///todo:.......in.................
           RichText(
             text: TextSpan(
               children: <TextSpan>[
@@ -71,6 +75,8 @@ class UpdateBankFranchiseSeperateHeadText extends StatelessWidget {
               ],
             ),
           ),
+
+          ///todo:.................
           // Text(
           //   'Sign Up',
           //   style: TextStyle(

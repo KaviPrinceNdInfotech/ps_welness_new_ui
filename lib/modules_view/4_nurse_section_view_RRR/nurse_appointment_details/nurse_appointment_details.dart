@@ -687,21 +687,6 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Paid Amount:',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  color: MyTheme
-                                                                      .text1,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.035,
-                                                                ),
-                                                              ),
-                                                              Text(
                                                                 'Patient Address:',
                                                                 style:
                                                                     GoogleFonts
@@ -717,7 +702,7 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Duration:',
+                                                                'Service Period:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -732,7 +717,22 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Working Shift :',
+                                                                'Paid Amount:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .text1,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Total Days :',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -791,6 +791,44 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                           size.width *
                                                                               0.035),
                                                                 ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.03,
+                                                                  width:
+                                                                      size.width *
+                                                                          0.4,
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .centerLeft,
+                                                                    child: Text(
+                                                                      '${item?[index].location}',
+                                                                      style: GoogleFonts.raleway(
+                                                                          color: Colors
+                                                                              .grey
+                                                                              .shade800,
+                                                                          fontWeight: FontWeight
+                                                                              .w700,
+                                                                          fontSize:
+                                                                              size.width * 0.033),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  '${item?[index].serviceTiming}',
+                                                                  // '20 dec 2023-28 jan 2023',
+                                                                  style: GoogleFonts.raleway(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade800,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.035),
+                                                                ),
                                                                 Text(
                                                                   '₹ ${'${item?[index].totalFee}'}'
                                                                       .toString(),
@@ -806,34 +844,7 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                               0.035),
                                                                 ),
                                                                 Text(
-                                                                  '${item?[index]}',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .shade800,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].paymentDate}',
-                                                                  // '20 dec 2023-28 jan 2023',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .shade800,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035),
-                                                                ),
-                                                                Text(
-                                                                  '24 hours',
+                                                                  '${item?[index].totalDays}',
                                                                   style: GoogleFonts.raleway(
                                                                       color: Colors
                                                                           .grey

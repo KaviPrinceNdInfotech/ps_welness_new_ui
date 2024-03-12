@@ -26,7 +26,7 @@ class UserHomepagContreoller extends GetxController {
   // }
 
   //crusial slider banner api..........
-  void sliderBannerApi() async {
+  Future<void> sliderBannerApi() async {
     isLoading(false);
     banerlistmodel = await ApiProvider.getbanneruserApi();
     if (banerlistmodel!.bannerImageList.isNotEmpty

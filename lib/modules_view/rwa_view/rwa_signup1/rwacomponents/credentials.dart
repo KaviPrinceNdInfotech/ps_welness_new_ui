@@ -229,13 +229,60 @@ class Rwa1Credentials extends StatelessWidget {
             //   obscureText: true,
             // ),
             SizedBox(
-              height: size.height * 0.00,
+              height: size.height * 0.02,
               //appPadding / 2,
             ),
 
-            SizedBox(
-              height: size.height * 0.0,
-            ),
+            ///todo : franchise Id...............
+            // NeumorphicTextFieldContainer(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+            //     child: Obx(
+            //       () => DropdownButtonFormField<Vendor>(
+            //           value: _rwa_11_controller.selectedFranchiseId.value,
+            //           decoration: const InputDecoration(
+            //             prefixIcon: Icon(
+            //               Icons.currency_franc,
+            //               color: Colors.black,
+            //               size: 20,
+            //             ),
+            //             enabledBorder: InputBorder.none,
+            //             border: InputBorder.none,
+            //           ),
+            //           hint: Text('Select Franchise'),
+            //           items: _rwa_11_controller.franchiseid
+            //               .map((Vendor franchiseid) {
+            //             return DropdownMenuItem(
+            //               value: franchiseid,
+            //               child: SizedBox(
+            //                 height: size.height * 0.05,
+            //                 width: size.width * 0.61,
+            //                 child: Align(
+            //                   alignment: Alignment.centerLeft,
+            //                   child: Text(
+            //                     "${franchiseid.companyName.toString()}",
+            //                     style: TextStyle(
+            //                       fontWeight: FontWeight.w600,
+            //                       fontSize: size.height * 0.015,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           // validator: (value) =>
+            //           // value == null ? '          field required' : null,
+            //           onChanged: (Vendor? newValue) {
+            //             _rwa_11_controller.selectedFranchiseId.value =
+            //                 newValue!;
+            //           }),
+            //     ),
+            //   ),
+            // ),
+            //
+            // SizedBox(
+            //   height: size.height * 0.0,
+            // ),
 
             // Container(
             //   height: size.height * 0.066,

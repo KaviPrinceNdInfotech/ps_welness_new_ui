@@ -34,13 +34,26 @@ class Lab_1_Controller extends GetxController {
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
   List<StateModel> states = <StateModel>[];
 
-  var selectedImagepath = ''.obs;
-  var selectedPath = ''.obs;
+  // var selectedImagepath = ''.obs;
+  // var selectedPath = ''.obs;
+
   RxInt selectedimg1 = 0.obs;
   var selectedPath1 = ''.obs;
 
   RxInt selectedimg2 = 0.obs;
   var selectedPath2 = ''.obs;
+
+  // void clearImage() {
+  //   selectedPath.value = ''; // Clear the selected image path
+  // }
+
+  void clearImage1() {
+    selectedPath1.value = ''; // Clear the selected image path
+  }
+
+  void clearImage2() {
+    selectedPath2.value = ''; // Clear the selected image path
+  }
 
   void getStateApi() async {
     states = await ApiProvider.getSatesApi();
@@ -52,23 +65,30 @@ class Lab_1_Controller extends GetxController {
     cities.addAll(localList);
   }
 
-  void getImage(ImageSource imageSource) async {
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
-    if (pickedFile != null) {
-      selectedPath.value = pickedFile.path;
+  void getImage1(ImageSource imageSource) async {
+    final pickedFiles = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFiles != null) {
+      selectedPath1.value = pickedFiles.path;
+      print("File Path ${pickedFiles.path}");
     } else {
-      print('No image selected');
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
     }
   }
 
   var selectedImagepath1 = ''.obs;
 
-  void getImage1(ImageSource imageSource) async {
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
-    if (pickedFile != null) {
-      selectedPath1.value = pickedFile.path;
+  //2
+  void getImage2(ImageSource imageSource1) async {
+    final pickedFiles2 = await ImagePicker().pickImage(source: imageSource1);
+    if (pickedFiles2 != null) {
+      selectedPath2.value = pickedFiles2.path;
+      print("File Path ${pickedFiles2.path}");
     } else {
-      print('No image selected');
+      Get.snackbar("Error", "No image Selected",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blueGrey[100]);
     }
   }
 
@@ -139,10 +159,10 @@ class Lab_1_Controller extends GetxController {
   void labSignupApi() async {
     CallLoader.loader();
     final imageAsBase64 =
-        base64Encode(await File(selectedPath.value).readAsBytes());
+        base64Encode(await File(selectedPath1.value).readAsBytes());
     print("imagebaseeee644113221:${imageAsBase64}");
     final imageAsBase641 =
-        base64Encode(await File(selectedPath1.value).readAsBytes());
+        base64Encode(await File(selectedPath2.value).readAsBytes());
     print("imagebaseeee64411122:${imageAsBase641}");
 
     http.Response r = await ApiProvider.LabSignupApi(
@@ -157,9 +177,9 @@ class Lab_1_Controller extends GetxController {
         selectedState.value?.id.toString(),
         selectedCity.value?.id.toString(),
         LicenceNumberController?.text,
-        selectedPath.value.split('/').last,
-        imageAsBase64,
         selectedPath1.value.split('/').last,
+        imageAsBase64,
+        selectedPath2.value.split('/').last,
         imageAsBase641,
         StartTimeController?.text,
         EndTimeController?.text,

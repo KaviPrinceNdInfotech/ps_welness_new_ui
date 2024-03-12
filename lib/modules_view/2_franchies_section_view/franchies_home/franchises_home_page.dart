@@ -190,8 +190,9 @@ class FranchiesHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _frenchiesProfileDetailController.frenchiesProfileDetailApi();
+              onPressed: () async {
+                await _frenchiesProfileDetailController
+                    .frenchiesProfileDetailApi();
                 _frenchiesProfileDetailController.update();
                 _keyfranchise.currentState!.openDrawer();
               },
@@ -308,8 +309,7 @@ class FranchiesHomePage extends StatelessWidget {
 
                                         ///Get.to(() => FranchisesProfilePage());
                                       } else if (index == 1) {
-                                        Get.to(
-                                            () => FranchisesBankProfilePage());
+                                        Get.to(() => FranchisesAddBankPage());
                                       } else if (index == 2) {
                                         Get.defaultDialog(
                                             backgroundColor:

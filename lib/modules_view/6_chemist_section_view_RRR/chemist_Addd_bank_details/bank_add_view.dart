@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 
 import 'bank_profile_components/credentials.dart';
 import 'bank_profile_components/head_text.dart';
 
-class AddBankDetail extends StatelessWidget {
-  AddBankDetail({Key? key}) : super(key: key);
+class AddChemistBankDetail extends StatelessWidget {
+  AddChemistBankDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,8 @@ class AddBankDetail extends StatelessWidget {
       onWillPop: () async {
         //Get.offAll(LabHomePage());
         //Get.offAll(() => LabHomePage());
-        //Get.to(() => LabHomePage());
-        Get.back();
+        Get.to(() => ChemistHomePage());
+        //Get.back();
         return shouldPop;
       },
       child: Container(
@@ -60,8 +61,8 @@ class AddBankDetail extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AddBankHeadText(),
-                      AdddBankCredentials(),
+                      AddBankChemistHeadText(),
+                      AdddBankChemistCredentials(),
                     ],
                   ),
                 ],

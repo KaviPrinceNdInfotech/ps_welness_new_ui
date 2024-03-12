@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
-class FranchisesBankHeadText extends StatelessWidget {
-  const FranchisesBankHeadText({Key? key}) : super(key: key);
+class FranchisesAddBankHeadText extends StatelessWidget {
+  const FranchisesAddBankHeadText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,9 @@ class FranchisesBankHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(FranchiesHomePage());
+
+                    ///Get.back();
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(

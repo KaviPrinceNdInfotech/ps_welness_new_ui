@@ -65,7 +65,7 @@ class UpdateBankSeperateFranchiseCredentials extends StatelessWidget {
             ///TODO: bankAc  no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                //keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _updateBankSeperatefranchiseController.AccountNo,
                 onSaved: (value) {
@@ -131,7 +131,7 @@ class UpdateBankSeperateFranchiseCredentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
-            ///TODO:  branch name.......................
+            ///TODO:  bank name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
@@ -146,7 +146,7 @@ class UpdateBankSeperateFranchiseCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Branch name.',
+                  hintText: 'Bank name.',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -165,8 +165,111 @@ class UpdateBankSeperateFranchiseCredentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
+            ///TODO:  branch address.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller:
+                    _updateBankSeperatefranchiseController.BranchAddress,
+                onSaved: (value) {
+                  _updateBankSeperatefranchiseController.branchAddress = value!;
+                },
+                validator: (value) {
+                  return _updateBankSeperatefranchiseController
+                      .validbranchaddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Branch Address.',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.pin_drop,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+
+            ///TODO:  accountholder name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _updateBankSeperatefranchiseController.HolderName,
+                onSaved: (value) {
+                  _updateBankSeperatefranchiseController.accountNo = value!;
+                },
+                validator: (value) {
+                  return _updateBankSeperatefranchiseController
+                      .validname(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Account Holder name.',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.account_box,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+
+            ///TODO:  mobile no .......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.newPassword],
+                controller: _updateBankSeperatefranchiseController.MobileNumber,
+                onSaved: (value) {
+                  _updateBankSeperatefranchiseController.mobileNumber = value!;
+                },
+                validator: (value) {
+                  return _updateBankSeperatefranchiseController
+                      .validmobile(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Valid Mobile no',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.00,
+              //appPadding / 2,
+            ),
+
             RectangularButton(
-                text: 'Update Bank',
+                text: 'Add Bank',
                 press: () {
                   _updateBankSeperatefranchiseController
                       .checkUpdateBankSeperateDetail();

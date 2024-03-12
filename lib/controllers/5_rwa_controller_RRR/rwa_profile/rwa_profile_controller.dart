@@ -68,7 +68,7 @@ class RwaProfileController extends GetxController {
   }
 
   void rwaProfileApi() async {
-    CallLoader.loader();
+    // CallLoader.loader();
     // final imageAsBase64 =
     // base64Encode(await File(selectedPath.value).readAsBytes());
     http.Response r = await ApiProvider.RWAProfileApi(
@@ -227,7 +227,7 @@ class RwaProfileController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 9) {
+    if (value.length < 2) {
       return '              Provide valid account no.';
     }
     return null;

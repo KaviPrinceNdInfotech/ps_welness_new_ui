@@ -6,7 +6,7 @@ import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_
 class FrenchiesBannerController extends GetxController {
   RxBool isLoading = true.obs;
   FrenchiesBannerApiMode? getfrenchiesBannerApi;
-  void FrenchiesBannerApi() async {
+  Future<void> FrenchiesBannerApi() async {
     isLoading(true);
     var prefs = GetStorage();
     var Id = prefs.read("Id").toString();

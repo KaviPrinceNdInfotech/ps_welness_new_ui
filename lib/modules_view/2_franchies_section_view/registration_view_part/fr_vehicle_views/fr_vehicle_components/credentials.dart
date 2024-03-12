@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
@@ -385,52 +382,52 @@ class FrVehicleCredentials extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.033,
-            ),
-            GetBuilder<Franchies_vehicle_Controller>(
-              init:
-                  Franchies_vehicle_Controller(), // intialize with the Controller
-              builder: (value) => InkWell(
-                onTap: () {
-                  _franchies_vehicle_controller.getImage(ImageSource.gallery);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Cancel Cheque',
-                      style: TextStyle(
-                        fontSize: size.width * 0.03,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.blue, width: 1.0),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Obx(
-                          () => _franchies_vehicle_controller
-                                      .selectedImagepath.value ==
-                                  ''
-                              ? const Center(child: Text("No Image"))
-                              : Image.file(
-                                  File(_franchies_vehicle_controller
-                                      .selectedImagepath.value),
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   height: size.height * 0.033,
+            // ),
+            // GetBuilder<Franchies_vehicle_Controller>(
+            //   init:
+            //       Franchies_vehicle_Controller(), // intialize with the Controller
+            //   builder: (value) => InkWell(
+            //     onTap: () {
+            //       _franchies_vehicle_controller.getImage(ImageSource.gallery);
+            //     },
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           'Cancel Cheque',
+            //           style: TextStyle(
+            //             fontSize: size.width * 0.03,
+            //             fontWeight: FontWeight.w700,
+            //           ),
+            //         ),
+            //         Container(
+            //           height: 70,
+            //           width: 70,
+            //           decoration: BoxDecoration(
+            //               color: Colors.white,
+            //               border: Border.all(color: Colors.blue, width: 1.0),
+            //               borderRadius: BorderRadius.circular(5)),
+            //           child: ClipRRect(
+            //             borderRadius: BorderRadius.circular(5),
+            //             child: Obx(
+            //               () => _franchies_vehicle_controller
+            //                           .selectedImagepath.value ==
+            //                       ''
+            //                   ? const Center(child: Text("No Image"))
+            //                   : Image.file(
+            //                       File(_franchies_vehicle_controller
+            //                           .selectedImagepath.value),
+            //                       fit: BoxFit.cover,
+            //                     ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: size.height * 0.02,
             ),

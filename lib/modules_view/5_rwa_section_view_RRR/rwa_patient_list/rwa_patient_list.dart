@@ -266,7 +266,7 @@ class RwaPatientList extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'State:',
+                                                                'EmailId:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -279,20 +279,20 @@ class RwaPatientList extends StatelessWidget {
                                                                           0.035,
                                                                 ),
                                                               ),
-                                                              Text(
-                                                                'City:',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  //color: MyTheme.text1,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.035,
-                                                                ),
-                                                              ),
+                                                              // Text(
+                                                              //   'City:',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .poppins(
+                                                              //     //color: MyTheme.text1,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w600,
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.035,
+                                                              //   ),
+                                                              // ),
                                                               Text(
                                                                 'Address:',
                                                                 style:
@@ -308,7 +308,7 @@ class RwaPatientList extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Pin:',
+                                                                'Pin Code:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -356,7 +356,7 @@ class RwaPatientList extends StatelessWidget {
                                                                         0.035),
                                                               ),
                                                               Text(
-                                                                '${item?[index].stateName}',
+                                                                '${item?[index].emailId}',
                                                                 style: GoogleFonts.raleway(
                                                                     color: MyTheme
                                                                         .white,
@@ -367,18 +367,18 @@ class RwaPatientList extends StatelessWidget {
                                                                             .width *
                                                                         0.035),
                                                               ),
-                                                              Text(
-                                                                '${item?[index].cityName}',
-                                                                style: GoogleFonts.raleway(
-                                                                    color: MyTheme
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
+                                                              // Text(
+                                                              //   '${item?[index].cityName}',
+                                                              //   style: GoogleFonts.raleway(
+                                                              //       color: MyTheme
+                                                              //           .white,
+                                                              //       fontWeight:
+                                                              //           FontWeight
+                                                              //               .w700,
+                                                              //       fontSize: size
+                                                              //               .width *
+                                                              //           0.035),
+                                                              // ),
                                                               SizedBox(
                                                                 width:
                                                                     size.width *

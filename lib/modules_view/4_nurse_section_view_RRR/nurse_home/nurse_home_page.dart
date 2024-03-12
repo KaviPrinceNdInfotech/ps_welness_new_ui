@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/bann
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_details/nurse_appointment_details.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
 //import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
@@ -18,7 +19,6 @@ import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_dr
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_payment_history/nurse_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_report_view/nurse_report_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_upload_report/nurse_upload_report.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 import '../../../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
@@ -51,7 +51,7 @@ class NurseHomePage extends StatelessWidget {
 
     final List<String> productname = [
       'Booking Request',
-      'Upload Report',
+      'Submit Feedback',
       'Payment History',
       'Booking History',
       'Report view',
@@ -140,8 +140,8 @@ class NurseHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _nurseprofileContrller.nurseprofileApi();
+              onPressed: () async {
+                await _nurseprofileContrller.nurseprofileApi();
                 _nurseprofileContrller.update();
                 _keynurse.currentState!.openDrawer();
               },
@@ -244,13 +244,20 @@ class NurseHomePage extends StatelessWidget {
                                             NurseeAppointmentDetail(
                                                 id: "123456891100"));
                                       } else if (index == 1) {
-                                        // _nursdeUploadReportController
-                                        //.getnursepatientApi();
+                                        _nursdeUploadReportController.refresh();
+                                        _nursdeUploadReportController.update();
+                                        _nursdeUploadReportController
+                                            .getnursepatientssApi();
+                                        CallLoader.loader();
+
+                                        await Future.delayed(
+                                            Duration(seconds: 3));
+                                        CallLoader.hideLoader();
                                         //_nursdeUploadReportController
                                         //.getnursepatientssApi();
                                         //.postnurseUploadreportApi();
                                         //_nursdeUploadReportController.update();
-                                        Get.to(() => NurseUploadReport());
+                                        await Get.to(() => NurseUploadReport());
                                       } else if (index == 2) {
                                         _nursePaymentHistoryController
                                             .nursePaymentHistoryApi();
@@ -269,7 +276,7 @@ class NurseHomePage extends StatelessWidget {
                                         _nursereportviewController.update();
                                         Get.to(NurseReportView());
                                       } else if (index == 5) {
-                                        Get.to(() => AddBankDetail());
+                                        Get.to(() => AddNurseBankDetail());
                                         //SupportView());
                                       }
                                     },

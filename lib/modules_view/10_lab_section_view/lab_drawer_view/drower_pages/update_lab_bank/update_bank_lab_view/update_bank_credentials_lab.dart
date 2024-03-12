@@ -3,15 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/bank_doctor_controller/doctor_add_bankDetail_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/update_lab_bank/update_lab_update_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+//import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/update_bank_seperate_controller/update_bank_seperate_chemist_controller.dart';
+//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
-class UpdateDoctorBankCredentials extends StatelessWidget {
-  UpdateDoctorBankCredentials({Key? key}) : super(key: key);
-  // UpdateRwaBankController _updateRwaBankController = Get.put(UpdateRwaBankController());
-  DoctorUpdateBankDetailController _doctorUpdateBankDetailController =
-      Get.put(DoctorUpdateBankDetailController());
+//import '../../../widgets/circular_loader.dart';
+// import 'package:ps_welness/constants/constants/constants.dart';
+// import 'package:ps_welness/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
+// //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
+// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
+// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
+
+//import '../../../../controllers/6_chemist_view_controllers/update_bank_controller/update_bank_detail_controller.dart';
+
+class UpdateBankLAbCredentials extends StatelessWidget {
+  UpdateBankLAbCredentials({Key? key}) : super(key: key);
+  // DoctorUpdateBankDetailController _doctorUpdateBankDetailController =
+  //     Get.put(DoctorUpdateBankDetailController());
+
+  UpdateBankLabController _updateBankSeperateController =
+      Get.put(UpdateBankLabController());
+
   var items = [
     'Item 1',
     'Item 2',
@@ -26,7 +41,7 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      // key: _updateRwaBankController.updatebankformskey,
+      key: _updateBankSeperateController.updatedlabformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -34,7 +49,7 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.0,
             ),
             Text(
               'Update Details:',
@@ -42,22 +57,21 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
                   fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
             ),
             SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.0,
               //appPadding / 2,
             ),
 
             ///TODO: bankAc  no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _doctorUpdateBankDetailController.AccountNo,
+                controller: _updateBankSeperateController.AccountNo,
                 onSaved: (value) {
-                  _doctorUpdateBankDetailController.accountNo = value!;
+                  _updateBankSeperateController.accountNo = value!;
                 },
                 validator: (value) {
-                  return _doctorUpdateBankDetailController
-                      .validbankaccount(value!);
+                  return _updateBankSeperateController.validbankaccount(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -85,12 +99,12 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _doctorUpdateBankDetailController.IFSCCode,
+                controller: _updateBankSeperateController.IFSCCode,
                 onSaved: (value) {
-                  _doctorUpdateBankDetailController.iFSCCode = value!;
+                  _updateBankSeperateController.iFSCCode = value!;
                 },
                 validator: (value) {
-                  return _doctorUpdateBankDetailController.validifsc(value!);
+                  return _updateBankSeperateController.validifsc(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -114,21 +128,21 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
-            ///TODO:  branch name.......................
+            ///TODO:  bank name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _doctorUpdateBankDetailController.BranchName,
+                controller: _updateBankSeperateController.BranchName,
                 onSaved: (value) {
-                  _doctorUpdateBankDetailController.branchName = value!;
+                  _updateBankSeperateController.branchName = value!;
                 },
                 validator: (value) {
-                  return _doctorUpdateBankDetailController.validbranch(value!);
+                  return _updateBankSeperateController.validbranch(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Branch name.',
+                  hintText: 'Bank name.',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -151,12 +165,12 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _doctorUpdateBankDetailController.BranchAddress,
+                controller: _updateBankSeperateController.BranchAddress,
                 onSaved: (value) {
-                  _doctorUpdateBankDetailController.branchAddress = value!;
+                  _updateBankSeperateController.branchAddress = value!;
                 },
                 validator: (value) {
-                  return _doctorUpdateBankDetailController
+                  return _updateBankSeperateController
                       .validbranchaddress(value!);
                 },
                 cursorColor: Colors.black,
@@ -185,12 +199,12 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _doctorUpdateBankDetailController.HolderName,
+                controller: _updateBankSeperateController.HolderName,
                 onSaved: (value) {
-                  _doctorUpdateBankDetailController.accountNo = value!;
+                  _updateBankSeperateController.accountNo = value!;
                 },
                 validator: (value) {
-                  return _doctorUpdateBankDetailController.validname(value!);
+                  return _updateBankSeperateController.validname(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -218,12 +232,12 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.newPassword],
-                controller: _doctorUpdateBankDetailController.MobileNumber,
+                controller: _updateBankSeperateController.MobileNumber,
                 onSaved: (value) {
-                  _doctorUpdateBankDetailController.mobileNumber = value!;
+                  _updateBankSeperateController.mobileNumber = value!;
                 },
                 validator: (value) {
-                  return _doctorUpdateBankDetailController.validmobile(value!);
+                  return _updateBankSeperateController.validmobile(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -248,9 +262,10 @@ class UpdateDoctorBankCredentials extends StatelessWidget {
             ),
 
             RectangularButton(
-                text: 'Add',
+                text: 'Update Bank',
                 press: () {
-                  _doctorUpdateBankDetailController.doctorAddBankDetailApi();
+                  _updateBankSeperateController.checkUpdateBankLabDetail();
+                  CallLoader.hideLoader();
                 })
           ],
         ),

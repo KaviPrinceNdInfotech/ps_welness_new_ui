@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
@@ -20,7 +21,7 @@ class PatientListDoctor extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        title: Text('Patient List'),
+        title: Text('Booking History'),
         backgroundColor: MyTheme.ThemeColors,
       ),
       body: Stack(
@@ -79,7 +80,9 @@ class PatientListDoctor extends StatelessWidget {
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _patientListController
-                                          .patientList?.response?.length,
+                                          .bookinghistory
+                                          ?.bookingHistory
+                                          ?.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return Padding(
@@ -146,7 +149,7 @@ class PatientListDoctor extends StatelessWidget {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'Patient Mobile :',
+                                                        'Patient Reg NO:',
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: MyTheme.text1,
@@ -157,7 +160,7 @@ class PatientListDoctor extends StatelessWidget {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'Patient Email:',
+                                                        'Appointment Date :',
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: MyTheme.text1,
@@ -167,15 +170,22 @@ class PatientListDoctor extends StatelessWidget {
                                                               0.035,
                                                         ),
                                                       ),
-                                                      Text(
-                                                        'Patient Reg No:',
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color: MyTheme.text1,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: size.width *
-                                                              0.035,
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.03,
+                                                        width: size.width * 0.3,
+                                                        child: Text(
+                                                          'Patient Location:',
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                            color:
+                                                                MyTheme.text1,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.035,
+                                                          ),
                                                         ),
                                                       ),
                                                       Text(
@@ -212,8 +222,9 @@ class PatientListDoctor extends StatelessWidget {
                                                     children: [
                                                       Text(
                                                         _patientListController
-                                                            .patientList!
-                                                            .response![index]
+                                                            .bookinghistory!
+                                                            .bookingHistory![
+                                                                index]
                                                             .patientName
                                                             .toString(),
                                                         //'Kavi Raj',
@@ -230,7 +241,22 @@ class PatientListDoctor extends StatelessWidget {
                                                                         0.035),
                                                       ),
                                                       Text(
-                                                        '8977889999',
+                                                        _patientListController
+                                                                    .bookinghistory!
+                                                                    .bookingHistory![
+                                                                        index]
+                                                                    .appointmentdate !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'dd-MM-yyyy')
+                                                                .format(_patientListController
+                                                                    .bookinghistory!
+                                                                    .bookingHistory![
+                                                                        index]
+                                                                    .appointmentdate!)
+                                                            : 'No date', // Formatting the date
+                                                        // Formatting the date
+                                                        // "${_paymentViewControllers.foundPaymentdr?[index].paymentDate}",
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
@@ -243,8 +269,40 @@ class PatientListDoctor extends StatelessWidget {
                                                                     size.width *
                                                                         0.035),
                                                       ),
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.03,
+                                                        width:
+                                                            size.width * 0.45,
+                                                        child: Text(
+                                                          _patientListController
+                                                              .bookinghistory!
+                                                              .bookingHistory![
+                                                                  index]
+                                                              .patientRegNo
+                                                              .toString(),
+                                                          //'8977889999',
+                                                          style: GoogleFonts
+                                                              .raleway(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade800,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  fontSize: size
+                                                                          .width *
+                                                                      0.035),
+                                                        ),
+                                                      ),
                                                       Text(
-                                                        'vineet@gmail.com',
+                                                        _patientListController
+                                                            .bookinghistory!
+                                                            .bookingHistory![
+                                                                index]
+                                                            .location
+                                                            .toString(),
+                                                        //'vineet@gmail.com',
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
@@ -259,10 +317,12 @@ class PatientListDoctor extends StatelessWidget {
                                                       ),
                                                       Text(
                                                         _patientListController
-                                                            .patientList!
-                                                            .response![index]
-                                                            .patientRegNo
+                                                            .bookinghistory!
+                                                            .bookingHistory![
+                                                                index]
+                                                            .cityName
                                                             .toString(),
+                                                        // 'Noida',
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors
@@ -276,21 +336,13 @@ class PatientListDoctor extends StatelessWidget {
                                                                         0.035),
                                                       ),
                                                       Text(
-                                                        'Noida',
-                                                        style:
-                                                            GoogleFonts.raleway(
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade800,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.035),
-                                                      ),
-                                                      Text(
-                                                        'UP',
+                                                        _patientListController
+                                                            .bookinghistory!
+                                                            .bookingHistory![
+                                                                index]
+                                                            .stateName
+                                                            .toString(),
+                                                        //'UP',
                                                         style:
                                                             GoogleFonts.raleway(
                                                                 color: Colors

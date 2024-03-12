@@ -23,7 +23,6 @@ import '../../fr_registration_detailsss/fr_registration_detail_driver/fr_registr
 import '../../fr_registration_detailsss/fr_registration_detail_lab/fr_registration_lab_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_nurse/fr_registration_nurse_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_patient/fr_registration_patient_detailss.dart';
-import '../../fr_registration_detailsss/fr_registration_detail_rwa/fr_registration_rwa_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_vehicle/fr_registration_vehicle_detailss.dart';
 
 class FrRegistrationDetails extends StatelessWidget {
@@ -38,7 +37,7 @@ class FrRegistrationDetails extends StatelessWidget {
     'Nurse Details',
     'Lab Details',
     // 'Checkup Details',
-    'Rwa Details',
+    //'Rwa Details',
   ];
 
   final List<String> catimage = [
@@ -50,7 +49,7 @@ class FrRegistrationDetails extends StatelessWidget {
     'lib/assets/icons/frd6.png',
     'lib/assets/icons/frd7.png',
     // 'lib/assets/icons/frd8.png',
-    'lib/assets/icons/frd9.png',
+    // 'lib/assets/icons/frd9.png',
   ];
   FrenchiesRWADetailController _frenchiesRWADetailController =
       Get.put(FrenchiesRWADetailController());
@@ -271,15 +270,15 @@ class FrRegistrationDetails extends StatelessWidget {
                                   //   //Get.to(() => ResitrationHealthCheckupDetails());
                                   // }
                                   else if (index == 7) {
-                                    _frenchiesRWADetailController
-                                        .frenchiesRWADetailApi();
-                                    _frenchiesRWADetailController.update();
+                                    // _frenchiesRWADetailController
+                                    //     .frenchiesRWADetailApi();
+                                    // _frenchiesRWADetailController.update();
 
-                                    CallLoader.loader();
-                                    await Future.delayed(
-                                        Duration(milliseconds: 900));
-                                    CallLoader.hideLoader();
-                                    Get.to(() => ResitrationRwaDetails());
+                                    // CallLoader.loader();
+                                    // await Future.delayed(
+                                    //     Duration(milliseconds: 900));
+                                    // CallLoader.hideLoader();
+                                    // Get.to(() => ResitrationRwaDetails());
                                   }
                                   //Get.to(() => DoctorListUser());
                                 },

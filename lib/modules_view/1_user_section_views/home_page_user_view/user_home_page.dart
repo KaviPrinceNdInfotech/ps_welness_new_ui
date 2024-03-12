@@ -331,7 +331,7 @@ class _UserHomePageState extends State<UserHomePage> {
 //               },
 //               icon: Icon(Icons.notification_add),
 //             ),
-//           ],
+//           ]
             title: Row(
               children: [
                 SizedBox(
@@ -388,8 +388,8 @@ class _UserHomePageState extends State<UserHomePage> {
                         size: 23,
                         color: Colors.white,
                       ),
-                      onPressed: () {
-                        _userprofiledetail.userprofileApi();
+                      onPressed: () async {
+                        await _userprofiledetail.userprofileApi();
                         _userprofiledetail.update();
                         Scaffold.of(context).openDrawer();
                       }),

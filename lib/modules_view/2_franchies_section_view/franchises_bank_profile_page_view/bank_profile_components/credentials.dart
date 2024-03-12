@@ -15,11 +15,11 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
 import '../../../../controllers/2_franchises_controller/franchieses_bank_profile_controller/franchises_bank_profile_controllers.dart';
 
-class FranchiesBankCredentials extends StatelessWidget {
-  FranchiesBankCredentials({Key? key}) : super(key: key);
+class FranchiesAddBankCredentials extends StatelessWidget {
+  FranchiesAddBankCredentials({Key? key}) : super(key: key);
 
-  FranchisesBankProfileController _franchisesBankProfileController =
-      Get.put(FranchisesBankProfileController());
+  FranchisesAddBankProfileController _franchisesBankProfileController =
+      Get.put(FranchisesAddBankProfileController());
 
   var items = [
     'Item 1',
@@ -237,7 +237,7 @@ class FranchiesBankCredentials extends StatelessWidget {
               height: size.height * 0.00,
             ),
             RectangularButton(
-                text: 'UPDATE',
+                text: ' Add ',
                 press: () {
                   _franchisesBankProfileController.checkUpdateBankProfilee();
                 })

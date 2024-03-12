@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class UpdateDriverrHeadText extends StatelessWidget {
@@ -24,7 +24,8 @@ class UpdateDriverrHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(DriverHomePage());
+                    //Get.back();
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(
@@ -41,37 +42,38 @@ class UpdateDriverrHeadText extends StatelessWidget {
             ],
           ),
           SizedBox(height: size.height * 0.05),
-          Text(
-            'Kumar Abhi',
-            style: GoogleFonts.alatsi(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff023382)),
-          ),
-          RichText(
-            text: TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'abhi@gmail.com',
-                  style: GoogleFonts.poppins(
-                    fontSize: 23,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w600,
-                    //color: Color(0xff023382)
-                  ),
-                ),
-                TextSpan(
-                  text: '',
-                  style: GoogleFonts.alatsi(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.deepPurple.shade500,
-                    //color: Color(0xff023382)
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Text(
+          //   'Kumar Abhi',
+          //   style: GoogleFonts.alatsi(
+          //       fontSize: 32,
+          //       fontWeight: FontWeight.w600,
+          //       color: Color(0xff023382)),
+          // ),
+          // RichText(
+          //   text: TextSpan(
+          //     children: <TextSpan>[
+          //       TextSpan(
+          //         text: 'abhi@gmail.com',
+          //         style: GoogleFonts.poppins(
+          //           fontSize: 23,
+          //           color: Colors.black87,
+          //           fontWeight: FontWeight.w600,
+          //           //color: Color(0xff023382)
+          //         ),
+          //       ),
+          //       TextSpan(
+          //         text: '',
+          //         style: GoogleFonts.alatsi(
+          //           fontSize: 20,
+          //           fontWeight: FontWeight.w600,
+          //           color: Colors.deepPurple.shade500,
+          //           //color: Color(0xff023382)
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          ///
           // Text(
           //   'Sign Up',
           //   style: TextStyle(

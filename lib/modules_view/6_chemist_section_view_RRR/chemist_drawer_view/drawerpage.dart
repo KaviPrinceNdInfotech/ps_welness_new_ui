@@ -7,11 +7,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/update_bank_chemist/bank_update_chemist_view.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
@@ -35,9 +37,14 @@ class ChemistMainDrawer extends StatelessWidget {
   ChemistAboutusController _chemistAboutusController =
       Get.put(ChemistAboutusController());
 
+  //BankDetailController _getbank = Get.put(BankDetailController());
+
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
   LoginpasswordController _loginpasswordControllerr5 = Get.find();
+  ChemistUpdateProfileController _chemistUpdateProfileController =
+      Get.put(ChemistUpdateProfileController());
+  BankDetailController _getbank = Get.put(BankDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -186,10 +193,20 @@ class ChemistMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/ChemistUpdateProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => ChemistUpdateProfilePage());
+                _chemistProfileDetailController.chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
+                _chemistProfileDetailController.onInit();
+                _chemistUpdateProfileController.onInit();
+                _chemistUpdateProfileController.clearSelectedState();
+                //Get.to(() => ChemistUpdateProfilePage());
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => ChemistUpdateProfilePage());
+
+                await Future.delayed(Duration(milliseconds: 10));
                 //  Get.offNamed('/NurseProfilePage');
               },
             ),
@@ -218,11 +235,19 @@ class ChemistMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => UpdateBankSeperateChemistDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                // Get.to(() => UpdateBankSeperateChemistDetail());
+                //Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
             //UpdateBankSeperateDetail

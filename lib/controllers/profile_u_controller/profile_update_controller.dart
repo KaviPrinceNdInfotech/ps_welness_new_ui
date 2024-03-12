@@ -70,6 +70,7 @@ class ProfileController extends GetxController {
     http.Response r = await ApiProvider.Userprofileupdate(
       //idController.text,
       patientNameController.text,
+      emailController.text,
       MobileNumberController.text,
       selectedState.value?.id.toString() ??
           _userprofile.userProfile?.stateMasterId,
@@ -84,27 +85,29 @@ class ProfileController extends GetxController {
     );
 
     if (r.statusCode == 200) {
-      CallLoader.hideLoader();
+      // CallLoader.hideLoader();
 
       var data = jsonDecode(r.body);
       //_userprofile.update();
       //_userprofile.userprofileApi();
       //  _userprofile.onInit();
-      CallLoader.loader();
+      ///CallLoader.loader();
       await Future.delayed(Duration(milliseconds: 900));
       CallLoader.hideLoader();
       // CallLoader.hideLoader();
-
       /// we can navigate to user page.....................................
       Get.offAll(UserHomePage());
       await Future.delayed(Duration(milliseconds: 900));
       await _userprofile.userprofileApi();
+      clearSelectedState();
+    } else {
+      Get.snackbar('Error', "Please fill correctly");
     }
   }
 
   late TextEditingController idController,
       patientNameController,
-      //emailController,
+      emailController,
       MobileNumberController,
       LocationController,
       PinCodeController,
@@ -116,7 +119,7 @@ class ProfileController extends GetxController {
   // var id = '';
   //var adminLogin_id = '';
   var patientName = '';
-  // var email = '';
+  var email = '';
   var MobileNumber = '';
   var Location = '';
   var PinCode = '';
@@ -137,7 +140,8 @@ class ProfileController extends GetxController {
     patientNameController = TextEditingController(
         text: "${_userprofile.userProfile?.patientName.toString() ?? 0}");
     print("dfdfdfd${_userprofile.userProfile?.patientName.toString()}");
-    //emailController = TextEditingController();
+    emailController = TextEditingController(
+        text: "${_userprofile.userProfile?.emailId.toString() ?? 0}");
     MobileNumberController = TextEditingController(
         text: "${_userprofile.userProfile?.mobileNumber.toString() ?? 0}");
     LocationController = TextEditingController(

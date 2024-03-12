@@ -15,6 +15,8 @@ import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profile_page_view/profile_view.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/comman_bank_update/update_all_bank_details/update_bank_view.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
@@ -35,6 +37,8 @@ class RwaMainDrawer extends StatelessWidget {
 
   RwaProfileController _rwaProfileControllerupdate =
       Get.put(RwaProfileController());
+
+  BankDetailController _getbank = Get.put(BankDetailController());
 
   //RwaProfileController _rwaProfileController = Get.put(RwaProfileController());
   //RwaProfileDetailController _rwaProfileDetailController = Get.put(RwaProfileDetailController());
@@ -221,6 +225,57 @@ class RwaMainDrawer extends StatelessWidget {
 
                 Get.offAll(() => RwaProfilePage());
                 await Future.delayed(Duration(milliseconds: 10));
+
+                //Get.offNamed('/RwaProfilePage');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'RWA Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/RwaProfilePage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () async {
+                print(Get.currentRoute);
+                // Get.back();
+
+                // await _rwaProfileDetailController.RwaProfileDetailApi();
+                // _rwaProfileDetailController.update();
+                // _rwaProfileDetailController.onInit();
+
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+
+                // _rwaProfileControllerupdate.onInit();
+                //_rwaProfileControllerupdate.clearSelectedState();
+
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                Get.offAll(() => UpdateBankDetailRwa());
+
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
 
                 //Get.offNamed('/RwaProfilePage');
               },

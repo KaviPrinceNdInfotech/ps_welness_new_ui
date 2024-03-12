@@ -37,6 +37,7 @@ import 'package:ps_welness_new_ui/model/5_RWA_controller_RRR/rwa_aboutus_model.d
 import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_homepage_model/doctor_report_image_view.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_homepage_model/doctor_view_report11_model.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_profile_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_lab/model_lab/models_lab/lab_modelss.dart';
@@ -84,7 +85,6 @@ import '../model/1_user_model/view_review_model/nurse_view_review_model.dart';
 import '../model/3_driver_controllers_RRR/user_list_booking_driver/user_list_booking_driver_controller.dart';
 import '../model/6_chemist_model_RRR/chemist_model_RRR/chemist_aboutus_model.dart';
 import '../model/6_chemist_model_RRR/chemist_model_RRR/chemist_profile_detailModel.dart';
-import '../model/9_doctors_model/doctor_profile_model.dart';
 import '../model/9_doctors_model/get_all_skils_model/get_all_skils_model.dart';
 //mport '../model/9_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/9_doctors_model/view_patient_report_model.dart';
@@ -138,7 +138,6 @@ class ApiProvider {
 
   static String userdriverid = "".toString();
   static String AdminLoginId = ''.toString();
-
   static String BookingId = ''.toString();
 
   static String PatientRegNo = ''.toString();
@@ -157,6 +156,9 @@ class ApiProvider {
   static String nursetypeiid = ''.toString();
   static String nursestateid = ''.toString();
   static String nursecityid = ''.toString();
+
+  static String startnrsdate = ''.toString();
+  static String endnrsdate = ''.toString();
 
   // static String ImageBase64 =
   //     "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vc3dpcGVyQDgvc3dpcGVyLWJ1bmRsZS5taW4uY3NzIiAvPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1OdW5pdG8rU2Fuczo0MDAsNDAwaSw3MDAsOTAwJmRpc3BsYXk9c3dhcCIgcmVsPSJzdHlsZXNoZWV0Ij4KICA8bWV0YSBodHRwLWVxdWl2PSJYLVVBLUNvbXBhdGlibGUiIGNvbnRlbnQ9IklFPWVkZ2UiPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL3N3aXBlckA4L3N3aXBlci1idW5kbGUubWluLmpzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgPGxpbmsgaHJlZj0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCIKICAgIGludGVncml0eT0ic2hhMzg0LTFCbUU0a1dCcTc4aVloRmxkdkt1aGZUQVU2YXVVOHRUOTRXckhmdGpEYnJDRVhTVTFvQm9xeWwyUXZaNmpJVzMiIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPgogIDxsaW5rIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL3R3aXR0ZXItYm9vdHN0cmFwLzQuMy4xL2Nzcy9ib290c3RyYXAubWluLmNzcyIgcmVsPSJzdHlsZXNoZWV0IiAvPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2NoZWNrb3V0LnJhem9ycGF5LmNvbS92MS9jaGVja291dC5qcyI+PC9zY3JpcHQ+CiAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJpbmRleC5jc3MiIHR5cGU9InRleHQvY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzLwpmb250LWF3ZXNvbWUvNS4xNS4yL2Nzcy9hbGwubWluLmNzcyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9TWF0ZXJpYWwrSWNvbnN8Um9ib3RvOjQwMCw1MDAsNzAwfFNvdXJjZStDb2RlK1BybyIgLz4KICA8bGluayByZWw9InN0eWxlc2hlZXQiCiAgICBocmVmPSJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvbWxhdXJzZW4vcmVhY3QtbWRANS4xLjQvdGhlbWVzL3JlYWN0LW1kLnRlYWwtcGluay0yMDAtbGlnaHQubWluLmNzcyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAuYnVuZGxlLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LWthN1NrMEdsbjRnbXR6Mk1sUW5pa1Qxd1hnWXNPZytPTWh1UCtJbFJIOXNFTkJPMExSbjVxKzhuYlRvdjQrMXAiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9AcG9wcGVyanMvY29yZUAyLjEwLjIvZGlzdC91bWQvcG9wcGVyLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LTcrekNOai9JcUo5NXdvMTZvTXRmc0tiWjljY0VoMzFlT3oxSEd5RHVDUTZ3Z255Sk5TWWRyUGEwM3J0UjF6ZEIiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9ib290c3RyYXBANS4xLjMvZGlzdC9qcy9ib290c3RyYXAubWluLmpzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtUUpIdHZHaG1yOVhPSXBJNllWdXRHKzJRT0s5VCtabk40a3pGTjFSdEszekVGRUlzeGhsbVdsNS9ZRVN2cFoxMyIKICAgIGNyb3Nzb3JpZ2luPSJhbm9ueW1vdXMiPjwvc2NyaXB0PgoKICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii8vY29kZS5qcXVlcnkuY29tL3VpLzEuMTMuMi90aGVtZXMvYmFzZS9qcXVlcnktdWkuY3NzIj4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Ii9yZXNvdXJjZXMvZGVtb3Mvc3R5bGUuY3NzIj4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vanF1ZXJ5LTMuNi4wLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vdWkvMS4xMy4yL2pxdWVyeS11aS5qcyI+PC9zY3JpcHQ+CgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8zLjYuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KCgoKICA8c2NyaXB0IHNyYz0iLy9jZG4uanNkZWxpdnIubmV0L25wbS9zd2VldGFsZXJ0MkAxMSI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIiA+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvZm9udC1hd2Vzb21lLzUuMTMuMC9jc3MvYWxsLm1pbi5jc3MiIC8+CgoKCiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9hbHBpbmVqcy9hbHBpbmVAdjIueC54L2Rpc3QvYWxwaW5lLm1pbi5qcyIgZGVmZXI+PC9zY3JpcHQ+CgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC40LjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtVmtvbzh4NENHc08zK0hoeHY4VC9RNVBhWHRrS3R1NnVnNVRPZU5WNmdCaUZlV1BHRk45TXVoT2YyM1E5SWZqaCIgY3Jvc3NPcmlnaW49ImFub255bW91cyIgLz4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4udGFpbHdpbmRjc3MuY29tIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iLy9jZG4uY2tlZGl0b3IuY29tLzQuNi4xL2Jhc2ljL2NrZWRpdG9yLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9zdGFja3BhdGguYm9vdHN0cmFwY2RuLmNvbS9ib290c3RyYXAvNC4zLjEvanMvYm9vdHN0cmFwLmJ1bmRsZS5taW4uanMiPjwvc2NyaXB0PgogIDxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9ImpzL3NjcmlwdC5qcyI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuanMuY2xvdWRmbGFyZS5jb20vYWpheC9saWJzL2pxdWVyeS8zLjIuMS9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Ii4vaW1hZ2VzL2xvZ28ucG5nIiBzaXplcz0iOTZweCo5NnB4IiB0eXBlPSJpbWFnZS9wbmciIC8+CiAgPHRpdGxlPkd5cm9zIC0gTGV0J3MgVHVybiB0byBOYXR1cmUgZm9yIEhlYWx0aHkgRnV0dXJlPC90aXRsZT4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvY3NzL2Jvb3RzdHJhcC5taW4uY3NzIgogICAgaW50ZWdyaXR5PSJzaGEzODQtR241Mzg0eHFRMWFvV1hBKzA1OFJYUHhQZzZmeTRJV3ZUTmgwRTI2M1htRmNKbFNBd2lHZ0ZBVy9kQWlTNkpYbSIgY3Jvc3NvcmlnaW49ImFub255bW91cyI+CiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vYm9vdHN0cmFwQDQuMC4wL2Rpc3QvanMvYm9vdHN0cmFwLm1pbi5qcyIKICAgIGludGVncml0eT0ic2hhMzg0LUpaUjZTcGVqaDRVMDJkOGpPdDZ2TEVIZmUvSlFHaVJSU1FReFNmRldwaTFNcXVWZEF5alVhcjUrNzZQVkNtWWwiCiAgICBjcm9zc29yaWdpbj0iYW5vbnltb3VzIj48L3NjcmlwdD4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiIC8+CiAgPG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiMwMDAwMDAiIC8+CiAgPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IldlYiBzaXRlIGNyZWF0ZWQgdXNpbmcgY3JlYXRlLXJlYWN0LWFwcCIgLz4KICA8IS0tIDxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iL2xvZ28xOTIucG5nIiAvPiAtLT4KCiAgPGxpbmsgcmVsPSJtYW5pZmVzdCIgaHJlZj0iL21hbmlmZXN0Lmpzb24iIC8+CgoKICA8IS0tbW9iaWxlIHZpZXcgbGluay0tPgogIDwhLS0galF1ZXJ5IC0tPgoKPCEtLSBGb250IEF3ZXNvbWUgNC0tPgo8bGluayBocmVmPSJodHRwczovL3N0YWNrcGF0aC5ib290c3RyYXBjZG4uY29tL2ZvbnQtYXdlc29tZS80LjcuMC9jc3MvZm9udC1hd2Vzb21lLm1pbi5jc3MiIHJlbD0ic3R5bGVzaGVldCI+Cgo8c2NyaXB0IHNyYz0ianMvc2lkZWJhci1hY2NvcmRpb24uanMiPjwvc2NyaXB0PgoKICA8IS0tbW9iaWxlIC0tPgoKCgogIDwhLS1oZ2ZoZmhnamhnamdoai0tPgogIDxzY3JpcHQgc3JjPSJodHRwczovL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL2pxdWVyeS8yLjIuNC9qcXVlcnkubWluLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG5qcy5jbG91ZGZsYXJlLmNvbS9hamF4L2xpYnMvbW9kZXJuaXpyLzIuOC4zL21vZGVybml6ci5qcyI+PC9zY3JpcHQ+CiAgPHN0eWxlPgogICAgLm5vLWpzICNsb2FkZXIgewogICAgICBkaXNwbGF5OiBub25lOwogICAgfQoKICAgIC5qcyAjbG9hZGVyIHsKICAgICAgZGlzcGxheTogYmxvY2s7CiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICAgICAgbGVmdDogMTAwcHg7CiAgICAgIHRvcDogMDsKICAgIH0KCiAgICAuc2UtcHJlLWNvbiB7CiAgICAgIHBvc2l0aW9uOiBmaXhlZDsKICAgICAgbGVmdDogMHB4OwogICAgICB0b3A6IDBweDsKICAgICAgd2lkdGg6IDEwMCU7CiAgICAgIGhlaWdodDogMTAwJTsKICAgICAgei1pbmRleDogOTk5OTsKICAgICAgIGJhY2tncm91bmQ6IHVybCgpIGNlbnRlciBuby1yZXBlYXQgI2ZmZjsgCiAgICAgIGJhY2tncm91bmQtc2l6ZTogMTAwJSAxMDAlOwogICAgfQogIDwvc3R5bGU+CiAgPHNjcmlwdD4kKHdpbmRvdykubG9hZChmdW5jdGlvbiAoKSB7CiAgICAgIC8vIEFuaW1hdGUgbG9hZGVyIG9mZiBzY3JlZW4KICAgICAgJCgiLnNlLXByZS1jb24iKS5mYWRlT3V0KCJzbG93Iik7OwogICAgfSk7PC9zY3JpcHQ+CgoKCgo8L2hlYWQ+Cgo8Ym9keT4KICA8bm9zY3JpcHQ+WW91IG5lZWQgdG8gZW5hYmxlIEphdmFTY3JpcHQgdG8gcnVuIHRoaXMgYXBwLjwvbm9zY3JpcHQ+CgogIDxkaXYgaWQ9InJvb3QiPjwvZGl2PgogIDwhLS0gPGRpdiBjbGFzcz0ic3Bpbm5lci13cmFwcGVyIj4KICAgCiAgICA8ZGl2IGNsYXNzPSJzcGlubmVyIj48L2Rpdj4gLS0+CgogIDxkaXYgY2xhc3M9InNlLXByZS1jb24iPjwvZGl2PgogIDwvZGl2PgogIDxzY3JpcHQ+CiAgICB2YXIgdXJsID0gJ2h0dHBzOi8vd2F0aS1pbnRlZ3JhdGlvbi1zZXJ2aWNlLmNsYXJlLmFpL1Nob3BpZnlXaWRnZXQvc2hvcGlmeVdpZGdldC5qcz80NDAzJzsKICAgIHZhciBzID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7CiAgICBzLnR5cGUgPSAndGV4dC9qYXZhc2NyaXB0JzsKICAgIHMuYXN5bmMgPSB0cnVlOwogICAgcy5zcmMgPSB1cmw7CiAgICB2YXIgb3B0aW9ucyA9IHsKICAgICAgImVuYWJsZWQiOiB0cnVlLAogICAgICAiY2hhdEJ1dHRvblNldHRpbmciOiB7CiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjNGRjMjQ3IiwKICAgICAgICAiY3RhVGV4dCI6ICIiLAogICAgICAgICJib3JkZXJSYWRpdXMiOiAiMjUiLAogICAgICAgICJtYXJnaW5MZWZ0IjogIjAiLAogICAgICAgICJtYXJnaW5Cb3R0b20iOiAiNTAiLAogICAgICAgICJtYXJnaW5SaWdodCI6ICI1MCIsCiAgICAgICAgInBvc2l0aW9uIjogInJpZ2h0IgogICAgICB9LAogICAgICAiYnJhbmRTZXR0aW5nIjogewogICAgICAgICJicmFuZE5hbWUiOiAiR3lyb3MiLAogICAgICAgICJicmFuZFN1YlRpdGxlIjogIlR5cGljYWxseSByZXBsaWVzIHdpdGhpbiBhIGRheSIsCiAgICAgICAgImJyYW5kSW1nIjogImh0dHBzOi8vZ3lyb3MuZmFybS9zdGF0aWMvbWVkaWEvbG9nby5mZGRiYjRmNC5wbmciLAogICAgICAgICJ3ZWxjb21lVGV4dCI6ICJIaSB0aGVyZSFcbkhvdyBjYW4gSSBoZWxwIHlvdT8iLAogICAgICAgICJtZXNzYWdlVGV4dCI6ICJIZWxsbywgSSBoYXZlIGEgcXVlc3Rpb24gYWJvdXQge3twYWdlX2xpbmt9fSIsCiAgICAgICAgImJhY2tncm91bmRDb2xvciI6ICIjMGE1ZjU0IiwKICAgICAgICAiY3RhVGV4dCI6ICJTdGFydCBDaGF0IiwKICAgICAgICAiYm9yZGVyUmFkaXVzIjogIjI1IiwKICAgICAgICAiYXV0b1Nob3ciOiBmYWxzZSwKICAgICAgICAicGhvbmVOdW1iZXIiOiAiOTE4OTUwODAwNjMzIgogICAgICB9CiAgICB9OwogICAgcy5vbmxvYWQgPSBmdW5jdGlvbiAoKSB7CiAgICAgIENyZWF0ZVdoYXRzYXBwQ2hhdFdpZGdldChvcHRpb25zKTsKICAgIH07CiAgICB2YXIgeCA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCdzY3JpcHQnKVswXTsKICAgIHgucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUocywgeCk7CiAgPC9zY3JpcHQ+CgogIDxzY3JpcHQ+CiAgICAkKGRvY3VtZW50KS5yZWFkeShmdW5jdGlvbiAoKSB7CiAgICAgIC8vUHJlbG9hZGVyCiAgICAgIHByZWxvYWRlckZhZGVPdXRUaW1lID0gMTAwMDAwOwogICAgICBmdW5jdGlvbiBoaWRlUHJlbG9hZGVyKCkgewogICAgICAgIHZhciBwcmVsb2FkZXIgPSAkKCcuc3Bpbm5lci13cmFwcGVyJyk7CiAgICAgICAgcHJlbG9hZGVyLmZhZGVPdXQocHJlbG9hZGVyRmFkZU91dFRpbWUpOwogICAgICB9CiAgICAgIGhpZGVQcmVsb2FkZXIoKTsKCgogICAgfSk7CiAgPC9zY3JpcHQ+CgoKCiAgPHNjcmlwdD4KICAgICQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uICgpIHsKICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICQoIiNwMyIpLmhpZGUoKTsKICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAkKCIjcDUiKS5oaWRlKCk7CgogICAgICAkKCIjdDEiKS5zaG93KCk7CiAgICAgICQoIi5idXQxIikuY2xpY2soZnVuY3Rpb24gKCkgewogICAgICAgICQoIiNwMSIpLnNob3coKTsKICAgICAgICAkKCIjcDIiKS5oaWRlKCk7CiAgICAgICAgJCgiI3AzIikuaGlkZSgpOwogICAgICAgICQoIiNwNCIpLmhpZGUoKTsKICAgICAgICAkKCIjcDUiKS5oaWRlKCk7CiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDIiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLnNob3coKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDMiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5zaG93KCk7CiAgICAgICAgJCgiI3A0IikuaGlkZSgpOwoKICAgICAgICAkKCIjdDEiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1IikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDQiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A0Iikuc2hvdygpOwogICAgICAgICQoIiNwNSIpLmhpZGUoKTsKCiAgICAgICAgJCgiI3QxIikuaGlkZSgpOwogICAgICB9KTsKICAgICAgJCgiLmJ1dDUiKS5jbGljayhmdW5jdGlvbiAoKSB7CiAgICAgICAgJCgiI3AxIikuaGlkZSgpOwogICAgICAgICQoIiNwMiIpLmhpZGUoKTsKICAgICAgICAkKCIjcDMiKS5oaWRlKCk7CgogICAgICAgICQoIiN0MSIpLmhpZGUoKTsKICAgICAgICAkKCIjcDQiKS5oaWRlKCk7CiAgICAgICAgJCgiI3A1Iikuc2hvdygpOwogICAgICB9KTsKICAgIH0pOwogIDwvc2NyaXB0Pgo8c2NyaXB0IHNyYz0iL3N0YXRpYy9qcy9idW5kbGUuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzLzIuY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvc3RhdGljL2pzL21haW4uY2h1bmsuanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvbWFpbi4wZDViNDIyYjZhMTg5YzM0OTAzZi5ob3QtdXBkYXRlLmpzIj48L3NjcmlwdD48L2JvZHk+Cgo8L2h0bWw+"
@@ -567,12 +569,22 @@ class ApiProvider {
   static NursListUserrApi() async {
     var prefs = await GetStorage();
 
+    ///
+    startnrsdate = prefs.read("startnrsdate").toString();
+    print('hdvhcvdhok:${startnrsdate}');
+
+    ///
+    ///
+    endnrsdate = prefs.read("endnrsdate").toString();
+    print('hdvhcvdhendss:${endnrsdate}');
+
     //nurse type id...
     // prefs.write(
     //     "nursetypeiid".toString(), json.decode(r.body)['NurseTypeId']);
     nursetypeiid = prefs.read("nursetypeiid").toString();
     print('&&&&&&&nursetypeid:${nursetypeiid}');
     SharedPreferences preferences = await SharedPreferences.getInstance();
+
     //nurseCityId
     //nurseStateId
     //selectedNurseId
@@ -584,9 +596,10 @@ class ApiProvider {
     print("nurseCityId: ${nurseCityId}");
     print("selectedNurseId: ${selectedNurseId}");
     //http://test.pswellness.in/api/NurseAPI/getNurseList?State_Id=3&City_Id=840&NurseType_Id=3
+    //http://pswellness.in/api/NurseAPI/getNurseList?State_Id=3&City_Id=856&NurseType_Id=3&Startdate=2024-04-02&EndDate=2024-04-05
 
     var url =
-        "${baseUrl}api/NurseAPI/getNurseList?State_Id=$nurseStateId&City_Id=$nurseCityId&NurseType_Id=$nursetypeiid";
+        "${baseUrl}api/NurseAPI/getNurseList?State_Id=$nurseStateId&City_Id=$nurseCityId&NurseType_Id=$nursetypeiid&Startdate=$startnrsdate&EndDate=$endnrsdate";
     //"http://test.pswellness.in/api/NurseAPI/getNurseList?Loc_id=$nurseLocationId";
 
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
@@ -1809,6 +1822,7 @@ class ApiProvider {
   static Userprofileupdate(
     // var Id,
     var patientName,
+    var EmailId,
     var MobileNumber,
     var StateMasterId,
     var CityMasterId,
@@ -1834,7 +1848,7 @@ class ApiProvider {
           //137,
           userid,
       "patientName": patientName,
-      //"EmailId": EmailId,
+      "EmailId": EmailId,
       "MobileNumber": MobileNumber,
       "StateMaster_Id": StateMasterId,
       "CityMaster_Id": CityMasterId,
@@ -1876,20 +1890,21 @@ class ApiProvider {
 
   static Labprofileupdate(
     var Id,
-    var MobileNumber,
     var LabName,
+    var MobileNumber,
+    var EmailId,
     var StateMaster_Id,
     var CityMaster_Id,
     var Location,
     var PinCode,
-    var adminLogin_id,
-    var AccountNo,
-    var IFSCCode,
-    var BranchName,
+    // var adminLogin_id,
+    // var AccountNo,
+    // var IFSCCode,
+    // var BranchName,
   ) async {
     //var a= int.parse(State).toString();
     //var b= int.parse(City).toString();
-    var url = '${baseUrl}api/PatientApi/UpdateProfilebyPatient';
+    var url = '${baseUrl}api/LabApi/UpdateProfilebyLab';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&admin:${adminId}');
@@ -1901,19 +1916,21 @@ class ApiProvider {
       "Id":
           //137,
           userid,
-      "MobileNumber": MobileNumber,
       "LabName": LabName,
+      "MobileNumber": MobileNumber,
+      "EmailId": EmailId,
       "StateMaster_Id": StateMaster_Id,
       "CityMaster_Id": CityMaster_Id,
       "Location": Location,
       "PinCode": PinCode,
-      "adminLogin_id":
-          //1222,
-          adminId,
-      "AccountNo": AccountNo,
-      "IFSCCode": IFSCCode,
-      "Location": Location,
-      "BranchName": BranchName,
+      // "adminLogin_id":
+      //     //1222,
+      //     adminId,
+      ///
+      // "AccountNo": AccountNo,
+      // "IFSCCode": IFSCCode,
+      /// "Location": Location,
+      // "BranchName": BranchName,
     };
 
     // print(body);
@@ -1924,6 +1941,7 @@ class ApiProvider {
     );
     // print(r.body);
     if (r.statusCode == 200) {
+      Get.snackbar('message', r.body);
 //adminId
 
       print("gvhjbknlokokookupdatedddd${body}");
@@ -2388,7 +2406,7 @@ class ApiProvider {
   static Nursesebooking1Api(
     //var PatientId,
     var NurseTypeId,
-    var ServiceType,
+    //var ServiceType,
     var ServiceTime,
     var StartDate,
     var EndDate,
@@ -2410,7 +2428,7 @@ class ApiProvider {
     var body = {
       "Patient_Id": "$userid",
       "NurseTypeId": NurseTypeId,
-      "ServiceType": ServiceType,
+      "ServiceType": "12",
       "ServiceTime": ServiceTime,
       "StartDate": StartDate,
       "EndDate": EndDate,
@@ -2465,6 +2483,22 @@ class ApiProvider {
       prefs.write("noofdays".toString(), json.decode(r.body)['NumberOfDay']);
       noofdays = prefs.read("noofdays").toString();
       print('&&&&&&&&&noofdayyyss:${noofdays}');
+
+      ///
+      prefs.write("startnrsdate".toString(), json.decode(r.body)['StartDate']);
+      startnrsdate = prefs.read("startnrsdate").toString();
+      print('hdvhcvdh:${startnrsdate}');
+
+      ///
+      ///
+      prefs.write("endnrsdate".toString(), json.decode(r.body)['EndDate']);
+      endnrsdate = prefs.read("endnrsdate").toString();
+      print('hdvhcvdhend:${endnrsdate}');
+
+      ///
+
+      //startnrsdate = ''.toString();
+      //   static String endnrsdate
 
       //nurse type id...
       prefs.write(
@@ -2678,6 +2712,25 @@ class ApiProvider {
     }
   }
 
+  ///todo: slot duration in fklutter.,....dr section..
+  //
+  // static getslotdurationApi() async {
+  //   var url = "${baseUrl}/api/DoctorApi/SlotDropdown?DoctorId=1317";
+  //   //"api/DoctorApi/BookingMode";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       var modeData = slotTomeingFromJson(r.body);
+  //       return modeData.slotdd;
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (error) {
+  //     return [];
+  //   }
+  // }
+
   ///todo: lab booking 2 api........27 april 2023...
 
   static Labbooking2Api(
@@ -2755,6 +2808,8 @@ class ApiProvider {
     var body = {
       "Doctor_Id": "$DoctorListId",
       "Slot_id": Slot_id,
+
+      //"08:30:00",
       "AppointmentDate": AppointmentDate,
       "BookingMode_Id": BookingMode_Id,
     };
@@ -3143,7 +3198,7 @@ class ApiProvider {
   }
 
   //doctor profile  api 2..........................
-  static DoctorProfileApi() async {
+  static DoctorProfileDetailApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&sdcfsdfdsuserid:${userid}');
@@ -3152,7 +3207,8 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
-        DoctorProfile? doctorProfile = doctorProfileFromJson(r.body);
+        DoctorProfileDetail? doctorProfile =
+            doctorProfileDetailFromJson(r.body);
         print("drprofileurl:${url}");
         print("drprofileurl:${r.body}");
         return doctorProfile;
@@ -3297,14 +3353,18 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&sdcfsdfdsuserid:${userid}');
     // var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=$userid';
-    var url = "${baseUrl}api/DoctorApi/ViewPatientList?DoctorId=$userid";
+    var url = "${baseUrl}api/DoctorApi/DoctorBookingHistory?DoctorId=$userid";
+    //"api/DoctorApi/ViewPatientList?DoctorId=$userid";
+    //
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
+        print("urldr${url}");
+
         print('pkpkpkpk');
         print(r.body);
-        var PatientList = patientListFromJson(r.body);
+        var PatientList = doctorBookingHistoryModelFromJson(r.body);
         return PatientList;
       }
     } catch (error) {
@@ -5153,7 +5213,6 @@ class ApiProvider {
     print("Lab Signup Api: ${body}");
     if (r.statusCode == 200) {
       print("Lab Signup Api200: ${body}");
-
       Get.snackbar('message', r.body);
       return r;
     } else {
@@ -5964,11 +6023,12 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         print("urrllllrrr:${url}");
-        final chemistProfileDetail = chemistProfileDetailFromJson(r.body);
+        final chemistProfileDetail = chemistProfileDetailModelFromJson(r.body);
         print("ChemistProfileDetail: ${chemistProfileDetail.chemistName}");
         return chemistProfileDetail;
       }
     } catch (error) {
+      ///todo: grfgfdgdfgfdgdfgfdgdfgfdfgfdgfdg
       print('ChemistProfileDetailRRRErrorrr: ${error}');
       return;
     }
@@ -5991,10 +6051,9 @@ class ApiProvider {
       "DriverId": userid,
       "StatusId": "${1}",
 
-      ///for testing perpose i am....up...0
-      ///
+      ///for testing perpose i am....up...0...
 
-      ///this is the main actual down..1
+      ///this is the main actual down..1...
       //"StatusId": "${1}",
     };
     //
@@ -6005,14 +6064,14 @@ class ApiProvider {
     );
     //print(r.body);
     if (r.statusCode == 200) {
-      ///ambulance..
+      ///todo: todo:.....
+      ///todo:ambulance.......................................................
       //saved id..........
       // var prefs = GetStorage();
       // prefs.write("ambulancetypeid".toString(),
       //     json.decode(r.body)['AmbulanceType_id']);
       // ambulancetypeid = prefs.read("AmbulanceType_id").toString();
       // print('&userdriambulance:${AmbulanceType_id}');
-
       print(r.body);
       print(r.statusCode);
       Get.snackbar("Booking Status", 'Request Accept Successfully');
@@ -6551,6 +6610,8 @@ class ApiProvider {
       return r;
     }
   }
+
+  ///
 }
 
 //$nurseLocationId

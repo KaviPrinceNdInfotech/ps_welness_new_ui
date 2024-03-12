@@ -319,139 +319,140 @@ class Nursebooking1Credentials extends StatelessWidget {
 
             ///working hours...
             ///
+            ///todo:working hours......
+            // Text(
+            //   'Choose working hours.',
+            //   style: TextStyle(
+            //     fontSize: size.height * 0.016,
+            //     fontWeight: FontWeight.bold,
+            //     color: MyTheme.blueww,
+            //   ),
+            // ),
             ///
-            Text(
-              'Choose working hours.',
-              style: TextStyle(
-                fontSize: size.height * 0.016,
-                fontWeight: FontWeight.bold,
-                color: MyTheme.blueww,
-              ),
-            ),
-
-            Container(
-              height: size.height * 0.066,
-              width: double.infinity,
-              margin: EdgeInsets.symmetric(vertical: 25 / 2),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        lightPrimary,
-                        darkPrimary,
-                      ]),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-2, -2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: darkShadow,
-                    ),
-                    BoxShadow(
-                      offset: Offset(2, 2),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      color: lightShadow,
-                    ),
-                  ]),
-              child: SizedBox(
-                //width: size.width * 0.40,
-                child: Container(
-                  //width: size.width * 40,
-                  height: size.height * 0.065,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    //color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "24",
-                            groupValue:
-                                _nurseBooking1Controller.selectedhours.value,
-                            onChanged: (value) {
-                              _nurseBooking1Controller.onChangeHours(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
-                        Text(
-                          '24 Hours',
-                          style: TextStyle(
-                            fontSize: size.width * 0.03,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "12",
-                            groupValue:
-                                _nurseBooking1Controller.selectedhours.value,
-                            onChanged: (value) {
-                              _nurseBooking1Controller.onChangeHours(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
-                        Text(
-                          '12 Hourss',
-                          style: TextStyle(
-                            fontSize: size.width * 0.03,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Obx(
-                          () => Radio(
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "Other",
-                            groupValue:
-                                _nurseBooking1Controller.selectedhours.value,
-                            onChanged: (value) {
-                              _nurseBooking1Controller.onChangeHours(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
-                        Text(
-                          'Other',
-                          style: TextStyle(
-                            fontSize: size.width * 0.03,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+//             Container(
+//               height: size.height * 0.066,
+//               width: double.infinity,
+//               margin: EdgeInsets.symmetric(vertical: 25 / 2),
+//               decoration: BoxDecoration(
+//                   gradient: LinearGradient(
+//                       begin: Alignment.centerLeft,
+//                       end: Alignment.centerRight,
+//                       colors: [
+//                         lightPrimary,
+//                         darkPrimary,
+//                       ]),
+//                   borderRadius: BorderRadius.circular(12),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       offset: Offset(-2, -2),
+//                       spreadRadius: 1,
+//                       blurRadius: 4,
+//                       color: darkShadow,
+//                     ),
+//                     BoxShadow(
+//                       offset: Offset(2, 2),
+//                       spreadRadius: 1,
+//                       blurRadius: 4,
+//                       color: lightShadow,
+//                     ),
+//                   ]),
+//               child: SizedBox(
+//                 //width: size.width * 0.40,
+//                 child: Container(
+//                   //width: size.width * 40,
+//                   height: size.height * 0.065,
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10),
+//                     //color: Colors.white,
+//                   ),
+//                   child: Padding(
+//                     padding:
+//                         EdgeInsets.symmetric(horizontal: size.width * 0.02),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         Obx(
+//                           () => Radio(
+//                             visualDensity: VisualDensity(
+//                               horizontal: VisualDensity.minimumDensity,
+//                               vertical: VisualDensity.minimumDensity,
+//                             ),
+//                             // title: Text("Male"),
+//                             value: "24",
+//                             groupValue:
+//                                 _nurseBooking1Controller.selectedhours.value,
+//                             onChanged: (value) {
+//                               _nurseBooking1Controller.onChangeHours(value!);
+//                               // setState(() {
+//                               //   gender = value.toString();
+//                               // });
+//                             },
+//                           ),
+//                         ),
+//                         Text(
+//                           '24 Hours',
+//                           style: TextStyle(
+//                             fontSize: size.width * 0.03,
+//                             fontWeight: FontWeight.w500,
+//                           ),
+//                         ),
+//                         Obx(
+//                           () => Radio(
+//                             visualDensity: VisualDensity(
+//                               horizontal: VisualDensity.minimumDensity,
+//                               vertical: VisualDensity.minimumDensity,
+//                             ),
+//                             // title: Text("Male"),
+//                             value: "12",
+//                             groupValue:
+//                                 _nurseBooking1Controller.selectedhours.value,
+//                             onChanged: (value) {
+//                               _nurseBooking1Controller.onChangeHours(value!);
+//                               // setState(() {
+//                               //   gender = value.toString();
+//                               // });
+//                             },
+//                           ),
+//                         ),
+//                         Text(
+//                           '12 Hourss',
+//                           style: TextStyle(
+//                             fontSize: size.width * 0.03,
+//                             fontWeight: FontWeight.w500,
+//                           ),
+//                         ),
+//                         Obx(
+//                           () => Radio(
+//                             visualDensity: VisualDensity(
+//                               horizontal: VisualDensity.minimumDensity,
+//                               vertical: VisualDensity.minimumDensity,
+//                             ),
+//                             // title: Text("Male"),
+//                             value: "Other",
+//                             groupValue:
+//                                 _nurseBooking1Controller.selectedhours.value,
+//                             onChanged: (value) {
+//                               _nurseBooking1Controller.onChangeHours(value!);
+//                               // setState(() {
+//                               //   gender = value.toString();
+//                               // });
+//                             },
+//                           ),
+//                         ),
+//                         Text(
+//                           'Other',
+//                           style: TextStyle(
+//                             fontSize: size.width * 0.03,
+//                             fontWeight: FontWeight.w500,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+            ///
 
             //shifting...........
 
@@ -471,7 +472,7 @@ class Nursebooking1Credentials extends StatelessWidget {
             ),
 
             Container(
-              height: size.height * 0.16,
+              height: size.height * 0.11,
               width: double.infinity,
               margin: EdgeInsets.symmetric(vertical: 25 / 2),
               decoration: BoxDecoration(
@@ -567,33 +568,33 @@ class Nursebooking1Credentials extends StatelessWidget {
                             },
                           ),
                         ),
-                        Obx(
-                          () => RadioListTile(
-                            title: Text(
-                              'Both               ',
-                              style: TextStyle(
-                                fontSize: size.width * 0.035,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            visualDensity: VisualDensity(
-                              horizontal: VisualDensity.minimumDensity,
-                              vertical: VisualDensity.minimumDensity,
-                            ),
-                            // title: Text("Male"),
-                            value: "Both",
-                            //_nurseBooking1Controller.selectedshift.value,
-
-                            groupValue:
-                                _nurseBooking1Controller.selectedshift.value,
-                            onChanged: (value) {
-                              _nurseBooking1Controller.onChangeShifts(value!);
-                              // setState(() {
-                              //   gender = value.toString();
-                              // });
-                            },
-                          ),
-                        ),
+                        // Obx(
+                        //   () => RadioListTile(
+                        //     title: Text(
+                        //       'Both               ',
+                        //       style: TextStyle(
+                        //         fontSize: size.width * 0.035,
+                        //         fontWeight: FontWeight.w500,
+                        //       ),
+                        //     ),
+                        //     visualDensity: VisualDensity(
+                        //       horizontal: VisualDensity.minimumDensity,
+                        //       vertical: VisualDensity.minimumDensity,
+                        //     ),
+                        //     // title: Text("Male"),
+                        //     value: "Both",
+                        //     //_nurseBooking1Controller.selectedshift.value,
+                        //
+                        //     groupValue:
+                        //         _nurseBooking1Controller.selectedshift.value,
+                        //     onChanged: (value) {
+                        //       _nurseBooking1Controller.onChangeShifts(value!);
+                        //       // setState(() {
+                        //       //   gender = value.toString();
+                        //       // });
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

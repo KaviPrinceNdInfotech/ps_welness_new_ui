@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 //import '../../../servicess_api/api_services_all_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
 import '../../modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 import '../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
 class ChemistUpdateProfileController extends GetxController {
-  final GlobalKey<FormState> nurseprofileformkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> chemistprofileformkey = GlobalKey<FormState>();
+
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
 
   /////////do here......................
   Rx<City?> selectedCity = (null as City?).obs;
@@ -21,6 +26,11 @@ class ChemistUpdateProfileController extends GetxController {
     states = await ApiProvider.getSatesApi();
   }
 
+  void clearSelectedState() {
+    selectedState.value = null;
+    //states?.clear();
+  }
+
   void getCityByStateID(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
@@ -30,6 +40,7 @@ class ChemistUpdateProfileController extends GetxController {
   TextEditingController?
       //idController,
       nameController,
+      emailController,
       mobileController,
       locationController,
       pinController;
@@ -40,21 +51,37 @@ class ChemistUpdateProfileController extends GetxController {
 
   void chemistUpdateProfileApi() async {
     http.Response r = await ApiProvider.ChemistUpdateProfileApi(
-        // idController?.text,
-        nameController?.text,
-        mobileController?.text,
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        locationController?.text,
-        pinController?.text
-        //adminLoginIdController?.text,
-        // accountnoController?.text,
-        // ifscController?.text,
-        // branchNameController?.text
-        );
+      // idController?.text,
+      nameController?.text,
+      mobileController?.text,
+      selectedState.value?.id.toString() ??
+          _chemistProfileDetailController
+              .getChemistProfileDetailModel?.stateMasterId
+              .toString(),
+      selectedCity.value?.id.toString() ??
+          _chemistProfileDetailController
+              .getChemistProfileDetailModel?.cityMasterId
+              .toString(),
+      locationController?.text,
+      pinController?.text,
+      emailController?.text,
+      //adminLoginIdController?.text,
+      // accountnoController?.text,
+      // ifscController?.text,
+      // branchNameController?.text
+    );
     if (r.statusCode == 200) {
-      Get.to(ChemistHomePage());
-    } else {}
+      await Future.delayed(Duration(milliseconds: 100));
+      CallLoader.hideLoader();
+      // Get.offAll(NurseHomePage());
+      Get.offAll(() => ChemistHomePage());
+      await Future.delayed(Duration(milliseconds: 900));
+      await _chemistProfileDetailController.chemistProfileDetailsApi();
+      clearSelectedState();
+      //Get.to(ChemistHomePage());
+    } else {
+      Get.snackbar('Error', "Please fill correctly");
+    }
   }
 
   @override
@@ -68,10 +95,21 @@ class ChemistUpdateProfileController extends GetxController {
       }
     });
     //idController = TextEditingController(text: '');
-    nameController = TextEditingController(text: '');
-    mobileController = TextEditingController(text: '');
-    locationController = TextEditingController(text: '');
-    pinController = TextEditingController(text: '');
+    nameController = TextEditingController(
+        text:
+            "${_chemistProfileDetailController.getChemistProfileDetailModel?.chemistName.toString() ?? 0}");
+    mobileController = TextEditingController(
+        text:
+            "${_chemistProfileDetailController.getChemistProfileDetailModel?.mobileNumber.toString() ?? 0}");
+    locationController = TextEditingController(
+        text:
+            "${_chemistProfileDetailController.getChemistProfileDetailModel?.location.toString() ?? 0}");
+    pinController = TextEditingController(
+        text:
+            "${_chemistProfileDetailController.getChemistProfileDetailModel?.pinCode.toString() ?? 0}");
+    emailController = TextEditingController(
+        text:
+            "${_chemistProfileDetailController.getChemistProfileDetailModel?.emailId.toString() ?? 0}");
     //adminLoginIdController = TextEditingController(text: '');
     //accountnoController = TextEditingController(text: '');
     //ifscController = TextEditingController(text: '');
@@ -170,6 +208,13 @@ class ChemistUpdateProfileController extends GetxController {
   }
 
   void checkUpdateProfile() {
-    chemistUpdateProfileApi();
+    if (chemistprofileformkey.currentState!.validate()) {
+      chemistUpdateProfileApi();
+    }
+    chemistprofileformkey.currentState!.save();
   }
+
+  // void checkUpdateProfile() {
+  //   chemistUpdateProfileApi();
+  // }
 }

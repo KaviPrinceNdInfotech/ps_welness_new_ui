@@ -25,11 +25,12 @@ class DoctorUpdateProfileController extends GetxController {
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
 
-  DoctorProfile? doctorProfile;
+  DoctorProfileDetail? doctorProfile;
 
   TextEditingController?
       //idEditText,
       doctorNameEditText,
+      emailController,
       mobileNumberEditText,
       stateIdEditText,
       cityIdEditText,
@@ -68,7 +69,7 @@ class DoctorUpdateProfileController extends GetxController {
         locationEditText?.text,
         pinCodeEditText?.text,
         clinicNameEditText?.text,
-        feeEditText?.text
+        emailController?.text
         //adminLogin_id?.text,
         //accountnoEditText?.text,
         //ifscCodeEditText?.text,
@@ -76,7 +77,7 @@ class DoctorUpdateProfileController extends GetxController {
         );
 
     if (r.statusCode == 200) {
-      CallLoader.loader();
+      // CallLoader.loader();
       await Future.delayed(Duration(milliseconds: 900));
       CallLoader.hideLoader();
       Get.offAll(DoctorHomePage());
@@ -100,6 +101,10 @@ class DoctorUpdateProfileController extends GetxController {
     doctorNameEditText = TextEditingController(
         text:
             "${_doctorProfileControllers.doctorProfile?.doctorName.toString() ?? 0}");
+
+    emailController = TextEditingController(
+        text:
+            "${_doctorProfileControllers.doctorProfile?.emailId.toString() ?? 0}");
     mobileNumberEditText = TextEditingController(
         text:
             "${_doctorProfileControllers.doctorProfile?.mobileNumber.toString() ?? 0}");
@@ -108,7 +113,9 @@ class DoctorUpdateProfileController extends GetxController {
     locationEditText = TextEditingController(
         text:
             "${_doctorProfileControllers.doctorProfile?.location.toString() ?? 0}");
-    pinCodeEditText = TextEditingController(text: '');
+    pinCodeEditText = TextEditingController(
+        text:
+            "${_doctorProfileControllers.doctorProfile?.pinCode.toString() ?? 0}");
     clinicNameEditText = TextEditingController(
         text:
             "${_doctorProfileControllers.doctorProfile?.clinicName.toString() ?? 0}");

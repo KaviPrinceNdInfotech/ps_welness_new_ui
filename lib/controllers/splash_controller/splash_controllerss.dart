@@ -164,9 +164,13 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
@@ -211,6 +215,20 @@ class SplashScreenViewModel extends GetxController
   DevicetokenController _devicetokenController =
       Get.put(DevicetokenController());
 
+  ChemistBannerController _chemistBannerController =
+      Get.put(ChemistBannerController());
+
+  ///user banner
+  UserHomepagContreoller _userhomePageController =
+      Get.put(UserHomepagContreoller());
+
+  ///use franchise...........
+  FrenchiesProfileDetailController _frenchiesProfileDetailController =
+      Get.put(FrenchiesProfileDetailController());
+
+  FrenchiesBannerController frenchiesBannerController =
+      Get.put(FrenchiesBannerController());
+
   @override
   void onInit() {
     animationInitilization();
@@ -218,7 +236,7 @@ class SplashScreenViewModel extends GetxController
     accountService.getAccountData.then((accountData) {
       Timer(
         const Duration(seconds: 0),
-        () {
+        () async {
           if (accountData == null) {
             Get.to(OnboardingPage());
 
@@ -230,10 +248,11 @@ class SplashScreenViewModel extends GetxController
                 _userprofile.userprofileApi();
                 _userprofile.update();
                 _devicetokenController.UsertokenApi();
+                await _userhomePageController.sliderBannerApi();
                 // _userprofile.userprofileApi();
 
                 /// we can navigate to user page.....................................
-                Get.to(UserHomePage());
+                await Get.to(UserHomePage());
 
                 ///todo: through exception....
                 throw Exception();
@@ -241,7 +260,10 @@ class SplashScreenViewModel extends GetxController
 
               /// we can navigate to franchise page.....................................
               case 'Franchise':
-                Get.to(FranchiesHomePage());
+                _frenchiesProfileDetailController.frenchiesProfileDetailApi();
+                _frenchiesProfileDetailController.update();
+                await frenchiesBannerController.FrenchiesBannerApi();
+                await Get.to(FranchiesHomePage());
                 break;
               case 'lab':
                 _labUploadReportController.getlabpatientApi();
@@ -275,9 +297,13 @@ class SplashScreenViewModel extends GetxController
                 Get.to(RwaHomePage());
                 break;
               case 'chemist':
-                _chemistProfileDetailController.chemistProfileDetailsApi();
+                await _chemistProfileDetailController
+                    .chemistProfileDetailsApi();
                 _chemistProfileDetailController.update();
-                Get.to(ChemistHomePage());
+                await _chemistBannerController.chemistBannerApi();
+                _chemistBannerController.update();
+                await Future.delayed(Duration(milliseconds: 900));
+                await Get.to(ChemistHomePage());
                 break;
               default:
                 break;

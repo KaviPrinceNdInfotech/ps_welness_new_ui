@@ -8,7 +8,6 @@ import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profil
 
 class RwaProfilePage extends StatelessWidget {
   const RwaProfilePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     bool shouldPop = true;

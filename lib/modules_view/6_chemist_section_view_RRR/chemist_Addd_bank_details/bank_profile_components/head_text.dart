@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
-class AddBankHeadText extends StatelessWidget {
-  const AddBankHeadText({Key? key}) : super(key: key);
+class AddBankChemistHeadText extends StatelessWidget {
+  const AddBankChemistHeadText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,8 @@ class AddBankHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(ChemistHomePage());
+                    // Get.back();
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(
@@ -42,7 +44,7 @@ class AddBankHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.01),
           Text(
-            'Bank Detail',
+            'Bank Detail Chemist',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,

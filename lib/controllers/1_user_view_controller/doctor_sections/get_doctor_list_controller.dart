@@ -108,7 +108,7 @@ class DoctorListController extends GetxController {
       var data = jsonDecode(r.body);
 
       ///todo:for it it will call next screen apis and update....
-      _doctorappointmentcheckout.doctoorcheckoutApi();
+      await _doctorappointmentcheckout.doctoorcheckoutApi();
       _doctorappointmentcheckout.onInit();
       _doctorappointmentcheckout.update();
       await accountService.getAccountData.then((accountData) {

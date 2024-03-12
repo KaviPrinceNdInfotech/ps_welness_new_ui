@@ -11,7 +11,8 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_pr
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_add_bank_details/bank_update_view.dart';
+//import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_view_reportt/doctor_view_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/patient_lists/patient_list.dart';
@@ -34,8 +35,8 @@ class DoctorHomePage extends StatelessWidget {
       Get.put(DoctorHomepageController());
   PatientListController _patientListController =
       Get.put(PatientListController());
-  final DoctorPaymentViewControllers _paymentViewControllers =
-      Get.put(DoctorPaymentViewControllers());
+  // final DoctorPaymentViewControllers _paymentViewControllers =
+  //     Get.put(DoctorPaymentViewControllers());
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
   DoctorrUploadReportController _doctorrUploadReportController =
@@ -43,6 +44,9 @@ class DoctorHomePage extends StatelessWidget {
 
   DoctorreportviewController _doctorreportviewController =
       Get.put(DoctorreportviewController());
+
+  DoctorPaymentViewControllers _doctorPaymentViewControllers =
+      Get.put(DoctorPaymentViewControllers());
 
   RxBool isLoading = true.obs;
 
@@ -118,10 +122,10 @@ class DoctorHomePage extends StatelessWidget {
               size: 23,
               color: Colors.white,
             ),
-            onPressed: () {
-              _keydoctor.currentState!.openDrawer();
-              _doctorProfileControllers.doctorprofileApi();
+            onPressed: () async {
+              await _doctorProfileControllers.doctorprofileApi();
               _doctorProfileControllers.update();
+              _keydoctor.currentState!.openDrawer();
             },
           ),
         ),
@@ -220,13 +224,10 @@ class DoctorHomePage extends StatelessWidget {
 
                                       await Get.to(DoctorUploadReport());
                                     } else if (index == 2) {
-                                      _paymentViewControllers
+                                      await _doctorPaymentViewControllers
                                           .doctorPaymentHistoryApi();
-                                      // _doctorreportviewController.refresh();
-                                      // _doctorreportviewController.onInit();
-                                      _paymentViewControllers.update();
-                                      // isLoading(true);
-                                      CallLoader.loader();
+                                      _doctorPaymentViewControllers.update();
+
                                       await Future.delayed(
                                           Duration(seconds: 1));
                                       //isLoading(false);
@@ -238,15 +239,16 @@ class DoctorHomePage extends StatelessWidget {
                                       _doctorHomepageController.update();
 
                                       ///patientListApi
-                                      _patientListController.patientListApi();
-                                      _patientListController.onInit();
+                                      await _patientListController
+                                          .patientListApi();
+                                      // _patientListController.onInit();
                                       _patientListController.update();
 
                                       // doctorHomepageController
                                       //.doctorAppoinmentHistory();
                                       //doctorHomepageController.update();
                                       //Get.to(() => AppointmentHistory());
-                                      Get.to(PatientListDoctor());
+                                      await Get.to(PatientListDoctor());
 
                                       ///Todo this is showing dark and white mode
                                     } else if (index == 4) {
@@ -255,7 +257,7 @@ class DoctorHomePage extends StatelessWidget {
                                       _doctorreportviewController.update();
                                       Get.to(() => DoctorViewssReport());
                                     } else if (index == 5) {
-                                      Get.to(() => UpdateDoctorBankDetail());
+                                      Get.to(() => AddDoctorBankDetail());
                                       //Get.to(() => SupportView());
                                     }
                                   },

@@ -414,12 +414,16 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                       //                 _getProfileController.update();
                       //                 _getProfileController.onInit();
                       ///
-                      // CallLoader.loader();
+                      CallLoader.loader();
                       // await Future.delayed(Duration(seconds: 2));
                       // CallLoader.hideLoader();
-                      await Future.delayed(Duration(seconds: 0));
+                      await Future.delayed(Duration(milliseconds: 1000));
 
                       await Get.offAll(() => ProfilePage());
+                      CallLoader.hideLoader();
+
+                      await Future.delayed(Duration(milliseconds: 10));
+
                       // Get.offNamed('/ProfilePage');
                     },
                   ),
@@ -653,7 +657,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                         : Colors.transparent,
                     onTap: () async {
                       print(Get.currentRoute);
-
                       _nurseHistoryController.nursehistoryApi();
                       _nurseHistoryController.update();
                       CallLoader.loader();
@@ -677,6 +680,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                       // } else {
                       //   // Do stuff that require permission here
                       // }
+
                       Timer(
                         const Duration(milliseconds: 400),
                         () {
@@ -686,7 +690,11 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                           ///
                         },
                       );
+
+                      ///
                       Get.back();
+
+                      ///
                       Get.offNamed('/NurseHistoryUser');
                     },
                   ),

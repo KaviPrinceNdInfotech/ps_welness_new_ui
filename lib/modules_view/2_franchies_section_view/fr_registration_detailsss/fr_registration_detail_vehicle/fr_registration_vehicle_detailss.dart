@@ -197,7 +197,6 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                 spreadRadius: 0,
                                                 blurRadius: 0,
                                                 color: Colors.pink.shade900,
-
                                                 // color: darkShadow1,
                                               ),
                                               BoxShadow(
@@ -421,18 +420,31 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                                     Colors.blue,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              '${item[index].vehicleOwnerName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color:
-                                                                    Colors.blue,
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.036,
+                                                              width:
+                                                                  size.width *
+                                                                      0.5,
+                                                              child: Align(
+                                                                alignment: Alignment
+                                                                    .centerLeft,
+                                                                child: Text(
+                                                                  '${item[index].vehicleOwnerName}',
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .lato(
+                                                                    fontSize:
+                                                                        size.width *
+                                                                            0.034,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .blue,
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
                                                             Text(

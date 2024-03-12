@@ -25,7 +25,6 @@ import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/do
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmenthistory_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_banner_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
-import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/week_day_off/week_day_off_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/Dept_dropdown_model.dart';
@@ -67,6 +66,7 @@ import 'package:ps_welness_new_ui/model/franchies_models/specialistDW_model.dart
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/comman_bank_update/all_get_bank_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
@@ -94,7 +94,6 @@ import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payment_histor
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payoutModel.dart';
 import '../../model/9_doctors_model/doctor_homepage_model/doctor_appointment_online.dart';
 import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
-import '../../model/9_doctors_model_RRR/doctor_profile_model.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
 import '../../model/9_doctors_model_RRR/view_patient_report_model.dart';
 import '../../model/franchies_models/frenchiesGetGallery_model.dart';
@@ -677,19 +676,19 @@ class ApiProvider {
   }
 
   //doctor profile  api 2..........................
-  static DoctorProfileApi() async {
-    var url = '${baseUrl}api/DoctorApi/DoctorProfile?DoctorId=150';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      print(r.body.toString());
-      if (r.statusCode == 200) {
-        DoctorProfile? doctorProfile = doctorProfileFromJson(r.body);
-        return doctorProfile;
-      }
-    } catch (error) {
-      return;
-    }
-  }
+  // static DoctorProfileApi() async {
+  //   var url = '${baseUrl}api/DoctorApi/DoctorProfile?DoctorId=150';
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       DoctorProfile? doctorProfile = doctorProfileFromJson(r.body);
+  //       return doctorProfile;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
 
   /// todo doctor complain_register ................Rahul
   static doctorComplainApi(
@@ -783,6 +782,32 @@ class ApiProvider {
   //view_payment_history.............
 
 //ViewPaymentHistoryApi()
+  ///
+//   static DoctorPaymentHistoryApi() async {
+//     var prefs = GetStorage();
+//     userid = prefs.read("Id").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&ddwduserid:${userid}');
+//     var url = '${baseUrl}api/DoctorApi/DoctorpaymentHistory?Id=$userid';
+//     try {
+//       http.Response r = await http.get(Uri.parse(url));
+//       print("DoctorPaymentHistory Response: ${r.toString()}");
+//       if (r.statusCode == 200) {
+//         print("apointment${r.body}");
+//         print("apointmenturl${url}");
+//         DoctorPaymentHistoryModel? viewPatientpaymentReport =
+//             doctorPaymentHistoryModelFromJson(r.body);
+//         // print("DoctorPaymentHistory: ${viewPatientpaymentReport.paymentHistory![0].amount}");
+//         return viewPatientpaymentReport;
+//       }
+//     } catch (error) {
+//       print("DoctorPaymentHistoryError: ${error}");
+//       return;
+//     }
+//   }
+
+  //patient_list_api..........................
+  ///
+  //ViewPaymentHistoryApi()
   static DoctorPaymentHistoryApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -797,7 +822,7 @@ class ApiProvider {
         DoctorPaymentHistoryModel? viewPatientpaymentReport =
             doctorPaymentHistoryModelFromJson(r.body);
         print(
-            "DoctorPaymentHistory: ${viewPatientpaymentReport.paymentHistory![0].amount}");
+            "DoctorPaymentHistory: ${viewPatientpaymentReport?.paymentHistory![0].amount}");
         return viewPatientpaymentReport;
       }
     } catch (error) {
@@ -806,20 +831,19 @@ class ApiProvider {
     }
   }
 
-  //patient_list_api..........................
-  static ViewPatientsListApi() async {
-    var url = "${baseUrl}api/DoctorApi/ViewPatientList?DoctorId=151";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      print(r.body.toString());
-      if (r.statusCode == 200) {
-        var PatientList = patientListFromJson(r.body);
-        return PatientList;
-      }
-    } catch (error) {
-      return;
-    }
-  }
+  // static ViewPatientsListApi() async {
+  //   var url = "${baseUrl}api/DoctorApi/ViewPatientList?DoctorId=151";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       var PatientList = patientListFromJson(r.body);
+  //       return PatientList;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
 
   ///todo:from here 1_user................................
 //lab_list_api..........................
@@ -1311,7 +1335,8 @@ class ApiProvider {
     var Location,
     var PinCode,
     var ClinicName,
-    var Fee,
+    var EmailId,
+    //var Fee,
     //var adminLogin_id,
     //var accountnoEditText,
     //var ifscCodeEditText,
@@ -1327,13 +1352,14 @@ class ApiProvider {
       "ID": userid,
       "DoctorName": DoctorName,
       "MobileNumber": MobileNumber,
-      "StateMaster_Id": StateMaster_Id,
-      "CityMaster_Id": CityMaster_Id,
+      "StateMaster_Id": "$StateMaster_Id",
+      "CityMaster_Id": "$CityMaster_Id",
       "Location": Location,
       "PinCode": PinCode,
       "ClinicName": ClinicName,
-      "Fee": Fee,
-      "adminLogin_id": adminId,
+      "EmailId": "$EmailId",
+      //"Fee": Fee,
+      //"adminLogin_id": adminId,
       // "AccountNo": accountnoEditText,
       //"IFSCCode": ifscCodeEditText,
       //"BranchName": branchNameEditText
@@ -1779,6 +1805,9 @@ class ApiProvider {
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print('urknrs:$url');
+        print('usradmin:${adminId}');
+
         NurseProfileModel nurseProfileModel = nurseProfileModelFromJson(r.body);
         return nurseProfileModel;
       }
@@ -1789,27 +1818,29 @@ class ApiProvider {
 
   /// todo Nurse Signup api..........rahul .............
   static NurseSignupApi(
-      var PAN,
-      var NurseName,
-      var EmailId,
-      var Password,
-      var ConfirmPassword,
-      var MobileNumber,
-      var Location,
-      var StateMaster_Id,
-      var CityMaster_Id,
-      var PanImage,
-      var PanBase64Image,
-      var NurseImage,
-      var NurseImageBase64Image,
-      var CertificateImage,
-      var CertificateBase64Image,
-      var CertificateNumber,
-      var PinCode,
-      var NurseType_Id,
-      var Fee,
-      var Location_id,
-      var experience) async {
+    var PAN,
+    var NurseName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var Location,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var PanImage,
+    var PanBase64Image,
+    var NurseImage,
+    var NurseImageBase64Image,
+    var CertificateImage,
+    var CertificateBase64Image,
+    var CertificateNumber,
+    var PinCode,
+    var NurseType_Id,
+    var Fee,
+    var Location_id,
+    var experience,
+    var about,
+  ) async {
     var url = '${baseUrl}api/SignupApi/NurseRegistration';
     var body = {
       "PAN": "$PAN",
@@ -1833,6 +1864,7 @@ class ApiProvider {
       "Fee": Fee,
       "Location_id": Location_id,
       "experience": experience,
+      "about": about,
     };
 
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -1895,7 +1927,7 @@ class ApiProvider {
   static RWAProfileDetailApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
     var url = '${baseUrl}api/PatientApi/GetRWA_ProfileDetails?RWA_Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -1911,7 +1943,7 @@ class ApiProvider {
     }
   }
 
-  /// todo RWA Add Patient............Rahul
+  /// todo RWA Add Patient...........
   static RWAAddPatientApi(var PatientName, var EmailId, var MobileNumber,
       var Password, var ConfirmPassword, var Location, var PinCode) async {
     var prefs = GetStorage();
@@ -1920,9 +1952,12 @@ class ApiProvider {
     //     json.decode(r.body)['data']['AdminLogin_Id']);
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userirwaaid:${userid}');
     var url = '${baseUrl}api/PatientApi/AddPatient';
     var body = {
-      "AdminLogin_Id": adminId,
+      "Rwa_Id": userid,
+      //"AdminLogin_Id": adminId,
       "PatientName": PatientName,
       "EmailId": EmailId,
       "MobileNumber": MobileNumber,
@@ -1943,8 +1978,8 @@ class ApiProvider {
     }
   }
 
-  /// todo RWA Update Bank Detail............Rahul
-  static RWAUpdateBankDetailApi(
+  /// todo Add All  Bank Detail...........5 march 2024....prince
+  static AddBankDetailApi(
     var AccountNo,
     var IFSCCode,
     var BranchName,
@@ -1952,13 +1987,13 @@ class ApiProvider {
     var HolderName,
     var MobileNumber,
   ) async {
-    var url = '${baseUrl}api/SignupApi/UpdateBank';
+    var url = '${baseUrl}api/CommonApi/AddBankDetail';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
     var body = {
-      "Id": userid,
+      //"Id": userid,
       "Login_Id": adminId,
       "AccountNo": AccountNo,
       "IFSCCode": IFSCCode,
@@ -1967,11 +2002,57 @@ class ApiProvider {
       "HolderName": HolderName,
       "MobileNumber": MobileNumber,
     };
-    print('AddPatientBody: ${body}');
+    print('AddbankjBody: ${body}');
+    print(adminId);
+    print(AccountNo);
+    print(IFSCCode);
+    print(BranchName);
+    print(BranchAddress);
+    print(HolderName);
+    print(MobileNumber);
+
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print('AddbankjBody: ${body}');
+
+      print("BankDetailSuccesss: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      // Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo update All  Bank Detail...coman........5 march 2024....prince
+  static UpdateBankDetailApi(
+    var AccountNo,
+    var IFSCCode,
+    var BranchName,
+    var BranchAddress,
+    var HolderName,
+    var MobileNumber,
+  ) async {
+    var url = '${baseUrl}api/CommonApi/UpdateBank';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    var body = {
+      //"Id": userid,
+      "Login_Id": adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName,
+      "BranchAddress": BranchAddress,
+      "HolderName": HolderName,
+      "MobileNumber": MobileNumber,
+    };
+    print('update bank Body: ${body}');
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       print("BankDetailSuccesss: ${r.body}");
-      Get.snackbar("Success", "${r.body}");
+      // Get.snackbar("Success", "${r.body}");
       return r;
     } else {
       Get.snackbar("Failed", r.body);
@@ -1988,6 +2069,16 @@ class ApiProvider {
     var HolderName,
     var MobileNumber,
   ) async {
+    //http://pswellness.in/api/CommonApi/AddBankDetail
+    //{
+    //     "Login_Id":"3712",
+    //     "AccountNo":"8757439598357937",
+    //     "IFSCCode":"PNBU783647",
+    //     "BranchName":"PNB",
+    //     "BranchAddress":"Noida",
+    //     "HolderName":"Madhu",
+    //     "MobileNumber":"89746676767"
+    // }
     var url = '${baseUrl}api/DoctorApi/Doctor_AddBankDetail';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
@@ -2011,6 +2102,28 @@ class ApiProvider {
     } else {
       Get.snackbar("Failed", r.body);
       return r;
+    }
+  }
+
+  ///get_bank detail all common api.......4 march 2024...
+  ///
+  static GetbankDetailAllApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&d:${adminId}');
+
+    var url = '${baseUrl}api/CommonApi/GetBankDetail?AdminLogin_Id=$adminId';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final allbankgetModel = bankAllDetailModelFromJson(r.body);
+        return allbankgetModel;
+      }
+    } catch (error) {
+      print("RWAPaymentReportApiError: ${error}");
+      return;
     }
   }
 
@@ -2076,7 +2189,7 @@ class ApiProvider {
     }
   }
 
-  /// todo Rwa Payment Report.........Rahul
+  /// todo Rwa Payment Report........
   static RWAPaymentReportApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -2114,15 +2227,15 @@ class ApiProvider {
     }
   }
 
-  /// todo RWA Complain ............Rahul
+  /// todo RWA Complain ........
   static RWAProfileApi(
     var AuthorityName,
     var LandlineNumber,
     var StateMaster_Id,
     var CityMaster_Id,
     var Location,
-    var PinCode,
     var EmailId,
+    var PinCode,
   ) async {
     var url = '${baseUrl}api/PatientApi/UpdateRWA_Data';
     var prefs = GetStorage();
@@ -2136,9 +2249,10 @@ class ApiProvider {
       "StateMaster_Id": StateMaster_Id,
       "CityMaster_Id": CityMaster_Id,
       "Location": Location,
+      "EmailId": EmailId,
       "PinCode": PinCode,
       //"ClinicName": clinicNameController,
-      "EmailId": EmailId,
+
       // "CertificateImage": "$CertificateImage",
       // "CertificateImagebase64": "$CertificateImagebase64"
     };
@@ -2471,7 +2585,7 @@ class ApiProvider {
     }
   }
 
-  /// todo Chemist Update Profile ............Rahul
+  /// todo Chemist Update Profile ............
   static ChemistUpdateProfileApi(
     // var id,
     var ShopName,
@@ -2481,6 +2595,7 @@ class ApiProvider {
     var Location,
     //var AdminLogin_Id,
     var PinCode,
+    var EmailId,
     // var AccountNo,
     // var IFSCCode,
     // var BranchName
@@ -2502,6 +2617,7 @@ class ApiProvider {
       "Location": Location,
       "AdminLogin_Id": adminId,
       "PinCode": PinCode,
+      "EmailId": EmailId,
       //"AccountNo": AccountNo,
       //"IFSCCode": IFSCCode,
       //"BranchName": BranchName
@@ -2714,6 +2830,8 @@ class ApiProvider {
     var CertificateNo,
     var CertificateImage,
     var CertificateImagebase64,
+    //var Vendor_Id
+
     //var Patient_Id,
   ) async {
     var body = {
@@ -2731,6 +2849,7 @@ class ApiProvider {
       "CertificateNo": CertificateNo,
       'CertificateImagebase64': '$CertificateImagebase64',
       'CertificateImage': '$CertificateImage',
+      // "Vendor_Id": Vendor_Id
     };
     try {
       var url = '${baseUrl}api/SignupApi/SignUpRWA';
@@ -3030,14 +3149,14 @@ class ApiProvider {
     }
   }
 
-  /// todo Frenchies Profile Detail .............Rahul
+  /// todo Frenchies Profile Detail ...........
   static FrenchiesProfileDetailApi() async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_ProfileDetail?Id=${Id}';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
-        print(url);
+        print("frdetail:$url");
         final frenchiesProfileDetailModel =
             frenchiesProfileDetailModelFromJson(r.body);
         return frenchiesProfileDetailModel;
@@ -3638,17 +3757,18 @@ class ApiProvider {
 
   ///todo Registration, Register Vehicle.............prince,.....
   static FrenchiesRegisterVehicle(
-      var PAN,
-      var name,
-      var number,
-      var accountNo,
-      var DriverCharges,
-      var holderName,
-      var VcatId,
-      var VtypeId,
-      var ifsc,
-      var img,
-      String imageAsBase64) async {
+    var PAN,
+    var name,
+    var number,
+    var accountNo,
+    var DriverCharges,
+    var holderName,
+    var VcatId,
+    var VtypeId,
+    var ifsc,
+    //  var img,
+    //String imageAsBase64
+  ) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistration';
     final body = {
@@ -3661,8 +3781,8 @@ class ApiProvider {
       "VehicleCat_Id": "$VcatId",
       "VehicleType_Id": "$VtypeId",
       "IFSCCode": "$ifsc",
-      "CancelCheque": "$img",
-      "CancelChequeBase64": "$imageAsBase64",
+      // "CancelCheque": "$img",
+      //"CancelChequeBase64": "$imageAsBase64",
       "Vendor_Id": "$Id"
     };
     print("FrenchiesVehicleRegister: ${body}");

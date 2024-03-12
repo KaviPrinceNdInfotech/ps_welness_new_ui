@@ -12,9 +12,11 @@ import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurs
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/nurse_profile_details/profile_nurse_detail_page.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/update_bank_nurse/bank_update_nurse_view.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/update_bank_nurse/update_bank_nrs_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
@@ -39,6 +41,9 @@ class NurseMainDrawer extends StatelessWidget {
     NurseProfileControllersdetail _nurseprofileContrller =
         Get.put(NurseProfileControllersdetail());
 
+    UpdateBankSeperatenrsController _updateBankSeperatenrsController =
+        Get.put(UpdateBankSeperatenrsController());
+
     NurseProfileUpdateController _nurseprofileUpdateController =
         Get.put(NurseProfileUpdateController());
 
@@ -48,6 +53,7 @@ class NurseMainDrawer extends StatelessWidget {
     UserAboutusController _userAboutusController =
         Get.put(UserAboutusController());
     LoginpasswordController _loginpasswordControllerr3 = Get.find();
+    BankDetailController _getbank = Get.put(BankDetailController());
 
     return SafeArea(
       child: Drawer(
@@ -89,10 +95,8 @@ class NurseMainDrawer extends StatelessWidget {
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      "${_nurseprofileContrller.getNurseProfile?.emailId.toString()}"
-
-                      //'Ak@gmail.com',
-                      ,
+                      "${_nurseprofileContrller.getNurseProfile?.emailId.toString()}",
+                      //'Ak@gmail.com',,
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.015,
                           fontWeight: FontWeight.w700,
@@ -202,9 +206,8 @@ class NurseMainDrawer extends StatelessWidget {
                 _nurseprofileUpdateController.onInit();
                 _nurseprofileUpdateController.clearSelectedState();
                 //_nurseprofileContrller.onInit();
-                //_nurseprofileUpdateController.getStateApi();
+                _nurseprofileUpdateController.getStateApi();
                 await Future.delayed(Duration(milliseconds: 1000));
-
                 await Get.offAll(() => NurseEditProfilePage());
                 await Future.delayed(Duration(milliseconds: 10));
 
@@ -238,11 +241,19 @@ class NurseMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                // _updateBankSeperatenrsController.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+                await Get.offAll(() => UpdateBankSeperateNrsDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                //Get.to(() => UpdateBankSeperateNrsDetail());
+                //Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 

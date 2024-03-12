@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -34,6 +31,8 @@ class Franchies_vehicle_Controller extends GetxController {
   var ifsccode = '';
   var selectedImagepath = ''.obs;
 
+  ///
+
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
@@ -61,20 +60,22 @@ class Franchies_vehicle_Controller extends GetxController {
 
   void FrenchiesVehicleRegistration() async {
     isLoading(true);
-    final imageAsBase64 =
-        base64Encode(await File(selectedImagepath.value).readAsBytes());
+    // final imageAsBase64 =
+    //     base64Encode(await File(selectedImagepath.value).readAsBytes());
     http.Response r = await ApiProvider.FrenchiesRegisterVehicle(
-        panController?.text,
-        nameController?.text,
-        vehiclenumberController?.text,
-        accountController?.text,
-        driverchargeController?.text,
-        accountholderController?.text,
-        selectedVehicleCat.value?.id.toString(),
-        selectedVehicleType.value?.id.toString(),
-        IfscController?.text,
-        selectedImagepath.value.split('/').last,
-        imageAsBase64);
+      panController?.text,
+      nameController?.text,
+      vehiclenumberController?.text,
+      accountController?.text,
+      driverchargeController?.text,
+      accountholderController?.text,
+      selectedVehicleCat.value?.id.toString(),
+      selectedVehicleType.value?.id.toString(),
+      IfscController?.text,
+
+      /// selectedImagepath.value.split('/').last,
+      ///imageAsBase64
+    );
     if (r.statusCode == 200) {
       isLoading(false);
     }
@@ -192,9 +193,11 @@ class Franchies_vehicle_Controller extends GetxController {
     final isValid = frvehicleformkey.currentState!.validate();
     if (!isValid) {
       return;
-    } else if (selectedImagepath.value == '') {
-      Get.snackbar("title", "please select photo");
-    } else {
+    }
+    // else if (selectedImagepath.value == '') {
+    //   Get.snackbar("title", "please select photo");
+    // }
+    else {
       FrenchiesVehicleRegistration();
       CallLoader.loader();
       await Future.delayed(Duration(milliseconds: 900));

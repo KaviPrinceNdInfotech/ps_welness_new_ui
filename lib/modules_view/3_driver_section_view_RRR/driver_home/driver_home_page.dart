@@ -19,9 +19,10 @@ import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driv
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_page_message_firebase.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/add_bank_for_driver/add_bnk_view_driver/view_bank_add_driver.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
@@ -34,7 +35,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_drawer_view/drawerpage.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_payment_history/driver_payment_history_controller.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_profile_page_view/profile_view.dart';
-// import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_update_view.dart';
+// import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_add_view.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
@@ -78,6 +79,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
   DriverProfileDetailController _driverprofiledetail =
       Get.put(DriverProfileDetailController());
+
+  BankDetailController _getbank = Get.put(BankDetailController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -156,7 +159,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
     final List<String> productname = [
       'Booking Request',
-      'Update Bank Details',
+      'Add Bank Details',
       'Booking History',
       'Payment History',
       'Payout history',
@@ -248,8 +251,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _driverprofiledetail.driverProfileDetailApi();
+              onPressed: () async {
+                await _driverprofiledetail.driverProfileDetailApi();
                 _driverprofiledetail.update();
                 _keydriver.currentState!.openDrawer();
               },
@@ -510,7 +513,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                         Get.to(
                                             () => MessageScreen(id: "123456"));
                                       } else if (index == 1) {
-                                        Get.to(() => AddBankDetail());
+                                        Get.to(() => AddDriverBankDetail());
                                         //UpdateDriverBankDetail());
                                       } else if (index == 2) {
                                         Get.to(() => DriverOrderHistory());

@@ -16,7 +16,6 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registra
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_driver_registration_view/fr_driver_ambulace_1/fr_driver_registation_1.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_lab_register/lab_signup1/lab_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_nurses_view/nurses_signup1/nurses_signup1.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_rwa_view/rwa_signup1/rwa_signup1.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_vehicle_views/fr_vehicle_sign_up.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/patient_registration/patient_views/patient_sign_up.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
@@ -70,7 +69,7 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
     'Register Nurse',
     'Register Lab',
     //'Register checkup',
-    'Register Rwa',
+    //  'Register Rwa',
   ];
   final List<String> catimage = [
     'lib/assets/icons/frvehicle.png',
@@ -81,7 +80,7 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
     'lib/assets/icons/fr_nurser.png',
     'lib/assets/icons/fr_labr.png',
     // 'lib/assets/icons/fr_chkpr.png',
-    'lib/assets/icons/fr_rwar.png',
+    // 'lib/assets/icons/fr_rwar.png',
   ];
   @override
   Widget build(BuildContext context) {
@@ -342,18 +341,23 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
                                       //_frlab_1_controller.onInit();
                                       // _frlab_1_controller.onClose();
                                       // Get.to(() => FrLabSignup1());
-                                    } else if (index == 7) {
-                                      CallLoader.loader();
-                                      await Future.delayed(
-                                          Duration(milliseconds: 800));
-                                      CallLoader.hideLoader();
-                                      await SharedPreferences.getInstance()
-                                          .then((value) =>
-                                              Get.to(() => FrRwaSignup1()));
-                                      //_fr_chemist_1_controller.dispose();
-                                      // _fr_rwa_1_controller.onInit();
-                                      //Get.to(() => FrRwaSignup1());
                                     }
+
+                                    ///
+                                    // else if (index == 7) {
+                                    //   // CallLoader.loader();
+                                    //   // await Future.delayed(
+                                    //   //     Duration(milliseconds: 800));
+                                    //   // CallLoader.hideLoader();
+                                    //   // await SharedPreferences.getInstance()
+                                    //   //     .then((value) =>
+                                    //   //         Get.to(() => FrRwaSignup1()));
+                                    //   ///
+                                    //   //_fr_chemist_1_controller.dispose();
+                                    //   // _fr_rwa_1_controller.onInit();
+                                    //   //Get.to(() => FrRwaSignup1());
+                                    // }
+                                    ///
                                     // else if (index == 8) {
                                     //   Get.to(() =>
                                     //       franchiesHealthcheckupSignup1());

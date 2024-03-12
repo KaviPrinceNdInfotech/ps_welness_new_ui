@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
@@ -9,36 +11,67 @@ import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 class UpdateBankSeperatefranchiseController extends GetxController {
   final GlobalKey<FormState> updateseperatebankformkeyfranchise =
       GlobalKey<FormState>();
-  TextEditingController? AccountNo, IFSCCode, BranchName;
+  BankDetailController _getbank = Get.put(BankDetailController());
+
+  TextEditingController? AccountNo,
+      IFSCCode,
+      BranchName,
+      BranchAddress,
+      HolderName,
+      MobileNumber;
 
   var accountNo = '';
   var iFSCCode = '';
   var branchName = '';
+  var branchAddress = '';
+  var holderName = '';
+  var mobileNumber = '';
 
   void franchiseUpdateBankDetailApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.FranchiseBankSeperateDetailApi(
+    http.Response r = await ApiProvider.UpdateBankDetailApi(
       AccountNo?.text,
       IFSCCode?.text,
       BranchName?.text,
+      BranchAddress?.text,
+      HolderName?.text,
+      MobileNumber?.text,
     );
     if (r.statusCode == 200) {
       ///Get.back();
+      Get.snackbar(
+        'Message',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
       CallLoader.hideLoader();
+      Get.to(FranchiesHomePage());
+
       //Get.back();
 
       /// we can navigate to user page.....................................
       //Get.to(ChemistHomePage());
-    } else {}
+    } else {
+      Get.to(FranchiesHomePage());
+    }
   }
 
   @override
   void onInit() {
     //Id = TextEditingController(text: '');
     //Login_Id = TextEditingController(text: '');
-    AccountNo = TextEditingController(text: '');
-    IFSCCode = TextEditingController(text: '');
-    BranchName = TextEditingController(text: '');
+    AccountNo = TextEditingController(
+        text: "${_getbank.getbank?.accountNo.toString() ?? 0}");
+    IFSCCode = TextEditingController(
+        text: "${_getbank.getbank?.ifscCode.toString() ?? 0}");
+    BranchName = TextEditingController(
+        text: "${_getbank.getbank?.branchName.toString() ?? 0}");
+    BranchAddress = TextEditingController(
+        text: "${_getbank.getbank?.branchAddress.toString() ?? 0}");
+    HolderName = TextEditingController(
+        text: "${_getbank.getbank?.holderName.toString() ?? 0}");
+    MobileNumber = TextEditingController(
+        text: "${_getbank.getbank?.mobileNumber.toString() ?? 0}");
 
     //isverified = TextEditingController(text: '');
     super.onInit();
@@ -55,7 +88,7 @@ class UpdateBankSeperatefranchiseController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 9) {
+    if (value.length < 2) {
       return '              Provide valid account no.';
     }
     return null;
@@ -86,7 +119,7 @@ class UpdateBankSeperatefranchiseController extends GetxController {
       return '              This field is required';
     }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return '              Provide valid Branch address.';
     }
     return null;
   }
@@ -96,7 +129,7 @@ class UpdateBankSeperatefranchiseController extends GetxController {
       return '              This field is required';
     }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return '              Provide valid holder name.';
     }
     return null;
   }
@@ -105,8 +138,8 @@ class UpdateBankSeperatefranchiseController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 2) {
-      return '              Provide valid Branch name.';
+    if (value.length != 10) {
+      return '              Provide 10 digit number.';
     }
     return null;
   }

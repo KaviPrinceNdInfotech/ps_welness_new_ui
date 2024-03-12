@@ -234,7 +234,7 @@ class AppointmentCheckout extends StatelessWidget {
                                           Image.asset(
                                             //catimage[index], height: size.height * 0.08,
                                             //productimage[index],
-                                            "lib/assets/background_stack_png/lab1.png",
+                                            "lib/assets/background_stack_png/n5.png",
                                             height: size.height * 0.143,
                                           ),
                                           //Spacer(),
@@ -297,8 +297,8 @@ class AppointmentCheckout extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'Experience: '
-                                            "${_nurseappointmentcheckout.nurseCheckoutModel?.experience} yr",
+                                            'Experience(in Year) : '
+                                            "${_nurseappointmentcheckout.nurseCheckoutModel?.experience}",
                                             //"${_labListController.labCheckoutModel?.year}",
                                             //doctorcatagary[index],
                                             maxLines: 1,
@@ -372,7 +372,7 @@ class AppointmentCheckout extends StatelessWidget {
                                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              'Selected Date:',
+                                              'Booking Date:',
                                               //doctorcatagary[index],
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,

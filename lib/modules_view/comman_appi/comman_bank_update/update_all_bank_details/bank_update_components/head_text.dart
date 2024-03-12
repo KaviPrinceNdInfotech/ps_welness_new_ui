@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
-class UpdateDoctorBankHeadText extends StatelessWidget {
-  const UpdateDoctorBankHeadText({Key? key}) : super(key: key);
+class UpdateBankHeadText extends StatelessWidget {
+  const UpdateBankHeadText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class UpdateDoctorBankHeadText extends StatelessWidget {
         children: [
           InkWell(
               onTap: () {
-                Get.back();
+                Get.to(RwaHomePage());
+
+                //Get.back();
               },
               child: Container(
                   height: size.height * 0.03,
@@ -42,9 +45,9 @@ class UpdateDoctorBankHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.01),
           Text(
-            '+ DOCTOR\'S',
+            'Update',
             style: GoogleFonts.alatsi(
-                fontSize: 23,
+                fontSize: 32,
                 fontWeight: FontWeight.w600,
                 color: Color(0xff023382)),
           ),
@@ -52,9 +55,9 @@ class UpdateDoctorBankHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'Bank Details',
+                  text: 'Bank Details Rwa',
                   style: GoogleFonts.poppins(
-                    fontSize: 20,
+                    fontSize: 17,
                     color: Colors.black87,
                     fontWeight: FontWeight.w600,
                     //color: Color(0xff023382)

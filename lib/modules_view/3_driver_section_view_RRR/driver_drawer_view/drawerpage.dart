@@ -11,12 +11,10 @@ import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driv
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/driver_profile_details/profile_driver_detail_page.dart';
-
-///import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/lab_test_addtest/add_testt.dart';
-///import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/lab_test_view/add_labtestts/add_test_todo.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_update_bank_details/bank_update_view.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
@@ -44,6 +42,7 @@ class DriverMainDrawer extends StatelessWidget {
     LoginpasswordController _loginpasswordControllerr2 = Get.find();
     DriverProfileController _driverProfileControlleredit =
         Get.put(DriverProfileController());
+    BankDetailController _getbank = Get.put(BankDetailController());
 
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -279,11 +278,22 @@ class DriverMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+
+                /// Get.back();
+
+                /// Get.back();
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.to(() => UpdateDriverBankDetail());
+                // await Future.delayed(Duration(milliseconds: 10));
+                // await _getbank.BankDetailCommonApi();
+                //Get.to(() => UpdateBankSeperateDetail());
+                //Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 

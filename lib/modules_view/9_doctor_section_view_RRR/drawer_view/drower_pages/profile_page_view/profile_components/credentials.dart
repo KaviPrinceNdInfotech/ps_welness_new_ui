@@ -31,7 +31,7 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
     'Item 5',
   ];
 
-  DoctorProfile? doctorProfile;
+  DoctorProfileDetail? doctorProfile;
 
   get newvalue => null!;
 
@@ -95,6 +95,37 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
                           ),
                           prefixIcon: Icon(
                             Icons.home_repair_service_outlined,
+                            color: black.withOpacity(0.7),
+                            size: 20,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+
+                    ///TODO: emailId.......................
+                    NeumorphicTextFieldContainer(
+                      child: TextFormField(
+                        controller:
+                            _doctorUpdateProfileController.emailController,
+                        autofillHints: [AutofillHints.name],
+                        validator: (value) {
+                          return _doctorUpdateProfileController
+                              .validEmail(value!);
+                        },
+                        cursorColor: Colors.black,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'EmailId',
+                          helperStyle: TextStyle(
+                            color: black.withOpacity(0.7),
+                            fontSize: 18,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.email,
                             color: black.withOpacity(0.7),
                             size: 20,
                           ),
@@ -266,34 +297,36 @@ class DoctorUpdateProfileCredentials extends StatelessWidget {
 
                     ///
                     //
-                    // ///TODO: Pin.......................
-                    // NeumorphicTextFieldContainer(
-                    //   child: TextFormField(
-                    //     controller: _doctorUpdateProfileController.pinCodeEditText,
-                    //     autofillHints: [AutofillHints.password],
-                    //     validator: (value) {
-                    //       return _doctorUpdateProfileController.validPin(value!);
-                    //     },
-                    //     cursorColor: Colors.black,
-                    //     obscureText: false,
-                    //     decoration: InputDecoration(
-                    //       hintText: 'Pin',
-                    //       helperStyle: TextStyle(
-                    //         color: black.withOpacity(0.7),
-                    //         fontSize: 18,
-                    //       ),
-                    //       prefixIcon: Icon(
-                    //         Icons.pin,
-                    //         color: black.withOpacity(0.7),
-                    //         size: 20,
-                    //       ),
-                    //       border: InputBorder.none,
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: size.height * 0.02,
-                    // ),
+                    ///TODO: Pin.......................
+                    NeumorphicTextFieldContainer(
+                      child: TextFormField(
+                        controller:
+                            _doctorUpdateProfileController.pinCodeEditText,
+                        autofillHints: [AutofillHints.password],
+                        validator: (value) {
+                          return _doctorUpdateProfileController
+                              .validPin(value!);
+                        },
+                        cursorColor: Colors.black,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'Pin Code',
+                          helperStyle: TextStyle(
+                            color: black.withOpacity(0.7),
+                            fontSize: 18,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.pin,
+                            color: black.withOpacity(0.7),
+                            size: 20,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
 
                     ///TODO: Clinic name.......................
                     NeumorphicTextFieldContainer(

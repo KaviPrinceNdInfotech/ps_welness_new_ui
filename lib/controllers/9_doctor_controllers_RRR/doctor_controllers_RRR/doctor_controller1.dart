@@ -332,7 +332,7 @@ class Doctor_1_Controller extends GetxController {
         aboutController?.text,
 
         ///this is remaining part
-        selectedFranchiseId.value?.id,
+        selectedFranchiseId.value?.id.toString(),
       );
 
       if (r.statusCode == 200) {

@@ -33,6 +33,7 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_pr
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
 import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/controller_bindingss.dart';
 
@@ -186,13 +187,11 @@ class MyHttpOverrides extends HttpOverrides {
     Get.lazyPut(() => UseracptrejectController());
     Get.lazyPut(() => SkillsListController());
     Get.lazyPut(() => NurseAppoointmentHistoryControllerss());
-
     Get.lazyPut(() => Fr_common_Controller());
-
     Get.lazyPut(() => CommingDriverController());
-
     Get.lazyPut(() => DoctorrUploadReportController());
     Get.lazyPut(() => NurseBannerContreoller());
+    Get.lazyPut(() => BankDetailController());
 
     ///Get.lazyPut(() => UserProfileControllers());
 

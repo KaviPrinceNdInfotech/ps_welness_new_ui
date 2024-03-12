@@ -155,7 +155,7 @@ class NurseBooking1Controller extends GetxController {
     CallLoader.loader();
     http.Response r = await ApiProvider.Nursesebooking1Api(
       selectedNurse.value?.id.toString(),
-      selectedhours.value,
+      //selectedhours.value,
       selectedshift.value,
       appointmentController1.text,
       appointmentController2.text,

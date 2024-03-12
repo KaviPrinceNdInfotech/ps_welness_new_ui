@@ -1,28 +1,16 @@
 // To parse this JSON data, do
 //
-//     final doctorProfile = doctorProfileFromJson(jsonString);
+//     final doctorProfileDetail = doctorProfileDetailFromJson(jsonString);
 
 import 'dart:convert';
 
-DoctorProfile? doctorProfileFromJson(String str) =>
-    DoctorProfile.fromJson(json.decode(str));
+DoctorProfileDetail doctorProfileDetailFromJson(String str) =>
+    DoctorProfileDetail.fromJson(json.decode(str));
 
-String doctorProfileToJson(DoctorProfile? data) => json.encode(data!.toJson());
+String doctorProfileDetailToJson(DoctorProfileDetail data) =>
+    json.encode(data.toJson());
 
-class DoctorProfile {
-  DoctorProfile({
-    this.id,
-    this.doctorName,
-    this.mobileNumber,
-    this.stateName,
-    this.cityName,
-    this.emailId,
-    this.location,
-    this.clinicName,
-    this.departmentName,
-    this.availableTime,
-  });
-
+class DoctorProfileDetail {
   int? id;
   String? doctorName;
   String? mobileNumber;
@@ -32,9 +20,29 @@ class DoctorProfile {
   String? location;
   String? clinicName;
   String? departmentName;
+  String? pinCode;
   String? availableTime;
+  num? stateMasterId;
+  num? cityMasterId;
 
-  factory DoctorProfile.fromJson(Map<String, dynamic> json) => DoctorProfile(
+  DoctorProfileDetail({
+    this.id,
+    this.doctorName,
+    this.mobileNumber,
+    this.stateName,
+    this.cityName,
+    this.emailId,
+    this.location,
+    this.clinicName,
+    this.departmentName,
+    this.pinCode,
+    this.availableTime,
+    this.stateMasterId,
+    this.cityMasterId,
+  });
+
+  factory DoctorProfileDetail.fromJson(Map<String, dynamic> json) =>
+      DoctorProfileDetail(
         id: json["Id"],
         doctorName: json["DoctorName"],
         mobileNumber: json["MobileNumber"],
@@ -44,7 +52,10 @@ class DoctorProfile {
         location: json["Location"],
         clinicName: json["ClinicName"],
         departmentName: json["DepartmentName"],
+        pinCode: json["PinCode"],
         availableTime: json["AvailableTime"],
+        stateMasterId: json["StateMaster_Id"],
+        cityMasterId: json["CityMaster_Id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +68,9 @@ class DoctorProfile {
         "Location": location,
         "ClinicName": clinicName,
         "DepartmentName": departmentName,
+        "PinCode": pinCode,
         "AvailableTime": availableTime,
+        "StateMaster_Id": stateMasterId,
+        "CityMaster_Id": cityMasterId,
       };
 }

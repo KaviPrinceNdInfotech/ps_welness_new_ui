@@ -7,14 +7,16 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/10_lab_controller/add_test_lab_controller/lab_test_add_controller.dart';
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/lab_test_view/add_labtestts/add_test_todo.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/update_lab_bank/update_bank_lab_view/update_lab_bnk_view.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_lab_detail_page.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
@@ -37,11 +39,15 @@ class LabMainDrawer extends StatelessWidget {
       Get.put(LabprofiledetailController());
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
+  LabProfileUpdateController _labProfileUpdateController =
+      Get.put(LabProfileUpdateController());
   LabAboutusController _labAboutusController = Get.put(LabAboutusController());
   SkillsListController _skillsListController = Get.put(SkillsListController());
   LoginpasswordController _loginpasswordController = Get.find();
   LabTestListController _labTestListController =
       Get.put(LabTestListController());
+  BankDetailController _getbank = Get.put(BankDetailController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -198,6 +204,7 @@ class LabMainDrawer extends StatelessWidget {
                 Get.back();
                 _labTestListController.labTestListApi();
                 _labTestListController.update();
+
                 Get.to(() => LabtestListScreen());
                 // Get.offNamed('/LabtestListScreen');
               },
@@ -265,10 +272,19 @@ class LabMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/LabProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => LabProfilePage());
+                _labprofiledetailController.update();
+                _labprofiledetailController.labprofileApi();
+
+                _labProfileUpdateController.onInit();
+                _labProfileUpdateController.clearSelectedState();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => LabProfilePage());
+                await Future.delayed(Duration(milliseconds: 10));
+                //Get.to(() => LabProfilePage());
                 Get.offNamed('/LabProfilePage');
               },
             ),
@@ -399,11 +415,19 @@ class LabMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => UpdateBankLabDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                // Get.to(() => UpdateBankLabDetail());
+                // Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 

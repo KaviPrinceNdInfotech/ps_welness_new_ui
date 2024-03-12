@@ -468,18 +468,15 @@ class ResitrationChemistDetails extends StatelessWidget {
                                                           children: [
                                                             Text(
                                                               '${item?[index].id}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             Text(
                                                               '${item?[index].chemistName}',
@@ -492,84 +489,68 @@ class ResitrationChemistDetails extends StatelessWidget {
                                                                     FontWeight
                                                                         .w700,
                                                                 color: Colors
-                                                                    .brown
-                                                                    .shade600,
+                                                                    .white,
                                                               ),
                                                             ),
                                                             Text(
                                                               '${item?[index].vendorId}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             Text(
                                                               '${item?[index].shopName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             Text(
                                                               '${item?[index].mobileNumber}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             Text(
                                                               '${item?[index].emailId}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             Text(
                                                               '${item?[index].location}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             //gst...
                                                             // Text(
@@ -589,18 +570,15 @@ class ResitrationChemistDetails extends StatelessWidget {
                                                             // ),
                                                             Text(
                                                               '${item?[index].licenceNumber}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade600,
-                                                              ),
+                                                              style: GoogleFonts.lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.03,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white),
                                                             ),
                                                             Text(
                                                               '${item?[index].isApproved}',
@@ -613,7 +591,7 @@ class ResitrationChemistDetails extends StatelessWidget {
                                                                     FontWeight
                                                                         .w700,
                                                                 color: Colors
-                                                                    .green
+                                                                    .red
                                                                     .shade900,
                                                               ),
                                                             ),

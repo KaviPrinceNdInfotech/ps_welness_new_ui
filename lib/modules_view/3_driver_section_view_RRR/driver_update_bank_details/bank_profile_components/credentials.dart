@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_update_bank_details/update_bank_driver_controller.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
-
-// import 'package:ps_welness/constants/constants/constants.dart';
-// import 'package:ps_welness/modules_view/3_driver_section_view/driver_home/driver_home_page.dart';
-// //import 'package:ps_welness/modules_view/home_page_view/home_page.dart';
-// import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
-// import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
-
-import '../../../../controllers/6_chemist_view_controllers/update_bank_controller/update_bank_detail_controller.dart';
 
 class UpdateDriverBankCredentials extends StatelessWidget {
   UpdateDriverBankCredentials({Key? key}) : super(key: key);
@@ -20,7 +13,9 @@ class UpdateDriverBankCredentials extends StatelessWidget {
   // Hospital_1_Controller _hospital_1_controller =
   //     Get.put(Hospital_1_Controller());
 
-  UpdateBankController _updateBankController = Get.put(UpdateBankController());
+  UpdateBankSeperatedvrController _updateBankdvrController =
+      Get.put(UpdateBankSeperatedvrController());
+  //class UpdateBankSeperatedvrController extends GetxController {
 
   var items = [
     'Item 1',
@@ -29,13 +24,14 @@ class UpdateDriverBankCredentials extends StatelessWidget {
     'Item 4',
     'Item 5',
   ];
+
   get newvalue => null!;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _updateBankController.updatebankformkey,
+      key: _updateBankdvrController.updateseperatedvrbankformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -43,7 +39,7 @@ class UpdateDriverBankCredentials extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.0,
             ),
             Text(
               'Update Details:',
@@ -51,74 +47,21 @@ class UpdateDriverBankCredentials extends StatelessWidget {
                   fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
             ),
             SizedBox(
-              height: size.height * 0.01,
-              //appPadding / 2,
-            ),
-
-            ///TODO: Id.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _updateBankController.idController,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.creditCardNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_balance_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.01,
-              //appPadding / 2,
-            ),
-
-            ///TODO: Login Id.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _updateBankController.LoginIdController,
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.creditCardNumber],
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Login Id',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_balance_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.0,
               //appPadding / 2,
             ),
 
             ///TODO: bankAc  no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                controller: _updateBankController.accountnoController,
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
+                controller: _updateBankdvrController.AccountNo,
+                onSaved: (value) {
+                  _updateBankdvrController.accountNo = value!;
+                },
                 validator: (value) {
-                  return _updateBankController.validAccount(value!);
+                  return _updateBankdvrController.validbankaccount(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -146,9 +89,12 @@ class UpdateDriverBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.creditCardNumber],
-                controller: _updateBankController.ifscController,
+                controller: _updateBankdvrController.IFSCCode,
+                onSaved: (value) {
+                  _updateBankdvrController.iFSCCode = value!;
+                },
                 validator: (value) {
-                  return _updateBankController.validIfsc(value!);
+                  return _updateBankdvrController.validifsc(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -176,9 +122,12 @@ class UpdateDriverBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _updateBankController.branchNameController,
+                controller: _updateBankdvrController.BranchName,
+                onSaved: (value) {
+                  _updateBankdvrController.branchName = value!;
+                },
                 validator: (value) {
-                  return _updateBankController.validBranch(value!);
+                  return _updateBankdvrController.validbranch(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -206,17 +155,23 @@ class UpdateDriverBankCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _updateBankController.branchaddressController,
+                controller: _updateBankdvrController.BranchAddress,
+                onSaved: (value) {
+                  _updateBankdvrController.branchAddress = value!;
+                },
+                validator: (value) {
+                  return _updateBankdvrController.validbranchaddress(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Branch address',
+                  hintText: 'Branch Address.',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.account_balance_rounded,
+                    Icons.pin_drop,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -229,21 +184,27 @@ class UpdateDriverBankCredentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
-            ///TODO:  holder name.......................
+            ///TODO:  accountholder name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.name],
-                controller: _updateBankController.holderNameController,
+                controller: _updateBankdvrController.HolderName,
+                onSaved: (value) {
+                  _updateBankdvrController.accountNo = value!;
+                },
+                validator: (value) {
+                  return _updateBankdvrController.validname(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Branch holder name',
+                  hintText: 'Account Holder name.',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.account_balance_rounded,
+                    Icons.account_box,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -256,21 +217,27 @@ class UpdateDriverBankCredentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
-            ///TODO:  Mobile Number.......................
+            ///TODO:  mobile no .......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _updateBankController.mobileNumberController,
+                autofillHints: [AutofillHints.newPassword],
+                controller: _updateBankdvrController.MobileNumber,
+                onSaved: (value) {
+                  _updateBankdvrController.mobileNumber = value!;
+                },
+                validator: (value) {
+                  return _updateBankdvrController.validmobile(value!);
+                },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Mobile number',
+                  hintText: 'Valid Mobile no',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
                   ),
                   prefixIcon: Icon(
-                    Icons.account_balance_rounded,
+                    Icons.phone_android,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -282,10 +249,12 @@ class UpdateDriverBankCredentials extends StatelessWidget {
               height: size.height * 0.00,
               //appPadding / 2,
             ),
+
             RectangularButton(
-                text: 'UPDATE',
+                text: 'Update Bank',
                 press: () {
-                  _updateBankController.checkDriverUpdateBankDetail();
+                  _updateBankdvrController.checkUpdateBankSeperatecheDetail();
+                  //_updateBankdvrController.hideLoader();
                 })
           ],
         ),

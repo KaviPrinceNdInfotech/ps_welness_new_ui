@@ -110,7 +110,9 @@ class DraweerFranchiesProfileController extends GetxController {
         text:
             "${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.location.toString() ?? 0}");
 
-    PinCode = TextEditingController(text: "111111");
+    PinCode = TextEditingController(
+        text:
+            "${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.pinCode.toString() ?? 0}");
     VendorName = TextEditingController(
         text:
             "${_frenchiesProfileDetailController.getfrenchiesProfileDetailModel?.vendorName.toString() ?? 0}");

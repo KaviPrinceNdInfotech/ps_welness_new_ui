@@ -51,6 +51,7 @@ import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dar
 import 'package:ps_welness_new_ui/controllers/nurses_controllers_RRR_signuppp/nurses_controller2.dart';
 import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 
 import '../controllers/10_lab_controller/drawer_page_flab_controller/complain_lab_controller.dart';
 import '../controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
@@ -225,9 +226,9 @@ class ControllerBinding extends Bindings {
     Get.put(NurseAppoointmentHistoryControllerss());
     Get.put(Fr_common_Controller());
     Get.put(CommingDriverController());
-
     Get.put(DoctorrUploadReportController());
     Get.put(NurseBannerContreoller());
+    Get.put(BankDetailController());
 
     ///  Get.put(DoctorrUploadReportController());
     //Get.put(InvoiceController());

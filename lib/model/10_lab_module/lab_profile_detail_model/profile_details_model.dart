@@ -17,8 +17,10 @@ class LabprofileModel {
   String? emailId;
   String? stateName;
   String? cityName;
-  String? pinCode;
+  dynamic pinCode;
   String? location;
+  num? stateMasterId;
+  num? cityMasterId;
 
   LabprofileModel({
     this.id,
@@ -29,6 +31,8 @@ class LabprofileModel {
     this.cityName,
     this.pinCode,
     this.location,
+    this.stateMasterId,
+    this.cityMasterId,
   });
 
   factory LabprofileModel.fromJson(Map<String, dynamic> json) =>
@@ -41,6 +45,8 @@ class LabprofileModel {
         cityName: json["CityName"],
         pinCode: json["PinCode"],
         location: json["Location"],
+        stateMasterId: json["StateMaster_Id"],
+        cityMasterId: json["CityMaster_Id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,5 +58,7 @@ class LabprofileModel {
         "CityName": cityName,
         "PinCode": pinCode,
         "Location": location,
+        "StateMaster_Id": stateMasterId,
+        "CityMaster_Id": cityMasterId,
       };
 }

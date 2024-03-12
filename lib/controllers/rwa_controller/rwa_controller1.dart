@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +64,13 @@ class Rwa_11_controller extends GetxController {
     print(states);
   }
 
+  ///franchise id api class........45  1.........
+  Future<void> RwafranchiseIdApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
+  }
+
   ///get cities api...........
   void getCityByStateIDRwa(String stateID) async {
     cities.clear();
@@ -83,6 +91,10 @@ class Rwa_11_controller extends GetxController {
   onChangePlan(String plan) {
     selectedService.value = plan;
   }
+
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
 
   late TextEditingController panController,
       nameController,
@@ -134,6 +146,9 @@ class Rwa_11_controller extends GetxController {
       certificateNoController.text,
       selectedPath.value.split('/').last,
       imageAsBase64,
+
+      ///this is remaining part
+      //selectedFranchiseId.value?.id.toString(),
     );
 
     if (r.statusCode == 200) {
@@ -201,6 +216,7 @@ class Rwa_11_controller extends GetxController {
     landlineController = TextEditingController();
 
     getStateRwaApi();
+    RwafranchiseIdApi();
     //getdepartmentApi();
     selectedState.listen((p0) {
       if (p0 != null) {

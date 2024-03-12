@@ -10,6 +10,7 @@ import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_pag
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
@@ -40,6 +41,8 @@ class FranchiesisMainDrawer extends StatelessWidget {
 
   DraweerFranchiesProfileController _draweerFranchiesProfileController =
       Get.put(DraweerFranchiesProfileController());
+
+  BankDetailController _getbank = Get.put(BankDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +192,7 @@ class FranchiesisMainDrawer extends StatelessWidget {
                 _frenchiesProfileDetailController.frenchiesProfileDetailApi();
                 _frenchiesProfileDetailController.update();
                 Get.to(() => FranchiesDetailProfile());
-                Get.offNamed('/FranchiessProfilePage');
+                //Get.offNamed('/FranchiessProfilePage');
               },
             ),
             ListTile(
@@ -266,11 +269,27 @@ class FranchiesisMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankChemistSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankChemistSeperateDetail());
-                Get.offNamed('/UpdateBankChemistSeperateDetail');
+
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                // _frenchiesProfileDetailController.
+
+                /// _draweerFranchiesProfileController.refresh();
+                // _draweerFranchiesProfileController.update();
+
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => UpdateBankFranchiseSeperateDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+
+                await _getbank.BankDetailCommonApi();
+
+                //Get.to(() => UpdateBankFranchiseSeperateDetail());
+                //Get.offNamed('/UpdateBankChemistSeperateDetail');
               },
             ),
 

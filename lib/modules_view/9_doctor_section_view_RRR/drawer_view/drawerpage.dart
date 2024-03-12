@@ -12,11 +12,12 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_pr
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_update_profile/doctor_updateprofile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/complaint_page/complaint_page.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/profile_details_doctor/profile_doctor_detail_page.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/update_dr_bank/update_bank_dr_view/update_dr_bnk_view.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
@@ -25,7 +26,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'drower_pages/complaint_page/complaint_page.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
-import 'drower_pages/patient_lists/patient_list.dart';
 import 'drower_pages/profile_page_view/doctor_profile_view.dart';
 import 'drower_pages/skils_view/add_skils/add_skils_todo.dart';
 
@@ -41,10 +41,11 @@ class MainDrawer extends StatelessWidget {
   DoctorUpdateProfileController _doctorUpdateProfileController =
       Get.put(DoctorUpdateProfileController());
 
+  BankDetailController _getbank = Get.put(BankDetailController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Drawer(
         backgroundColor: MyTheme.ContainerUnSelectedColor,
@@ -186,45 +187,52 @@ class MainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => UpdateBankDrDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                // Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                FontAwesomeIcons.list,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'List',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/PatientList'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => PatientListDoctor());
-                Get.offNamed('/PatientList');
-              },
-            ),
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     FontAwesomeIcons.list,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'List',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/PatientList'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //     Get.back();
+            //     Get.to(() => PatientListDoctor());
+            //     Get.offNamed('/PatientList');
+            //   },
+            // ),
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -337,9 +345,14 @@ class MainDrawer extends StatelessWidget {
                 // _doctorUpdateProfileController.isClosed;
 
                 //_doctorUpdateProfileController.getStateApi();
-                await Future.delayed(Duration(seconds: 0));
+                await Future.delayed(Duration(milliseconds: 1000));
 
                 await Get.offAll(() => DoctorUpdateProfilePage());
+
+                await Future.delayed(Duration(milliseconds: 10));
+
+                await _doctorProfileControllers.doctorprofileApi();
+
                 // Get.offNamed('/DoctorProfilePage');
               },
             ),

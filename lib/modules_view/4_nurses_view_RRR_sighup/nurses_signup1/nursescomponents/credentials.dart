@@ -348,6 +348,41 @@ class Nurses1Credentials extends StatelessWidget {
               ),
             ),
 
+            ///...
+            SizedBox(
+              height: size.height * 0.00,
+              //appPadding / 2,
+            ),
+
+            ///todo : About us .................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _nurses_22_controller.aboutController,
+                cursorColor: Colors.black,
+                obscureText: false,
+                onSaved: (value) {
+                  _nurses_22_controller.about = value!;
+                },
+                validator: (value) {
+                  return _nurses_22_controller.validexperince(value!);
+                },
+                decoration: InputDecoration(
+                  hintText: 'About Us',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.account_box,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
             SizedBox(
               height: size.height * 0.01,
             ),
