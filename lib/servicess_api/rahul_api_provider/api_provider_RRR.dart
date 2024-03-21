@@ -63,6 +63,10 @@ import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDVehicleRep
 import 'package:ps_welness_new_ui/model/franchies_models/frenchies_getRole_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchies_testList_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/specialistDW_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/update_old_driver_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/update_old_driver_model_vehicle_number.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/vechle_number_list_newdriverupdate_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/vehicle_number_list_old_driver_model.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
@@ -97,6 +101,7 @@ import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
 import '../../model/9_doctors_model_RRR/view_patient_report_model.dart';
 import '../../model/franchies_models/frenchiesGetGallery_model.dart';
+import '../../model/franchies_models/update_new_vehicle_vehicletypeid_model.dart';
 
 var base64Code = "base64";
 //base64Encode( File(selectedPath.value).readAsBytes());
@@ -3737,7 +3742,7 @@ class ApiProvider {
     }
   }
 
-  ///todo get_VehicleType_api...........Rahul
+  ///todo get_VehicleType_api..........
   static Future<List<VehicleTypeName>> getVehicleTypeApi(String catID) async {
     var url = "${baseUrl}api/FranchisesApi/Fra_VehicleType_By_cat?Id=$catID";
     try {
@@ -4551,6 +4556,185 @@ class ApiProvider {
 
       Get.snackbar('Error', r.body);
       return r;
+    }
+  }
+
+  ///todo: update new driver.......franchise...20 march 2024....
+
+  static UpdatenewDriverApi(
+    var VehicleTypeId,
+    var VehicleNumberId,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrivernewListId = preferences.getString("DrivernewListId");
+    print("DrivernewListId: ${DrivernewListId}");
+    // var prefs = GetStorage();
+    // userid = prefs.read("Id").toString();
+    // print('&&&&&&frrrorr:${userid}');
+    //DrivernewListId
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
+    var url = '${baseUrl}api/FranchisesApi/VehicleAllotment';
+    var body = {
+      "DriverId": "$DrivernewListId",
+      "VehicleTypeId": "$VehicleTypeId",
+      "VehicleNumberId": "$VehicleNumberId"
+    };
+    print('&&fr&:${body}');
+
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
+
+      print('&&&&&&&&&&:${r.body}');
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      print('qwstate:${r.statusCode}');
+
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: update old driver.......franchise...21 march 2024....
+
+  static UpdateoldDriverApi(
+    var DriverId,
+    //var Id,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DriveroldListId = preferences.getString("DriveroldListId");
+    print("DriveroldListId: ${DriveroldListId}");
+    // var prefs = GetStorage();
+    // userid = prefs.read("Id").toString();
+    // print('&&&&&&frrrorr:${userid}');
+    //DrivernewListId
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
+    var url = '${baseUrl}api/FranchisesApi/SwapDriver';
+    var body = {
+      "DriverId": "$DriverId",
+      "Id": "$DriveroldListId",
+    };
+    print('&&sdsdfr&:${body}');
+
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
+
+      print('&&&&&&&&&&:${r.body}');
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      print('qwstate:${r.statusCode}');
+
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  /// todo update new driver Vehicle Id DropDown .......20 mar 2024....
+  static Future<List<NewVehicleType>> getnewdriverVehicletypeApi() async {
+    var url = '${baseUrl}api/CommonApi/GetVehicleType';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesVehicleCategoryModel = vehicleTypeIdddFromJson(r.body);
+        return frenchiesVehicleCategoryModel.vehicleType;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update new driver Vehicle number DropDown .......20 mar 2024....
+  static Future<List<VehicleNumberListElement>> getVehicfornewdriverApi(
+      String typeID) async {
+    var url =
+        "${baseUrl}api/CommonApi/GetVehicleNumberListByVehicleType?VehicleType_Id=$typeID";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesVehicleNumberModel = vehicleNumberListFromJson(r.body);
+        return frenchiesVehicleNumberModel.vehicleNumberList;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update old driver Vehicle Id DropDown .......21 mar 2024....
+  static Future<List<VehicleNumberListdrop>>
+      getolddriverVehicletypeApi() async {
+    var url = '${baseUrl}api/CommonApi/GetVehicleNumberListByVehicleType';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesVehicleCategoryModel =
+            vehicleNumberListdropdownFromJson(r.body);
+        return frenchiesVehicleCategoryModel.vehicleNumberList;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update old driver Vehicle number DropDown .......21 mar 2024....
+  static Future<List<VehicleNumberdetail>> getVehicforolddriverApi(
+      String typeID) async {
+    var url =
+        "${baseUrl}api/FranchisesApi/GetDriverVehicleId?VehicleNumberId=$typeID";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesVehicleNumberModel2 =
+            vehicletypebyVehicleNoIdFromJson(r.body);
+        return frenchiesVehicleNumberModel2.vehicleNumberdetail;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update old driver DropDown .......21 mar 2024....
+  static Future<List<Driver>> getUpdatedolddriverListApi() async {
+    var url = "${baseUrl}api/FranchisesApi/GetDriverForUpdate";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesupdatedriver = driverListUpdatedModelFromJson(r.body);
+        return frenchiesupdatedriver.drivers;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
     }
   }
 }

@@ -13,6 +13,7 @@ import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_pag
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/update_new_driver_controller/update_newdriver_controllerrr.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/add_dept_spe.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
@@ -33,6 +34,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../controllers/2_franchises_controller/frenchiesOldDriver_controller/update_old_driver_post_controllers.dart';
 import '../../../controllers/2_franchises_controller/registration_part_controller/franchise_chemist_regis_controller/chemist1_fr_controller/fr_chemist_controller.dart';
 import '../../../widgets/circular_loader.dart';
 import '../franchise_payout_report/franchise_payout_report.dart';
@@ -59,6 +61,12 @@ class FranchiesHomePage extends StatelessWidget {
 
     DraweerFranchiesProfileController _draweerFranchiesProfileController =
         Get.put(DraweerFranchiesProfileController());
+
+    UpdatenewdriverrrController _updatenewVehicleController =
+        Get.put(UpdatenewdriverrrController());
+
+    UpdateolddriverrrController _updateoldVehicleController =
+        Get.put(UpdateolddriverrrController());
 
     //AddVehicleController _addVehicleController = Get.put(AddVehicleController());
 
@@ -337,8 +345,15 @@ class FranchiesHomePage extends StatelessWidget {
                                                         ))),
                                                   ),
                                                   InkWell(
-                                                    onTap: () {
-                                                      Get.to(() =>
+                                                    onTap: () async {
+                                                      // await _updateoldVehicleController
+                                                      //     .getdriverVehicleoldTypeApi();
+                                                      // await _updateoldVehicleController
+                                                      //     .getdriverssApi();
+                                                      //
+                                                      // _updateoldVehicleController
+                                                      //     .update();
+                                                      await Get.to(() =>
                                                           OldDriverView());
                                                     },
                                                     child:
@@ -404,8 +419,12 @@ class FranchiesHomePage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                    onTap: () {
-                                                      Get.to(() =>
+                                                    onTap: () async {
+                                                      await _updatenewVehicleController
+                                                          .getdriverVehiclenewTypeApi();
+                                                      _updatenewVehicleController
+                                                          .update();
+                                                      await Get.to(() =>
                                                           NewDriverView());
                                                     },
                                                     child:

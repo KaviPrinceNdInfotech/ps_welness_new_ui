@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_newdrivre_update/update_new_driverrr/update_new_driver_credentials.dart';
 
-import '../../../constants/constants/constants.dart';
-import '../../../constants/my_theme.dart';
-import 'add_vehicle_components/credentials.dart';
+import '../../../../constants/constants/constants.dart';
+import '../../../../constants/my_theme.dart';
+//import '../add_vehicle_components/credentials.dart';
 
-class AddVehiclePage extends StatelessWidget {
-  const AddVehiclePage({Key? key}) : super(key: key);
+class UpdateNewwehiclePage extends StatelessWidget {
+  const UpdateNewwehiclePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class AddVehiclePage extends StatelessWidget {
                             ),
                             image: DecorationImage(
                                 image: AssetImage(
-                                  'lib/assets/background_stack_png/vehicle.png',
+                                  'lib/assets/background_stack_png/vehicle1.png',
                                 ),
                                 fit: BoxFit.cover)),
                       ),
@@ -88,7 +89,7 @@ class AddVehiclePage extends StatelessWidget {
                               width: size.width * 0.03,
                             ),
                             Text(
-                              'Add Vehicle Type',
+                              'Update new\nDriver',
                               style: GoogleFonts.alatsi(
                                   fontSize: size.height * 0.032,
                                   fontWeight: FontWeight.w600,
@@ -100,7 +101,7 @@ class AddVehiclePage extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.0,
                       ),
-                      AddVehicleCredentials(),
+                      UpdatenewDriverCredentials(),
                     ],
                   ),
                 ],

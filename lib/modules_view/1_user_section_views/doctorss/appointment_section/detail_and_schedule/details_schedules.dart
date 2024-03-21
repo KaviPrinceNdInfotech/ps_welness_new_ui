@@ -543,6 +543,13 @@ class DetailsSchedulePage extends StatelessWidget {
                                           _doctorappointmentcheckout
                                               .doctoorcheckoutApi();
                                           _doctorappointmentcheckout.update();
+                                          _doctorListController
+                                              .clearSelectedSlot();
+                                          //clearSelectedSlot
+
+                                          _doctorListController
+                                              .selectedTimeslotdoctor
+                                              .value = null;
                                         },
                                         child: Container(
                                           //padding: const EdgeInsets.symmetric(

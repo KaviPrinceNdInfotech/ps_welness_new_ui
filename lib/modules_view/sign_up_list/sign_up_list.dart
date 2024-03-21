@@ -570,6 +570,8 @@ class SignUpList extends StatelessWidget {
                                           // child: Image.asset('lib/assets/images/right-arrow.gif')
                                         ),
                                       ),
+
+                                      ///
                                       // Material(
                                       //   elevation: 2,
                                       //   color: Colors.white,

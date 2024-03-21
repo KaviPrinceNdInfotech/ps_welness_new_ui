@@ -244,7 +244,7 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
                       padding: EdgeInsets.all(size.width * 0.01),
                       child: Container(
                         height: size.height * 0.71,
-                        color: Color(0xff11f2ec),
+                        color: const Color(0xff11f2ec),
                         child: GridView.builder(
                             gridDelegate:
                                 SliverGridDelegateWithMaxCrossAxisExtent(
@@ -368,6 +368,23 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
                                     width: size.width * 0.15,
                                     padding: EdgeInsets.symmetric(
                                         vertical: size.height * 0.004),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          const BoxShadow(
+                                            color: Colors.black38,
+                                            offset: Offset(5, 5),
+                                            blurRadius: 0,
+                                            spreadRadius: 0,
+                                          ),
+                                          const BoxShadow(
+                                            color: Colors.black26,
+                                            offset: Offset(0, -0),
+                                            blurRadius: 0,
+                                            spreadRadius: 0,
+                                          ),
+                                        ]),
                                     child: Column(
                                       children: [
                                         Image.asset(
@@ -392,23 +409,6 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
                                         )
                                       ],
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          const BoxShadow(
-                                            color: Colors.black38,
-                                            offset: Offset(5, 5),
-                                            blurRadius: 0,
-                                            spreadRadius: 0,
-                                          ),
-                                          const BoxShadow(
-                                            color: Colors.black26,
-                                            offset: Offset(0, -0),
-                                            blurRadius: 0,
-                                            spreadRadius: 0,
-                                          ),
-                                        ]),
                                   ),
                                 ),
                               );

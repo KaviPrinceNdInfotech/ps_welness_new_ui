@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesOldDriver_controller/update_old_driver_post_controllers.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_olddrivre_update/franchise%20_old_driver_updates_view/credentials_old_credentials.dart';
 
-import '../../../constants/constants/constants.dart';
-import '../../../constants/my_theme.dart';
-import 'add_vehicle_components/credentials.dart';
+import '../../../../constants/constants/constants.dart';
+import '../../../../constants/my_theme.dart';
+//import '../add_vehicle_components/credentials.dart';
 
-class AddVehiclePage extends StatelessWidget {
-  const AddVehiclePage({Key? key}) : super(key: key);
+class UpdateOldDriverVehiclePage extends StatelessWidget {
+  UpdateOldDriverVehiclePage({Key? key}) : super(key: key);
+  UpdateolddriverrrController _updateoldVehicleController =
+      Get.put(UpdateolddriverrrController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,7 @@ class AddVehiclePage extends StatelessWidget {
                             ),
                             image: DecorationImage(
                                 image: AssetImage(
-                                  'lib/assets/background_stack_png/vehicle.png',
+                                  'lib/assets/background_stack_png/vehicle1.png',
                                 ),
                                 fit: BoxFit.cover)),
                       ),
@@ -88,7 +92,7 @@ class AddVehiclePage extends StatelessWidget {
                               width: size.width * 0.03,
                             ),
                             Text(
-                              'Add Vehicle Type',
+                              'Update Old\nDriver',
                               style: GoogleFonts.alatsi(
                                   fontSize: size.height * 0.032,
                                   fontWeight: FontWeight.w600,
@@ -100,7 +104,7 @@ class AddVehiclePage extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.0,
                       ),
-                      AddVehicleCredentials(),
+                      UpdateoldDriverCredentials(),
                     ],
                   ),
                 ],

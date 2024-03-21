@@ -67,17 +67,20 @@ class RozarPayDoctorController extends GetxController {
           100,
       'name':
           //'Kavi Singh',
-          _userrsProfileControllers.userProfile!.patientName.toString(),
+          _userrsProfileControllers.userProfile?.patientName.toString() ??
+              "Ps User",
       'timeout': 60 * 5,
       'description': 'Do Payment',
       'prefill': {
         'contact':
-            _userrsProfileControllers.userProfile!.mobileNumber.toString(),
+            _userrsProfileControllers.userProfile?.mobileNumber.toString() ??
+                "00000000",
 
         //'7877663456',
         //_getProfileController.getprofileModel!.result!.mobileNo.toString(),
         //'7019380053',
-        'email': _userrsProfileControllers.userProfile!.emailId.toString(),
+        'email': _userrsProfileControllers.userProfile?.emailId.toString() ??
+            "email@gmail.com",
 
         //'kp@gmail.com',
         // _getProfileController.getprofileModel!.result!.emailId.toString(),

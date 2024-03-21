@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:ps_welness_new_ui/model/1_user_model/doctor_user_time_slot_drop/doctor_user_timeslot.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/doctor_timing_slot_booking/slot_timing_doctor_booking.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
 import '../../../model/1_user_model/dr_booking_mode_dropdown/dr_booking_mode_drp_dn.dart';
@@ -33,12 +33,17 @@ class DoctorListController extends GetxController {
   RxBool isLoading = true.obs;
   // Rx<TimeSlot?> selectedTimeslot = (null as TimeSlot?).obs;
   // List<TimeSlot> timeslot = <TimeSlot>[].obs;
+  ///
 
-  Rx<TimeSlotDoctor?> selectedTimeslotdoctor = (null as TimeSlotDoctor?).obs;
-  List<TimeSlotDoctor> timeSlotdoctor = <TimeSlotDoctor>[].obs;
+  // Rx<TimeSlotDoctor?> selectedTimeslotdoctor = (null as TimeSlotDoctor?).obs;
+  // List<TimeSlotDoctor> timeSlotdoctor = <TimeSlotDoctor>[].obs;
 
   Rx<BookingMode?> selectedmodedoctor = (null as BookingMode?).obs;
   List<BookingMode> bookingMode = <BookingMode>[].obs;
+
+  Rx<TimeSlotDoctorss?> selectedTimeslotdoctor =
+      (null as TimeSlotDoctorss?).obs;
+  List<TimeSlotDoctorss> timeSlotdoctor = <TimeSlotDoctorss>[].obs;
 
   //late TextEditingController appointmentController;
   var appointment = ''.obs;
@@ -80,17 +85,24 @@ class DoctorListController extends GetxController {
   // }
 
   ///doctor api class.................
-  void timeslotdoctorApi() async {
-    timeSlotdoctor = (await ApiProvider.gettimeslotdoctorApi())!;
-    print('Prince time slot  list');
-    print("okortyug:${timeSlotdoctor}");
-  }
+  // void timeslotdoctorApi() async {
+  //   timeSlotdoctor = (await ApiProvider.gettimeslotdoctorApi())!;
+  //   print('Prince time slot  list');
+  //   print("okortyug:${timeSlotdoctor}");
+  // }
 
   ///doctor mode api class.................
   void modeofdoctorApi() async {
     bookingMode = (await ApiProvider.getmodeofdoctorApi())!;
     print('Prince time slot  list');
     print(bookingMode);
+  }
+
+  ///todo: doctor mode api class...slot timing 15 march ...2024...........
+  Future<void> slotdoctortimingApi() async {
+    timeSlotdoctor = (await ApiProvider.getslotdoctorssApi())!;
+    print('Prince time slot  list');
+    print(timeSlotdoctor);
   }
 
   void doctorBooking2Api() async {
@@ -165,13 +177,19 @@ class DoctorListController extends GetxController {
     }
   }
 
+  void clearSelectedSlot() {
+    selectedTimeslotdoctor.value = null;
+    //states?.clear();
+  }
+
   @override
   void onInit() {
     super.onInit();
     doctorListApi();
+    slotdoctortimingApi();
 
     /// timeslotApi();
-    timeslotdoctorApi();
+    ///timeslotdoctorApi();
     doctordetailApi();
     modeofdoctorApi();
     doctoridController = TextEditingController();
@@ -196,7 +214,7 @@ class DoctorListController extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime.now(),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2050),
       initialEntryMode: DatePickerEntryMode.input,
       //initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select Date',

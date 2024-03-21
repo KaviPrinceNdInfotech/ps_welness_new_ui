@@ -625,7 +625,6 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
-
                                                 prefs.setString("DeviceId",
                                                     "${_doctorappointmentcheckout.doctorCheckoutModel?.id}");
                                                 prefs.setString(
@@ -636,6 +635,10 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 // print("okook: ${fee}");
 
                                                 ///todo: end the fees.........
+                                                await _userrsProfileControllers
+                                                    .userprofileApi();
+                                                _userrsProfileControllers
+                                                    .update();
                                                 await _rozarPaydoctorController
                                                     .openCheckout();
                                                 CallLoader.loader();
@@ -650,6 +653,11 @@ class DoctorAppointmentCheckout extends StatelessWidget {
                                                 //         builder: (BuildContext
                                                 //                 context) =>
                                                 //             UserHomePage()));
+
+                                                await _userrsProfileControllers
+                                                    .userprofileApi();
+                                                _userrsProfileControllers
+                                                    .update();
 
                                                 await Get.to(
                                                   () =>

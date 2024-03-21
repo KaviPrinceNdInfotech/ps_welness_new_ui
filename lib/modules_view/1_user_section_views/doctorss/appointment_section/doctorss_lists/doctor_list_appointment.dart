@@ -406,14 +406,38 @@ class DoctorListUser extends StatelessWidget {
                                                                 const Duration(
                                                                     milliseconds:
                                                                         0),
-                                                                () {
+                                                                () async {
                                                                   _viewdoctorreviewController
                                                                       .doctorreviewratingApi();
                                                                   _viewdoctorreviewController
                                                                       .update();
+                                                                  _doctorListController
+                                                                      .slotdoctortimingApi();
+                                                                  _doctorListController
+                                                                      .update();
+                                                                  await _doctorListController
+                                                                      .slotdoctortimingApi();
+                                                                  _doctorListController
+                                                                      .update();
 
-                                                                  Get.offAll(() =>
-                                                                      DetailsSchedulePage());
+                                                                  _doctorListController
+                                                                      .clearSelectedSlot();
+                                                                  await Future.delayed(
+                                                                      Duration(
+                                                                          milliseconds:
+                                                                              1000));
+                                                                  await Get.offAll(
+                                                                      () =>
+                                                                          DetailsSchedulePage());
+                                                                  await Future.delayed(
+                                                                      Duration(
+                                                                          milliseconds:
+                                                                              10));
+
+                                                                  // await _doctorListController
+                                                                  //     .slotdoctortimingApi();
+                                                                  // _doctorListController
+                                                                  //.update();
                                                                   //Get.to((page))
                                                                   ///
                                                                 },

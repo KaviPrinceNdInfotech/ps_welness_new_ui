@@ -60,6 +60,7 @@ import '../model/1_user_model/doctor_appointment_history_model/doctor_onlinebook
 import '../model/1_user_model/doctor_appointment_history_model/user_doctor_apointment_history.dart';
 import '../model/1_user_model/doctor_checkout_model/doctor_checkout_modell.dart';
 import '../model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
+import '../model/1_user_model/doctor_timing_slot_booking/slot_timing_doctor_booking.dart';
 import '../model/1_user_model/doctor_user_time_slot_drop/doctor_user_timeslot.dart';
 import '../model/1_user_model/dr_booking_mode_dropdown/dr_booking_mode_drp_dn.dart';
 import '../model/1_user_model/get_department_list_model/department_model.dart';
@@ -2704,6 +2705,54 @@ class ApiProvider {
       if (r.statusCode == 200) {
         var modeData = doctorbookingModeFromJson(r.body);
         return modeData.bookingMode;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///doctor mode Api get...........................6 sep 2023.....slot........
+
+  // static getslotdoctorssApi() async {
+  //   var prefs = GetStorage();
+  //   userid = prefs.read("Id").toString();
+  //   print('&&&&&&doctor:${userid}');
+  //   var url = "${baseUrl}api/DoctorApi/SlotDropdown?DoctorId=$userid";
+  //   //http://pswellness.in/api/DoctorApi/SlotDropdown?DoctorId=1319
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       print("urllldr: ${url}");
+  //
+  //       var modeData2 = slotTmeingDoctorFromJson(r.body);
+  //       return modeData2.timeSlot;
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (error) {
+  //     return [];
+  //   }
+  // }
+
+  static Future<List<TimeSlotDoctorss>?> getslotdoctorssApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DoctorListId = preferences.getString("DoctorListId");
+    print("DoctorListIdokoko: ${DoctorListId}");
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&doctor:${userid}');
+    var url = "${baseUrl}api/DoctorApi/SlotDropdown?DoctorId=$DoctorListId";
+    //var url = "${baseUrl}api/DoctorApi/Doctor_TimeSlot";
+    print("erererer${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var timeslotData2 = slotTmeingDoctorFromJson(r.body);
+        return timeslotData2.timeSlot;
       } else {
         return [];
       }

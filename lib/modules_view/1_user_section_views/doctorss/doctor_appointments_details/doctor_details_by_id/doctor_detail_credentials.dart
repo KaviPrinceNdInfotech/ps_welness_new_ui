@@ -9,7 +9,7 @@ import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/lab_bboking_scedule/lab_booking_schedule_controller.dart';
-import '../../../../../model/1_user_model/doctor_user_time_slot_drop/doctor_user_timeslot.dart';
+import '../../../../../model/1_user_model/doctor_timing_slot_booking/slot_timing_doctor_booking.dart';
 import '../../../../../model/1_user_model/dr_booking_mode_dropdown/dr_booking_mode_drp_dn.dart';
 
 class DoctorScheduleCredentials extends StatelessWidget {
@@ -321,7 +321,8 @@ class DoctorScheduleCredentials extends StatelessWidget {
                                   //vertical: size.height * 0.02
                                 ),
                                 child: Obx(
-                                  () => DropdownButtonFormField<TimeSlotDoctor>(
+                                  () => DropdownButtonFormField<
+                                          TimeSlotDoctorss>(
                                       value: _doctorListController
                                           .selectedTimeslotdoctor.value,
                                       decoration: InputDecoration(
@@ -336,14 +337,15 @@ class DoctorScheduleCredentials extends StatelessWidget {
                                       hint: Text('Select Time Slot'),
                                       items: _doctorListController
                                           .timeSlotdoctor
-                                          .map((TimeSlotDoctor timeSlotdoctor) {
+                                          .map((TimeSlotDoctorss
+                                              timeSlotdoctor) {
                                         return DropdownMenuItem(
                                           value: timeSlotdoctor,
                                           child: Padding(
                                             padding: EdgeInsets.only(
                                                 left: size.width * 0.02),
                                             child: Text(
-                                              timeSlotdoctor.slotTime
+                                              timeSlotdoctor.startTime
                                                   .toString(),
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -353,7 +355,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
                                           ),
                                         );
                                       }).toList(),
-                                      onChanged: (TimeSlotDoctor? newValue) {
+                                      onChanged: (TimeSlotDoctorss? newValue) {
                                         _doctorListController
                                             .selectedTimeslotdoctor
                                             .value = newValue!;
