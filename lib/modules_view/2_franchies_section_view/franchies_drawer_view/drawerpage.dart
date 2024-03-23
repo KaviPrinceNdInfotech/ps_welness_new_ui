@@ -9,11 +9,11 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/franchise_share_link_franchise/franchise_share_link.dart';
 import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
 import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 //import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/driver_drower_pages/supports/support_view.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
-import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -452,10 +452,14 @@ class FranchiesisMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/Sharelinkweight'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 Get.back();
+                await _frenchiesProfileDetailController
+                    .frenchiesProfileDetailApi();
+                _frenchiesProfileDetailController.update();
                 //Get.to(() => ShareData());
-                Get.to(() => Sharelinkweight());
+                await Get.to(() => SharelinkFranchiseweight());
+                //harelinkweight());
               },
             ),
             ListTile(

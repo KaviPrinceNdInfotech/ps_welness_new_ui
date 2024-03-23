@@ -2,17 +2,23 @@ import 'package:get/get.dart';
 
 import '../../../model/1_user_model/ambulance/accepted_driver_models.dart';
 import '../../../servicess_api/api_services_all_api.dart';
+//import '../../../services/api_services_all_api.dart'; // Corrected import path
 
 class DriverAcceptlistController extends GetxController {
   RxBool isLoading = true.obs;
-  //List<DriverProfileDetailModel>? getDriverProfileDetail;
   DriveracceptModeluser? getDriveracceptDetail;
 
   Future<void> driveracceptuserDetailApi() async {
-    isLoading(false);
-    getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi();
-    if (getDriveracceptDetail?.driverName == null) {
-      isLoading(false);
+    try {
+      isLoading(true);
+      getDriveracceptDetail = await ApiProvider
+          .AcceptDriverDetailUserApi(); // Corrected function call
+      if (getDriveracceptDetail?.driverName == null) {
+        isLoading(false);
+      }
+    } finally {
+      isLoading(
+          false); // Ensure loading indicator is set to false regardless of success or failure
     }
   }
 

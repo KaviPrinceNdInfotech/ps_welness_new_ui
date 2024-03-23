@@ -679,8 +679,14 @@ class Doctor2Credentials extends StatelessWidget {
               ),
               RectangularButton(
                   text: 'SUBMIT',
-                  press: () {
+                  press: () async {
                     _doctor_1_controller.checkDoctor1();
+
+                    await Future.delayed(Duration(seconds: 3));
+
+                    ///Clear dropdown value
+                    _doctor_1_controller.selectedState.value = null;
+                    _doctor_1_controller.selectedFranchiseId.value = null;
                   })
             ],
           ),

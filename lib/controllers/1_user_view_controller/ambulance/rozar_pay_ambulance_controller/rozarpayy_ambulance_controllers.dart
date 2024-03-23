@@ -48,7 +48,7 @@ class RozarPayAmbulanceController extends GetxController {
     super.dispose();
   }
 
-  void openCheckout() async {
+  Future<void> openCheckout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var ambulanceFee = preferences.getString("ambulanceFee");
     print("ambulance: ${ambulanceFee}");
@@ -74,7 +74,7 @@ class RozarPayAmbulanceController extends GetxController {
         //'7877663456',
         //_getProfileController.getprofileModel!.result!.mobileNo.toString(),
         //'7019380053',
-        'email': _userrsProfileControllers.userProfile!.emailId.toString(),
+        'email': _userrsProfileControllers.userProfile?.emailId.toString(),
 
         //'kp@gmail.com',
         // _getProfileController.getprofileModel!.result!.emailId.toString(),

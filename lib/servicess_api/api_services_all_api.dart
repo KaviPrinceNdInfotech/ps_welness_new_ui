@@ -6183,13 +6183,16 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driverlistbookingId = preferences.getString("driverlistbookingId");
     print("driverlistbookingId: ${driverlistbookingId}");
-    //driverlistbookingId
+
+    ///driverlistbookingId
     var url =
         '${baseUrl}api/DriverApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         print("ambulanceonlinerrreeeww:${r.body}");
+
+        ///
         print("ambulanceonlinerrreeeww:${url}");
 
         DriveracceptModeluser driveracceptuserDetail =
@@ -6244,6 +6247,7 @@ class ApiProvider {
     print("drivertotalamount: ${drivertotalamount}");
     var ambulanceFee = preferences.getString("ambulanceFee");
     print("ambulanceFee: ${drivertotalamount}");
+    //ambulanceFeewallet
     // ambulanceFee
 
     //Labfeess......
@@ -6260,14 +6264,72 @@ class ApiProvider {
       Uri.parse(url), body: body,
       //headers: headers
     );
+    print("ambulancepaym200beforeentbody${body}");
+
     // print(r.body);
     if (r.statusCode == 200) {
 //adminId
       print("ambulanceonline:${body}");
 
+      print("ambulancepaymentbody${body}");
+      Get.snackbar('Successfull', r.body, duration: Duration(seconds: 3));
+
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error1088', r.body);
+      return r;
+    }
+  }
+
+  ///ambulance_paynow.ONLINE.wallet....api..of...user........22 mar 2024...........
+
+  static AmbulancepaynowOnlinewalletApi() async {
+    var url = '${baseUrl}api/DriverApi/DriverPayNow';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistssId = preferences.getString("driverlistssId");
+    print("driverlistssId: ${driverlistssId}");
+    //doctor fees.....
+    var drivertotalamount = preferences.getString("drivertotalamount");
+    print("drivertotalamount: ${drivertotalamount}");
+    var ambulanceFeewallet = preferences.getString("ambulanceFeewallet");
+    print("ambulanceFeewallet: ${ambulanceFeewallet}");
+    //ambulanceFeewallet
+    // ambulanceFee
+
+    //Labfeess......
+
+    var body = {
+      "PatientId": userid,
+      "Driver_Id": "$driverlistssId",
+      "Amount": "$ambulanceFeewallet",
+    };
+    print("ambulanceonline444:${body}");
+
+    // print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print("ambulancepaym200beforeentbody${body}");
+
+    // print(r.body);
+    if (r.statusCode == 200) {
+//adminId
+      print("ambulanceonline:${body}");
+
+      print("ambulancepaymentbody${body}");
+      Get.snackbar('Payment Successful by Wallet', r.body,
+          duration: const Duration(seconds: 3));
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body, duration: Duration(seconds: 1));
     } else {
       Get.snackbar('Error1088', r.body);
       return r;

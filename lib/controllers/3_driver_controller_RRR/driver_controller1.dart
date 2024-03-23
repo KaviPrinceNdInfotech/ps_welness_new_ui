@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
@@ -37,6 +38,10 @@ class Driver_1111_Controller extends GetxController {
 
   RxInt selectedimg4 = 0.obs;
   var selectedPath4 = ''.obs;
+
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
   //var selectedPath = ''.obs;
 
   void getImage(ImageSource imageSource) async {
@@ -132,6 +137,13 @@ class Driver_1111_Controller extends GetxController {
     vehicletype = (await ApiProvider.getvehicledriverApi())!;
     print('Prince ambulance type list');
     print("rfrfrfrfr${vehicletype}");
+  }
+
+  ///franchise id api class........45  1.........
+  Future<void> franchiseIddriverApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
   }
 
   void getStateDriverApi() async {
@@ -252,6 +264,9 @@ class Driver_1111_Controller extends GetxController {
       selectedPath3.value.split('/').last,
       imageAsBase644,
 
+      ///this is remaining part
+      selectedFranchiseId.value?.id.toString(),
+
       ///selectevehicletype.value?.id.toString(),
       /// paidamountcontroller?.text,
       // selectedPath.value.split('/').last,
@@ -307,6 +322,7 @@ class Driver_1111_Controller extends GetxController {
   void onInit() {
     super.onInit();
     ambulancecatagaryyApi();
+    franchiseIddriverApi();
 
     /// ambulancecatagaryyApi();
     panController = TextEditingController();

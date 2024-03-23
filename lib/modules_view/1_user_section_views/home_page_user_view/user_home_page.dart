@@ -75,6 +75,8 @@ class _UserHomePageState extends State<UserHomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   NotificationServices notificationServices = NotificationServices();
+  DriverAcceptlistController _driverAcceptlistController =
+      Get.put(DriverAcceptlistController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -82,6 +84,7 @@ class _UserHomePageState extends State<UserHomePage> {
     super.initState();
     //_userprofiledetail.userprofileApi();
     //_userprofiledetail.update();
+    _driverAcceptlistController.driveracceptuserDetailApi();
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
     notificationServices.firebaseInit(context);
@@ -418,24 +421,27 @@ class _UserHomePageState extends State<UserHomePage> {
                               'lib/assets/icons/ambulance_notification.png',
                             )),
                     onPressed: () async {
-                      await accountService.getAccountData.then((accountData) {
-                        _driverAcceptlistController.driveracceptuserDetailApi();
-                        _driverAcceptlistController.update();
-                        _driverAcceptlistController.refresh();
-                        _driverAcceptlistController.onInit();
-                      });
+                      // await accountService.getAccountData
+                      //     .then((accountData) async {
+                      //   await _driverAcceptlistController
+                      //       .driveracceptuserDetailApi();
+                      //   _driverAcceptlistController.update();
+                      //   _driverAcceptlistController.refresh();
+                      //   //_driverAcceptlistController.onInit();
+                      // });
 
                       await accountService.getAccountData
                           .then((accountData) async {
-                        _driverAcceptlistController.driveracceptuserDetailApi();
+                        await _driverAcceptlistController
+                            .driveracceptuserDetailApi();
                         _driverAcceptlistController.update();
                         _driverAcceptlistController.refresh();
-                        _driverAcceptlistController.onInit();
+                        //_driverAcceptlistController.onInit();
 
                         // CallLoader.loader();
                         // nearlistdriverApi();
                         CallLoader.loader();
-                        await Future.delayed(Duration(milliseconds: 500));
+                        await Future.delayed(Duration(milliseconds: 700));
                         CallLoader.hideLoader();
 
                         Timer(

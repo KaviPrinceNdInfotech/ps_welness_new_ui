@@ -30,6 +30,18 @@ class AmbulanceOrderpaymentController extends GetxController {
     return r.statusCode;
   }
 
+  Future<int> postOrderAmbulancwalletApi() async {
+    //isLoading(true);
+    CallLoader.loader();
+    http.Response r = await ApiProvider.AmbulancepaynowOnlinewalletApi();
+    if (r.statusCode == 200) {
+      CallLoader.hideLoader();
+      isLoading(false);
+    }
+    return r.statusCode;
+  }
+  //ambulanceFeewallet
+
   ///offline doctor.....
   // Future<int> postOrderDoctorofflineApi() async {
   //   //isLoading(true);

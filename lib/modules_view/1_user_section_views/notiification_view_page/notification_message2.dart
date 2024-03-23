@@ -12,6 +12,7 @@ import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
@@ -35,9 +36,6 @@ class MessageScreen2 extends StatefulWidget {
 }
 
 class _MessageScreen2State extends State<MessageScreen2> {
-  //DriverPayoutController _driverPayoutController =
-  // AmbulancegetController _ambulancegetController =
-  //     Get.put(AmbulancegetController());
   NotificationServices notificationServices = NotificationServices();
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
@@ -48,6 +46,9 @@ class _MessageScreen2State extends State<MessageScreen2> {
   AmbulanceOrderpaymentController _ambulanceOrderpaymentController =
       Get.put(AmbulanceOrderpaymentController());
 
+  UserProfileControllers _userrsProfileControllers =
+      Get.put(UserProfileControllers());
+
   Wallet_2_Controller _walletPostController = Get.put(Wallet_2_Controller());
 
   ///implement firebase....27...jun..2023
@@ -56,26 +57,17 @@ class _MessageScreen2State extends State<MessageScreen2> {
     super.initState();
 
     ///
-    //  _driverAcceptlistController.driveracceptuserDetailApi();
-    // _driverAcceptlistController.update();
-
-    ///
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
     notificationServices.firebaseInit(context);
     notificationServices.setupInteractMessage(context);
     notificationServices.isTokenRefresh();
-    // notificationServices.requestNotificationPermission();
-    // notificationServices.isTokenRefresh();
-    // notificationServices.firebaseInit();
 
     notificationServices.getDeviceToken().then((value) {
       if (kDebugMode) {
         print('device token');
         print(value);
       }
-      // print('device token');
-      // print(value);
     });
 
     /// 1. This method call when app in terminated state and you get a notification
@@ -86,15 +78,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
         print("FirebaseMessaging.instance.getInitialMessage");
         if (message != null) {
           print("New Notification");
-          // if (message.data['_id'] != null) {
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (context) => DemoScreen(
-          //         id: message.data['_id'],
-          //       ),
-          //     ),
-          //   );
-          // }
         }
       },
     );
@@ -129,23 +112,16 @@ class _MessageScreen2State extends State<MessageScreen2> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // var base = 'http://pswellness.in/Images/';
 
     ///todo: maths logoc....
-    final driverFee =
-        _driverAcceptlistController.getDriveracceptDetail?.totalPrice ?? 00;
-    //print("${element.price * element.step} c");
-    final driverFeesdiscount = (_driverAcceptlistController
-                .getDriveracceptDetail?.totalPrice
-                ?.toDouble() ??
-            00)! *
-        (90 / 100);
-    final finaldriverAmounts = driverFee - driverFeesdiscount;
-    var finalamtdriver =
-        double.parse("${driverFee.toDouble() - driverFeesdiscount.toDouble()}");
-    print("driverfees:${driverFee}");
-    print("driverdiscount:${driverFeesdiscount}");
-    print("drivertotal:${finaldriverAmounts}");
+
+    ///
+
+    var finalamtdriver = _driverAcceptlistController
+            .getDriveracceptDetail?.payableAmount
+            ?.toDouble() ??
+        00;
+
     print("drivertotalremaining:${finalamtdriver}");
 
     return Container(
@@ -332,19 +308,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.yellow.shade800,
                                                   shape: BoxShape.circle,
-                                                  // image: DecorationImage(
-                                                  //   fit: BoxFit.fill,
-                                                  //   image: NetworkImage(
-                                                  //     "$base${_driverAcceptlistController.getDriveracceptDetail?.driverImage.toString()}",
-                                                  //     // 'https://wallpaperaccess.com/full/2440003.jpg'
-                                                  //   ),
-                                                  // )
-
-                                                  ///
-
-                                                  //Image.network(
-                                                  //                      base +
-                                                  //                                         '${_labreportviewController.labreportimage?.labViewReportFile?[index].file.toString()}',
                                                 ),
 
                                                 ///
@@ -384,35 +347,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                               url, error) =>
                                                           Icon(Icons.error),
                                                     ),
-                                                    // CachedNetworkImage(
-                                                    //   imageUrl: base +
-                                                    //       "${_driverAcceptlistController.getDriveracceptDetail?.driverImage.toString()}",
-                                                    //   fit: BoxFit.fill,
-                                                    //   placeholder: (context, url) =>
-                                                    //       Container(
-                                                    //           height: size.height *
-                                                    //               0.17,
-                                                    //           width:
-                                                    //               size.width * 0.36,
-                                                    //
-                                                    //           //width: 4.w,
-                                                    //           child: Center(
-                                                    //             child: Image.asset(
-                                                    //               "lib/assets/icons/drdriver.png",
-                                                    //               fit: BoxFit.fill,
-                                                    //               height:
-                                                    //                   size.height *
-                                                    //                       0.17,
-                                                    //             ),
-                                                    //             //CircularProgressIndicator()
-                                                    //           )),
-                                                    //   errorWidget:
-                                                    //       (context, url, error) =>
-                                                    //           Icon(
-                                                    //     Icons.error,
-                                                    //     color: Colors.red,
-                                                    //   ),
-                                                    // ),
                                                   ),
                                                 ),
                                               ),
@@ -432,23 +366,11 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                   color: Color(0xff12BFC4),
                                                 ),
                                               ),
-                                              // Icon(
-                                              //   Icons
-                                              //       .car_crash_sharp,
-                                              //   size: size.height *
-                                              //       0.02,
-                                              //   color: Colors
-                                              //       .grey.shade600,
-                                              // ),
                                               SizedBox(
                                                 width: size.width * 0.005,
                                               ),
                                               Text(
-                                                "${_driverAcceptlistController.getDriveracceptDetail?.mobileNumber}",
-
-                                                //"934422221",
-                                                //'2020 Honda Clive',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                "${_driverAcceptlistController.getDriveracceptDetail?.mobileNumber.toString()}",
                                                 style: GoogleFonts.aBeeZee(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -464,30 +386,17 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             children: [
                                               Text(
                                                 'Total Distance:',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
                                                   color: Color(0xff12BFC4),
                                                 ),
                                               ),
-                                              // Icon(
-                                              //   Icons
-                                              //       .car_crash_sharp,
-                                              //   size: size.height *
-                                              //       0.02,
-                                              //   color: Colors
-                                              //       .grey.shade600,
-                                              // ),
                                               SizedBox(
                                                 width: size.width * 0.01,
                                               ),
                                               Text(
-                                                "${_driverAcceptlistController.getDriveracceptDetail?.toatlDistance ?? 0} Km",
-
-                                                // "10 km.",
-                                                //'2020 Honda Clive',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                "${_driverAcceptlistController.getDriveracceptDetail?.toatlDistance?.toDouble() ?? 0} Km",
                                                 style: GoogleFonts.aBeeZee(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -503,7 +412,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             children: [
                                               Text(
                                                 'Total Price :',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -514,7 +422,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 width: size.width * 0.01,
                                               ),
                                               Text(
-                                                "\u{20B9}${_driverAcceptlistController.getDriveracceptDetail?.totalPrice}",
+                                                "\u{20B9}${_driverAcceptlistController.getDriveracceptDetail?.totalPrice?.toDouble()}",
 
                                                 //"100",
                                                 // '121234333377',
@@ -534,7 +442,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             children: [
                                               Text(
                                                 'Payable Price :',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -545,11 +452,8 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 width: size.width * 0.01,
                                               ),
                                               Text(
-                                                "\u{20B9}${finaldriverAmounts}",
-
-                                                //"100",
-                                                // '121234333377',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                "\u{20B9}$finalamtdriver"
+                                                    .toString(),
                                                 style: GoogleFonts.roboto(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -566,7 +470,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             children: [
                                               Text(
                                                 'DL Number :',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -578,12 +481,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                               ),
                                               Text(
                                                 "${_driverAcceptlistController.getDriveracceptDetail?.dlNumber}",
-
-                                                // '23344eerdd',
-                                                // """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
-                                                //maxLines: 2,
-                                                //'ENP 2345',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.roboto(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -599,7 +496,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             children: [
                                               Text(
                                                 'Vehicle  Number :',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -610,13 +506,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 width: size.width * 0.01,
                                               ),
                                               Text(
-                                                "${_driverAcceptlistController.getDriveracceptDetail?.vehicleNumber}",
-
-                                                //'BR04jjk909',
-                                                // """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
-                                                // maxLines: 2,
-                                                //'ENP 2345',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                "${_driverAcceptlistController.getDriveracceptDetail?.vehicleNumber.toString()}",
                                                 style: GoogleFonts.roboto(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -632,7 +522,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                             children: [
                                               Text(
                                                 'Vehicle Info :',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -646,16 +535,10 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 height: size.height * 0.05,
                                                 width: size.width * 0.6,
                                                 child: Text(
-                                                  "${_driverAcceptlistController.getDriveracceptDetail?.vehicleTypeName}",
+                                                  "${_driverAcceptlistController.getDriveracceptDetail?.vehicleTypeName.toString()}",
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
-
-                                                  //'Maruti suzuki swift',
-                                                  // """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
-                                                  //maxLines: 2,
-                                                  //'ENP 2345',
-                                                  //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                   style: GoogleFonts.roboto(
                                                     fontSize: size.width * 0.04,
                                                     fontWeight: FontWeight.w700,
@@ -690,20 +573,20 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                   //animationDuration: kButtonAnimationDuration,
                                                   depth: kButtonDepth,
                                                   onTapUp: () async {
+                                                    SharedPreferences prefs =
+                                                        await SharedPreferences
+                                                            .getInstance();
+
+                                                    prefs.setString(
+                                                        "ambulanceFeewallet",
+                                                        "$finalamtdriver");
+                                                    print(
+                                                        "ambulancefeessonlinew: ${finalamtdriver}");
+
                                                     ///
 
                                                     ///
-                                                    final Ambulancefees =
-                                                        //finaldriverAmounts
-                                                        driverFee.toDouble() -
-                                                            driverFeesdiscount
-                                                                .toDouble();
-                                                    //     _driverAcceptlistController
-                                                    //             .getDriveracceptDetail
-                                                    //             ?.totalPrice
-                                                    //             ?.toDouble() ??
-                                                    //  finaldriverAmounts
-                                                    //         0;
+
                                                     final walletAmount =
                                                         _walletPostController
                                                                 .getwalletlist
@@ -712,8 +595,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                             0;
                                                     print(
                                                         "AmbulanceFEE $finalamtdriver");
-                                                    // print(
-                                                    //     "Ambulanceamount $walletAmount");
 
                                                     print(
                                                         "WALLET AMOUNT $walletAmount");
@@ -737,24 +618,33 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                       // final newWalletAmount =
                                                       //     walletAmount -
                                                       //         Ambulancefees;
+                                                      ///
                                                       final newWalletAmount =
                                                           finalamtdriver - 0;
                                                       _walletPostController
                                                           .walletPostUpdateApi(
-                                                              newWalletAmount)
+                                                              newWalletAmount
+                                                                  .toDouble())
                                                           //abbulance fees will go with this.....
                                                           .then((statusCode) {
                                                         if (statusCode == 200) {
                                                           ///post order api....
                                                           _ambulanceOrderpaymentController
-                                                              .postOrderAmbulanceonlineApi()
+                                                              .postOrderAmbulancwalletApi()
                                                               .then(
                                                                   (statusCode) async {
                                                             if (statusCode ==
                                                                 200) {
+                                                              // Get.snackbar(
+                                                              //     "Payment Success",
+                                                              //     "Your booking confirmed");
                                                               Get.snackbar(
-                                                                  "Payment Success",
-                                                                  "Your booking confirmed");
+                                                                  'Payment Successful by Wallet',
+                                                                  "Your Payment done",
+                                                                  duration:
+                                                                      const Duration(
+                                                                          seconds:
+                                                                              4));
 
                                                               ///
                                                               await Future.delayed(
@@ -785,11 +675,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                                     // nearlistdriverApi();
                                                                     await Get.to(
                                                                         UserHomePage());
-                                                                    // Get.to(MessageScreen(
-                                                                    //   id: message.data['id'],
-                                                                    // ));
-                                                                    //Get.to((MapView));
-                                                                    //postAmbulancerequestApi(markers);
 
                                                                     ///
                                                                   },
@@ -797,21 +682,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                                 CallLoader
                                                                     .hideLoader();
                                                               });
-
-                                                              ///
-                                                              //
-                                                              // Get.to(
-                                                              //   () =>
-                                                              //       UserHomePage(), //next page class
-                                                              //   duration: Duration(
-                                                              //       milliseconds:
-                                                              //           500), //duration of transitions, default 1 sec
-                                                              //   transition:
-                                                              //       Transition
-                                                              //           .zoom,
-                                                              // );
-
-                                                              ///This is the main thing to provide updated list history...
 
                                                               ///nov 14....................................
                                                               //Get.to(OrderConfirmationPage());
@@ -824,7 +694,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
 
                                                           ///todo:end post order apis....
                                                           print(
-                                                              "WALLET AMOUNTeee $newWalletAmount");
+                                                              "WALLET AMOUNTeee $finalamtdriver");
 
                                                           ///nov 14....................................
                                                           //Get.to(OrderConfirmationPage());
@@ -900,11 +770,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                     SharedPreferences p =
                                                         await SharedPreferences
                                                             .getInstance();
-                                                    // p.setString(
-                                                    //   //"rrrrrrrrrr4567",
-                                                    //    // "${_checkoutController.checkoutModel?.result?.totalCost.toString()
-                                                    //   // }"
-                                                    // );
+
                                                     var v = p.getString(
                                                         "rrrrrrrrrr4567");
                                                     print(
@@ -919,12 +785,26 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                             .getInstance();
                                                     prefs.setString(
                                                         "ambulanceFee",
-                                                        "${finaldriverAmounts}");
+                                                        "$finalamtdriver");
+
+                                                    prefs.setString(
+                                                        "ambulanceFeewallet",
+                                                        "$finalamtdriver");
+
+                                                    print(
+                                                        "ambulancefeessonline: ${finalamtdriver}");
+
+                                                    print(
+                                                        "ambulancefeessonlinew: ${finalamtdriver}");
+
                                                     //print("iikyihyih${ambulanceFee}");
 
                                                     // print("okook: ${fee}");
+                                                    await _userrsProfileControllers
+                                                        .userprofileApi();
+
                                                     ///todo: end the fees.........
-                                                    _rozarPayAmbulanceController
+                                                    await _rozarPayAmbulanceController
                                                         .openCheckout();
 
                                                     ///
@@ -939,37 +819,6 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                     //         milliseconds: 400));
 
                                                     ///
-
-                                                    ///end..0nline..
-                                                    // SharedPreferences
-                                                    // prefs =
-                                                    // await SharedPreferences
-                                                    //     .getInstance();
-                                                    // prefs.setString(
-                                                    //     "driverlistssId",
-                                                    //     "${widget.driverlist?.message?[index].driverId.toString()}");
-                                                    // prefs.setString(
-                                                    //     "lng1",
-                                                    //     "${widget.driverlist?.startLong.toString()}");
-                                                    // prefs.setString(
-                                                    //     "lat1",
-                                                    //     "${widget.driverlist?.startLat.toString()}");
-                                                    //
-                                                    // prefs.setString(
-                                                    //     "lng2",
-                                                    //     "${widget.driverlist?.endLong.toString()}");
-                                                    // prefs.setString(
-                                                    //     "lat2",
-                                                    //     "${widget.driverlist?.endLat.toString()}");
-                                                    // prefs.setString(
-                                                    //     "ambulance1",
-                                                    //     "${widget.driverlist?.ambulanceTypeId.toString()}");
-                                                    // prefs.setString(
-                                                    //     "vehicle1",
-                                                    //     "${widget.driverlist?.vehicleTypeId.toString()}");
-
-                                                    // _ambulancegetController
-                                                    // .postAmbulancerequestApi2();
 
                                                     ///.......
                                                     // print('princee notification');
@@ -1079,22 +928,3 @@ class _MessageScreen2State extends State<MessageScreen2> {
 }
 
 ///
-
-// class MessageScreen1 extends StatefulWidget {
-//   final String id;
-//   const MessageScreen({Key? key, required this.id}) : super(key: key);
-//
-//   @override
-//   State<MessageScreen> createState() => _MessageScreenState();
-// }
-//
-// class _MessageScreenState extends State<MessageScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Message Screen' + widget.id),
-//       ),
-//     );
-//   }
-// }

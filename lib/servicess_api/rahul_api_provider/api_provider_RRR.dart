@@ -1845,6 +1845,7 @@ class ApiProvider {
     var Location_id,
     var experience,
     var about,
+    var Vendor_Id,
   ) async {
     var url = '${baseUrl}api/SignupApi/NurseRegistration';
     var body = {
@@ -1870,6 +1871,7 @@ class ApiProvider {
       "Location_id": Location_id,
       "experience": experience,
       "about": about,
+      "Vendor_Id": "$Vendor_Id",
     };
 
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -2904,6 +2906,7 @@ class ApiProvider {
     var AadharImageBase64,
     var AadharImage2,
     var AadharImage2Base64,
+    var Vendor_Id,
     // var VehicleType_Id,
     ///var Paidamount,
 
@@ -2932,6 +2935,7 @@ class ApiProvider {
       "AadharImageBase64": "$AadharImageBase64",
       "AadharImage2": "$AadharImage2",
       "AadharImage2Base64": "$AadharImage2Base64",
+      "Vendor_Id": "$Vendor_Id",
       // "VehicleType_Id": "null",
       ///"Paidamount": "$Paidamount"
     };

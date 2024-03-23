@@ -12,6 +12,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dar
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_type_model/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -129,10 +130,21 @@ class Nurses_22_Controller extends GetxController {
   Rx<NurseModels?> selectedNurse = (null as NurseModels?).obs;
   List<NurseModels> nurse = <NurseModels>[].obs;
 
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
+
   NurseList? nurseListUser;
 
   void getNurseTypeApi() async {
     nurse = await ApiProvider.getnursetypeApi();
+  }
+
+  ///franchise id api class........45  1.........
+  Future<void> franchiseIdnurseApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
   }
 
   ///nurse location..
@@ -291,6 +303,9 @@ class Nurses_22_Controller extends GetxController {
       selectedNurseLocation.value?.id.toString(),
       experienceController?.text,
       aboutController?.text,
+
+      ///this is remaining part
+      selectedFranchiseId.value?.id.toString(),
     );
     if (r.statusCode == 200) {
       // Get.snackbar(
@@ -322,6 +337,7 @@ class Nurses_22_Controller extends GetxController {
   void onInit() {
     getNurseTypeApi();
     NursetypeListApi();
+    franchiseIdnurseApi();
     getNurseLocationregistrationApi();
     NurseTyperegistrationApi();
     getStateApi();

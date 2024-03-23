@@ -9,6 +9,7 @@ import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_controller1.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -232,7 +233,7 @@ class Driver2Credentials extends StatelessWidget {
             ///Todo: city.....................................
 
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
 
             NeumorphicTextFieldContainer(
@@ -274,6 +275,57 @@ class Driver2Credentials extends StatelessWidget {
                         // _hospital_2_controller.cities.clear();
                         // _hospital_2_controller.cities
                         //     .addAll(stateCityMap[newvalue]!);
+                      }),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+
+            ///todo : franchise Id...............
+            NeumorphicTextFieldContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                child: Obx(
+                  () => DropdownButtonFormField<Vendor>(
+                      value: _driver_1111_controller.selectedFranchiseId.value,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.currency_franc,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                      ),
+                      hint: Text('Select Franchise'),
+                      items: _driver_1111_controller.franchiseid
+                          .map((Vendor franchiseid) {
+                        return DropdownMenuItem(
+                          value: franchiseid,
+                          child: SizedBox(
+                            height: size.height * 0.05,
+                            width: size.width * 0.61,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "${franchiseid.companyName.toString()}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.015,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      // validator: (value) =>
+                      // value == null ? '          field required' : null,
+                      onChanged: (Vendor? newValue) {
+                        _driver_1111_controller.selectedFranchiseId.value =
+                            newValue!;
                       }),
                 ),
               ),
@@ -756,10 +808,12 @@ class Driver2Credentials extends StatelessWidget {
                 press: () async {
                   _driver_1111_controller.checkDriver1111();
 
-                  await Future.delayed(Duration(milliseconds: 900));
+                  await Future.delayed(Duration(seconds: 3));
 
                   ///Clear dropdown value
                   _driver_1111_controller.selectedState.value = null;
+                  _driver_1111_controller.selectedFranchiseId.value = null;
+
                   // _driver_1111_controller.selectedimg4.close();
 
                   _driver_1111_controller.selectedPath.close();

@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -208,6 +209,57 @@ class Nurses2Credentials extends StatelessWidget {
                         }).toList(),
                         onChanged: (NurseLocationModel? newValue) {
                           _nurses_22_controller.selectedNurseLocation.value =
+                              newValue!;
+                        }),
+                  ),
+                ),
+              ),
+
+              // SizedBox(
+              //   height: size.height * 0.02,
+              // ),
+
+              ///todo : franchise Id...............
+              NeumorphicTextFieldContainer(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                  child: Obx(
+                    () => DropdownButtonFormField<Vendor>(
+                        value: _nurses_22_controller.selectedFranchiseId.value,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.currency_franc,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        hint: Text('Select Franchise'),
+                        items: _nurses_22_controller.franchiseid
+                            .map((Vendor franchiseid) {
+                          return DropdownMenuItem(
+                            value: franchiseid,
+                            child: SizedBox(
+                              height: size.height * 0.05,
+                              width: size.width * 0.61,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "${franchiseid.companyName.toString()}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.015,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        // validator: (value) =>
+                        // value == null ? '          field required' : null,
+                        onChanged: (Vendor? newValue) {
+                          _nurses_22_controller.selectedFranchiseId.value =
                               newValue!;
                         }),
                   ),
@@ -493,8 +545,14 @@ class Nurses2Credentials extends StatelessWidget {
               ),
               RectangularButton(
                   text: 'Submit',
-                  press: () {
+                  press: () async {
                     _nurses_22_controller.checknurse2();
+                    await Future.delayed(Duration(seconds: 3));
+
+                    ///Clear dropdown value.......
+                    _nurses_22_controller.selectedState.value = null;
+                    _nurses_22_controller.selectedFranchiseId.value = null;
+
                     //_nurses_22_controller.onInit();
                     // _nurses_22_controller.dispose();
                   })

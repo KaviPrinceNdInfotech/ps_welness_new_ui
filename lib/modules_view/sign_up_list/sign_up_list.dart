@@ -271,6 +271,9 @@ class SignUpList extends StatelessWidget {
 
                                   _driver_1111_controller.dispose();
                                   _driver_1111_controller.onInit();
+                                  _driver_1111_controller
+                                      .franchiseIddriverApi();
+                                  //franchiseIdApi
                                   //_ambulancegetController.ambulancecatagaryyApi();
                                   //_ambulancegetController.update();
                                   /// _driver_1111_controller.ambulancecatagaryyApi();
@@ -293,6 +296,8 @@ class SignUpList extends StatelessWidget {
                                           Get.offAll(() => NursesSignup11()));
                                   _nurses_22_controller.dispose();
                                   _nurses_22_controller.onInit();
+
+                                  _nurses_22_controller.franchiseIdnurseApi();
 
                                   ///Get.to(() => NursesSignup1());
                                   // Get.to(() => NursesSignup11());

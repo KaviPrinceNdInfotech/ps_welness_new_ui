@@ -550,7 +550,7 @@ class Doctor_1_Controller extends GetxController {
     //return null;
   }
 
-  ///time 1........................
+  ///time 1........................selectedFranchiseId
   chooseTime() async {
     // DateTime now = DateTime.now();
     // int hour = now.hour;
