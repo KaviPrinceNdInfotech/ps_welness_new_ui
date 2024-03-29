@@ -67,37 +67,6 @@ class FrDriver2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  //keyboardType: TextInputType.number,
-                  autofillHints: [AutofillHints.addressCityAndState],
-                  controller: _fr_driver_1_controller.dlNumber,
-                  onSaved: (value) {
-                    // _fr_driver_1_controller.address = value!;
-                  },
-                  validator: (value) {
-                    return _fr_driver_1_controller.validAddress(value!);
-                  },
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Dl number',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.numbers,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
 
               ///Todo: state............................
               SizedBox(
@@ -180,6 +149,38 @@ class FrDriver2Credentials extends StatelessWidget {
                           _fr_driver_1_controller.selectedCity.value =
                               newValue!;
                         }),
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  //keyboardType: TextInputType.number,
+                  autofillHints: [AutofillHints.addressCityAndState],
+                  controller: _fr_driver_1_controller.dlNumber,
+                  onSaved: (value) {
+                    // _fr_driver_1_controller.address = value!;
+                  },
+                  validator: (value) {
+                    return _fr_driver_1_controller.validAddress(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Dl number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.numbers,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
                   ),
                 ),
               ),

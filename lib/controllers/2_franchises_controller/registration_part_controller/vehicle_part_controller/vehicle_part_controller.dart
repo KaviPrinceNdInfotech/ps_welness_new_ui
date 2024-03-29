@@ -67,7 +67,7 @@ class Franchies_vehicle_Controller extends GetxController {
       nameController?.text,
       vehiclenumberController?.text,
       accountController?.text,
-      driverchargeController?.text,
+      //driverchargeController?.text,
       accountholderController?.text,
       selectedVehicleCat.value?.id.toString(),
       selectedVehicleType.value?.id.toString(),

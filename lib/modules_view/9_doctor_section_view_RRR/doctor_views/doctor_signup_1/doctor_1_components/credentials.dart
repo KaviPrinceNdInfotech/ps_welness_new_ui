@@ -366,38 +366,6 @@ class Doctor1Credentials extends StatelessWidget {
               ),
             ),
 
-            ///TODO: licence. validity......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _doctor_1_controller.licenceValidityController,
-                onSaved: (value) {
-                  _doctor_1_controller.certificatevelidity = value!;
-                },
-                validator: (value) {
-                  return _doctor_1_controller.validcertificatevalidity(value!);
-                },
-                onTap: () {
-                  _doctor_1_controller.chooseDate();
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Licence validity',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.offline_pin_rounded,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-
             ///Todo: morning.....................................
 
             NeumorphicTextFieldContainer(

@@ -166,38 +166,38 @@ class FrVehicleCredentials extends StatelessWidget {
             ),
 
             ///todo: driver charge..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller:
-                    _franchies_vehicle_controller.driverchargeController,
-                onSaved: (value) {
-                  _franchies_vehicle_controller.drivercharge = value!;
-                },
-                validator: (value) {
-                  return _franchies_vehicle_controller.validcharge(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'driver charge per Km',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.currency_rupee,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.telephoneNumber],
+            //     controller:
+            //         _franchies_vehicle_controller.driverchargeController,
+            //     onSaved: (value) {
+            //       _franchies_vehicle_controller.drivercharge = value!;
+            //     },
+            //     validator: (value) {
+            //       return _franchies_vehicle_controller.validcharge(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'driver charge per Km',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.currency_rupee,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
 
             ///todo: ac holder name value..........
             NeumorphicTextFieldContainer(

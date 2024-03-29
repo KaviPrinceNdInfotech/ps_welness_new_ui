@@ -230,6 +230,70 @@ class FrDoc3Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.018,
               ),
+
+              ///TODO: registration no.......................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.password],
+                  controller: _frDoctor_1_controller.registrationController,
+                  onSaved: (value) {
+                    _frDoctor_1_controller.name = value!;
+                  },
+                  validator: (value) {
+                    return _frDoctor_1_controller.validfeess(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Registration Number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_chart_rounded,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.018,
+              ),
+
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _frDoctor_1_controller.panController,
+                  onSaved: (value) {
+                    _frDoctor_1_controller.pan = value!;
+                  },
+                  validator: (value) {
+                    return _frDoctor_1_controller.validPan(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Pan number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_card_outlined,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
               GetBuilder<Hospital_2_Controller>(
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
@@ -610,36 +674,36 @@ class FrDoc3Credentials extends StatelessWidget {
               ),
 
               ///TODO: registration no.......................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.password],
-                  controller: _frDoctor_1_controller.registrationController,
-                  onSaved: (value) {
-                    _frDoctor_1_controller.name = value!;
-                  },
-                  validator: (value) {
-                    return _frDoctor_1_controller.validfeess(value!);
-                  },
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Registration Number',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.add_chart_rounded,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.018,
-              ),
+              // NeumorphicTextFieldContainer(
+              //   child: TextFormField(
+              //     autofillHints: [AutofillHints.password],
+              //     controller: _frDoctor_1_controller.registrationController,
+              //     onSaved: (value) {
+              //       _frDoctor_1_controller.name = value!;
+              //     },
+              //     validator: (value) {
+              //       return _frDoctor_1_controller.validfeess(value!);
+              //     },
+              //     cursorColor: Colors.black,
+              //     obscureText: false,
+              //     decoration: InputDecoration(
+              //       hintText: 'Registration Number',
+              //       helperStyle: TextStyle(
+              //         color: black.withOpacity(0.7),
+              //         fontSize: 18,
+              //       ),
+              //       prefixIcon: Icon(
+              //         Icons.add_chart_rounded,
+              //         color: black.withOpacity(0.7),
+              //         size: 20,
+              //       ),
+              //       border: InputBorder.none,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: size.height * 0.018,
+              // ),
 
               GetBuilder<Hospital_2_Controller>(
                 init: Hospital_2_Controller(), // intialize with the Controller

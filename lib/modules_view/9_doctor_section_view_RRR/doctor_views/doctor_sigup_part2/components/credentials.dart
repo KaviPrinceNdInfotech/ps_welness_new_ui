@@ -217,6 +217,72 @@ class Doctor2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
+              ///TODO: licence. validity......................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.name],
+                  controller: _doctor_1_controller.licenceValidityController,
+                  onSaved: (value) {
+                    _doctor_1_controller.certificatevelidity = value!;
+                  },
+                  validator: (value) {
+                    return _doctor_1_controller
+                        .validcertificatevalidity(value!);
+                  },
+                  onTap: () {
+                    _doctor_1_controller.chooseDate();
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Licence validity',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.credit_card_sharp,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.00,
+                //appPadding / 2,
+              ),
+
+              ///todo : RegistrationNumber .................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _doctor_1_controller.registrationController,
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  onSaved: (value) {
+                    _doctor_1_controller.experience = value!;
+                  },
+                  // validator: (value) {
+                  //   return _doctor_1_controller.validexperince(value!);
+                  // },
+                  decoration: InputDecoration(
+                    hintText: 'Registration Number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.app_registration,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: size.height * 0.00,
                 //appPadding / 2,
@@ -534,39 +600,6 @@ class Doctor2Credentials extends StatelessWidget {
                     ),
                     prefixIcon: Icon(
                       Icons.account_box,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.00,
-                //appPadding / 2,
-              ),
-
-              ///todo : RegistrationNumber .................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.telephoneNumber],
-                  controller: _doctor_1_controller.registrationController,
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  onSaved: (value) {
-                    _doctor_1_controller.experience = value!;
-                  },
-                  // validator: (value) {
-                  //   return _doctor_1_controller.validexperince(value!);
-                  // },
-                  decoration: InputDecoration(
-                    hintText: 'Registration Number',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.pin,
                       color: black.withOpacity(0.7),
                       size: 20,
                     ),

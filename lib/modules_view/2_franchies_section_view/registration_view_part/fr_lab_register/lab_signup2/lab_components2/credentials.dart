@@ -182,6 +182,38 @@ class FrLab2Credentials extends StatelessWidget {
                 height: size.height * 0.018,
               ),
 
+              ///todo: pan number..........
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _frlab_1_controller.panController,
+                  onSaved: (value) {
+                    _frlab_1_controller.pan = value!;
+                  },
+                  validator: (value) {
+                    return _frlab_1_controller.validPan(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Pan number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_card_outlined,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
               GetBuilder<Hospital_2_Controller>(
                 // specify type as Controller
                 init: Hospital_2_Controller(), // intialize with the Controller

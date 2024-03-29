@@ -89,56 +89,31 @@ class Nurses1Credentials extends StatelessWidget {
               height: size.height * 0.0,
             ),
 
-            SizedBox(
-              height: size.height * 0.0,
-            ),
-
-            ///Todo: CertificateNumber.....................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.nickname],
-                controller: _nurses_22_controller.CertificateNumberController,
-                cursorColor: Colors.black,
-                obscureText: false,
-                onSaved: (value) {
-                  _nurses_22_controller.LicenceNumber = value!;
-                },
-                validator: (value) {
-                  return _nurses_22_controller.validcertificate(value!);
-                },
-                decoration: InputDecoration(
-                  hintText: 'Certificate number',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.numbers,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
             // SizedBox(
-            //   height: size.height * 0.02,
+            //   height: size.height * 0.0,
             // ),
             //
-            // ///Todo: City Name..............
+            ///Todo: CertificateNumber.....................
             // NeumorphicTextFieldContainer(
             //   child: TextFormField(
-            //     controller: _nurses_22_controller.CityNameController,
+            //     autofillHints: [AutofillHints.nickname],
+            //     controller: _nurses_22_controller.CertificateNumberController,
             //     cursorColor: Colors.black,
             //     obscureText: false,
+            //     onSaved: (value) {
+            //       _nurses_22_controller.LicenceNumber = value!;
+            //     },
+            //     validator: (value) {
+            //       return _nurses_22_controller.validcertificate(value!);
+            //     },
             //     decoration: InputDecoration(
-            //       hintText: 'City name',
+            //       hintText: 'Certificate number',
             //       helperStyle: TextStyle(
             //         color: black.withOpacity(0.7),
             //         fontSize: 18,
             //       ),
             //       prefixIcon: Icon(
-            //         Icons.lock,
+            //         Icons.numbers,
             //         color: black.withOpacity(0.7),
             //         size: 20,
             //       ),
@@ -146,6 +121,31 @@ class Nurses1Credentials extends StatelessWidget {
             //     ),
             //   ),
             // ),
+            // // SizedBox(
+            // //   height: size.height * 0.02,
+            // // ),
+            // //
+            // // ///Todo: City Name..............
+            // // NeumorphicTextFieldContainer(
+            // //   child: TextFormField(
+            // //     controller: _nurses_22_controller.CityNameController,
+            // //     cursorColor: Colors.black,
+            // //     obscureText: false,
+            // //     decoration: InputDecoration(
+            // //       hintText: 'City name',
+            // //       helperStyle: TextStyle(
+            // //         color: black.withOpacity(0.7),
+            // //         fontSize: 18,
+            // //       ),
+            // //       prefixIcon: Icon(
+            // //         Icons.lock,
+            // //         color: black.withOpacity(0.7),
+            // //         size: 20,
+            // //       ),
+            // //       border: InputBorder.none,
+            // //     ),
+            // //   ),
+            // // ),
             SizedBox(
               height: size.height * 0.0,
             ),
@@ -230,37 +230,7 @@ class Nurses1Credentials extends StatelessWidget {
             ),
 
             ///pan...
-            ///todo: pan number..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _nurses_22_controller.panController,
-                onSaved: (value) {
-                  _nurses_22_controller.pan = value!;
-                },
-                validator: (value) {
-                  return _nurses_22_controller.validPan(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Pan number',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.add_card_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+
             // todo fees
             NeumorphicTextFieldContainer(
               child: TextFormField(

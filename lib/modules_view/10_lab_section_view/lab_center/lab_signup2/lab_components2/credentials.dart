@@ -113,38 +113,6 @@ class Lab2Credentials extends StatelessWidget {
                 height: size.height * 0.02,
               ),
 
-              ///TODO: certificate.......................
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.name],
-                  controller: _lab_1_controller.LicenceNumberController,
-                  onSaved: (value) {
-                    _lab_1_controller.licenceNumber = value!;
-                  },
-                  validator: (value) {
-                    return _lab_1_controller.validcertificate(value!);
-                  },
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Licence no',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.offline_pin_rounded,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-
               ///todo: Gst Number.................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
@@ -213,11 +181,6 @@ class Lab2Credentials extends StatelessWidget {
                 height: size.height * 0.018,
               ),
 
-              SizedBox(
-                height: size.height * 0.018,
-                //appPadding / 2,
-              ),
-
               // SizedBox(
               //   height: size.height * 0.2,
               //   child: GetBuilder<Driver_1111_Controller>(
@@ -266,6 +229,38 @@ class Lab2Credentials extends StatelessWidget {
               //   ),
               // ),
 
+              ///TODO: certificate.......................
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.name],
+                  controller: _lab_1_controller.LicenceNumberController,
+                  onSaved: (value) {
+                    _lab_1_controller.licenceNumber = value!;
+                  },
+                  validator: (value) {
+                    return _lab_1_controller.validcertificate(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Licence no',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.offline_pin_rounded,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -308,6 +303,35 @@ class Lab2Credentials extends StatelessWidget {
               ),
               SizedBox(
                 height: 20,
+              ),
+
+              ///todo: pan number..........
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  controller: _lab_1_controller.panController,
+                  onSaved: (value) {
+                    _lab_1_controller.pan = value!;
+                  },
+                  validator: (value) {
+                    return _lab_1_controller.validPan(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Pan number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_card_outlined,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
               ),
 
               ///image picker....2......

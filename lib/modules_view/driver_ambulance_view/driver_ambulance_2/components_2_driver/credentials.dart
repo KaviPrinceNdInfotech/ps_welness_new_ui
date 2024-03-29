@@ -445,6 +445,43 @@ class Driver2Credentials extends StatelessWidget {
             // ///SizedBox(
             //   height: 20,
             // ),
+            SizedBox(
+              height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+
+            ///Todo: dlnumber.....................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.nickname],
+                controller: _driver_1111_controller.dlnumbercontroller,
+                onSaved: (value) {
+                  _driver_1111_controller.DlNumber = value!;
+                },
+                validator: (value) {
+                  return _driver_1111_controller.validAddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Dl number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.numbers,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
 
             ///image picker....2......
 
