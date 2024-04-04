@@ -120,7 +120,7 @@ class ResitrationPatientDetails extends StatelessWidget {
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white70,
-                                          hintText: 'Enter Patient Id ',
+                                          hintText: 'Enter Patient Name ',
                                           contentPadding: const EdgeInsets.only(
                                               left: 10.0,
                                               bottom: 14.0,
@@ -291,207 +291,159 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .spaceAround,
                                                       children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              'Patient Id:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Patient Name:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Franchise/Id:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Mobile No:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Location:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'City:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'State:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Action:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              '${item[index].id}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].patientName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].vendorName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].mobileNumber}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 150,
-                                                              height: 14,
-                                                              child: Text(
-                                                                '${item[index].location}',
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.3,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Patient Id:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .lato(
                                                                   fontSize:
                                                                       size.width *
-                                                                          0.03,
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Patient Name:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              // Text(
+                                                              //   'Franchise/Id:',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.04,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .white,
+                                                              //   ),
+                                                              // ),
+                                                              Text(
+                                                                'Mobile No:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'Location:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'City:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                'State:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              // Text(
+                                                              //   'Action:',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.04,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .white,
+                                                              //   ),
+                                                              // ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.55,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                '${item[index].patientRegNo}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,
@@ -500,53 +452,122 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                                       .shade900,
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].cityName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.035,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
+                                                              Text(
+                                                                '${item[index].patientName}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .red
+                                                                      .shade900,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].stateName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
+                                                              // Text(
+                                                              //   '${item[index].vendorName}',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.04,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .red
+                                                              //         .shade900,
+                                                              //   ),
+                                                              // ),
+                                                              Text(
+                                                                '${item[index].mobileNumber}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .red
+                                                                      .shade900,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].isApproved}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red
-                                                                    .shade900,
+                                                              Container(
+                                                                //width: 150,
+                                                                height: 26,
+                                                                child: Text(
+                                                                  '${item[index].location}',
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .lato(
+                                                                    fontSize:
+                                                                        size.width *
+                                                                            0.03,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .red
+                                                                        .shade900,
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Text(
+                                                                '${item[index].cityName}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.035,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .red
+                                                                      .shade900,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                '${item[index].stateName}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize: size.width * 0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .red
+                                                                      .shade900,
+                                                                ),
+                                                              ),
+                                                              // Text(
+                                                              //   '${item[index].isApproved}',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.04,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .red
+                                                              //         .shade900,
+                                                              //   ),
+                                                              // ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ],
                                                     ),

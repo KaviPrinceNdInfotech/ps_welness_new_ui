@@ -121,7 +121,7 @@ class ResitrationVechileDetails extends StatelessWidget {
                                           //prefixIcon: Icon(Icons.search),
                                           filled: true,
                                           fillColor: Colors.white70,
-                                          hintText: 'Enter Vehicle Name',
+                                          hintText: 'Enter Owner Name',
                                           contentPadding: const EdgeInsets.only(
                                               left: 10.0,
                                               bottom: 14.0,
@@ -298,146 +298,197 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              'Vehicle No:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade800,
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.35,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'Vehicle No:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .brown
+                                                                      .shade800,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Ownership Name:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade800,
+                                                              Text(
+                                                                'Ownership Name:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .brown
+                                                                      .shade800,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Franchise:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade800,
+                                                              // Text(
+                                                              //   'Franchise:',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.04,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .brown
+                                                              //         .shade800,
+                                                              //   ),
+                                                              // ),
+                                                              Text(
+                                                                'Vehicle Type:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .brown
+                                                                      .shade800,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Vehicle Type:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade800,
+                                                              Text(
+                                                                'Vehicle Category',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .brown
+                                                                      .shade800,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Vehicle Category',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade800,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Driver Charges',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .brown
-                                                                    .shade800,
-                                                              ),
-                                                            ),
-                                                          ],
+
+                                                              ///driver charge...
+                                                              // Text(
+                                                              //   'Driver Charges',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.04,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .brown
+                                                              //         .shade800,
+                                                              //   ),
+                                                              // ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              '${item[index].vehicleNumber}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color:
-                                                                    Colors.blue,
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.50,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                '${item[index].vehicleNumber}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.033,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .blue,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            SizedBox(
-                                                              height:
-                                                                  size.height *
-                                                                      0.036,
-                                                              width:
-                                                                  size.width *
-                                                                      0.5,
-                                                              child: Align(
-                                                                alignment: Alignment
-                                                                    .centerLeft,
+                                                              SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.036,
+                                                                width:
+                                                                    size.width *
+                                                                        0.5,
+                                                                child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child: Text(
+                                                                    '${item[index].vehicleOwnerName}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.034,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .blue,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              // Text(
+                                                              //   '${item[index].franchise}',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.033,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .blue,
+                                                              //   ),
+                                                              // ),
+                                                              Container(
+                                                                width: 165,
                                                                 child: Text(
-                                                                  '${item[index].vehicleOwnerName}',
+                                                                  '${item[index].vehicleTypeName}',
                                                                   style:
                                                                       GoogleFonts
                                                                           .lato(
                                                                     fontSize:
                                                                         size.width *
-                                                                            0.034,
+                                                                            0.033,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700,
@@ -446,72 +497,43 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].franchise}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color:
-                                                                    Colors.blue,
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 150,
-                                                              child: Text(
-                                                                '${item[index].vehicleTypeName}',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .lato(
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.033,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: Colors
-                                                                      .blue,
+                                                              Container(
+                                                                width: 150,
+                                                                child: Text(
+                                                                  '${item[index].categoryName}',
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .lato(
+                                                                    fontSize:
+                                                                        size.width *
+                                                                            0.033,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .blue,
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Container(
-                                                              width: 150,
-                                                              child: Text(
-                                                                '${item[index].categoryName}',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .lato(
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.033,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: Colors
-                                                                      .blue,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].driverCharges}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color:
-                                                                    Colors.blue,
-                                                              ),
-                                                            ),
-                                                          ],
+
+                                                              ///driver charge...
+                                                              // Text(
+                                                              //   '${item[index].driverCharges}',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .lato(
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.033,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w700,
+                                                              //     color: Colors
+                                                              //         .blue,
+                                                              //   ),
+                                                              // ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ],
                                                     ),

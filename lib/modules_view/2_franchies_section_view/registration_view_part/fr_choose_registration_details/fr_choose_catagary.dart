@@ -69,6 +69,9 @@ class FrRegistrationDetails extends StatelessWidget {
   FrenchiesVehicleDetailController _frenchiesVehicleDetailController =
       Get.put(FrenchiesVehicleDetailController());
 
+  FrenchiesDoctorDetailController _franchisedoctordetail =
+      Get.put(FrenchiesDoctorDetailController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -198,7 +201,7 @@ class FrRegistrationDetails extends StatelessWidget {
                               child: InkWell(
                                 onTap: () async {
                                   if (index == 0) {
-                                    _frenchiesVehicleDetailController
+                                    await _frenchiesVehicleDetailController
                                         .FrenchiesVehicleDetailApi();
                                     _frenchiesVehicleDetailController.update();
                                     CallLoader.loader();
@@ -230,6 +233,9 @@ class FrRegistrationDetails extends StatelessWidget {
                                   } else if (index == 3) {
                                     _frenchiesPatientDetailController
                                         .FrenchiesPatientDetailApi();
+                                    await _franchisedoctordetail
+                                        .FrenchiesDoctorDetailApi();
+                                    _franchisedoctordetail.update();
                                     _frenchiesPatientDetailController.update();
                                     CallLoader.loader();
                                     await Future.delayed(

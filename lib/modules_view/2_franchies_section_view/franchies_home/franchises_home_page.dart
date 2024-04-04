@@ -10,6 +10,7 @@ import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_comission_report/franchise_commission_report.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
@@ -19,7 +20,7 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/franchiese_profile.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/franchise_commission_report.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/commission_allreport_byId.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_payment_report/franchise_payment_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_historyy_report.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_bank_profile_page_view/bank_profile_view.dart';
@@ -67,6 +68,9 @@ class FranchiesHomePage extends StatelessWidget {
 
     UpdateolddriverrrController _updateoldVehicleController =
         Get.put(UpdateolddriverrrController());
+
+    FranchiseCommissionReportController _franchisecommissionController =
+        Get.put(FranchiseCommissionReportController());
 
     //AddVehicleController _addVehicleController = Get.put(AddVehicleController());
 
@@ -943,8 +947,13 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 12) {
                                         Get.to(() => FranchisePaymentReport());
                                       } else if (index == 13) {
-                                        Get.to(
-                                            () => FranchiseCommissionReport());
+                                        _franchisecommissionController
+                                            .frenchiesCommissionReportByRoleApi();
+                                        _franchisecommissionController.update();
+                                        Get.to(() =>
+                                                FranchiseCommissionReportByRole()
+                                            //FranchiseCommissionReport()
+                                            );
                                       } else if (index == 14) {
                                         Get.to(() => FranchisePayoutReport());
                                       } else if (index == 15) {

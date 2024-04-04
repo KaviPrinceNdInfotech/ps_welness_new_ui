@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/franchise_comission_by_role_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesCommissionReportDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesCommissionReport_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesTotalCommission_model.dart';
@@ -23,12 +24,14 @@ class FranchiseCommissionReportController extends GetxController {
 
   FrenchiesCommissionReportModel? getfrenchiesCommissionReportModel;
   FrenchiesTotalCommissionModel? getfrenchiesTotalCommissionModel;
+  FrenchieCommisionReportModelbyRole? getcommissionbyrole;
   Rx<CommissionDropdown?> selectedRole = (null as CommissionDropdown?).obs;
   List<CommissionDropdown> role = <CommissionDropdown>[].obs;
   void getCommissionRoleApi() async {
     role = await ApiProvider.FrenchiesCommissionReportRole();
   }
 
+  ///todo: search by role date 1 and date2
   void frenchiesCommissionReportApi() async {
     var d1 = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
     var d2 = DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
@@ -42,7 +45,19 @@ class FranchiseCommissionReportController extends GetxController {
     isLoading(false);
   }
 
-  ////
+  ///commission list by role ....4 april kumar prince
+
+  Future<void> frenchiesCommissionReportByRoleApi() async {
+    isLoading(true);
+    getcommissionbyrole = await ApiProvider.FranchiesCommissionByRoleOnly(
+        selectedRole.value?.name.toString());
+    if (getcommissionbyrole?.commissionReport != null) {
+      isLoading(false);
+    }
+    isLoading(false);
+  }
+
+  ///todo: commossion Amount...
   void frenchiesTotalCommissionAmountApi() async {
     var d1 = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
     var d2 = DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
@@ -61,6 +76,7 @@ class FranchiseCommissionReportController extends GetxController {
     var d3 = DateFormat("dd-MM-yyyy").format(selectedDate.value).toString();
     var d4 = DateFormat("dd-MM-yyyy").format(selectedDate2.value).toString();
     getCommissionRoleApi();
+    frenchiesCommissionReportByRoleApi();
     frenchiesCommissionReportApi();
     frenchiesTotalCommissionAmountApi();
     appointmentController = TextEditingController();
@@ -81,8 +97,8 @@ class FranchiseCommissionReportController extends GetxController {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: selectedDate.value,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2029),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select Date',
@@ -110,8 +126,8 @@ class FranchiseCommissionReportController extends GetxController {
     DateTime? newpickedDate2 = await showDatePicker(
       context: Get.context!,
       initialDate: selectedDate2.value,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2029),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select Date',

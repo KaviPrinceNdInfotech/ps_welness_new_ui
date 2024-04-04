@@ -289,155 +289,123 @@ class ResitrationDriverDetails extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              'Srl no:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.3,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                'DriverId:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Driver Name:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
+                                                              Text(
+                                                                'Driver Name:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Phone Number:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
+                                                              Text(
+                                                                'Phone Number:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Address:',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
+                                                              Text(
+                                                                'Address:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Driver Type',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
+                                                              Text(
+                                                                'Email Id',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              'Licence No',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .white,
+                                                              Text(
+                                                                'DL Number',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              '${item[index].id}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .yellow,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].driverName}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .yellow,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].mobileNumber}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .yellow,
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 150,
-                                                              height: 14,
-                                                              child: Text(
-                                                                '${item[index].location}',
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.55,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                '${item[index].driverId}',
                                                                 style:
                                                                     GoogleFonts
                                                                         .lato(
@@ -451,12 +419,8 @@ class ResitrationDriverDetails extends StatelessWidget {
                                                                       .yellow,
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Container(
-                                                              width: 150,
-                                                              height: 14,
-                                                              child: Text(
-                                                                '${item[index].vehicleTypeName}',
+                                                              Text(
+                                                                '${item[index].driverName}',
                                                                 style:
                                                                     GoogleFonts
                                                                         .lato(
@@ -470,22 +434,76 @@ class ResitrationDriverDetails extends StatelessWidget {
                                                                       .yellow,
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              '${item[index].dlNumber}',
-                                                              style: GoogleFonts
-                                                                  .lato(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .yellow,
+                                                              Text(
+                                                                '${item[index].mobileNumber}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .yellow,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Container(
+                                                                width: 150,
+                                                                height: 14,
+                                                                child: Text(
+                                                                  '${item[index].location}',
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .lato(
+                                                                    fontSize:
+                                                                        size.width *
+                                                                            0.04,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 150,
+                                                                height: 17,
+                                                                child: Text(
+                                                                  '${item[index].emailId}',
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .lato(
+                                                                    fontSize:
+                                                                        size.width *
+                                                                            0.04,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                '${item[index].dlNumber}',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .lato(
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .yellow,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
