@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
@@ -13,6 +14,7 @@ import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_
 
 class Fr_Driver_1_Controller extends GetxController {
   final GlobalKey<FormState> frdriver1formkey = GlobalKey<FormState>();
+  var selectedDate = DateTime.now().obs;
   RxBool isLoading = false.obs;
 
   TextEditingController? panController,
@@ -23,6 +25,7 @@ class Fr_Driver_1_Controller extends GetxController {
       mobileController,
       pinController,
       addressController,
+      dlvaliditycontroller,
       dlNumber;
 
   var pan = '';
@@ -31,10 +34,13 @@ class Fr_Driver_1_Controller extends GetxController {
   var password = '';
   var confirmpassword = '';
   var mobile = '';
+  var DlValidity = '';
+
   var selectedDLImage1path = ''.obs;
   var selectedDLImage2path = ''.obs;
   var selectedAadharImage1path = ''.obs;
   var selectedAadharImage2path = ''.obs;
+  var selectedprofileImagepath = ''.obs;
 
   void getDLImage1(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
@@ -72,6 +78,16 @@ class Fr_Driver_1_Controller extends GetxController {
     }
   }
 
+  ///todo: driver Profile prince 16 apr 2024..
+  void getProfileImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedprofileImagepath.value = pickedFile.path;
+    } else {
+      print('No image selected');
+    }
+  }
+
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
@@ -102,14 +118,19 @@ class Fr_Driver_1_Controller extends GetxController {
         base64Encode(await File(selectedAadharImage1path.value).readAsBytes());
     final Aadhar2imageAsBase64 =
         base64Encode(await File(selectedAadharImage2path.value).readAsBytes());
+    final ProfileimageAsBase64 =
+        base64Encode(await File(selectedprofileImagepath.value).readAsBytes());
+    //selectedprofileImagepath
     http.Response r = await ApiProvider.FrenchiesRegisterDriver(
       panController?.text,
       nameController?.text,
       passwordController?.text,
-      confirmpasswordController?.text,
       mobileController?.text,
+      emailController?.text,
+      confirmpasswordController?.text,
       addressController?.text,
       dlNumber?.text,
+      dlvaliditycontroller?.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
       selectedDLImage1path.value.split('/').last,
@@ -121,6 +142,8 @@ class Fr_Driver_1_Controller extends GetxController {
       selectedAadharImage2path.value.split('/').last,
       Aadhar2imageAsBase64,
       pinController?.text,
+      selectedprofileImagepath.value.split('/').last,
+      ProfileimageAsBase64,
     );
     if (r.statusCode == 200) {
       Get.snackbar("Message", "${r.body}");
@@ -144,12 +167,47 @@ class Fr_Driver_1_Controller extends GetxController {
     });
     panController = TextEditingController();
     nameController = TextEditingController();
+    emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmpasswordController = TextEditingController();
     mobileController = TextEditingController();
     pinController = TextEditingController();
     addressController = TextEditingController();
     dlNumber = TextEditingController();
+    dlvaliditycontroller = TextEditingController();
+    dlvaliditycontroller?.text = "DL Validity";
+  }
+
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2018),
+      lastDate: DateTime(2060),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select DL Validity',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'Select date',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      dlvaliditycontroller
+        ?..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: dlvaliditycontroller!.text.length,
+            affinity: TextAffinity.upstream));
+    }
+    // if (pickedDate != null && pickedDate != selectedDate) {
+    //   selectedDate.value = pickedDate;
+    //   appointmentController.text =
+    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
+    // }
   }
 
   @override

@@ -168,6 +168,11 @@ class Franchies_1_Controller extends GetxController {
     cities.addAll(localList);
   }
 
+  void getclearImage() async {
+    selectedimg.close();
+    selectedPath.close();
+  }
+
   // void getImage(ImageSource imageSource) async {
   //   final pickedFile = await ImagePicker().pickImage(source: imageSource);
   //   if (pickedFile != null) {

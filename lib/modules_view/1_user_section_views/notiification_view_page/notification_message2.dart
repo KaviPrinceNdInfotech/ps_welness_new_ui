@@ -12,6 +12,7 @@ import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
@@ -48,6 +49,9 @@ class _MessageScreen2State extends State<MessageScreen2> {
 
   UserProfileControllers _userrsProfileControllers =
       Get.put(UserProfileControllers());
+
+  CommingDriverController _commingDriverController =
+      Get.put(CommingDriverController());
 
   Wallet_2_Controller _walletPostController = Get.put(Wallet_2_Controller());
 
@@ -120,7 +124,12 @@ class _MessageScreen2State extends State<MessageScreen2> {
     var finalamtdriver = _driverAcceptlistController
             .getDriveracceptDetail?.payableAmount
             ?.toDouble() ??
-        00;
+        0.0;
+
+    // String telephoneNumber2 = _commingDriverController
+    //         .getDrivercomingDetail?.mobileNumber
+    //         .toString() ??
+    //     "Not available";
 
     print("drivertotalremaining:${finalamtdriver}");
 
@@ -352,33 +361,214 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: size.height * 0.0,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Mobile:',
-                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                style: GoogleFonts.actor(
-                                                  fontSize: size.width * 0.04,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff12BFC4),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: size.width * 0.005,
-                                              ),
-                                              Text(
-                                                "${_driverAcceptlistController.getDriveracceptDetail?.mobileNumber.toString()}",
-                                                style: GoogleFonts.aBeeZee(
-                                                  fontSize: size.width * 0.04,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.grey.shade900,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          // SizedBox(
+                                          //   height: size.height * 0.0,
+                                          // ),
+                                          // Row(
+                                          //   children: [
+                                          //     Text(
+                                          //       'Mobile No:',
+                                          //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                          //       style: GoogleFonts.actor(
+                                          //         fontSize: size.width * 0.04,
+                                          //         fontWeight: FontWeight.w700,
+                                          //         color: Color(0xff12BFC4),
+                                          //       ),
+                                          //     ),
+                                          //     SizedBox(
+                                          //       width: size.width * 0.005,
+                                          //     ),
+                                          //     Text(
+                                          //       "${telephoneNumber2}",
+                                          //       // "${_commingDriverController.getDrivercomingDetail?.mobileNumber.toString() ?? 0}",
+                                          //       //"${_driverAcceptlistController.getDriveracceptDetail?.mobileNumber.toString()}",
+                                          //       style: GoogleFonts.aBeeZee(
+                                          //         fontSize: size.width * 0.04,
+                                          //         fontWeight: FontWeight.w700,
+                                          //         color: Colors.grey.shade900,
+                                          //       ),
+                                          //     ),
+                                          //
+                                          //     ///todo: calll user...
+                                          //
+                                          //     // Text(
+                                          //     //   '${_commingDriverController.getDrivercomingDetail?.mobileNumber.toString() ?? 0}',
+                                          //     //   style: GoogleFonts.raleway(
+                                          //     //       color: Colors.white,
+                                          //     //       fontWeight:
+                                          //     //           FontWeight.w700,
+                                          //     //       fontSize:
+                                          //     //           size.width * 0.035),
+                                          //     // ),
+                                          //     Padding(
+                                          //       padding: EdgeInsets.symmetric(
+                                          //           horizontal:
+                                          //               size.width * 0.02),
+                                          //       child: InkWell(
+                                          //         onTap: () {
+                                          //           Get.defaultDialog(
+                                          //               barrierDismissible:
+                                          //                   true,
+                                          //               title:
+                                          //                   "Welcome to PS Wellness",
+                                          //               confirm: Padding(
+                                          //                 padding:
+                                          //                     const EdgeInsets
+                                          //                         .all(6.0),
+                                          //                 child: PhysicalModel(
+                                          //                   color:
+                                          //                       MyTheme.white,
+                                          //                   shadowColor:
+                                          //                       Colors.blueGrey,
+                                          //                   elevation: 0,
+                                          //                   child: Padding(
+                                          //                     padding:
+                                          //                         const EdgeInsets
+                                          //                             .all(3.0),
+                                          //                     child: InkWell(
+                                          //                       onTap:
+                                          //                           () async {
+                                          //                         String
+                                          //                             telephoneNumber =
+                                          //                             '${_commingDriverController.getDrivercomingDetail?.mobileNumber.toString() ?? "Not avalable"}';
+                                          //                         print(
+                                          //                             "ojoojjooj${telephoneNumber}");
+                                          //
+                                          //                         // String
+                                          //                         // telephoneNumber =
+                                          //                         // '${_commingDriverController.getDrivercomingDetail?.mobileNumber.toString() ?? 0}';
+                                          //                         String
+                                          //                             telephoneUrl =
+                                          //                             "tel:$telephoneNumber";
+                                          //                         if (await canLaunch(
+                                          //                             telephoneUrl)) {
+                                          //                           await launch(
+                                          //                               telephoneUrl);
+                                          //                         } else {
+                                          //                           throw "Error occured trying to call that number.";
+                                          //                         }
+                                          //                         // launch('tel:+9111126194230');
+                                          //                       },
+                                          //                       child: Container(
+                                          //                           height: size.height * 0.04,
+                                          //
+                                          //                           /// width: size.width * 0.26,
+                                          //                           color: MyTheme.ThemeColors,
+                                          //                           child: Center(
+                                          //                               child: Row(
+                                          //                             mainAxisAlignment:
+                                          //                                 MainAxisAlignment
+                                          //                                     .center,
+                                          //                             children: [
+                                          //                               Icon(
+                                          //                                 Icons
+                                          //                                     .phone,
+                                          //                                 color:
+                                          //                                     Colors.white,
+                                          //                                 size: size.width *
+                                          //                                     0.05,
+                                          //                               ),
+                                          //                               SizedBox(
+                                          //                                 width:
+                                          //                                     size.width * 0.03,
+                                          //                               ),
+                                          //                               Text(
+                                          //                                 'Call Driver',
+                                          //                                 style:
+                                          //                                     TextStyle(
+                                          //                                   color:
+                                          //                                       MyTheme.white,
+                                          //                                   fontSize:
+                                          //                                       size.width * 0.03,
+                                          //                                   fontWeight:
+                                          //                                       FontWeight.bold,
+                                          //                                 ),
+                                          //                               ),
+                                          //                             ],
+                                          //                           ))),
+                                          //                     ),
+                                          //                   ),
+                                          //                 ),
+                                          //               ),
+                                          //               // cancel: Padding(
+                                          //               //   padding:
+                                          //               //       const EdgeInsets.all(8.0),
+                                          //               //   child:
+                                          //               //       PhysicalModel(
+                                          //               //     color: MyTheme.blueww,
+                                          //               //     shadowColor: Colors.blueGrey,
+                                          //               //     elevation: 0,
+                                          //               //     child: Padding(
+                                          //               //       padding: const EdgeInsets.all(3.0),
+                                          //               //       child: InkWell(
+                                          //               //         onTap: () {
+                                          //               //           Get.back();
+                                          //               //           // _launchWhatsapp();
+                                          //               //         },
+                                          //               //         child: Container(
+                                          //               //             height: size.height * 0.04,
+                                          //               //             width: size.width * 0.26,
+                                          //               //             color: MyTheme.ThemeColors,
+                                          //               //             child: Center(
+                                          //               //                 child: Row(
+                                          //               //               mainAxisAlignment: MainAxisAlignment.center,
+                                          //               //               children: [
+                                          //               //                 Icon(
+                                          //               //                   Icons.cancel,
+                                          //               //                   color: Colors.white,
+                                          //               //                   size: size.height * 0.03,
+                                          //               //                 ),
+                                          //               //                 SizedBox(
+                                          //               //                   width: size.width * 0.03,
+                                          //               //                 ),
+                                          //               //                 Text(
+                                          //               //                   'NO',
+                                          //               //                   style: TextStyle(color: MyTheme.white, fontWeight: FontWeight.bold, fontSize: size.width * 0.03),
+                                          //               //                 ),
+                                          //               //               ],
+                                          //               //             ))),
+                                          //               //       ),
+                                          //               //     ),
+                                          //               //   ),
+                                          //               // ),
+                                          //               middleText:
+                                          //                   "Call Driver ?.",
+                                          //               backgroundColor:
+                                          //                   MyTheme.ThemeColors,
+                                          //               titleStyle:
+                                          //                   GoogleFonts.alatsi(
+                                          //                       color: MyTheme
+                                          //                           .white,
+                                          //                       fontSize:
+                                          //                           size.height *
+                                          //                               0.03,
+                                          //                       fontWeight:
+                                          //                           FontWeight
+                                          //                               .bold),
+                                          //               middleTextStyle:
+                                          //                   TextStyle(
+                                          //                       color: MyTheme
+                                          //                           .text1),
+                                          //               radius: 10);
+                                          //         },
+                                          //         child: Container(
+                                          //           height: size.height * 0.04,
+                                          //           width: size.width * 0.08,
+                                          //           decoration: BoxDecoration(
+                                          //             color: Colors.white30,
+                                          //             shape: BoxShape.circle,
+                                          //           ),
+                                          //           child: Icon(
+                                          //             Icons.call,
+                                          //             color: Colors.red,
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //
+                                          //     ///todo: calll user...
+                                          //   ],
+                                          // ),
                                           SizedBox(
                                             height: size.height * 0.015,
                                           ),
@@ -411,7 +601,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                           Row(
                                             children: [
                                               Text(
-                                                'Total Price :',
+                                                'Estimated Price :',
                                                 style: GoogleFonts.actor(
                                                   fontSize: size.width * 0.04,
                                                   fontWeight: FontWeight.w700,
@@ -628,7 +818,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                           //abbulance fees will go with this.....
                                                           .then((statusCode) {
                                                         if (statusCode == 200) {
-                                                          ///post order api....
+                                                          ///post order api....wallet.......
                                                           _ambulanceOrderpaymentController
                                                               .postOrderAmbulancwalletApi()
                                                               .then(
@@ -669,8 +859,8 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                                 // nearlistdriverApi();
                                                                 Timer(
                                                                   const Duration(
-                                                                      milliseconds:
-                                                                          500),
+                                                                      seconds:
+                                                                          2),
                                                                   () async {
                                                                     // nearlistdriverApi();
                                                                     await Get.to(

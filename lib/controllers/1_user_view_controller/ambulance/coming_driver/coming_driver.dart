@@ -8,7 +8,7 @@ class CommingDriverController extends GetxController {
   //List<DriverProfileDetailModel>? getDriverProfileDetail;
   AmbulanceComingUser? getDrivercomingDetail;
 
-  void drivercominguserDetailApi() async {
+  Future<void> drivercominguserDetailApi() async {
     isLoading(false);
     getDrivercomingDetail = await ApiProvider.ComingDriverDetailUserApi();
     if (getDrivercomingDetail?.driverName == null) {

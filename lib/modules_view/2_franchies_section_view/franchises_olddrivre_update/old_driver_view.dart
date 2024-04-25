@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -426,80 +424,93 @@ class OldDriverView extends StatelessWidget {
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          _frenchiesOldDriverListController
-                                                              .frenchiesOldDriverDelete(
-                                                                  id!);
-                                                          Timer(
-                                                              const Duration(
-                                                                  seconds: 1),
-                                                              () =>
-                                                                  callTestListView());
-                                                        },
-                                                        child: Container(
-                                                          height: size.height *
-                                                              0.037,
-                                                          width:
-                                                              size.width * 0.14,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(2),
-                                                          decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .grey[300],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  offset:
-                                                                      Offset(
-                                                                          3, 3),
-                                                                  blurRadius: 0,
-                                                                  spreadRadius:
-                                                                      0,
-                                                                ),
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(-1,
-                                                                          -1),
-                                                                  blurRadius: 1,
-                                                                  spreadRadius:
-                                                                      1,
-                                                                ),
-                                                              ]),
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Delete',
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 2,
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.033,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color:
-                                                                    Colors.red,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                      ///todo: delete driver...
+                                                      // InkWell(
+                                                      //   onTap: () {
+                                                      //     _frenchiesOldDriverListController
+                                                      //         .frenchiesOldDriverDelete(
+                                                      //             id!);
+                                                      //     Timer(
+                                                      //         const Duration(
+                                                      //             seconds: 1),
+                                                      //         () =>
+                                                      //             callTestListView());
+                                                      //   },
+                                                      //   child: Container(
+                                                      //     height: size.height *
+                                                      //         0.037,
+                                                      //     width:
+                                                      //         size.width * 0.14,
+                                                      //     padding:
+                                                      //         const EdgeInsets
+                                                      //             .all(2),
+                                                      //     decoration: BoxDecoration(
+                                                      //         color: Colors
+                                                      //             .grey[300],
+                                                      //         borderRadius:
+                                                      //             BorderRadius
+                                                      //                 .circular(
+                                                      //                     10),
+                                                      //         boxShadow: const [
+                                                      //           BoxShadow(
+                                                      //             color: Colors
+                                                      //                 .red,
+                                                      //             offset:
+                                                      //                 Offset(
+                                                      //                     3, 3),
+                                                      //             blurRadius: 0,
+                                                      //             spreadRadius:
+                                                      //                 0,
+                                                      //           ),
+                                                      //           BoxShadow(
+                                                      //             color: Colors
+                                                      //                 .white,
+                                                      //             offset:
+                                                      //                 Offset(-1,
+                                                      //                     -1),
+                                                      //             blurRadius: 1,
+                                                      //             spreadRadius:
+                                                      //                 1,
+                                                      //           ),
+                                                      //         ]),
+                                                      //     child: Center(
+                                                      //       child: Text(
+                                                      //         'Delete',
+                                                      //         overflow:
+                                                      //             TextOverflow
+                                                      //                 .ellipsis,
+                                                      //         maxLines: 2,
+                                                      //         style: GoogleFonts
+                                                      //             .roboto(
+                                                      //           fontSize:
+                                                      //               size.width *
+                                                      //                   0.033,
+                                                      //           fontWeight:
+                                                      //               FontWeight
+                                                      //                   .w600,
+                                                      //           color:
+                                                      //               Colors.red,
+                                                      //         ),
+                                                      //       ),
+                                                      //     ),
+                                                      //   ),
+                                                      // ),
+                                                      Text(
+                                                        'Update',
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          fontSize:
+                                                              size.width * 0.03,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: MyTheme.blueww,
                                                         ),
                                                       ),
                                                       SizedBox(
                                                         height:
-                                                            size.height * 0.01,
+                                                            size.height * 0.02,
                                                       ),
+
                                                       InkWell(
                                                         onTap: () async {
                                                           ///_dialog(id,'${item?[index].driverName}','${item?[index].vehicleNumber}');

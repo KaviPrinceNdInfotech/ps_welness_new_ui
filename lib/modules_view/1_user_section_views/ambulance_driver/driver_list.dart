@@ -200,10 +200,13 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                             //animationDuration: kButtonAnimationDuration,
                             depth: kButtonDepth,
                             onTapUp: () async {
-                              widget.driverlist?.message?.forEach((element) {
+                              widget.driverlist?.message
+                                  ?.forEach((element) async {
                                 ///.......
-                                _ambulancegetController
-                                    .postAmbulancerequestApi2();
+                                // _ambulancegetController
+                                //     .postAmbulancerequestApi2();
+                                await _ambulancegetController
+                                    .postRequestAllApi();
                                 print('princee notification');
                                 notificationServices
                                     .getDeviceToken()
@@ -286,6 +289,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
 
                                   print(r.body);
                                   if (r.statusCode == 200) {
+                                    ///todo: 9 april 2024... it will redirect to home page
+
+                                    await Get.to(UserHomePage());
+
                                     print("userrrtokenupdateeedd111${body}");
                                     return r;
                                   } else if (r.statusCode == 401) {
@@ -821,7 +828,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            'Total Price :',
+                                                            'Estimated Price :',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
                                                                 .actor(
@@ -914,7 +921,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                         height:
                                                             size.height * 0.035,
                                                         width:
-                                                            size.width * 0.17,
+                                                            size.width * 0.22,
                                                         padding:
                                                             EdgeInsets.all(8),
                                                         decoration: BoxDecoration(
@@ -955,14 +962,16 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   const EdgeInsets
                                                                       .all(0.0),
                                                               child: Text(
-                                                                '\u{20B9}',
+                                                                'Total:',
+
+                                                                /// '\u{20B9}',
                                                                 //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                                 style:
                                                                     GoogleFonts
                                                                         .actor(
                                                                   fontSize:
                                                                       size.width *
-                                                                          0.034,
+                                                                          0.024,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w800,
@@ -974,10 +983,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                             SizedBox(
                                                               width:
                                                                   size.width *
-                                                                      0.002,
+                                                                      0.00,
                                                             ),
                                                             Text(
-                                                              "${widget.driverlist?.message?[index].charge}/Km",
+                                                              "${widget.driverlist?.message?[index].toatlDistance}Km",
 
                                                               // '10/km',
                                                               //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
@@ -985,7 +994,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   .roboto(
                                                                 fontSize:
                                                                     size.width *
-                                                                        0.028,
+                                                                        0.026,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -1061,6 +1070,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                 prefs =
                                                                 await SharedPreferences
                                                                     .getInstance();
+
+                                                            await prefs.setString(
+                                                                "driverId",
+                                                                "${widget.driverlist?.message?[index].driverId}");
                                                             prefs.setString(
                                                                 "driverlistssId",
                                                                 "${widget.driverlist?.message?[index].driverId.toString()}");
@@ -1093,8 +1106,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                 "vehicle1",
                                                                 "${widget.driverlist?.vehicleTypeId.toString()}");
 
-                                                            _ambulancegetController
-                                                                .postAmbulancerequestApi2();
+                                                            await _ambulancegetController
+                                                                .postRequestIndividualApi();
                                                             print(
                                                               "okokotokenww:${widget.driverlist?.message?[index].deviceId}"
                                                                   .toString(),
@@ -1205,6 +1218,16 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                 print(r.body);
                                                                 if (r.statusCode ==
                                                                     200) {
+                                                                  ///todo: 9 april 2024 redirect to home page of user....prince
+
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              UserHomePage()));
+
+                                                                  ///todo: 9 april 2024 redirect to home page of user....prince...end...
+
                                                                   print(
                                                                       "userrrtokenupdateeedd99999${body}");
                                                                   return r;

@@ -19,6 +19,7 @@ class Franchies_vehicle_Controller extends GetxController {
       driverchargeController,
       accountholderController,
       IfscController,
+      VehicleOwnerNameColller,
       vendorIdController;
 
   var pan = '';
@@ -30,6 +31,7 @@ class Franchies_vehicle_Controller extends GetxController {
   var acholdername = '';
   var ifsccode = '';
   var selectedImagepath = ''.obs;
+  var VehicleOwnerName = '';
 
   ///
 
@@ -72,6 +74,7 @@ class Franchies_vehicle_Controller extends GetxController {
       selectedVehicleCat.value?.id.toString(),
       selectedVehicleType.value?.id.toString(),
       IfscController?.text,
+      VehicleOwnerNameColller?.text,
 
       /// selectedImagepath.value.split('/').last,
       ///imageAsBase64
@@ -97,6 +100,7 @@ class Franchies_vehicle_Controller extends GetxController {
     driverchargeController = TextEditingController();
     accountholderController = TextEditingController();
     IfscController = TextEditingController();
+    VehicleOwnerNameColller = TextEditingController();
   }
 
   @override
@@ -118,6 +122,13 @@ class Franchies_vehicle_Controller extends GetxController {
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide Vehicle name";
+    }
+    return null;
+  }
+
+  String? validownerName(String value) {
+    if (value.length < 2) {
+      return "              Provide Vehicle owner name";
     }
     return null;
   }

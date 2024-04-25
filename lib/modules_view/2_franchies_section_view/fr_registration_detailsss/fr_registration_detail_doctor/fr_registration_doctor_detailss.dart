@@ -562,7 +562,7 @@ class ResitrationDoctorDetails extends StatelessWidget {
                                                                             .lato(
                                                                       fontSize:
                                                                           size.width *
-                                                                              0.033,
+                                                                              0.03,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w700,

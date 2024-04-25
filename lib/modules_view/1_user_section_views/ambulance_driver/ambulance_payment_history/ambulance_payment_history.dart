@@ -248,135 +248,97 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                           child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .spaceAround,
+                                                                    .spaceBetween,
                                                             children: [
-                                                              Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    'Driver Name:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
+                                                              SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.30,
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Driver Name:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.035,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Paid Amount:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      //color: MyTheme.text1,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
+                                                                    // Text(
+                                                                    //   'Paid Amount:',
+                                                                    //   style: GoogleFonts
+                                                                    //       .poppins(
+                                                                    //     //color: MyTheme.text1,
+                                                                    //     fontWeight:
+                                                                    //         FontWeight
+                                                                    //             .w600,
+                                                                    //     fontSize:
+                                                                    //         size.width *
+                                                                    //             0.035,
+                                                                    //   ),
+                                                                    // ),
+                                                                    Text(
+                                                                      'Total Amount:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        //color: MyTheme.text1,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.035,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Total Amount:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      //color: MyTheme.text1,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
+                                                                    Text(
+                                                                      'Payment Date:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        //color: MyTheme.text1,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.035,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Payment Date:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      //color: MyTheme.text1,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
+                                                                    Text(
+                                                                      'VehicleNumber:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        //color: MyTheme.text1,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.035,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    'VehicleNumber:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      //color: MyTheme.text1,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
-                                                              Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    '${item?[index].driverName}',
-                                                                    style: GoogleFonts.raleway(
-                                                                        color: MyTheme
-                                                                            .blueww,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                        fontSize:
-                                                                            size.width *
-                                                                                0.035),
-                                                                  ),
-                                                                  Text(
-                                                                    '₹ ${item?[index].paidAmount}',
-                                                                    style: GoogleFonts.raleway(
-                                                                        color: MyTheme
-                                                                            .blueww,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                        fontSize:
-                                                                            size.width *
-                                                                                0.035),
-                                                                  ),
-                                                                  Text(
-                                                                    '₹ ${item?[index].totalPrice}',
-                                                                    style: GoogleFonts.raleway(
-                                                                        color: MyTheme
-                                                                            .blueww,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                        fontSize:
-                                                                            size.width *
-                                                                                0.035),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: size
-                                                                            .height *
-                                                                        0.02,
-                                                                    width:
-                                                                        size.width *
-                                                                            0.2,
-                                                                    child: Text(
-                                                                      "${_driverUserPaymentHistoryController.founduserpaymenthistorydriver[index].paymentDate ?? "00 / 00 / 0000"}",
+                                                              SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.560,
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      '${item?[index].driverName}',
                                                                       style: GoogleFonts.raleway(
                                                                           color: MyTheme
                                                                               .blueww,
@@ -385,19 +347,20 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                                           fontSize:
                                                                               size.width * 0.035),
                                                                     ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width:
-                                                                        size.width *
-                                                                            0.2,
-                                                                    height: size
-                                                                            .height *
-                                                                        0.02,
-                                                                    child: Text(
-                                                                      _driverUserPaymentHistoryController
-                                                                              .founduserpaymenthistorydriver?[index]
-                                                                              .vehicleNumber ??
-                                                                          "no data",
+                                                                    // Text(
+                                                                    //   '₹ ${item?[index].paidAmount}',
+                                                                    //   style: GoogleFonts.raleway(
+                                                                    //       color: MyTheme
+                                                                    //           .blueww,
+                                                                    //       fontWeight:
+                                                                    //           FontWeight
+                                                                    //               .w700,
+                                                                    //       fontSize:
+                                                                    //           size.width *
+                                                                    //               0.035),
+                                                                    // ),
+                                                                    Text(
+                                                                      '₹ ${item?[index].totalPrice}',
                                                                       style: GoogleFonts.raleway(
                                                                           color: MyTheme
                                                                               .blueww,
@@ -406,8 +369,43 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                                           fontSize:
                                                                               size.width * 0.035),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                    SizedBox(
+                                                                      height: size
+                                                                              .height *
+                                                                          0.02,
+                                                                      width: size
+                                                                              .width *
+                                                                          0.2,
+                                                                      child:
+                                                                          Text(
+                                                                        "${_driverUserPaymentHistoryController.founduserpaymenthistorydriver[index].paymentDate ?? "00 / 00 / 0000"}",
+                                                                        style: GoogleFonts.raleway(
+                                                                            color:
+                                                                                MyTheme.blueww,
+                                                                            fontWeight: FontWeight.w700,
+                                                                            fontSize: size.width * 0.035),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: size
+                                                                              .width *
+                                                                          0.2,
+                                                                      height: size
+                                                                              .height *
+                                                                          0.02,
+                                                                      child:
+                                                                          Text(
+                                                                        _driverUserPaymentHistoryController.founduserpaymenthistorydriver?[index].vehicleNumber ??
+                                                                            "no data",
+                                                                        style: GoogleFonts.raleway(
+                                                                            color:
+                                                                                MyTheme.blueww,
+                                                                            fontWeight: FontWeight.w700,
+                                                                            fontSize: size.width * 0.035),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ],
                                                           ),

@@ -420,7 +420,8 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                               ),
                                                                               const SizedBox(height: 15),
                                                                               const Text(
-                                                                                "If you will cancel this appointment you have to pay penalty of 10% cost of total booking amount.",
+                                                                                "Are you want to cancel this appointment",
+                                                                                // "If you will cancel this appointment you have to pay penalty of 10% cost of total booking amount.",
                                                                                 textAlign: TextAlign.center,
                                                                               ),
                                                                               const SizedBox(height: 20),
@@ -535,7 +536,8 @@ class _NurseeAppointmentDetailState extends State<NurseeAppointmentDetail> {
                                                                                             //.toString(),
                                                                                             'notification': {
                                                                                               'title': 'Ps_Wellness Nurse',
-                                                                                              'body': 'Your Booking has been Canceled by Nurse you amount will refund in your wallet',
+                                                                                              'body': 'Your Booking has been Canceled by Nurse. ',
+                                                                                              //'you amount will refund in your wallet',
                                                                                               //"sound": "jetsons_doorbell.mp3"
                                                                                             },
                                                                                             'android': {

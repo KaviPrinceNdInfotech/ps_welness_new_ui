@@ -15,6 +15,7 @@ class FrenchiesVehicleDetailController extends GetxController {
       ///for search filter
       data.value = getfrenchiesVehicleDetailModel!.vehicleRegDetail!;
     }
+    isLoading(false);
   }
 
   @override

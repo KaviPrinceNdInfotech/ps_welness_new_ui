@@ -464,6 +464,85 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                   ListTile(
                     // horizontalTitleGap: 10,
                     leading: Icon(
+                      Icons.car_crash_sharp,
+                      color: MyTheme.blueww,
+                      size: size.height * 0.021,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      color: MyTheme.blueww,
+                      size: size.height * 0.02,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    dense: true,
+                    visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+                    title: Text(
+                      'Your coming Ambulance',
+                      style: TextStyle(
+                          fontSize: size.height * 0.016,
+                          fontWeight: FontWeight.w600,
+                          color: MyTheme.blueww),
+                    ),
+                    tileColor: Get.currentRoute == '/ComingDriver'
+                        ? Colors.grey[300]
+                        : Colors.transparent,
+
+                    onTap: () async {
+                      await accountService.getAccountData.then((accountData) {
+                        _commingDriverController.drivercominguserDetailApi();
+                        _commingDriverController.update();
+                        _commingDriverController.refresh();
+                        _commingDriverController.onInit();
+                      });
+
+                      await accountService.getAccountData
+                          .then((accountData) async {
+                        _commingDriverController.drivercominguserDetailApi();
+                        _commingDriverController.update();
+                        _commingDriverController.refresh();
+                        _commingDriverController.onInit();
+
+                        // CallLoader.loader();
+                        // nearlistdriverApi();
+                        CallLoader.loader();
+                        await Future.delayed(Duration(milliseconds: 500));
+                        CallLoader.hideLoader();
+
+                        Timer(
+                          const Duration(milliseconds: 100),
+                          () {
+                            // nearlistdriverApi();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ComingDriver(
+                                        //id: "12345678",
+                                        )));
+                            // Get.to(MessageScreen(
+                            //   id: message.data['id'],
+                            // ));
+                            //Get.to((MapView));
+                            //postAmbulancerequestApi(markers);
+
+                            ///
+                          },
+                        );
+                        CallLoader.hideLoader();
+                      });
+
+                      /// CallLoader.loader();
+                      //await Future.delayed(Duration(milliseconds: 500));
+                      /// CallLoader.hideLoader();
+
+                      Get.back();
+                      //Get.to(() => ShareData());
+                      // Get.to(() => ComingDriver());
+                    },
+                  ),
+                  ListTile(
+                    // horizontalTitleGap: 10,
+                    leading: Icon(
                       FontAwesomeIcons.history,
                       color: MyTheme.blueww,
                       size: size.height * 0.021,
@@ -948,85 +1027,6 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                     },
                   ),
 
-                  ListTile(
-                    // horizontalTitleGap: 10,
-                    leading: Icon(
-                      Icons.car_crash_sharp,
-                      color: MyTheme.blueww,
-                      size: size.height * 0.021,
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      color: MyTheme.blueww,
-                      size: size.height * 0.02,
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                    dense: true,
-                    visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-                    title: Text(
-                      'Your coming Ambulance',
-                      style: TextStyle(
-                          fontSize: size.height * 0.016,
-                          fontWeight: FontWeight.w600,
-                          color: MyTheme.blueww),
-                    ),
-                    tileColor: Get.currentRoute == '/ComingDriver'
-                        ? Colors.grey[300]
-                        : Colors.transparent,
-
-                    onTap: () async {
-                      await accountService.getAccountData.then((accountData) {
-                        _commingDriverController.drivercominguserDetailApi();
-                        _commingDriverController.update();
-                        _commingDriverController.refresh();
-                        _commingDriverController.onInit();
-                      });
-
-                      await accountService.getAccountData
-                          .then((accountData) async {
-                        _commingDriverController.drivercominguserDetailApi();
-                        _commingDriverController.update();
-                        _commingDriverController.refresh();
-                        _commingDriverController.onInit();
-
-                        // CallLoader.loader();
-                        // nearlistdriverApi();
-                        CallLoader.loader();
-                        await Future.delayed(Duration(milliseconds: 500));
-                        CallLoader.hideLoader();
-
-                        Timer(
-                          const Duration(milliseconds: 100),
-                          () {
-                            // nearlistdriverApi();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ComingDriver(
-                                        //id: "12345678",
-                                        )));
-                            // Get.to(MessageScreen(
-                            //   id: message.data['id'],
-                            // ));
-                            //Get.to((MapView));
-                            //postAmbulancerequestApi(markers);
-
-                            ///
-                          },
-                        );
-                        CallLoader.hideLoader();
-                      });
-
-                      /// CallLoader.loader();
-                      //await Future.delayed(Duration(milliseconds: 500));
-                      /// CallLoader.hideLoader();
-
-                      Get.back();
-                      //Get.to(() => ShareData());
-                      // Get.to(() => ComingDriver());
-                    },
-                  ),
                   ListTile(
                     // horizontalTitleGap: 10,
                     leading: Icon(

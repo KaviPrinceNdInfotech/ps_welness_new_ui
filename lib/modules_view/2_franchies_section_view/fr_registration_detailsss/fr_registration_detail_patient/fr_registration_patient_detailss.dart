@@ -198,19 +198,19 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                 offset: Offset(-0, -0),
                                                 spreadRadius: 0,
                                                 blurRadius: 0,
-                                                color: Colors.pink.shade900,
+                                                color: Colors.pink.shade100,
                                               ),
                                               BoxShadow(
                                                 offset: Offset(3, 3),
                                                 spreadRadius: 0,
                                                 blurRadius: 0,
-                                                color: Colors.pink.shade800,
+                                                color: Colors.pink.shade100,
                                               ),
                                             ],
-                                            image: const DecorationImage(
-                                                image: NetworkImage(
-                                                    'https://images.unsplash.com/photo-1611242320536-f12d3541249b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHJlZCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60'),
-                                                fit: BoxFit.cover),
+                                            // image: const DecorationImage(
+                                            //     image: NetworkImage(
+                                            //         'https://images.unsplash.com/photo-1611242320536-f12d3541249b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHJlZCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60'),
+                                            //     fit: BoxFit.cover),
                                           ),
                                           child: Container(
                                             height: size.height * 0.27,
@@ -219,18 +219,20 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                 vertical:
                                                     size.width * 0.0 / 05),
                                             decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
-                                                    begin: Alignment.centerLeft,
-                                                    end: Alignment.centerRight,
-                                                    colors: [
-                                                      Color(0xffffffff),
-                                                      Color(0xffF0FFF0)
-                                                      //darkPrimary,
-                                                    ]),
-                                                image: const DecorationImage(
-                                                    image: NetworkImage(
-                                                        'https://images.unsplash.com/photo-1611242320536-f12d3541249b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHJlZCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60'),
-                                                    fit: BoxFit.cover),
+                                                color: Colors.blue,
+                                                // gradient: const LinearGradient(
+                                                //     begin: Alignment.centerLeft,
+                                                //     end: Alignment.centerRight,
+                                                //     colors: [
+                                                //       Color(0xffffffff),
+                                                //       Color(0xffF0FFF0)
+                                                //       //darkPrimary,
+                                                //     ]),
+                                                ///
+                                                // image: const DecorationImage(
+                                                //     image: NetworkImage(
+                                                //         'https://images.unsplash.com/photo-1611242320536-f12d3541249b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHJlZCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60'),
+                                                //     fit: BoxFit.cover),
                                                 borderRadius:
                                                     BorderRadius.circular(12),
                                                 boxShadow: [
@@ -261,7 +263,8 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                     width: size.width * 0.92,
                                                     padding: EdgeInsets.all(3),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.grey[900],
+                                                        color: Colors
+                                                            .cyan.shade600,
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10),
@@ -272,7 +275,7 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                         //     fit: BoxFit.cover),
                                                         boxShadow: const [
                                                           BoxShadow(
-                                                            color: Colors.black,
+                                                            color: Colors.white,
                                                             offset:
                                                                 Offset(3, 3),
                                                             blurRadius: 0,
@@ -541,7 +544,9 @@ class ResitrationPatientDetails extends StatelessWidget {
                                                                 style:
                                                                     GoogleFonts
                                                                         .lato(
-                                                                  fontSize: size.width * 0.04,
+                                                                  fontSize:
+                                                                      size.width *
+                                                                          0.04,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,

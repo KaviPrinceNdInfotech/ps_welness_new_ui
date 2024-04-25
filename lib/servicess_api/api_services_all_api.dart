@@ -28,6 +28,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/report_moidel3/nurse_userrr
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/wallet_model/wallet_section_model.dart';
+import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/driver_ongoing_ride_model.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models/nurse_appointment_details_list.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/dropdown_list_patient_nurse.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_aboutus_model.dart';
@@ -41,6 +42,7 @@ import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_profile_model
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_lab/model_lab/models_lab/lab_modelss.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/10_lab_module/lab_about_us/lab_about_us_detail.dart';
@@ -623,7 +625,15 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var nurseLocationId = preferences.getString("nurseLocationId");
     print("nurseLocationId: ${nurseLocationId}");
-    var url = "${baseUrl}api/DriverApi/UserListForBookingAmbulance";
+
+    var prefs = GetStorage();
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    userid = prefs.read("Id").toString();
+    print('drivererid:${userid}');
+
+    var url =
+        "${baseUrl}api/DriverApi/UserListForBookingAmbulance?DriverId=$userid";
+    //http://pswellness.in/api/DriverApi/UserListForBookingAmbulance?DriverId=1254
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1696,12 +1706,35 @@ class ApiProvider {
     if (r.statusCode == 200) {
       print(r.body);
       print(r.statusCode);
-      Get.snackbar("title", '${r.body}');
+      Get.snackbar(
+        'message', // Title
+        r.body, // Message
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.green, // Custom background color
+        colorText: Colors.white, // Duration in seconds
+      );
+
+      /// Get.snackbar("title", '${r.body}');
       return r;
     } else if (r.statusCode == 401) {
-      Get.snackbar('message', r.body);
+      Get.snackbar(
+        'message', // Title
+        r.body, // Message
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.green, // Custom background color
+        colorText: Colors.white, // Duration in seconds
+      );
+
+      /// Get.snackbar('message', r.body);
     } else {
-      Get.snackbar('Errorgoogle', r.body);
+      Get.snackbar(
+        'message', // Title
+        r.body, // Message
+        duration: Duration(seconds: 4),
+        backgroundColor: Colors.green, // Custom background color
+        colorText: Colors.white, // Duration in seconds
+      );
+      //Get.snackbar('Errorgoogle', r.body);
       return r;
     }
   }
@@ -6178,15 +6211,18 @@ class ApiProvider {
     }
   }
 
-  ///todo: accepted driver list  17 july 2023....user api...
+  ///todo: accepted driver list  9 april 2024....user api...
   static AcceptDriverDetailUserApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&bookingrequestId:${userid}');
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driverlistbookingId = preferences.getString("driverlistbookingId");
     print("driverlistbookingId: ${driverlistbookingId}");
 
     ///driverlistbookingId
-    var url =
-        '${baseUrl}api/DriverApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
+    var url = '${baseUrl}api/DriverApi/GetAcceptedReqDriverDetail?Id=$userid';
+    //'api/DriverApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -6233,7 +6269,7 @@ class ApiProvider {
 
   ///ambulance_paynow.ONLINE.lab....api..of...user........29 april 2023...........
 
-  static AmbulancepaynowOnlineApi() async {
+  static AmbulancepaynowOnlineApi(num? driverId) async {
     var url = '${baseUrl}api/DriverApi/DriverPayNow';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -6254,7 +6290,8 @@ class ApiProvider {
 
     var body = {
       "PatientId": userid,
-      "Driver_Id": "$driverlistssId",
+      "Driver_Id": "$driverId",
+      //"$driverlistssId",
       "Amount": "$ambulanceFee",
     };
     print("ambulanceonline444:${body}");
@@ -6285,7 +6322,7 @@ class ApiProvider {
 
   ///ambulance_paynow.ONLINE.wallet....api..of...user........22 mar 2024...........
 
-  static AmbulancepaynowOnlinewalletApi() async {
+  static AmbulancepaynowOnlinewalletApi(num? driverId) async {
     var url = '${baseUrl}api/DriverApi/DriverPayNow';
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -6306,7 +6343,8 @@ class ApiProvider {
 
     var body = {
       "PatientId": userid,
-      "Driver_Id": "$driverlistssId",
+      "Driver_Id": "$driverId",
+      //"$driverlistssId",
       "Amount": "$ambulanceFeewallet",
     };
     print("ambulanceonline444:${body}");
@@ -6718,6 +6756,257 @@ class ApiProvider {
         "${r.body}",
         duration: const Duration(seconds: 2),
       );
+      return r;
+    }
+  }
+
+  ///todo: here from post request all post api......9 aprl..2024..
+  static AcceptallPostApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+    print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
+    print('&userdriambulance:${ambulancetypeid}');
+    // userId = prefs.read("userId").toString();
+    // print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    var startLat5 = preferences.getString("startLat5");
+    print("driverlistssId88899: ${startLat5}");
+    //lat1
+    var startLong5 = preferences.getString("startLong5");
+    print("driverlistssId88899: ${startLong5}");
+    //lat1
+    var endLat5 = preferences.getString("endLat5");
+    print("lat133: ${endLat5}");
+    //lat1
+    var endLong5 = preferences.getString("endLong5");
+    print("lng244: ${endLong5}");
+    //lat1
+
+    var url = '${baseUrl}api/PatientApi/RequestToAll';
+
+    var body = {
+      "Patient_Id": userid,
+    };
+    //
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print(r.body);
+      print(r.statusCode);
+      Get.snackbar("Booking Status", r.body);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: here from post request individual post api......9 aprl..2024..
+  static AcceptIndividualPostApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+    // print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+
+    var driverId = preferences.getString("driverId");
+    print("driverId: ${driverId}");
+    //driverId
+    //driverId
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&userdriambulance:${ambulancetypeid}');
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var startLat5 = preferences.getString("startLat5");
+    // print("driverlistssId88899: ${startLat5}");
+    //lat1
+    // var startLong5 = preferences.getString("startLong5");
+    // print("driverlistssId88899: ${startLong5}");
+    //lat1
+    // var endLat5 = preferences.getString("endLat5");
+    // print("lat133: ${endLat5}");
+    //lat1
+    // var endLong5 = preferences.getString("endLong5");
+    // print("lng244: ${endLong5}");
+    //lat1
+
+    var url = '${baseUrl}api/PatientApi/BookDriver';
+
+    var body = {
+      "Driver_Id": "$driverId",
+      "Patient_Id": userid,
+      // "end_Long": "$endLong5",
+      // "end_Lat": "$endLat5",
+      // "Patient_Id": userId,
+      // "VehicleType_id": "${AmbulancecatserviceId}",
+    };
+    //
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print("bodyyy123: ${r.body}");
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print("bodyyy1234: ${r.body}");
+
+      print(r.body);
+      print(r.statusCode);
+      Get.snackbar("Booking Status", r.body);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: here ongoing ride user and track...9 april 2024....this will change (ambrd api)...........
+  static OngoingRideApiApi() async {
+    var prefs = GetStorage();
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    userid = prefs.read("Id").toString();
+    print('drivererid:${userid}');
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistbookingId = preferences.getString("driverlistbookingId");
+    print("driverlistbookingId: ${driverlistbookingId}");
+
+    //driverlistbookingId
+    //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
+    //http://admin.ambrd.in/api/DriverApi/GetOnGoingRide_UserDetail?DriverId=1
+    var url =
+        '${baseUrl}api/DriverApi/GetOnGoingRide_UserDetail?DriverId=$userid';
+    //http://pswellness.in/api/DriverApi/GetOnGoingRide_UserDetail?DriverId=1254
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("ambulanceonl:${r.body}");
+        print("ambulanceonliner:${url}");
+        OngoingRideModel ongoingRideModel = ongoingRideModelFromJson(r.body);
+        return ongoingRideModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: complete ride api on ......9 april  2024.......,,,,,,.....................
+
+  static CompleteridedriverApi(
+    var Id,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DriverListId = preferences.getString("DriverListId");
+    print("DriverListId3434: ${DriverListId}");
+
+    // var prefs = GetStorage();
+
+    var url = '${baseUrl}api/DriverApi/CompleteRide';
+    var prefs = GetStorage();
+    //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
+    userid = prefs.read("Id").toString();
+    print('drivererid:${userid}');
+
+    var body = {
+      "Id":
+          //"178",
+          "${DriverListId}",
+      "Driver_Id": userid,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4), // Duration in seconds
+      // );
+      print(r.body);
+      print(r.statusCode);
+      print('&&&&&&&&bodyeer:${body}');
+
+      /// Get.snackbar("title", '${r.body}');
+      return r;
+    } else if (r.statusCode == 401) {
+      ///Get.snackbar('message', r.body);
+    } else {
+      // Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo:forgetpassword...
+  ///login user api ps welness api 2..................................
+  static ForgetPasswordApi(
+    var EmailId,
+  ) async {
+    var url = '${baseUrl}api/SignupApi/ForgotPassword';
+
+    var body = {
+      "EmailId": "$EmailId",
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      Get.snackbar('Sucess', (r.body),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green.shade400,
+          colorText: Colors.white,
+          duration: (Duration(seconds: 2)));
+
+      Get.offAll(SignInScreen());
+
+      ///
+
+      CallLoader.hideLoader();
+      var prefs = GetStorage();
+
+      ///here we are defining status code.....
+      //var status = json.decode(r.body)['Status'];
+
+      ///
+      return r;
+    } else if (r.statusCode == 401) {
+      await Future.delayed(Duration(seconds: 3));
+      // Get.snackbar('Error', r.body);
+      Get.snackbar('Error', r.body,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          duration: (Duration(seconds: 3)));
+      return r;
+      //Get.snackbar('message', r.body);
+    } else {
+      // CallLoader.loader();
+      await Future.delayed(Duration(seconds: 2));
+      //Get.snackbar("Failed", "${r.body}");
+      Get.snackbar('Failed', r.body,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.black,
+          duration: (Duration(seconds: 3)));
+      //CallLoader.hideLoader();
+      // Get.snackbar('Error', r.body);
       return r;
     }
   }

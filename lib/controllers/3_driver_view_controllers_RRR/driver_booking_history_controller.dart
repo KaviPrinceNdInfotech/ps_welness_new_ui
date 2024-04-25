@@ -15,6 +15,7 @@ class DriverBookingHistoryController extends GetxController {
       isLoading(false);
       foundhistorydriver.value = getDriverBookingHistory!.bookingHistory!;
     }
+    isLoading(false);
   }
 
   @override

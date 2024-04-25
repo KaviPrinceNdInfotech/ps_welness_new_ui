@@ -232,14 +232,13 @@
 //   }
 // }
 ///
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/image_option_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/franchies_view/franchies_2_view/franchies_signup_part2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -250,9 +249,21 @@ class Franchies1Credentials extends StatelessWidget {
   Franchies1Credentials({Key? key}) : super(key: key);
   Franchies_1_Controller _franchies_1_controller =
       Get.put(Franchies_1_Controller());
+  final OptionsControllerfr optionsControllerfr =
+      Get.put(OptionsControllerfr());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    ///todo: Function to handle image selection
+    ///1
+    Future<void> handleImageSelection1() async {
+      optionsImage();
+      await optionsControllerfr.selectOption1();
+      //await _doctorrUploadReportController.getdoctorrpatientApi();
+    }
+
     return Form(
       key: _franchies_1_controller.franchies1formkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -418,44 +429,66 @@ class Franchies1Credentials extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                    width: size.width * 0.5,
-                    child: Text(
-                      "Upload Pan Image:",
-                      style: TextStyle(
-                        fontSize: size.height * 0.017,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    )),
-                Container(
-                  height: size.height * 0.1,
-                  width: size.width * 0.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.cyanAccent, width: 2),
-                  ),
-                  child: Obx(
-                    () => _franchies_1_controller.selectedPath.value != ''
-                        ? Image.file(
-                            File(_franchies_1_controller.selectedPath.value))
-                        : InkWell(
-                            onTap: (() {
-                              optionsImage();
-                            }),
-                            child: Center(
-                              child: Icon(Icons.camera_enhance_rounded),
-                            ),
-                          ),
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     SizedBox(
+            //         width: size.width * 0.5,
+            //         child: Text(
+            //           "Upload Pan Image:",
+            //           style: TextStyle(
+            //             fontSize: size.height * 0.017,
+            //             fontWeight: FontWeight.w800,
+            //           ),
+            //         )),
+            //     // Container(
+            //     //   height: size.height * 0.1,
+            //     //   width: size.width * 0.3,
+            //     //   decoration: BoxDecoration(
+            //     //     borderRadius: BorderRadius.circular(10),
+            //     //     border: Border.all(color: Colors.cyanAccent, width: 2),
+            //     //   ),
+            //     //   child: Obx(
+            //     //     () => _franchies_1_controller.selectedPath.value != ''
+            //     //         ? Image.file(
+            //     //             File(_franchies_1_controller.selectedPath.value))
+            //     //         : InkWell(
+            //     //             onTap: (() {
+            //     //               handleImageSelection1;
+            //     //               optionsImage();
+            //     //             }),
+            //     //             child: Center(
+            //     //               child: Icon(Icons.camera_enhance_rounded),
+            //     //             ),
+            //     //           ),
+            //     //   ),
+            //     // ),
+            //
+            //     ///
+            //     Container(
+            //       height: size.height * 0.1,
+            //       width: size.width * 0.3,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         border: Border.all(color: Colors.cyanAccent, width: 2),
+            //       ),
+            //       child: GestureDetector(
+            //         onTap: handleImageSelection1,
+            //         child: Obx(
+            //           () => _franchies_1_controller.selectedPath.value != ''
+            //               ? Image.file(
+            //                   File(_franchies_1_controller.selectedPath.value))
+            //               : Center(
+            //                   child: Icon(Icons.camera_enhance_rounded),
+            //                 ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             SizedBox(
               height: size.height * 0.00,
@@ -463,7 +496,16 @@ class Franchies1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
+                  //_franchies_1_controller.selectedState.value = null;
+                  // _franchies_1_controller.selectedCity.value = null;
+
+                  //_franchies_1_controller.selectedPath.close();
+                  // _franchies_1_controller.selectedimg.close();
+
+                  // optionsControllerfr.resetSelection1();
                   Get.to(FranchiesSignup2());
+                  // _franchies_1_controller.selectedPath.close();
+                  // _franchies_1_controller.selectedimg.close();
                 })
           ],
         ),
@@ -543,3 +585,56 @@ class Franchies1Credentials extends StatelessWidget {
     );
   }
 }
+
+// class OptionsControllerfr extends GetxController {
+//   RxBool isOptionSelected1 = false.obs;
+//   RxBool isOptionSelected2 = false.obs;
+//   RxBool isOptionSelected3 = false.obs;
+//   RxBool isOptionSelected4 = false.obs;
+//   RxBool isOptionSelected5 = false.obs;
+//
+//   void resetSelection1() {
+//     isOptionSelected1.value = false;
+//   }
+//
+//   Future<void> selectOption1() async {
+//     isOptionSelected1.value = true;
+//   }
+//
+//   ///2
+//
+//   void resetSelection2() {
+//     isOptionSelected2.value = false;
+//   }
+//
+//   Future<void> selectOption2() async {
+//     isOptionSelected2.value = true;
+//   }
+//
+//   ///3
+//   void resetSelection3() {
+//     isOptionSelected3.value = false;
+//   }
+//
+//   Future<void> selectOption3() async {
+//     isOptionSelected3.value = true;
+//   }
+//
+//   ///4
+//   void resetSelection4() {
+//     isOptionSelected4.value = false;
+//   }
+//
+//   Future<void> selectOption4() async {
+//     isOptionSelected4.value = true;
+//   }
+//
+//   ///5
+//   void resetSelection5() {
+//     isOptionSelected5.value = false;
+//   }
+//
+//   Future<void> selectOption5() async {
+//     isOptionSelected5.value = true;
+//   }
+// }

@@ -145,6 +145,35 @@ class FrDriver1Credentials extends StatelessWidget {
               //appPadding / 2,
             ),
 
+            ///todo:email__id..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                ///maxLength: 10,
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _frdriver_1_controller.emailController,
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                    hintText: 'Email',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                    counterText: ''),
+                keyboardType: TextInputType.emailAddress,
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+              //appPadding / 2,
+            ),
+
             ///todo: pan number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(

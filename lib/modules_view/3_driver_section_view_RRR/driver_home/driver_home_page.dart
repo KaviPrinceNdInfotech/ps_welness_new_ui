@@ -22,9 +22,10 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiificatio
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/add_bank_for_driver/add_bnk_view_driver/view_bank_add_driver.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/ongoing_ride_page/ongoing_ride_trip.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
-import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -38,6 +39,7 @@ import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_add_view.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../../../controllers/3_driver_view_controllers/driver_complete_ride_controller/driver_complete_ride_controller.dart';
 import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../../../notificationservice/notification_fb_service.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
@@ -81,6 +83,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
       Get.put(DriverProfileDetailController());
 
   BankDetailController _getbank = Get.put(BankDetailController());
+
+  OngoingRideController _ongoingRideController =
+      Get.put(OngoingRideController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -159,11 +164,11 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
     final List<String> productname = [
       'Booking Request',
-      'Add Bank Details',
+      'Current Ride',
       'Booking History',
       'Payment History',
       'Payout history',
-      'Contact Us',
+      'Add Bank Details',
     ];
 
     final List<String> underprocess = [
@@ -186,11 +191,12 @@ class _DriverHomePageState extends State<DriverHomePage> {
     final List<String> productimage = [
       'lib/assets/icons/notificationsdriver.png',
       // 'lib/assets/icons/driving.png',
-      'lib/assets/icons/drbank.png',
+      'lib/assets/user_assets/travel-insurance.png',
+      //'lib/assets/icons/drbank.png',
       'lib/assets/icons/drbookinghis.png',
       'lib/assets/icons/drhistory.png',
       'lib/assets/icons/drpayout.png',
-      'lib/assets/icons/contact22.png',
+      'lib/assets/icons/drbank.png',
     ];
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
@@ -361,7 +367,14 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
                       ///end....
                       ///
-                      Get.to(MyLocation());
+                      CallLoader.loader();
+                      await Future.delayed(Duration(milliseconds: 1500));
+                      CallLoader.hideLoader();
+
+                      ///todo: ongoing ride apisss...............
+                      _ongoingRideController.ongoingRideApi();
+                      _ongoingRideController.update();
+                      await Get.to(MyLocation());
                     },
                     child: Container(
                       height: size.height * 0.02,
@@ -504,7 +517,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
                                         _useracptrejectController
                                             .driveracceptrejctlistApi();
@@ -513,7 +526,18 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                         Get.to(
                                             () => MessageScreen(id: "123456"));
                                       } else if (index == 1) {
-                                        Get.to(() => AddDriverBankDetail());
+                                        await _ongoingRideController
+                                            .ongoingRideApi();
+                                        _ongoingRideController.onInit();
+                                        _ongoingRideController.update();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 300));
+                                        CallLoader.hideLoader();
+                                        await Get.to(() =>
+                                            OngoingRideTracking(id: "1233"));
+
+                                        // Get.to(() => AddDriverBankDetail());
                                         //UpdateDriverBankDetail());
                                       } else if (index == 2) {
                                         Get.to(() => DriverOrderHistory());
@@ -525,9 +549,11 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                         _driverPayoutHistoryController.update();
                                         Get.to(() => DriverPayoutHistory());
                                       } else if (index == 5) {
-                                        Get.to(() => SupportViewPsComman()
-                                            //DriverAppointmentDetails()
-                                            );
+                                        Get.to(() => AddDriverBankDetail());
+
+                                        ///Get.to(() => SupportViewPsComman()
+                                        //DriverAppointmentDetails()
+                                        // );
                                       }
                                     },
                                     child: Container(

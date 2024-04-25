@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -133,7 +131,7 @@ class ResitrationLabDetails extends StatelessWidget {
                                             decoration: InputDecoration(
                                               filled: true,
                                               fillColor: Colors.white70,
-                                              hintText: 'Enter Lab Id ',
+                                              hintText: 'Enter Lab Name ',
                                               contentPadding:
                                                   const EdgeInsets.only(
                                                       left: 10.0,
@@ -319,223 +317,247 @@ class ResitrationLabDetails extends StatelessWidget {
                                                               MainAxisAlignment
                                                                   .spaceAround,
                                                           children: [
-                                                            Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  'Lab Id:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Colors
-                                                                        .black,
+                                                            SizedBox(
+                                                              width:
+                                                                  size.width *
+                                                                      0.2,
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    'Lab Id:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Lab Name:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Lab Name:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Franchise:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Franchise:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Landline no:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Landline no:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Mobile No:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Mobile No:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Email:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Email:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Address:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Address:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Licence:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Licence:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'GST No:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'GST No:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Aadhaar:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
+                                                                  Text(
+                                                                    'Aadhaar:',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Approval:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  'Action:',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                                  // Text(
+                                                                  //   'Approval:',
+                                                                  //   style:
+                                                                  //       GoogleFonts
+                                                                  //           .lato(
+                                                                  //     fontSize:
+                                                                  //         size.width *
+                                                                  //             0.03,
+                                                                  //     fontWeight:
+                                                                  //         FontWeight
+                                                                  //             .w700,
+                                                                  //     color: Colors
+                                                                  //         .black,
+                                                                  //   ),
+                                                                  // ),
+                                                                  // Text(
+                                                                  //   'Action:',
+                                                                  //   style:
+                                                                  //       GoogleFonts
+                                                                  //           .lato(
+                                                                  //     fontSize:
+                                                                  //         size.width *
+                                                                  //             0.03,
+                                                                  //     fontWeight:
+                                                                  //         FontWeight
+                                                                  //             .w700,
+                                                                  //     color: Colors
+                                                                  //         .black,
+                                                                  //   ),
+                                                                  // ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                            Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  '${item?[index].lAbId}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
+                                                            SizedBox(
+                                                              width:
+                                                                  size.width *
+                                                                      0.6,
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    '${item?[index].lAbId}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                SizedBox(
-                                                                  child: Text(
-                                                                    '${item?[index].labName}',
+                                                                  SizedBox(
+                                                                    child: Text(
+                                                                      '${item?[index].labName}',
+                                                                      style: GoogleFonts
+                                                                          .lato(
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.03,
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                        color: Colors
+                                                                            .brown
+                                                                            .shade600,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].franchise}',
                                                                     style:
                                                                         GoogleFonts
                                                                             .lato(
@@ -550,248 +572,233 @@ class ResitrationLabDetails extends StatelessWidget {
                                                                           .shade600,
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].franchise}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].phoneNumber}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].mobileNumber.toString()}0',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].emailId}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].location}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].licenceNumber}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].gstNumber}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].aadharNumber}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .brown
-                                                                        .shade600,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '${item?[index].isApproved}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.03,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    color: Colors
-                                                                        .green
-                                                                        .shade900,
-                                                                  ),
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    // InkWell(
-                                                                    //   onTap:
-                                                                    //       () {
-                                                                    //     var name =
-                                                                    //         item?[index].labName;
-                                                                    //     var phone =
-                                                                    //         item?[index].phoneNumber;
-                                                                    //     var mobile =
-                                                                    //         item?[index].mobileNumber;
-                                                                    //     var email =
-                                                                    //         item?[index].emailId;
-                                                                    //     var location =
-                                                                    //         item?[index].location;
-                                                                    //     var gst =
-                                                                    //         item?[index].gstNumber;
-                                                                    //     var licence =
-                                                                    //         item?[index].licenceNumber;
-                                                                    //     var aadhar =
-                                                                    //         item?[index].aadharNumber;
-                                                                    //     Navigator.of(context).push(MaterialPageRoute(
-                                                                    //         builder: (context) => EditLab(
-                                                                    //               id: id.toString(),
-                                                                    //               name: name.toString(),
-                                                                    //               phone: phone.toString(),
-                                                                    //               mobile: mobile.toString(),
-                                                                    //               email: email.toString(),
-                                                                    //               location: location.toString(),
-                                                                    //               gst: gst.toString(),
-                                                                    //               licence: licence.toString(),
-                                                                    //               aadhar: aadhar.toString(),
-                                                                    //             )));
-                                                                    //   },
-                                                                    //   child:
-                                                                    //       Container(
-                                                                    //     height: size.height *
-                                                                    //         0.02,
-                                                                    //     width: size.width *
-                                                                    //         0.075,
-                                                                    //     color: Colors
-                                                                    //         .lightBlueAccent,
-                                                                    //     child:
-                                                                    //         Center(
-                                                                    //       child:
-                                                                    //           Text(
-                                                                    //         'Edit',
-                                                                    //         style:
-                                                                    //             GoogleFonts.lato(
-                                                                    //           fontSize: size.width * 0.025,
-                                                                    //           fontWeight: FontWeight.w700,
-                                                                    //           color: Colors.white,
-                                                                    //         ),
-                                                                    //       ),
-                                                                    //     ),
-                                                                    //   ),
-                                                                    // ),
-                                                                    SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.08,
+                                                                  Text(
+                                                                    '${item?[index].phoneNumber}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
                                                                     ),
-                                                                    InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        _frenchiesLabDetailController
-                                                                            .frenchiesDeleteLabDetailApi(id);
-                                                                        Timer(
-                                                                            const Duration(seconds: 1),
-                                                                            () => callTestListView());
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        height: size.height *
-                                                                            0.02,
-                                                                        width: size.width *
-                                                                            0.1,
-                                                                        color: Colors
-                                                                            .red,
-                                                                        child:
-                                                                            Center(
-                                                                          child:
-                                                                              Text(
-                                                                            'Delete',
-                                                                            style:
-                                                                                GoogleFonts.lato(
-                                                                              fontSize: size.width * 0.025,
-                                                                              fontWeight: FontWeight.w700,
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].mobileNumber.toString()}0',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].emailId}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].location}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].licenceNumber}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].gstNumber}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    '${item?[index].aadharNumber}',
+                                                                    style:
+                                                                        GoogleFonts
+                                                                            .lato(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.03,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: Colors
+                                                                          .brown
+                                                                          .shade600,
+                                                                    ),
+                                                                  ),
+                                                                  // Text(
+                                                                  //   '${item?[index].isApproved}',
+                                                                  //   style:
+                                                                  //       GoogleFonts
+                                                                  //           .lato(
+                                                                  //     fontSize:
+                                                                  //         size.width *
+                                                                  //             0.03,
+                                                                  //     fontWeight:
+                                                                  //         FontWeight
+                                                                  //             .w700,
+                                                                  //     color: Colors
+                                                                  //         .green
+                                                                  //         .shade900,
+                                                                  //   ),
+                                                                  // ),
+                                                                  ///
+                                                                  // Row(
+                                                                  //   children: [
+                                                                  //     // InkWell(
+                                                                  //     //   onTap:
+                                                                  //     //       () {
+                                                                  //     //     var name =
+                                                                  //     //         item?[index].labName;
+                                                                  //     //     var phone =
+                                                                  //     //         item?[index].phoneNumber;
+                                                                  //     //     var mobile =
+                                                                  //     //         item?[index].mobileNumber;
+                                                                  //     //     var email =
+                                                                  //     //         item?[index].emailId;
+                                                                  //     //     var location =
+                                                                  //     //         item?[index].location;
+                                                                  //     //     var gst =
+                                                                  //     //         item?[index].gstNumber;
+                                                                  //     //     var licence =
+                                                                  //     //         item?[index].licenceNumber;
+                                                                  //     //     var aadhar =
+                                                                  //     //         item?[index].aadharNumber;
+                                                                  //     //     Navigator.of(context).push(MaterialPageRoute(
+                                                                  //     //         builder: (context) => EditLab(
+                                                                  //     //               id: id.toString(),
+                                                                  //     //               name: name.toString(),
+                                                                  //     //               phone: phone.toString(),
+                                                                  //     //               mobile: mobile.toString(),
+                                                                  //     //               email: email.toString(),
+                                                                  //     //               location: location.toString(),
+                                                                  //     //               gst: gst.toString(),
+                                                                  //     //               licence: licence.toString(),
+                                                                  //     //               aadhar: aadhar.toString(),
+                                                                  //     //             )));
+                                                                  //     //   },
+                                                                  //     //   child:
+                                                                  //     //       Container(
+                                                                  //     //     height: size.height *
+                                                                  //     //         0.02,
+                                                                  //     //     width: size.width *
+                                                                  //     //         0.075,
+                                                                  //     //     color: Colors
+                                                                  //     //         .lightBlueAccent,
+                                                                  //     //     child:
+                                                                  //     //         Center(
+                                                                  //     //       child:
+                                                                  //     //           Text(
+                                                                  //     //         'Edit',
+                                                                  //     //         style:
+                                                                  //     //             GoogleFonts.lato(
+                                                                  //     //           fontSize: size.width * 0.025,
+                                                                  //     //           fontWeight: FontWeight.w700,
+                                                                  //     //           color: Colors.white,
+                                                                  //     //         ),
+                                                                  //     //       ),
+                                                                  //     //     ),
+                                                                  //     //   ),
+                                                                  //     // ),
+                                                                  //     SizedBox(
+                                                                  //       width: size
+                                                                  //               .width *
+                                                                  //           0.08,
+                                                                  //     ),
+                                                                  //     InkWell(
+                                                                  //       onTap:
+                                                                  //           () {
+                                                                  //         _frenchiesLabDetailController
+                                                                  //             .frenchiesDeleteLabDetailApi(id);
+                                                                  //         Timer(
+                                                                  //             const Duration(seconds: 1),
+                                                                  //             () => callTestListView());
+                                                                  //       },
+                                                                  //       child:
+                                                                  //           Container(
+                                                                  //         height: size.height *
+                                                                  //             0.02,
+                                                                  //         width: size.width *
+                                                                  //             0.1,
+                                                                  //         color: Colors
+                                                                  //             .red,
+                                                                  //         child:
+                                                                  //             Center(
+                                                                  //           child:
+                                                                  //               Text(
+                                                                  //             'Delete',
+                                                                  //             style:
+                                                                  //                 GoogleFonts.lato(
+                                                                  //               fontSize: size.width * 0.025,
+                                                                  //               fontWeight: FontWeight.w700,
+                                                                  //               color: Colors.white,
+                                                                  //             ),
+                                                                  //           ),
+                                                                  //         ),
+                                                                  //       ),
+                                                                  //     ),
+                                                                  //   ],
+                                                                  // ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ],
                                                         ),

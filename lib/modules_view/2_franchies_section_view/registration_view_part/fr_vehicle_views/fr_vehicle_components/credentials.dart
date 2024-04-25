@@ -68,6 +68,40 @@ class FrVehicleCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            //VehicleOwnerNameColller
+            ///TODO: owner Name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller:
+                    _franchies_vehicle_controller.VehicleOwnerNameColller,
+                onSaved: (value) {
+                  _franchies_vehicle_controller.VehicleOwnerName = value!;
+                },
+                validator: (value) {
+                  return _franchies_vehicle_controller.validownerName(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Vehicle Owner Name',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.people,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///Todo: vehicle number.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -288,11 +322,19 @@ class FrVehicleCredentials extends StatelessWidget {
                           child: SizedBox(
                             //height: size.height * 0.03,
                             width: size.width * 0.7,
-                            child: Text(
-                              items.categoryName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.height * 0.015,
+                            height: size.height * 0.04,
+                            // width: size.width * 0.7,
+                            child: Center(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  items.categoryName,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.014,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -303,6 +345,8 @@ class FrVehicleCredentials extends StatelessWidget {
                       onChanged: (VehicleCatDropdown? newValue) {
                         _franchies_vehicle_controller.selectedVehicleCat.value =
                             newValue!;
+                        _franchies_vehicle_controller
+                            .selectedVehicleType.value = null;
                       }),
                 ),
               ),
@@ -332,11 +376,16 @@ class FrVehicleCredentials extends StatelessWidget {
                           .map((VehicleTypeName items) {
                         return DropdownMenuItem(
                           value: items,
-                          child: Text(
-                            items.vehicleTypeName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                          child: SizedBox(
+                            height: size.height * 0.04,
+                            width: size.width * 0.7,
+                            child: Text(
+                              items.vehicleTypeName,
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.015,
+                              ),
                             ),
                           ),
                         );

@@ -23,7 +23,7 @@ class FranchiseTdsHistoryReportController extends GetxController {
   var appointment = ''.obs;
   var appointment2 = ''.obs;
 
-  FrenchiesTdsReportModel? getfrenchiesTdsReportModel;
+  FrenchiesTdsReportModel? getfrenchiesTdsReportModelbyid;
   FrenchiesTotalTdsModel? getfrenchiesTotalTdsModel;
   TdsByDateModel? gettdsByDateModel;
   Rx<TdsDropdown?> selectedRole = (null as TdsDropdown?).obs;
@@ -32,12 +32,17 @@ class FranchiseTdsHistoryReportController extends GetxController {
     role = await ApiProvider.FrenchiesTdsReportRole();
   }
 
-  void frenchiesTDSReportApi(String p) async {
+  Future<void> frenchiesTDSReportbyIdApi() async {
     isLoading(true);
-    getfrenchiesTdsReportModel = await ApiProvider.FrenchiesTDSReportApi(p);
-    if (getfrenchiesTdsReportModel?.tdsReport != null) {
+    getfrenchiesTdsReportModelbyid =
+        await ApiProvider.FrenchiesTDSReportByIdApi(
+            selectedRole.value?.name.toString());
+    if (getfrenchiesTdsReportModelbyid?.tdsReport != null) {
+      print(
+          "paymentds${getfrenchiesTdsReportModelbyid?.tdsReport?[0].paidFees}");
       isLoading(false);
     }
+    isLoading(false);
   }
 
   void frenchiesTotalTDSAmountApi() async {
@@ -68,7 +73,7 @@ class FranchiseTdsHistoryReportController extends GetxController {
   void onInit() {
     super.onInit();
     getTdsRoleApi();
-    frenchiesTDSReportApi('');
+    frenchiesTDSReportbyIdApi();
     frenchiesTotalTDSAmountApi();
     frenchiesTDSListByDateApi();
     appointmentController = TextEditingController();

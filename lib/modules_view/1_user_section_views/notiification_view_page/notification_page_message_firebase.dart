@@ -326,59 +326,59 @@ class _MessageScreenState extends State<MessageScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                      SizedBox(
-                                                        height:
-                                                            size.height * 0.02,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            'Mobile Number:',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                            style: GoogleFonts
-                                                                .actor(
-                                                              fontSize:
-                                                                  size.width *
-                                                                      0.045,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: Color(
-                                                                  0xff12BFC4),
-                                                            ),
-                                                          ),
-                                                          // Icon(
-                                                          //   Icons
-                                                          //       .car_crash_sharp,
-                                                          //   size: size.height *
-                                                          //       0.02,
-                                                          //   color: Colors
-                                                          //       .grey.shade600,
-                                                          // ),
-                                                          SizedBox(
-                                                            width: size.width *
-                                                                0.01,
-                                                          ),
-                                                          Text(
-                                                            "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].mobileNumber.toString()}",
-
-                                                            // "10 km.",
-                                                            //'2020 Honda Clive',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                            style: GoogleFonts
-                                                                .aBeeZee(
-                                                              fontSize:
-                                                                  size.width *
-                                                                      0.036,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: Colors.grey
-                                                                  .shade900,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      // SizedBox(
+                                                      //   height:
+                                                      //       size.height * 0.02,
+                                                      // ),
+                                                      // Row(
+                                                      //   children: [
+                                                      //     Text(
+                                                      //       'Mobile Number:',
+                                                      //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                      //       style: GoogleFonts
+                                                      //           .actor(
+                                                      //         fontSize:
+                                                      //             size.width *
+                                                      //                 0.045,
+                                                      //         fontWeight:
+                                                      //             FontWeight
+                                                      //                 .w700,
+                                                      //         color: Color(
+                                                      //             0xff12BFC4),
+                                                      //       ),
+                                                      //     ),
+                                                      //     // Icon(
+                                                      //     //   Icons
+                                                      //     //       .car_crash_sharp,
+                                                      //     //   size: size.height *
+                                                      //     //       0.02,
+                                                      //     //   color: Colors
+                                                      //     //       .grey.shade600,
+                                                      //     // ),
+                                                      //     SizedBox(
+                                                      //       width: size.width *
+                                                      //           0.01,
+                                                      //     ),
+                                                      //     Text(
+                                                      //       "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index]..toString()}",
+                                                      //
+                                                      //       // "10 km.",
+                                                      //       //'2020 Honda Clive',
+                                                      //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                      //       style: GoogleFonts
+                                                      //           .aBeeZee(
+                                                      //         fontSize:
+                                                      //             size.width *
+                                                      //                 0.036,
+                                                      //         fontWeight:
+                                                      //             FontWeight
+                                                      //                 .w700,
+                                                      //         color: Colors.grey
+                                                      //             .shade900,
+                                                      //       ),
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
                                                       SizedBox(
                                                         height:
                                                             size.height * 0.02,
@@ -439,13 +439,13 @@ class _MessageScreenState extends State<MessageScreen> {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            'Total Price :',
+                                                            'Estimated Price :',
                                                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
                                                                 .actor(
                                                               fontSize:
                                                                   size.width *
-                                                                      0.04,
+                                                                      0.045,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w700,
@@ -479,33 +479,40 @@ class _MessageScreenState extends State<MessageScreen> {
                                                       ),
                                                       SizedBox(
                                                         height:
-                                                            size.height * 0.01,
+                                                            size.height * 0.025,
                                                       ),
                                                       Row(
                                                         children: [
-                                                          Text(
-                                                            'Pickup Address :',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                            style: GoogleFonts
-                                                                .actor(
-                                                              fontSize:
-                                                                  size.width *
-                                                                      0.035,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: Color(
-                                                                  0xff12BFC4),
-                                                            ),
-                                                          ),
                                                           SizedBox(
                                                             width: size.width *
-                                                                0.01,
+                                                                0.26,
+                                                            height:
+                                                                size.height *
+                                                                    0.05,
+                                                            child: Text(
+                                                              'Pickup Address:',
+                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                              style: GoogleFonts
+                                                                  .actor(
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                color: Color(
+                                                                    0xff12BFC4),
+                                                              ),
+                                                            ),
                                                           ),
                                                           SizedBox(
                                                             //  height: size.height * 0.02,
                                                             width: size.width *
                                                                 0.61,
+
+                                                            height:
+                                                                size.height *
+                                                                    0.05,
                                                             child: Text(
                                                               "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseStartLatLongToLocation.toString()}",
 
@@ -535,34 +542,41 @@ class _MessageScreenState extends State<MessageScreen> {
                                                       ),
                                                       Row(
                                                         children: [
-                                                          Text(
-                                                            'End Address :',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                            style: GoogleFonts
-                                                                .actor(
-                                                              fontSize:
-                                                                  size.width *
-                                                                      0.035,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color: Color(
-                                                                  0xff12BFC4),
-                                                            ),
-                                                          ),
                                                           SizedBox(
                                                             width: size.width *
-                                                                0.01,
+                                                                0.26,
+                                                            height:
+                                                                size.height *
+                                                                    0.05,
+                                                            child: Text(
+                                                              'End Address :',
+                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                              style: GoogleFonts
+                                                                  .actor(
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                color: Color(
+                                                                    0xff12BFC4),
+                                                              ),
+                                                            ),
                                                           ),
                                                           SizedBox(
                                                             //  height: size.height * 0.02,
                                                             width: size.width *
-                                                                0.66,
+                                                                0.61,
+
+                                                            height:
+                                                                size.height *
+                                                                    0.05,
                                                             child: Text(
                                                               "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseEndLatLongToLocation.toString()}",
 
                                                               //  """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
-                                                              maxLines: 2,
+                                                              maxLines: 3,
                                                               //'ENP 2345',
                                                               //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                               style: GoogleFonts
@@ -647,6 +661,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                 ///.......
                                                                 print(
                                                                     'princee notification');
+
+                                                                ///todo start notification....
                                                                 notificationServices
                                                                     .getDeviceToken()
                                                                     .then(
@@ -715,6 +731,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                     }
                                                                   });
                                                                 });
+
+                                                                ///todo end biooking..
                                                               },
                                                               border:
                                                                   Border.all(

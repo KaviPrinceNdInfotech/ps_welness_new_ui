@@ -3450,24 +3450,6 @@ class ApiProvider {
     } else {}
   }
 
-  /// todo FrenchiesChemistDetailApi....Rahul
-  static FrenchiesChemistDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_ChemistRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesChemistDetailModel =
-            frenchiesChemistDetailModelFromJson(r.body);
-        print(
-            "FrenchiesChemistDetailApi8: ${frenchiesChemistDetailModel.chemistRegDetail?[0].chemistName}");
-        return frenchiesChemistDetailModel;
-      }
-    } catch (error) {
-      print("FrenchiesChemistDetailApi: ${error}");
-      return;
-    }
-  }
-
   /// todo Frenchies Edit Chemist Detail Api ..........Rahul
   static FrenchiesEditChemistDetail(
       var id,
@@ -3514,18 +3496,6 @@ class ApiProvider {
     if (r.statusCode == 200) {
       Get.snackbar("Deleted", "Item Deleted");
     } else {}
-  }
-
-  ///todo FrenchiesLabDetailApi ........... Rahul
-  static FrenchiesLabDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_LabRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesLabDetailModel = frenchiesLabDetailModelFromJson(r.body);
-        return frenchiesLabDetailModel;
-      }
-    } catch (error) {}
   }
 
   ///todo FrenchiesDeleteLabDetailApi .....Rahul
@@ -3690,18 +3660,19 @@ class ApiProvider {
 
   ///todo Registration, Register Vehicle.............prince,.....
   static FrenchiesRegisterVehicle(
-    var PAN,
-    var name,
-    var number,
-    var accountNo,
-    //var DriverCharges,
-    var holderName,
-    var VcatId,
-    var VtypeId,
-    var ifsc,
-    //  var img,
-    //String imageAsBase64
-  ) async {
+      var PAN,
+      var name,
+      var number,
+      var accountNo,
+      //var DriverCharges,
+      var holderName,
+      var VcatId,
+      var VtypeId,
+      var ifsc,
+      var VehicleOwnerName
+      //  var img,
+      //String imageAsBase64
+      ) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistration';
     final body = {
@@ -3716,7 +3687,8 @@ class ApiProvider {
       "IFSCCode": "$ifsc",
       // "CancelCheque": "$img",
       //"CancelChequeBase64": "$imageAsBase64",
-      "Vendor_Id": "$Id"
+      "Vendor_Id": "$Id",
+      "VehicleOwnerName": "$VehicleOwnerName"
     };
     print("FrenchiesVehicleRegister: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -3727,32 +3699,40 @@ class ApiProvider {
 
   ///todo  Register Driver..............Rahul
   static FrenchiesRegisterDriver(
-      var PAN,
-      var name,
-      var password,
-      var confirmPassword,
-      var mobileNumber,
-      var location,
-      var DlNumber,
-      var stateId,
-      var cityId,
-      var DlImage1,
-      var DlImage1Base64,
-      var DlImage2,
-      var DlImage2Base64,
-      var AadharImage,
-      var AadharImageBase64Image,
-      var AadharImage2,
-      var AadharImage2base64Image,
-      var PinCode) async {
+    var PAN,
+    var name,
+    var EmailId,
+    var password,
+    var confirmPassword,
+    var mobileNumber,
+    var location,
+    var DlNumber,
+    var DlValidity,
+    var stateId,
+    var cityId,
+    var DlImage1,
+    var DlImage1Base64,
+    var DlImage2,
+    var DlImage2Base64,
+    var AadharImage,
+    var AadharImageBase64Image,
+    var AadharImage2,
+    var AadharImage2base64Image,
+    var PinCode,
+    var DriverImage,
+    var DriverImageBase64,
+  ) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_DriverRegistration';
     final body = {
       "PAN": "$PAN",
       "DriverName": "$name",
-      "Password": "$password",
-      "ConfirmPassword": "$confirmPassword",
-      "MobileNumber": "$mobileNumber",
+      "Password": "$mobileNumber",
+      //password
+      "ConfirmPassword": "$EmailId",
+      //confirmPassword
+      "MobileNumber": "$password",
+      //mobileNumber
       "Location": "$location",
       "DlNumber": "$DlNumber",
       "StateMaster_Id": "$stateId",
@@ -3765,14 +3745,56 @@ class ApiProvider {
       "AadharImageBase64Image": "$AadharImageBase64Image",
       "AadharImage2": "$AadharImage2",
       "AadharImage64Image1": "$AadharImage2base64Image",
+      "Vendor_Id": "$Id",
+      "DriverImage": "$DriverImage",
+      //"$DriverImage",
+      "DriverImageBase64": "$DriverImageBase64",
       "PinCode": "$PinCode",
-      "Vendor_Id": "$Id"
+      "EmailId": "$confirmPassword",
+      //EmailId
+      "DlValidity": "$DlValidity"
+      //var DriverImage,
+      //       var DriverImageBase64,
     };
     print("FrenchiesDoctorRegister: ${body}");
+    print("PinCode: ${PinCode}");
+    print("DlImage1: ${DlImage1}");
+    print("DlImage2: ${DlImage2}");
+    print("AadharImage: ${AadharImage}");
+    print("AadharImage2: ${AadharImage2}");
+    print("PAN: ${PAN}");
+    print("DriverName: ${name}");
+    print("Password: ${password}");
+    print("mobileNumber: ${mobileNumber}");
+    print("DlNumber: ${DlNumber}");
+    print("EmailId: ${EmailId}");
+    print("DlValidity: ${DlValidity}");
+
+    print("FrenchiesDoctorRegisterree1: ${Id}");
+    print("DriverImageBase64: $DriverImageBase64");
+    print("AadharImageBase64Image: $AadharImageBase64Image");
+    print("DlImage2Base64: ${DlImage2Base64}");
+    print("DlImage1Base64: ${DlImage1Base64}");
+    print("FrenchiesDoctorRegisterree0: ${PinCode}");
+    print("FrenchiesDoctorRegisterree2: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
-      print("FrenchiesDoctorRegisterree0: ${PinCode}");
+      print("PinCode: ${PinCode}");
+      print("DlImage1: ${DlImage1}");
+      print("DlImage2: ${DlImage2}");
+      print("AadharImage: ${AadharImage}");
+      print("AadharImage2: ${AadharImage2}");
+      print("PAN: ${PAN}");
+      print("DriverName: ${name}");
+      print("Password: ${password}");
+      print("mobileNumber: ${mobileNumber}");
+      print("DlNumber: ${DlNumber}");
       print("FrenchiesDoctorRegisterree1: ${Id}");
+      print("DriverImageBase64: $DriverImageBase64");
+      print("AadharImageBase64Image: $AadharImageBase64Image");
+      print("DlImage2Base64: ${DlImage2Base64}");
+      print("DlImage1Base64: ${DlImage1Base64}");
+      print("FrenchiesDoctorRegisterree0: ${PinCode}");
       print("FrenchiesDoctorRegisterree2: ${body}");
       Get.snackbar("Successs", "${r.body}");
     }
@@ -4138,88 +4160,6 @@ class ApiProvider {
     }
   }
 
-  /// todo Frenchies TDS Report .............Rahul
-  static FrenchiesTDSReportApi(String p) async {
-    var url = '${baseUrl}api/FranchisesApi/TDSReports_ByRole?Role=${p}';
-    print("FrenchiesTDsReportUrl:${url}");
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTdsReportModel = frenchiesTdsReportModelFromJson(r.body);
-        print("FrenchiesTDSReport: ${frenchiesTdsReportModel.tdsReport}");
-        return frenchiesTdsReportModel;
-      }
-    } catch (error) {}
-  }
-
-  /// todo Frenchies TDS report DropDown .........Rahul
-  static Future<List<TdsDropdown>> FrenchiesTdsReportRole() async {
-    var url = "${baseUrl}api/FranchisesApi/GetTDSDropdown";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTdsReportDdModel =
-            frenchiesTdsReportDdModelFromJson(r.body);
-        return frenchiesTdsReportDdModel.tdsDropdown;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      return [];
-    }
-  }
-
-  ///todo frenchies total TDS Amount................Rahul
-  static FrenchiesTotalTDSAmountApi(var p, var fDate, var tDate) async {
-    var url =
-        '${baseUrl}api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTotalTdsModel = frenchiesTotalTdsModelFromJson(r.body);
-        return frenchiesTotalTdsModel;
-      }
-    } catch (error) {}
-  }
-
-  ///todo frenchies TDS List by date
-  static FrenchiesTDSListByDateApi(var p, var fromDate, var toDate) async {
-    var tDate = toDate;
-    print("qwertyufrom: ${fromDate}");
-    print("sdfgh:${tDate}");
-    print("ppppppp:${p}");
-    var url =
-        '${baseUrl}api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=$p&FromDate=$fromDate&ToDate=$tDate';
-    print("Urlllllllllllllllll:${url}");
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final tdsByDateModel = tdsByDateModelFromJson(r.body);
-        return tdsByDateModel;
-      }
-    } catch (error) {
-      print("FrenchiesTdsListBydateError: ${error}");
-    }
-  }
-
-  /// todo Frenchies TDS report DropDown .........Rahul
-  static Future<List<CommissionDropdown>>
-      FrenchiesCommissionReportRole() async {
-    var url = "${baseUrl}api/FranchisesApi/GetCommissionDropdown";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesCommissionReportDdModel =
-            frenchiesCommissionReportDdModelFromJson(r.body);
-        return frenchiesCommissionReportDdModel.commissionDropdown;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      return [];
-    }
-  }
-
   /// todo Frenchies YMWDDoctorReportApi
   static FrenchiesYMWDDoctorReportApi(String role) async {
     var url =
@@ -4340,36 +4280,6 @@ class ApiProvider {
       }
     } catch (error) {
       print("&&&&&&&&&&&&&&&&&&&&yuyy1:${error}");
-    }
-  }
-
-  ///todo Frenchies Get New Driver List pending....create controller
-  static FrenchiesNewDriverListApi() async {
-    var url = '${baseUrl}api/FranchisesApi/GetNewDriverList';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesNewDriverListModel =
-            frenchiesNewDriverListModelFromJson(r.body);
-        return frenchiesNewDriverListModel;
-      }
-    } catch (error) {
-      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
-    }
-  }
-
-  ///todo Frenchies Get Old Driver List ......rahul
-  static FrenchiesOldDriverListApi() async {
-    var url = '${baseUrl}api/FranchisesApi/GetOldDriverList';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesOldDriverListModel =
-            frenchiesOldDriverListModelFromJson(r.body);
-        return frenchiesOldDriverListModel;
-      }
-    } catch (error) {
-      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
     }
   }
 
@@ -4557,8 +4467,12 @@ class ApiProvider {
   /// todo update new driver Vehicle number DropDown .......20 mar 2024....
   static Future<List<VehicleNumberListElement>> getVehicfornewdriverApi(
       String typeID) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&useffrrrrr:${Id}');
+    //http://pswellness.in/api/CommonApi/GetVehicleNumberListByVehicleType?VehicleType_Id=1136&Vendor_Id=11
     var url =
-        "${baseUrl}api/CommonApi/GetVehicleNumberListByVehicleType?VehicleType_Id=$typeID";
+        "${baseUrl}api/CommonApi/GetVehicleNumberListByVehicleType?VehicleType_Id=$typeID&Vendor_Id=$Id";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -4603,23 +4517,6 @@ class ApiProvider {
         final frenchiesVehicleNumberModel2 =
             vehicletypebyVehicleNoIdFromJson(r.body);
         return frenchiesVehicleNumberModel2.vehicleNumberdetail;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      return [];
-    }
-  }
-
-  /// todo update old driver DropDown .......21 mar 2024....
-  static Future<List<Driver>> getUpdatedolddriverListApi() async {
-    var url = "${baseUrl}api/FranchisesApi/GetDriverForUpdate";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      print(r.body.toString());
-      if (r.statusCode == 200) {
-        final frenchiesupdatedriver = driverListUpdatedModelFromJson(r.body);
-        return frenchiesupdatedriver.drivers;
       } else {
         return [];
       }
@@ -4749,6 +4646,50 @@ class ApiProvider {
     }
   }
 
+  /// todo FrenchiesChemistDetailApi....Prince....4..apr...2024...
+  static FrenchiesChemistDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&chemist:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_ChemistRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_ChemistRegistrationDetail?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesChemistDetailModel =
+            frenchiesChemistDetailModelFromJson(r.body);
+        print(
+            "FrenchiesChemistDetailApi8: ${frenchiesChemistDetailModel.chemistRegDetail?[0].chemistName}");
+        return frenchiesChemistDetailModel;
+      }
+    } catch (error) {
+      print("FrenchiesChemistDetailApi: ${error}");
+      return;
+    }
+  }
+
+  ///todo FrenchiesLabDetailApi ...........5 april 2024...
+  static FrenchiesLabDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&chemist:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_LabRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_LabRegistrationDetail?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesLabDetailModel = frenchiesLabDetailModelFromJson(r.body);
+        return frenchiesLabDetailModel;
+      }
+    } catch (error) {}
+  }
+
   /// todo Frenchies Commission Report .............4april....prince
   static FrenchiesCommissionReportApi(var role, var fDate, var tDate) async {
     var prefs = GetStorage();
@@ -4821,6 +4762,168 @@ class ApiProvider {
       }
     } catch (error) {
       print("Commissionrole: ${error}");
+    }
+  }
+
+  /// todo Frenchies TDS Report ...........6 apr 2024...prince
+  static FrenchiesTDSReportByIdApi(var role) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    print("Rolefrr: $role");
+    //http://pswellness.in/api/FranchisesApi/TDSReports_ByRole?Role=Doctor&VendorId=12
+    var url =
+        '${baseUrl}api/FranchisesApi/TDSReports_ByRole?Role=$role&VendorId=$Id';
+    //'api/FranchisesApi/TDSReports_ByRole?Role=${p}';
+    print("FrenchiesTDsReportUrl:${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTdsReportModel = frenchiesTdsReportModelFromJson(r.body);
+        print(
+            "FrenchiesTDSReporteerr: ${frenchiesTdsReportModel.tdsReport?[0].paidFees}");
+        return frenchiesTdsReportModel;
+      }
+    } catch (error) {}
+  }
+
+  ///todo frenchies total TDS Amount................6 april 2024.......prince...
+  static FrenchiesTotalTDSAmountApi(var p, var fDate, var tDate) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    print("Rolefrrsacsa: $p");
+    http: //pswellness.in/api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=Doctor&FromDate=2024-01-01&ToDate=2024-05-02&VendorId=12
+    var url =
+        '${baseUrl}api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate&VendorId=$Id';
+    print("Urtdsl:${url}");
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTotalTdsModel = frenchiesTotalTdsModelFromJson(r.body);
+        return frenchiesTotalTdsModel;
+      }
+    } catch (error) {}
+  }
+
+  ///todo frenchies TDS List by date
+  static FrenchiesTDSListByDateApi(var p, var fromDate, var toDate) async {
+    var tDate = toDate;
+    print("qwertyufrom: ${fromDate}");
+    print("sdfgh:${tDate}");
+    print("ppppppp:${p}");
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    //http://pswellness.in/api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=Doctor&FromDate=2024-01-01&ToDate=2024-04-02&VendorId=12
+    var url =
+        '${baseUrl}api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=$p&FromDate=$fromDate&ToDate=$tDate&VendorId=$Id';
+    print("Urlllllllllllllllll:${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final tdsByDateModel = tdsByDateModelFromJson(r.body);
+        return tdsByDateModel;
+      }
+    } catch (error) {
+      print("FrenchiesTdsListBydateError: ${error}");
+    }
+  }
+
+  /// todo Frenchies TDS report DropDown .........apr 6 2024...
+  static Future<List<CommissionDropdown>>
+      FrenchiesCommissionReportRole() async {
+    var url = "${baseUrl}api/FranchisesApi/GetCommissionDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesCommissionReportDdModel =
+            frenchiesCommissionReportDdModelFromJson(r.body);
+        return frenchiesCommissionReportDdModel.commissionDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo Frenchies TDS report DropDown .........prince...apr6 2024
+  static Future<List<TdsDropdown>> FrenchiesTdsReportRole() async {
+    var url = "${baseUrl}api/FranchisesApi/GetTDSDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTdsReportDdModel =
+            frenchiesTdsReportDdModelFromJson(r.body);
+        return frenchiesTdsReportDdModel.tdsDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///todo Frenchies Get Old Driver List ......10 april 2024
+  static FrenchiesOldDriverListApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+
+    ///http://pswellness.in/api/FranchisesApi/GetOldDriverList?VendorId=10
+    var url = '${baseUrl}api/FranchisesApi/GetOldDriverList?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesOldDriverListModel =
+            frenchiesOldDriverListModelFromJson(r.body);
+        return frenchiesOldDriverListModel;
+      }
+    } catch (error) {
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+
+  ///todo Frenchies Get New Driver List pending....create controller
+  static FrenchiesNewDriverListApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    //http://pswellness.in/api/FranchisesApi/GetNewDriverList?VendorId=10
+    var url = '${baseUrl}api/FranchisesApi/GetNewDriverList?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesNewDriverListModel =
+            frenchiesNewDriverListModelFromJson(r.body);
+        return frenchiesNewDriverListModel;
+      }
+    } catch (error) {
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+
+  /// todo update old driver DropDown .......10 april... 2024....prince
+  static Future<List<Driver>> getUpdatedolddriverListApi() async {
+    //http://pswellness.in/api/FranchisesApi/GetOldDriverList?VendorId=10
+    //http://pswellness.in/api/FranchisesApi/GetDriverForUpdate?VendorId=10
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    var url = "${baseUrl}api/FranchisesApi/GetDriverForUpdate?VendorId=$Id";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesupdatedriver = driverListUpdatedModelFromJson(r.body);
+        return frenchiesupdatedriver.drivers;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
     }
   }
 }

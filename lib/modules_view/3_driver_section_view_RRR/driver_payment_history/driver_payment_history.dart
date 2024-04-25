@@ -273,8 +273,21 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                               0.035,
                                                                     ),
                                                                   ),
+                                                                  // Text(
+                                                                  //   'Payment Id:',
+                                                                  //   style: GoogleFonts
+                                                                  //       .poppins(
+                                                                  //     //color: MyTheme.text1,
+                                                                  //     fontWeight:
+                                                                  //         FontWeight
+                                                                  //             .w600,
+                                                                  //     fontSize:
+                                                                  //         size.width *
+                                                                  //             0.035,
+                                                                  //   ),
+                                                                  // ),
                                                                   Text(
-                                                                    'Payment Id:',
+                                                                    'Payment Date:',
                                                                     style: GoogleFonts
                                                                         .poppins(
                                                                       //color: MyTheme.text1,
@@ -286,30 +299,22 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                               0.035,
                                                                     ),
                                                                   ),
-                                                                  Text(
-                                                                    'Date:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      //color: MyTheme.text1,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    'Location:',
-                                                                    style: GoogleFonts
-                                                                        .poppins(
-                                                                      //color: MyTheme.text1,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.035,
+
+                                                                  SizedBox(
+                                                                    height: size
+                                                                            .height *
+                                                                        0.037,
+                                                                    child: Text(
+                                                                      'Location:',
+                                                                      style: GoogleFonts
+                                                                          .poppins(
+                                                                        //color: MyTheme.text1,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontSize:
+                                                                            size.width *
+                                                                                0.035,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -346,18 +351,18 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                             size.width *
                                                                                 0.035),
                                                                   ),
-                                                                  Text(
-                                                                    '${item?[index].paymentId}',
-                                                                    style: GoogleFonts.raleway(
-                                                                        color: MyTheme
-                                                                            .blueww,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                        fontSize:
-                                                                            size.width *
-                                                                                0.035),
-                                                                  ),
+                                                                  // Text(
+                                                                  //   '${item?[index].paymentId}',
+                                                                  //   style: GoogleFonts.raleway(
+                                                                  //       color: MyTheme
+                                                                  //           .blueww,
+                                                                  //       fontWeight:
+                                                                  //           FontWeight
+                                                                  //               .w700,
+                                                                  //       fontSize:
+                                                                  //           size.width *
+                                                                  //               0.035),
+                                                                  // ),
                                                                   Text(
                                                                     "${_driverPaymentHistoryController?.foundpaymenthistorydriver?[index].paymentDate ?? "00 / 00 / 0000"}",
                                                                     style: GoogleFonts.raleway(
@@ -376,7 +381,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                             0.6,
                                                                     height: size
                                                                             .height *
-                                                                        0.03,
+                                                                        0.035,
                                                                     child: Text(
                                                                       _driverPaymentHistoryController
                                                                               ?.foundpaymenthistorydriver?[index]

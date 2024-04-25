@@ -23,6 +23,7 @@ class UseracptrejectController extends GetxController {
           "okokhvghjbnklmdc${userListModeldriver?.userListForBookingAmbulance?.length}");
       isLoading(false);
     }
+    isLoading(false);
   }
 
   ///todo: accept driver booking................

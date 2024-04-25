@@ -15,6 +15,7 @@ class FrenchiesNurseDetailController extends GetxController {
       ///for search filter
       data.value = getfrenchiesNurseDetailModel!.nurseRegDetail!;
     }
+    isLoading(false);
   }
 
   void frenchiesDeleteNurseDetailApi(id) async {

@@ -459,7 +459,7 @@ class ResitrationDriverDetails extends StatelessWidget {
                                                                           .lato(
                                                                     fontSize:
                                                                         size.width *
-                                                                            0.04,
+                                                                            0.03,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700,

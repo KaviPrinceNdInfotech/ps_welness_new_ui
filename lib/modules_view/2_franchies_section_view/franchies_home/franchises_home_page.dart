@@ -11,6 +11,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_comission_report/franchise_commission_report.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_tdshistory_report/franchise_tds_history_report.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
@@ -22,7 +23,7 @@ import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchie
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/franchiese_profile.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/commission_allreport_byId.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_payment_report/franchise_payment_report.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_historyy_report.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_report_by_id.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_bank_profile_page_view/bank_profile_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_galary_page_view/gallary_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_newdrivre_update/new_driver_view.dart';
@@ -65,6 +66,8 @@ class FranchiesHomePage extends StatelessWidget {
 
     UpdatenewdriverrrController _updatenewVehicleController =
         Get.put(UpdatenewdriverrrController());
+    FranchiseTdsHistoryReportController franchiseTdsHistoryReportController =
+        Get.put(FranchiseTdsHistoryReportController());
 
     UpdateolddriverrrController _updateoldVehicleController =
         Get.put(UpdateolddriverrrController());
@@ -957,8 +960,16 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 14) {
                                         Get.to(() => FranchisePayoutReport());
                                       } else if (index == 15) {
-                                        Get.to(
-                                            () => FranchiseTdsHistoryReport());
+                                        franchiseTdsHistoryReportController
+                                            .frenchiesTDSReportbyIdApi();
+                                        // franchiseTdsHistoryReportController
+                                        //     .getTdsRoleApi();
+                                        franchiseTdsHistoryReportController
+                                            .update();
+
+                                        Get.to(() => FranchiseTDSSReportByRole()
+                                            //FranchiseTdsHistoryReport()
+                                            );
                                       } else if (index == 16) {
                                         //Get.back();
                                         // Get.to(() => SupportViewPsComman());

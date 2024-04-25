@@ -15,14 +15,14 @@ class FranchisePayoutReport extends StatelessWidget {
   FranchisePayoutReportController _franchisePayoutReportController =
       Get.put(FranchisePayoutReportController());
 
-  var items = [
-    'Doctor',
-    'Vehicle',
-    'Nurse',
-    'Lab',
-    'Health Checkup',
-    'Chemist',
-  ];
+  // var items = [
+  //   'Doctor',
+  //   'Vehicle',
+  //   'Nurse',
+  //   'Lab',
+  //   'Health Checkup',
+  //   'Chemist',
+  // ];
 
   get newvalue => null!;
 
@@ -232,111 +232,137 @@ class FranchisePayoutReport extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Name:',
-                                          style: GoogleFonts.poppins(
-                                            color: MyTheme.blueww,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: size.width * 0.035,
+                                    SizedBox(
+                                      width: size.width * 0.30,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Name:',
+                                            style: GoogleFonts.poppins(
+                                              color: MyTheme.blueww,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: size.width * 0.035,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'Paid Fees :',
-                                          style: GoogleFonts.poppins(
-                                            color: MyTheme.blueww,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: size.width * 0.035,
+                                          Text(
+                                            'Paid Fees :',
+                                            style: GoogleFonts.poppins(
+                                              color: MyTheme.blueww,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: size.width * 0.035,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'Payment Id:',
-                                          style: GoogleFonts.poppins(
-                                            color: MyTheme.blueww,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: size.width * 0.035,
+                                          // Text(
+                                          //   'Payment Id:',
+                                          //   style: GoogleFonts.poppins(
+                                          //     color: MyTheme.blueww,
+                                          //     fontWeight: FontWeight.w600,
+                                          //     fontSize: size.width * 0.035,
+                                          //   ),
+                                          // ),
+                                          SizedBox(
+                                            height: size.height * 0.05,
+                                            child: Center(
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Location:',
+                                                  style: GoogleFonts.poppins(
+                                                    color: MyTheme.blueww,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize:
+                                                        size.width * 0.035,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'Location:',
-                                          style: GoogleFonts.poppins(
-                                            color: MyTheme.blueww,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: size.width * 0.035,
+                                          Text(
+                                            'Payment date:',
+                                            style: GoogleFonts.poppins(
+                                              color: MyTheme.blueww,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: size.width * 0.035,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'Payment date:',
-                                          style: GoogleFonts.poppins(
-                                            color: MyTheme.blueww,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: size.width * 0.035,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Payment Timing :',
-                                          style: GoogleFonts.poppins(
-                                            color: MyTheme.blueww,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: size.width * 0.035,
-                                          ),
-                                        ),
-                                      ],
+                                          // Text(
+                                          //   'Payment Timing :',
+                                          //   style: GoogleFonts.poppins(
+                                          //     color: MyTheme.blueww,
+                                          //     fontWeight: FontWeight.w600,
+                                          //     fontSize: size.width * 0.035,
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${item?[index].vendorName}',
-                                          style: GoogleFonts.raleway(
-                                              color: Colors.brown,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: size.width * 0.035),
-                                        ),
-                                        Text(
-                                          '${item?[index].amount}',
-                                          style: GoogleFonts.raleway(
-                                              color: Colors.brown,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: size.width * 0.035),
-                                        ),
-                                        Text(
-                                          '${item?[index].id}',
-                                          style: GoogleFonts.raleway(
-                                              color: Colors.brown,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: size.width * 0.035),
-                                        ),
-                                        Text(
-                                          '${item?[index].location}',
-                                          style: GoogleFonts.raleway(
-                                              color: Colors.brown,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: size.width * 0.035),
-                                        ),
-                                        Text(
-                                          date,
-                                          style: GoogleFonts.raleway(
-                                              color: Colors.brown,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: size.width * 0.035),
-                                        ),
-                                        Text(
-                                          time,
-                                          style: GoogleFonts.raleway(
-                                              color: Colors.brown,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: size.width * 0.035),
-                                        ),
-                                      ],
+                                    SizedBox(
+                                      width: size.width * 0.6,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '${item?[index].vendorName}',
+                                            style: GoogleFonts.raleway(
+                                                color: Colors.brown,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: size.width * 0.035),
+                                          ),
+                                          Text(
+                                            '${item?[index].amount}',
+                                            style: GoogleFonts.raleway(
+                                                color: Colors.brown,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: size.width * 0.035),
+                                          ),
+                                          // Text(
+                                          //   '${item?[index].id}',
+                                          //   style: GoogleFonts.raleway(
+                                          //       color: Colors.brown,
+                                          //       fontWeight: FontWeight.w700,
+                                          //       fontSize: size.width * 0.035),
+                                          // ),
+                                          SizedBox(
+                                            height: size.height * 0.05,
+                                            child: Center(
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  '${item?[index].location}',
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.brown,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize:
+                                                          size.width * 0.03),
+                                                  maxLines: 3,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            date,
+                                            style: GoogleFonts.raleway(
+                                                color: Colors.brown,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: size.width * 0.035),
+                                          ),
+                                          // Text(
+                                          //   time,
+                                          //   style: GoogleFonts.raleway(
+                                          //       color: Colors.brown,
+                                          //       fontWeight: FontWeight.w700,
+                                          //       fontSize: size.width * 0.035),
+                                          // ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

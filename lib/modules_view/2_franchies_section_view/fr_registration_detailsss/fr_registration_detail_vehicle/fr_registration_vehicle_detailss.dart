@@ -454,7 +454,7 @@ class ResitrationVechileDetails extends StatelessWidget {
                                                                             .lato(
                                                                       fontSize:
                                                                           size.width *
-                                                                              0.034,
+                                                                              0.030,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w700,

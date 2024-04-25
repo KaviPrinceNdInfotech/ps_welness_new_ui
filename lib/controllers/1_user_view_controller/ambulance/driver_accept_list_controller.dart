@@ -13,7 +13,7 @@ class DriverAcceptlistController extends GetxController {
       isLoading(true);
       getDriveracceptDetail = await ApiProvider
           .AcceptDriverDetailUserApi(); // Corrected function call
-      if (getDriveracceptDetail?.driverName == null) {
+      if (getDriveracceptDetail?.payableAmount == null) {
         isLoading(false);
       }
     } finally {

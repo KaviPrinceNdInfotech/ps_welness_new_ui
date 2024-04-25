@@ -16,6 +16,7 @@ class FrenchiesDoctorDetailController extends GetxController {
       ///for search filter
       data.value = getfrenchiesDoctorDetailModel!.doctorRegDetail!;
     }
+    isLoading(false);
   }
 
   @override

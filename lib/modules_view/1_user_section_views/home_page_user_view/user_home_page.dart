@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
@@ -77,6 +78,9 @@ class _UserHomePageState extends State<UserHomePage> {
   NotificationServices notificationServices = NotificationServices();
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
+
+  CommingDriverController _commingDriverController =
+      Get.put(CommingDriverController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -436,6 +440,10 @@ class _UserHomePageState extends State<UserHomePage> {
                             .driveracceptuserDetailApi();
                         _driverAcceptlistController.update();
                         _driverAcceptlistController.refresh();
+
+                        await _commingDriverController
+                            .drivercominguserDetailApi();
+                        _commingDriverController.update();
                         //_driverAcceptlistController.onInit();
 
                         // CallLoader.loader();

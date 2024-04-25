@@ -15,7 +15,8 @@ class DriveracceptModeluser {
   num? driverId;
   String? driverName;
   String? mobileNumber;
-  String? driverImage;
+  String? deviceId;
+  dynamic driverImage;
   String? dlNumber;
   num? totalPrice;
   num? payableAmount;
@@ -28,6 +29,7 @@ class DriveracceptModeluser {
     this.driverId,
     this.driverName,
     this.mobileNumber,
+    this.deviceId,
     this.driverImage,
     this.dlNumber,
     this.totalPrice,
@@ -43,6 +45,7 @@ class DriveracceptModeluser {
         driverId: json["DriverId"],
         driverName: json["DriverName"],
         mobileNumber: json["MobileNumber"],
+        deviceId: json["DeviceId"],
         driverImage: json["DriverImage"],
         dlNumber: json["DlNumber"],
         totalPrice: json["TotalPrice"],
@@ -57,6 +60,7 @@ class DriveracceptModeluser {
         "DriverId": driverId,
         "DriverName": driverName,
         "MobileNumber": mobileNumber,
+        "DeviceId": deviceId,
         "DriverImage": driverImage,
         "DlNumber": dlNumber,
         "TotalPrice": totalPrice,
@@ -67,8 +71,7 @@ class DriveracceptModeluser {
       };
 }
 
-///old
-
+///old......17...april...2024..
 // DriveracceptModeluser driveracceptModeluserFromJson(String str) =>
 //     DriveracceptModeluser.fromJson(json.decode(str));
 //
@@ -76,16 +79,19 @@ class DriveracceptModeluser {
 //     json.encode(data.toJson());
 //
 // class DriveracceptModeluser {
-//   num? id;
+//   int? id;
 //   num? driverId;
 //   String? driverName;
 //   String? mobileNumber;
 //   String? driverImage;
 //   String? dlNumber;
 //   num? totalPrice;
+//   num? payableAmount;
 //   String? vehicleNumber;
 //   String? vehicleTypeName;
 //   num? toatlDistance;
+//
+//   ///http://pswellness.in/api/DriverApi/GetAcceptedReqDriverDetail?Id=294
 //
 //   DriveracceptModeluser({
 //     this.id,
@@ -95,6 +101,7 @@ class DriveracceptModeluser {
 //     this.driverImage,
 //     this.dlNumber,
 //     this.totalPrice,
+//     this.payableAmount,
 //     this.vehicleNumber,
 //     this.vehicleTypeName,
 //     this.toatlDistance,
@@ -109,6 +116,7 @@ class DriveracceptModeluser {
 //         driverImage: json["DriverImage"],
 //         dlNumber: json["DlNumber"],
 //         totalPrice: json["TotalPrice"],
+//         payableAmount: json["PayableAmount"],
 //         vehicleNumber: json["VehicleNumber"],
 //         vehicleTypeName: json["VehicleTypeName"],
 //         toatlDistance: json["ToatlDistance"],
@@ -122,6 +130,7 @@ class DriveracceptModeluser {
 //         "DriverImage": driverImage,
 //         "DlNumber": dlNumber,
 //         "TotalPrice": totalPrice,
+//         "PayableAmount": payableAmount,
 //         "VehicleNumber": vehicleNumber,
 //         "VehicleTypeName": vehicleTypeName,
 //         "ToatlDistance": toatlDistance,
