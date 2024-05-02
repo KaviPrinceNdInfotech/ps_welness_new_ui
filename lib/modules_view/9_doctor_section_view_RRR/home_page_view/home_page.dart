@@ -230,9 +230,10 @@ class DoctorHomePage extends StatelessWidget {
 
                                       await Future.delayed(
                                           Duration(seconds: 1));
+                                      print("drpayment");
                                       //isLoading(false);
                                       CallLoader.hideLoader();
-                                      Get.to(() => PaymentHistory());
+                                      await Get.to(() => PaymentHistory());
                                     } else if (index == 3) {
                                       _doctorHomepageController
                                           .doctorAppoinmentHistory();

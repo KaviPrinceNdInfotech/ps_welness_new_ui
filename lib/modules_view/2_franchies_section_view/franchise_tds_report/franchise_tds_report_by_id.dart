@@ -264,7 +264,7 @@ class FranchiseTDSSReportByRole extends StatelessWidget {
                                             ),
                                             SizedBox(
                                               width: size.width * 0.32,
-                                              height: size.height * 0.027,
+                                              height: size.height * 0.028,
                                               child: Text(
                                                 'Location:',
                                                 style: GoogleFonts.poppins(
@@ -274,14 +274,14 @@ class FranchiseTDSSReportByRole extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              'Transaction Amt:',
-                                              style: GoogleFonts.poppins(
-                                                color: MyTheme.blueww,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: size.width * 0.035,
-                                              ),
-                                            ),
+                                            // Text(
+                                            //   'Transaction Amt:',
+                                            //   style: GoogleFonts.poppins(
+                                            //     color: MyTheme.blueww,
+                                            //     fontWeight: FontWeight.w600,
+                                            //     fontSize: size.width * 0.035,
+                                            //   ),
+                                            // ),
                                             Text(
                                               'Payable Amt :',
                                               style: GoogleFonts.poppins(
@@ -290,14 +290,14 @@ class FranchiseTDSSReportByRole extends StatelessWidget {
                                                 fontSize: size.width * 0.035,
                                               ),
                                             ),
-                                            Text(
-                                              'Commission Amt:',
-                                              style: GoogleFonts.poppins(
-                                                color: MyTheme.blueww,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: size.width * 0.035,
-                                              ),
-                                            ),
+                                            // Text(
+                                            //   'Commission Amt:',
+                                            //   style: GoogleFonts.poppins(
+                                            //     color: MyTheme.blueww,
+                                            //     fontWeight: FontWeight.w600,
+                                            //     fontSize: size.width * 0.035,
+                                            //   ),
+                                            // ),
                                             Text(
                                               'TDS Amt :',
                                               style: GoogleFonts.poppins(
@@ -344,7 +344,7 @@ class FranchiseTDSSReportByRole extends StatelessWidget {
                                             ),
                                             SizedBox(
                                               width: size.width * 0.58,
-                                              height: size.height * 0.026,
+                                              height: size.height * 0.027,
                                               child: Center(
                                                 child: Align(
                                                   alignment:
@@ -362,14 +362,14 @@ class FranchiseTDSSReportByRole extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              '₹ ${item?[index].transactionamt}',
-                                              style: GoogleFonts.raleway(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: size.width * 0.035,
-                                              ),
-                                            ),
+                                            // Text(
+                                            //   '₹ ${item?[index].transactionamt}',
+                                            //   style: GoogleFonts.raleway(
+                                            //     color: Colors.white,
+                                            //     fontWeight: FontWeight.w700,
+                                            //     fontSize: size.width * 0.035,
+                                            //   ),
+                                            // ),
                                             Text(
                                               '₹ ${item?[index].payableAmount}',
                                               style: GoogleFonts.raleway(
@@ -378,14 +378,14 @@ class FranchiseTDSSReportByRole extends StatelessWidget {
                                                 fontSize: size.width * 0.035,
                                               ),
                                             ),
-                                            Text(
-                                              '₹ ${item?[index].commamt}',
-                                              style: GoogleFonts.raleway(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: size.width * 0.035,
-                                              ),
-                                            ),
+                                            // Text(
+                                            //   '₹ ${item?[index].commamt}',
+                                            //   style: GoogleFonts.raleway(
+                                            //     color: Colors.white,
+                                            //     fontWeight: FontWeight.w700,
+                                            //     fontSize: size.width * 0.035,
+                                            //   ),
+                                            // ),
                                             Text(
                                               '₹ ${item?[index].tdsamt}',
                                               style: GoogleFonts.raleway(

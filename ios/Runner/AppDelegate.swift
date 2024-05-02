@@ -9,8 +9,23 @@ import GoogleMaps
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GMSServices.provideAPIKey("AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw")
-    GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+      
+      // Check if the device is an iPhone
+             if UIDevice.current.userInterfaceIdiom == .phone {
+                 // This device is an iPhone, continue launching the app
+                 
+                 // Initialize Google Maps
+                 GMSServices.provideAPIKey("AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw")
+                 
+                 // Register Flutter plugins
+                 GeneratedPluginRegistrant.register(with: self)
+                 
+                 // Return the result of super's method
+                 return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+             } else {
+                 // This device is an iPad, exit the app
+                 exit(0)
+             }
+
   }
 }

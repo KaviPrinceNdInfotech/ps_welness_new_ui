@@ -23,6 +23,7 @@ class DoctorProfileControllers extends GetxController {
         ) {
       isLoading(false);
     }
+    isLoading(false);
   }
 
   @override

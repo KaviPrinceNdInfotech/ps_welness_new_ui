@@ -316,7 +316,7 @@ class FranchisePayoutReport extends StatelessWidget {
                                                 fontSize: size.width * 0.035),
                                           ),
                                           Text(
-                                            '${item?[index].amount}',
+                                            '₹${item?[index].amount}',
                                             style: GoogleFonts.raleway(
                                                 color: Colors.brown,
                                                 fontWeight: FontWeight.w700,

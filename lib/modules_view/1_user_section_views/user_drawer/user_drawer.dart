@@ -1200,7 +1200,7 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                     onTap: () async {
                       ///....logout
                       _loginpasswordControllerr.onInit();
-                      CallLoader.loader();
+                      //CallLoader.loader();
                       await Future.delayed(Duration(seconds: 2));
                       CallLoader.hideLoader();
                       await SharedPreferences.getInstance()

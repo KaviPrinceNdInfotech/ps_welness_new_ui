@@ -28,12 +28,14 @@ class DoctorHomepageController extends GetxController {
 
   OnlineDoctorApt? onlineappointment;
 
-  void doctorBannerApi() async {
+  Future<void> doctorBannerApi() async {
     isLoading(true);
     getdoctorbannerlist = await ApiProvider.getbannerdoctorApi();
     if (getdoctorbannerlist?.bannerImageList != null) {
       isLoading(false);
     }
+
+    // isLoading(false);
   }
 
   ///offline_appointment...
@@ -46,6 +48,7 @@ class DoctorHomepageController extends GetxController {
       founddoctoraptProducts.value =
           doctorNewAppoinmentDetailModel!.appointmentDetail!;
     }
+    isLoading(false);
   }
 
   ///onine_appointment...
@@ -57,6 +60,7 @@ class DoctorHomepageController extends GetxController {
       isLoading(false);
       founddoctoraptProducts2.value = onlineappointment!.appointmentDetail!;
     }
+    isLoading(false);
   }
 
   void doctorAppoinmentHistory() async {
@@ -66,9 +70,39 @@ class DoctorHomepageController extends GetxController {
       isLoading(false);
       founddrhistoryProducts.value = getdoctorAppoinmentHistory!.patients!;
     }
+    isLoading(false);
   }
 
-  ///delete user----apiby---dreeseee....5 sep 2023...
+  ///accept user----apiby---dreeseee....30 april 2024...///accept....
+
+  Future<void> AcceptuserbookingApi() async {
+    //await  CallLoader.loader();
+    http.Response r = await ApiProvider.userAcceptdrApi();
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+      await doctorAppoinmentDetail();
+      await Get.to(
+        () => DoctorHomePage(
+            // id: "12345689119911",
+            ), //next page class
+        duration: Duration(
+            milliseconds: 600), //duration of transitions, default 1 sec
+        transition:
+            // Transition.leftToRight //transition effect
+            // Transition.fadeIn
+            //Transition.size
+            Transition.zoom,
+      );
+      Get.back();
+      await CallLoader.hideLoader();
+
+      //Get.back();
+      //Get.offAll(() => AddSkilsScreen());
+
+    }
+  }
+
+  ///delete user----apiby---dreeseee....30 april 2024...///delete....
 
   Future<void> deleteuserdrsaptApi() async {
     //await  CallLoader.loader();

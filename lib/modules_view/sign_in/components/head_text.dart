@@ -12,7 +12,7 @@ class HeadText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: appPadding / 1,
-        vertical: appPadding / 3,
+        vertical: appPadding / 6,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,6 +30,7 @@ class HeadText extends StatelessWidget {
               ),
               Text(
                 'SIGN IN',
+                //vv
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,

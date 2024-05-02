@@ -46,7 +46,7 @@ class ChooseLabController extends GetxController {
   // RxList<String> cities2 = <String>[].obs;
 
   ///lab test api class.................
-  void getTestNameApi() async {
+  Future<void> getTestNameApi() async {
     tests = (await ApiProvider.getTestNameNewApi())!;
     print('Prince lab test  list');
     print(tests);
@@ -55,7 +55,7 @@ class ChooseLabController extends GetxController {
 
   ///get state api.........
 
-  void getStateLabApi() async {
+  Future<void> getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
     print('Prince state  list');
     print(states);
@@ -84,10 +84,13 @@ class ChooseLabController extends GetxController {
       CallLoader.hideLoader();
       _labListController.labListApi();
       _labListController.update();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
-      Get.offAll(LabListPage());
+      Get.to(LabListPage());
     }
   }
 
@@ -109,6 +112,7 @@ class ChooseLabController extends GetxController {
     // clinicnameController = TextEditingController();
     // mobileController = TextEditingController();
     super.onInit();
+    getTestNameApi();
 
     getStateLabApi();
     selectedState.listen((p0) {
@@ -116,7 +120,6 @@ class ChooseLabController extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
-    getTestNameApi();
   }
 
   @override

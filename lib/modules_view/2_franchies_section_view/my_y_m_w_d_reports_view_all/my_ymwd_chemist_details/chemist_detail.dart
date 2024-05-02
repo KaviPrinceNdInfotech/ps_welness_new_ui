@@ -184,16 +184,16 @@ class YmwdreportChemist extends StatelessWidget {
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      'Franchise/Id:',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
+                                                    // Text(
+                                                    //   'Franchise/Id:',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.white,
+                                                    //   ),
+                                                    // ),
                                                     Text(
                                                       'Shop Name:',
                                                       style: GoogleFonts.lato(
@@ -204,26 +204,26 @@ class YmwdreportChemist extends StatelessWidget {
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      'Mobile No:',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Email:',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
+                                                    // Text(
+                                                    //   'Mobile No:',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.white,
+                                                    //   ),
+                                                    // ),
+                                                    // Text(
+                                                    //   'Email:',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.white,
+                                                    //   ),
+                                                    // ),
                                                     Text(
                                                       'Address:',
                                                       style: GoogleFonts.lato(
@@ -254,26 +254,37 @@ class YmwdreportChemist extends StatelessWidget {
                                                         color: Colors.white,
                                                       ),
                                                     ),
+
                                                     Text(
-                                                      'Approval:',
+                                                      'Total Amt:',
                                                       style: GoogleFonts.lato(
                                                         fontSize:
-                                                            size.width * 0.03,
+                                                        size.width * 0.03,
                                                         fontWeight:
-                                                            FontWeight.w700,
+                                                        FontWeight.w700,
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      'Action:',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
+                                                    // Text(
+                                                    //   'Approval:',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.white,
+                                                    //   ),
+                                                    // ),
+                                                    // Text(
+                                                    //   'Action:',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.white,
+                                                    //   ),
+                                                    // ),
                                                   ],
                                                 ),
                                                 Column(
@@ -301,15 +312,15 @@ class YmwdreportChemist extends StatelessWidget {
                                                         color: Colors.black,
                                                       ),
                                                     ),
-                                                    Text('${item?[index].franchise}',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
+                                                    // Text('${item?[index].franchise}',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.black,
+                                                    //   ),
+                                                    // ),
                                                     Text('${item?[index].shopName}',
                                                       style: GoogleFonts.lato(
                                                         fontSize:
@@ -319,24 +330,24 @@ class YmwdreportChemist extends StatelessWidget {
                                                         color: Colors.black,
                                                       ),
                                                     ),
-                                                    Text('${item?[index].mobileNumber}',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                    Text('${item?[index].emailId}',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize:
-                                                            size.width * 0.03,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
+                                                    // Text('${item?[index].mobileNumber}',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.black,
+                                                    //   ),
+                                                    // ),
+                                                    // Text('${item?[index].emailId}',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color: Colors.black,
+                                                    //   ),
+                                                    // ),
                                                     Text('${item?[index].location}',
                                                       style: GoogleFonts.lato(
                                                         fontSize:
@@ -364,16 +375,27 @@ class YmwdreportChemist extends StatelessWidget {
                                                         color: Colors.black,
                                                       ),
                                                     ),
-                                                    Text('${item?[index].isApproved}',
+                                                    Text(
+                                                      'Dynamic Amt required',
+                                                     // '${item?[index].licenceNumber}',
                                                       style: GoogleFonts.lato(
                                                         fontSize:
-                                                            size.width * 0.03,
+                                                        size.width * 0.03,
                                                         fontWeight:
-                                                            FontWeight.w700,
-                                                        color:
-                                                            Colors.green.shade900,
+                                                        FontWeight.w700,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
+                                                    // Text('${item?[index].isApproved}',
+                                                    //   style: GoogleFonts.lato(
+                                                    //     fontSize:
+                                                    //         size.width * 0.03,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w700,
+                                                    //     color:
+                                                    //         Colors.green.shade900,
+                                                    //   ),
+                                                    // ),
                                                   ],
                                                 ),
                                               ],

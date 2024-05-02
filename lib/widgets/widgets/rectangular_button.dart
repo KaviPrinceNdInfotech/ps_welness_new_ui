@@ -15,7 +15,8 @@ class RectangularButton extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Padding(
-        padding: const EdgeInsets.only(top: appPadding, bottom: appPadding / 2),
+        padding:
+            const EdgeInsets.only(top: appPadding / 8, bottom: appPadding / 6),
         child: Container(
           width: double.infinity,
           height: size.height * 0.075,

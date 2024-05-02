@@ -391,7 +391,7 @@ class FranchiseCommissionReport extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'TDS Amt :',
+                                              'Fr paid Amt :',
                                               style: GoogleFonts.poppins(
                                                 color: MyTheme.blueww,
                                                 fontWeight: FontWeight.w600,
@@ -479,7 +479,7 @@ class FranchiseCommissionReport extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '₹ ${item?[index].tdsamt}',
+                                              '₹ ${item?[index].fraPaidableamt}',
                                               style: GoogleFonts.raleway(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,

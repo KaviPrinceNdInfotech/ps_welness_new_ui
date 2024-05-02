@@ -318,7 +318,7 @@ class DetailsSchedulePage extends StatelessWidget {
                                   height: size.height * 0.004,
                                 ),
                                 SizedBox(
-                                  height: size.height * 0.18,
+                                  height: size.height * 0.155,
                                   //width: size.width * 0.95,
                                   child: Obx(
                                     () => (_doctorListController
@@ -493,92 +493,101 @@ class DetailsSchedulePage extends StatelessWidget {
                                                 }),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.2,
-                                      vertical: size.height * 0.004),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      //_doctorListController.update();
-                                      //_doctorListController.checkdoctor2();
-                                      // _doctorappointmentcheckout.doctoorcheckoutApi();
-                                      //_doctorappointmentcheckout.update();
-                                      //Get.to(() => DoctorAppointmentCheckout());
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(0.0),
+                                SizedBox(
+                                  height: size.height * 0.05,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.2,
+                                        vertical: size.height * 0.00),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        //_doctorListController.update();
+                                        //_doctorListController.checkdoctor2();
+                                        // _doctorappointmentcheckout.doctoorcheckoutApi();
+                                        //_doctorappointmentcheckout.update();
+                                        //Get.to(() => DoctorAppointmentCheckout());
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(0.0),
+                                          ),
+                                          elevation: 0,
+                                          backgroundColor: Colors.white,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 0, vertical: 04),
+                                          textStyle: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold)),
+                                      clipBehavior: Clip.none,
+                                      child: Container(
+                                        height: size.height * 0.05,
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            top: BorderSide(
+                                                width: bevel,
+                                                color: Color(0xFFFFFFFFFF)),
+                                            left: BorderSide(
+                                                width: bevel,
+                                                color: Color(0xFFFFFFFFFF)),
+                                            right: BorderSide(
+                                                width: bevel,
+                                                color: Color(0xFFFF000000)),
+                                            bottom: BorderSide(
+                                                width: bevel,
+                                                color: Color(0xFFFF000000)),
+                                          ),
                                         ),
-                                        elevation: 0,
-                                        backgroundColor: Colors.white,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 0, vertical: 04),
-                                        textStyle: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold)),
-                                    clipBehavior: Clip.none,
-                                    child: Container(
-                                      height: size.height * 0.05,
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          top: BorderSide(
-                                              width: bevel,
-                                              color: Color(0xFFFFFFFFFF)),
-                                          left: BorderSide(
-                                              width: bevel,
-                                              color: Color(0xFFFFFFFFFF)),
-                                          right: BorderSide(
-                                              width: bevel,
-                                              color: Color(0xFFFF000000)),
-                                          bottom: BorderSide(
-                                              width: bevel,
-                                              color: Color(0xFFFF000000)),
-                                        ),
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          CallLoader.loader();
-                                          _doctorListController.checkdoctor2();
-                                          _doctorappointmentcheckout
-                                              .doctoorcheckoutApi();
-                                          _doctorappointmentcheckout.update();
-                                          _doctorListController
-                                              .clearSelectedSlot();
-                                          //clearSelectedSlot
+                                        child: InkWell(
+                                          onTap: () {
+                                            CallLoader.loader();
+                                            _doctorListController
+                                                .checkdoctor2();
+                                            _doctorappointmentcheckout
+                                                .doctoorcheckoutApi();
+                                            _doctorappointmentcheckout.update();
+                                            _doctorListController
+                                                .clearSelectedSlot();
+                                            //clearSelectedSlot
 
-                                          _doctorListController
-                                              .selectedTimeslotdoctor
-                                              .value = null;
-                                        },
-                                        child: Container(
-                                          //padding: const EdgeInsets.symmetric(
-                                          //  horizontal: 20.0, vertical: 2.0),
-                                          decoration: BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    width: bevel,
-                                                    color: Color(0xFFFFDFDFDF)),
-                                                left: BorderSide(
-                                                    width: bevel,
-                                                    color: Color(0xFFFFDFDFDF)),
-                                                right: BorderSide(
-                                                    width: bevel,
-                                                    color: Color(0xFFFF7F7F7F)),
-                                                bottom: BorderSide(
-                                                    width: bevel,
-                                                    color: Color(0xFFFF7F7F7F)),
+                                            _doctorListController
+                                                .selectedTimeslotdoctor
+                                                .value = null;
+                                          },
+                                          child: Container(
+                                            //padding: const EdgeInsets.symmetric(
+                                            //  horizontal: 20.0, vertical: 2.0),
+                                            decoration: BoxDecoration(
+                                                border: Border(
+                                                  top: BorderSide(
+                                                      width: bevel,
+                                                      color:
+                                                          Color(0xFFFFDFDFDF)),
+                                                  left: BorderSide(
+                                                      width: bevel,
+                                                      color:
+                                                          Color(0xFFFFDFDFDF)),
+                                                  right: BorderSide(
+                                                      width: bevel,
+                                                      color:
+                                                          Color(0xFFFF7F7F7F)),
+                                                  bottom: BorderSide(
+                                                      width: bevel,
+                                                      color:
+                                                          Color(0xFFFF7F7F7F)),
+                                                ),
+                                                color: MyTheme.white
+                                                //Color(0xFFBFBFBF),
+                                                ),
+                                            child: Center(
+                                              child: Text(
+                                                'Book Now',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w800,
+                                                    fontSize:
+                                                        size.height * 0.02),
                                               ),
-                                              color: MyTheme.white
-                                              //Color(0xFFBFBFBF),
-                                              ),
-                                          child: Center(
-                                            child: Text(
-                                              'Book Now',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w800,
-                                                  fontSize: size.height * 0.02),
                                             ),
                                           ),
                                         ),

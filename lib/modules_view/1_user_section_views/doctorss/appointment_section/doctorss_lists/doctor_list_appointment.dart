@@ -150,8 +150,9 @@ class DoctorListUser extends StatelessWidget {
                               child: Text("No Doctor Found"),
                             )
                           : SizedBox(
-                              height: size.height * 0.73,
+                              //height: size.height * 0.7,
                               child: ListView.builder(
+                                  shrinkWrap: true,
 
                                   ///shrinkWrap: true,
                                   itemCount:

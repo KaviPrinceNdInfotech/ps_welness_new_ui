@@ -18,6 +18,7 @@ class Social extends StatelessWidget {
   User_1_Controller _user_1_controller = Get.put(User_1_Controller());
 
   @override
+  //
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -72,6 +73,7 @@ class Social extends StatelessWidget {
                       },
                     ),
                   );
+                  print('oksignup');
                   //Get.to((page))
                   ///
                 },

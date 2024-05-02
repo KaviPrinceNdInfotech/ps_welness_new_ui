@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WebViewPswebsiteabout extends StatefulWidget {
   const WebViewPswebsiteabout({Key? key}) : super(key: key);
@@ -10,16 +10,18 @@ class WebViewPswebsiteabout extends StatefulWidget {
 
 class _WebViewPswebsiteaboutState extends State<WebViewPswebsiteabout> {
   double _progress = 0;
-  late InAppWebViewController inAppWebViewController;
+
+  ///late InAppWebViewController inAppWebViewController;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        var isLastPage = await inAppWebViewController.canGoBack();
-        if (isLastPage) {
-          inAppWebViewController.goBack();
-          return false;
-        }
+        Navigator.pop(context);
+        // var isLastPage = await inAppWebViewController.canGoBack();
+        // if (isLastPage) {
+        //inAppWebViewController.goBack();
+        //return false;
+        // }
 
         return true;
       },
@@ -31,22 +33,27 @@ class _WebViewPswebsiteaboutState extends State<WebViewPswebsiteabout> {
             backgroundColor: Colors.cyan,
             centerTitle: true,
           ),
-          body: Stack(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              InAppWebView(
-                initialUrlRequest: URLRequest(
-                    url: Uri.parse(
-                        "http://pswellness.in/Home/About?a=%27AboutUs%27")),
-                onWebViewCreated: (InAppWebViewController controller) {
-                  inAppWebViewController = controller;
-                },
-                onProgressChanged:
-                    (InAppWebViewController controller, int progress) {
-                  setState(() {
-                    _progress = progress / 100;
-                  });
-                },
+              ElevatedButton(
+                onPressed: _launchURL,
+                child: Text('About Us'),
               ),
+              // InAppWebView(
+              //   initialUrlRequest: URLRequest(
+              //       url: Uri.parse(
+              //           "http://pswellness.in/Home/About?a=%27AboutUs%27")),
+              //   onWebViewCreated: (InAppWebViewController controller) {
+              //     inAppWebViewController = controller;
+              //   },
+              //   onProgressChanged:
+              //       (InAppWebViewController controller, int progress) {
+              //     setState(() {
+              //       _progress = progress / 100;
+              //     });
+              //   },
+              // ),
               _progress < 1
                   ? Container(
                       child: LinearProgressIndicator(
@@ -59,5 +66,14 @@ class _WebViewPswebsiteaboutState extends State<WebViewPswebsiteabout> {
         ),
       ),
     );
+  }
+}
+
+void _launchURL() async {
+  const url = 'http://pswellness.in/Home/About?a=%27AboutUs%27';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

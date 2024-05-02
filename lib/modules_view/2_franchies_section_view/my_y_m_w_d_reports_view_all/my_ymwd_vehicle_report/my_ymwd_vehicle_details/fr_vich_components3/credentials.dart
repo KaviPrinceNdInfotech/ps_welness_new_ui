@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+
 // import 'package:ps_welness/constants/my_theme.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 
@@ -13,7 +14,8 @@ import '../../../../../../controllers/2_franchises_controller/my_ymwd_report_con
 class MyYmwdreportVehicleeCredential extends StatelessWidget {
   MyYmwdreportVehicleeCredential({Key? key}) : super(key: key);
 
-  YmwdVehicleController _ymwd_vehicle_controller = Get.put(YmwdVehicleController());
+  YmwdVehicleController _ymwd_vehicle_controller =
+      Get.put(YmwdVehicleController());
 
   var items = [
     'Daily',
@@ -50,7 +52,8 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                         width: size.width * 0.07,
                         decoration: const BoxDecoration(
                             color: Colors.white70, shape: BoxShape.circle),
-                        child: const Center(child: Icon(Icons.arrow_back_ios_outlined))),
+                        child: const Center(
+                            child: Icon(Icons.arrow_back_ios_outlined))),
                   ),
                   SizedBox(
                     height: size.width * 0.05,
@@ -94,80 +97,77 @@ class MyYmwdreportVehicleeCredential extends StatelessWidget {
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
-                              _ymwd_vehicle_controller.selectedTerm.value = newValue!;
-                              _ymwd_vehicle_controller.frenchiesYMDWVehicleReportApi(newValue);
+                              _ymwd_vehicle_controller.selectedTerm.value =
+                                  newValue!;
+                              _ymwd_vehicle_controller
+                                  .frenchiesYMDWVehicleReportApi(newValue);
                             }),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: size.height * 0.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration:  BoxDecoration(
-                              borderRadius:  const BorderRadius.all(
-                                   Radius.circular(30.0)),
-                              color: MyTheme.containercolor14),
-                          width: size.width * 0.72,
-                          height: size.height * 0.06,
-                          margin:  EdgeInsets.fromLTRB(1, 20, 10, 20),
-                          padding: new EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          child: Theme(
-                            data: Theme.of(context)
-                                .copyWith(splashColor: Colors.transparent),
-                            child: TextField(
-                              onChanged: (value)=>  _ymwd_vehicle_controller.filterPaymentNurse(value),
-                                      autofocus: false,
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: MyTheme.blueww),
-                                      decoration: InputDecoration(
-                                        //prefixIcon: Icon(Icons.search),
-                                        filled: true,
-                                        fillColor: MyTheme.ThemeColors,
-                                        hintText: 'Search van number',
-                                        contentPadding: const EdgeInsets.only(
-                                            left: 10.0, bottom: 12.0, top: 0.0),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: MyTheme.ThemeColors),
-                                          borderRadius:
-                                              BorderRadius.circular(25.7),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent),
-                                          borderRadius:
-                                              BorderRadius.circular(25.7),
-                                        ),
-                                      ),
-                                    ),
-                          ),
-                        ),
-                        Container(
-                          height: size.height * 0.06,
-                          width: size.width * 0.15,
-                          decoration: BoxDecoration(
-                            //color: MyTheme.blueww,
-                            gradient: MyTheme.gradient2,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                              child: Text(
-                            'Search',
+                      //height: size.height * 0.0,
+                      ),
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30.0)),
+                            color: MyTheme.containercolor14),
+                        width: size.width * 0.72,
+                        height: size.height * 0.06,
+                        margin: EdgeInsets.fromLTRB(1, 20, 10, 20),
+                        padding: new EdgeInsets.fromLTRB(5, 5, 5, 5),
+                        child: Theme(
+                          data: Theme.of(context)
+                              .copyWith(splashColor: Colors.transparent),
+                          child: TextField(
+                            onChanged: (value) => _ymwd_vehicle_controller
+                                .filterPaymentNurse(value),
+                            autofocus: false,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: size.width * 0.035,
-                              fontWeight: FontWeight.bold,
+                                fontSize: 15.0, color: MyTheme.blueww),
+                            decoration: InputDecoration(
+                              //prefixIcon: Icon(Icons.search),
+                              filled: true,
+                              fillColor: MyTheme.ThemeColors,
+                              hintText: 'Search van number',
+                              contentPadding: const EdgeInsets.only(
+                                  left: 10.0, bottom: 12.0, top: 0.0),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: MyTheme.ThemeColors),
+                                borderRadius: BorderRadius.circular(25.7),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                borderRadius: BorderRadius.circular(25.7),
+                              ),
                             ),
-                          )),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.15,
+                        decoration: BoxDecoration(
+                          //color: MyTheme.blueww,
+                          gradient: MyTheme.gradient2,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Center(
+                            child: Text(
+                          'Search',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: size.width * 0.035,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
+                      ),
+                    ],
                   ),
                 ],
               ),

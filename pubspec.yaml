@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+34
+version: 1.0.0+46
 environment:
   sdk: '>=2.18.6 <3.0.0'
 # Dependencies specify other packages that your package needs in order to work.
@@ -43,19 +43,19 @@ dependencies:
   neopop: ^1.0.2
   rating_dialog: ^2.0.4
   velocity_x:
-  flutter_phone_direct_caller: ^2.1.1
+  #flutter_phone_direct_caller: ^2.1.1
   #pdf: ^3.8.4
   pdf:
   path_provider:
   #path_provider: ^2.0.11
   #open_file: ^3.2.1
   open_file:
-  share_plus: ^7.1.0
+  #share_plus: ^7.1.0
   google_maps_flutter: ^2.2.2
-  geolocator: ^9.0.2
-  geocoding: ^2.0.5
-  location: ^4.4.0
-  permission_handler: ^10.2.0
+  #geolocator: ^9.0.2
+  #geocoding: ^2.0.5
+  #location: ^4.4.0
+  #permission_handler: ^10.2.0
   flutter_polyline_points: ^1.0.0
   google_maps_flutter_web: ^0.4.0+3
   flutter_typeahead: ^4.1.1
@@ -68,21 +68,30 @@ dependencies:
   #syncfusion_flutter_pdfviewer: ^20.4.41
   razorpay_flutter: ^1.3.4
   #permission_handler: ^10.3.0
-  geocode: ^1.0.3
+  #: ^1.0.3
   dependencies:
   provider: ^6.0.5
-  firebase_core: ^2.15.1
-  firebase_messaging: ^14.6.6
-  #firebase_messaging:
+  #firebase_core: ^2.15.1
+  #firebase_messaging: ^14.6.6
+  #firebase_messgeocodeaging:
   #firebase_messaging: ^14.5.0
-  flutter_local_notifications: ^14.1.1
+  #flutter_local_notifications: ^14.1.1
   maps_launcher: ^2.2.0
   #app_settings:
   #app_settings: ^4.2.0
   cached_network_image: ^3.2.3
   ##webview_flutter: ^4.2.2
-  flutter_inappwebview:
+  #flutter_inappwebview:
   flutter_cache_manager: ^3.3.1
+  #changing package 1 may 2024...prince
+  share_plus: ^7.2.2
+  location: ^5.0.3
+  geocoding: ^3.0.0
+  geolocator: ^11.0.0
+  permission_handler: ^11.0.1
+  flutter_local_notifications: ^17.1.0
+  firebase_messaging: ^14.7.10
+  firebase_core: ^2.24.2
   #zego_uikit_prebuilt_call: ^3.13.0
   #zego_uikit_signaling_plugin: ^2.3.2
   #new_version_plus: ^0.0.2

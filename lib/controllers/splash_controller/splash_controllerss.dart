@@ -4,17 +4,24 @@
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
+// import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
+// import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
+// import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
 // import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 // import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 // import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
+// import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
+// import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 // import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
+// import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
+// import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 // import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 // import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/home_page_view/home_page.dart';
 // import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 //
 // import '../../modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
 // import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
-// import '../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+// //import '../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 // import '../../modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 // import '../../modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 // import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
@@ -37,8 +44,8 @@
 //   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 //   ChemistProfileDetailController _chemistProfileDetailController =
 //       Get.put(ChemistProfileDetailController());
-//   NurseProfileControllers _nurseprofileContrller =
-//       Get.put(NurseProfileControllers());
+//   NurseProfileControllersdetail _nurseprofileContrller =
+//       Get.put(NurseProfileControllersdetail());
 //   DoctorProfileControllers _doctorProfileControllers =
 //       Get.put(DoctorProfileControllers());
 //   NurseUploadReportController _nursdeUploadReportController =
@@ -46,31 +53,53 @@
 //   DriverProfileDetailController _driverprofile =
 //       Get.put(DriverProfileDetailController());
 //
+//   DevicetokenController _devicetokenController =
+//       Get.put(DevicetokenController());
+//
+//   ChemistBannerController _chemistBannerController =
+//       Get.put(ChemistBannerController());
+//
+//   DoctorHomepageController _doctorHomepageController =
+//       Get.put(DoctorHomepageController());
+//
+//   ///user banner
+//   UserHomepagContreoller _userhomePageController =
+//       Get.put(UserHomepagContreoller());
+//
+//   ///use franchise...........
+//   FrenchiesProfileDetailController _frenchiesProfileDetailController =
+//       Get.put(FrenchiesProfileDetailController());
+//
+//   FrenchiesBannerController frenchiesBannerController =
+//       Get.put(FrenchiesBannerController());
+//
 //   @override
 //   void onInit() {
 //     animationInitilization();
 //     super.onInit();
 //     accountService.getAccountData.then((accountData) {
 //       Timer(
-//         const Duration(seconds: 4),
-//         () {
+//         const Duration(seconds: 1), // Delay by 1 second
+//         () async {
 //           if (accountData == null) {
 //             Get.to(OnboardingPage());
+//
+//             ///todo: 2 sep....2023..
+//             throw Exception();
 //           } else {
 //             switch (accountData.role) {
 //               case 'patient':
 //                 _userprofile.userprofileApi();
 //                 _userprofile.update();
-//
-//                 /// we can navigate to user page.....................................
-//                 Get.to(UserHomePage());
-//                 // _trackme();
-//                 // _getLocation();
-//                 break;
-//
-//               /// we can navigate to franchise page.....................................
+//                 _devicetokenController.UsertokenApi();
+//                 await _userhomePageController.sliderBannerApi();
+//                 await Get.to(UserHomePage());
+//                 throw Exception();
 //               case 'Franchise':
-//                 Get.to(FranchiesHomePage());
+//                 _frenchiesProfileDetailController.frenchiesProfileDetailApi();
+//                 _frenchiesProfileDetailController.update();
+//                 await frenchiesBannerController.FrenchiesBannerApi();
+//                 await Get.to(FranchiesHomePage());
 //                 break;
 //               case 'lab':
 //                 _labUploadReportController.getlabpatientApi();
@@ -81,19 +110,21 @@
 //                 break;
 //               case 'doctor':
 //                 _doctorProfileControllers.doctorprofileApi();
+//                 await _doctorHomepageController.doctorBannerApi();
 //                 _doctorProfileControllers.update();
+//                 _devicetokenController.DoctortokenApi();
 //                 Get.to(DoctorHomePage());
 //                 break;
 //               case 'driver':
-//                 //_trackme();
-//                 //_getLocation();
 //                 _driverprofile.driverProfileDetailApi();
 //                 _driverprofile.update();
+//                 _devicetokenController.DrivertokenApi();
 //                 Get.to(DriverHomePage());
 //                 break;
 //               case 'nurse':
 //                 _nurseprofileContrller.nurseprofileApi();
 //                 _nurseprofileContrller.update();
+//                 _devicetokenController.NursetokenApi();
 //                 _nursdeUploadReportController.getnursepatientssApi();
 //                 _nursdeUploadReportController.update();
 //                 Get.to(NurseHomePage());
@@ -102,9 +133,14 @@
 //                 Get.to(RwaHomePage());
 //                 break;
 //               case 'chemist':
-//                 _chemistProfileDetailController.chemistProfileDetailsApi();
+//                 await _chemistProfileDetailController
+//                     .chemistProfileDetailsApi();
 //                 _chemistProfileDetailController.update();
-//                 Get.to(ChemistHomePage());
+//                 await _chemistBannerController.chemistBannerApi();
+//                 _chemistBannerController.update();
+//                 await Future.delayed(
+//                     Duration(milliseconds: 900)); // Delay for 0.9 seconds
+//                 await Get.to(ChemistHomePage());
 //                 break;
 //               default:
 //                 break;
@@ -132,36 +168,11 @@
 //
 //     super.dispose();
 //   }
-//
-//   // with timer
-//   // Future<void> _trackme() async {
-//   //   //it will call location api every 3 seconds
-//   //   Timer.periodic(Duration(seconds: 3), (timer) async {
-//   //     Position position = await Geolocator.getCurrentPosition(
-//   //         desiredAccuracy: LocationAccuracy.high);
-//   //
-//   //     print("Latitude: ${position.latitude}");
-//   //     print("Longitude: ${position.longitude}");
-//   //   });
-//   // }
-//
-//   //without timer
-//   ///
-//   // Future<void> _getLocation() async {
-//   //   Position position = await Geolocator.getCurrentPosition(
-//   //       desiredAccuracy: LocationAccuracy.high);
-//   //
-//   //   print("Latitude: ${position.latitude}");
-//   //   print("Longitude: ${position.longitude}");
-//   // }
 // }
-
 ///
-///
+/// todo: 1 may 2024...
 import 'dart:async';
 
-import 'package:flutter/animation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
@@ -171,6 +182,7 @@ import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driv
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_banner_controller.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
@@ -180,12 +192,9 @@ import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 
 import '../../modules_view/10_lab_section_view/lab_home/lab_home_page.dart';
 import '../../modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
-//import '../../modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import '../../modules_view/3_driver_section_view_RRR/driver_home/driver_home_page.dart';
 import '../../modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import '../../modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
-//import '../../modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
-//import '../../modules_view/9_doctor_section_view/home_page_view/home_page.dart';
 import '../../modules_view/onboardonds/onboarding_screens.dart';
 import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
@@ -194,36 +203,37 @@ import '../6_chemist_view_controllers_RRR/chemist_profile_detailController.dart'
 
 class SplashScreenViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late AnimationController animationController;
-  late Animation<double> animation;
-  LabprofiledetailController _labprofiledetailController =
+  /// late AnimationController animationController;
+  ///late Animation<double> animation;
+  final LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
-  LabUploadReportController _labUploadReportController =
+  final LabUploadReportController _labUploadReportController =
       Get.put(LabUploadReportController());
-  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
-  ChemistProfileDetailController _chemistProfileDetailController =
+  final UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+  final ChemistProfileDetailController _chemistProfileDetailController =
       Get.put(ChemistProfileDetailController());
-  NurseProfileControllersdetail _nurseprofileContrller =
+  final NurseProfileControllersdetail _nurseprofileContrller =
       Get.put(NurseProfileControllersdetail());
-  DoctorProfileControllers _doctorProfileControllers =
+  final DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
-  NurseUploadReportController _nursdeUploadReportController =
+  final NurseUploadReportController _nursdeUploadReportController =
       Get.put(NurseUploadReportController());
-  DriverProfileDetailController _driverprofile =
+  final DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
 
-  DevicetokenController _devicetokenController =
+  final DevicetokenController _devicetokenController =
       Get.put(DevicetokenController());
 
-  ChemistBannerController _chemistBannerController =
+  final ChemistBannerController _chemistBannerController =
       Get.put(ChemistBannerController());
 
-  ///user banner
-  UserHomepagContreoller _userhomePageController =
+  final DoctorHomepageController _doctorHomepageController =
+      Get.put(DoctorHomepageController());
+
+  final UserHomepagContreoller _userhomePageController =
       Get.put(UserHomepagContreoller());
 
-  ///use franchise...........
-  FrenchiesProfileDetailController _frenchiesProfileDetailController =
+  final FrenchiesProfileDetailController _frenchiesProfileDetailController =
       Get.put(FrenchiesProfileDetailController());
 
   FrenchiesBannerController frenchiesBannerController =
@@ -231,104 +241,86 @@ class SplashScreenViewModel extends GetxController
 
   @override
   void onInit() {
-    animationInitilization();
     super.onInit();
     accountService.getAccountData.then((accountData) {
       Timer(
-        const Duration(seconds: 0),
+        const Duration(seconds: 2), // Delay by 2 seconds
         () async {
-          if (accountData == null) {
-            Get.to(OnboardingPage());
-
-            ///todo: 2 sep....2023..
-            throw Exception();
-          } else {
-            switch (accountData.role) {
-              case 'patient':
-                _userprofile.userprofileApi();
-                _userprofile.update();
-                _devicetokenController.UsertokenApi();
-                await _userhomePageController.sliderBannerApi();
-                // _userprofile.userprofileApi();
-
-                /// we can navigate to user page.....................................
-                await Get.to(UserHomePage());
-
-                ///todo: through exception....
-                throw Exception();
-                break;
-
-              /// we can navigate to franchise page.....................................
-              case 'Franchise':
-                _frenchiesProfileDetailController.frenchiesProfileDetailApi();
-                _frenchiesProfileDetailController.update();
-                await frenchiesBannerController.FrenchiesBannerApi();
-                await Get.to(FranchiesHomePage());
-                break;
-              case 'lab':
-                _labUploadReportController.getlabpatientApi();
-                _labUploadReportController.update();
-                _labprofiledetailController.update();
-                _labprofiledetailController.labprofileApi();
-                Get.to(LabHomePage());
-                break;
-              case 'doctor':
-                _doctorProfileControllers.doctorprofileApi();
-                // _doctorProfileControllers.onInit();
-                _doctorProfileControllers.update();
-                _devicetokenController.DoctortokenApi();
-                Get.to(DoctorHomePage());
-                break;
-              case 'driver':
-                _driverprofile.driverProfileDetailApi();
-                _driverprofile.update();
-                _devicetokenController.DrivertokenApi();
-                Get.to(DriverHomePage());
-                break;
-              case 'nurse':
-                _nurseprofileContrller.nurseprofileApi();
-                _nurseprofileContrller.update();
-                _devicetokenController.NursetokenApi();
-                _nursdeUploadReportController.getnursepatientssApi();
-                _nursdeUploadReportController.update();
-                Get.to(NurseHomePage());
-                break;
-              case 'RWA':
-                Get.to(RwaHomePage());
-                break;
-              case 'chemist':
-                await _chemistProfileDetailController
-                    .chemistProfileDetailsApi();
-                _chemistProfileDetailController.update();
-                await _chemistBannerController.chemistBannerApi();
-                _chemistBannerController.update();
-                await Future.delayed(Duration(milliseconds: 900));
-                await Get.to(ChemistHomePage());
-                break;
-              default:
-                break;
+          try {
+            if (accountData == null) {
+              Get.to(OnboardingPage());
+              // Throw exception after navigating to OnboardingPage
+              throw Exception('User account data is null.');
+            } else {
+              switch (accountData.role) {
+                case 'patient':
+                  _userprofile.userprofileApi();
+                  _userprofile.update();
+                  _devicetokenController.UsertokenApi();
+                  await _userhomePageController.sliderBannerApi();
+                  Get.to(UserHomePage());
+                  break;
+                case 'Franchise':
+                  _frenchiesProfileDetailController.frenchiesProfileDetailApi();
+                  _frenchiesProfileDetailController.update();
+                  await frenchiesBannerController.FrenchiesBannerApi();
+                  Get.to(FranchiesHomePage());
+                  break;
+                case 'lab':
+                  _labUploadReportController.getlabpatientApi();
+                  _labUploadReportController.update();
+                  _labprofiledetailController.update();
+                  _labprofiledetailController.labprofileApi();
+                  Get.to(LabHomePage());
+                  break;
+                case 'doctor':
+                  _doctorProfileControllers.doctorprofileApi();
+                  await _doctorHomepageController.doctorBannerApi();
+                  _doctorProfileControllers.update();
+                  _devicetokenController.DoctortokenApi();
+                  Get.to(DoctorHomePage());
+                  break;
+                case 'driver':
+                  _driverprofile.driverProfileDetailApi();
+                  _driverprofile.update();
+                  _devicetokenController.DrivertokenApi();
+                  Get.to(DriverHomePage());
+                  break;
+                case 'nurse':
+                  _nurseprofileContrller.nurseprofileApi();
+                  _nurseprofileContrller.update();
+                  _devicetokenController.NursetokenApi();
+                  _nursdeUploadReportController.getnursepatientssApi();
+                  _nursdeUploadReportController.update();
+                  Get.to(NurseHomePage());
+                  break;
+                case 'RWA':
+                  Get.to(RwaHomePage());
+                  break;
+                case 'chemist':
+                  await _chemistProfileDetailController
+                      .chemistProfileDetailsApi();
+                  _chemistProfileDetailController.update();
+                  await _chemistBannerController.chemistBannerApi();
+                  _chemistBannerController.update();
+                  await Future.delayed(Duration(milliseconds: 900));
+                  Get.to(ChemistHomePage());
+                  break;
+                default:
+                  break;
+              }
             }
+          } catch (e) {
+            // Handle exceptions here
+            print('Exception occurred: $e');
           }
         },
       );
     });
   }
 
-  animationInitilization() {
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4));
-    animation = CurvedAnimation(parent: animationController, curve: Curves.ease)
-        .obs
-        .value;
-    animation.addListener(() => update());
-    animationController.forward();
-  }
-
   @override
   void dispose() {
-    SplashScreenViewModel();
-    animationInitilization();
-
     super.dispose();
   }
 }

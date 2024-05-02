@@ -457,7 +457,7 @@ class Nursebooking1Credentials extends StatelessWidget {
             //shifting...........
 
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
 
             ///nurse shift type...
@@ -472,7 +472,7 @@ class Nursebooking1Credentials extends StatelessWidget {
             ),
 
             Container(
-              height: size.height * 0.11,
+              height: size.height * 0.12,
               width: double.infinity,
               margin: EdgeInsets.symmetric(vertical: 25 / 2),
               decoration: BoxDecoration(

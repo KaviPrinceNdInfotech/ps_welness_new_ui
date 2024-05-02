@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+//import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +17,7 @@ import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.
 //import 'package:ps_welness_new_ui/modules_view/invoice_views/page/pdf_page_doctor.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 ///import 'package:velocity_x/velocity_x.dart';
@@ -490,7 +491,7 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                     children: [
                                                       SizedBox(
                                                         height:
-                                                            size.height * 0.22,
+                                                            size.height * 0.23,
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -509,8 +510,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -523,8 +524,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -537,8 +538,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -551,8 +552,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -565,8 +566,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -579,22 +580,28 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              'Location:',
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                color: MyTheme
-                                                                    .containercolor01,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.03,
+                                                              child: Text(
+                                                                'Location:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .containercolor01,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.016,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -604,7 +611,7 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                         height:
                                                             size.height * 0.22,
                                                         width:
-                                                            size.width * 0.45,
+                                                            size.width * 0.60,
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -622,15 +629,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                               // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].doctorName.toString()
                                                               //'Dr.Vineet Mishra',
                                                               ,
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.016,
+                                                              ),
                                                             ),
                                                             Text(
                                                               _doctorHistoryController
@@ -640,15 +649,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                   .specialistName
                                                                   .toString(),
                                                               //'22:37',
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.016,
+                                                              ),
                                                             ),
                                                             SizedBox(
                                                               //height:
@@ -672,15 +683,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       1.0,
 
                                                                   // 'Nov 16,22 - Nov 20,22',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.039),
+                                                                  style: GoogleFonts
+                                                                      .raleway(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.016,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -690,7 +703,7 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       0.02,
                                                               width:
                                                                   size.width *
-                                                                      0.41,
+                                                                      0.345,
                                                               child: Center(
                                                                 child: Text(
                                                                   overflow:
@@ -707,15 +720,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       1.0,
 
                                                                   // 'Nov 16,22 - Nov 20,22',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.039),
+                                                                  style: GoogleFonts
+                                                                      .raleway(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.016,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -742,49 +757,61 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       1.0,
 
                                                                   // 'Nov 16,22 - Nov 20,22',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.039),
+                                                                  style: GoogleFonts
+                                                                      .raleway(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.016,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                             Text(
                                                               "₹ ${_doctorHistoryController.getdoctorhospitalmodele!.appointment![index].totalFee.toString()},",
                                                               //'Rs.500',
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.016,
+                                                              ),
                                                             ),
-                                                            Text(
-                                                              _doctorHistoryController
-                                                                  .getdoctorhospitalmodele!
-                                                                  .appointment![
-                                                                      index]
-                                                                  .location
-                                                                  .toString(),
-                                                              // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].clinicAddress.toString(),
-                                                              // 'B6 new ashok nagar delhi 110096',
-                                                              style: GoogleFonts.raleway(
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.03,
+                                                              child: Text(
+                                                                _doctorHistoryController
+                                                                    .getdoctorhospitalmodele!
+                                                                    .appointment![
+                                                                        index]
+                                                                    .location
+                                                                    .toString(),
+                                                                // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].clinicAddress.toString(),
+                                                                // 'B6 new ashok nagar delhi 110096',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .raleway(
                                                                   color: Colors
                                                                       .black,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.013,
+                                                                ),
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -1334,8 +1361,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -1348,8 +1375,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -1362,8 +1389,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -1376,8 +1403,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -1390,8 +1417,8 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
                                                             Text(
@@ -1404,22 +1431,28 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                                    size.height *
+                                                                        0.016,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              'Location:',
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                color: MyTheme
-                                                                    .containercolor01,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.039,
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.03,
+                                                              child: Text(
+                                                                'Location:',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .poppins(
+                                                                  color: MyTheme
+                                                                      .containercolor01,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.016,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -1429,7 +1462,7 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                         height:
                                                             size.height * 0.22,
                                                         width:
-                                                            size.width * 0.45,
+                                                            size.width * 0.60,
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -1446,15 +1479,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                               // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].doctorName.toString()
                                                               //'Dr.Vineet Mishra',
                                                               //  ,
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.016,
+                                                              ),
                                                             ),
                                                             Text(
                                                               overflow:
@@ -1470,22 +1505,24 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                               textScaleFactor:
                                                                   1.0,
                                                               //'22:37',
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.016,
+                                                              ),
                                                             ),
                                                             SizedBox(
                                                               //height:
                                                               //size.height * 0.014,
                                                               width:
                                                                   size.width *
-                                                                      0.24,
+                                                                      0.44,
                                                               child: Center(
                                                                 child: Text(
                                                                   overflow:
@@ -1502,15 +1539,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       1.0,
 
                                                                   // 'Nov 16,22 - Nov 20,22',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.039),
+                                                                  style: GoogleFonts
+                                                                      .raleway(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.016,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -1538,15 +1577,17 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       1.0,
 
                                                                   // 'Nov 16,22 - Nov 20,22',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.039),
+                                                                  style: GoogleFonts
+                                                                      .raleway(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.016,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -1573,49 +1614,61 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
                                                                       1.0,
 
                                                                   // 'Nov 16,22 - Nov 20,22',
-                                                                  style: GoogleFonts.raleway(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          size.width *
-                                                                              0.039),
+                                                                  style: GoogleFonts
+                                                                      .raleway(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.016,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                             Text(
                                                               "₹ ${_doctorHistoryController.getonlinedr!.appointment2![index].totalFee.toString()},",
                                                               //'Rs.500',
-                                                              style: GoogleFonts.raleway(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.016,
+                                                              ),
                                                             ),
-                                                            Text(
-                                                              _doctorHistoryController
-                                                                  .getonlinedr!
-                                                                  .appointment2![
-                                                                      index]
-                                                                  .location
-                                                                  .toString(),
-                                                              // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].clinicAddress.toString(),
-                                                              // 'B6 new ashok nagar delhi 110096',
-                                                              style: GoogleFonts.raleway(
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.03,
+                                                              child: Text(
+                                                                _doctorHistoryController
+                                                                    .getonlinedr!
+                                                                    .appointment2![
+                                                                        index]
+                                                                    .location
+                                                                    .toString(),
+                                                                // _doctorHistoryController.getdoctorhospitalmodele!.appointment[index].clinicAddress.toString(),
+                                                                // 'B6 new ashok nagar delhi 110096',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .raleway(
                                                                   color: Colors
                                                                       .black,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.039),
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.013,
+                                                                ),
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -1977,13 +2030,31 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
 
                                                           ///todo: call button....
                                                           ElevatedButton.icon(
-                                                              onPressed: () {
-                                                                _callNumber(_doctorHistoryController
+                                                              onPressed:
+                                                                  () async {
+                                                                String telephoneNumber = _doctorHistoryController
                                                                     .getonlinedr!
                                                                     .appointment2![
                                                                         index]
                                                                     .mobileNumber
-                                                                    .toString());
+                                                                    .toString();
+                                                                String
+                                                                    telephoneUrl =
+                                                                    "tel:$telephoneNumber";
+                                                                if (await canLaunch(
+                                                                    telephoneUrl)) {
+                                                                  await launch(
+                                                                      telephoneUrl);
+                                                                } else {
+                                                                  throw "Error occured trying to call that number.";
+                                                                }
+
+                                                                // _callNumber(_doctorHistoryController
+                                                                //     .getonlinedr!
+                                                                //     .appointment2![
+                                                                //         index]
+                                                                //     .mobileNumber
+                                                                //     .toString());
                                                               },
                                                               style: ButtonStyle(
                                                                   backgroundColor:
@@ -2043,6 +2114,6 @@ class _DoctorHistoryUserState extends State<DoctorHistoryUser> {
     String number = phoneNumber;
     //String number = "34342222";
 
-    await FlutterPhoneDirectCaller.callNumber(number);
+    //await FlutterPhoneDirectCaller.callNumber(number);
   }
 }

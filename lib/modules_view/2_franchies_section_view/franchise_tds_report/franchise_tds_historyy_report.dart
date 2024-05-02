@@ -376,7 +376,7 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Uniq Id:',
+                                                  'Unique Id:',
                                                   style: GoogleFonts.poppins(
                                                     color: MyTheme.blueww,
                                                     fontWeight: FontWeight.w600,
@@ -384,13 +384,18 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                                         size.width * 0.035,
                                                   ),
                                                 ),
-                                                Text(
-                                                  'Location:',
-                                                  style: GoogleFonts.poppins(
-                                                    color: MyTheme.blueww,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize:
-                                                        size.width * 0.035,
+                                                SizedBox(
+                                                  width: size.width * 0.32,
+                                                  height: size.height * 0.028,
+                                                  child: Text(
+                                                    'Location:',
+                                                    style: GoogleFonts.poppins(
+                                                      color: MyTheme.blueww,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize:
+                                                          size.width * 0.035,
+                                                    ),
                                                   ),
                                                 ),
                                                 // Text(
@@ -413,7 +418,7 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                                 //   ),
                                                 // ),
                                                 Text(
-                                                  'Tds :',
+                                                  'Tds Amt:',
                                                   style: GoogleFonts.poppins(
                                                     color: MyTheme.blueww,
                                                     fontWeight: FontWeight.w600,
@@ -422,7 +427,7 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Pay amount :',
+                                                  'Payable amount :',
                                                   style: GoogleFonts.poppins(
                                                     color: MyTheme.blueww,
                                                     fontWeight: FontWeight.w600,
@@ -444,7 +449,7 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                               children: [
                                                 Text(
                                                   '${item?[index].name}',
-                                                  style: GoogleFonts.raleway(
+                                                  style: GoogleFonts.roboto(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w700,
@@ -453,7 +458,7 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                                 ),
                                                 Text(
                                                   '₹ ${item?[index].paidFees}',
-                                                  style: GoogleFonts.raleway(
+                                                  style: GoogleFonts.roboto(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w700,
@@ -462,21 +467,35 @@ class FranchiseTdsHistoryReport extends StatelessWidget {
                                                 ),
                                                 Text(
                                                   '${item?[index].uniqueId}',
-                                                  style: GoogleFonts.raleway(
+                                                  style: GoogleFonts.roboto(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       fontSize:
                                                           size.width * 0.035),
                                                 ),
-                                                Text(
-                                                  '${item?[index].location}',
-                                                  style: GoogleFonts.raleway(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize:
-                                                          size.width * 0.035),
+                                                SizedBox(
+                                                  width: size.width * 0.58,
+                                                  height: size.height * 0.027,
+                                                  child: Center(
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        '${item?[index].location}',
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
 
                                                 ///

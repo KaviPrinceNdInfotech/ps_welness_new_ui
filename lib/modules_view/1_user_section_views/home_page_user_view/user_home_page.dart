@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
@@ -58,6 +59,8 @@ DriverAcceptlistController _driverAcceptlistController =
 
 Doctor_appointment_1_Controller _doctor_appointment_1_controller =
     Get.put(Doctor_appointment_1_Controller());
+
+ChooseLabController _chooseLabController = Get.put(ChooseLabController());
 
 RxBool isLoading = true.obs;
 
@@ -1400,16 +1403,25 @@ class _UserHomePageState extends State<UserHomePage> {
                                         // Get.to(() => ComplainList());
                                         //Get.to(() => Profoile());
                                       } else if (index == 3) {
+                                        _chooseLabController.getTestNameApi();
+                                        _chooseLabController.getStateLabApi();
+                                        _chooseLabController.update();
+                                        _chooseLabController
+                                            .selectedState.value = null;
+                                        _chooseLabController
+                                            .selectedCity.value = null;
+                                        _chooseLabController
+                                            .selectedTest.value = null;
                                         CallLoader.loader();
                                         await Future.delayed(
-                                            Duration(seconds: 1));
+                                            Duration(seconds: 2));
                                         CallLoader.hideLoader();
-                                        Get.offAll(() => ChooseLab());
+
+                                        await Get.to(() => ChooseLab());
                                         //Get.to(() => ReportList());
 
                                         ///
                                         //Get.to(() => TheJwelleryStore());
-
                                         //Get.to(() => CarouselDReportList());
                                         //HealthCheckup1());
                                         //Get.defaultDialog(

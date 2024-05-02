@@ -11,7 +11,7 @@ class AccountCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 50),
+      padding: EdgeInsets.symmetric(horizontal: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -31,7 +31,7 @@ class AccountCheck extends StatelessWidget {
             child: Text(
               login ? "Sign Up" : "Sign In",
               style: GoogleFonts.aBeeZee(
-                  color: Colors.grey.shade800,
+                  color: Colors.red.shade700,
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),

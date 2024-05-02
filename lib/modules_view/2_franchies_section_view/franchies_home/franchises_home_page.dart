@@ -564,6 +564,7 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 10) {
                                         Get.to(() => FrRegistrationDetails());
                                       } else if (index == 11) {
+                                        //Get.back();
                                         Get.defaultDialog(
                                             backgroundColor:
                                                 MyTheme.ThemeColors,

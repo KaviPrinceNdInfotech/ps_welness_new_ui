@@ -55,8 +55,8 @@ class DevicetokenController extends GetxController {
   }
 
   ///todo: this is doctor device token.....28..august..2023...
-  void DoctortokenApi() async {
-    CallLoader.loader();
+  Future<void> DoctortokenApi() async {
+    // CallLoader.loader();
     http.Response r = await ApiProvider.DoctordevicetokenApi();
 
     if (r.statusCode == 200) {

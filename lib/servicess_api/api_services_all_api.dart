@@ -717,7 +717,8 @@ class ApiProvider {
         ///from here we have call devide id and token....
         // await Future.delayed(Duration(milliseconds: 100));
         ///todo: accept location permission....
-        await CallLoader.loader();
+        // await CallLoader.loader();
+
         await _getGeoLocationPosition();
 
         ///indirect___use of user ----api......28_august...2023
@@ -6374,41 +6375,43 @@ class ApiProvider {
     }
   }
 
+  ///todo: giving dilog for accept reject permission...
+
   //http://test.pswellness.in/api/LabApi/LabUpdateProfiledetail?Id=16
   static _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     await Future.delayed(Duration(milliseconds: 100));
-    await Get.dialog(
-      // bool barrierDismissible = true
-
-      AlertDialog(
-        title: const Text('Ps Wellness'),
-        content: const Text(
-            """When you grant permission for  location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
-        actions: [
-          TextButton(
-            child: const Text("Reject"),
-            onPressed: () => Get.back(),
-          ),
-          TextButton(
-            child: const Text("Accept"),
-            onPressed: () => Get.back(),
-          ),
-        ],
-      ),
+    await showDialog(
+      context: Get.context!,
       barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ps Wellness'),
+          content: const Text(
+              """When you grant permission for location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
+          actions: [
+            TextButton(
+              child: const Text("Reject"),
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text("Accept"),
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
     );
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // return Future.value('');
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
       await Geolocator.openLocationSettings();
-
       return Future.error('Location services are disabled.');
     }
 
@@ -6421,7 +6424,6 @@ class ApiProvider {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }

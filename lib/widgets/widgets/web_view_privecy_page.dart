@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:url_launcher/url_launcher.dart';
+//import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebViewPswebsiteprivecy extends StatefulWidget {
   const WebViewPswebsiteprivecy({Key? key}) : super(key: key);
@@ -11,16 +12,18 @@ class WebViewPswebsiteprivecy extends StatefulWidget {
 
 class _WebViewPswebsiteprivecyState extends State<WebViewPswebsiteprivecy> {
   double _progress = 0;
-  late InAppWebViewController inAppWebViewController;
+  //late InAppWebViewController inAppWebViewController;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        var isLastPage = await inAppWebViewController.canGoBack();
-        if (isLastPage) {
-          inAppWebViewController.goBack();
-          return false;
-        }
+        Navigator.pop(context);
+
+        ///var isLastPage = await inAppWebViewController.canGoBack();
+        // if (isLastPage) {
+        //   inAppWebViewController.goBack();
+        //   return false;
+        // }
 
         return true;
       },
@@ -32,21 +35,26 @@ class _WebViewPswebsiteprivecyState extends State<WebViewPswebsiteprivecy> {
             backgroundColor: Colors.cyan,
             centerTitle: true,
           ),
-          body: Stack(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              InAppWebView(
-                initialUrlRequest: URLRequest(
-                    url: Uri.parse("http://pswellness.in/Home/PrivacyPolicy")),
-                onWebViewCreated: (InAppWebViewController controller) {
-                  inAppWebViewController = controller;
-                },
-                onProgressChanged:
-                    (InAppWebViewController controller, int progress) {
-                  setState(() {
-                    _progress = progress / 100;
-                  });
-                },
+              ElevatedButton(
+                onPressed: _launchURL2,
+                child: Text('Privecy Policy'),
               ),
+              // InAppWebView(
+              //   initialUrlRequest: URLRequest(
+              //       url: Uri.parse("http://pswellness.in/Home/PrivacyPolicy")),
+              //   onWebViewCreated: (InAppWebViewController controller) {
+              //     inAppWebViewController = controller;
+              //   },
+              //   onProgressChanged:
+              //       (InAppWebViewController controller, int progress) {
+              //     setState(() {
+              //       _progress = progress / 100;
+              //     });
+              //   },
+              // ),
               _progress < 1
                   ? Container(
                       child: LinearProgressIndicator(
@@ -59,5 +67,14 @@ class _WebViewPswebsiteprivecyState extends State<WebViewPswebsiteprivecy> {
         ),
       ),
     );
+  }
+}
+
+void _launchURL2() async {
+  const url = 'http://pswellness.in/Home/PrivacyPolicy';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

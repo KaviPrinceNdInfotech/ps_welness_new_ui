@@ -18,6 +18,7 @@ class PatientListController extends GetxController {
       isLoading(false);
       founlistpatientappointment.value = bookinghistory!.bookingHistory!;
     }
+    isLoading(false);
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_rating_review_controller/lab_view_ratting_review.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/constants/constants/constants.dart';
@@ -15,7 +16,6 @@ import '../../../../constants/constants/constants.dart';
 import '../../../../constants/my_theme.dart';
 import '../../../../controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import '../../../../utils/services/account_service.dart';
-import '../choose_lab/choose_lab.dart';
 import '../lab_booking_view/lab_booking_schedule.dart';
 
 class LabListPage extends StatelessWidget {
@@ -30,7 +30,7 @@ class LabListPage extends StatelessWidget {
     bool shouldPop = true;
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(ChooseLab());
+        Get.to(UserHomePage());
         return shouldPop;
       },
       child: Scaffold(
@@ -50,7 +50,7 @@ class LabListPage extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.offAll(ChooseLab());
+                                  Get.to(UserHomePage());
 
                                   // Get.back();
                                 },

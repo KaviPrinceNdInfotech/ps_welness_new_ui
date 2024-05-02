@@ -210,9 +210,9 @@ class FranchiseCommissionReportByRole extends StatelessWidget {
                                     image: const DecorationImage(
                                         image: NetworkImage(
                                             //
-                                            'https://images.unsplash.com/photo-1611242135294-4e4a503f0d4a?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEzfHx8ZW58MHx8fHx8'
+                                            // 'https://images.unsplash.com/photo-1611242135294-4e4a503f0d4a?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEzfHx8ZW58MHx8fHx8'
                                             // 'https://images.unsplash.com/photo-1528459105426-b9548367069b?q=80&w=2464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                                            // 'https://images.unsplash.com/photo-1557683311-eac922347aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1658&q=80'
+                                            'https://images.unsplash.com/photo-1557683311-eac922347aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1658&q=80'
                                             //
                                             ),
                                         fit: BoxFit.cover)),
@@ -292,7 +292,7 @@ class FranchiseCommissionReportByRole extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'TDS Amt :',
+                                              'Fr Paid Amt :',
                                               style: GoogleFonts.poppins(
                                                 color: MyTheme.blueww,
                                                 fontWeight: FontWeight.w600,
@@ -380,7 +380,7 @@ class FranchiseCommissionReportByRole extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '₹ ${item?[index].tdsamt}',
+                                              '₹ ${item?[index].fraPaidableamt}',
                                               style: GoogleFonts.raleway(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w700,

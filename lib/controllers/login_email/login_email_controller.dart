@@ -297,6 +297,16 @@ class LoginpasswordController extends GetxController {
 
   var Id = '';
   RxBool isLoading = true.obs;
+  // bool termsAccepted = true;
+
+  // var isAccepted = false.obs;
+  var isChecked = false.obs;
+
+  void toggleCheckbox(bool? value) {
+    if (value != null) {
+      isChecked.value = value;
+    }
+  }
 
   void emailApi() async {
     //isLoading(true);

@@ -549,6 +549,40 @@ class ApiProvider {
     }
   }
 
+  ///todo: Delete user from dr appointmrnt ......30 april  2024....
+  static userAcceptdrApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrIds = preferences.getString("DrIds");
+    print("userrrlistssId111211: ${DrIds}");
+
+    var url = '${baseUrl}api/DoctorApi/AcceptBooking';
+
+    var body = {"Id": "$DrIds"};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    print("draptbodywqdwrrwewewe12:${r.body}");
+
+    if (r.statusCode == 200) {
+      Get.snackbar("Sucess", " Booking Accepted ");
+      print("draptdddd:${url}");
+      print("draptbodywqdwrrwewewe:${r.body}");
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
   ///Todo: from here doctor 9 section...9 june 2023..............
   ///
   //sign up  Api doctor Api 1........................................................
@@ -3489,7 +3523,7 @@ class ApiProvider {
     } else {}
   }
 
-  ///todo Frenchies Delete NurseDetailApi ........... Rahul
+  ///todo Frenchies Delete NurseDetailApi ...........
   static FrenchiesDeleteNurseDetailApi(id) async {
     var url = '${baseUrl}api/FranchisesApi/Fra_DeleteNurseRegDetail?Id=$id';
     http.Response r = await http.post(Uri.parse(url));
@@ -3498,7 +3532,7 @@ class ApiProvider {
     } else {}
   }
 
-  ///todo FrenchiesDeleteLabDetailApi .....Rahul
+  ///todo FrenchiesDeleteLabDetailApi .....
   static FrenchiesDeleteLabDetailApi(id) async {
     var url = '${baseUrl}api/FranchisesApi/Fra_DeleteLabRegDetail?Id=$id';
     http.Response r = await http.post(Uri.parse(url));
@@ -3507,7 +3541,7 @@ class ApiProvider {
     } else {}
   }
 
-  /// todo  FrenchiesRWADetailApi ........Rahul
+  /// todo  FrenchiesRWADetailApi ........
   static FrenchiesRWADetailApi() async {
     var url = '${baseUrl}api/FranchisesApi/Fra_RWARegistrationDetail';
     try {
@@ -3530,9 +3564,12 @@ class ApiProvider {
     } else {}
   }
 
-  /// todo Frenchies Payment Report Api ........Rahul
+  /// todo Frenchies Payment Report Api .......prince...
   static FrenchiesPaymentReportApi(String p) async {
-    var url = '${baseUrl}api/FranchisesApi/PaymentHistories_ByRole?Role=$p';
+    Id = prefs.read("Id").toString();
+
+    var url =
+        '${baseUrl}api/FranchisesApi/PaymentHistories_ByRole?Role=$p&VendorId=$Id';
     print("FrenchiesPaymentReportUrl:${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -4162,11 +4199,14 @@ class ApiProvider {
 
   /// todo Frenchies YMWDDoctorReportApi
   static FrenchiesYMWDDoctorReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetDoctorReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetDoctorReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurldd${url}");
         final frenchiesYmdwDoctorModel =
             frenchiesYmdwDoctorModelFromJson(r.body);
         return frenchiesYmdwDoctorModel;
@@ -4176,11 +4216,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDVehicleReportApi
   static FrenchiesYMWDVehicleReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetVehicleReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetVehicleReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurlvehicle${url}");
+
         final frenchiesYmdwVehicleModel =
             frenchiesYmdwVehicleModelFromJson(r.body);
         return frenchiesYmdwVehicleModel;
@@ -4192,11 +4236,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDLabReportApi
   static FrenchiesYMWDLabReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetLabReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetLabReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurllab${url}");
+
         final frenchiesYmdwLabModel = frenchiesYmdwLabModelFromJson(r.body);
         return frenchiesYmdwLabModel;
       }
@@ -4205,11 +4253,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDNurseReportApi
   static FrenchiesYMWDNurseReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetNurseReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetNurseReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurnrs${url}");
+
         final frenchiesYmdwNurseModel = frenchiesYmdwNurseModelFromJson(r.body);
         return frenchiesYmdwNurseModel;
       }
@@ -4218,11 +4270,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDChemistReportApi
   static FrenchiesYMWDChemistReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetChemistReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetChemistReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurlchem${url}");
+
         final frenchiesYmdwChemistModel =
             frenchiesYmdwChemistModelFromJson(r.body);
         return frenchiesYmdwChemistModel;
@@ -4230,7 +4286,7 @@ class ApiProvider {
     } catch (error) {}
   }
 
-  /// todo Add Vehicle type Post Api...........Rahul
+  /// todo Add Vehicle type Post Api........
   static FrenchiesVehicleType(var CategoryId, var VehicleTypeId) async {
     var prefs = GetStorage();
     Id = prefs.read("Id").toString();
@@ -4283,7 +4339,7 @@ class ApiProvider {
     }
   }
 
-  ///todo Frenchies Get Old Driver Update ..............Rahul
+  ///todo Frenchies Get Old Driver Update ...........
   static FrenchiesOldDriverUpdateApi(id, var vehicleNo, var driverName) async {
     var url = '${baseUrl}api/FranchisesApi/UpdateOldDriver';
     final body = {
@@ -4298,7 +4354,7 @@ class ApiProvider {
     }
   }
 
-  ///todo Frenchies Get New Driver Update ..............Rahul
+  ///todo Frenchies Get New Driver Update .............
   static FrenchiesNewDriverUpdateApi(var driverName, id) async {
     var url = '${baseUrl}api/FranchisesApi/UpdateNewDriver';
     final body = {"DriverName": "$driverName", "Id": "$id"};
@@ -4757,7 +4813,7 @@ class ApiProvider {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         final frenchiesCommissionReportModelrole =
-            frenchieCommisionReportModelFromJson(r.body);
+            frenchieCommisionReportModelbyRoleFromJson(r.body);
         return frenchiesCommissionReportModelrole;
       }
     } catch (error) {

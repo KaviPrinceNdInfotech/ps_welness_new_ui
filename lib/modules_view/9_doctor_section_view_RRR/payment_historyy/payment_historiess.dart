@@ -28,7 +28,7 @@ class PaymentHistory extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        Get.back();
+        Get.to(DoctorHomePage());
         return shouldPop;
       },
       child: Scaffold(

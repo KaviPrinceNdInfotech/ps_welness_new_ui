@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+//import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +18,7 @@ import 'package:ps_welness_new_ui/notificationservice/local_notification_service
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
 import 'package:ps_welness_new_ui/utils/services/account_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 
@@ -496,6 +497,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                   //   "myyyyynurse22${item?[index]?.id}"
                                                                   //       .toString(),
                                                                   // });
+
                                                                   Get.dialog(
                                                                     Column(
                                                                       mainAxisAlignment:
@@ -585,41 +587,12 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                               //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
 
                                                                                               prefs.setString("doctorrejectlistid", "${_doctorHomepageController.founddoctoraptProducts?[index].id}");
-                                                                                              // SharedPreferences
-                                                                                              // prefs =
-                                                                                              // await SharedPreferences
-                                                                                              //     .getInstance();
-                                                                                              // prefs.setString(
-                                                                                              //     "driverlistssId",
-                                                                                              //     "${widget.driverlist?.message?[index].driverId.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "lng1",
-                                                                                              //     "${widget.driverlist?.startLong.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "lat1",
-                                                                                              //     "${widget.driverlist?.startLat.toString()}");
-                                                                                              //
-                                                                                              // prefs.setString(
-                                                                                              //     "lng2",
-                                                                                              //     "${widget.driverlist?.endLong.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "lat2",
-                                                                                              //     "${widget.driverlist?.endLat.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "ambulance1",
-                                                                                              //     "${widget.driverlist?.ambulanceTypeId.toString()}");
-                                                                                              // prefs.setString(
-                                                                                              //     "vehicle1",
-                                                                                              //     "${widget.driverlist?.vehicleTypeId.toString()}");
-
-                                                                                              // _ambulancegetController
-                                                                                              // .postAmbulancerequestApi2();
 
                                                                                               _doctorHomepageController.doctorAppoinmentDetail();
                                                                                               _doctorHomepageController.update();
 
-                                                                                              ///delete api of user section......
-                                                                                              _doctorHomepageController.deleteuserdrsaptApi();
+                                                                                              ///accept user api of user section......30 apr 2024...
+                                                                                              _doctorHomepageController.AcceptuserbookingApi();
 
                                                                                               ///.......
                                                                                               ///todo: delete liost.....call accept booking api...not true for doctor..for post
@@ -675,8 +648,9 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                                     print(error);
                                                                                                   }
                                                                                                 });
-                                                                                                CallLoader.loader();
+                                                                                                // CallLoader.loader();
                                                                                                 await Future.delayed(Duration(seconds: 1));
+                                                                                                //Navigator.pop(context);
                                                                                                 await accountService.getAccountData.then((accountData) {
                                                                                                   Timer(
                                                                                                     const Duration(seconds: 0),
@@ -687,6 +661,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                                     },
                                                                                                   );
                                                                                                 });
+                                                                                                Get.back();
                                                                                               });
 
                                                                                               ///..1..
@@ -969,7 +944,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                                     print(error);
                                                                                                   }
                                                                                                 });
-                                                                                                CallLoader.loader();
+                                                                                                // CallLoader.loader();
                                                                                                 await Future.delayed(Duration(seconds: 1));
                                                                                                 await accountService.getAccountData.then((accountData) {
                                                                                                   Timer(
@@ -1177,7 +1152,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                 child: Material(
                                                   elevation: 5,
                                                   child: Container(
-                                                    height: size.height * 0.20,
+                                                    height: size.height * 0.25,
                                                     decoration: BoxDecoration(
                                                       color: MyTheme.white,
                                                     ),
@@ -1197,10 +1172,10 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                             child: Container(
                                                               width:
                                                                   size.width *
-                                                                      0.27,
+                                                                      0.29,
                                                               height:
                                                                   size.height *
-                                                                      0.16,
+                                                                      0.20,
                                                               decoration:
                                                                   BoxDecoration(
                                                                       color: Colors
@@ -1222,7 +1197,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                         ),
                                                         SizedBox(
                                                           width:
-                                                              size.width * 0.37,
+                                                              size.width * 0.35,
                                                           child: Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
@@ -1451,7 +1426,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                               _doctorHomepageController.update();
                                                                                               // await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
                                                                                               // Get.back();
-                                                                                              CallLoader.loader();
+                                                                                              //CallLoader.loader();
                                                                                               await Future.delayed(Duration(seconds: 1));
                                                                                               CallLoader.hideLoader();
                                                                                               await Get.to(PrescriptionsDoctor());
@@ -1532,6 +1507,307 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                       ),
                                                                     ),
                                                                   ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          size.width *
+                                                                              0.01),
+                                                              child:
+                                                                  ElevatedButton(
+                                                                onPressed:
+                                                                    () async {
+                                                                  SharedPreferences
+                                                                      prefs =
+                                                                      await SharedPreferences
+                                                                          .getInstance();
+                                                                  prefs
+                                                                      .setString(
+                                                                    "DrIds",
+                                                                    "${_doctorHomepageController.founddoctoraptProducts2?[index].id}"
+                                                                        .toString(),
+                                                                    // "${_nurseHistoryController.foundNurse[index].id.toString()}"
+                                                                  );
+
+                                                                  print({
+                                                                    "mydr${_doctorHomepageController.founddoctoraptProducts2?[index].id}"
+                                                                        .toString(),
+                                                                  });
+
+                                                                  // prefs.setString(
+                                                                  //   "NurseesspartId",
+                                                                  //   "${item?[index]?.id}"
+                                                                  //       .toString(),
+                                                                  //   // "${_nurseHistoryController.foundNurse[index].id.toString()}"
+                                                                  // );
+                                                                  // print({
+                                                                  //   "myyyyynurse22${item?[index]?.id}"
+                                                                  //       .toString(),
+                                                                  // });
+                                                                  Get.dialog(
+                                                                    Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.symmetric(horizontal: 40),
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                const BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: BorderRadius.all(
+                                                                                Radius.circular(20),
+                                                                              ),
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(20.0),
+                                                                              child: Material(
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    const SizedBox(height: 10),
+                                                                                    Text(
+                                                                                      "Accept Appointment ?",
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 16,
+                                                                                        color: Colors.cyan.shade700,
+                                                                                        fontWeight: FontWeight.w800,
+                                                                                      ),
+                                                                                    ),
+                                                                                    const SizedBox(height: 15),
+                                                                                    const Text(
+                                                                                      "Your Patient will come on schedule time on Call,"
+                                                                                      "you have to available on scheduled time.",
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                    const SizedBox(height: 20),
+                                                                                    //Buttons
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        Expanded(
+                                                                                          child: ElevatedButton(
+                                                                                            style: ElevatedButton.styleFrom(
+                                                                                              minimumSize: const Size(0, 45),
+                                                                                              primary: Colors.red,
+                                                                                              onPrimary: const Color(0xFFFFFFFF),
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                              ),
+                                                                                            ),
+                                                                                            onPressed: () {
+                                                                                              Get.back();
+                                                                                            },
+                                                                                            child: const Text(
+                                                                                              'NO',
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        const SizedBox(width: 10),
+                                                                                        Expanded(
+                                                                                          child: ElevatedButton(
+                                                                                            child: const Text(
+                                                                                              'Yes',
+                                                                                              style: TextStyle(
+                                                                                                fontSize: 20,
+                                                                                              ),
+                                                                                            ),
+                                                                                            style: ElevatedButton.styleFrom(
+                                                                                              minimumSize: const Size(0, 45),
+                                                                                              primary: Colors.green.shade800,
+                                                                                              onPrimary: const Color(0xFFFFFFFF),
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                              ),
+                                                                                            ),
+                                                                                            onPressed: () async {
+                                                                                              ///...1
+                                                                                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                              prefs.setString("doctorrjctDeviceid", "${_doctorHomepageController.founddoctoraptProducts2?[index].deviceId}");
+                                                                                              //  "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
+
+                                                                                              prefs.setString("doctorrejectlistid", "${_doctorHomepageController.founddoctoraptProducts2?[index].id}");
+                                                                                              // SharedPreferences
+                                                                                              // prefs =
+                                                                                              // await SharedPreferences
+                                                                                              //     .getInstance();
+                                                                                              // prefs.setString(
+                                                                                              //     "driverlistssId",
+                                                                                              //     "${widget.driverlist?.message?[index].driverId.toString()}");
+                                                                                              // prefs.setString(
+                                                                                              //     "lng1",
+                                                                                              //     "${widget.driverlist?.startLong.toString()}");
+                                                                                              // prefs.setString(
+                                                                                              //     "lat1",
+                                                                                              //     "${widget.driverlist?.startLat.toString()}");
+                                                                                              //
+                                                                                              // prefs.setString(
+                                                                                              //     "lng2",
+                                                                                              //     "${widget.driverlist?.endLong.toString()}");
+                                                                                              // prefs.setString(
+                                                                                              //     "lat2",
+                                                                                              //     "${widget.driverlist?.endLat.toString()}");
+                                                                                              // prefs.setString(
+                                                                                              //     "ambulance1",
+                                                                                              //     "${widget.driverlist?.ambulanceTypeId.toString()}");
+                                                                                              // prefs.setString(
+                                                                                              //     "vehicle1",
+                                                                                              //     "${widget.driverlist?.vehicleTypeId.toString()}");
+
+                                                                                              // _ambulancegetController
+                                                                                              // .postAmbulancerequestApi2();
+
+                                                                                              ///accept user api of user section......30 apr 2024...
+                                                                                              await _doctorHomepageController.AcceptuserbookingApi();
+
+                                                                                              await _doctorDoneController.doctordoneaptApi();
+                                                                                              await _doctorHomepageController.doctorAppoinmentOnline();
+                                                                                              _doctorHomepageController.update();
+                                                                                              // await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
+                                                                                              // Get.back();
+                                                                                              //  CallLoader.loader();
+                                                                                              await Future.delayed(Duration(seconds: 1));
+                                                                                              CallLoader.hideLoader();
+
+                                                                                              ///.......
+                                                                                              ///todo: delete liost.....call accept booking api...not true for doctor..for post
+                                                                                              /// _useracptrejectController.acceptbookingdriverApi();
+                                                                                              ///todo: this is api call delete list of api.....
+                                                                                              print('princee notification');
+                                                                                              notificationServices.getDeviceToken().then((value) async {
+                                                                                                var data = {
+                                                                                                  ///not same controller
+                                                                                                  //this the particular device id.....
+                                                                                                  'to':
+                                                                                                      //"df_xO9RNRvicZkE9JxMPV7:APA91bFkZmPaBORZLPUSLNAxN3xDWVbZe60YHzqwAet8GvAh2AqhMRRci0Ia5bYYJHiaU9KGep8uhfnADGl4xDKDnzefJu4nZt5_w9JeMwsTqJnO80osctPN1uvlFAN9hVVpplLZs_Ay",
+                                                                                                      //"fMPtWMb5QUebGlV5QqHGnk:APA91bG8u4GG0JBUhazLdS3QiVMxJ1MEpg_b-1NyVcJaznD3TDJ3q1YChOZtzHL_L_InZrIvawkTRWJQQJE8mmIQSaFzbq-0rMVvRQFd_QV2zB4-tYLXtMroycPZvxTTvjnl9Q5PvsJc",
+                                                                                                      "${_doctorHomepageController.founddoctoraptProducts2?[index].deviceId}",
+
+                                                                                                  //"${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}",
+
+                                                                                                  //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                                                  //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                                                  //.toString(),
+
+                                                                                                  ///this is same device token....
+                                                                                                  //value
+                                                                                                  //.toString(),
+                                                                                                  'notification': {
+                                                                                                    'title': 'Ps_Wellness Doctor',
+                                                                                                    'body': 'Your online Booking has been accept by doctor you can go for checkup',
+                                                                                                    //"sound": "jetsons_doorbell.mp3"
+                                                                                                  },
+                                                                                                  'android': {
+                                                                                                    'notification': {
+                                                                                                      'notification_count': 23,
+                                                                                                    },
+                                                                                                  },
+                                                                                                  // 'data': {
+                                                                                                  //   'type': 'cancel_case_doctor',
+                                                                                                  //   'id': '12345689'
+                                                                                                  // }
+                                                                                                };
+                                                                                                // print("dataccept:${data}");
+
+                                                                                                await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'), body: jsonEncode(data), headers: {
+                                                                                                  'Content-Type': 'application/json; charset=UTF-8',
+                                                                                                  'Authorization':
+                                                                                                      //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                                                      'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                                                }).then((value) {
+                                                                                                  if (kDebugMode) {
+                                                                                                    print("princedriver${value.body.toString()}");
+                                                                                                  }
+                                                                                                }).onError((error, stackTrace) {
+                                                                                                  if (kDebugMode) {
+                                                                                                    print(error);
+                                                                                                  }
+                                                                                                });
+                                                                                                // CallLoader.loader();
+                                                                                                await Future.delayed(Duration(seconds: 1));
+                                                                                                await accountService.getAccountData.then((accountData) {
+                                                                                                  Timer(
+                                                                                                    const Duration(seconds: 0),
+                                                                                                    () {
+                                                                                                      Get.offAll(DoctorHomePage());
+                                                                                                      //Get.to((page))
+                                                                                                      ///
+                                                                                                    },
+                                                                                                  );
+                                                                                                });
+                                                                                              });
+
+                                                                                              ///..1..
+                                                                                            },
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                child: Text(
+                                                                  'Accept',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        11,
+                                                                  ),
+                                                                ),
+                                                                style:
+                                                                    ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty.all(Colors
+                                                                          .green
+                                                                          .shade500),
+
+                                                                  shadowColor:
+                                                                      MaterialStateProperty.all(
+                                                                          Colors
+                                                                              .green),
+
+                                                                  elevation:
+                                                                      MaterialStateProperty
+                                                                          .all(
+                                                                              12),
+
+                                                                  minimumSize:
+                                                                      MaterialStateProperty.all(
+                                                                          const Size(
+                                                                              50,
+                                                                              30)),
+
+                                                                  // fixedSize:
+                                                                  //     MaterialStateProperty
+                                                                  //         .all(
+                                                                  //             const Size(
+                                                                  //                 70,
+                                                                  //                 20)),
+                                                                  shape:
+                                                                      MaterialStateProperty
+                                                                          .all(
+                                                                    RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              30),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -1664,10 +1940,17 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                               _doctorHomepageController.doctorAppoinmentOnline();
                                                                                               _doctorHomepageController.onInit();
 
-                                                                                              _doctorHomepageController.update();
-
                                                                                               ///delete api of user section......
-                                                                                              _doctorHomepageController.deleteuserdrsaptApi();
+                                                                                              await _doctorHomepageController.deleteuserdrsaptApi();
+
+                                                                                              await _doctorDoneController.doctordoneaptApi();
+                                                                                              await _doctorHomepageController.doctorAppoinmentOnline();
+                                                                                              _doctorHomepageController.update();
+                                                                                              // await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
+                                                                                              // Get.back();
+                                                                                              //CallLoader.loader();
+                                                                                              await Future.delayed(Duration(seconds: 1));
+                                                                                              CallLoader.hideLoader();
 
                                                                                               ///.......
                                                                                               ///todo: delete liost.....call accept booking api...not true for doctor..for post
@@ -1723,7 +2006,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                                     print(error);
                                                                                                   }
                                                                                                 });
-                                                                                                CallLoader.loader();
+                                                                                                // CallLoader.loader();
                                                                                                 await Future.delayed(Duration(seconds: 1));
                                                                                                 await accountService.getAccountData.then((accountData) {
                                                                                                   Timer(
@@ -1886,7 +2169,15 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                                                                               ),
                                                                                             ),
                                                                                             onPressed: () async {
-                                                                                              await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
+                                                                                              String telephoneNumber = "${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString();
+                                                                                              String telephoneUrl = "tel:$telephoneNumber";
+                                                                                              if (await canLaunch(telephoneUrl)) {
+                                                                                                await launch(telephoneUrl);
+                                                                                              } else {
+                                                                                                throw "Error occured trying to call that number.";
+                                                                                              }
+
+                                                                                              //await _callNumber("${_doctorHomepageController.founddoctoraptProducts2?[index].mobileNumber}".toString());
                                                                                               Get.back();
                                                                                             },
                                                                                             child: const Text(
@@ -2016,7 +2307,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
     String number = phoneNumber;
     //String number = "34342222";
 
-    await FlutterPhoneDirectCaller.callNumber(number);
+    // await FlutterPhoneDirectCaller.callNumber(number);
   }
 }
 //#00caf7
