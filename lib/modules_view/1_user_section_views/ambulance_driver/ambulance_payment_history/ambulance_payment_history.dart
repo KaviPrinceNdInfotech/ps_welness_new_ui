@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_user_payment_list_controller/driver_user_paymenthistory_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/invoice_views/invoice_ambulance/page_amblnce/amblnce_page_invoice.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../widgets/circular_loader.dart';
 
 class AmbulancePaymentHistory extends StatelessWidget {
   AmbulancePaymentHistory({Key? key}) : super(key: key);
@@ -253,7 +258,7 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                               SizedBox(
                                                                 width:
                                                                     size.width *
-                                                                        0.30,
+                                                                        0.35,
                                                                 child: Column(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -322,13 +327,21 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                                                 0.035,
                                                                       ),
                                                                     ),
+                                                                    SizedBox(
+                                                                      height: size
+                                                                              .height *
+                                                                          0.08,
+                                                                      width: size
+                                                                              .width *
+                                                                          0.2,
+                                                                    )
                                                                   ],
                                                                 ),
                                                               ),
                                                               SizedBox(
                                                                 width:
                                                                     size.width *
-                                                                        0.560,
+                                                                        0.540,
                                                                 child: Column(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -373,9 +386,9 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                                       height: size
                                                                               .height *
                                                                           0.02,
-                                                                      width: size
-                                                                              .width *
-                                                                          0.2,
+                                                                      // width: size
+                                                                      //         .width *
+                                                                      //     0.25,
                                                                       child:
                                                                           Text(
                                                                         "${_driverUserPaymentHistoryController.founduserpaymenthistorydriver[index].paymentDate ?? "00 / 00 / 0000"}",
@@ -387,9 +400,9 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                                       ),
                                                                     ),
                                                                     SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.2,
+                                                                      // width: size
+                                                                      //         .width *
+                                                                      //     0.2,
                                                                       height: size
                                                                               .height *
                                                                           0.02,
@@ -403,6 +416,107 @@ class AmbulancePaymentHistory extends StatelessWidget {
                                                                             fontWeight: FontWeight.w700,
                                                                             fontSize: size.width * 0.035),
                                                                       ),
+                                                                    ),
+
+                                                                    Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerRight,
+                                                                      child: SizedBox(
+                                                                          height: size.height * 0.08,
+                                                                          width: size.width * 0.17,
+                                                                          child: Material(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                            elevation:
+                                                                                4,
+                                                                            // surfaceTintColor: Colors.yellow,
+                                                                            color:
+                                                                                Colors.cyanAccent,
+                                                                            shadowColor:
+                                                                                Colors.white,
+                                                                            child:
+                                                                                InkWell(
+                                                                              onTap: () async {
+                                                                                //_driverUserPaymentHistoryController.founduserpaymenthistorydriver?
+                                                                                await _driverUserPaymentHistoryController.driveruserPaymentHistoryApi();
+                                                                                _driverUserPaymentHistoryController.update();
+                                                                                //_driverUserPaymentHistoryController.onInit();
+                                                                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                                await prefs.setString("dvrInvoiceNo", "${_driverUserPaymentHistoryController.founduserpaymenthistorydriver[index].invoiceNumber.toString()}");
+
+                                                                                ///todo: invoice 1 may 2024...
+                                                                                // CallLoader.loader();
+                                                                                CallLoader.loader();
+                                                                                await Future.delayed(Duration(milliseconds: 700));
+                                                                                CallLoader.hideLoader();
+                                                                                //Get.to(PdfPageLab(),
+                                                                                ///todo: ambulance pdf...
+                                                                                Get.to(() => PdfPageAmb(), //next page class
+                                                                                    /// Get.to(() => PdfPage(), //next page class
+                                                                                    duration: Duration(milliseconds: 300), //duration of transitions, default 1 sec
+                                                                                    transition:
+                                                                                        // Transition.leftToRight //transition effect
+                                                                                        // Transition.fadeIn
+                                                                                        //Transition.size
+                                                                                        Transition.zoom);
+                                                                                // Get.to(WebViewPswebsite());
+                                                                              },
+                                                                              child: Container(
+                                                                                height: size.height * 0.06,
+                                                                                width: size.width * 0.12,
+                                                                                decoration: BoxDecoration(
+                                                                                    color: Colors.cyanAccent,
+                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                    border: Border.all(color: Colors.red),
+                                                                                    image: DecorationImage(
+                                                                                      image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5UX-5262FvS9AkNpnPst9lZon1ZET11ncXw&usqp=CAU'),
+                                                                                      //fit: BoxFit.fitHeight,
+                                                                                    ),
+                                                                                    boxShadow: const [
+                                                                                      BoxShadow(
+                                                                                        color: Colors.red,
+                                                                                        offset: Offset(3, 3),
+                                                                                        blurRadius: 0,
+                                                                                        spreadRadius: 0,
+                                                                                      ),
+                                                                                      BoxShadow(
+                                                                                        color: Colors.red,
+                                                                                        //offset: Offset(-1, -1),
+                                                                                        blurRadius: 0,
+                                                                                        spreadRadius: 0,
+                                                                                      ),
+                                                                                    ]),
+                                                                                child: Lottie.network(
+                                                                                  'https://lottie.host/722ec229-c3eb-4698-8a89-6ae23fad93ea/svf4Yjk3eL.json',
+                                                                                  // 'https://lottie.host/8661be5e-217a-454f-ad46-ee845feaaf46/0A32qb5TKz.json',
+                                                                                  // 'https://assets1.lottiefiles.com/private_files/lf30_QLsD8M.json',
+                                                                                  //Lottie.asset(
+                                                                                  //'assets/anim/developer.json',
+                                                                                  height: 200.0,
+                                                                                  repeat: true,
+                                                                                  reverse: true,
+                                                                                  animate: true,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                          // Container(
+                                                                          //   height: size.height * 0.3,
+                                                                          //   width: size.width * 0.3,
+                                                                          //   decoration: BoxDecoration(
+                                                                          //     color: Colors.yellow.shade200,
+                                                                          //     shape: BoxShape.circle,
+                                                                          //     image: DecorationImage(
+                                                                          //       image: NetworkImage(
+                                                                          //           'https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+                                                                          //           //'https://images.unsplash.com/photo-1630094556251-2a1e50b60e7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjEyfHxtZWRpY2luZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'
+                                                                          //           ),
+                                                                          //       fit: BoxFit.cover,
+                                                                          //     ),
+                                                                          //   ),
+                                                                          // ),
+                                                                          ),
                                                                     ),
                                                                   ],
                                                                 ),

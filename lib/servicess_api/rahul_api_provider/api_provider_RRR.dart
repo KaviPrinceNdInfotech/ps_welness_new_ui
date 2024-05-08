@@ -110,7 +110,7 @@ var base64Code = "base64";
 var prefs = GetStorage();
 
 class ApiProvider {
-  static var baseUrl = 'http://pswellness.in/';
+  static var baseUrl = 'https://pswellness.in/';
 
   //'http://pswellness.in/';
   static String token = '';
@@ -1561,6 +1561,7 @@ class ApiProvider {
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okdvr:${url}");
         //DriverAppoinmentDetailModel driverAppoinmentDetail =
         //             driverAppoinmentDetailModelFromJson(r.body);
         AmbulanceUserPaymentHistory driveruserPaymentHistoryModel =

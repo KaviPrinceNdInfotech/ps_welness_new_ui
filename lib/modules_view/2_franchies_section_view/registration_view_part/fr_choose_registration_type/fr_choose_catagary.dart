@@ -284,6 +284,9 @@ class FrRegistrationCatagaryDetails extends StatelessWidget {
                                       //_frdriver_1_controller.onInit();
                                     } else if (index == 2) {
                                       CallLoader.loader();
+                                      await _frdoctor_1_controller
+                                          .weekoffIdApi();
+
                                       await Future.delayed(
                                           Duration(milliseconds: 800));
                                       CallLoader.hideLoader();

@@ -97,6 +97,7 @@ import '../model/9_prince_doctors_model/doctor_payment_history.dart';
 import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/lab_review_model/lab_view_review_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
+import '../modules_view/1_user_section_views/invoice_views/invoice_ambulance/model_ambulance/models_amblnce/ambulance_modelss.dart';
 import '../modules_view/1_user_section_views/invoice_views/invoice_doctor/model_dr/models_drr/doctorr_modelss.dart';
 import '../modules_view/1_user_section_views/invoice_views/invoice_medicine/model/models/medicine_modelss.dart';
 //import '../modules_view/1_user_section_views/invoice_views/model/models/medicine_modelss.dart';
@@ -111,7 +112,7 @@ NotificationServices notificationServices = NotificationServices();
 class ApiProvider {
   /// static var baseUrl = 'http://test.pswellness.in/';
 
-  static var baseUrl = 'http://pswellness.in/';
+  static var baseUrl = 'https://pswellness.in/';
 
   //http://pswellness.in/
   //static var baseUrl1 = 'https://api.gyros.farm/';
@@ -704,22 +705,24 @@ class ApiProvider {
             duration: (Duration(seconds: 3)));
         CallLoader.hideLoader();
       } else {
-        //await _getGeoLocationPosition();
+        await _getGeoLocationPosition();
         //CallLoader.hideLoader();
-        //await CallLoader.loader();
-
+        CallLoader.loader();
+        //CallLoader.loader();
+        await Future.delayed(Duration(seconds: 2));
         Get.snackbar('Sucess', '${json.decode(r.body)['Message']}',
             snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.green.shade400,
             colorText: Colors.white,
-            duration: (Duration(seconds: 2)));
+            duration: (Duration(seconds: 3)));
+        CallLoader.hideLoader();
 
         ///from here we have call devide id and token....
         // await Future.delayed(Duration(milliseconds: 100));
         ///todo: accept location permission....
-        // await CallLoader.loader();
+        // CallLoader.hideLoader();
 
-        await _getGeoLocationPosition();
+        //await _getGeoLocationPosition();
 
         ///indirect___use of user ----api......28_august...2023
         /// UserdevicetokenApi();
@@ -789,7 +792,7 @@ class ApiProvider {
         //   ///todo end post api from backend...
         // });
         ///
-        CallLoader.hideLoader();
+        ///CallLoader.hideLoader();
       }
 
       //saved id..........
@@ -3074,8 +3077,8 @@ class ApiProvider {
     }
   }
 
-  ///
-  ///lab test name Api get new 8 august ...........................
+  ///todo:.....
+  ///lab test name Api get new 8 august...............................
   static Future<List<LabTestName>?> getTestNameNewApi() async {
     var url = "${baseUrl}api/CommonApi/TestDropdown";
     try {
@@ -6636,6 +6639,55 @@ class ApiProvider {
         // print('mdsjjdgl:${invoiceget}');
         //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
         return invoicenrsinvoicelist;
+      }
+    } catch (error) {
+      print("bduegbfff: ${error}");
+      return;
+    }
+  }
+
+  ///pdf invoice nurse........
+
+  static invoiceAmblnceApi() async {
+    //MedicineInvoiceNo
+    var prefs = GetStorage();
+    var invoiceget = prefs.read("prince").toString();
+    print('mdsjjjjhdgl:${invoiceget}');
+
+    ///NrsInvoiceNo
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var dvrInvoiceNo = preferences.getString("dvrInvoiceNo");
+    print("dvrInvoiceNo: ${dvrInvoiceNo}");
+    //var url = baseUrl + 'api/Order/InvoiceV1/2023BNW8';
+    //http://pswellness.in/api/DriverApi/AmbulanceInvoice/{Invoice}?Invoice=Dvr_inv_1
+    var url =
+        '${baseUrl}api/DriverApi/AmbulanceInvoice/{Invoice}?Invoice=$dvrInvoiceNo';
+    //https://pswellness.in/api/DriverApi/AmbulanceInvoice/%7BInvoice%7D?Invoice=Dvr_inv_3
+    //http://pswellness.in/api/DriverApi/AmbulanceInvoice/{Invoice}?Invoice=Dvr_inv_1
+
+    ///https://pswellness.in/api/DriverApi/AmbulanceInvoice/?Invoice=Dvr_inv_1
+    ///https://pswellness.in/api/DriverApi/AmbulanceInvoice/%7BInvoice%7D?Invoice=Dvr_inv_3
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      print("MedicineInvoiceNowewe: $url");
+
+      if (r.statusCode == 200) {
+        //InvoiceAmbulanceUser invoiceAmbulanceUserFromJson
+        InvoiceAmbulanceUser invoiceamblnceinvoicelist =
+            invoiceAmbulanceUserFromJson(r.body);
+        print(
+            "invoicegetwdwdamb: ${invoiceamblnceinvoicelist.invoiceNumber.toString()}");
+
+        prefs.write('invoicegetamb',
+            invoiceamblnceinvoicelist.invoiceNumber.toString());
+        print(
+            "invoicegetsxsaamb: ${invoiceamblnceinvoicelist.invoiceNumber.toString()}");
+
+        // print('mdsjjdgl:${invoiceget}');
+        //  print("invoiceget: ${invoiceproductlist.result?.first.invoice}");
+        return invoiceamblnceinvoicelist;
       }
     } catch (error) {
       print("bduegbfff: ${error}");

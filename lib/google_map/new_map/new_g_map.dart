@@ -20,21 +20,17 @@ import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_us
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 
 import '../../controllers/map_controllers/map_controller.dart';
-//import 'package:ps_welness/controllers/map_controllers/map_controller.dart';
-//import 'package:ps_welness/google_map/new_map/secrets.dart';
 
 class MapView extends StatefulWidget {
+  late final bool allowManualEntry; // Define allowManualEntry parameter
+
+  MapView({Key? key, required this.allowManualEntry}) : super(key: key);
+
   @override
   _MapViewState createState() => _MapViewState();
 }
 
-var items = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-  'Item 5',
-];
+bool _isLoading = true; // Add a loading state
 
 class _MapViewState extends State<MapView> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
@@ -60,19 +56,24 @@ class _MapViewState extends State<MapView> {
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  //late GoogleMapController mapController = Get.put(GoogleMapController());
-
-  final MapController _mapControllers = Get.put(MapController());
-
   late GoogleMapController mapController;
-
-  //Get.lazyPut(() => GoogleMapController());
-  //late GoogleMapController mapController;
 
   late Position _currentPosition;
   String _currentAddress = '';
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final MapController _mapControllers = Get.put(MapController());
+
+  // final MapController _mapControllers = Get.put(MapController());
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getCurrentLocation();
+  }
+
+  // Widget for the text field
   Widget _textField({
     required TextEditingController controller,
     required FocusNode focusNode,
@@ -80,10 +81,11 @@ class _MapViewState extends State<MapView> {
     required String hint,
     required double width,
     required Icon prefixIcon,
-    Widget? suffixIcon,
     required Function(String) locationCallback,
+    required bool allowManualEntry,
+    bool showSuffixIcon =
+        true, // Add a parameter to control the visibility of suffix icon
   }) {
-    //Size size = MediaQuery.of(context).size;
     return Container(
       width: width * 0.8,
       child: TextField(
@@ -94,7 +96,22 @@ class _MapViewState extends State<MapView> {
         focusNode: focusNode,
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+          suffixIcon: showSuffixIcon
+              ? IconButton(
+                  icon: Icon(Icons.my_location),
+                  onPressed: () {
+                    _getCurrentLocation().then((_) {
+                      if (controller == startAddressController) {
+                        controller.text = _currentAddress;
+                        _startAddress = _currentAddress;
+                      } else {
+                        controller.text = _currentAddress;
+                        _destinationAddress = _currentAddress;
+                      }
+                    });
+                  },
+                )
+              : null, // Use null if suffix icon is not required
           labelText: label,
           filled: true,
           fillColor: Colors.white,
@@ -124,12 +141,17 @@ class _MapViewState extends State<MapView> {
   }
 
   // Method for retrieving the current location
+
   _getCurrentLocation() async {
+    setState(() {
+      _isLoading =
+          true; // Set loading state to true when starting location fetching
+    });
+
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         _currentPosition = position;
-
         print('CURRENT POS: $_currentPosition');
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(
@@ -139,10 +161,15 @@ class _MapViewState extends State<MapView> {
             ),
           ),
         );
+        _isLoading =
+            false; // Set loading state to false after fetching location
       });
       await _getAddress();
     }).catchError((e) {
       print(e);
+      setState(() {
+        _isLoading = false; // Set loading state to false in case of error
+      });
     });
   }
 
@@ -167,25 +194,16 @@ class _MapViewState extends State<MapView> {
 
   // Method for calculating the distance between two places
 
-  Future<bool> _calculateDistance() async {
+  Future<bool> _calculateDistance(
+      String startAddress, String destinationAddress) async {
     try {
       // Retrieving placemarks from addresses
-      List<Location> startPlacemark = await locationFromAddress(_startAddress);
+      List<Location> startPlacemark = await locationFromAddress(startAddress);
       List<Location> destinationPlacemark =
-          await locationFromAddress(_destinationAddress);
+          await locationFromAddress(destinationAddress);
 
-      // Use the retrieved coordinates of the current position,
-      // instead of the address if the start position is user's
-      // current position, as it results in better accuracy.
-      //
-      double startLatitude = _startAddress == _currentAddress
-          ? _currentPosition.latitude
-          : startPlacemark[0].latitude;
-
-      double startLongitude = _startAddress == _currentAddress
-          ? _currentPosition.longitude
-          : startPlacemark[0].longitude;
-
+      double startLatitude = startPlacemark[0].latitude;
+      double startLongitude = startPlacemark[0].longitude;
       double destinationLatitude = destinationPlacemark[0].latitude;
       double destinationLongitude = destinationPlacemark[0].longitude;
 
@@ -199,7 +217,7 @@ class _MapViewState extends State<MapView> {
         position: LatLng(startLatitude, startLongitude),
         infoWindow: InfoWindow(
           title: 'Start $startCoordinatesString',
-          snippet: _startAddress,
+          snippet: startAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
       );
@@ -210,44 +228,24 @@ class _MapViewState extends State<MapView> {
         position: LatLng(destinationLatitude, destinationLongitude),
         infoWindow: InfoWindow(
           title: 'Destination $destinationCoordinatesString',
-          snippet: _destinationAddress,
+          snippet: destinationAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
       );
-      // Adding the markers to the list
+
       markers.add(startMarker);
       markers.add(destinationMarker);
 
-      print(
-        'START COORDINATES: ($startLatitude, $startLongitude)',
-      );
-      print(
-        'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
-      );
-
-      // Calculating to check that the position relative
-      // to the frame, and pan & zoom the camera accordingly.
-      double miny = (startLatitude <= destinationLatitude)
-          ? startLatitude
-          : destinationLatitude;
-      double minx = (startLongitude <= destinationLongitude)
-          ? startLongitude
-          : destinationLongitude;
-      double maxy = (startLatitude <= destinationLatitude)
-          ? destinationLatitude
-          : startLatitude;
-      double maxx = (startLongitude <= destinationLongitude)
-          ? destinationLongitude
-          : startLongitude;
+      double miny = min(startLatitude, destinationLatitude);
+      double minx = min(startLongitude, destinationLongitude);
+      double maxy = max(startLatitude, destinationLatitude);
+      double maxx = max(startLongitude, destinationLongitude);
 
       double southWestLatitude = miny;
       double southWestLongitude = minx;
-
       double northEastLatitude = maxy;
       double northEastLongitude = maxx;
 
-      // Accommodate the two locations within the
-      // camera view of the map
       mapController.animateCamera(
         CameraUpdate.newLatLngBounds(
           LatLngBounds(
@@ -257,21 +255,12 @@ class _MapViewState extends State<MapView> {
           100.0,
         ),
       );
-      // Calculating the distance between the start and the end positions
-      // with a straight path, without considering any route
-      // double distanceInMeters = await Geolocator.bearingBetween(
-      //   startLatitude,
-      //   startLongitude,
-      //   destinationLatitude,
-      //   destinationLongitude,
-      // );
+
       await _createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
 
       double totalDistance = 0.0;
 
-      // Calculating the total distance by adding the distance
-      // between small segments
       for (int i = 0; i < polylineCoordinates.length - 1; i++) {
         totalDistance += _coordinateDistance(
           polylineCoordinates[i].latitude,
@@ -284,22 +273,21 @@ class _MapViewState extends State<MapView> {
       setState(() {
         _placeDistance = totalDistance.toStringAsFixed(2);
         print('DISTANCE: $_placeDistance km');
-
-        ///todo: user token......This the main purpose after
-        ///todo: click distance calculation circular progress box is comming...
         _devicetokenController.UsertokenApi();
       });
 
       return true;
     } catch (e) {
       print(e);
+      return false;
     }
-    return false;
   }
 
   // Formula for calculating distance between two coordinates
   // https://stackoverflow.com/a/54138876/11910277
-  double _coordinateDistance(lat1, lon1, lat2, lon2) {
+
+  double _coordinateDistance(
+      double lat1, double lon1, double lat2, double lon2) {
     var p = 0.017453292519943295;
     var c = cos;
     var a = 0.5 -
@@ -307,6 +295,16 @@ class _MapViewState extends State<MapView> {
         c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
   }
+
+  ///
+  // double _coordinateDistance(lat1, lon1, lat2, lon2) {
+  //   var p = 0.017453292519943295;
+  //   var c = cos;
+  //   var a = 0.5 -
+  //       c((lat2 - lat1) * p) / 2 +
+  //       c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  //   return 12742 * asin(sqrt(a));
+  // }
 
   // Create the polylines for showing the route between two places
 
@@ -321,7 +319,7 @@ class _MapViewState extends State<MapView> {
       Secrets.API_KEY, // Google Maps API Key
       PointLatLng(startLatitude, startLongitude),
       PointLatLng(destinationLatitude, destinationLongitude),
-      travelMode: TravelMode.transit,
+      travelMode: TravelMode.driving,
     );
 
     if (result.points.isNotEmpty) {
@@ -329,6 +327,9 @@ class _MapViewState extends State<MapView> {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
     }
+
+    // You may log or print the polyline coordinates for debugging
+    print('Polyline Coordinates: $polylineCoordinates');
 
     PolylineId id = PolylineId('poly');
     Polyline polyline = Polyline(
@@ -338,13 +339,6 @@ class _MapViewState extends State<MapView> {
       width: 3,
     );
     polylines[id] = polyline;
-  }
-
-  @override
-  void initState() {
-    //_devicetokenController.UsertokenApi();
-
-    super.initState();
   }
 
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
@@ -381,8 +375,6 @@ class _MapViewState extends State<MapView> {
 
     return WillPopScope(
       onWillPop: () async {
-        //Get.offAll(LabHomePage());
-        //Get.offAll(() => LabHomePage());
         Get.to(() => UserHomePage());
         return shouldPop;
       },
@@ -409,27 +401,7 @@ class _MapViewState extends State<MapView> {
                   _getCurrentLocation();
                 },
               ),
-              // Positioned(
-              //   top: size.height*0.03,
-              //   left:size.width*0.05,
-              //   child: InkWell(
-              //     onTap: () {
-              //       //Get.back();
-              //     },
-              //     child: Container(
-              //       height: size.height*0.035,
-              //       width: size.width*0.065,
-              //       decoration: BoxDecoration(
-              //         color: Colors.grey.shade300,
-              //         shape: BoxShape.circle,
-              //       ),
-              //         child: InkWell(
-              //           onTap: () {
-              //             Navigator.pop(context);
-              //           },
-              //             child: Icon(Icons.arrow_back_ios_new_outlined))),
-              //   ),
-              // ),
+
               Positioned(
                 bottom: size.height * 0.04,
                 left: size.height * 0.00,
@@ -480,12 +452,6 @@ class _MapViewState extends State<MapView> {
                                       .selectedambCatagary.value = newValue!;
                                   _ambulancegetController
                                       .selectedvhicleCatagary.value = null;
-                                  // _hospital_2_controller.states.value =
-                                  //     newValue! as List<String>;
-                                  // _hospital_2_controller.selectedCity.value = null;
-                                  // _hospital_2_controller.cities.clear();
-                                  // _hospital_2_controller.cities
-                                  //     .addAll(stateCityMap[newvalue]!);
                                 }),
                           ),
                         ),
@@ -552,18 +518,11 @@ class _MapViewState extends State<MapView> {
                           padding: EdgeInsets.all(1.0),
                           child: InkWell(
                             onTap: () {
-                              // _ambulancegetController.update();
-                              // _ambulancegetController.ambulancecatagaryyApi();
-
                               //CallLoader.loader();
                               _ambulancegetController
                                   .googlerequestambulance(markers);
 
                               ///todo: user device token saved..........
-
-                              ///_devicetokenController.UsertokenApi();
-
-                              //_ambulancegetController.googlerequestambulance();
                             },
                             child: Container(
                               height: size.height * 0.045,
@@ -668,41 +627,41 @@ class _MapViewState extends State<MapView> {
                             ),
                             SizedBox(height: 10),
                             _textField(
-                                label: 'Start',
-                                hint: 'Choose starting point',
-                                prefixIcon: Icon(Icons.looks_one),
-                                suffixIcon: IconButton(
-                                  icon: Icon(Icons.my_location),
-                                  onPressed: () {
-                                    startAddressController.text =
-                                        _currentAddress;
-                                    _startAddress = _currentAddress;
-                                  },
-                                ),
-                                controller: startAddressController,
-                                focusNode: startAddressFocusNode,
-                                width: width,
-                                locationCallback: (String value) {
-                                  setState(() {
-                                    _startAddress = value;
-                                  });
-                                }),
+                              label: 'Start',
+                              hint: 'Choose starting point',
+                              prefixIcon: Icon(Icons.looks_one),
+                              controller: startAddressController,
+                              focusNode: startAddressFocusNode,
+                              width: width,
+                              locationCallback: (String value) {
+                                setState(() {
+                                  _startAddress = value;
+                                });
+                              },
+                              allowManualEntry:
+                                  true, // Allow manual entry for starting point
+                            ),
                             SizedBox(height: 10),
                             _textField(
-                                label: 'Destination',
-                                hint: 'Choose destination',
-                                prefixIcon: Icon(Icons.looks_two),
-                                controller: destinationAddressController,
-                                focusNode: desrinationAddressFocusNode,
-                                width: width,
-                                locationCallback: (String value) {
-                                  setState(() {
-                                    _destinationAddress = value;
-                                  });
-                                }),
+                              label: 'Destination',
+                              hint: 'Choose destination',
+                              prefixIcon: Icon(Icons.looks_two),
+                              controller: destinationAddressController,
+                              focusNode: desrinationAddressFocusNode,
+                              width: width,
+                              locationCallback: (String value) {
+                                setState(() {
+                                  _destinationAddress = value;
+                                });
+                              },
+                              allowManualEntry: widget.allowManualEntry,
+                              showSuffixIcon:
+                                  false, // Set showSuffixIcon to false
+                            ),
+
                             SizedBox(height: 10),
                             Visibility(
-                              visible: _placeDistance == null ? false : true,
+                              visible: _placeDistance != null,
                               child: Text(
                                 'DISTANCE: $_placeDistance km',
                                 style: TextStyle(
@@ -711,10 +670,27 @@ class _MapViewState extends State<MapView> {
                                 ),
                               ),
                             ),
+
+                            ///
+                            // Visibility(
+                            //   visible: _placeDistance == null ? false : true,
+                            //   child: Text(
+                            //     'DISTANCE: $_placeDistance km',
+                            //     style: TextStyle(
+                            //       fontSize: 16,
+                            //       fontWeight: FontWeight.bold,
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(height: 5),
                             ElevatedButton(
                               onPressed: (_startAddress != '' &&
-                                      _destinationAddress != '')
+                                          _destinationAddress != '') ||
+                                      (widget.allowManualEntry &&
+                                          startAddressController
+                                              .text.isNotEmpty &&
+                                          destinationAddressController
+                                              .text.isNotEmpty)
                                   ? () async {
                                       startAddressFocusNode.unfocus();
                                       desrinationAddressFocusNode.unfocus();
@@ -724,16 +700,26 @@ class _MapViewState extends State<MapView> {
                                           polylines.clear();
                                         if (polylineCoordinates.isNotEmpty)
                                           polylineCoordinates.clear();
-                                        _placeDistance = null;
+                                        // Remove resetting _placeDistance here so it retains the previous value
                                       });
 
-                                      _calculateDistance().then((isCalculated) {
+                                      String start = widget.allowManualEntry
+                                          ? startAddressController.text
+                                          : _startAddress;
+                                      String destination = widget
+                                              .allowManualEntry
+                                          ? destinationAddressController.text
+                                          : _destinationAddress;
+
+                                      await _calculateDistance(
+                                              start, destination)
+                                          .then((isCalculated) {
                                         if (isCalculated) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                  'Distance Calculated Sucessfully'),
+                                                  'Distance Calculated Successfully'),
                                             ),
                                           );
                                         } else {
@@ -765,6 +751,75 @@ class _MapViewState extends State<MapView> {
                                 ),
                               ),
                             ),
+
+                            ///
+                            // ElevatedButton(
+                            //   onPressed: (_startAddress != '' &&
+                            //               _destinationAddress != '') ||
+                            //           (widget.allowManualEntry &&
+                            //               startAddressController
+                            //                   .text.isNotEmpty &&
+                            //               destinationAddressController.text
+                            //                   .isNotEmpty) // Accessing allowManualEntry from the widget
+                            //       ? () async {
+                            //           startAddressFocusNode.unfocus();
+                            //           desrinationAddressFocusNode.unfocus();
+                            //           setState(() {
+                            //             if (markers.isNotEmpty) markers.clear();
+                            //             if (polylines.isNotEmpty)
+                            //               polylines.clear();
+                            //             if (polylineCoordinates.isNotEmpty)
+                            //               polylineCoordinates.clear();
+                            //             _placeDistance = null;
+                            //           });
+                            //
+                            //           String start = widget.allowManualEntry
+                            //               ? startAddressController.text
+                            //               : _startAddress; // Accessing allowManualEntry from the widget
+                            //           String destination = widget
+                            //                   .allowManualEntry
+                            //               ? destinationAddressController.text
+                            //               : _destinationAddress; // Accessing allowManualEntry from the widget
+                            //
+                            //           _calculateDistance(start, destination)
+                            //               .then((isCalculated) {
+                            //             if (isCalculated) {
+                            //               ScaffoldMessenger.of(context)
+                            //                   .showSnackBar(
+                            //                 SnackBar(
+                            //                   content: Text(
+                            //                       'Distance Calculated Successfully'),
+                            //                 ),
+                            //               );
+                            //             } else {
+                            //               ScaffoldMessenger.of(context)
+                            //                   .showSnackBar(
+                            //                 SnackBar(
+                            //                   content: Text(
+                            //                       'Error Calculating Distance'),
+                            //                 ),
+                            //               );
+                            //             }
+                            //           });
+                            //         }
+                            //       : null,
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(8.0),
+                            //     child: Text(
+                            //       'Show Route'.toUpperCase(),
+                            //       style: TextStyle(
+                            //         color: Colors.white,
+                            //         fontSize: 20.0,
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   style: ElevatedButton.styleFrom(
+                            //     primary: Colors.red.shade400,
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(20.0),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -807,6 +862,12 @@ class _MapViewState extends State<MapView> {
                   ),
                 ),
               ),
+
+              // Circular loader
+              if (_isLoading) // Render loader if isLoading is true
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
             ],
           ),
         ),

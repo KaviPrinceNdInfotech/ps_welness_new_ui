@@ -34,8 +34,9 @@ class AmbulanceUserPaymentHistory {
 
 class DriverDetail {
   int? id;
-  int? driverId;
+  num? driverId;
   String? driverName;
+  String? invoiceNumber;
   String? mobileNumber;
   String? driverImage;
   String? dlNumber;
@@ -50,13 +51,14 @@ class DriverDetail {
   double? userLat;
   double? userLong;
   double? driverUserDistance;
-  double? expectedTime;
+  num? expectedTime;
   DateTime? paymentDate;
 
   DriverDetail({
     this.id,
     this.driverId,
     this.driverName,
+    this.invoiceNumber,
     this.mobileNumber,
     this.driverImage,
     this.dlNumber,
@@ -79,6 +81,7 @@ class DriverDetail {
         id: json["Id"],
         driverId: json["DriverId"],
         driverName: json["DriverName"],
+        invoiceNumber: json["InvoiceNumber"],
         mobileNumber: json["MobileNumber"],
         driverImage: json["DriverImage"],
         dlNumber: json["DlNumber"],
@@ -93,7 +96,7 @@ class DriverDetail {
         userLat: json["UserLat"]?.toDouble(),
         userLong: json["UserLong"]?.toDouble(),
         driverUserDistance: json["DriverUserDistance"]?.toDouble(),
-        expectedTime: json["ExpectedTime"]?.toDouble(),
+        expectedTime: json["ExpectedTime"],
         paymentDate: json["PaymentDate"] == null
             ? null
             : DateTime.parse(json["PaymentDate"]),
@@ -103,6 +106,7 @@ class DriverDetail {
         "Id": id,
         "DriverId": driverId,
         "DriverName": driverName,
+        "InvoiceNumber": invoiceNumber,
         "MobileNumber": mobileNumber,
         "DriverImage": driverImage,
         "DlNumber": dlNumber,

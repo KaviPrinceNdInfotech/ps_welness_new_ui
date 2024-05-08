@@ -308,10 +308,18 @@ class FrDoctor1Credentials extends StatelessWidget {
               height: size.height * 0.00,
               //appPadding / 2,
             ),
+            //CallLoader.loader();
+            //                                                 await Future.delayed(
+            //                                                     Duration(seconds: 1));
+            //                                                 //isLoading(false);
+            //                                                 CallLoader.hideLoader();
             RectangularButton(
                 text: 'Go Next >',
                 press: () {
                   _frdoctor_1_controller.checkDoctor1();
+
+                  // _frdoctor_1_controller.selectedweekdayId.value == null;
+
                   //Get.to(FrDoctorSignup2());
                 })
           ],

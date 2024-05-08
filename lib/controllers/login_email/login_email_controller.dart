@@ -327,6 +327,7 @@ class LoginpasswordController extends GetxController {
 
       switch (accountData.role) {
         case 'patient':
+          CallLoader.loader();
           _userprofile.userprofileApi();
           _userprofile.update();
           _userprofile.onInit();
@@ -334,6 +335,7 @@ class LoginpasswordController extends GetxController {
 
           /// we can navigate to user page.....................................
           Get.to(UserHomePage());
+          CallLoader.hideLoader();
 
           break;
         // case 'Patient':

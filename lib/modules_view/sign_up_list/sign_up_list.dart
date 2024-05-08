@@ -250,6 +250,7 @@ class SignUpList extends StatelessWidget {
                                   await _doctor_1_controller.timeslotApidr11();
                                   await _doctor_1_controller.timeslotApidr22();
                                   await _doctor_1_controller.franchiseIdApi();
+                                  await _doctor_1_controller.weekoffIdApi();
 
                                   //Get.to(() => HospitalSignup1());
                                   ///edited by 11 may 2023.... doctor should be here

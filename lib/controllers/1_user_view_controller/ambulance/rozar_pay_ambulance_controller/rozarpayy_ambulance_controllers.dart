@@ -55,7 +55,9 @@ class RozarPayAmbulanceController extends GetxController {
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': double.parse('${ambulanceFee}') * 100.00,
+      'amount': (double.parse(ambulanceFee!) * 100).toInt(),
+
+      // 'amount': double.parse('${ambulanceFee}') * 100.00,
 
       'name':
           //'Kavi Singh',

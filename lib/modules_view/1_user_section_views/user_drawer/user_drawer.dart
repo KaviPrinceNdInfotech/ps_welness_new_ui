@@ -1200,6 +1200,9 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                     onTap: () async {
                       ///....logout
                       _loginpasswordControllerr.onInit();
+                      _loginpasswordControllerr.emailController.clear();
+                      _loginpasswordControllerr.passwordController.clear();
+                      _loginpasswordControllerr.toggleCheckbox(false);
                       //CallLoader.loader();
                       await Future.delayed(Duration(seconds: 2));
                       CallLoader.hideLoader();

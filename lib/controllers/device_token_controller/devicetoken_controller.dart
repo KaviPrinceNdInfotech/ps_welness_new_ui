@@ -19,11 +19,30 @@ class DevicetokenController extends GetxController {
   // var Id = '';
 
   ///todo: this is user token.....28..august..2023...
-  Future<void> UsertokenApi() async {
-    //CallLoader.loader();
-    http.Response r = await ApiProvider.UserdevicetokenApi();
+  // Future<void> UsertokenApi() async {
+  //   //CallLoader.loader();
+  //   http.Response r = await ApiProvider.UserdevicetokenApi();
+  //
+  //   if (r.statusCode == 200) {
+  //     var data = jsonDecode(r.body);
+  //
+  //     CallLoader.hideLoader();
+  //     // _labListController.labListApi();
+  //     // _labListController.update();
+  //
+  //     /// we can navigate to user page.....................................
+  //     // Get.to(LabCatagaryDetails());
+  //     ///Get.to(LabListPage());
+  //   }
+  // }
 
-    if (r.statusCode == 200) {
+  ///todo: this is user token.....updsytde on 6 may 2024..
+
+  Future<void> UsertokenApi() async {
+    // CallLoader.loader();
+    http.Response? r = await ApiProvider.UserdevicetokenApi();
+
+    if (r != null && r.statusCode == 200) {
       var data = jsonDecode(r.body);
 
       CallLoader.hideLoader();
@@ -32,7 +51,7 @@ class DevicetokenController extends GetxController {
 
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
-      ///Get.to(LabListPage());
+      /// Get.to(LabListPage());
     }
   }
 

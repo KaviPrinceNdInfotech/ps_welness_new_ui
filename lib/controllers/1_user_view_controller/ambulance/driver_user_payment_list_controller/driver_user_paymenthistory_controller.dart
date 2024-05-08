@@ -10,7 +10,7 @@ class DriverUserPaymentHistoryController extends GetxController {
   // List<DriverPaymentHistory>? getDriverPaymentHistory;
   AmbulanceUserPaymentHistory? getuserambulancehistory;
 
-  void driveruserPaymentHistoryApi() async {
+  Future<void> driveruserPaymentHistoryApi() async {
     isLoading(true);
     getuserambulancehistory = await ApiProvider.DriverUserPaymentHistory();
     if (getuserambulancehistory != null) {

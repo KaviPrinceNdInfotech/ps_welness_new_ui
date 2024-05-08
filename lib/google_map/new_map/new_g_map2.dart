@@ -25,17 +25,13 @@ import '../../modules_view/circular_loader/circular_loaders.dart';
 //import 'package:ps_welness/google_map/new_map/secrets.dart';
 
 class MapView2 extends StatefulWidget {
+  late final bool allowManualEntry; // Define allowManualEntry parameter
+
+  MapView2({Key? key, required this.allowManualEntry}) : super(key: key);
+
   @override
   _MapView2State createState() => _MapView2State();
 }
-
-var items = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-  'Item 5',
-];
 
 class _MapView2State extends State<MapView2> {
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
@@ -61,18 +57,24 @@ class _MapView2State extends State<MapView2> {
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
 
+  late GoogleMapController mapController;
+
+  late Position _currentPosition;
+  String _currentAddress = '';
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   //late GoogleMapController mapController = Get.put(GoogleMapController());
 
   final MapController _mapControllers = Get.put(MapController());
 
-  late GoogleMapController mapController;
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
 
   //Get.lazyPut(() => GoogleMapController());
   //late GoogleMapController mapController;
-
-  late Position _currentPosition;
-  String _currentAddress = '';
 
   Widget _textField({
     required TextEditingController controller,
@@ -81,10 +83,11 @@ class _MapView2State extends State<MapView2> {
     required String hint,
     required double width,
     required Icon prefixIcon,
-    Widget? suffixIcon,
     required Function(String) locationCallback,
+    required bool allowManualEntry,
+    bool showSuffixIcon =
+        true, // Add a parameter to control the visibility of suffix icon
   }) {
-    //Size size = MediaQuery.of(context).size;
     return Container(
       width: width * 0.8,
       child: TextField(
@@ -93,9 +96,24 @@ class _MapView2State extends State<MapView2> {
         },
         controller: controller,
         focusNode: focusNode,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
           prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+          suffixIcon: showSuffixIcon
+              ? IconButton(
+                  icon: Icon(Icons.my_location),
+                  onPressed: () {
+                    _getCurrentLocation().then((_) {
+                      if (controller == startAddressController) {
+                        controller.text = _currentAddress;
+                        _startAddress = _currentAddress;
+                      } else {
+                        controller.text = _currentAddress;
+                        _destinationAddress = _currentAddress;
+                      }
+                    });
+                  },
+                )
+              : null, // Use null if suffix icon is not required
           labelText: label,
           filled: true,
           fillColor: Colors.white,
@@ -125,12 +143,18 @@ class _MapView2State extends State<MapView2> {
   }
 
   // Method for retrieving the current location
+  bool _isLoading = true; // Add a loading state
+
   _getCurrentLocation() async {
+    setState(() {
+      _isLoading =
+          true; // Set loading state to true when starting location fetching
+    });
+
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         _currentPosition = position;
-
         print('CURRENT POS: $_currentPosition');
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(
@@ -140,10 +164,15 @@ class _MapView2State extends State<MapView2> {
             ),
           ),
         );
+        _isLoading =
+            false; // Set loading state to false after fetching location
       });
       await _getAddress();
     }).catchError((e) {
       print(e);
+      setState(() {
+        _isLoading = false; // Set loading state to false in case of error
+      });
     });
   }
 
@@ -168,25 +197,16 @@ class _MapView2State extends State<MapView2> {
 
   // Method for calculating the distance between two places
 
-  Future<bool> _calculateDistance() async {
+  Future<bool> _calculateDistance(
+      String startAddress, String destinationAddress) async {
     try {
       // Retrieving placemarks from addresses
-      List<Location> startPlacemark = await locationFromAddress(_startAddress);
+      List<Location> startPlacemark = await locationFromAddress(startAddress);
       List<Location> destinationPlacemark =
-          await locationFromAddress(_destinationAddress);
+          await locationFromAddress(destinationAddress);
 
-      // Use the retrieved coordinates of the current position,
-      // instead of the address if the start position is user's
-      // current position, as it results in better accuracy.
-      //
-      double startLatitude = _startAddress == _currentAddress
-          ? _currentPosition.latitude
-          : startPlacemark[0].latitude;
-
-      double startLongitude = _startAddress == _currentAddress
-          ? _currentPosition.longitude
-          : startPlacemark[0].longitude;
-
+      double startLatitude = startPlacemark[0].latitude;
+      double startLongitude = startPlacemark[0].longitude;
       double destinationLatitude = destinationPlacemark[0].latitude;
       double destinationLongitude = destinationPlacemark[0].longitude;
 
@@ -200,7 +220,7 @@ class _MapView2State extends State<MapView2> {
         position: LatLng(startLatitude, startLongitude),
         infoWindow: InfoWindow(
           title: 'Start $startCoordinatesString',
-          snippet: _startAddress,
+          snippet: startAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
       );
@@ -211,45 +231,24 @@ class _MapView2State extends State<MapView2> {
         position: LatLng(destinationLatitude, destinationLongitude),
         infoWindow: InfoWindow(
           title: 'Destination $destinationCoordinatesString',
-          snippet: _destinationAddress,
+          snippet: destinationAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
       );
 
-      // Adding the markers to the list
       markers.add(startMarker);
       markers.add(destinationMarker);
 
-      print(
-        'START COORDINATES: ($startLatitude, $startLongitude)',
-      );
-      print(
-        'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
-      );
-
-      // Calculating to check that the position relative
-      // to the frame, and pan & zoom the camera accordingly.
-      double miny = (startLatitude <= destinationLatitude)
-          ? startLatitude
-          : destinationLatitude;
-      double minx = (startLongitude <= destinationLongitude)
-          ? startLongitude
-          : destinationLongitude;
-      double maxy = (startLatitude <= destinationLatitude)
-          ? destinationLatitude
-          : startLatitude;
-      double maxx = (startLongitude <= destinationLongitude)
-          ? destinationLongitude
-          : startLongitude;
+      double miny = min(startLatitude, destinationLatitude);
+      double minx = min(startLongitude, destinationLongitude);
+      double maxy = max(startLatitude, destinationLatitude);
+      double maxx = max(startLongitude, destinationLongitude);
 
       double southWestLatitude = miny;
       double southWestLongitude = minx;
-
       double northEastLatitude = maxy;
       double northEastLongitude = maxx;
 
-      // Accommodate the two locations within the
-      // camera view of the map
       mapController.animateCamera(
         CameraUpdate.newLatLngBounds(
           LatLngBounds(
@@ -259,21 +258,12 @@ class _MapView2State extends State<MapView2> {
           100.0,
         ),
       );
-      // Calculating the distance between the start and the end positions
-      // with a straight path, without considering any route
-      // double distanceInMeters = await Geolocator.bearingBetween(
-      //   startLatitude,
-      //   startLongitude,
-      //   destinationLatitude,
-      //   destinationLongitude,
-      // );
+
       await _createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
 
       double totalDistance = 0.0;
 
-      // Calculating the total distance by adding the distance
-      // between small segments
       for (int i = 0; i < polylineCoordinates.length - 1; i++) {
         totalDistance += _coordinateDistance(
           polylineCoordinates[i].latitude,
@@ -286,21 +276,20 @@ class _MapView2State extends State<MapView2> {
       setState(() {
         _placeDistance = totalDistance.toStringAsFixed(2);
         print('DISTANCE: $_placeDistance km');
-
-        ///todo: user token......
         _devicetokenController.UsertokenApi();
       });
 
       return true;
     } catch (e) {
       print(e);
+      return false;
     }
-    return false;
   }
 
   // Formula for calculating distance between two coordinates
   // https://stackoverflow.com/a/54138876/11910277
-  double _coordinateDistance(lat1, lon1, lat2, lon2) {
+  double _coordinateDistance(
+      double lat1, double lon1, double lat2, double lon2) {
     var p = 0.017453292519943295;
     var c = cos;
     var a = 0.5 -
@@ -308,6 +297,16 @@ class _MapView2State extends State<MapView2> {
         c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
   }
+
+  ///
+  // double _coordinateDistance(lat1, lon1, lat2, lon2) {
+  //   var p = 0.017453292519943295;
+  //   var c = cos;
+  //   var a = 0.5 -
+  //       c((lat2 - lat1) * p) / 2 +
+  //       c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  //   return 12742 * asin(sqrt(a));
+  // }
 
   // Create the polylines for showing the route between two places
 
@@ -322,7 +321,7 @@ class _MapView2State extends State<MapView2> {
       Secrets.API_KEY, // Google Maps API Key
       PointLatLng(startLatitude, startLongitude),
       PointLatLng(destinationLatitude, destinationLongitude),
-      travelMode: TravelMode.transit,
+      travelMode: TravelMode.driving,
     );
 
     if (result.points.isNotEmpty) {
@@ -330,6 +329,9 @@ class _MapView2State extends State<MapView2> {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
     }
+
+    // You may log or print the polyline coordinates for debugging
+    print('Polyline Coordinates: $polylineCoordinates');
 
     PolylineId id = PolylineId('poly');
     Polyline polyline = Polyline(
@@ -339,13 +341,6 @@ class _MapView2State extends State<MapView2> {
       width: 3,
     );
     polylines[id] = polyline;
-  }
-
-  @override
-  void initState() {
-    //_devicetokenController.UsertokenApi();
-
-    super.initState();
   }
 
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
@@ -669,41 +664,40 @@ class _MapView2State extends State<MapView2> {
                             ),
                             SizedBox(height: 10),
                             _textField(
-                                label: 'Start',
-                                hint: 'Choose starting point',
-                                prefixIcon: Icon(Icons.looks_one),
-                                suffixIcon: IconButton(
-                                  icon: Icon(Icons.my_location),
-                                  onPressed: () {
-                                    startAddressController.text =
-                                        _currentAddress;
-                                    _startAddress = _currentAddress;
-                                  },
-                                ),
-                                controller: startAddressController,
-                                focusNode: startAddressFocusNode,
-                                width: width,
-                                locationCallback: (String value) {
-                                  setState(() {
-                                    _startAddress = value;
-                                  });
-                                }),
+                              label: 'Start',
+                              hint: 'Choose starting point',
+                              prefixIcon: Icon(Icons.looks_one),
+                              controller: startAddressController,
+                              focusNode: startAddressFocusNode,
+                              width: width,
+                              locationCallback: (String value) {
+                                setState(() {
+                                  _startAddress = value;
+                                });
+                              },
+                              allowManualEntry:
+                                  true, // Allow manual entry for starting point
+                            ),
                             SizedBox(height: 10),
                             _textField(
-                                label: 'Destination',
-                                hint: 'Choose destination',
-                                prefixIcon: Icon(Icons.looks_two),
-                                controller: destinationAddressController,
-                                focusNode: desrinationAddressFocusNode,
-                                width: width,
-                                locationCallback: (String value) {
-                                  setState(() {
-                                    _destinationAddress = value;
-                                  });
-                                }),
+                              label: 'Destination',
+                              hint: 'Choose destination',
+                              prefixIcon: Icon(Icons.looks_two),
+                              controller: destinationAddressController,
+                              focusNode: desrinationAddressFocusNode,
+                              width: width,
+                              locationCallback: (String value) {
+                                setState(() {
+                                  _destinationAddress = value;
+                                });
+                              },
+                              allowManualEntry: widget.allowManualEntry,
+                              showSuffixIcon:
+                                  false, // Set showSuffixIcon to false
+                            ),
                             SizedBox(height: 10),
                             Visibility(
-                              visible: _placeDistance == null ? false : true,
+                              visible: _placeDistance != null,
                               child: Text(
                                 'DISTANCE: $_placeDistance km',
                                 style: TextStyle(
@@ -712,10 +706,27 @@ class _MapView2State extends State<MapView2> {
                                 ),
                               ),
                             ),
+
+                            ///
+                            // Visibility(
+                            //   visible: _placeDistance == null ? false : true,
+                            //   child: Text(
+                            //     'DISTANCE: $_placeDistance km',
+                            //     style: TextStyle(
+                            //       fontSize: 16,
+                            //       fontWeight: FontWeight.bold,
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(height: 5),
                             ElevatedButton(
                               onPressed: (_startAddress != '' &&
-                                      _destinationAddress != '')
+                                          _destinationAddress != '') ||
+                                      (widget.allowManualEntry &&
+                                          startAddressController
+                                              .text.isNotEmpty &&
+                                          destinationAddressController
+                                              .text.isNotEmpty)
                                   ? () async {
                                       startAddressFocusNode.unfocus();
                                       desrinationAddressFocusNode.unfocus();
@@ -725,16 +736,26 @@ class _MapView2State extends State<MapView2> {
                                           polylines.clear();
                                         if (polylineCoordinates.isNotEmpty)
                                           polylineCoordinates.clear();
-                                        _placeDistance = null;
+                                        // Remove resetting _placeDistance here so it retains the previous value
                                       });
 
-                                      _calculateDistance().then((isCalculated) {
+                                      String start = widget.allowManualEntry
+                                          ? startAddressController.text
+                                          : _startAddress;
+                                      String destination = widget
+                                              .allowManualEntry
+                                          ? destinationAddressController.text
+                                          : _destinationAddress;
+
+                                      await _calculateDistance(
+                                              start, destination)
+                                          .then((isCalculated) {
                                         if (isCalculated) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                  'Distance Calculated Sucessfully'),
+                                                  'Distance Calculated Successfully'),
                                             ),
                                           );
                                         } else {
@@ -808,6 +829,12 @@ class _MapView2State extends State<MapView2> {
                   ),
                 ),
               ),
+
+              // Circular loader
+              if (_isLoading) // Render loader if isLoading is true
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
             ],
           ),
         ),

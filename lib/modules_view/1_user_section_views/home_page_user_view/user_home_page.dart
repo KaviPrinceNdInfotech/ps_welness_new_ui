@@ -721,7 +721,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                                 3),
                                                                         () {
                                                                           Get.to(
-                                                                              MapView());
+                                                                              MapView(allowManualEntry: true));
                                                                           // CallLoader
                                                                           //     .hideLoader();
                                                                           //_ambulancegetController.selectedvhicleCatagary();
@@ -823,7 +823,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                                 3),
                                                                         () {
                                                                           Get.to(
-                                                                              MapView2());
+                                                                              MapView2(allowManualEntry: true));
                                                                           //_ambulancegetController.selectedvhicleCatagary();
                                                                           //_ambulancegetController.ambulancecatagaryyApi();
                                                                           //Get.to((MapView));
@@ -923,7 +923,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                                 3),
                                                                         () {
                                                                           Get.to(
-                                                                              MapView3());
+                                                                              MapView3(allowManualEntry: true));
                                                                           //_ambulancegetController.selectedvhicleCatagary();
                                                                           //_ambulancegetController.ambulancecatagaryyApi();
                                                                           //Get.to((MapView));

@@ -720,6 +720,7 @@ class Doctor2Credentials extends StatelessWidget {
                     ///Clear dropdown value
                     _doctor_1_controller.selectedState.value = null;
                     _doctor_1_controller.selectedFranchiseId.value = null;
+                    _doctor_1_controller.selectedweekdayId.value = null;
                   })
             ],
           ),
