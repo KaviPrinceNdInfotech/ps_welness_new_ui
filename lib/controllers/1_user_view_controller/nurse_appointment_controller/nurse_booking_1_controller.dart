@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/nurse_list_user_list_controller/nurse_list_user_controller.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 
 import '../../../model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import '../../../model/1_user_model/nurse_location_model/nurse_location_models.dart';
@@ -30,6 +32,13 @@ class NurseBooking1Controller extends GetxController {
 
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
+
+  //final today = DateTime.now().obs;
+  var lastdate = DateTime.now().add(Duration(days: 1)).obs;
+
+  //var jiffy = DateTime.now().add(months: 5, years: 1);
+
+  //date1 = date1.add(Duration(days: 1, hours: 23));
   RxInt selectedIndex = 0.obs;
   var newpickedDate = DateTime.now().obs;
   //RxBool isLoading = false.obs;
@@ -40,9 +49,20 @@ class NurseBooking1Controller extends GetxController {
   var appointment = ''.obs;
 
   ///this is for State....................................
-  Rx<String?> selectedCity = (null as String?).obs;
+  // Rx<String?> selectedCity = (null as String?).obs;
   final selectednurse = "".obs;
-  RxList<String> cities = <String>[].obs;
+  // RxList<String> cities = <String>[].obs;
+  ///
+
+  ///this is for state.................................
+  Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  List<StateModel> states = <StateModel>[].obs;
+
+  ///this is for city....................................
+  Rx<City?> selectedCity = (null as City?).obs;
+  RxList<City> cities = <City>[].obs;
+
+  ///
   //this is for nurse type.................................
   Rx<NurseModels?> selectedNurse = (null as NurseModels?).obs;
   List<NurseModels> nurse = <NurseModels>[].obs;
@@ -80,8 +100,8 @@ class NurseBooking1Controller extends GetxController {
   }
 
   //this is for City.................................
-  Rx<String?> selectedState = (null as String?).obs;
-  RxList<String> states = <String>[].obs;
+  //Rx<String?> selectedState = (null as String?).obs;
+  // RxList<String> states = <String>[].obs;
 
   NurseList? nurseListUser;
 
@@ -95,6 +115,21 @@ class NurseBooking1Controller extends GetxController {
       isLoading(false);
       //Get.to(()=>Container());
     }
+  }
+
+  void getStateNurseeApi() async {
+    states = await ApiProvider.getSatesApi();
+    print('Prince state  list');
+    print(states);
+  }
+
+  ///get cities api...........
+  void getCityByStateIDNursee(String stateID) async {
+    cities.clear();
+    final localList = await ApiProvider.getCitiesApi(stateID);
+    cities.addAll(localList);
+    print("Prince cities of $stateID");
+    print(cities);
   }
 
   ///nurse type api class.................
@@ -119,16 +154,15 @@ class NurseBooking1Controller extends GetxController {
   void nurseBooking1Api() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.Nursesebooking1Api(
-      // patientIdController.text,
       selectedNurse.value?.id.toString(),
-      selectedhours.value,
+      //selectedhours.value,
       selectedshift.value,
       appointmentController1.text,
       appointmentController2.text,
       mobileNumberController.text,
-      selectedNurseLocation.value?.id.toString(),
-      //selectedState.value?.id.toString(),
-      // selectedCity.value?.id.toString(),
+      locationcontroller.text,
+      selectedState.value?.id.toString(),
+      selectedCity.value?.id.toString(),
     );
 
     if (r.statusCode == 200) {
@@ -137,12 +171,14 @@ class NurseBooking1Controller extends GetxController {
       CallLoader.hideLoader();
       _nurseUserListController.update();
       _nurseUserListController.nurselistsuserApi();
-      Get.to(NurseListUser());
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      Get.offAll(NurseListUser());
       //Get.to(NurseDetailsSchedulePage());
 
       /// we can navigate to user page.....................................
       //Get.to(NurseAppointmentHistory());
-
     }
   }
 
@@ -181,6 +217,7 @@ class NurseBooking1Controller extends GetxController {
       serviceTimeController,
       startDateController,
       endDateController,
+      locationcontroller,
       mobileNumberController;
 
   ///todo new user nurse booking 1.....
@@ -192,11 +229,11 @@ class NurseBooking1Controller extends GetxController {
   var StartDate = '';
   var EndDate = '';
   var MobileNumber = '';
-  var LocationId = '';
+  var Location = '';
 
   @override
   void onInit() {
-    states.refresh();
+    //states.refresh();
     super.onInit();
     labListApi();
     getNurseTypeApi();
@@ -210,12 +247,22 @@ class NurseBooking1Controller extends GetxController {
     startDateController = TextEditingController();
     endDateController = TextEditingController();
     mobileNumberController = TextEditingController();
+    locationcontroller = TextEditingController();
 
     appointmentController1 = TextEditingController();
     appointmentController1.text = "YYYY-MM-DD";
+    //YYYY-MM-DD
 
     appointmentController2 = TextEditingController();
     appointmentController2.text = "YYYY-MM-DD";
+    //YYYY-MM-DD
+    getStateNurseeApi();
+    //getdepartmentApi();
+    selectedState.listen((p0) {
+      if (p0 != null) {
+        getCityByStateIDNursee("${p0.id}");
+      }
+    });
   }
 
   @override
@@ -233,25 +280,31 @@ class NurseBooking1Controller extends GetxController {
   chooseDate() async {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
+      //initialDate: DateTime.now(),
+
       initialDate: selectedDate.value,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
-      initialEntryMode: DatePickerEntryMode.input,
-      initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      //firstDate: DateTime.now().add(Duration(days: 2)),
+      //initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
+      // firstDate: DateTime(2018),
+      lastDate: DateTime(2027),
+
+      ///initialEntryMode: DatePickerEntryMode.input,
+      ///initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
 
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Selected Date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       appointmentController1
-        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-dd').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController1.text.length,
             affinity: TextAffinity.upstream));
@@ -266,25 +319,29 @@ class NurseBooking1Controller extends GetxController {
   chooseDate2() async {
     DateTime? newpickedDate = await showDatePicker(
       context: Get.context!,
-      initialDate: selectedDate.value,
-      firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
-      initialEntryMode: DatePickerEntryMode.input,
-      initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      initialDate: lastdate.value,
+      firstDate: DateTime.now().add(Duration(days: 1)),
+      // DateTime.now()
+      //     //.toIso8601String()
+      //     .subtract(Duration(days: 1)),
+      //firstDate: DateTime(2018),
+      lastDate: DateTime(2027),
+      //initialEntryMode: DatePickerEntryMode.input,
+      //initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
 
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Selected Date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
     if (newpickedDate != null) {
-      selectedDate.value = newpickedDate;
+      lastdate.value = newpickedDate;
       appointmentController2
-        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..text = DateFormat('yyyy-MM-dd').format(lastdate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: appointmentController2.text.length,
             affinity: TextAffinity.upstream));
@@ -307,6 +364,13 @@ class NurseBooking1Controller extends GetxController {
   String? validName(String value) {
     if (value.length < 2) {
       return "              Provide valid name";
+    }
+    return null;
+  }
+
+  String? validlocation(String value) {
+    if (value.length < 2) {
+      return "              Provide Address";
     }
     return null;
   }

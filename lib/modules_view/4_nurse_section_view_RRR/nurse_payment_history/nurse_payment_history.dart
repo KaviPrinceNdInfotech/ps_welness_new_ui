@@ -46,6 +46,7 @@ class NursePaymentHistory extends StatelessWidget {
                                 image: DecorationImage(
                                     image: AssetImage(
                                       'lib/assets/user_assets/nurse_payment1.png',
+                                      //lib/assets/user_assets/nurse33.png
                                     ),
                                     fit: BoxFit.cover)),
                           ),
@@ -96,7 +97,7 @@ class NursePaymentHistory extends StatelessWidget {
                                 ),
                                 width: size.width * 0.72,
                                 height: size.height * 0.06,
-                                margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                margin: new EdgeInsets.fromLTRB(10, 10, 10, 5),
                                 padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
                                 child: Theme(
                                   data: Theme.of(context).copyWith(
@@ -154,8 +155,7 @@ class NursePaymentHistory extends StatelessWidget {
                           _nursePaymentHistoryController
                                   .foundPaymentnurse.value.isEmpty
                               ? Center(child: Text('No List'))
-                              : SizedBox(
-                                  height: size.height * 0.7,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _nursePaymentHistoryController
@@ -408,7 +408,8 @@ class NursePaymentHistory extends StatelessWidget {
                                             ),
                                           ],
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

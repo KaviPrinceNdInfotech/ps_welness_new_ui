@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup1/rwa_signup1.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class Rwa2HeadText extends StatelessWidget {
@@ -25,7 +26,8 @@ class Rwa2HeadText extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.back();
+              Get.offAll(RwaSignup1());
+              //Get.back();
             },
             child: Container(
               height: size.height * 0.03,

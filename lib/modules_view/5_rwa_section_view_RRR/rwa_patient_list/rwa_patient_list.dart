@@ -97,7 +97,7 @@ class RwaPatientList extends StatelessWidget {
                                   color: Colors.white30),
                               width: size.width,
                               height: size.height * 0.06,
-                              margin: new EdgeInsets.fromLTRB(10, 20, 10, 20),
+                              margin: new EdgeInsets.fromLTRB(10, 10, 10, 20),
                               padding: new EdgeInsets.fromLTRB(5, 8, 8, 8),
                               child: Theme(
                                 data: Theme.of(context)
@@ -134,14 +134,13 @@ class RwaPatientList extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * 0.01,
+                            height: size.height * 0.005,
                           ),
                           _rwaPatientListController.foundPatient.value.isEmpty
                               ? Center(
                                   child: Text("No Data"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _rwaPatientListController
@@ -267,7 +266,7 @@ class RwaPatientList extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'State:',
+                                                                'EmailId:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -280,20 +279,20 @@ class RwaPatientList extends StatelessWidget {
                                                                           0.035,
                                                                 ),
                                                               ),
-                                                              Text(
-                                                                'City:',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  //color: MyTheme.text1,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.035,
-                                                                ),
-                                                              ),
+                                                              // Text(
+                                                              //   'City:',
+                                                              //   style:
+                                                              //       GoogleFonts
+                                                              //           .poppins(
+                                                              //     //color: MyTheme.text1,
+                                                              //     fontWeight:
+                                                              //         FontWeight
+                                                              //             .w600,
+                                                              //     fontSize:
+                                                              //         size.width *
+                                                              //             0.035,
+                                                              //   ),
+                                                              // ),
                                                               Text(
                                                                 'Address:',
                                                                 style:
@@ -309,7 +308,7 @@ class RwaPatientList extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Pin:',
+                                                                'Pin Code:',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -357,7 +356,7 @@ class RwaPatientList extends StatelessWidget {
                                                                         0.035),
                                                               ),
                                                               Text(
-                                                                '${item?[index].stateName}',
+                                                                '${item?[index].emailId}',
                                                                 style: GoogleFonts.raleway(
                                                                     color: MyTheme
                                                                         .white,
@@ -368,18 +367,18 @@ class RwaPatientList extends StatelessWidget {
                                                                             .width *
                                                                         0.035),
                                                               ),
-                                                              Text(
-                                                                '${item?[index].cityName}',
-                                                                style: GoogleFonts.raleway(
-                                                                    color: MyTheme
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                    fontSize: size
-                                                                            .width *
-                                                                        0.035),
-                                                              ),
+                                                              // Text(
+                                                              //   '${item?[index].cityName}',
+                                                              //   style: GoogleFonts.raleway(
+                                                              //       color: MyTheme
+                                                              //           .white,
+                                                              //       fontWeight:
+                                                              //           FontWeight
+                                                              //               .w700,
+                                                              //       fontSize: size
+                                                              //               .width *
+                                                              //           0.035),
+                                                              // ),
                                                               SizedBox(
                                                                 width:
                                                                     size.width *
@@ -421,7 +420,8 @@ class RwaPatientList extends StatelessWidget {
                                             ),
                                           ],
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

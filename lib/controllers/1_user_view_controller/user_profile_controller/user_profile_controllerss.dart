@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
@@ -15,14 +17,32 @@ class UserProfileControllers extends GetxController {
 
   //all catagary list .........
 
-  void userprofileApi() async {
+  Future<void> userprofileApi() async {
     isLoading(true);
     userProfile = await ApiProvider.UserProfileApi();
-    if (userProfile != null
+    // if (userProfile == null) {
+    //   Timer(
+    //     const Duration(seconds: 1),
+    //     () {
+    //       //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+    //       //Get.to(() => MedicineCart());
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    //   isLoading(true);
+    //   userProfile = await ApiProvider.UserProfileApi();
+    //   //Get.to(() => TotalPrice());
+    //
+    //   //foundProducts.value = medicinelistmodel!.data;
+    //   //Get.to(()=>Container());
+    // }
+    if (userProfile?.patientName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
     }
+    //else {}
   }
 
   @override

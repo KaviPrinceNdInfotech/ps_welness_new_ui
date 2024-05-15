@@ -7,6 +7,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dar
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
 // import 'package:ps_welness/widgets/widgets/rectangular_button.dart';
@@ -66,6 +67,7 @@ class PatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: phone.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -98,6 +100,7 @@ class PatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -129,6 +132,231 @@ class PatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
+            ///gender...
+            Container(
+              height: size.height * 0.066,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(vertical: 25 / 2),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        lightPrimary,
+                        darkPrimary,
+                      ]),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(-2, -2),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      color: darkShadow,
+                    ),
+                    BoxShadow(
+                      offset: Offset(2, 2),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      color: lightShadow,
+                    ),
+                  ]),
+              child: SizedBox(
+                //width: size.width * 0.40,
+                child: Container(
+                  //width: size.width * 40,
+                  height: size.height * 0.065,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    //color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () => Radio(
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value: "Male",
+                            groupValue:
+                                _patient_controller.selectedgender.value,
+                            onChanged: (value) {
+                              _patient_controller.onChangeGender(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Male',
+                          style: TextStyle(
+                            fontSize: size.width * 0.03,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Obx(
+                          () => Radio(
+                            visualDensity: VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            // title: Text("Male"),
+                            value: "Female",
+                            groupValue:
+                                _patient_controller.selectedgender.value,
+                            onChanged: (value) {
+                              _patient_controller.onChangeGender(value!);
+                              // setState(() {
+                              //   gender = value.toString();
+                              // });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Female',
+                          style: TextStyle(
+                            fontSize: size.width * 0.03,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///date..
+            SizedBox(
+              height: size.height * 0.075,
+              width: size.width,
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 30 / 7),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          lightPrimary,
+                          darkPrimary,
+                        ]),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(-1, -1),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        color: Colors.white,
+                      ),
+                      BoxShadow(
+                        offset: Offset(2, 2),
+                        spreadRadius: 1,
+                        blurRadius: 0,
+                        color: Colors.grey,
+                      ),
+                    ]),
+                child: TextFormField(
+                  textAlign: TextAlign.left,
+                  // decoration: InputDecoration(
+                  //   hintText: 'Enter Something',
+                  //   contentPadding: EdgeInsets.all(20.0),
+                  // ),
+                  controller: _patient_controller.appointmentController,
+                  onTap: () {
+                    _patient_controller.chooseDate();
+                  },
+
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(17.0),
+                    hintText: 'Select DOB',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.calendar_today_outlined,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 1,
+                  autofocus: true,
+                  //obscureText: true,
+                  //controller: _loginpasswordController.mobileController,
+                ),
+              ),
+              // ListView.builder(
+              //     shrinkWrap: true,
+              //     scrollDirection: Axis.horizontal,
+              //     itemCount: 32,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return Padding(
+              //         padding: const EdgeInsets.all(3.0),
+              //         child: PhysicalModel(
+              //           color: MyTheme.white,
+              //           borderRadius: BorderRadius.circular(5),
+              //           elevation: 20,
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.01,
+              //                 vertical: size.height * 0.004),
+              //             child: Container(
+              //               //height: size.height * 0.025,
+              //               width: size.width * 0.17,
+              //               decoration: BoxDecoration(
+              //                 color: MyTheme.ThemeColors,
+              //                 borderRadius: BorderRadius.circular(5),
+              //               ),
+              //               child: Column(
+              //                 mainAxisAlignment:
+              //                     MainAxisAlignment.center,
+              //                 children: [
+              //                   Text(
+              //                     'MAR',
+              //                     style: TextStyle(
+              //                       fontSize: size.height * 0.015,
+              //                       fontWeight: FontWeight.w600,
+              //                       color: Colors.white,
+              //                     ),
+              //                   ),
+              //                   SizedBox(
+              //                     height: size.height * 0.01,
+              //                   ),
+              //                   Text(
+              //                     '${index}',
+              //                     style: TextStyle(
+              //                       fontSize: size.height * 0.016,
+              //                       fontWeight: FontWeight.w600,
+              //                       color: Colors.white,
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       );
+              //     }),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -159,6 +387,7 @@ class PatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -192,6 +421,7 @@ class PatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: address value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -220,6 +450,7 @@ class PatientCredentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: state............................
             SizedBox(
               height: size.height * 0.02,
@@ -251,13 +482,15 @@ class PatientCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (StateModel? newValue) {
                         _patient_controller.selectedState.value = newValue!;
                       }),
                 ),
               ),
             ),
+
             ///Todo: city.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -289,7 +522,8 @@ class PatientCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (City? newValue) {
                         _patient_controller.selectedCity.value = newValue!;
                       }),
@@ -299,6 +533,7 @@ class PatientCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: Pin.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(

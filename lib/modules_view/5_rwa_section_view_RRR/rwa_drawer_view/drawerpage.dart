@@ -8,26 +8,38 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/about_us_rwa/aboutus_rwa.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_detail_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer_view/drower_pages/rwa_profile_details/profile_rwa_detail_page.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profile_page_view/profile_view.dart';
-//import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_drawer_view/drower_pages/rwa_profile_details/profile_rwa_detail_page.dart';
-//import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view/rwa_profile_page_view/profile_view.dart';
-import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/comman_bank_update/update_all_bank_details/update_bank_view.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../widgets/support_page_comman/support_comman_page.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class RwaMainDrawer extends StatelessWidget {
   RwaMainDrawer({super.key});
-  RwaProfileDetailController _rwaProfileDetailController =
+  final RwaProfileDetailController _rwaProfileDetailController =
       Get.put(RwaProfileDetailController());
   RwaAboutusController _rwaAboutusController = Get.put(RwaAboutusController());
-  UserAboutusController _userAboutusController =
+  final UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
+  final LoginpasswordController _loginpasswordControllerr4 = Get.find();
+
+  RwaProfileController _rwaProfileControllerupdate =
+      Get.put(RwaProfileController());
+
+  BankDetailController _getbank = Get.put(BankDetailController());
+
   //RwaProfileController _rwaProfileController = Get.put(RwaProfileController());
   //RwaProfileDetailController _rwaProfileDetailController = Get.put(RwaProfileDetailController());
 
@@ -66,32 +78,41 @@ class RwaMainDrawer extends StatelessWidget {
                       height: size.height * 0.00,
                     ),
                     SizedBox(
-                        height: size.height * 0.045,
-                        child: ListView.builder(
-                            itemCount: 1,
-                            itemBuilder: (context, index) {
-                              final item = _rwaProfileDetailController
-                                  .getRwaProfileDetail?.rwaProfileDetails;
-                              return Column(
-                                children: [
-                                  Text(
-                                    '${item?[index].authorityName}',
-                                    // 'Ps Foundation',
-                                    style: GoogleFonts.roboto(
-                                        fontSize: size.height * 0.02,
-                                        fontWeight: FontWeight.w700,
-                                        color: MyTheme.blueww),
-                                  ),
-                                  Text(
-                                    '${item?[index].emailId}',
-                                    style: GoogleFonts.roboto(
-                                        fontSize: size.height * 0.017,
-                                        fontWeight: FontWeight.w700,
-                                        color: MyTheme.blueww),
-                                  ),
-                                ],
-                              );
-                            })),
+                      height: size.height * 0.045,
+                      child:
+                          // ListView.builder(
+                          //     itemCount: 1,
+                          //     itemBuilder: (context, index) {
+                          //       final item = _rwaProfileDetailController
+                          //           .getRwaProfileDetail?.rwaProfileDetails;
+                          // return
+                          Column(
+                        children: [
+                          Text(
+                            '${_rwaProfileDetailController.getRwaProfileDetail?.authorityName.toString()
+
+                            /// item?[index].authorityName
+                            }',
+                            // 'Ps Foundation',
+                            style: GoogleFonts.roboto(
+                                fontSize: size.height * 0.02,
+                                fontWeight: FontWeight.w700,
+                                color: MyTheme.blueww),
+                          ),
+                          Text(
+                            '${_rwaProfileDetailController.getRwaProfileDetail?.emailId.toString()
+                            //item?[index].emailId
+                            }',
+                            style: GoogleFonts.roboto(
+                                fontSize: size.height * 0.017,
+                                fontWeight: FontWeight.w700,
+                                color: MyTheme.blueww),
+                          ),
+                        ],
+                      ),
+
+                      ///})
+                    ),
                   ],
                 ),
               ),
@@ -125,7 +146,41 @@ class RwaMainDrawer extends StatelessWidget {
                 print(Get.currentRoute);
                 Get.back();
                 // Get.to(() => AboutUs());
-                Get.offNamed('/AboutUs');
+                //Get.offNamed('/AboutUs');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'RWA Profile detail',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/RwaDetailProfile'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _rwaProfileDetailController.RwaProfileDetailApi();
+                _rwaProfileDetailController.update();
+                Get.to(() => RwaDetailProfile());
+                Get.offNamed('/RwaDetailProfile');
               },
             ),
             //RwaDetailProfile
@@ -146,7 +201,7 @@ class RwaMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'RWA Profile',
+                'RWA Update Profile',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
@@ -155,12 +210,74 @@ class RwaMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/RwaProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
+                // Get.back();
 
-                Get.to(() => RwaProfilePage());
-                Get.offNamed('/RwaProfilePage');
+                await _rwaProfileDetailController.RwaProfileDetailApi();
+                _rwaProfileDetailController.update();
+                _rwaProfileDetailController.onInit();
+
+                _rwaProfileControllerupdate.onInit();
+                _rwaProfileControllerupdate.clearSelectedState();
+
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                Get.offAll(() => RwaProfilePage());
+                await Future.delayed(Duration(milliseconds: 10));
+
+                //Get.offNamed('/RwaProfilePage');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'RWA Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/RwaProfilePage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () async {
+                print(Get.currentRoute);
+                // Get.back();
+
+                // await _rwaProfileDetailController.RwaProfileDetailApi();
+                // _rwaProfileDetailController.update();
+                // _rwaProfileDetailController.onInit();
+
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+
+                // _rwaProfileControllerupdate.onInit();
+                //_rwaProfileControllerupdate.clearSelectedState();
+
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                Get.offAll(() => UpdateBankDetailRwa());
+
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+
+                //Get.offNamed('/RwaProfilePage');
               },
             ),
             ListTile(
@@ -200,41 +317,6 @@ class RwaMainDrawer extends StatelessWidget {
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'RWA Profile detail',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/RwaDetailProfile'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                _rwaProfileDetailController.RwaProfileDetailApi();
-                _rwaProfileDetailController.update();
-                Get.to(() => RwaDetailProfile());
-                Get.offNamed('/RwaDetailProfile');
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
                 Icons.account_box,
                 color: MyTheme.blueww,
                 size: size.height * 0.021,
@@ -248,7 +330,7 @@ class RwaMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'About RWA',
+                'About Us',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
@@ -260,12 +342,46 @@ class RwaMainDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _userAboutusController.update();
-                _userAboutusController.useraboutusApi();
+
+                /// _userAboutusController.update();
+                //_userAboutusController.useraboutusApi();
                 //_rwaAboutusController.update();
                 // _rwaAboutusController.rwaaboutusApi();
-                Get.to(() => UserAboutUsView());
-                Get.offNamed('/UserAboutUsView');
+                Get.to(() => WebViewPswebsiteabout());
+                Get.offNamed('/WebViewPswebsiteabout');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/WebViewPswebsiteprivecy'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => WebViewPswebsiteprivecy()
+                    // PrivacyPolicyView()
+                    );
               },
             ),
 
@@ -291,14 +407,77 @@ class RwaMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.share_rounded,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Share with others',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/Sharelinkweight'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                //Get.to(() => ShareData());
+                Get.to(() => Sharelinkweight());
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.password,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Change Password',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChangePassword'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ChangePassword());
+                Get.offNamed('/ChangePassword');
               },
             ),
 
@@ -327,46 +506,54 @@ class RwaMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/AboutUs'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
+                _loginpasswordControllerr4.onInit();
+                _loginpasswordControllerr4.emailController.clear();
+                _loginpasswordControllerr4.passwordController.clear();
+                _loginpasswordControllerr4.toggleCheckbox(false);
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
                 //Get.back();
-                Get.to(() => SignInScreen());
+                await Get.offAll(() => SignInScreen());
               },
             ),
 
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.password,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Forgot Password',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/AboutUs'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => ForgotPassword());
-                Get.offNamed('/AboutUs');
-              },
-            ),
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     Icons.password,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'Forgot Password',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/AboutUs'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //     Get.back();
+            //     Get.to(() => ForgotPassword());
+            //     Get.offNamed('/AboutUs');
+            //   },
+            // ),
 
             ///
             // ListTile(

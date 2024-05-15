@@ -1,9 +1,0 @@
-version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
-options: "ab61f8de26bce59ec15c533fedd05094a3500dba69b7d16953d55395c2918e06"
-build_start_time: [1683209771, 120934000]
-build_end_time: [1683209771, 226248000]
-inputs:
-  ? "/Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_foundation-2.1.1/ios/Classes/PathProviderPlugin.swift"
-  : !private [1681122047, 146084915]
-  ? "/Users/ndinfotech/Desktop/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_foundation-2.1.1/ios/Classes/messages.g.swift"
-  : !private [1681122047, 146330037]

@@ -1,7 +1,7 @@
 // To parse this JSON data, do
 //
 //     final nurseCheckoutModel = nurseCheckoutModelFromJson(jsonString);
-///
+
 import 'dart:convert';
 
 NurseCheckoutModel nurseCheckoutModelFromJson(String str) =>
@@ -11,13 +11,18 @@ String nurseCheckoutModelToJson(NurseCheckoutModel data) =>
     json.encode(data.toJson());
 
 class NurseCheckoutModel {
-  int? id;
+  num? id;
   String? nurseName;
   String? nurseTypeName;
   num? experience;
   num? fee;
-  dynamic serviceDate;
+  num? gst;
+  num? totalFee;
+  num? totalFeeWithGst;
+  DateTime? serviceDate;
   String? slotTime;
+  num? totalNumberofdays;
+  String? deviceId;
 
   NurseCheckoutModel({
     this.id,
@@ -25,8 +30,13 @@ class NurseCheckoutModel {
     this.nurseTypeName,
     this.experience,
     this.fee,
+    this.gst,
+    this.totalFee,
+    this.totalFeeWithGst,
     this.serviceDate,
     this.slotTime,
+    this.totalNumberofdays,
+    this.deviceId,
   });
 
   factory NurseCheckoutModel.fromJson(Map<String, dynamic> json) =>
@@ -36,8 +46,15 @@ class NurseCheckoutModel {
         nurseTypeName: json["NurseTypeName"],
         experience: json["Experience"],
         fee: json["Fee"],
-        serviceDate: json["ServiceDate"],
+        gst: json["GST"],
+        totalFee: json["TotalFee"],
+        totalFeeWithGst: json["TotalFeeWithGST"],
+        serviceDate: json["ServiceDate"] == null
+            ? null
+            : DateTime.parse(json["ServiceDate"]),
         slotTime: json["SlotTime"],
+        totalNumberofdays: json["TotalNumberofdays"],
+        deviceId: json["DeviceId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +63,12 @@ class NurseCheckoutModel {
         "NurseTypeName": nurseTypeName,
         "Experience": experience,
         "Fee": fee,
-        "ServiceDate": serviceDate,
+        "GST": gst,
+        "TotalFee": totalFee,
+        "TotalFeeWithGST": totalFeeWithGst,
+        "ServiceDate": serviceDate?.toIso8601String(),
         "SlotTime": slotTime,
+        "TotalNumberofdays": totalNumberofdays,
+        "DeviceId": deviceId,
       };
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_center/lab_signup1/lab_center.dart';
 
 import '../../../../../constants/constants/constants.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
@@ -14,12 +17,35 @@ class Lab2HeadText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: appPadding,
-        vertical: appPadding / 3,
+        vertical: appPadding / 7,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: size.height * 0.05),
+
+          InkWell(
+            onTap: () {
+              //Get.back();
+              Get.offAll(LabSignup1());
+            },
+            child: Container(
+              height: size.height * 0.03,
+              width: size.width * 0.06,
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  size: size.height * 0.024,
+                  color: Colors.blue.shade900,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: size.height * 0.0),
           RichText(
             text: TextSpan(
               children: <TextSpan>[

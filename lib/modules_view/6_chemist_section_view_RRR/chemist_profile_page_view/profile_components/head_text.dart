@@ -42,7 +42,7 @@ class ChemistProfileHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Text(
-            'JK AGARWAL',
+            'Chemist Profile',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class ChemistProfileHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'JK@gmail.com',
+                  text: '',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,

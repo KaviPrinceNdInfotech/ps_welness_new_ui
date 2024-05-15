@@ -1,23 +1,29 @@
 // To parse this JSON data, do
 //
-//     final chemistProfileDetail = chemistProfileDetailFromJson(jsonString);
+//     final chemistProfileDetailModel = chemistProfileDetailModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ChemistProfileDetailModel chemistProfileDetailFromJson(String str) => ChemistProfileDetailModel.fromJson(json.decode(str));
+ChemistProfileDetailModel chemistProfileDetailModelFromJson(String str) =>
+    ChemistProfileDetailModel.fromJson(json.decode(str));
 
-String chemistProfileDetailToJson(ChemistProfileDetailModel data) => json.encode(data.toJson());
+String chemistProfileDetailModelToJson(ChemistProfileDetailModel data) =>
+    json.encode(data.toJson());
 
 class ChemistProfileDetailModel {
+  int? id;
   String? chemistName;
   String? emailId;
   String? mobileNumber;
   String? location;
-  dynamic stateName;
+  String? stateName;
   String? cityname;
   String? pinCode;
+  num? stateMasterId;
+  num? cityMasterId;
 
   ChemistProfileDetailModel({
+    this.id,
     this.chemistName,
     this.emailId,
     this.mobileNumber,
@@ -25,25 +31,34 @@ class ChemistProfileDetailModel {
     this.stateName,
     this.cityname,
     this.pinCode,
+    this.stateMasterId,
+    this.cityMasterId,
   });
 
-  factory ChemistProfileDetailModel.fromJson(Map<String, dynamic> json) => ChemistProfileDetailModel(
-    chemistName: json["ChemistName"],
-    emailId: json["EmailId"],
-    mobileNumber: json["MobileNumber"],
-    location: json["Location"],
-    stateName: json["StateName"],
-    cityname: json["cityname"],
-    pinCode: json["PinCode"],
-  );
+  factory ChemistProfileDetailModel.fromJson(Map<String, dynamic> json) =>
+      ChemistProfileDetailModel(
+        id: json["Id"],
+        chemistName: json["ChemistName"],
+        emailId: json["EmailId"],
+        mobileNumber: json["MobileNumber"],
+        location: json["Location"],
+        stateName: json["StateName"],
+        cityname: json["cityname"],
+        pinCode: json["PinCode"],
+        stateMasterId: json["StateMaster_Id"],
+        cityMasterId: json["CityMaster_Id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "ChemistName": chemistName,
-    "EmailId": emailId,
-    "MobileNumber": mobileNumber,
-    "Location": location,
-    "StateName": stateName,
-    "cityname": cityname,
-    "PinCode": pinCode,
-  };
+        "Id": id,
+        "ChemistName": chemistName,
+        "EmailId": emailId,
+        "MobileNumber": mobileNumber,
+        "Location": location,
+        "StateName": stateName,
+        "cityname": cityname,
+        "PinCode": pinCode,
+        "StateMaster_Id": stateMasterId,
+        "CityMaster_Id": cityMasterId,
+      };
 }

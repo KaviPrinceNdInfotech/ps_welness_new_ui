@@ -86,6 +86,7 @@
 // }
 ///
 ///
+///
 import 'dart:convert';
 
 List<DriverPaymentHistoryModel> driverPaymentHistoryModelFromJson(String str) =>
@@ -104,6 +105,12 @@ class DriverPaymentHistoryModel {
   num? amount;
   DateTime? paymentDate;
   String? isPay;
+  double? endLat;
+  double? endLong;
+  double? startLat;
+  double? startLong;
+  String? pickUpLoaction;
+  String? dropLocation;
 
   DriverPaymentHistoryModel({
     this.id,
@@ -114,6 +121,12 @@ class DriverPaymentHistoryModel {
     this.amount,
     this.paymentDate,
     this.isPay,
+    this.endLat,
+    this.endLong,
+    this.startLat,
+    this.startLong,
+    this.pickUpLoaction,
+    this.dropLocation,
   });
 
   factory DriverPaymentHistoryModel.fromJson(Map<String, dynamic> json) =>
@@ -124,10 +137,14 @@ class DriverPaymentHistoryModel {
         location: json["Location"],
         paymentId: json["PaymentId"],
         amount: json["Amount"],
-        paymentDate: json["PaymentDate"] == null
-            ? null
-            : DateTime.parse(json["PaymentDate"]),
+        paymentDate: DateTime.parse(json["PaymentDate"]),
         isPay: json["IsPay"],
+        endLat: json["end_Lat"].toDouble(),
+        endLong: json["end_Long"].toDouble(),
+        startLat: json["start_Lat"].toDouble(),
+        startLong: json["start_Long"].toDouble(),
+        pickUpLoaction: json["PickUpLoaction"],
+        dropLocation: json["DropLocation"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -139,5 +156,67 @@ class DriverPaymentHistoryModel {
         "Amount": amount,
         "PaymentDate": paymentDate?.toIso8601String(),
         "IsPay": isPay,
+        "end_Lat": endLat,
+        "end_Long": endLong,
+        "start_Lat": startLat,
+        "start_Long": startLong,
+        "PickUpLoaction": pickUpLoaction,
+        "DropLocation": dropLocation,
       };
 }
+
+///....
+
+// List<DriverPaymentHistoryModel> driverPaymentHistoryModelFromJson(String str) =>
+//     List<DriverPaymentHistoryModel>.from(
+//         json.decode(str).map((x) => DriverPaymentHistoryModel.fromJson(x)));
+//
+// String driverPaymentHistoryModelToJson(List<DriverPaymentHistoryModel> data) =>
+//     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+//
+// class DriverPaymentHistoryModel {
+//   int? id;
+//   String? patientName;
+//   String? mobileNumber;
+//   String? location;
+//   num? paymentId;
+//   num? amount;
+//   DateTime? paymentDate;
+//   String? isPay;
+//
+//   DriverPaymentHistoryModel({
+//     this.id,
+//     this.patientName,
+//     this.mobileNumber,
+//     this.location,
+//     this.paymentId,
+//     this.amount,
+//     this.paymentDate,
+//     this.isPay,
+//   });
+//
+//   factory DriverPaymentHistoryModel.fromJson(Map<String, dynamic> json) =>
+//       DriverPaymentHistoryModel(
+//         id: json["Id"],
+//         patientName: json["PatientName"],
+//         mobileNumber: json["MobileNumber"],
+//         location: json["Location"],
+//         paymentId: json["PaymentId"],
+//         amount: json["Amount"],
+//         paymentDate: json["PaymentDate"] == null
+//             ? null
+//             : DateTime.parse(json["PaymentDate"]),
+//         isPay: json["IsPay"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Id": id,
+//         "PatientName": patientName,
+//         "MobileNumber": mobileNumber,
+//         "Location": location,
+//         "PaymentId": paymentId,
+//         "Amount": amount,
+//         "PaymentDate": paymentDate?.toIso8601String(),
+//         "IsPay": isPay,
+//       };
+// }

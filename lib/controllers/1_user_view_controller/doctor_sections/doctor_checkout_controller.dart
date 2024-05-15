@@ -13,7 +13,7 @@ class DoctorCheckoutController extends GetxController {
   DoctorCheckoutModel? doctorCheckoutModel;
 
   ///todo from here we have get nurse checkout by location id...
-  void doctoorcheckoutApi() async {
+  Future<void> doctoorcheckoutApi() async {
     //isLoading(true);
     doctorCheckoutModel = await ApiProvider.DoctoercheckoutApi();
     print('Prince doctor list');
@@ -21,7 +21,7 @@ class DoctorCheckoutController extends GetxController {
     if (
         //nurseappointmentdetail?.result != null
         //doctorCheckoutModel!.doctorName!.isNotEmpty
-        doctorCheckoutModel != null
+        doctorCheckoutModel?.doctorName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);

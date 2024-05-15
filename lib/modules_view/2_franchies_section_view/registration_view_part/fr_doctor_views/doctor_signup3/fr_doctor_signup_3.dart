@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/constants/buttons/back_buttons.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+
 //import 'package:ps_welness/constants/constants/constants.dart';
 
+import '../doctor_sigup_part2/doctor_signup_part2.dart';
 import 'fr_doc_components3/credentials.dart';
 import 'fr_doc_components3/head_text.dart';
 
@@ -12,49 +17,101 @@ class FrDocSignup3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            lightPrimary,
-            darkPrimary,
-          ])),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                top: size.height * 0.02,
-                right: -size.width * 0.1,
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Container(
-                    height: size.height * 0.254,
-                    width: size.width * 0.58,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20),
-                        ),
-                        image: DecorationImage(
-                            image: AssetImage(
-                              'lib/assets/background_stack_png/fr_doctor003.png',
-                            ),
-                            fit: BoxFit.cover)),
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    bool shouldPop = true;
+    // Size size = MediaQuery.of(context).size;
+    return WillPopScope(
+      onWillPop: () async {
+        //SignUpList
+        //SignInScreen
+        Get.offAll(FrDoctorSignup2());
+        return shouldPop;
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              lightPrimary,
+              darkPrimary,
+            ])),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  FrDoc3HeadText(),
-                  FrDoc3Credentials(),
+                  Positioned(
+                    top: size.height * 0.02,
+                    right: -size.width * 0.1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        height: size.height * 0.254,
+                        width: size.width * 0.58,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                            ),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                  'lib/assets/background_stack_png/fr_doctor003.png',
+                                ),
+                                fit: BoxFit.cover)),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: size.height * 0.01,
+                    left: size.width * 0.06,
+                    child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Container(
+                          height: size.height * 0.04,
+                          width: size.width * 0.15,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: GradientButton(
+                            onPressed: () {
+                              Get.offAll(FrDoctorSignup2());
+
+                              ///Get.back();
+                            },
+                            //gradient: MyTheme.gradient7,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_left,
+                                  size: 16,
+                                  color: Colors.yellow.shade200,
+                                ),
+                                Text(
+                                  'back',
+                                  style: TextStyle(
+                                    color: Colors.yellow.shade200,
+                                    fontSize: size.height * 0.014,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FrDoc3HeadText(),
+                      FrDoc3Credentials(),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),

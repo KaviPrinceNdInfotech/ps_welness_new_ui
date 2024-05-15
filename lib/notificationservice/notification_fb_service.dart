@@ -8,12 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/drawer_contoller/doctor_history_section/doctor_history_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_message2.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_page_message_firebase.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 
 import '../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
+import '../controllers/1_user_view_controller/drawer_contoller/nurse_history_controller/nurse_history_controllerss.dart';
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
+import '../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
+import '../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 import '../utils/services/account_service.dart';
 
 class NotificationServices {
@@ -25,9 +29,20 @@ class NotificationServices {
       FlutterLocalNotificationsPlugin();
   UseracptrejectController _useracptrejectController =
       Get.put(UseracptrejectController());
+  DoctorHistoryController _doctorHistoryController =
+      Get.put(DoctorHistoryController());
 
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
+
+  NurseAppointmentNurseDetailController _nurseappointmentnursedetailController =
+      Get.put(NurseAppointmentNurseDetailController());
+
+  DoctorHomepageController _doctorHomepageController =
+      Get.put(DoctorHomepageController());
+
+  NurseHistoryController _nurseHistoryController =
+      Get.put(NurseHistoryController());
 
   //function to initialise flutter local notification plugin to show notifications for android when app is active
   void initLocalNotifications(
@@ -214,6 +229,14 @@ class NotificationServices {
       await Future.delayed(Duration(milliseconds: 200));
       _driverAcceptlistController.driveracceptuserDetailApi();
       _driverAcceptlistController.update();
+
+      ///todo new....29....aug 2023...
+
+      _driverAcceptlistController.refresh();
+      _driverAcceptlistController.onInit();
+
+      ///todo end new....29....aug 2023...
+
       accountService.getAccountData.then((accountData) {
         // CallLoader.loader();
         // nearlistdriverApi();
@@ -248,6 +271,115 @@ class NotificationServices {
       //             )));
     } else if (message.data['type'] == 'reject_case') {
       print("reject${message.data['id']}");
+    } else if (message.data['type'] == 'cancel_case_doctor') {
+      print("dataaacceptewew${message.data['id']}");
+      //_useracptrejectController.driveracceptrejctlistApi();
+      //_useracptrejectController.update();
+
+      await Future.delayed(Duration(milliseconds: 200));
+      // _doctorHomepageController.doctorAppoinmentDetail();
+      //_doctorHomepageController.update();
+      _doctorHistoryController.doctorListHospitalApi();
+      _doctorHistoryController.onInit();
+      _doctorHistoryController.update();
+      accountService.getAccountData.then((accountData) {
+        // CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // nearlistdriverApi();
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => DoctorHistoryUser(
+            //               id: message.data['id'],
+            //             )));
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+    } else if (message.data['type'] == 'cancel_case_nurse') {
+      print("dataaacceptewew${message.data['id']}");
+      //_useracptrejectController.driveracceptrejctlistApi();
+      //_useracptrejectController.update();
+
+      await Future.delayed(Duration(milliseconds: 200));
+      // _nurseappointmentnursedetailController.nurseappointmentApi();
+      // _nurseappointmentnursedetailController.update();
+      //_nurseappointmentnursedetailController.onInit();
+      ///
+      _nurseHistoryController.nursehistoryApi();
+      _nurseHistoryController.update();
+      //                                                                                     //  .skillsListApi();
+      //                                                                                     _nurseHistoryController.update();
+      // CallLoader.loader();
+      // await Future.delayed(
+      //     Duration(milliseconds: 900));
+      // CallLoader.hideLoader();
+      accountService.getAccountData.then((accountData) {
+        // CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // nearlistdriverApi();
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => NurseHistoryUser(
+            //               id: message.data['id'],
+            //             )));
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+    } else if (message.data['type'] == 'accept_case') {
+      print("dataaaccept${message.data['id']}");
+      //_useracptrejectController.driveracceptrejctlistApi();
+      //_useracptrejectController.update();
+
+      await Future.delayed(Duration(milliseconds: 200));
+      _driverAcceptlistController.driveracceptuserDetailApi();
+      _driverAcceptlistController.update();
+      accountService.getAccountData.then((accountData) {
+        // CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // nearlistdriverApi();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MessageScreen2(
+                          id: message.data['id'],
+                        )));
+            // Get.to(MessageScreen(
+            //   id: message.data['id'],
+            // ));
+            //Get.to((MapView));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => MessageScreen(
+      //               id: message.data['id'],
+      //             )));
     }
   }
 

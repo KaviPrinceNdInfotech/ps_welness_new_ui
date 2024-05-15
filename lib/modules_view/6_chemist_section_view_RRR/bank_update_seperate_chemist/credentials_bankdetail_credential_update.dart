@@ -48,7 +48,7 @@ class UpdateBankSeperateCredentials extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.0,
             ),
             Text(
               'Update Details:',
@@ -56,14 +56,14 @@ class UpdateBankSeperateCredentials extends StatelessWidget {
                   fontWeight: FontWeight.w700, fontSize: size.width * 0.04),
             ),
             SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.0,
               //appPadding / 2,
             ),
 
             ///TODO: bankAc  no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                // keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _updateBankSeperateController.AccountNo,
                 onSaved: (value) {
@@ -157,6 +157,106 @@ class UpdateBankSeperateCredentials extends StatelessWidget {
             ),
             SizedBox(
               height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+
+            ///TODO:  branch address.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _updateBankSeperateController.BranchAddress,
+                onSaved: (value) {
+                  _updateBankSeperateController.branchAddress = value!;
+                },
+                validator: (value) {
+                  return _updateBankSeperateController
+                      .validbranchaddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Branch Address.',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.pin_drop,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+
+            ///TODO:  accountholder name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _updateBankSeperateController.HolderName,
+                onSaved: (value) {
+                  _updateBankSeperateController.accountNo = value!;
+                },
+                validator: (value) {
+                  return _updateBankSeperateController.validname(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Account Holder name.',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.account_box,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.018,
+              //appPadding / 2,
+            ),
+
+            ///TODO:  mobile no .......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.newPassword],
+                controller: _updateBankSeperateController.MobileNumber,
+                onSaved: (value) {
+                  _updateBankSeperateController.mobileNumber = value!;
+                },
+                validator: (value) {
+                  return _updateBankSeperateController.validmobile(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Valid Mobile no',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.00,
               //appPadding / 2,
             ),
 

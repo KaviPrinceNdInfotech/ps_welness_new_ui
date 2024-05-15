@@ -23,6 +23,7 @@ class DoctorreportviewController extends GetxController {
       isLoading(false);
       founddoctorviewProducts.value = doctorViewReportModel!.doctorViewReport!;
     }
+    isLoading(false);
   }
 
   void doctorreportimageeApi() async {

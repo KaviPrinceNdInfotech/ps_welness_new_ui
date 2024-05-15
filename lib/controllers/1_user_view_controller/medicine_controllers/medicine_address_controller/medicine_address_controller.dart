@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -95,6 +96,22 @@ class medicine_addresssList_Controller extends GetxController {
   void medicineaddressListApi() async {
     isLoading(true);
     medicineaddresslistmodel = await ApiProvider.MedicineaddresslistApi();
+    if (medicineaddresslistmodel?.addAddressMediciness == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      medicineaddresslistmodel = await ApiProvider.MedicineaddresslistApi();
+      //Get.to(() => TotalPrice());
+
+      //foundProducts.value = medicinelistmodel!.data;
+      //Get.to(()=>Container());
+    }
     print('Prince address list');
     print(medicineaddresslistmodel);
     if (medicineaddresslistmodel?.addAddressMediciness != null) {

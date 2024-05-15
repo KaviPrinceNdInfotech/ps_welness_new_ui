@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/chemist_view/chemist_signup1/chemist_signup1.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class Chemist2HeadText extends StatelessWidget {
@@ -22,10 +23,11 @@ class Chemist2HeadText extends StatelessWidget {
           SizedBox(height: size.height * 0.05),
           InkWell(
               onTap: () {
-                Get.back();
+                Get.offAll(ChemistSignup1());
+                // Get.back();
               },
               child: Icon(Icons.arrow_circle_left)),
-          SizedBox(height: size.height * 0.02),
+          SizedBox(height: size.height * 0.004),
 
           RichText(
             text: TextSpan(

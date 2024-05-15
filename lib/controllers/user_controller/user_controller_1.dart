@@ -1,9 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/model/1_user_model/city_model/city_modelss.dart';
 //import 'package:ps_welness/model/1_user_model/states_model/state_modells.dart';
@@ -17,16 +21,26 @@ import '../../servicess_api/api_services_all_api.dart';
 
 class User_1_Controller extends GetxController {
   final GlobalKey<FormState> user1formkey = GlobalKey<FormState>();
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
   RxList<City> cities = <City>[].obs;
 
+  ///date.....
+  var selectedDate = DateTime.now().obs;
   //this is for City.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
 
-  ///
+  ///.....
   List<StateModel> states = <StateModel>[];
+
+  final selectedgender = "".obs;
+
+  onChangeGender(String servicee) {
+    selectedgender.value = servicee;
+  }
 
   ///
 
@@ -47,24 +61,48 @@ class User_1_Controller extends GetxController {
   void usersignupApi() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.UserSignUpApinew(
-      nameController.text,
-      emailController.text,
-      mobileController.text,
-      passwordController.text,
-      confitrmpasswordController.text,
+      nameController?.text,
+      emailController?.text,
+      mobileController?.text,
+      passwordController?.text,
+      confitrmpasswordController?.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
-      addressController.text,
-      pinController.text,
+      addressController?.text,
+      pinController?.text,
+      appointmentController.text,
+      selectedgender.value,
     );
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
+      Get.snackbar(
+        'message', "${r.body}",
+        // r.body,
+        duration: const Duration(seconds: 1),
+      );
 
-      CallLoader.hideLoader();
+      // CallLoader.hideLoader();
+
+      ///....went to sign up list.....
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+
+      //Get.back();
+      //await Get.offAll(() => SignInScreen());
 
       /// we can navigate to user page.....................................
-      Get.to(SignInScreen());
+      //Get.to(SignInScreen());
+    } else {
+      Get.snackbar(
+        'message', "${r.body}",
+        // r.body,
+        duration: const Duration(seconds: 1),
+      );
     }
   }
 
@@ -77,7 +115,8 @@ class User_1_Controller extends GetxController {
       StateController,
       CityController,
       addressController,
-      pinController;
+      pinController,
+      appointmentController;
 
   var name = '';
   var email = '';
@@ -88,6 +127,7 @@ class User_1_Controller extends GetxController {
   var city = '';
   var address = '';
   var pin = '';
+  var date = '';
 
   @override
   void onInit() {
@@ -108,6 +148,11 @@ class User_1_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
+    appointmentController = TextEditingController();
+    appointmentController.text = "YYY-MM-DD";
+
+    // Get.delete<User_1_Controller>();
+    // _loginpasswordControllerr = Get.find(User_1_Controller());
   }
 
   @override
@@ -117,14 +162,52 @@ class User_1_Controller extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    mobileController.dispose();
-    passwordController.dispose();
-    StateController.dispose();
-    CityController.dispose();
-    addressController.dispose();
-    pinController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    mobileController?.dispose();
+    passwordController?.dispose();
+    StateController?.dispose();
+    CityController?.dispose();
+    addressController?.dispose();
+    pinController?.dispose();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<User_1_Controller>();
+    super.dispose();
+  }
+
+  chooseDate() async {
+    DateTime? newpickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2025),
+      initialEntryMode: DatePickerEntryMode.input,
+      initialDatePickerMode: DatePickerMode.year,
+      helpText: 'Select DOB',
+      cancelText: 'Close',
+      confirmText: 'Confirm',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter valid date range',
+      fieldLabelText: 'Selected Date',
+      //fieldHintText: 'Month/Date/Year',
+      //selectableDayPredicate: disableDate,
+    );
+    if (newpickedDate != null) {
+      selectedDate.value = newpickedDate;
+      appointmentController
+        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: appointmentController.text.length,
+            affinity: TextAffinity.upstream));
+    }
+    // if (pickedDate != null && pickedDate != selectedDate) {
+    //   selectedDate.value = pickedDate;
+    //   appointmentController.text =
+    //       DateFormat('DD-MM-yyyy').format(selectedDate.value).toString();
+    // }
   }
 
   String? validName(String value) {

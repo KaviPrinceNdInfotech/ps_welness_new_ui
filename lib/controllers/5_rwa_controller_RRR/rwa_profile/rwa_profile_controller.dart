@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
@@ -17,6 +16,9 @@ import '../../../utils/services/account_service.dart';
 
 class RwaProfileController extends GetxController {
   final GlobalKey<FormState> rwaprofileformkey = GlobalKey<FormState>();
+
+  final RwaProfileDetailController _rwaProfileDetailController =
+      Get.put(RwaProfileDetailController());
 
   var selectedImagepath = ''.obs;
   var selectedPath = ''.obs;
@@ -35,6 +37,8 @@ class RwaProfileController extends GetxController {
   TextEditingController? nameController,
       LandlineNumber,
       locatoionController,
+      emailController,
+      pincodeController,
       CertificateImage;
   var name = '';
   //var email = '';
@@ -52,6 +56,11 @@ class RwaProfileController extends GetxController {
     states = await ApiProvider.getSatesApi();
   }
 
+  void clearSelectedState() {
+    selectedState.value = null;
+    //states?.clear();
+  }
+
   void getCityByStateID(String stateID) async {
     cities.clear();
     final localList = await ApiProvider.getCitiesApi(stateID);
@@ -59,30 +68,45 @@ class RwaProfileController extends GetxController {
   }
 
   void rwaProfileApi() async {
-    CallLoader.loader();
-
-    final imageAsBase64 =
-        base64Encode(await File(selectedPath.value).readAsBytes());
+    // CallLoader.loader();
+    // final imageAsBase64 =
+    // base64Encode(await File(selectedPath.value).readAsBytes());
     http.Response r = await ApiProvider.RWAProfileApi(
-        nameController?.text,
-        LandlineNumber?.text.toString(),
-        selectedState.value?.id.toString(),
-        selectedCity.value?.id.toString(),
-        locatoionController?.text,
-        selectedPath.value.split('/').last,
-        imageAsBase64);
+      nameController?.text,
+      LandlineNumber?.text.toString(),
+      selectedState.value?.id.toString() ??
+          _rwaProfileDetailController.getRwaProfileDetail?.stateMasterId
+              .toString(),
+      selectedCity.value?.id.toString() ??
+          _rwaProfileDetailController.getRwaProfileDetail?.cityMasterId
+              .toString(),
+      locatoionController?.text,
+      emailController?.text,
+      pincodeController?.text,
+      //selectedPath.value.split('/').last,
+      //imageAsBase64
+    );
     if (r.statusCode == 200) {
       accountService.getAccountData.then((accountData) {
         Timer(
-          const Duration(milliseconds: 200),
-          () {
+          const Duration(milliseconds: 900),
+          () async {
+            await Future.delayed(Duration(milliseconds: 100));
+            CallLoader.hideLoader();
+            // Get.offAll(NurseHomePage());
+            Get.offAll(() => RwaHomePage());
+            await Future.delayed(Duration(milliseconds: 900));
+            //await _nurseprofileContrller.nurseprofileApi();
+            clearSelectedState();
             //  _viewdoctorreviewController.doctorreviewratingApi();
             //_viewdoctorreviewController.update();
-            Get.snackbar(
-                'Add review Successfully', "Review Submitted. Thank-you."
-                // "${r.body}"
-                );
-            Get.to(() => RwaHomePage());
+            // Get.snackbar(
+            //     'Add review Successfully', "Review Submitted. Thank-you."
+            //     // "${r.body}"
+            //     );
+            ///Get.to(() => RwaHomePage());
+            /// CallLoader.hideLoader();
+
             // _doctorListController.doctordetailApi();
             // _doctorListController.update();
             // _viewdoctorreviewController.doctorreviewratingApi();
@@ -106,9 +130,24 @@ class RwaProfileController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-    nameController = TextEditingController(text: '');
-    LandlineNumber = TextEditingController(text: '');
-    locatoionController = TextEditingController(text: '');
+    //_rwaProfileDetailController
+    nameController = TextEditingController(
+        text:
+            "${_rwaProfileDetailController.getRwaProfileDetail?.authorityName.toString() ?? 0}");
+    LandlineNumber = TextEditingController(
+        text:
+            "${_rwaProfileDetailController.getRwaProfileDetail?.phoneNumber.toString() ?? 0}");
+
+    locatoionController = TextEditingController(
+        text:
+            "${_rwaProfileDetailController.getRwaProfileDetail?.location.toString() ?? 0}");
+    emailController = TextEditingController(
+        text:
+            "${_rwaProfileDetailController.getRwaProfileDetail?.emailId.toString() ?? 0}");
+    pincodeController = TextEditingController(
+        text:
+            "${_rwaProfileDetailController.getRwaProfileDetail?.pincode.toString() ?? 0}");
+
     CertificateImage = TextEditingController(text: '');
   }
 
@@ -118,12 +157,18 @@ class RwaProfileController extends GetxController {
   }
 
   @override
-  void dispose() {
-    Get.delete<RwaProfileController>(); // Dispose of the controller bindings
+  void onClose() {
+    //PatientNameController.dispose();
+    nameController?.dispose();
+    LandlineNumber?.dispose();
+    locatoionController?.dispose();
+    CertificateImage?.dispose();
   }
 
   @override
-  void onClose() {}
+  void dispose() {
+    Get.delete<RwaProfileController>(); // Dispose of the controller bindings
+  }
 
   String? validName(String value) {
     if (value.length < 2) {
@@ -182,7 +227,7 @@ class RwaProfileController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 9) {
+    if (value.length < 2) {
       return '              Provide valid account no.';
     }
     return null;

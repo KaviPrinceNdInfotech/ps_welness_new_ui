@@ -57,12 +57,13 @@ class LapDetailProfile extends StatelessWidget {
                               height: size.height * 0.4,
                               width: size.width * 0.8,
                               decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        'https://images.unsplash.com/photo-1654633147734-19458b964f6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-                                      ),
-                                      fit: BoxFit.fill)),
+                                color: Colors.grey.shade200,
+                                // image: DecorationImage(
+                                //     image: NetworkImage(
+                                //       'https://images.unsplash.com/photo-1654633147734-19458b964f6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
+                                //     ),
+                                //     fit: BoxFit.fill)
+                              ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:

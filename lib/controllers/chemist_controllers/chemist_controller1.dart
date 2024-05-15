@@ -126,10 +126,12 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 //import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modelldart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules_view/circular_loader/circular_loaders.dart';
 import '../../modules_view/sign_in/sigin_screen.dart';
@@ -137,6 +139,8 @@ import '../../modules_view/sign_in/sigin_screen.dart';
 
 class Chemist_1_Controller extends GetxController {
   final GlobalKey<FormState> chemist1formkey = GlobalKey<FormState>();
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
   var selectedPath = ''.obs;
   var selectedTime = TimeOfDay.now().obs;
   var selectedDate = DateTime.now().obs;
@@ -157,7 +161,9 @@ class Chemist_1_Controller extends GetxController {
     }
   }
 
-  TextEditingController? ChemistName,
+  TextEditingController? pannumberController,
+      panController,
+      ChemistName,
       ShopName,
       EmailId,
       Password,
@@ -172,6 +178,21 @@ class Chemist_1_Controller extends GetxController {
       LicenceNumber,
       LicenseValidity,
       PinCode;
+
+  var psnnumber = '';
+  var pan = '';
+  var Fee = '';
+  var PhoneNumber = '';
+  var StartTime = '';
+  var SlotTiming = '';
+  var Department_Id = '';
+  var Specialist_Id = '';
+  var LicenceImage = '';
+  var LicenceImageName = '';
+  var ClinicName = '';
+  var EndTime = '';
+  var LicenceBase64 = '';
+  var experience = '';
 
   /////////do here......................
   Rx<City?> selectedCity = (null as City?).obs;
@@ -194,6 +215,7 @@ class Chemist_1_Controller extends GetxController {
         base64Encode(await File(selectedPath.value).readAsBytes());
     print("imagebaseeee644:${imageAsBase64}");
     http.Response r = await ApiProvider.ChemistSignupApi(
+        panController?.text,
         ChemistName?.text,
         ShopName?.text,
         EmailId?.text,
@@ -209,8 +231,28 @@ class Chemist_1_Controller extends GetxController {
         appointmentController?.text,
         PinCode?.text);
     if (r.statusCode == 200) {
-      Get.to(SignInScreen());
+      // Get.snackbar(
+      //   'Success',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
+      //Get.snackbar('message', "${r.body}");
+      /// we can navigate to user page.....................................
+      // Get.to(SignInScreen());
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+      //Get.to(SignInScreen());
       var data = jsonDecode(r.body);
+    } else {
+      // Get.snackbar(
+      //   'Error',
+      //   "${r.body}",
+      //   duration: const Duration(seconds: 1),
+      // );
     }
   }
 
@@ -248,6 +290,8 @@ class Chemist_1_Controller extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
+    pannumberController = TextEditingController();
+    panController = TextEditingController();
     ChemistName = TextEditingController(text: '');
     ShopName = TextEditingController(text: '');
     EmailId = TextEditingController(text: '');
@@ -262,7 +306,7 @@ class Chemist_1_Controller extends GetxController {
     LicenseValidity = TextEditingController(text: '');
     PinCode = TextEditingController(text: '');
     appointmentController = TextEditingController();
-    appointmentController.text = "YYY-MM-DD";
+    appointmentController.text = "Select licence validity date";
   }
 
   @override
@@ -275,15 +319,15 @@ class Chemist_1_Controller extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2070),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select licence Validity',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Valid date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
@@ -307,7 +351,7 @@ class Chemist_1_Controller extends GetxController {
 
   String? validName(String value) {
     if (value.length < 2) {
-      return "              Provide valid name";
+      return "              Provide valid text";
     }
     return null;
   }
@@ -367,6 +411,36 @@ class Chemist_1_Controller extends GetxController {
       return '              A valid phone number should be of 10 digits';
     }
     return null;
+  }
+
+  String? validPin(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 6) {
+      return '              A valid pin should be of 6 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan should be of 10 digits';
+    }
+    return null;
+  }
+
+  String? validexperince(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    // if (value.length < 1) {
+    //   return '              A valid pin should be of 6 digits';
+    // }
+    //return null;
   }
 
   void checkChemistSignup() {

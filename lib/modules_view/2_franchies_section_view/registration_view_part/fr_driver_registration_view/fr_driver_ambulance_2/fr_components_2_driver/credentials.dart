@@ -16,7 +16,8 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 class FrDriver2Credentials extends StatelessWidget {
   FrDriver2Credentials({Key? key}) : super(key: key);
 
-  Fr_Driver_1_Controller _fr_driver_1_controller = Get.put(Fr_Driver_1_Controller());
+  Fr_Driver_1_Controller _fr_driver_1_controller =
+      Get.put(Fr_Driver_1_Controller());
 
   var items = [
     'Item 1',
@@ -35,7 +36,7 @@ class FrDriver2Credentials extends StatelessWidget {
         key: _fr_driver_1_controller.frdriver1formkey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,7 +45,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   autofillHints: [AutofillHints.addressCityAndState],
                   controller: _fr_driver_1_controller.addressController,
                   onSaved: (value) {
-                   // _fr_driver_1_controller.address = value!;
+                    // _fr_driver_1_controller.address = value!;
                   },
                   validator: (value) {
                     return _fr_driver_1_controller.validAddress(value!);
@@ -66,36 +67,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              NeumorphicTextFieldContainer(
-                child: TextFormField(
-                  autofillHints: [AutofillHints.addressCityAndState],
-                  controller: _fr_driver_1_controller.dlNumber,
-                  onSaved: (value) {
-                    // _fr_driver_1_controller.address = value!;
-                  },
-                  validator: (value) {
-                    return _fr_driver_1_controller.validAddress(value!);
-                  },
-                  cursorColor: Colors.black,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Dl number',
-                    helperStyle: TextStyle(
-                      color: black.withOpacity(0.7),
-                      fontSize: 18,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.location_city_outlined,
-                      color: black.withOpacity(0.7),
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
+
               ///Todo: state............................
               SizedBox(
                 height: size.height * 0.01,
@@ -115,7 +87,8 @@ class FrDriver2Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select State'),
-                        items: _fr_driver_1_controller.states.map((StateModel items) {
+                        items: _fr_driver_1_controller.states
+                            .map((StateModel items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
@@ -127,7 +100,9 @@ class FrDriver2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? '  field required' : null,
+                        validator: (value) => value == null
+                            ? '              field required'
+                            : null,
                         onChanged: (StateModel? newValue) {
                           _fr_driver_1_controller.selectedState.value =
                               newValue!;
@@ -135,6 +110,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///Todo: city.....................................
               SizedBox(
                 height: size.height * 0.02,
@@ -166,13 +142,167 @@ class FrDriver2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? '  field required' : null,
+                        validator: (value) => value == null
+                            ? '                field required'
+                            : null,
                         onChanged: (City? newValue) {
-                          _fr_driver_1_controller.selectedCity.value = newValue!;
+                          _fr_driver_1_controller.selectedCity.value =
+                              newValue!;
                         }),
                   ),
                 ),
               ),
+
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              NeumorphicTextFieldContainer(
+                child: TextFormField(
+                  //keyboardType: TextInputType.number,
+                  autofillHints: [AutofillHints.addressCityAndState],
+                  controller: _fr_driver_1_controller.dlNumber,
+                  onSaved: (value) {
+                    // _fr_driver_1_controller.address = value!;
+                  },
+                  validator: (value) {
+                    return _fr_driver_1_controller.validAddress(value!);
+                  },
+                  cursorColor: Colors.black,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Dl number',
+                    helperStyle: TextStyle(
+                      color: black.withOpacity(0.7),
+                      fontSize: 18,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.numbers,
+                      color: black.withOpacity(0.7),
+                      size: 20,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: size.height * 0.08,
+                width: size.width,
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(vertical: 30 / 5),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            lightPrimary,
+                            darkPrimary,
+                          ]),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(-0, -0),
+                          spreadRadius: 0,
+                          blurRadius: 0,
+                          color: Colors.white,
+                        ),
+                        BoxShadow(
+                          offset: Offset(0, 0),
+                          spreadRadius: 0,
+                          blurRadius: 0,
+                          color: Colors.grey,
+                        ),
+                      ]),
+                  child: TextFormField(
+                    textAlign: TextAlign.left,
+                    // decoration: InputDecoration(
+                    //   hintText: 'Enter Something',
+                    //   contentPadding: EdgeInsets.all(20.0),
+                    // ),
+
+                    controller: _fr_driver_1_controller.dlvaliditycontroller,
+                    onTap: () {
+                      _fr_driver_1_controller.chooseDate();
+                    },
+
+                    cursorColor: Colors.black,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(17.0),
+                      hintText: 'Select date',
+                      helperStyle: TextStyle(
+                        color: black.withOpacity(0.7),
+                        fontSize: 18,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.calendar_today_outlined,
+                        color: black.withOpacity(0.7),
+                        size: 20,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 1,
+                    autofocus: true,
+                    //obscureText: true,
+                    //controller: _loginpasswordController.mobileController,
+                  ),
+                ),
+                // ListView.builder(
+                //     shrinkWrap: true,
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: 32,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       return Padding(
+                //         padding: const EdgeInsets.all(3.0),
+                //         child: PhysicalModel(
+                //           color: MyTheme.white,
+                //           borderRadius: BorderRadius.circular(5),
+                //           elevation: 20,
+                //           child: Padding(
+                //             padding: EdgeInsets.symmetric(
+                //                 horizontal: size.width * 0.01,
+                //                 vertical: size.height * 0.004),
+                //             child: Container(
+                //               //height: size.height * 0.025,
+                //               width: size.width * 0.17,
+                //               decoration: BoxDecoration(
+                //                 color: MyTheme.ThemeColors,
+                //                 borderRadius: BorderRadius.circular(5),
+                //               ),
+                //               child: Column(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.center,
+                //                 children: [
+                //                   Text(
+                //                     'MAR',
+                //                     style: TextStyle(
+                //                       fontSize: size.height * 0.015,
+                //                       fontWeight: FontWeight.w600,
+                //                       color: Colors.white,
+                //                     ),
+                //                   ),
+                //                   SizedBox(
+                //                     height: size.height * 0.01,
+                //                   ),
+                //                   Text(
+                //                     '${index}',
+                //                     style: TextStyle(
+                //                       fontSize: size.height * 0.016,
+                //                       fontWeight: FontWeight.w600,
+                //                       color: Colors.white,
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       );
+                //     }),
+              ),
+
               ///image picker....1......
               SizedBox(
                 height: size.height * 0.018,
@@ -194,19 +324,24 @@ class FrDriver2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _fr_driver_1_controller.selectedDLImage1path.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_fr_driver_1_controller.selectedDLImage1path.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _fr_driver_1_controller
+                                        .selectedDLImage1path.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_fr_driver_1_controller
+                                        .selectedDLImage1path.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -214,6 +349,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///image picker....2......
               SizedBox(
                 height: size.height * 0.018,
@@ -235,19 +371,24 @@ class FrDriver2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _fr_driver_1_controller.selectedDLImage2path.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_fr_driver_1_controller.selectedDLImage2path.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _fr_driver_1_controller
+                                        .selectedDLImage2path.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_fr_driver_1_controller
+                                        .selectedDLImage2path.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -255,6 +396,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///image picker....3......
               SizedBox(
                 height: size.height * 0.018,
@@ -264,7 +406,8 @@ class FrDriver2Credentials extends StatelessWidget {
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _fr_driver_1_controller.getAadharImage1(ImageSource.gallery);
+                    _fr_driver_1_controller
+                        .getAadharImage1(ImageSource.gallery);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,19 +420,24 @@ class FrDriver2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _fr_driver_1_controller.selectedAadharImage1path.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_fr_driver_1_controller.selectedAadharImage1path.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _fr_driver_1_controller
+                                        .selectedAadharImage1path.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_fr_driver_1_controller
+                                        .selectedAadharImage1path.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -297,6 +445,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///image picker....4......
               SizedBox(
                 height: size.height * 0.018,
@@ -306,7 +455,8 @@ class FrDriver2Credentials extends StatelessWidget {
                 init: Hospital_2_Controller(), // intialize with the Controller
                 builder: (value) => InkWell(
                   onTap: () {
-                    _fr_driver_1_controller.getAadharImage2(ImageSource.gallery);
+                    _fr_driver_1_controller
+                        .getAadharImage2(ImageSource.gallery);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -319,19 +469,24 @@ class FrDriver2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _fr_driver_1_controller.selectedAadharImage2path.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_fr_driver_1_controller.selectedAadharImage2path.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _fr_driver_1_controller
+                                        .selectedAadharImage2path.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_fr_driver_1_controller
+                                        .selectedAadharImage2path.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -342,13 +497,64 @@ class FrDriver2Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
+              ///todo: profile Image driver ....prince 16 april...
+
+              GetBuilder<Hospital_2_Controller>(
+                init: Hospital_2_Controller(), // intialize with the Controller
+                builder: (value) => InkWell(
+                  onTap: () {
+                    _fr_driver_1_controller
+                        .getProfileImage(ImageSource.gallery);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Driver Profile Image',
+                        style: TextStyle(
+                          fontSize: size.width * 0.03,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Obx(
+                            () => _fr_driver_1_controller
+                                        .selectedprofileImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_fr_driver_1_controller
+                                        .selectedprofileImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+
               ///TODO: Pin.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.password],
                   controller: _fr_driver_1_controller.pinController,
                   onSaved: (value) {
-                  //  _fr_driver_1_controller.pin = value!;
+                    //  _fr_driver_1_controller.pin = value!;
                   },
                   validator: (value) {
                     return _fr_driver_1_controller.validPin(value!);
@@ -356,7 +562,7 @@ class FrDriver2Credentials extends StatelessWidget {
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: 'Pin',
+                    hintText: 'Pin Code',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,

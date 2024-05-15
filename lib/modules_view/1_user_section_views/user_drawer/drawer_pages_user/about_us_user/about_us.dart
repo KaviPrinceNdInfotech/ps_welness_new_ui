@@ -8,10 +8,8 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_
 
 class UserAboutUsView extends StatelessWidget {
   UserAboutUsView({Key? key}) : super(key: key);
-
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

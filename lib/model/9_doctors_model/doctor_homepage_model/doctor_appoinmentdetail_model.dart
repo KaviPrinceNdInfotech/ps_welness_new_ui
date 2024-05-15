@@ -57,6 +57,154 @@
 // }
 ///
 ///
+///
+//import 'dart:convert';
+
+// DoctorNewAppoinmentDetailModel doctorNewAppoinmentDetailModelFromJson(
+//         String str) =>
+//     DoctorNewAppoinmentDetailModel.fromJson(json.decode(str));
+//
+// String doctorNewAppoinmentDetailModelToJson(
+//         DoctorNewAppoinmentDetailModel data) =>
+//     json.encode(data.toJson());
+//
+// class DoctorNewAppoinmentDetailModel {
+//   List<AppointmentDetail>? appointmentDetail;
+//
+//   DoctorNewAppoinmentDetailModel({
+//     this.appointmentDetail,
+//   });
+//
+//   factory DoctorNewAppoinmentDetailModel.fromJson(Map<String, dynamic> json) =>
+//       DoctorNewAppoinmentDetailModel(
+//         appointmentDetail: json["AppointmentDetail"] == null
+//             ? []
+//             : List<AppointmentDetail>.from(json["AppointmentDetail"]!
+//                 .map((x) => AppointmentDetail.fromJson(x))),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "AppointmentDetail": appointmentDetail == null
+//             ? []
+//             : List<dynamic>.from(appointmentDetail!.map((x) => x.toJson())),
+//       };
+// }
+//
+// class AppointmentDetail {
+//   int? id;
+//   String? doctorName;
+//   String? location;
+//   String? startTime;
+//   String? endTime;
+//   String? disease;
+//   DateTime? joiningDate;
+//
+//   AppointmentDetail({
+//     this.id,
+//     this.doctorName,
+//     this.location,
+//     this.startTime,
+//     this.endTime,
+//     this.disease,
+//     this.joiningDate,
+//   });
+//
+//   factory AppointmentDetail.fromJson(Map<String, dynamic> json) =>
+//       AppointmentDetail(
+//         id: json["Id"],
+//         doctorName: json["DoctorName"],
+//         location: json["Location"],
+//         startTime: json["StartTime"],
+//         endTime: json["EndTime"],
+//         disease: json["Disease"],
+//         joiningDate: json["JoiningDate"] == null
+//             ? null
+//             : DateTime.parse(json["JoiningDate"]),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Id": id,
+//         "DoctorName": doctorName,
+//         "Location": location,
+//         "StartTime": startTime,
+//         "EndTime": endTime,
+//         "Disease": disease,
+//         "JoiningDate": joiningDate?.toIso8601String(),
+//       };
+// }
+
+///...import 'dart:convert';
+// import 'dart:convert';
+//
+// DoctorNewAppoinmentDetailModel doctorNewAppoinmentDetailModelFromJson(
+//         String str) =>
+//     DoctorNewAppoinmentDetailModel.fromJson(json.decode(str));
+//
+// String doctorNewAppoinmentDetailModelToJson(
+//         DoctorNewAppoinmentDetailModel data) =>
+//     json.encode(data.toJson());
+//
+// class DoctorNewAppoinmentDetailModel {
+//   List<AppointmentDetail>? appointmentDetail;
+//
+//   DoctorNewAppoinmentDetailModel({
+//     this.appointmentDetail,
+//   });
+//
+//   factory DoctorNewAppoinmentDetailModel.fromJson(Map<String, dynamic> json) =>
+//       DoctorNewAppoinmentDetailModel(
+//         appointmentDetail: json["AppointmentDetail"] == null
+//             ? []
+//             : List<AppointmentDetail>.from(json["AppointmentDetail"]!
+//                 .map((x) => AppointmentDetail.fromJson(x))),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "AppointmentDetail": appointmentDetail == null
+//             ? []
+//             : List<dynamic>.from(appointmentDetail!.map((x) => x.toJson())),
+//       };
+// }
+//
+// class AppointmentDetail {
+//   int? id;
+//   String? patientName;
+//   String? location;
+//   String? slotTime;
+//   DateTime? appointmentdate;
+//   String? deviceId;
+//
+//   AppointmentDetail({
+//     this.id,
+//     this.patientName,
+//     this.location,
+//     this.slotTime,
+//     this.appointmentdate,
+//     this.deviceId,
+//   });
+//
+//   factory AppointmentDetail.fromJson(Map<String, dynamic> json) =>
+//       AppointmentDetail(
+//         id: json["Id"],
+//         patientName: json["PatientName"],
+//         location: json["Location"],
+//         slotTime: json["SlotTime"],
+//         appointmentdate: json["Appointmentdate"] == null
+//             ? null
+//             : DateTime.parse(json["Appointmentdate"]),
+//         deviceId: json["DeviceId"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "Id": id,
+//         "PatientName": patientName,
+//         "Location": location,
+//         "SlotTime": slotTime,
+//         "Appointmentdate": appointmentdate?.toIso8601String(),
+//         "DeviceId": deviceId,
+//       };
+// }
+///
 import 'dart:convert';
 
 DoctorNewAppoinmentDetailModel doctorNewAppoinmentDetailModelFromJson(
@@ -91,43 +239,43 @@ class DoctorNewAppoinmentDetailModel {
 
 class AppointmentDetail {
   int? id;
-  String? doctorName;
+  String? patientName;
   String? location;
-  String? startTime;
-  String? endTime;
-  String? disease;
-  DateTime? joiningDate;
+  String? slotTime;
+  DateTime? appointmentdate;
+  String? deviceId;
+  String? mobileNumber;
 
   AppointmentDetail({
     this.id,
-    this.doctorName,
+    this.patientName,
     this.location,
-    this.startTime,
-    this.endTime,
-    this.disease,
-    this.joiningDate,
+    this.slotTime,
+    this.appointmentdate,
+    this.deviceId,
+    this.mobileNumber,
   });
 
   factory AppointmentDetail.fromJson(Map<String, dynamic> json) =>
       AppointmentDetail(
         id: json["Id"],
-        doctorName: json["DoctorName"],
+        patientName: json["PatientName"],
         location: json["Location"],
-        startTime: json["StartTime"],
-        endTime: json["EndTime"],
-        disease: json["Disease"],
-        joiningDate: json["JoiningDate"] == null
+        slotTime: json["SlotTime"],
+        appointmentdate: json["Appointmentdate"] == null
             ? null
-            : DateTime.parse(json["JoiningDate"]),
+            : DateTime.parse(json["Appointmentdate"]),
+        deviceId: json["DeviceId"],
+        mobileNumber: json["MobileNumber"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
-        "DoctorName": doctorName,
+        "PatientName": patientName,
         "Location": location,
-        "StartTime": startTime,
-        "EndTime": endTime,
-        "Disease": disease,
-        "JoiningDate": joiningDate?.toIso8601String(),
+        "SlotTime": slotTime,
+        "Appointmentdate": appointmentdate?.toIso8601String(),
+        "DeviceId": deviceId,
+        "MobileNumber": mobileNumber,
       };
 }

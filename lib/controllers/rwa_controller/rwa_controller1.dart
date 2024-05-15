@@ -7,19 +7,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
+import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:ps_welness_new_ui/utils/services/account_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules_view/circular_loader/circular_loaders.dart';
 
 class Rwa_11_controller extends GetxController {
   final GlobalKey<FormState> rwa1formkey = GlobalKey<FormState>();
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   RxInt selectedimg = 0.obs;
   var selectedPath = ''.obs;
   //var selectedPath = ''.obs;
+
+  void clearImage() {
+    selectedPath.value = ''; // Clear the selected image path
+  }
 
   void getImage(ImageSource imageSource) async {
     final pickedFiles = await ImagePicker().pickImage(source: imageSource);
@@ -55,6 +64,13 @@ class Rwa_11_controller extends GetxController {
     print(states);
   }
 
+  ///franchise id api class........45  1.........
+  Future<void> RwafranchiseIdApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
+  }
+
   ///get cities api...........
   void getCityByStateIDRwa(String stateID) async {
     cities.clear();
@@ -76,7 +92,12 @@ class Rwa_11_controller extends GetxController {
     selectedService.value = plan;
   }
 
-  late TextEditingController nameController,
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
+
+  late TextEditingController panController,
+      nameController,
       phoneController,
       stateController,
       cityController,
@@ -88,6 +109,7 @@ class Rwa_11_controller extends GetxController {
       landlineController,
       certificateNoController;
 
+  var pan = '';
   var name = '';
   var phone = '';
   var state = '';
@@ -110,6 +132,7 @@ class Rwa_11_controller extends GetxController {
         base64Encode(await File(selectedPath.value).readAsBytes());
     print("imagebaseeee644:${imageAsBase64}");
     http.Response r = await ApiProvider.RwaSignupApi(
+      panController.text,
       nameController.text,
       phoneController.text,
       emailController.text,
@@ -123,33 +146,55 @@ class Rwa_11_controller extends GetxController {
       certificateNoController.text,
       selectedPath.value.split('/').last,
       imageAsBase64,
+
+      ///this is remaining part
+      //selectedFranchiseId.value?.id.toString(),
     );
 
     if (r.statusCode == 200) {
-      accountService.getAccountData.then((accountData) {
-        Timer(
-          const Duration(milliseconds: 200),
-          () {
-            //  _viewdoctorreviewController.doctorreviewratingApi();
-            //_viewdoctorreviewController.update();
-            Get.snackbar(
-                'Add review Successfully', "Review Submitted. Thank-you."
-                // "${r.body}"
-                );
+      var data = jsonDecode(r.body);
 
-            ///Get.to(() => DetailsSchedulePage());
-            // _doctorListController.doctordetailApi();
-            // _doctorListController.update();
-            // _viewdoctorreviewController.doctorreviewratingApi();
-            // _viewdoctorreviewController.update();
+      Get.snackbar(
+        'message', "${r.body}",
+        // r.body,
+        duration: const Duration(seconds: 1),
+      );
+      //CallLoader.hideLoader();
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
+      //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
 
-            //Get.to((page))
-            ///
-          },
-        );
-      });
-      CallLoader.hideLoader();
+      /// we can navigate to user page.....................................
+      //Get.to(SignInScreen());
+      // accountService.getAccountData.then((accountData) {
+      //   Timer(
+      //     const Duration(milliseconds: 200),
+      //     () {
+      //       //  _viewdoctorreviewController.doctorreviewratingApi();
+      //       //_viewdoctorreviewController.update();
+      //       Get.snackbar('Register Successfully', "${r.body}");
+      //
+      //       ///Get.to(() => DetailsSchedulePage());
+      //       // _doctorListController.doctordetailApi();
+      //       // _doctorListController.update();
+      //       // _viewdoctorreviewController.doctorreviewratingApi();
+      //       // _viewdoctorreviewController.update();
+      //
+      //       //Get.to((page))
+      //       ///
+      //     },
+      //   );
+      // });
+      //CallLoader.hideLoader();
     } else {
+      Get.snackbar(
+        'message', "${r.body}",
+        // r.body,
+        duration: const Duration(seconds: 1),
+      );
       //CallLoader.hideLoader();
     }
   }
@@ -157,6 +202,7 @@ class Rwa_11_controller extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    panController = TextEditingController();
     nameController = TextEditingController();
     phoneController = TextEditingController();
     emailController = TextEditingController();
@@ -170,6 +216,7 @@ class Rwa_11_controller extends GetxController {
     landlineController = TextEditingController();
 
     getStateRwaApi();
+    RwafranchiseIdApi();
     //getdepartmentApi();
     selectedState.listen((p0) {
       if (p0 != null) {
@@ -250,6 +297,16 @@ class Rwa_11_controller extends GetxController {
     }
     if (value.length != 10) {
       return '              A valid phone number should be of 10 digits';
+    }
+    return null;
+  }
+
+  String? validPan(String value) {
+    if (value.isEmpty) {
+      return '              This field is required';
+    }
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
   }

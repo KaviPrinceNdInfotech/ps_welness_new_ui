@@ -1,19 +1,33 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesNurseDetail_Controller.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/fr_registration_detailsss/fr_registration_detail_nurse/fr_registration_nurse_detailss.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditNurse extends StatefulWidget {
-  String id,name,nurseType,mobile,email,location,c_number;
-  EditNurse({Key? key,required this.id,required this.name,required this.nurseType,required this.mobile,
-    required this.email,required this.location,required this.c_number}) : super(key: key);
+  String id, name, nurseType, mobile, email, location, c_number;
+  EditNurse(
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.nurseType,
+      required this.mobile,
+      required this.email,
+      required this.location,
+      required this.c_number})
+      : super(key: key);
 
   @override
   State<EditNurse> createState() => _EditChemistState();
 }
+
 class _EditChemistState extends State<EditNurse> {
-  String? id1,name1,nurseType1,mobile1,email1,location1,c_number1;
-  FrenchiesNurseDetailController _frenchiesNurseDetailController = Get.put(FrenchiesNurseDetailController());
+  String? id1, name1, nurseType1, mobile1, email1, location1, c_number1;
+  FrenchiesNurseDetailController _frenchiesNurseDetailController =
+      Get.put(FrenchiesNurseDetailController());
   @override
   void initState() {
     id1 = widget.id;
@@ -21,10 +35,13 @@ class _EditChemistState extends State<EditNurse> {
     nurseType1 = widget.nurseType;
     mobile1 = widget.mobile;
     email1 = widget.email;
-    location1 =widget.location;
+    location1 = widget.location;
     c_number1 = widget.c_number;
+    _frenchiesNurseDetailController.frenchiesNurseDetailApi();
+    _frenchiesNurseDetailController.onInit();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final id = TextEditingController(text: id1);
@@ -44,7 +61,9 @@ class _EditChemistState extends State<EditNurse> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: 50,
               child: TextFormField(
@@ -55,10 +74,13 @@ class _EditChemistState extends State<EditNurse> {
                     labelText: 'Name',
                     hintMaxLines: 1,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                        borderSide:
+                            BorderSide(color: Colors.green, width: 4.0))),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: 50,
               child: TextFormField(
@@ -69,10 +91,13 @@ class _EditChemistState extends State<EditNurse> {
                     labelText: 'Mobile',
                     hintMaxLines: 1,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                        borderSide:
+                            BorderSide(color: Colors.green, width: 4.0))),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: 50,
               child: TextFormField(
@@ -83,10 +108,13 @@ class _EditChemistState extends State<EditNurse> {
                     labelText: 'Email',
                     hintMaxLines: 1,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                        borderSide:
+                            BorderSide(color: Colors.green, width: 4.0))),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: 50,
               child: TextFormField(
@@ -97,10 +125,13 @@ class _EditChemistState extends State<EditNurse> {
                     labelText: 'Location',
                     hintMaxLines: 1,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                        borderSide:
+                            BorderSide(color: Colors.green, width: 4.0))),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: 50,
               child: TextFormField(
@@ -111,16 +142,45 @@ class _EditChemistState extends State<EditNurse> {
                     labelText: 'Certificate number',
                     hintMaxLines: 1,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 4.0))),
+                        borderSide:
+                            BorderSide(color: Colors.green, width: 4.0))),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             InkWell(
-              onTap: (){
-                _frenchiesNurseDetailController.frenchiesEditNurseDetailapi(id.text,name.text,nurseType1.toString(),mobile.text,email.text,location.text,c_number.text);
-                Timer(const Duration(seconds: 2), () =>
-                    _frenchiesNurseDetailController.frenchiesNurseDetailApi());
-                Get.back();
+              onTap: () async {
+                _frenchiesNurseDetailController.frenchiesEditNurseDetailapi(
+                    id.text,
+                    name.text,
+                    nurseType1.toString(),
+                    mobile.text,
+                    email.text,
+                    location.text,
+                    c_number.text);
+
+                _frenchiesNurseDetailController.frenchiesNurseDetailApi();
+                _frenchiesNurseDetailController.update();
+                _frenchiesNurseDetailController.onInit();
+                _frenchiesNurseDetailController.refresh();
+                CallLoader.loader();
+                await Future.delayed(Duration(milliseconds: 4200));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => Get.to(ResitrationNurseDetails())
+                        //text: option.productName,
+                        //  )
+                        );
+
+                ///
+                // Timer(
+                //     const Duration(seconds: 2),
+                //     () => _frenchiesNurseDetailController
+                //         .frenchiesNurseDetailApi()
+                // );
+
+                //Get.back();
               },
               child: Container(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),

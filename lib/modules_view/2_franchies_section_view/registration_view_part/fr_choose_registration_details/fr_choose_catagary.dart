@@ -4,17 +4,25 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesChemistDetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesDoctorDetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesDriverDetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesLabDetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesNurseDetail_Controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesPatientDetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesRWADetail_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesRegistrationDetail_Controller/frenchiesVehicleDetail_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
 
 import '../../fr_registration_detailsss/fr_registration_detail_chemist/fr_registration_chemist_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_doctor/fr_registration_doctor_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_driver/fr_registration_driver_detailss.dart';
-import '../../fr_registration_detailsss/fr_registration_detail_helsthcheckup/fr_registration_healthcheckup_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_lab/fr_registration_lab_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_nurse/fr_registration_nurse_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_patient/fr_registration_patient_detailss.dart';
-import '../../fr_registration_detailsss/fr_registration_detail_rwa/fr_registration_rwa_detailss.dart';
 import '../../fr_registration_detailsss/fr_registration_detail_vehicle/fr_registration_vehicle_detailss.dart';
 
 class FrRegistrationDetails extends StatelessWidget {
@@ -24,12 +32,12 @@ class FrRegistrationDetails extends StatelessWidget {
     'Vehicle Details',
     'Driver Details',
     'Doctor Details',
-    'Patient Details',
+    'User Details',
     'Chemist Details',
     'Nurse Details',
     'Lab Details',
-    'Checkup Details',
-    'Rwa Details',
+    // 'Checkup Details',
+    //'Rwa Details',
   ];
 
   final List<String> catimage = [
@@ -40,9 +48,29 @@ class FrRegistrationDetails extends StatelessWidget {
     'lib/assets/icons/frd5.png',
     'lib/assets/icons/frd6.png',
     'lib/assets/icons/frd7.png',
-    'lib/assets/icons/frd8.png',
-    'lib/assets/icons/frd9.png',
+    // 'lib/assets/icons/frd8.png',
+    // 'lib/assets/icons/frd9.png',
   ];
+  FrenchiesRWADetailController _frenchiesRWADetailController =
+      Get.put(FrenchiesRWADetailController());
+  FrenchiesLabDetailController _frenchiesLabDetailController =
+      Get.put(FrenchiesLabDetailController());
+  FrenchiesChemistDetailController _frenchiesChemistDetailController =
+      Get.put(FrenchiesChemistDetailController());
+  FrenchiesNurseDetailController _frenchiesNurseDetailController =
+      Get.put(FrenchiesNurseDetailController());
+  FrenchiesPatientDetailController _frenchiesPatientDetailController =
+      Get.put(FrenchiesPatientDetailController());
+  FrenchiesDoctorDetailController _frenchiesDoctorDetailController =
+      Get.put(FrenchiesDoctorDetailController());
+  FrenchiesDriverDetailController _frenchiesDriverDetailController =
+      Get.put(FrenchiesDriverDetailController());
+
+  FrenchiesVehicleDetailController _frenchiesVehicleDetailController =
+      Get.put(FrenchiesVehicleDetailController());
+
+  FrenchiesDoctorDetailController _franchisedoctordetail =
+      Get.put(FrenchiesDoctorDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -108,14 +136,14 @@ class FrRegistrationDetails extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          decoration:  const BoxDecoration(
-                              borderRadius:  BorderRadius.all(
-                                   Radius.circular(30.0)),
+                          decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0)),
                               color: Colors.white),
                           width: size.width,
                           height: size.height * 0.06,
-                          margin:  const EdgeInsets.fromLTRB(15, 20, 15, 20),
-                          padding:  const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                          margin: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                           child: Theme(
                             data: Theme.of(context)
                                 .copyWith(splashColor: Colors.transparent),
@@ -131,11 +159,13 @@ class FrRegistrationDetails extends StatelessWidget {
                                 contentPadding: const EdgeInsets.only(
                                     left: 10.0, bottom: 12.0, top: 0.0),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(25.7),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(25.7),
                                 ),
                               ),
@@ -169,25 +199,92 @@ class FrRegistrationDetails extends StatelessWidget {
                                   horizontal: size.width * 0.01,
                                   vertical: size.height * 0.003),
                               child: InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   if (index == 0) {
+                                    await _frenchiesVehicleDetailController
+                                        .FrenchiesVehicleDetailApi();
+                                    _frenchiesVehicleDetailController.update();
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 900));
+                                    CallLoader.hideLoader();
                                     Get.to(() => ResitrationVechileDetails());
                                   } else if (index == 1) {
+                                    _frenchiesDriverDetailController
+                                        .FrenchiesDriverDetailApi();
+                                    _frenchiesDriverDetailController.update();
+                                    // FrenchiesDriverDetailController _frenchiesDriverDetailController = Get.put(FrenchiesDriverDetailController());
+
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 900));
+                                    CallLoader.hideLoader();
+
                                     Get.to(() => ResitrationDriverDetails());
                                   } else if (index == 2) {
+                                    _frenchiesDoctorDetailController
+                                        .FrenchiesDoctorDetailApi();
+                                    _frenchiesDoctorDetailController.update();
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 900));
+                                    CallLoader.hideLoader();
                                     Get.to(() => ResitrationDoctorDetails());
                                   } else if (index == 3) {
+                                    _frenchiesPatientDetailController
+                                        .FrenchiesPatientDetailApi();
+                                    await _franchisedoctordetail
+                                        .FrenchiesDoctorDetailApi();
+                                    _franchisedoctordetail.update();
+                                    _frenchiesPatientDetailController.update();
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 900));
+                                    CallLoader.hideLoader();
                                     Get.to(() => ResitrationPatientDetails());
                                   } else if (index == 4) {
+                                    _frenchiesChemistDetailController
+                                        .FrenchiesChemistDetailApi();
+                                    _frenchiesChemistDetailController.update();
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 700));
+                                    CallLoader.hideLoader();
                                     Get.to(() => ResitrationChemistDetails());
                                   } else if (index == 5) {
+                                    _frenchiesNurseDetailController
+                                        .frenchiesNurseDetailApi();
+                                    _frenchiesNurseDetailController.update();
+
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 900));
+                                    CallLoader.hideLoader();
                                     Get.to(() => ResitrationNurseDetails());
                                   } else if (index == 6) {
+                                    _frenchiesLabDetailController
+                                        .frenchiesLabDetailApi();
+                                    _frenchiesLabDetailController.update();
+
+                                    CallLoader.loader();
+                                    await Future.delayed(
+                                        Duration(milliseconds: 900));
+                                    CallLoader.hideLoader();
                                     Get.to(() => ResitrationLabDetails());
-                                  } else if (index == 7) {
-                                    Get.to(() => ResitrationHealthCheckupDetails());
-                                  } else if (index == 8) {
-                                    Get.to(() => ResitrationRwaDetails());
+                                  }
+                                  // else if (index == 7) {
+                                  //   //Get.to(() => ResitrationHealthCheckupDetails());
+                                  // }
+                                  else if (index == 7) {
+                                    // _frenchiesRWADetailController
+                                    //     .frenchiesRWADetailApi();
+                                    // _frenchiesRWADetailController.update();
+
+                                    // CallLoader.loader();
+                                    // await Future.delayed(
+                                    //     Duration(milliseconds: 900));
+                                    // CallLoader.hideLoader();
+                                    // Get.to(() => ResitrationRwaDetails());
                                   }
                                   //Get.to(() => DoctorListUser());
                                 },
@@ -199,14 +296,14 @@ class FrRegistrationDetails extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: MyTheme.ThemeColors,
                                       borderRadius: BorderRadius.circular(10),
-                                      boxShadow: const[
-                                         BoxShadow(
+                                      boxShadow: const [
+                                        BoxShadow(
                                           color: Colors.black38,
                                           offset: Offset(5, 5),
                                           blurRadius: 0,
                                           spreadRadius: 0,
                                         ),
-                                         BoxShadow(
+                                        BoxShadow(
                                           color: Colors.black26,
                                           offset: Offset(0, -0),
                                           blurRadius: 0,

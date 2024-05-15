@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/forget_password_controller/forget_password_controllerss.dart';
-import 'package:ps_welness_new_ui/modules_view/sign_up_list/sign_up_list.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -103,7 +102,8 @@ class Forget1Credentials extends StatelessWidget {
             RectangularButton(
                 text: 'Submit',
                 press: () {
-                  Get.to(SignUpList());
+                  _forget_password_controller.checkForget();
+                  //checkForget
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_image_view_report/doctor_image_view_reportss.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/circular_loader.dart';
@@ -94,7 +95,7 @@ class DoctorViewssReport extends StatelessWidget {
                                 Text(
                                   'Doctor\'s Report View',
                                   style: GoogleFonts.alatsi(
-                                      fontSize: size.height * 0.032,
+                                      fontSize: size.height * 0.028,
                                       fontWeight: FontWeight.w600,
                                       color: Color(0xff023382)),
                                 ),
@@ -161,10 +162,7 @@ class DoctorViewssReport extends StatelessWidget {
                               ? Center(
                                   child: Text("No List"),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.71,
-
-                                  ///height: size.height,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _doctorreportviewController
@@ -283,32 +281,6 @@ class DoctorViewssReport extends StatelessWidget {
                                                             size.width * 0.18,
                                                         padding:
                                                             EdgeInsets.all(8),
-                                                        child: Image.network(
-                                                          base +
-                                                              '${_doctorreportviewController.founddoctorviewProducts[index].image1.toString()}',
-                                                          //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                          fit: BoxFit.fill,
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                            //if image not comming in catagary then we have to purchase
-
-                                                            return Center(
-                                                              child: Text(
-                                                                'No Image',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      size.height *
-                                                                          0.013,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
                                                         // Image.asset(
                                                         //   'lib/assets/icons/user.png',
                                                         //   // "lib/assets/image/icons8-hospital-64.png",
@@ -338,6 +310,33 @@ class DoctorViewssReport extends StatelessWidget {
                                                                 spreadRadius: 1,
                                                               ),
                                                             ]),
+                                                        child: Image.network(
+                                                          //'$base'
+                                                          '$IMAGE_BASE_URL'
+                                                          '${_doctorreportviewController.founddoctorviewProducts[index].image1.toString()}',
+                                                          //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                          fit: BoxFit.fill,
+                                                          errorBuilder:
+                                                              (context, error,
+                                                                  stackTrace) {
+                                                            //if image not comming in catagary then we have to purchase
+
+                                                            return Center(
+                                                              child: Text(
+                                                                'No Image',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.013,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                     Column(
@@ -487,7 +486,8 @@ class DoctorViewssReport extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

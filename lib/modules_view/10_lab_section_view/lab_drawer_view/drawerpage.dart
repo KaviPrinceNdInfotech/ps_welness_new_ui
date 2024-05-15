@@ -6,11 +6,21 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/add_test_lab_controller/lab_test_add_controller.dart';
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/drawer_page_flab_controller/lab_profile_lab.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/skils_controller/skils_controllers.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/lab_test_view/add_labtestts/add_test_todo.dart';
+import 'package:ps_welness_new_ui/modules_view/10_lab_section_view/lab_drawer_view/drower_pages/update_lab_bank/update_bank_lab_view/update_lab_bnk_view.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/user_profile_details/profile_lab_detail_page.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
-import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
+import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
@@ -23,14 +33,21 @@ import '../../../controllers/10_lab_controller/lab_profile_details_controller/la
 import '../../sign_in/sigin_screen.dart';
 import 'drower_pages/complaint_page/complaint_lab_page.dart';
 import 'drower_pages/profile_page_view/lab_profile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class LabMainDrawer extends StatelessWidget {
   LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
+  LabProfileUpdateController _labProfileUpdateController =
+      Get.put(LabProfileUpdateController());
   LabAboutusController _labAboutusController = Get.put(LabAboutusController());
+  SkillsListController _skillsListController = Get.put(SkillsListController());
+  LoginpasswordController _loginpasswordController = Get.find();
+  LabTestListController _labTestListController =
+      Get.put(LabTestListController());
+  BankDetailController _getbank = Get.put(BankDetailController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -120,6 +137,115 @@ class LabMainDrawer extends StatelessWidget {
                 Get.offNamed('/AboutUs');
               },
             ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Lab Profile Detail',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/LapDetailProfile'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _labprofiledetailController.update();
+                _labprofiledetailController.labprofileApi();
+                //LapDetailProfile
+                Get.to(() => LapDetailProfile());
+                Get.offNamed('/LapDetailProfile');
+              },
+            ),
+
+            ///todo: test..add............
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.list,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Add Lab Test',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/LabtestListScreen'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                _labTestListController.labTestListApi();
+                _labTestListController.update();
+
+                Get.to(() => LabtestListScreen());
+                // Get.offNamed('/LabtestListScreen');
+              },
+            ),
+
+            ///
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     FontAwesomeIcons.solidAddressCard,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'Add Lab Test',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/AddTestPageLab'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //
+            //     Get.to(() => AddTestPageLab());
+            //
+            //     Get.offNamed('/AddTestPageLab');
+            //   },
+            // ),
+
+            ///
 
             ListTile(
               // horizontalTitleGap: 10,
@@ -146,10 +272,19 @@ class LabMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/LabProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => LabProfilePage());
+                _labprofiledetailController.update();
+                _labprofiledetailController.labprofileApi();
+
+                _labProfileUpdateController.onInit();
+                _labProfileUpdateController.clearSelectedState();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => LabProfilePage());
+                await Future.delayed(Duration(milliseconds: 10));
+                //Get.to(() => LabProfilePage());
                 Get.offNamed('/LabProfilePage');
               },
             ),
@@ -258,42 +393,6 @@ class LabMainDrawer extends StatelessWidget {
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Lab Profile Detail',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/LapDetailProfile'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                _labprofiledetailController.update();
-                _labprofiledetailController.labprofileApi();
-                //LapDetailProfile
-                Get.to(() => LapDetailProfile());
-                Get.offNamed('/LapDetailProfile');
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
                 Icons.food_bank,
                 color: MyTheme.blueww,
                 size: size.height * 0.021,
@@ -316,11 +415,19 @@ class LabMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => UpdateBankLabDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                // Get.to(() => UpdateBankLabDetail());
+                // Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 
@@ -340,24 +447,56 @@ class LabMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'About Lab',
+                'About Us',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/AboutUsView'
+              tileColor: Get.currentRoute == '/WebViewPswebsiteabout'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _userAboutusController.update();
-                _userAboutusController.useraboutusApi();
+                // _userAboutusController.update();
+                //_userAboutusController.useraboutusApi();
                 //_labAboutusController.update();
                 //_labAboutusController.lababoutusApi();
-                Get.to(() => UserAboutUsView());
-                Get.offNamed('/UserAboutUsView');
+                Get.to(() => WebViewPswebsiteabout());
+                Get.offNamed('/WebViewPswebsiteabout');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/WebViewPswebsiteprivecy'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => WebViewPswebsiteprivecy()
+                    // PrivacyPolicyView()
+                    );
               },
             ),
 
@@ -383,14 +522,77 @@ class LabMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.share_rounded,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Share with others',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/Sharelinkweight'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                //Get.to(() => ShareData());
+                Get.to(() => Sharelinkweight());
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.password,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Change Password',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChangePassword'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ChangePassword());
+                Get.offNamed('/ChangePassword');
               },
             ),
 
@@ -419,48 +621,58 @@ class LabMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/AboutUs'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
+                _loginpasswordController.onInit();
+                _loginpasswordController.emailController.clear();
+                _loginpasswordController.passwordController.clear();
+                _loginpasswordController.toggleCheckbox(false);
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
                 //Get.back();
-                Get.to(() => SignInScreen());
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.password,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Forgot Password',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/AboutUs'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => ForgotPassword());
-                Get.offNamed('/AboutUs');
+                await Get.offAll(() => SignInScreen());
               },
             ),
 
             ///
+
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     Icons.password,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'Forgot Password',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/AboutUs'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //     Get.back();
+            //     Get.to(() => ForgotPassword());
+            //     Get.offNamed('/AboutUs');
+            //   },
+            // ),
+
+            ////
             // ListTile(
             //   //horizontalTitleGap: 10,
             //   leading: Icon(

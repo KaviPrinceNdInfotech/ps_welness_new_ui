@@ -29,8 +29,8 @@ class RwaProfileHeadText extends StatelessWidget {
               InkWell(
                   onTap: () {
                     Get.to(RwaHomePage());
-                    _rwaProfileController.update();
-                    _rwaProfileController.rwaProfileApi();
+                    // _rwaProfileController.update();
+                    // _rwaProfileController.rwaProfileApi();
 
                     //Get.back();
                   },
@@ -50,7 +50,7 @@ class RwaProfileHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Text(
-            'PS foundation',
+            'Rwa Profile',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -60,7 +60,7 @@ class RwaProfileHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'ps@gmail.com',
+                  text: '',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,

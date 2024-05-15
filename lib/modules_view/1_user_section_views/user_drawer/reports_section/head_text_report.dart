@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class ReportHeadText extends StatelessWidget {
@@ -31,7 +32,7 @@ class ReportHeadText extends StatelessWidget {
               child: Center(
                   child: InkWell(
                 onTap: () {
-                  Get.back();
+                  Get.to(UserHomePage());
                 },
                 child: Icon(
                   Icons.arrow_back,

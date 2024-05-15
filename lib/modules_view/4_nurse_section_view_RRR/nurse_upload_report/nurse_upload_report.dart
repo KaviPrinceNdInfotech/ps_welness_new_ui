@@ -172,12 +172,13 @@ class NurseUploadReport extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Color(0xffffdb61),
       appBar: AppBar(
+        backgroundColor: Colors.cyan,
         leading: InkWell(
             onTap: () {
               Get.to(NurseHomePage());
             },
             child: Icon(Icons.arrow_circle_left)),
-        title: Text("Upload Patient Report"),
+        title: Text("Upload Patient Feedback"),
       ),
       body: Obx(
         () => (_nursdeUploadReportController.isLoading.isFalse)
@@ -325,13 +326,29 @@ class NurseUploadReport extends StatelessWidget {
                       height: 20,
                     ),
                     RectangularButton(
-                        text: 'SUBMIT REPORT',
+                        text: 'SUBMIT FEEDBACK',
                         press: () async {
                           //CallLoader.loader();
 
                           ///todo: calling api....
                           _nursdeUploadReportController
                               .postnurseUploadreportApi();
+                          // Clear selected image path
+                          _nursdeUploadReportController.selectedPath.value = '';
+
+                          // Clear dropdown value
+                          _nursdeUploadReportController.selectedpatients.value =
+                              null;
+
+                          ///Clear dropdown value
+
+                          _nursdeUploadReportController.imagePath.clear();
+                          _nursdeUploadReportController.selectedImagePath
+                              .close();
+
+                          //resetSelection();
+                          /// await optionsController.selectOption();
+
                           // Get.to(LabCatagaryDetails());
                           // LabListPage());
                           //_loginpasswordController.checkLoginpassword();
@@ -412,5 +429,17 @@ class NurseUploadReport extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class OptionsController extends GetxController {
+  RxBool isOptionSelected = false.obs;
+
+  void resetSelection() {
+    isOptionSelected.value = false;
+  }
+
+  Future<void> selectOption() async {
+    isOptionSelected.value = true;
   }
 }

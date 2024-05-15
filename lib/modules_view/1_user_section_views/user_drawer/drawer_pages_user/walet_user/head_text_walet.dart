@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constants/constants/constants.dart';
+import '../../../home_page_user_view/user_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class WolletHeadText extends StatelessWidget {
@@ -32,7 +33,9 @@ class WolletHeadText extends StatelessWidget {
               child: Center(
                   child: InkWell(
                 onTap: () {
-                  Get.back();
+                  Get.to(UserHomePage());
+
+                  // Get.back();
                 },
                 child: Icon(
                   Icons.arrow_back,

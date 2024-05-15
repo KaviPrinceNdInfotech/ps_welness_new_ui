@@ -7,12 +7,18 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
-//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_drawer_view/drower_pages/chemist_profile_details/profile_chemist_detail_page.dart';
-import 'package:ps_welness_new_ui/modules_view/forget_password_view/forget_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/update_bank_chemist/bank_update_chemist_view.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:ps_welness/modules_view/drawer_view/drower_pages/about_us/about_us.dart';
@@ -24,7 +30,6 @@ import '../../../controllers/6_chemist_view_controllers_RRR/chemist_aboutus_cont
 import '../../../controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/profile_page_view/chemist_updateProfile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class ChemistMainDrawer extends StatelessWidget {
   ChemistProfileDetailController _chemistProfileDetailController =
@@ -32,8 +37,14 @@ class ChemistMainDrawer extends StatelessWidget {
   ChemistAboutusController _chemistAboutusController =
       Get.put(ChemistAboutusController());
 
+  //BankDetailController _getbank = Get.put(BankDetailController());
+
   UserAboutusController _userAboutusController =
       Get.put(UserAboutusController());
+  LoginpasswordController _loginpasswordControllerr5 = Get.find();
+  ChemistUpdateProfileController _chemistUpdateProfileController =
+      Get.put(ChemistUpdateProfileController());
+  BankDetailController _getbank = Get.put(BankDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -119,105 +130,7 @@ class ChemistMainDrawer extends StatelessWidget {
                 Get.back();
 
                 //Get.to(() => AboutUsView());
-                Get.offNamed('/AboutUs');
-              },
-            ),
-
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                FontAwesomeIcons.edit,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Chemist Profile Update',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/ChemistUpdateProfilePage'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => ChemistUpdateProfilePage());
-                //  Get.offNamed('/NurseProfilePage');
-              },
-            ),
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.food_bank,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Update Bank',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
-              },
-            ),
-            //UpdateBankSeperateDetail
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.sticky_note_2_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Complaint',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/ComplaintPage'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => ComplaintPage());
-                Get.offNamed('/ComplaintPage');
+                ///Get.offNamed('/AboutUs');
               },
             ),
             ListTile(
@@ -254,6 +167,123 @@ class ChemistMainDrawer extends StatelessWidget {
                 //Get.offNamed('/ChemistDetailProfile');
               },
             ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                FontAwesomeIcons.edit,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Chemist Profile Update',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChemistUpdateProfilePage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () async {
+                print(Get.currentRoute);
+                Get.back();
+                _chemistProfileDetailController.chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
+                _chemistProfileDetailController.onInit();
+                _chemistUpdateProfileController.onInit();
+                _chemistUpdateProfileController.clearSelectedState();
+                //Get.to(() => ChemistUpdateProfilePage());
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => ChemistUpdateProfilePage());
+
+                await Future.delayed(Duration(milliseconds: 10));
+                //  Get.offNamed('/NurseProfilePage');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.food_bank,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Update Bank',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () async {
+                print(Get.currentRoute);
+                Get.back();
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+
+                await Get.offAll(() => UpdateBankSeperateChemistDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                // Get.to(() => UpdateBankSeperateChemistDetail());
+                //Get.offNamed('/UpdateBankSeperateDetail');
+              },
+            ),
+            //UpdateBankSeperateDetail
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.sticky_note_2_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Complaint',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ComplaintPage'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ComplaintPage());
+                Get.offNamed('/ComplaintPage');
+              },
+            ),
+
             ListTile(
               leading: Icon(
                 Icons.account_box,
@@ -269,24 +299,58 @@ class ChemistMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'About Chemist',
+                'About Us',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/UserAboutUsView'
+              tileColor: Get.currentRoute == '/WebViewPswebsiteabout'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                _userAboutusController.update();
-                _userAboutusController.useraboutusApi();
+
+                /// _userAboutusController.update();
+                /// _userAboutusController.useraboutusApi();
                 //_chemistAboutusController.chemistaboutusApi();
                 //_chemistAboutusController.update();
-                Get.to(() => UserAboutUsView());
+                Get.to(() => WebViewPswebsiteabout());
                 Get.offNamed('/UserAboutUsView');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/WebViewPswebsiteprivecy'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => WebViewPswebsiteprivecy()
+                    // PrivacyPolicyView()
+                    );
               },
             ),
 
@@ -312,14 +376,77 @@ class ChemistMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.share_rounded,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Share with others',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/Sharelinkweight'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                //Get.to(() => ShareData());
+                Get.to(() => Sharelinkweight());
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.password,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Change Password',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChangePassword'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ChangePassword());
+                Get.offNamed('/ChangePassword');
               },
             ),
 
@@ -348,46 +475,54 @@ class ChemistMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/AboutUs'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
+                _loginpasswordControllerr5.onInit();
+                _loginpasswordControllerr5.emailController.clear();
+                _loginpasswordControllerr5.passwordController.clear();
+                _loginpasswordControllerr5.toggleCheckbox(false);
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
                 //Get.back();
-                Get.to(() => SignInScreen());
+                await Get.offAll(() => SignInScreen());
               },
             ),
 
-            ListTile(
-              // horizontalTitleGap: 10,
-              leading: Icon(
-                Icons.password,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Forgot Password',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/AboutUs'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                Get.to(() => ForgotPassword());
-                Get.offNamed('/AboutUs');
-              },
-            ),
+            // ListTile(
+            //   // horizontalTitleGap: 10,
+            //   leading: Icon(
+            //     Icons.password,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.021,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     color: MyTheme.blueww,
+            //     size: size.height * 0.02,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+            //   title: Text(
+            //     'Forgot Password',
+            //     style: TextStyle(
+            //         fontSize: size.height * 0.017,
+            //         fontWeight: FontWeight.w600,
+            //         color: MyTheme.blueww),
+            //   ),
+            //   tileColor: Get.currentRoute == '/AboutUs'
+            //       ? Colors.grey[300]
+            //       : Colors.transparent,
+            //   onTap: () {
+            //     print(Get.currentRoute);
+            //     Get.back();
+            //     Get.to(() => ForgotPassword());
+            //     Get.offNamed('/AboutUs');
+            //   },
+            // ),
 
             ///
             // ListTile(

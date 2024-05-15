@@ -53,11 +53,12 @@ class DriverDetailProfile extends StatelessWidget {
                                   height: size.height * 0.4,
                                   width: size.width * 0.8,
                                   decoration: BoxDecoration(
-                                      color: Colors.red.shade200,
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                              'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
-                                          fit: BoxFit.fill)),
+                                    color: Colors.grey.shade200,
+                                    // image: const DecorationImage(
+                                    //     image: NetworkImage(
+                                    //         'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
+                                    //     fit: BoxFit.fill)
+                                  ),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -144,7 +145,7 @@ class DriverDetailProfile extends StatelessWidget {
                                               '${_driverprofile.getDriverProfileDetail?.emailId.toString()}',
                                               // 'gaurav@gmail.com',
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.016,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.yellow.shade900,
                                               ),
@@ -185,12 +186,16 @@ class DriverDetailProfile extends StatelessWidget {
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Text(
-                                              '${_driverprofile.getDriverProfileDetail?.location}',
-                                              style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.yellow.shade900,
+                                            SizedBox(
+                                              height: size.height * 0.035,
+                                              width: size.width * 0.6,
+                                              child: Text(
+                                                '${_driverprofile.getDriverProfileDetail?.location}',
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: size.height * 0.013,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.yellow.shade900,
+                                                ),
                                               ),
                                             ),
                                             SizedBox(

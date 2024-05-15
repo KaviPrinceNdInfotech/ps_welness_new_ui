@@ -24,9 +24,9 @@ class RWAUpdateBankDetailController extends GetxController {
   var holderName = '';
   var mobileNumber = '';
 
-  void rwaUpdateBankDetailApi() async {
+  void rwaAddBankDetailApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.RWAUpdateBankDetailApi(
+    http.Response r = await ApiProvider.AddBankDetailApi(
       AccountNo?.text,
       IFSCCode?.text,
       BranchName?.text,
@@ -35,72 +35,84 @@ class RWAUpdateBankDetailController extends GetxController {
       MobileNumber?.text,
     );
     if (r.statusCode == 200) {
+      Get.snackbar(
+        'Message',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       Get.to(RwaHomePage());
-    } else {}
+    } else {
+      Get.snackbar(
+        'Error',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+      Get.to(RwaHomePage());
+    }
   }
 
   @override
   void onInit() {
     //Id = TextEditingController(text: '');
     //Login_Id = TextEditingController(text: '');
-    AccountNo = TextEditingController(text: '');
-    IFSCCode = TextEditingController(text: '');
-    BranchName = TextEditingController(text: '');
-    BranchAddress = TextEditingController(text: '');
-    HolderName = TextEditingController(text: '');
-    MobileNumber = TextEditingController(text: '');
+    AccountNo = TextEditingController();
+    IFSCCode = TextEditingController();
+    BranchName = TextEditingController();
+    BranchAddress = TextEditingController();
+    HolderName = TextEditingController();
+    MobileNumber = TextEditingController();
     //isverified = TextEditingController(text: '');
     super.onInit();
   }
 
   String? validbankaccount(String value) {
     if (value.length < 2) {
-      return "This is required field.";
+      return "                This is required field.";
     }
     return null;
   }
 
   String? validifsc(String value) {
     if (value.length < 2) {
-      return "This is required field.";
+      return "                This is required field.";
     }
     return null;
   }
 
   String? validbranch(String value) {
     if (value.length < 2) {
-      return "This is required field.";
+      return "                This is required field.";
     }
     return null;
   }
 
   String? validbranchaddress(String value) {
     if (value.length < 2) {
-      return "This is required field.";
+      return "                This is required field.";
     }
     return null;
   }
 
   String? validname(String value) {
     if (value.length < 2) {
-      return "This is required field.";
+      return "                This is required field.";
     }
     return null;
   }
 
   String? validmobile(String value) {
-    if (value.length < 2) {
-      return "This is required field.";
+    if (value.length != 10) {
+      return "                Please enter 10 digit mobile";
     }
     return null;
   }
 
   void checkrwabank3() {
     if (rwabankformkey.currentState!.validate()) {
-      rwaUpdateBankDetailApi();
+      rwaAddBankDetailApi();
     }
     rwabankformkey.currentState!.save();
     // final isValid = complaintformkey.currentState!.validate();

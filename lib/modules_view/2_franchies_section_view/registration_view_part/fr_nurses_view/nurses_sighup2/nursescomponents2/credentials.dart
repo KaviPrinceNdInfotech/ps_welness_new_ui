@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,8 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 class FrNurses2Credentials extends StatelessWidget {
   FrNurses2Credentials({Key? key}) : super(key: key);
 
-  FrNurses_1_controller _frnurses_1_controller = Get.put(FrNurses_1_controller());
-
+  FrNurses_1_controller _frnurses_1_controller =
+      Get.put(FrNurses_1_controller());
 
   var items = [
     'Item 1',
@@ -67,6 +68,7 @@ class FrNurses2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///Todo: state............................
               SizedBox(
                 height: size.height * 0.01,
@@ -86,7 +88,8 @@ class FrNurses2Credentials extends StatelessWidget {
                           border: InputBorder.none,
                         ),
                         hint: Text('Select State'),
-                        items: _frnurses_1_controller.states.map((StateModel items) {
+                        items: _frnurses_1_controller.states
+                            .map((StateModel items) {
                           return DropdownMenuItem(
                             value: items,
                             child: Text(
@@ -98,13 +101,16 @@ class FrNurses2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (StateModel? newValue) {
-                          _frnurses_1_controller.selectedState.value = newValue!;
+                          _frnurses_1_controller.selectedState.value =
+                              newValue!;
                         }),
                   ),
                 ),
               ),
+
               ///Todo: city.....................................
               SizedBox(
                 height: size.height * 0.02,
@@ -136,7 +142,8 @@ class FrNurses2Credentials extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        validator: (value) => value == null ? 'field required' : null,
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
                         onChanged: (City? newValue) {
                           _frnurses_1_controller.selectedCity.value = newValue!;
                         }),
@@ -167,19 +174,24 @@ class FrNurses2Credentials extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 70,width: 70,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border:  Border.all(color: Colors.blue, width: 1.0),
-                            borderRadius:BorderRadius.circular(5)),
+                            border: Border.all(color: Colors.blue, width: 1.0),
+                            borderRadius: BorderRadius.circular(5)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Obx(()=> _frnurses_1_controller.selectedImagepath.value=='' ?
-                          const Center(
-                              child: Text("No Image")) :
-                          Image.file(File(_frnurses_1_controller.selectedImagepath.value),
-                            fit: BoxFit.cover,
-                          ),
+                          child: Obx(
+                            () => _frnurses_1_controller
+                                        .selectedImagepath.value ==
+                                    ''
+                                ? const Center(child: Text("No Image"))
+                                : Image.file(
+                                    File(_frnurses_1_controller
+                                        .selectedImagepath.value),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -190,6 +202,7 @@ class FrNurses2Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: certificate.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
@@ -221,9 +234,11 @@ class FrNurses2Credentials extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
+
               ///TODO: Pin.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   autofillHints: [AutofillHints.password],
                   controller: _frnurses_1_controller.pinController,
                   onSaved: (value) {
@@ -249,6 +264,7 @@ class FrNurses2Credentials extends StatelessWidget {
                   ),
                 ),
               ),
+
               ///TODO: day.......................
               NeumorphicTextFieldContainer(
                 child: TextFormField(

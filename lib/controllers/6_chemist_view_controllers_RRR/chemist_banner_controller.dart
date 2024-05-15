@@ -10,7 +10,7 @@ class ChemistBannerController extends GetxController {
   RxBool isLoading = false.obs;
   ChemistBannerModel? getChemistBannerModel;
 
-  void chemistBannerApi() async {
+  Future<void> chemistBannerApi() async {
     getChemistBannerModel = await ApiProvider.ChemistBannnerApi();
     if (getChemistBannerModel?.bannerImageList != null) {}
   }

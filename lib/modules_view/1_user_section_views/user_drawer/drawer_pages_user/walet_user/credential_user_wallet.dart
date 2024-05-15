@@ -117,6 +117,8 @@ class WalletCredentials extends StatelessWidget {
                                   // color: Colors.red,
                                   child: ListView.builder(
                                     itemCount: 1,
+                                    // String walletAmountString = _wallet_2_controller.getwalletlist?.result?[index]?.walletAmount?.toDouble()?.toString() ?? '0.0';
+
                                     //itemCount: _walletController.getwalletlist?.result.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
@@ -166,7 +168,9 @@ class WalletCredentials extends StatelessWidget {
                                                         //         .width *
                                                         //     0.000001,
                                                         child: Text(
-                                                          '₹ ${_wallet_2_controller.getwalletlist!.result![index].walletAmount!.toDouble()}',
+                                                          '₹ ${_wallet_2_controller.getwalletlist?.result?[index].walletAmount?.toDouble().toString() ?? '0.0'
+                                                          //_wallet_2_controller.getwalletlist!.result![index].walletAmount!.toDouble()
+                                                          }',
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,

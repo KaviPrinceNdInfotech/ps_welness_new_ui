@@ -24,7 +24,6 @@ import 'package:ps_welness_new_ui/controllers/3_driver_controller_RRR/driver_con
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
-import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controller_RRR/nurse_appointment_detail_controller/nurse_appointment_detailsss.dart';
@@ -47,7 +46,6 @@ import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoke
 import 'package:ps_welness_new_ui/controllers/franchies_controller/franchies1_controllers.dart';
 //import 'package:ps_welness_new_ui/controllers/doctor_controllers/doctor_complain_controller/doctor_complain_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/map_controllers/map_controller.dart';
-import 'package:ps_welness_new_ui/controllers/nurses_controllers_RRR_signuppp/nurses_controller2.dart';
 import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/health_checkup/health_checkup_addresss/health_checkup_components/credentials.dart';
 
@@ -147,11 +145,11 @@ class ControllerBinding extends Bindings {
     Get.put(LabListController());
     Get.put(RozarPayLabController());
     Get.put(AmbulancegetController());
-    Get.put(NurseProfileController()); // Rahul
+    //Get.put(NurseProfileController()); // Rahul
     Get.put(NurseComplaintController()); // Rahul
     Get.put(DriverProfileController()); // Rahul
     Get.put(DoctorUpdateProfileController()); // Rahul
-    Get.put(Nurses_2_Controller()); // Rahul
+    //Get.put(Nurses_2_Controller()); // Rahul
     Get.put(ComplaintController()); // Rahul
     Get.put(RwaProfileController()); // Rahul
     Get.put(RWASignupController());

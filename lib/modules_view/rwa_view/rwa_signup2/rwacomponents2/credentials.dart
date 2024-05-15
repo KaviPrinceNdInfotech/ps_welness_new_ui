@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/controllers/hospital2_controller/hospital2_sighup_controller.dart';
 import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
@@ -211,53 +210,102 @@ class Rwa2Credentials extends StatelessWidget {
                 height: size.height * 0.02,
               ),
 
-              SizedBox(
-                height: size.height * 0.2,
-                child: GetBuilder<Hospital_2_Controller>(
-                  // specify type as Controller
-                  init:
-                      Hospital_2_Controller(), // intialize with the Controller
-                  builder: (value) => InkWell(
+              ///trial...
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                      width: size.width * 0.5,
+                      child: Text(
+                        "Upload Certificate Image:",
+                        style: TextStyle(
+                          fontSize: size.height * 0.017,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      )),
+                  InkWell(
                     onTap: () {
-                      //_rwa_11_controller.getImage(ImageSource.gallery);
+                      _rwa_11_controller
+                          .clearImage(); // Call a method to clear the selected image
                     },
-                    child: Obx(
-                      () => _rwa_11_controller.selectedPath.value != ''
-                          ? Image.file(
-                              File(_rwa_11_controller.selectedPath.value))
-                          : InkWell(
-                              onTap: (() {
-                                optionsImage();
-                              }),
-                              child: NeumorphicTextFieldContainer(
-                                child: Container(
-                                  height: size.height * 0.07,
-                                  //width: size.width * 0.5,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: size.width * 0.1),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Certificate Image',
-                                          style: TextStyle(
-                                            fontSize: size.width * 0.03,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        Icon(Icons.camera_alt),
-                                      ],
-                                    ),
-                                  ),
+                    child: Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyanAccent, width: 2),
+                      ),
+                      child: Obx(
+                        () => _rwa_11_controller.selectedPath.value != ''
+                            ? Image.file(
+                                File(_rwa_11_controller.selectedPath.value))
+                            : InkWell(
+                                onTap: (() {
+                                  optionsImage();
+                                }),
+                                child: Center(
+                                  child: Icon(Icons.camera_enhance_rounded),
                                 ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
+              SizedBox(
+                height: 20,
+              ),
+
+              ///
+
+              // SizedBox(
+              //   height: size.height * 0.2,
+              //   child: GetBuilder<Hospital_2_Controller>(
+              //     // specify type as Controller
+              //     init:
+              //         Hospital_2_Controller(), // intialize with the Controller
+              //     builder: (value) => InkWell(
+              //       onTap: () {
+              //         //_rwa_11_controller.getImage(ImageSource.gallery);
+              //       },
+              //       child: Obx(
+              //         () => _rwa_11_controller.selectedPath.value != ''
+              //             ? Image.file(
+              //                 File(_rwa_11_controller.selectedPath.value))
+              //             : InkWell(
+              //                 onTap: (() {
+              //                   optionsImage();
+              //                 }),
+              //                 child: NeumorphicTextFieldContainer(
+              //                   child: Container(
+              //                     height: size.height * 0.07,
+              //                     //width: size.width * 0.5,
+              //                     child: Padding(
+              //                       padding: EdgeInsets.symmetric(
+              //                           horizontal: size.width * 0.1),
+              //                       child: Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.spaceBetween,
+              //                         children: [
+              //                           Text(
+              //                             'Certificate Image',
+              //                             style: TextStyle(
+              //                               fontSize: size.width * 0.03,
+              //                               fontWeight: FontWeight.w700,
+              //                             ),
+              //                           ),
+              //                           Icon(Icons.camera_alt),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              ///
 
               // child: DropdownButton(
               //     value: _hospital_2_controller.selectedState.value,
@@ -332,7 +380,7 @@ class Rwa2Credentials extends StatelessWidget {
                   cursorColor: Colors.black,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: 'Pin',
+                    hintText: 'Pin Code',
                     helperStyle: TextStyle(
                       color: black.withOpacity(0.7),
                       fontSize: 18,
@@ -349,8 +397,12 @@ class Rwa2Credentials extends StatelessWidget {
 
               RectangularButton(
                   text: 'SUBMIT',
-                  press: () {
+                  press: () async {
                     _rwa_11_controller.checkRwa11();
+                    await Future.delayed(Duration(seconds: 3));
+
+                    _rwa_11_controller.selectedFranchiseId.value = null;
+                    _rwa_11_controller.selectedState.value = null;
                     //Get.to(RwaHomePage());
                     //_loginpasswordController.checkLoginpassword();
                   })

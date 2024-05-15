@@ -7,6 +7,7 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_controller/doctor_report_user_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_report_view/doctor_report_image_view.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -21,7 +22,7 @@ class DoctorUserreportList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    // var base = 'http://pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
     return Container(
       color: MyTheme.ThemeColors,
@@ -282,32 +283,6 @@ class DoctorUserreportList extends StatelessWidget {
                                                             size.width * 0.18,
                                                         padding:
                                                             EdgeInsets.all(8),
-                                                        child: Image.network(
-                                                          base +
-                                                              '${_doctorreportuserviewController.founddoctorruserviewProducts[index].image1.toString()}',
-                                                          //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                          fit: BoxFit.fill,
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                            //if image not comming in catagary then we have to purchase
-
-                                                            return Center(
-                                                              child: Text(
-                                                                'No Image',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      size.height *
-                                                                          0.013,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
                                                         // Image.asset(
                                                         //   'lib/assets/icons/user.png',
                                                         //   // "lib/assets/image/icons8-hospital-64.png",
@@ -337,6 +312,32 @@ class DoctorUserreportList extends StatelessWidget {
                                                                 spreadRadius: 1,
                                                               ),
                                                             ]),
+                                                        child: Image.network(
+                                                          IMAGE_BASE_URL +
+                                                              '${_doctorreportuserviewController.founddoctorruserviewProducts[index].image1.toString()}',
+                                                          //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                          fit: BoxFit.fill,
+                                                          errorBuilder:
+                                                              (context, error,
+                                                                  stackTrace) {
+                                                            //if image not comming in catagary then we have to purchase
+
+                                                            return Center(
+                                                              child: Text(
+                                                                'No Image',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      size.height *
+                                                                          0.013,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                     Column(

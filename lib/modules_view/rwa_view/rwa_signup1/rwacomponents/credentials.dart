@@ -7,6 +7,8 @@ import 'package:ps_welness_new_ui/controllers/rwa_controller/rwa_controller1.dar
 import 'package:ps_welness_new_ui/modules_view/rwa_view/rwa_signup2/rwa_signup2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
+import '../../../../widgets/circular_loader.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/controllers/rwa_controller/rwa_controller1.dart';
 // import 'package:ps_welness/modules_view/rwa_view/rwa_signup2/rwa_signup2.dart';
@@ -161,6 +163,38 @@ class Rwa1Credentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            ///todo: pan number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _rwa_11_controller.panController,
+                onSaved: (value) {
+                  _rwa_11_controller.pan = value!;
+                },
+                validator: (value) {
+                  return _rwa_11_controller.validPan(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pan number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.add_card_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -195,13 +229,60 @@ class Rwa1Credentials extends StatelessWidget {
             //   obscureText: true,
             // ),
             SizedBox(
-              height: size.height * 0.00,
+              height: size.height * 0.02,
               //appPadding / 2,
             ),
 
-            SizedBox(
-              height: size.height * 0.03,
-            ),
+            ///todo : franchise Id...............
+            // NeumorphicTextFieldContainer(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
+            //     child: Obx(
+            //       () => DropdownButtonFormField<Vendor>(
+            //           value: _rwa_11_controller.selectedFranchiseId.value,
+            //           decoration: const InputDecoration(
+            //             prefixIcon: Icon(
+            //               Icons.currency_franc,
+            //               color: Colors.black,
+            //               size: 20,
+            //             ),
+            //             enabledBorder: InputBorder.none,
+            //             border: InputBorder.none,
+            //           ),
+            //           hint: Text('Select Franchise'),
+            //           items: _rwa_11_controller.franchiseid
+            //               .map((Vendor franchiseid) {
+            //             return DropdownMenuItem(
+            //               value: franchiseid,
+            //               child: SizedBox(
+            //                 height: size.height * 0.05,
+            //                 width: size.width * 0.61,
+            //                 child: Align(
+            //                   alignment: Alignment.centerLeft,
+            //                   child: Text(
+            //                     "${franchiseid.companyName.toString()}",
+            //                     style: TextStyle(
+            //                       fontWeight: FontWeight.w600,
+            //                       fontSize: size.height * 0.015,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           // validator: (value) =>
+            //           // value == null ? '          field required' : null,
+            //           onChanged: (Vendor? newValue) {
+            //             _rwa_11_controller.selectedFranchiseId.value =
+            //                 newValue!;
+            //           }),
+            //     ),
+            //   ),
+            // ),
+            //
+            // SizedBox(
+            //   height: size.height * 0.0,
+            // ),
 
             // Container(
             //   height: size.height * 0.066,
@@ -367,8 +448,15 @@ class Rwa1Credentials extends StatelessWidget {
             // ),
             RectangularButton(
                 text: 'Go Next >',
-                press: () {
-                  Get.to(RwaSignup2());
+                press: () async {
+                  // _rwa_11_controller.getStateRwaApi();
+                  //_rwa_11_controller.update();
+                  CallLoader.loader();
+                  await Future.delayed(Duration(seconds: 1));
+                  CallLoader.hideLoader();
+                  //await Get.to(DoctorSignup2());
+                  //await Get.to(NursesSignup2());
+                  await Get.to(RwaSignup2());
                   //_loginpasswordController.checkLoginpassword();
                 })
           ],

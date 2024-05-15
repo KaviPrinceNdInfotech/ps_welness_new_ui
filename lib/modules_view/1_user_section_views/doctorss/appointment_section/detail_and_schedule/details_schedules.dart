@@ -10,11 +10,13 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/doctor_checkout_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../../../../controllers/1_user_view_controller/doctor_rating_review_controller/doctor_rating_review.dart';
 import '../../../../../controllers/1_user_view_controller/doctor_rating_review_controller/doctor_view_ratting_review.dart';
 import '../../doctor_appointments_details/doctor_details_by_id/doctor_detail_credentials.dart';
+import '../doctorss_lists/doctor_list_appointment.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/doctorss/appointment_checkout/appointment_checkout.dart';
 //import 'package:ps_welness/modules_view/1_user_section_views/appointment_checkout/appointment_checkout.dart';
@@ -22,6 +24,7 @@ import '../../doctor_appointments_details/doctor_details_by_id/doctor_detail_cre
 class DetailsSchedulePage extends StatelessWidget {
   DetailsSchedulePage({Key? key, this.bevel = 2.0}) : super(key: key);
   final double bevel;
+  //DoctorListUser
   RxInt selectedimg = 0.obs;
   RxInt selectedsingleimg = 0.obs;
   ViewdoctorreviewController _viewdoctorreviewController =
@@ -37,241 +40,248 @@ class DetailsSchedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
 
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: MyTheme.ThemeColors,
-      body: Obx(
-        () =>
-            (_doctorListController.isLoading.value &&
-                    _viewdoctorreviewController.isLoading.value)
-                ? Center(child: CircularProgressIndicator())
-                : SafeArea(
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned(
-                          top: size.height * 0.00,
+    bool shouldPop = true;
+    //Size size = MediaQuery.of(context).size;
+    return WillPopScope(
+      onWillPop: () async {
+        Get.offAll(DoctorListUser());
+        return shouldPop;
+      },
+      child: Scaffold(
+        backgroundColor: MyTheme.ThemeColors,
+        body: Obx(
+          () => (_doctorListController.isLoading.value &&
+                  _viewdoctorreviewController.isLoading.value)
+              ? Center(child: CircularProgressIndicator())
+              : SafeArea(
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        top: size.height * 0.00,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: size.height * 0.4,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.05,
+                                    vertical: size.height * 0.00),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: size.height * 0.02,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.offAll(DoctorListUser());
+                                          //Get.back();
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_back_ios_outlined,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: size.height * 0.32,
+                                      width: size.width * 0.4,
+                                      child: Image(
+                                        image: AssetImage(
+                                            'lib/assets/background_stack_png/doc02.png'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: size.height * 0.27,
+                        child: Container(
+                          height: size.height * 0.05,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: MyTheme.ThemeColors,
+                              borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
-                              Container(
-                                height: size.height * 0.4,
-                                width: size.width,
-                                decoration: BoxDecoration(
+                              SizedBox(
+                                height: size.height * 0.007,
+                              ),
+                              Text(
+                                'Overall'
+                                '  ${_doctorListController.doctordetailbyid?.experience.toString()}'
+                                ' years of experience',
+                                style: TextStyle(
                                   color: Colors.white,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.05,
-                                      vertical: size.height * 0.00),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: size.height * 0.02,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: InkWell(
-                                          onTap: () {
-                                            Get.back();
-                                          },
-                                          child: Icon(
-                                            Icons.arrow_back_ios_outlined,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: size.height * 0.32,
-                                        width: size.width * 0.4,
-                                        child: Image(
-                                          image: AssetImage(
-                                              'lib/assets/background_stack_png/doc02.png'),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  fontSize: size.height * 0.016,
+                                  fontWeight: FontWeight.w800,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        Positioned(
-                          top: size.height * 0.27,
-                          child: Container(
-                            height: size.height * 0.05,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                color: MyTheme.ThemeColors,
-                                borderRadius: BorderRadius.circular(15)),
+                      ),
+                      Positioned(
+                        top: size.height * 0.298,
+                        child: Container(
+                          height: size.height * 0.7,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.03,
+                                vertical: size.height * 0.01),
                             child: Column(
                               children: [
-                                SizedBox(
-                                  height: size.height * 0.007,
-                                ),
-                                Text(
-                                  'Overall'
-                                  '${_doctorListController.doctordetailbyid?.experience.toString()}'
-                                  ' years of experience',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: size.height * 0.016,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: size.height * 0.298,
-                          child: Container(
-                            height: size.height * 0.7,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.03,
-                                  vertical: size.height * 0.01),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${_doctorListController.doctordetailbyid?.doctorName.toString()}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: size.height * 0.025,
-                                      ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "${_doctorListController.doctordetailbyid?.doctorName.toString()}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.height * 0.025,
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: SizedBox(
-                                          width: size.width * 0.4,
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Rating: ',
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.yellow.shade900,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                        width: size.width * 0.4,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Rating: ',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.yellow.shade900,
 
-                                                  //MyTheme
-                                                  //.containercolor2,
-                                                  fontSize: size.height * 0.017,
-                                                ),
+                                                //MyTheme
+                                                //.containercolor2,
+                                                fontSize: size.height * 0.017,
                                               ),
-                                              Text(
-                                                "${_doctorListController.doctordetailbyid?.rating.toString()}",
-
-                                                //'0.0',
-                                                //'${_doctorListController.foundDoctors[index].experience} yr',
-                                                //doctorcatagary[index],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.red.shade600,
-
-                                                  //MyTheme
-                                                  //.containercolor2,
-                                                  fontSize: size.height * 0.02,
-                                                ),
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow.shade800,
-                                                size: size.height * 0.025,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      PhysicalModel(
-                                        color: Colors.black,
-                                        elevation: 5,
-                                        borderRadius: BorderRadius.circular(30),
-                                        child: InkWell(
-                                          onTap: () {
-                                            addReview();
-                                            _viewdoctorreviewController
-                                                .doctorreviewratingApi();
-                                            _viewdoctorreviewController
-                                                .update();
-                                          },
-                                          child: Container(
-                                            height: size.height * 0.03,
-                                            width: size.width * 0.22,
-                                            decoration: BoxDecoration(
-                                              color: Colors.cyanAccent.shade200,
-                                              //yellow.shade600,
-                                              border: Border.all(
-                                                  color: Colors.black),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
                                             ),
-                                            child: Center(
-                                                child: Text(
-                                              'Add Review',
-                                              style: GoogleFonts.nunitoSans(
-                                                  fontWeight: FontWeight.w800,
-                                                  fontSize:
-                                                      size.height * 0.013),
-                                            )),
-                                          ),
+                                            Text(
+                                              "${_doctorListController.doctordetailbyid?.rating ?? 0}",
+
+                                              //'0.0',
+                                              //'${_doctorListController.foundDoctors[index].experience} yr',
+                                              //doctorcatagary[index],
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.red.shade600,
+
+                                                //MyTheme
+                                                //.containercolor2,
+                                                fontSize: size.height * 0.02,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.yellow.shade800,
+                                              size: size.height * 0.025,
+                                            )
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.00,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${_doctorListController.doctordetailbyid?.departmentName.toString()}"
-                                      //'Cardiologist'
-                                      ,
-                                      style: TextStyle(
-                                        //fontWeight: FontWeight.bold,
-                                        fontSize: size.height * 0.02,
-                                        color: Colors.grey,
+                                    ),
+                                    PhysicalModel(
+                                      color: Colors.black,
+                                      elevation: 5,
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: InkWell(
+                                        onTap: () {
+                                          addReview();
+                                          _viewdoctorreviewController
+                                              .doctorreviewratingApi();
+                                          _viewdoctorreviewController.update();
+                                        },
+                                        child: Container(
+                                          height: size.height * 0.03,
+                                          width: size.width * 0.22,
+                                          decoration: BoxDecoration(
+                                            color: Colors.cyanAccent.shade200,
+                                            //yellow.shade600,
+                                            border:
+                                                Border.all(color: Colors.black),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                              child: Text(
+                                            'Add Review',
+                                            style: GoogleFonts.nunitoSans(
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: size.height * 0.013),
+                                          )),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.005,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Fees: ₹'
-                                      "${_doctorListController.doctordetailbyid?.fee?.toDouble()}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: size.height * 0.02,
-                                        color: Colors.red.shade300,
-                                      ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.00,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "${_doctorListController.doctordetailbyid?.departmentName.toString()}"
+                                    //'Cardiologist'
+                                    ,
+                                    style: TextStyle(
+                                      //fontWeight: FontWeight.bold,
+                                      fontSize: size.height * 0.02,
+                                      color: Colors.grey,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.00,
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.005,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Fees: ₹'
+                                    "${_doctorListController.doctordetailbyid?.fee?.toDouble()}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.height * 0.02,
+                                      color: Colors.red.shade300,
+                                    ),
                                   ),
-                                  Align(
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.00,
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.055,
+                                  child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "${_doctorListController.doctordetailbyid?.about.toString()}",
+                                      "${_doctorListController.doctordetailbyid?.about ?? "No About Us Available"}",
                                       //  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                                       maxLines: 3,
                                       style: TextStyle(
@@ -282,210 +292,213 @@ class DetailsSchedulePage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.0,
-                                  ),
-                                  SizedBox(
-                                      height: size.height * 0.21,
-                                      child: DoctorScheduleCredentials()),
-                                  SizedBox(
-                                    height: size.height * 0.0,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'View Review:',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: size.height * 0.015,
-                                        color: Colors.black,
-                                        //color: Colors.red.shade300,
-                                      ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.0,
+                                ),
+                                SizedBox(
+                                    height: size.height * 0.21,
+                                    child: DoctorScheduleCredentials()),
+                                SizedBox(
+                                  height: size.height * 0.0,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'View Review:',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: size.height * 0.015,
+                                      color: Colors.black,
+                                      //color: Colors.red.shade300,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.004,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.19,
-                                    //width: size.width * 0.95,
-                                    child: Obx(
-                                      () => (_doctorListController
-                                                  .isLoading.value &&
-                                              _viewdoctorreviewController
-                                                  .isLoading.value)
-                                          ? Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            )
-                                          : ListView.builder(
-                                              shrinkWrap: true,
-                                              //scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  _viewdoctorreviewController
-                                                      .doctorviewreview
-                                                      ?.rating
-                                                      ?.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              2.0),
-                                                      child: Ink(
-                                                        child: PhysicalModel(
-                                                          color: MyTheme.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                          elevation: 20,
-                                                          child: Padding(
-                                                            padding: EdgeInsets.symmetric(
-                                                                horizontal:
-                                                                    size.width *
-                                                                        0.01,
-                                                                vertical:
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.004,
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.155,
+                                  //width: size.width * 0.95,
+                                  child: Obx(
+                                    () => (_doctorListController
+                                                .isLoading.value &&
+                                            _viewdoctorreviewController
+                                                .isLoading.value)
+                                        ? Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : _viewdoctorreviewController
+                                                .doctorviewreview!
+                                                .rating!
+                                                .isEmpty
+                                            ? Center(
+                                                child: Text('No Rating'),
+                                              )
+                                            : ListView.builder(
+                                                shrinkWrap: true,
+                                                //scrollDirection: Axis.horizontal,
+                                                itemCount:
+                                                    _viewdoctorreviewController
+                                                        .doctorviewreview
+                                                        ?.rating
+                                                        ?.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(2.0),
+                                                        child: Ink(
+                                                          child: PhysicalModel(
+                                                            color:
+                                                                MyTheme.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            elevation: 20,
+                                                            child: Padding(
+                                                              padding: EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                      size.width *
+                                                                          0.01,
+                                                                  vertical: size
+                                                                          .height *
+                                                                      0.003),
+                                                              child: Container(
+                                                                height:
                                                                     size.height *
-                                                                        0.003),
-                                                            child: Container(
-                                                              height:
-                                                                  size.height *
-                                                                      0.11,
-                                                              width:
-                                                                  size.width *
-                                                                      0.9,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: MyTheme
-                                                                    .ThemeColors,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Row(
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(8.0),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              size.height * 0.08,
-                                                                          width:
-                                                                              size.width * 0.2,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Colors.red,
-                                                                          ),
+                                                                        0.11,
+                                                                width:
+                                                                    size.width *
+                                                                        0.9,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: MyTheme
+                                                                      .ThemeColors,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5),
+                                                                ),
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
                                                                           child:
-                                                                              Image.network(
-                                                                            '$base${_viewdoctorreviewController.doctorviewreview?.rating?[index].image.toString()}',
-                                                                            //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
-                                                                            fit:
-                                                                                BoxFit.fill,
-                                                                            errorBuilder: (context,
-                                                                                error,
-                                                                                stackTrace) {
-                                                                              //if image not comming in catagary then we have to purchase
+                                                                              Container(
+                                                                            height:
+                                                                                size.height * 0.08,
+                                                                            width:
+                                                                                size.width * 0.2,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.red,
+                                                                            ),
+                                                                            child:
+                                                                                Image.network(
+                                                                              '$IMAGE_BASE_URL${_viewdoctorreviewController.doctorviewreview?.rating?[index].image.toString()}',
+                                                                              //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
+                                                                              fit: BoxFit.fill,
+                                                                              errorBuilder: (context, error, stackTrace) {
+                                                                                //if image not comming in catagary then we have to purchase
 
-                                                                              return Center(
-                                                                                child: Text(
-                                                                                  'No Image',
-                                                                                  style: TextStyle(
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontSize: size.height * 0.013,
+                                                                                return Center(
+                                                                                  child: Text(
+                                                                                    'No Image',
+                                                                                    style: TextStyle(
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      fontSize: size.height * 0.013,
+                                                                                    ),
                                                                                   ),
-                                                                                ),
-                                                                              );
-                                                                            },
+                                                                                );
+                                                                              },
+                                                                            ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                      Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            "${_viewdoctorreviewController.doctorviewreview?.rating?[index].name}",
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: size.height * 0.016,
-                                                                              fontWeight: FontWeight.w600,
-                                                                              color: Colors.black,
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                size.height * 0.035,
-                                                                            width:
-                                                                                size.width * 0.5,
-                                                                            child:
-                                                                                Text(
-                                                                              "${_viewdoctorreviewController.doctorviewreview?.rating?[index].description}",
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              "${_viewdoctorreviewController.doctorviewreview?.rating?[index].name}",
                                                                               style: TextStyle(
-                                                                                fontSize: size.height * 0.013,
+                                                                                fontSize: size.height * 0.016,
                                                                                 fontWeight: FontWeight.w600,
-                                                                                color: Colors.white,
+                                                                                color: Colors.black,
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              Text(
-                                                                                "Rating:",
+                                                                            SizedBox(
+                                                                              height: size.height * 0.035,
+                                                                              width: size.width * 0.5,
+                                                                              child: Text(
+                                                                                "${_viewdoctorreviewController.doctorviewreview?.rating?[index].description}",
                                                                                 style: TextStyle(
-                                                                                  fontSize: size.height * 0.016,
+                                                                                  fontSize: size.height * 0.013,
                                                                                   fontWeight: FontWeight.w600,
-                                                                                  color: Colors.brown,
+                                                                                  color: Colors.white,
                                                                                 ),
                                                                               ),
-                                                                              Text(
-                                                                                "${_viewdoctorreviewController.doctorviewreview?.rating?[index].rating.toString()}",
-                                                                                style: TextStyle(
-                                                                                  fontSize: size.height * 0.016,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  color: Colors.red,
+                                                                            ),
+                                                                            Row(
+                                                                              children: [
+                                                                                Text(
+                                                                                  "Rating:",
+                                                                                  style: TextStyle(
+                                                                                    fontSize: size.height * 0.016,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: Colors.brown,
+                                                                                  ),
                                                                                 ),
-                                                                              ),
-                                                                              Icon(
-                                                                                Icons.star,
-                                                                                color: Colors.yellow,
-                                                                                size: size.height * 0.02,
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
+                                                                                Text(
+                                                                                  "${_viewdoctorreviewController.doctorviewreview?.rating?[index].rating.toString()}",
+                                                                                  style: TextStyle(
+                                                                                    fontSize: size.height * 0.016,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    color: Colors.red,
+                                                                                  ),
+                                                                                ),
+                                                                                Icon(
+                                                                                  Icons.star,
+                                                                                  color: Colors.yellow,
+                                                                                  size: size.height * 0.02,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
-                                    ),
+                                                    ],
+                                                  );
+                                                }),
                                   ),
-                                  Padding(
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.05,
+                                  child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: size.width * 0.2,
-                                        vertical: size.height * 0.004),
+                                        vertical: size.height * 0.00),
                                     child: ElevatedButton(
                                       onPressed: () {
                                         //_doctorListController.update();
@@ -528,11 +541,18 @@ class DetailsSchedulePage extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             CallLoader.loader();
+                                            _doctorListController
+                                                .checkdoctor2();
                                             _doctorappointmentcheckout
                                                 .doctoorcheckoutApi();
                                             _doctorappointmentcheckout.update();
                                             _doctorListController
-                                                .checkdoctor2();
+                                                .clearSelectedSlot();
+                                            //clearSelectedSlot
+
+                                            _doctorListController
+                                                .selectedTimeslotdoctor
+                                                .value = null;
                                           },
                                           child: Container(
                                             //padding: const EdgeInsets.symmetric(
@@ -574,18 +594,20 @@ class DetailsSchedulePage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  Spacer(),
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.02,
+                                ),
+                                Spacer(),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                ),
+        ),
       ),
     );
   }

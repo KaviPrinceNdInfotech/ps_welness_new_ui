@@ -1,14 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_detail_controller.dart';
 //import 'package:ps_welness_new_ui/controllers/5_rwa_controller/rwa_profile/rwa_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_home/rwa_home_page.dart';
 //import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view/chemist_home/chemist_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -27,6 +27,8 @@ class RwaProfileCredentials extends StatelessWidget {
   RwaProfileCredentials({Key? key}) : super(key: key);
 
   RwaProfileController _rwaProfileController = Get.put(RwaProfileController());
+  final RwaProfileDetailController _rwaProfileDetailController =
+      Get.put(RwaProfileDetailController());
 
   var items = [
     'Item 1',
@@ -112,6 +114,38 @@ class RwaProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                keyboardType: TextInputType.name,
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _rwaProfileController.emailController,
+                onSaved: (value) {
+                  _rwaProfileController.pin = value!;
+                },
+                validator: (value) {
+                  return _rwaProfileController.validEmail(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             /// todo Landline number..................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -160,7 +194,8 @@ class RwaProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
+                      hint: Text(
+                          "${_rwaProfileDetailController.getRwaProfileDetail?.stateName.toString()}"),
                       items:
                           _rwaProfileController.states.map((StateModel model) {
                         return DropdownMenuItem(
@@ -176,6 +211,7 @@ class RwaProfileCredentials extends StatelessWidget {
                       }).toList(),
                       onChanged: (StateModel? newValue) {
                         _rwaProfileController.selectedState.value = newValue!;
+                        _rwaProfileController.selectedCity.value = null;
                       }),
                 ),
               ),
@@ -199,7 +235,8 @@ class RwaProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
+                      hint: Text(
+                          "${_rwaProfileDetailController.getRwaProfileDetail?.cityName.toString()}"),
                       items: _rwaProfileController.cities.map((City city) {
                         return DropdownMenuItem(
                           value: city,
@@ -253,63 +290,104 @@ class RwaProfileCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
+            ///todo: pin value..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.addressCityAndState],
+                controller: _rwaProfileController.pincodeController,
+                onSaved: (value) {
+                  _rwaProfileController.pin = value!;
+                },
+                validator: (value) {
+                  return _rwaProfileController.validPin(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pin Code',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.numbers,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
             SizedBox(
-              height: size.height * 0.0,
-              //appPadding / 2,
+              height: size.height * 0.02,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Certificate Image:",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: size.width * 0.04,
-                  ),
-                ),
-                Container(
-                  height: size.height * 0.13,
-                  width: size.width * 0.4,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 3)),
-                  child: Obx(
-                    () => _rwaProfileController.selectedPath.value != ''
-                        ? Image.file(
-                            File(_rwaProfileController.selectedPath.value))
-                        : Center(
-                            child: InkWell(
-                              onTap: (() {
-                                optionsImage();
-                              }),
-                              child: Container(
-                                height: size.height * 0.2,
-                                width: size.width * 0.7,
-                                child: NeumorphicTextFieldContainer(
-                                  child: SizedBox(
-                                    height: size.height * 0.05,
-                                    width: size.width * 0.5,
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.1),
-                                      child: Icon(Icons.camera_alt),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              ],
-            ),
+            // SizedBox(
+            //   height: size.height * 0.0,
+            //   //appPadding / 2,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       "Certificate Image:",
+            //       style: TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: size.width * 0.04,
+            //       ),
+            //     ),
+            //     Container(
+            //       height: size.height * 0.16,
+            //       width: size.width * 0.4,
+            //       decoration: BoxDecoration(
+            //           border: Border.all(color: Colors.transparent, width: 3)),
+            //       child: Obx(
+            //         () => _rwaProfileController.selectedPath.value != ''
+            //             ? Image.file(
+            //                 File(_rwaProfileController.selectedPath.value))
+            //             : Center(
+            //                 child: InkWell(
+            //                   onTap: (() {
+            //                     optionsImage();
+            //                   }),
+            //                   child: Container(
+            //                     height: size.height * 0.2,
+            //                     width: size.width * 0.5,
+            //                     child: NeumorphicTextFieldContainer(
+            //                       child: SizedBox(
+            //                         height: size.height * 0.0,
+            //                         width: size.width * 0.0,
+            //                         child: Padding(
+            //                           padding: EdgeInsets.symmetric(
+            //                               horizontal: size.width * 0.1),
+            //                           child: Icon(Icons.camera_alt),
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             SizedBox(
               height: size.height * 0.0,
             ),
             RectangularButton(
                 text: 'UPDATE',
-                press: () {
+                press: () async {
                   _rwaProfileController.checkRWAProfilee();
+
+                  /// _nurseprofileUpdateController.onInit();
+                  await _rwaProfileDetailController.RwaProfileDetailApi();
+                  _rwaProfileDetailController.onInit();
+                  //_nurseprofileContrller.update();
+                  _rwaProfileController.clearSelectedState();
+                  await Future.delayed(Duration(milliseconds: 100));
+                  await Get.offAll(() => RwaHomePage());
+                  _rwaProfileController.selectedState.value = null;
                 })
           ],
         ),

@@ -164,8 +164,8 @@ class NurseUserListController extends GetxController {
               .contains(searchnursepatientName.toString().toLowerCase().trim()))
           .toList();
     }
-    print(finalResult!.length);
-    foundNurses.value = finalResult!;
+    print(finalResult.length);
+    foundNurses.value = finalResult;
   }
 
   ///.......................

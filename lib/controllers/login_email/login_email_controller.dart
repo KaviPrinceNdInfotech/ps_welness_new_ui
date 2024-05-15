@@ -265,51 +265,78 @@ import '../10_lab_controller/lab_profile_details_controller/lab_profile_details_
 import '../10_lab_controller/lab_upload_report_controller/lab_upload_report_controllers.dart';
 import '../1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import '../5_rwa_controller_RRR/rwaBanner_controller.dart';
+import '../device_token_controller/devicetoken_controller.dart';
 
 class LoginpasswordController extends GetxController {
-  final GlobalKey<FormState> loginpasswordformkey = GlobalKey<FormState>();
-  LabprofiledetailController _labprofiledetailController =
+  final GlobalKey<FormState> loginpasswordformkey =
+      GlobalKey<FormState>(debugLabel: '_loginFormKey1111');
+  final LabprofiledetailController _labprofiledetailController =
       Get.put(LabprofiledetailController());
-  LabUploadReportController _labUploadReportController =
+  final LabUploadReportController _labUploadReportController =
       Get.put(LabUploadReportController());
-  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
-  ChemistProfileDetailController _chemistProfileDetailController =
+  final UserProfileControllers _userprofile = Get.put(UserProfileControllers());
+  final ChemistProfileDetailController _chemistProfileDetailController =
       Get.put(ChemistProfileDetailController());
-  RwaBannerController _rwaBannerController = Get.put(RwaBannerController());
-  NurseProfileControllers _nurseprofileContrller =
-      Get.put(NurseProfileControllers());
-  DoctorProfileControllers _doctorProfileControllers =
+  final RwaBannerController _rwaBannerController =
+      Get.put(RwaBannerController());
+  final NurseProfileControllersdetail _nurseprofileContrller =
+      Get.put(NurseProfileControllersdetail());
+  final DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
 
-  NurseUploadReportController _nursdeUploadReportController =
+  final NurseUploadReportController _nursdeUploadReportController =
       Get.put(NurseUploadReportController());
 
-  DriverProfileDetailController _driverprofile =
+  final DriverProfileDetailController _driverprofile =
       Get.put(DriverProfileDetailController());
+  DevicetokenController _devicetokenController =
+      Get.put(DevicetokenController());
+
+  ///new experiment....
+  //User_1_Controller _user_1_controller = Get.put(User_1_Controller());
 
   var Id = '';
+  RxBool isLoading = true.obs;
+  // bool termsAccepted = true;
+
+  // var isAccepted = false.obs;
+  var isChecked = false.obs;
+
+  void toggleCheckbox(bool? value) {
+    if (value != null) {
+      isChecked.value = value;
+    }
+  }
 
   void emailApi() async {
-    CallLoader.loader();
+    //isLoading(true);
+    //CallLoader.loader();
     http.Response r = await ApiProvider.LoginEmailApi(
       emailController.text,
       passwordController.text,
     );
 
     if (r.statusCode == 200) {
+      // CallLoader.loader();
       print("ACCOUNT ${r.body}");
       final accountData = driverListApiFromJson(r.body);
       print("ACCOUNT ${accountData.toJson()}");
       await accountService.setAccountData(accountData);
-      CallLoader.hideLoader();
+
+      //CallLoader.hideLoader();
 
       switch (accountData.role) {
         case 'patient':
+          CallLoader.loader();
           _userprofile.userprofileApi();
           _userprofile.update();
+          _userprofile.onInit();
+          _devicetokenController.UsertokenApi();
 
           /// we can navigate to user page.....................................
-          Get.to(const UserHomePage());
+          Get.to(UserHomePage());
+          CallLoader.hideLoader();
+
           break;
         // case 'Patient':
         //
@@ -318,7 +345,7 @@ class LoginpasswordController extends GetxController {
         //   break;
         /// we can navigate to franchise page.....................................
         case 'Franchise':
-          Get.to(FranchiesHomePage());
+          await Get.to(FranchiesHomePage());
           break;
         case 'lab':
           _labprofiledetailController.update();
@@ -326,38 +353,51 @@ class LoginpasswordController extends GetxController {
           _labUploadReportController.getlabpatientApi();
           _labUploadReportController.update();
 
-          Get.to(LabHomePage());
+          await Get.to(LabHomePage());
           break;
         case 'doctor':
           _doctorProfileControllers.doctorprofileApi();
           _doctorProfileControllers.update();
-          Get.to(DoctorHomePage());
+          _devicetokenController.DoctortokenApi();
+
+          await Get.to(DoctorHomePage());
           break;
         case 'driver':
           _driverprofile.driverProfileDetailApi();
           _driverprofile.update();
-          Get.to(DriverHomePage());
+          _devicetokenController.DrivertokenApi();
+          await Get.to(DriverHomePage());
           break;
         case 'nurse':
           _nursdeUploadReportController.getnursepatientssApi();
           _nursdeUploadReportController.update();
           _nurseprofileContrller.nurseprofileApi();
           _nurseprofileContrller.update();
-          Get.to(NurseHomePage());
+          _devicetokenController.NursetokenApi();
+          await Get.to(NurseHomePage());
           break;
         case 'RWA':
           _rwaBannerController.RwaBannerApi();
           _rwaBannerController.update();
-          Get.to(RwaHomePage());
+          await Get.to(RwaHomePage());
           break;
         case 'chemist':
           _chemistProfileDetailController.chemistProfileDetailsApi();
           _chemistProfileDetailController.update();
-          Get.to(ChemistHomePage());
+          await Get.to(ChemistHomePage());
           break;
         default:
           break;
       }
+      CallLoader.hideLoader();
+
+      //isLoading(false);
+    } else {
+      //CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
+      Get.snackbar("Failed", "${r.body}");
+      // CallLoader.hideLoader();
+      isLoading(false);
     }
   }
 

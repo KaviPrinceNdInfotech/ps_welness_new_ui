@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/model/4_nurse_all_models_RRR/nurse_profile_model.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
 
-class NurseProfileControllers extends GetxController {
+class NurseProfileControllersdetail extends GetxController {
   RxBool isLoading = true.obs;
   NurseProfileModel? getNurseProfile;
 
-  void nurseprofileApi() async {
+  Future<void> nurseprofileApi() async {
     isLoading(true);
     getNurseProfile = await ApiProvider.NurseProfileApi();
     if (getNurseProfile != null) {
@@ -22,7 +22,7 @@ class NurseProfileControllers extends GetxController {
 
   @override
   void dispose() {
-    Get.delete<NurseProfileControllers>();
+    Get.delete<NurseProfileControllersdetail>();
     super.dispose();
   }
 }

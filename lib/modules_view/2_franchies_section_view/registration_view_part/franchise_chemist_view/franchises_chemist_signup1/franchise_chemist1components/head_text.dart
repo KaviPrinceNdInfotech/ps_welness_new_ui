@@ -13,7 +13,7 @@ class FranchiseChemist1HeadText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: appPadding,
-        vertical: appPadding / 2,
+        vertical: appPadding / 15,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

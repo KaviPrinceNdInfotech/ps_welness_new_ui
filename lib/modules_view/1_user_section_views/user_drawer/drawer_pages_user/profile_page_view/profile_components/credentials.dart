@@ -5,6 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/controllers/profile_u_controller/profile_update_controller.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/user_profile_details/user_profile_details.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -27,6 +29,9 @@ class ProfileCredentials extends StatelessWidget {
   ProfileController _profileController = Get.put(ProfileController());
   UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 
+  // UserProfileControllers _userrsProfileControllers =
+  // Get.put(UserProfileControllers());
+
   // ComplaintController _complaintController = Get.put(ComplaintController());
 
   var items = [
@@ -37,6 +42,8 @@ class ProfileCredentials extends StatelessWidget {
     'Item 5',
   ];
 
+  Userprofilepersonal? userProfile;
+
   get newvalue => null!;
 
   // LoginpasswordController _loginpasswordController =
@@ -45,7 +52,17 @@ class ProfileCredentials extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Form(
+    return
+        // Obx(
+        // () => (_profileController.isLoading.value)
+        //     ? Center(child: CircularProgressIndicator())
+        //     // : _getProfileController.getProfileDetail?.patientName == null
+        //     //     ? Center(
+        //     //         child: Text('No data'),
+        //     //       )
+        //
+        //     :
+        Form(
       key: _profileController.profileformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
@@ -84,6 +101,71 @@ class ProfileCredentials extends StatelessWidget {
             // SizedBox(
             //   height: size.height * 0.02,
             // ),
+            ///TODO: Name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                //initialValue: "I am smart",
+                autofillHints: [AutofillHints.name],
+                controller: _profileController.patientNameController,
+                onSaved: (value) {
+                  _profileController.patientName = value!;
+                },
+                validator: (value) {
+                  return _profileController.validName(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Patient Name',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.home_repair_service_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///Todo: email...............................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.email],
+                controller: _profileController.emailController,
+                onSaved: (value) {
+                  _profileController.email = value!;
+                },
+                validator: (value) {
+                  return _profileController.validEmail(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.02,
+            ),
 
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
@@ -107,39 +189,6 @@ class ProfileCredentials extends StatelessWidget {
                   ),
                   prefixIcon: Icon(
                     Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
-            ///TODO: Name.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                //initialValue: "I am smart",
-                autofillHints: [AutofillHints.name],
-                controller: _profileController.patientNameController,
-                onSaved: (value) {
-                  _profileController.patientName = value!;
-                },
-                validator: (value) {
-                  return _profileController.validName(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Patient Name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.home_repair_service_outlined,
                     color: black.withOpacity(0.7),
                     size: 20,
                   ),
@@ -210,7 +259,8 @@ class ProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: const Text('Select State'),
+                      hint: Text(
+                          "${_userprofile.userProfile?.stateName.toString()}"),
                       items: _profileController.states.map((StateModel state) {
                         return DropdownMenuItem(
                           value: state,
@@ -258,7 +308,8 @@ class ProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: const Text('Selected City'),
+                      hint: Text(
+                          "${_userprofile.userProfile?.cityName.toString()}"),
                       items: _profileController.cities.map((City city) {
                         return DropdownMenuItem(
                           value: city,
@@ -370,7 +421,7 @@ class ProfileCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -505,11 +556,16 @@ class ProfileCredentials extends StatelessWidget {
 
             RectangularButton(
                 text: 'UPDATE',
-                press: () {
+                press: () async {
                   CallLoader.loader();
                   _profileController.checkProfilee();
-                  _userprofile.update();
-                  _userprofile.userprofileApi();
+                  //_userprofile.update();
+                  await _userprofile.userprofileApi();
+                  _userprofile.onInit();
+                  _profileController.clearSelectedState();
+                  await Future.delayed(Duration(milliseconds: 900));
+                  await Get.offAll(() => UserHomePage());
+                  _profileController.selectedState.value = null;
 
                   //_loginpasswordController.checkLoginpassword();
                 })
@@ -517,5 +573,7 @@ class ProfileCredentials extends StatelessWidget {
         ),
       ),
     );
+
+    ///);
   }
 }

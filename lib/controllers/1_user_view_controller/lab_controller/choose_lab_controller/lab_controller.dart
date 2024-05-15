@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/lab_details/lab_testname_model_new.dart';
 import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 import '../../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../../model/1_user_model/states_model/state_modells.dart';
-import '../../../../model/1_user_model/test_name_model/test_name_modells.dart';
 import '../../../../modules_view/1_user_section_views/lab/lab_lists/lab_listpage.dart';
 import '../../../../modules_view/circular_loader/circular_loaders.dart';
 import '../lab_list_controller.dart';
@@ -39,22 +39,23 @@ class ChooseLabController extends GetxController {
   List<StateModel> states = <StateModel>[].obs;
 
   //this is for City.................................
-  Rx<TestModel?> selectedTest = (null as TestModel?).obs;
-  List<TestModel> tests = <TestModel>[].obs;
+  Rx<LabTestName?> selectedTest = (null as LabTestName?).obs;
+  List<LabTestName> tests = <LabTestName>[].obs;
 
   // Rx<String?> selectedTest = (null as String?).obs;
   // RxList<String> cities2 = <String>[].obs;
 
   ///lab test api class.................
-  void getTestNameApi() async {
-    tests = await ApiProvider.getTestNameApi();
+  Future<void> getTestNameApi() async {
+    tests = (await ApiProvider.getTestNameNewApi())!;
     print('Prince lab test  list');
     print(tests);
   }
+  //
 
   ///get state api.........
 
-  void getStateLabApi() async {
+  Future<void> getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
     print('Prince state  list');
     print(states);
@@ -83,6 +84,9 @@ class ChooseLabController extends GetxController {
       CallLoader.hideLoader();
       _labListController.labListApi();
       _labListController.update();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
@@ -108,6 +112,7 @@ class ChooseLabController extends GetxController {
     // clinicnameController = TextEditingController();
     // mobileController = TextEditingController();
     super.onInit();
+    getTestNameApi();
 
     getStateLabApi();
     selectedState.listen((p0) {
@@ -115,7 +120,6 @@ class ChooseLabController extends GetxController {
         getCityByStateIDLab("${p0.id}");
       }
     });
-    getTestNameApi();
   }
 
   @override

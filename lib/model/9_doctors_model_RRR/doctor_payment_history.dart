@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final doctorPaymentHistory = doctorPaymentHistoryFromJson(jsonString);
+//     final doctorPaymentHistoryModel = doctorPaymentHistoryModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -36,9 +36,9 @@ class PaymentHistory {
   int? id;
   String? patientName;
   String? location;
-  double? amount;
+  num? amount;
   DateTime? paymentDate;
-  dynamic paymentId;
+  num? paymentId;
 
   PaymentHistory({
     this.id,

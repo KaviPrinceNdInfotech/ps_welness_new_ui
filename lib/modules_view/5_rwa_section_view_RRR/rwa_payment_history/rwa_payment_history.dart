@@ -138,8 +138,7 @@ class RwaPaymentHistory extends StatelessWidget {
                                   ? Center(
                                       child: Text("No Data"),
                                     )
-                                  : SizedBox(
-                                      height: size.height * 0.71,
+                                  : Expanded(
                                       child: ListView.builder(
                                           shrinkWrap: true,
                                           itemCount: _rwapaymentController
@@ -417,7 +416,8 @@ class RwaPaymentHistory extends StatelessWidget {
                                                 ),
                                               ),
                                             );
-                                          })),
+                                          }),
+                                    ),
                             ],
                           ),
                         ],

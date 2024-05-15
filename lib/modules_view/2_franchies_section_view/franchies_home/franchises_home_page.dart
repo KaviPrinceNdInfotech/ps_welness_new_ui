@@ -8,27 +8,37 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/add_vehicle_controller/add_vehicle_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/drawer_page_franchies_controller/franchies_profile_franchies.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_comission_report/franchise_commission_report.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/franchise_tdshistory_report/franchise_tds_history_report.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchiesProfileDetail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/2_franchises_controller/frenchies_banner_controller.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/get_controller_franchies/get_controller_franchies_speacilist.dart';
+import 'package:ps_welness_new_ui/controllers/2_franchises_controller/update_new_driver_controller/update_newdriver_controllerrr.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/add_dept_spe.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_dept_spec_page_view/list_dept_spec/list_dept_specialist.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/add_vehicle/add_vechile_type.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drawerpage.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/franchise_commission_report.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_drawer_view/drower_pages/profile_page_view/franchiese_profile.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_commission_report/commission_allreport_byId.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_payment_report/franchise_payment_report.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_historyy_report.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchise_tds_report/franchise_tds_report_by_id.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_bank_profile_page_view/bank_profile_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_galary_page_view/gallary_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_newdrivre_update/new_driver_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_olddrivre_update/old_driver_view.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchises_profile_page_view/profile_view.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/galerry_view/gallary_views.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_choose_registration_type/fr_choose_catagary.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/test_name_list/test_name_list.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
+import '../../../controllers/2_franchises_controller/frenchiesOldDriver_controller/update_old_driver_post_controllers.dart';
+import '../../../controllers/2_franchises_controller/registration_part_controller/franchise_chemist_regis_controller/chemist1_fr_controller/fr_chemist_controller.dart';
+import '../../../widgets/circular_loader.dart';
 import '../franchise_payout_report/franchise_payout_report.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_chemist_details/chemist_detail.dart';
 import '../my_y_m_w_d_reports_view_all/my_ymwd_doctor_report/my_ymwd_doctor_details/my_ymwd_vehicle_report.dart';
@@ -41,11 +51,38 @@ class FranchiesHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keyfranchise = GlobalKey();
+    Fr_Chemist_1_Controller _fr_chemist_1_controller =
+        Get.put(Fr_Chemist_1_Controller());
+    FranchiesSpecialistController _franchiesSpecialistController =
+        Get.put(FranchiesSpecialistController());
+    AddVehicleController _addVehicleController =
+        Get.put(AddVehicleController());
+    FrenchiesProfileDetailController _frenchiesProfileDetailController =
+        Get.put(FrenchiesProfileDetailController());
+
+    DraweerFranchiesProfileController _draweerFranchiesProfileController =
+        Get.put(DraweerFranchiesProfileController());
+
+    UpdatenewdriverrrController _updatenewVehicleController =
+        Get.put(UpdatenewdriverrrController());
+    FranchiseTdsHistoryReportController franchiseTdsHistoryReportController =
+        Get.put(FranchiseTdsHistoryReportController());
+
+    UpdateolddriverrrController _updateoldVehicleController =
+        Get.put(UpdateolddriverrrController());
+
+    FranchiseCommissionReportController _franchisecommissionController =
+        Get.put(FranchiseCommissionReportController());
+
+    //AddVehicleController _addVehicleController = Get.put(AddVehicleController());
+
+    // FranchiesSpecialistController _franchiesSpecialistController =
+    // Get.put(FranchiesSpecialistController());
 
     final List<String> productname = [
       'Edit Profile',
-      'Update Bank Detail',
+      'Add Bank Detail',
       'Vehicle Allotment',
       'Gallery',
       'Add Gallery',
@@ -53,7 +90,7 @@ class FranchiesHomePage extends StatelessWidget {
       'Add Spec & Dept',
       'Add Vehicle Type',
       'View Spe & Dpt',
-      'View Dept & Spec',
+      // 'View Dept & Spec',
       'Registration',
       'Registration Details',
       'My Y/M/W/D Report',
@@ -61,7 +98,7 @@ class FranchiesHomePage extends StatelessWidget {
       'My Commission Report',
       'My Payout Report',
       'My TDS Report',
-      'Contact US'
+      // 'Contact US'
     ];
 
     final List<String> underprocess = [
@@ -74,6 +111,7 @@ class FranchiesHomePage extends StatelessWidget {
       '',
       '',
       '',
+      //'',
       '',
       '',
       '',
@@ -81,8 +119,7 @@ class FranchiesHomePage extends StatelessWidget {
       '',
       '',
       '',
-      '',
-      '',
+      //'',
     ];
     List<Color> colors = [
       Color(0xff11eae0),
@@ -103,7 +140,7 @@ class FranchiesHomePage extends StatelessWidget {
 
       ///
       'lib/assets/icons/frspecial.png',
-      'lib/assets/icons/frspaclist.png',
+      //'lib/assets/icons/frspaclist.png',
       'lib/assets/icons/frregister.png',
       'lib/assets/icons/frregisterdetail.png',
       'lib/assets/icons/fryreport.png',
@@ -111,7 +148,7 @@ class FranchiesHomePage extends StatelessWidget {
       'lib/assets/icons/frcommission.png',
       'lib/assets/icons/frpayout.png',
       'lib/assets/icons/frtds.png',
-      'lib/assets/icons/contact44.png',
+      //'lib/assets/icons/contact44.png',
     ];
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
@@ -125,7 +162,7 @@ class FranchiesHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keyfranchise,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -168,8 +205,11 @@ class FranchiesHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _key.currentState!.openDrawer();
+              onPressed: () async {
+                await _frenchiesProfileDetailController
+                    .frenchiesProfileDetailApi();
+                _frenchiesProfileDetailController.update();
+                _keyfranchise.currentState!.openDrawer();
               },
             ),
           ),
@@ -253,12 +293,38 @@ class FranchiesHomePage extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
-                                        Get.to(() => FranchisesProfilePage());
+                                        _frenchiesProfileDetailController
+                                            .frenchiesProfileDetailApi();
+                                        _frenchiesProfileDetailController
+                                            .update();
+                                        _frenchiesProfileDetailController
+                                            .onInit();
+                                        _draweerFranchiesProfileController
+                                            .onInit();
+                                        // _frenchiesProfileDetailController.
+                                        _draweerFranchiesProfileController
+                                            .clearSelectedState();
+
+                                        /// _draweerFranchiesProfileController.refresh();
+                                        // _draweerFranchiesProfileController.update();
+
+                                        await Future.delayed(
+                                            Duration(milliseconds: 1000));
+
+                                        await Get.offAll(
+                                            () => FranchiessProfilePage());
+
+                                        await Future.delayed(
+                                            Duration(milliseconds: 10));
+
+                                        await _frenchiesProfileDetailController
+                                            .frenchiesProfileDetailApi();
+
+                                        ///Get.to(() => FranchisesProfilePage());
                                       } else if (index == 1) {
-                                        Get.to(
-                                            () => FranchisesBankProfilePage());
+                                        Get.to(() => FranchisesAddBankPage());
                                       } else if (index == 2) {
                                         Get.defaultDialog(
                                             backgroundColor:
@@ -286,8 +352,15 @@ class FranchiesHomePage extends StatelessWidget {
                                                         ))),
                                                   ),
                                                   InkWell(
-                                                    onTap: () {
-                                                      Get.to(() =>
+                                                    onTap: () async {
+                                                      // await _updateoldVehicleController
+                                                      //     .getdriverVehicleoldTypeApi();
+                                                      // await _updateoldVehicleController
+                                                      //     .getdriverssApi();
+                                                      //
+                                                      // _updateoldVehicleController
+                                                      //     .update();
+                                                      await Get.to(() =>
                                                           OldDriverView());
                                                     },
                                                     child:
@@ -353,8 +426,12 @@ class FranchiesHomePage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                    onTap: () {
-                                                      Get.to(() =>
+                                                    onTap: () async {
+                                                      await _updatenewVehicleController
+                                                          .getdriverVehiclenewTypeApi();
+                                                      _updatenewVehicleController
+                                                          .update();
+                                                      await Get.to(() =>
                                                           NewDriverView());
                                                     },
                                                     child:
@@ -420,17 +497,74 @@ class FranchiesHomePage extends StatelessWidget {
                                       } else if (index == 6) {
                                         Get.to(() => AdddeptSpecPage());
                                       } else if (index == 7) {
-                                        Get.to(() => AddVehiclePage());
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(seconds: 1));
+                                        CallLoader.hideLoader();
+                                        _addVehicleController
+                                            .vehiclecatagaryvehicleController
+                                            .clear();
+                                        _addVehicleController
+                                            .vehicletypeController
+                                            .clear();
+
+                                        //await _addVehicleController
+                                        // .getVehicleCategoryApi();
+                                        // _addVehicleController.update();
+                                        // _addVehicleController.onInit();
+                                        await Get.offAll(
+                                            () => AddVehiclePage());
                                       } else if (index == 8) {
-                                        Get.to(() => DeptSpecList());
-                                      } else if (index == 9) {
-                                        Get.to(() => DeptAndSpecialistView());
+                                        _franchiesSpecialistController
+                                            .franchiesSpecialistListssApi();
+                                        _franchiesSpecialistController.update();
+                                        _franchiesSpecialistController.onInit();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 900));
+                                        CallLoader.hideLoader();
+                                        await SharedPreferences.getInstance()
+                                            .then((value) =>
+                                                Get.to(() => DeptSpecList()));
+                                        //Get.to(() => DeptSpecList());
+                                      }
+
+                                      ///9
+                                      // else if (index == 9) {
+                                      //
+                                      //
+                                      //   ///this is not necessary...
+                                      //   _franchiesSpecialistController
+                                      //       .franchiesDeptAndSpecListsApi();
+                                      //   _franchiesSpecialistController.update();
+                                      //   _franchiesSpecialistController.onInit();
+                                      //
+                                      //   CallLoader.loader();
+                                      //   await Future.delayed(
+                                      //       Duration(milliseconds: 900));
+                                      //   CallLoader.hideLoader();
+                                      //   await SharedPreferences.getInstance()
+                                      //       .then((value) => Get.to(
+                                      //           () => DeptAndSpecialistView()));
+                                      //   //Get.to(() => DeptAndSpecialistView());
+                                      // }
+                                      ///
+                                      else if (index == 9) {
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 900));
+                                        CallLoader.hideLoader();
+                                        await SharedPreferences.getInstance()
+                                            .then((value) => Get.to(() =>
+                                                FrRegistrationCatagaryDetails()));
+
+                                        //_fr_chemist_1_controller.onInit();
+                                        //Get.to(() =>
+                                        // FrRegistrationCatagaryDetails());
                                       } else if (index == 10) {
-                                        Get.to(() =>
-                                            FrRegistrationCatagaryDetails());
-                                      } else if (index == 11) {
                                         Get.to(() => FrRegistrationDetails());
-                                      } else if (index == 12) {
+                                      } else if (index == 11) {
+                                        //Get.back();
                                         Get.defaultDialog(
                                             backgroundColor:
                                                 MyTheme.ThemeColors,
@@ -814,19 +948,32 @@ class FranchiesHomePage extends StatelessWidget {
                                               ),
                                             ),
                                             radius: 10.0);
-                                      } else if (index == 13) {
+                                      } else if (index == 12) {
                                         Get.to(() => FranchisePaymentReport());
+                                      } else if (index == 13) {
+                                        _franchisecommissionController
+                                            .frenchiesCommissionReportByRoleApi();
+                                        _franchisecommissionController.update();
+                                        Get.to(() =>
+                                                FranchiseCommissionReportByRole()
+                                            //FranchiseCommissionReport()
+                                            );
                                       } else if (index == 14) {
-                                        Get.to(
-                                            () => FranchiseCommissionReport());
-                                      } else if (index == 15) {
                                         Get.to(() => FranchisePayoutReport());
+                                      } else if (index == 15) {
+                                        franchiseTdsHistoryReportController
+                                            .frenchiesTDSReportbyIdApi();
+                                        // franchiseTdsHistoryReportController
+                                        //     .getTdsRoleApi();
+                                        franchiseTdsHistoryReportController
+                                            .update();
+
+                                        Get.to(() => FranchiseTDSSReportByRole()
+                                            //FranchiseTdsHistoryReport()
+                                            );
                                       } else if (index == 16) {
-                                        Get.to(
-                                            () => FranchiseTdsHistoryReport());
-                                      } else if (index == 17) {
                                         //Get.back();
-                                        Get.to(() => SupportView());
+                                        // Get.to(() => SupportViewPsComman());
                                       }
                                     },
                                     child: Container(
@@ -914,7 +1061,7 @@ class Mycrusial extends StatelessWidget {
   ];
 
   final bool _isPlaying = true;
-  final img = 'http://test.pswellness.in/Images/';
+  //final img = 'http://pswellness.in/Images/';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -924,65 +1071,69 @@ class Mycrusial extends StatelessWidget {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  height: size.height * 0.28,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Material(
-                      color: MyTheme.ThemeColors,
-                      borderRadius: BorderRadius.circular(10),
-                      elevation: 0,
-                      child: CarouselSlider.builder(
-                        key: _sliderKey,
-                        unlimitedMode: true,
-                        autoSliderTransitionTime: Duration(seconds: 1),
-                        slideBuilder: (index) {
-                          var items = frenchiesBannerController
-                              .getfrenchiesBannerApi?.bannerImageList;
-                          return Padding(
-                            padding: const EdgeInsets.all(7.0),
-                            child: Material(
-                              elevation: 12,
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                height: size.height * 38,
-                                width: size.width,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
+            : frenchiesBannerController
+                        .getfrenchiesBannerApi?.bannerImageList ==
+                    null
+                ? Center(child: Text('No List'))
+                : Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: size.height * 0.28,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: MyTheme.ThemeColors,
+                          borderRadius: BorderRadius.circular(10),
+                          elevation: 0,
+                          child: CarouselSlider.builder(
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime: Duration(seconds: 1),
+                            slideBuilder: (index) {
+                              var items = frenchiesBannerController
+                                  .getfrenchiesBannerApi?.bannerImageList;
+                              return Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Material(
+                                  elevation: 12,
                                   borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.white, width: 3),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          '$img${items?[index].bannerPath}' ??
-                                              ''),
-                                      fit: BoxFit.fill),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.white, width: 3),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              '$IMAGE_BASE_URL${items?[index].bannerPath}' ??
+                                                  ''),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              );
+                            },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 2,
+                              indicatorRadius: 4,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              padding: EdgeInsets.only(bottom: 0),
                             ),
-                          );
-                        },
-                        slideTransform: DefaultTransform(),
-                        slideIndicator: CircularSlideIndicator(
-                          indicatorBorderWidth: 2,
-                          indicatorRadius: 4,
-                          itemSpacing: 15,
-                          currentIndicatorColor: Colors.white,
-                          padding: EdgeInsets.only(bottom: 0),
+                            itemCount: frenchiesBannerController
+                                .getfrenchiesBannerApi!.bannerImageList.length,
+                            enableAutoSlider: true,
+                          ),
                         ),
-                        itemCount: frenchiesBannerController
-                            .getfrenchiesBannerApi!.bannerImageList.length,
-                        enableAutoSlider: true,
                       ),
                     ),
                   ),
-                ),
-              ),
       ),
     );
   }

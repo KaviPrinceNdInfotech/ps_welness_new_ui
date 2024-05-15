@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/model/1_user_model/ambulance/ambulance_booking_history.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/doctor_list_byhospitalid/doctor_list_through_api.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/get_department_list_model/department_model.dart';
@@ -14,6 +15,7 @@ import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nu
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_list_modelby_locationid.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_appointment_models/nurse_type_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_location_model/nurse_location_models.dart';
+import 'package:ps_welness_new_ui/model/1_user_model/slot_duration_common_model/slot_duration_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/test_name_model/test_name_modells.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/time_slots_common_model/time_slots_common.dart';
 import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
@@ -22,11 +24,13 @@ import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/co
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmentdetail_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_appoinmenthistory_model.dart';
 import 'package:ps_welness_new_ui/model/9_doctors_model/doctor_homepage_model/doctor_banner_model.dart';
-import 'package:ps_welness_new_ui/model/9_doctors_model/patient_list.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/week_day_off/week_day_off_model.dart';
 import 'package:ps_welness_new_ui/model/banner_image_model/banner_get_api.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/Dept_dropdown_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/Frenchies_payoutReport_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/franchies_specialist.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/franchise_comission_by_role_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesAddVehicleList_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesBanner_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesChemistRegistration_model.dart';
@@ -60,8 +64,14 @@ import 'package:ps_welness_new_ui/model/franchies_models/frenchiesYMWDVehicleRep
 import 'package:ps_welness_new_ui/model/franchies_models/frenchies_getRole_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchies_testList_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/specialistDW_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/update_old_driver_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/update_old_driver_model_vehicle_number.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/vechle_number_list_newdriverupdate_model.dart';
+import 'package:ps_welness_new_ui/model/franchies_models/vehicle_number_list_old_driver_model.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
 import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/view_dept_specialist_view/view_dept_special_list.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/comman_bank_update/all_get_bank_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/1_user_model/get_speacilist_bydeptid_model/get_speacilist_bydeptid.dart';
@@ -87,11 +97,12 @@ import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_bannerModel.da
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_order_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payment_historyModel.dart';
 import '../../model/6_chemist_model_RRR/chemist_model_RRR/chemist_payoutModel.dart';
+import '../../model/9_doctors_model/doctor_homepage_model/doctor_appointment_online.dart';
 import '../../model/9_doctors_model_RRR/doctor_payment_history.dart';
-import '../../model/9_doctors_model_RRR/doctor_profile_model.dart';
 import '../../model/9_doctors_model_RRR/get_all_skils_model/get_all_skils_model.dart';
 import '../../model/9_doctors_model_RRR/view_patient_report_model.dart';
 import '../../model/franchies_models/frenchiesGetGallery_model.dart';
+import '../../model/franchies_models/update_new_vehicle_vehicletypeid_model.dart';
 
 var base64Code = "base64";
 //base64Encode( File(selectedPath.value).readAsBytes());
@@ -99,7 +110,7 @@ var base64Code = "base64";
 var prefs = GetStorage();
 
 class ApiProvider {
-  static var baseUrl = 'http://test.pswellness.in/';
+  static var baseUrl = 'https://pswellness.in/';
 
   //'http://pswellness.in/';
   static String token = '';
@@ -115,6 +126,7 @@ class ApiProvider {
   static String StatemasterId = ''.toString();
   static String CitymasterId = ''.toString();
   static String AdminLoginId = ''.toString();
+  //static String adminId = ''.toString();
 
   //static String cartlistid = '';
   //static String addressid = '';
@@ -137,7 +149,7 @@ class ApiProvider {
     var Address,
     var Pincode,
   ) async {
-    var url = baseUrl + 'api/PatientApi/PatientRegistration';
+    var url = '${baseUrl}api/PatientApi/PatientRegistration';
 
     var body = {
       "PatientName": PatientName,
@@ -180,7 +192,7 @@ class ApiProvider {
     var Username,
     var Password,
   ) async {
-    var url = baseUrl + 'api/SignupApi/Login';
+    var url = '${baseUrl}api/SignupApi/Login';
 
     var body = {
       "Username": Username,
@@ -241,7 +253,7 @@ class ApiProvider {
 //Change passwo
 
   static ChangePasswordApi(var ID, var Password, var ConfirmPassword) async {
-    var url = baseUrl + 'api/SignupApi/ChangePassword';
+    var url = '${baseUrl}api/SignupApi/ChangePassword';
     var prefs = GetStorage();
     //saved id..........
     //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -296,7 +308,7 @@ class ApiProvider {
     var EndDate,
     var LocationId,
   ) async {
-    var url = baseUrl + 'api/ApiTest/BookAppointment';
+    var url = '${baseUrl}api/ApiTest/BookAppointment';
 
     var body = {
       "ServiceType": ServiceType,
@@ -343,7 +355,7 @@ class ApiProvider {
     var Others,
     var Doctor,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/PatientComplaint';
+    var url = '${baseUrl}api/ComplaintApi/PatientComplaint';
     // var prefs = GetStorage();
     // //saved id..........
     // //prefs.write("Id".toString(), json.decode(r.body)['data']['Id']);
@@ -392,7 +404,7 @@ class ApiProvider {
 
   ///lab test name Api get ...........................
   static Future<List<TestModel>> getTestNameApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TestList";
+    var url = "${baseUrl}api/CommonApi/TestList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -409,7 +421,7 @@ class ApiProvider {
 
   ///Todo: from here franchies 2 section.................
   static FranchiesSpealistApi() async {
-    var url = baseUrl + 'api/CommonApi/GetSpecialist?depId=87';
+    var url = '${baseUrl}api/CommonApi/GetSpecialist?depId=87';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -424,22 +436,30 @@ class ApiProvider {
 
   ///Todo: from here nurse 3 section.................
   // nurse appointment detail.............................
+
+  //from_here nurse type.........................
+  ///new nuese appointment nurse section.....api....29---aug--2023..
+
   static NurseappointmentApi() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var NurseuserListId = preferences.getString("NurseuserListId");
-    print("nurseuserlistId: ${NurseuserListId}");
+    //
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var NurseuserListId = preferences.getString("NurseuserListId");
+    // print("nurseuserlistId: ${NurseuserListId}");
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&user:${userid}');
 
     var url =
         //"http://test.pswellness.in/api/NurseAPI/NurseDetails?id=56";
         //"http://test.pswellness.in/api/NurseAPI/NurseDetails?id=$NurseuserListId";
-        "http://test.pswellness.in/api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56";
+        "${baseUrl}api/NurseAppointmentAPI/NurseAppointmentList?NurseId=$userid";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
         NurseAppointmentDetail nurseAppointmentDetail =
             nurseAppointmentDetailFromJson(r.body);
-        print("rtrrtrtrtrrahukllllklrrrr:${r.body}");
+        print("rtrrtrtrtrrahukllllkjj:${r.body}");
         print("nurseLisruseIdUrlrrr: ${url}");
 
         return nurseAppointmentDetail;
@@ -450,11 +470,9 @@ class ApiProvider {
     }
   }
 
-  //from_here nurse type.........................
-
   //doctor profile  api 2..........................
   static NurseTypeApi() async {
-    var url = baseUrl + 'api/CommonApi/NurseList';
+    var url = '${baseUrl}api/CommonApi/NurseList';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -467,65 +485,224 @@ class ApiProvider {
     }
   }
 
+  ///todo: Delete user from nurse appointmrnt ......5 sep 2023....
+  static userAptnrsdeleteApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var NurseesspartId = preferences.getString("NurseesspartId");
+    print("userrrlistssId111: ${NurseesspartId}");
+
+    var url = '${baseUrl}api/PatientApi/CancelAppointment_ByNurse';
+
+    var body = {"Id": "$NurseesspartId", "Pro_Id": userid};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar("Your Booking deleted", r.body);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete user from dr appointmrnt ......5 sep 2023....
+  static userAptdrdeleteApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrIds = preferences.getString("DrIds");
+    print("userrrlistssId111211: ${DrIds}");
+
+    var url = '${baseUrl}api/PatientApi/CancelAppointment_ByDoctor';
+
+    var body = {"Id": "$DrIds", "Pro_Id": userid};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    print("draptbodywqdwrrwewewe12:${r.body}");
+
+    if (r.statusCode == 200) {
+      Get.snackbar("Sucess", "Seccessful");
+      print("draptdddd:${url}");
+      print("draptbodywqdwrrwewewe:${r.body}");
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: Delete user from dr appointmrnt ......30 april  2024....
+  static userAcceptdrApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&skilsprofiledetail:${userid}');
+    print(userid);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrIds = preferences.getString("DrIds");
+    print("userrrlistssId111211: ${DrIds}");
+
+    var url = '${baseUrl}api/DoctorApi/AcceptBooking';
+
+    var body = {"Id": "$DrIds"};
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    print("draptbodywqdwrrwewewe12:${r.body}");
+
+    if (r.statusCode == 200) {
+      Get.snackbar("Sucess", " Booking Accepted ");
+      print("draptdddd:${url}");
+      print("draptbodywqdwrrwewewe:${r.body}");
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
   ///Todo: from here doctor 9 section...9 june 2023..............
   ///
   //sign up  Api doctor Api 1........................................................
   static signDoctorUpApi(
-    var DoctorName,
-    var EmailId,
-    var Password,
-    var ConfirmPassword,
-    var MobileNumber,
-    var Fee,
-    var PhoneNumber,
-    var StartTime,
-    var SlotTiming,
-    var Department_Id,
-    var Specialist_Id,
-    var LicenceNumber,
-    var LicenceImage,
-    var PinCode,
-    var ClinicName,
-    var Location,
-    var StateMaster_Id,
-    var CityMaster_Id,
-    var EndTime,
-    var LicenceBase64,
-  ) async {
+      var PAN,
+      var DoctorName,
+      var EmailId,
+      var Password,
+      var ConfirmPassword,
+      var MobileNumber,
+      var PhoneNumber,
+      var ClinicName,
+      var StateMaster_Id,
+      var CityMaster_Id,
+      var Location,
+      var LicenceImage,
+      var LicenceBase64,
+      var LicenceNumber,
+      var LicenseValidity,
+      var PinCode,
+      var PanImage,
+      var PanImageBase64,
+      var SlotTiming,
+      TimeOfDay? startTime,
+      TimeOfDay? EndTime,
+      var SlotTiming2,
+      TimeOfDay? StartTime2,
+      TimeOfDay? EndTime2,
+      var Experience,
+      var Department_Id,
+      var Specialist_Id,
+      var Fee,
+      var Qualification,
+      var RegistrationNumber,
+      var SignaturePic,
+      var SignaturePicBase64,
+      var Day_Id,
+      var VirtualFee,
+      var About,
+      var Vendor_Id) async {
     try {
       var url = '${baseUrl}api/SignupApi/DoctorRegistration';
+
+      String formattedTime =
+          '${startTime?.hour.toString().padLeft(2, '0')}:${startTime?.minute.toString().padLeft(2, '0')}:00.0000000';
+      print('Frenchies122: ${formattedTime}');
+
+      String formattedTime1 =
+          '${EndTime?.hour.toString().padLeft(2, '0')}:${EndTime?.minute.toString().padLeft(2, '0')}:00.0000000';
+      print('Frenc1: ${formattedTime1}');
+
+      String formattedTime2 =
+          '${StartTime2?.hour.toString().padLeft(2, '0')}:${StartTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
+      print('Frenchies122: ${formattedTime2}');
+
+      String formattedTime3 =
+          '${EndTime2?.hour.toString().padLeft(2, '0')}:${EndTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
+      print('Frenchies122: ${formattedTime3}');
+
+      Id = prefs.read("Id").toString();
+
       var body = {
-        "Id": "143",
+        "PAN": "$PAN",
         "DoctorName": "$DoctorName",
         "EmailId": "$EmailId",
         "Password": "$Password",
         "ConfirmPassword": "$ConfirmPassword",
         "MobileNumber": "$MobileNumber",
-        "Fee": "$Fee",
         "PhoneNumber": "$PhoneNumber",
-        "StartTime": "14:27:00.0000000", //"$StartTime",
-        "SlotTiming": "5", //"$SlotTiming",
-        "Department_Id": "$Department_Id",
-        "Specialist_Id": "$Specialist_Id",
-        "LicenceNumber": "$LicenceNumber",
-        "LicenceImage": "$LicenceImage",
-        "PinCode": "$PinCode",
         "ClinicName": "$ClinicName",
-        "Location": "$Location",
         "StateMaster_Id": "$StateMaster_Id",
         "CityMaster_Id": "$CityMaster_Id",
-        "EndTime": "14:27:00.0000000", //"$EndTime",
-        "LicenceBase64": "$LicenceBase64"
+        "Location": "$Location",
+        "LicenceImage": "$LicenceImage",
+        "LicenceBase64": "$LicenceBase64",
+        "LicenceNumber": "$LicenceNumber",
+        "LicenseValidity": "$LicenseValidity",
+        "PinCode": "$PinCode",
+        "PanImage": "$PanImage",
+        "PanImageBase64": "$PanImageBase64",
+        "SlotTiming": "$SlotTiming",
+        "StartTime": formattedTime,
+        //"01:50:00.0000000",
+        "EndTime": formattedTime1,
+        //"14:27:00.0000000",
+        "SlotTiming2": "$SlotTiming2",
+        "StartTime2": formattedTime2,
+        //"14:27:00.0000000",
+        "EndTime2": formattedTime3,
+        //"18:24:00.0000000",
+        /// "Vendor_Id": "$Id",
+        "Experience": "$Experience",
+        "Department_Id": "$Department_Id",
+        "Specialist_Id": "$Specialist_Id",
+        "Fee": "$Fee",
+        "Qualification": "$Qualification",
+        "RegistrationNumber": "$RegistrationNumber",
+        "SignaturePic": "$SignaturePic",
+        "SignaturePicBase64": "$SignaturePicBase64",
+        "Day_Id": "$Day_Id",
+        "VirtualFee": "$VirtualFee",
+        "About": "$About",
+        "Vendor_Id": "$Vendor_Id"
       };
-      print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%: ${body}");
-      print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%Time: ${StartTime}");
+      print("Bo: ${body}");
+      // print("Body%%%%%%%%%%%%%%%%%%%%%%%%%%%Time: ${StartTime}");
       http.Response r = await http.post(
         Uri.parse(url),
         body: body,
       );
       if (r.statusCode == 200) {
+        print("Bodydr200: ${body}");
+
+        Get.snackbar(
+          'Success',
+          r.body,
+          duration: const Duration(seconds: 2),
+        );
         print("Success123: ${r.body}");
-        Get.snackbar("Success", "${r.body}");
+        //Get.snackbar("Success", "${r.body}");
         return r;
       } else {
         print("Doctor registration failed: ${r.statusCode}");
@@ -539,19 +716,19 @@ class ApiProvider {
   }
 
   //doctor profile  api 2..........................
-  static DoctorProfileApi() async {
-    var url = baseUrl + 'api/DoctorApi/DoctorProfile?DoctorId=150';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      print(r.body.toString());
-      if (r.statusCode == 200) {
-        DoctorProfile? doctorProfile = doctorProfileFromJson(r.body);
-        return doctorProfile;
-      }
-    } catch (error) {
-      return;
-    }
-  }
+  // static DoctorProfileApi() async {
+  //   var url = '${baseUrl}api/DoctorApi/DoctorProfile?DoctorId=150';
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       DoctorProfile? doctorProfile = doctorProfileFromJson(r.body);
+  //       return doctorProfile;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
 
   /// todo doctor complain_register ................Rahul
   static doctorComplainApi(
@@ -559,7 +736,7 @@ class ApiProvider {
     var Complaints,
     var Others,
   ) async {
-    var url = baseUrl + 'api/ComplaintApi/DoctorComplaint';
+    var url = '${baseUrl}api/ComplaintApi/DoctorComplaint';
     var body = {
       "Subjects": Subjects,
       "Complaints": Complaints,
@@ -581,7 +758,7 @@ class ApiProvider {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&ddwduseridEEE:${userid}');
-    var url = baseUrl + 'api/ComplaintApi/DriverComplaints';
+    var url = '${baseUrl}api/ComplaintApi/DriverComplaints';
     var body = {
       "Login_Id": userid,
       "Subjects": Subjects,
@@ -602,7 +779,7 @@ class ApiProvider {
 
   /// todo complain_register doctor api................ rahul
   static NurseComplainApi(var Subjects, var Others, var Complaints) async {
-    var url = baseUrl + 'api/ComplaintApi/NurseComplaints';
+    var url = '${baseUrl}api/ComplaintApi/NurseComplaints';
     var body = {
       "Subjects": Subjects,
       "Complaints": Complaints,
@@ -627,7 +804,7 @@ class ApiProvider {
   //view_patient_list api 3.........
   static ViewPatientReportsApi() async {
     var url =
-        baseUrl + 'api/DoctorApi/PatientReports?DoctorId=151&PatientId=77';
+        '${baseUrl}api/DoctorApi/PatientReports?DoctorId=151&PatientId=77';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -645,12 +822,37 @@ class ApiProvider {
   //view_payment_history.............
 
 //ViewPaymentHistoryApi()
+  ///
+//   static DoctorPaymentHistoryApi() async {
+//     var prefs = GetStorage();
+//     userid = prefs.read("Id").toString();
+//     print('&&&&&&&&&&&&&&&&&&&&&&ddwduserid:${userid}');
+//     var url = '${baseUrl}api/DoctorApi/DoctorpaymentHistory?Id=$userid';
+//     try {
+//       http.Response r = await http.get(Uri.parse(url));
+//       print("DoctorPaymentHistory Response: ${r.toString()}");
+//       if (r.statusCode == 200) {
+//         print("apointment${r.body}");
+//         print("apointmenturl${url}");
+//         DoctorPaymentHistoryModel? viewPatientpaymentReport =
+//             doctorPaymentHistoryModelFromJson(r.body);
+//         // print("DoctorPaymentHistory: ${viewPatientpaymentReport.paymentHistory![0].amount}");
+//         return viewPatientpaymentReport;
+//       }
+//     } catch (error) {
+//       print("DoctorPaymentHistoryError: ${error}");
+//       return;
+//     }
+//   }
+
+  //patient_list_api..........................
+  ///
+  //ViewPaymentHistoryApi()
   static DoctorPaymentHistoryApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&ddwduserid:${userid}');
-    var url =
-        'http://test.pswellness.in/api/DoctorApi/DoctorpaymentHistory?Id=$userid';
+    var url = '${baseUrl}api/DoctorApi/DoctorpaymentHistory?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print("DoctorPaymentHistory Response: ${r.toString()}");
@@ -660,7 +862,7 @@ class ApiProvider {
         DoctorPaymentHistoryModel? viewPatientpaymentReport =
             doctorPaymentHistoryModelFromJson(r.body);
         print(
-            "DoctorPaymentHistory: ${viewPatientpaymentReport.paymentHistory![0].amount}");
+            "DoctorPaymentHistory: ${viewPatientpaymentReport?.paymentHistory![0].amount}");
         return viewPatientpaymentReport;
       }
     } catch (error) {
@@ -669,26 +871,24 @@ class ApiProvider {
     }
   }
 
-  //patient_list_api..........................
-  static ViewPatientsListApi() async {
-    var url =
-        "http://test.pswellness.in/api/DoctorApi/ViewPatientList?DoctorId=151";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      print(r.body.toString());
-      if (r.statusCode == 200) {
-        var PatientList = patientListFromJson(r.body);
-        return PatientList;
-      }
-    } catch (error) {
-      return;
-    }
-  }
+  // static ViewPatientsListApi() async {
+  //   var url = "${baseUrl}api/DoctorApi/ViewPatientList?DoctorId=151";
+  //   try {
+  //     http.Response r = await http.get(Uri.parse(url));
+  //     print(r.body.toString());
+  //     if (r.statusCode == 200) {
+  //       var PatientList = patientListFromJson(r.body);
+  //       return PatientList;
+  //     }
+  //   } catch (error) {
+  //     return;
+  //   }
+  // }
 
   ///todo:from here 1_user................................
 //lab_list_api..........................
   static ViewLabListApi() async {
-    var url = "http://test.pswellness.in/api/LabApi/LabsList?CityId=786";
+    var url = "${baseUrl}api/LabApi/LabsList?CityId=786";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -703,7 +903,7 @@ class ApiProvider {
 
   ///todo:add to cart......................................................add to cart...
   static Addtocartmedicineapi(MedicineId, Quantity) async {
-    var url = baseUrl + 'api/PatientMedicine/AddMedicineToCart';
+    var url = '${baseUrl}api/PatientMedicine/AddMedicineToCart';
     var prefs = GetStorage();
     //saved id..........
     final PatientId = prefs.read("Id").toString();
@@ -743,8 +943,7 @@ class ApiProvider {
     //saved id..........
     final PatientId = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&okoko:${Id}');
-    var url =
-        "http://test.pswellness.in/api/PatientMedicine/MedicineCart?patientId=$PatientId";
+    var url = "${baseUrl}api/PatientMedicine/MedicineCart?patientId=$PatientId";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -761,7 +960,7 @@ class ApiProvider {
   //
   /// user medicine_list_api..........................
   static MedicinelistApi() async {
-    var url = "http://test.pswellness.in/api/PatientMedicine/GetMedicines";
+    var url = "${baseUrl}api/PatientMedicine/GetMedicines";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -776,8 +975,7 @@ class ApiProvider {
 
   ///lab_list_2...........................
   static LabListDrowerApi() async {
-    var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/ViewMore?HealthId=18";
+    var url = "${baseUrl}api/HealthCheckUpApi/ViewMore?HealthId=18";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -792,8 +990,7 @@ class ApiProvider {
 
   ///checkup_history_3...........................
   static LabHistoryApi() async {
-    var url =
-        "http://test.pswellness.in/api/HealthCheckUpApi/H_CheckUpList?cityId=67";
+    var url = "${baseUrl}api/HealthCheckUpApi/H_CheckUpList?cityId=67";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -809,7 +1006,7 @@ class ApiProvider {
   //
   ///state Api get...........................
   static Future<List<StateModel>> getSatesApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/GetStates";
+    var url = "${baseUrl}api/CommonApi/GetStates";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -827,8 +1024,7 @@ class ApiProvider {
   ///get_cities_api...........
 
   static Future<List<City>> getCitiesApi(String stateID) async {
-    var url =
-        "http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
+    var url = "${baseUrl}api/CommonApi/GetCitiesByState?stateId=$stateID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -845,7 +1041,7 @@ class ApiProvider {
 
   ///state Api get........15june 2023.................driver..vehicle registration
   static Future<List<VehicleTypeElement>?> getvehicledriverApi() async {
-    var url = "http://test.pswellness.in/api/DriverApi/GetVehicleTypeDropdown";
+    var url = "${baseUrl}api/DriverApi/GetVehicleTypeDropdown";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -864,7 +1060,7 @@ class ApiProvider {
 
   ///doctor department Api get..dropdownapi user.........................
   static Future<List<DepartmentModel>> getDortorDepartmentApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/GetDepartments";
+    var url = "${baseUrl}api/CommonApi/GetDepartments";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -882,8 +1078,7 @@ class ApiProvider {
   ///get_cities_api...........
 
   static Future<List<SpecialistModel>> getSpeaclistbyIdApi(String depId) async {
-    var url =
-        "http://test.pswellness.in/api/CommonApi/GetSpecialist?depId=$depId";
+    var url = "${baseUrl}api/CommonApi/GetSpecialist?depId=$depId";
     //"http://test.pswellness.in/api/CommonApi/GetCitiesByState?stateId=$stateID";
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -902,8 +1097,7 @@ class ApiProvider {
   ///get_skils_api...........
 
   static getSkillsApi() async {
-    var url =
-        'http://test.pswellness.in/api/DoctorApi/GetDoctorSkills?doctorId=111';
+    var url = '${baseUrl}api/DoctorApi/GetDoctorSkills?doctorId=111';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -920,7 +1114,7 @@ class ApiProvider {
 
   ///nurse Api get...........................
   static Future<List<NurseModels>> getnursetypeApi() async {
-    var url = baseUrl + "api/CommonApi/NurseList";
+    var url = "${baseUrl}api/CommonApi/NurseList";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -937,7 +1131,7 @@ class ApiProvider {
 
   ///nurse location Api get.........................................................
   static Future<List<NurseLocationModel>> getnurselocationtApi() async {
-    var url = "http://pswellness.in/api/CommonApi/GetLocation";
+    var url = "${baseUrl}api/CommonApi/GetLocation";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -958,7 +1152,7 @@ class ApiProvider {
     var DoctorId,
     var SkillName,
   ) async {
-    var url = baseUrl + 'api/DoctorApi/AddSkill';
+    var url = '${baseUrl}api/DoctorApi/AddSkill';
 
     var body = {
       "Doctor_Id": "111",
@@ -996,8 +1190,7 @@ class ApiProvider {
   ///get_skils_api...........
 
   static getListOfDoctorApi() async {
-    var url =
-        'http://test.pswellness.in/api/HospitalAPI/DoctorList?hospitalId=209';
+    var url = '${baseUrl}api/HospitalAPI/DoctorList?hospitalId=209';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1035,7 +1228,7 @@ class ApiProvider {
     var EndTime,
     var LicenceBase64,
   ) async {
-    var url = baseUrl + 'api/SignupApi/DoctorRegistration';
+    var url = '${baseUrl}api/SignupApi/DoctorRegistration';
     var body = {
       "DoctorName": DoctorName,
       "EmailId": EmailId,
@@ -1076,7 +1269,7 @@ class ApiProvider {
 
   ///todo: banner Api for user.........
   static getbanneruserApi() async {
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=1';
+    var url = '${baseUrl}api/SignupApi/getBanner/?id=1';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -1091,7 +1284,7 @@ class ApiProvider {
 
   ///todo: banner Api for doctor.........
   static getbannerdoctorApi() async {
-    var url = baseUrl + 'api/SignupApi/getBanner/?id=4';
+    var url = '${baseUrl}api/SignupApi/getBanner/?id=4';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1105,7 +1298,7 @@ class ApiProvider {
     }
   }
 
-  ///todo doctor appoinment detail......Rahul
+  ///todo doctor appoinment detail..........
   static DoctorAppoinmentDetail() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
@@ -1124,6 +1317,29 @@ class ApiProvider {
       }
     } catch (error) {
       print(":::::::::${error}");
+      return;
+    }
+  }
+
+  ///todo doctor appoinment detail..........
+  static DoctorAppoinmentOnline() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+    //http://test.pswellness.in/api/DoctorApi/GetVirtualAppointmentDetail?Id=242
+    var url = '${baseUrl}api/DoctorApi/GetVirtualAppointmentDetail?Id=$userid';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        var OnlineDoctorApt = onlineDoctorAptFromJson(r.body);
+        print("draptee:${url}");
+        print("draptbodyeeere:${r.body}");
+        // print(
+        //"doctorAppoinmentDetail: ${doctorAppoinmentDetail?.doctorAppoinmentDetail..[0].doctorName}");
+        return OnlineDoctorApt;
+      }
+    } catch (error) {
+      print("::::::::errr:${error}");
       return;
     }
   }
@@ -1159,7 +1375,8 @@ class ApiProvider {
     var Location,
     var PinCode,
     var ClinicName,
-    var Fee,
+    var EmailId,
+    //var Fee,
     //var adminLogin_id,
     //var accountnoEditText,
     //var ifscCodeEditText,
@@ -1170,24 +1387,30 @@ class ApiProvider {
     print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
-    var url = baseUrl + 'api/DoctorApi/UpdateProfile';
+    var url = '${baseUrl}api/DoctorApi/UpdateProfile';
     var body = {
       "ID": userid,
       "DoctorName": DoctorName,
       "MobileNumber": MobileNumber,
-      "StateMaster_Id": StateMaster_Id,
-      "CityMaster_Id": CityMaster_Id,
+      "StateMaster_Id": "$StateMaster_Id",
+      "CityMaster_Id": "$CityMaster_Id",
       "Location": Location,
       "PinCode": PinCode,
       "ClinicName": ClinicName,
-      "Fee": Fee,
-      "adminLogin_id": adminId,
+      "EmailId": "$EmailId",
+      //"Fee": Fee,
+      //"adminLogin_id": adminId,
       // "AccountNo": accountnoEditText,
       //"IFSCCode": ifscCodeEditText,
       //"BranchName": branchNameEditText
     };
+    print("okokodr33${body}");
+
     http.Response r = await http.post(Uri.parse(url), body: body);
+    print("okokodr${r.body}");
+
     if (r.statusCode == 200) {
+      print("okokodr${r.body}");
       Get.snackbar("Success", r.body);
       return r;
     } else {
@@ -1200,13 +1423,15 @@ class ApiProvider {
   static DriverUpdateProfile(
     var DriverName,
     var MobileNumber,
-    var VehicleName,
+    //var VehicleName,
     var StateMaster_Id,
     var CityMaster_Id,
     var Location,
-    var DlNumber,
-    var DlImage,
-    var DlBase64Image,
+    var EmailId,
+    var PinCode,
+    //var DlNumber,
+    //var DlImage,
+    // var DlBase64Image,
   ) async {
     var url = '${baseUrl}api/DriverApi/UpdateProfile';
     var prefs = GetStorage();
@@ -1216,13 +1441,15 @@ class ApiProvider {
       "Id": userid,
       "DriverName": DriverName.toString(),
       "MobileNumber": MobileNumber.toString(),
-      "VehicleName": VehicleName.toString(),
+      // "VehicleName": VehicleName.toString(),
       "StateMaster_Id": StateMaster_Id,
       "CityMaster_Id": CityMaster_Id,
       "Location": Location.toString(),
-      "DlNumber": DlNumber.toString(),
-      "DlImage": DlImage.toString(),
-      "DlBase64Image": "$DlBase64Image",
+      "EmailId": "$EmailId",
+      "PinCode": "$PinCode",
+      // "DlNumber": DlNumber.toString(),
+      //"DlImage": DlImage.toString(),
+      // "DlBase64Image": "$DlBase64Image",
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("DriverUpdateProfil: ${body}");
@@ -1312,9 +1539,34 @@ class ApiProvider {
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        //DriverAppoinmentDetailModel driverAppoinmentDetail =
+        //             driverAppoinmentDetailModelFromJson(r.body);
         List<DriverPaymentHistoryModel> driverPaymentHistoryModel =
             driverPaymentHistoryModelFromJson(r.body);
         return driverPaymentHistoryModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  /// todo driverPaymentHistory.....user---side..................
+  static DriverUserPaymentHistory() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
+    var url =
+        '${baseUrl}api/DriverApi/GetDriverBookingHistory?PatientId=$userid';
+    //176
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("okdvr:${url}");
+        //DriverAppoinmentDetailModel driverAppoinmentDetail =
+        //             driverAppoinmentDetailModelFromJson(r.body);
+        AmbulanceUserPaymentHistory driveruserPaymentHistoryModel =
+            ambulanceUserPaymentHistoryFromJson(r.body);
+        return driveruserPaymentHistoryModel;
       }
     } catch (error) {
       return;
@@ -1388,7 +1640,7 @@ class ApiProvider {
     var EndTime,
     var LicenceBase64,
   ) async {
-    var url = baseUrl + 'api/SignupApi/DoctorRegistration';
+    var url = '${baseUrl}api/SignupApi/DoctorRegistration';
     var body = {
       "DoctorName": DoctorName,
       "EmailId": EmailId,
@@ -1431,7 +1683,7 @@ class ApiProvider {
   static DriverProfileDetailApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&userid55:${Id}');
+    print('&&&&&&&&&&&&&&&&&&&&&&userid55:${userid}');
     var url = '${baseUrl}api/DriverApi/GetDriverProfile?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -1472,8 +1724,7 @@ class ApiProvider {
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
 
-    var url =
-        "http://test.pswellness.in/api/NurseAPI/PaymentHistory?NurseID=$userid";
+    var url = "${baseUrl}api/NurseAPI/PaymentHistory?NurseID=$userid";
     //'${baseUrl}api/NurseAPI/PaymentHistory?NurseID=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -1506,7 +1757,7 @@ class ApiProvider {
 
   /// todo Doctor Complain DropDown .........Rahul
   static Future<List<Complaint41Patient>> DoctorComplainDropDownApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/PatientSubjects";
+    var url = "${baseUrl}api/CommonApi/PatientSubjects";
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1523,7 +1774,7 @@ class ApiProvider {
   /// todo nurse Complain DropDown .........prince
   static Future<List<ComplaintNurse41Patient>>
       NurseComplainDropDownApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/PatientSubjects";
+    var url = "${baseUrl}api/CommonApi/PatientSubjects";
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1546,8 +1797,8 @@ class ApiProvider {
     var selectedCityy,
     var locationController,
     var pinController,
-    var clinicNameController,
-    var feeController,
+    // var clinicNameController,
+    var EmailIdController,
 
     ///var adminLoginIdController,
     // var accountnoController,
@@ -1558,7 +1809,7 @@ class ApiProvider {
     adminId = prefs.read("AdminLogin_Id").toString();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
-    var url = baseUrl + 'api/NurseAPI/UpdateNurseProfile';
+    var url = '${baseUrl}api/NurseAPI/UpdateNurseProfile';
     var body = {
       "ID": userid,
       "NurseName": nameController,
@@ -1567,8 +1818,8 @@ class ApiProvider {
       "CityMaster_Id": selectedCityy,
       "Location": locationController,
       "PinCode": pinController,
-      "ClinicName": clinicNameController,
-      "Fee": feeController,
+      //"ClinicName": clinicNameController,
+      "EmailId": EmailIdController,
       "adminLogin_id": adminId,
       // "AccountNo": accountnoController,
       //"IFSCCode": ifscController,
@@ -1591,10 +1842,13 @@ class ApiProvider {
     adminId = prefs.read("AdminLogin_Id").toString();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
-    var url = baseUrl + 'api/NurseAPI/GetNurseProfile?Id=$userid';
+    var url = '${baseUrl}api/NurseAPI/GetNurseProfile?Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print('urknrs:$url');
+        print('usradmin:${adminId}');
+
         NurseProfileModel nurseProfileModel = nurseProfileModelFromJson(r.body);
         return nurseProfileModel;
       }
@@ -1605,53 +1859,62 @@ class ApiProvider {
 
   /// todo Nurse Signup api..........rahul .............
   static NurseSignupApi(
-      var NurseType_IdController,
-      var CertificateNumberController,
-      var CityNameController,
-      var PinCodeController,
-      var NurseNameController,
-      var PhoneNumberController,
-      var MobileNumberController,
-      var EmailIdController,
-      var StateMaster_IdController,
-      var CityMaster_IdController,
-      var LocationController,
-      var FeeController,
-      var PasswordController,
-      var ConfirmPasswordController,
-      var PanImageFileController,
-      var LicenceImageController,
-      var CertificateBase64ImageController,
-      var CertificateImageNameController,
-      var VerificationDocController,
-      var CertificateImageController) async {
-    var url = baseUrl + 'api/SignupApi/NurseRegistration';
+    var PAN,
+    var NurseName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var Location,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var PanImage,
+    var PanBase64Image,
+    var NurseImage,
+    var NurseImageBase64Image,
+    var CertificateImage,
+    var CertificateBase64Image,
+    var CertificateNumber,
+    var PinCode,
+    var NurseType_Id,
+    var Fee,
+    var Location_id,
+    var experience,
+    var about,
+    var Vendor_Id,
+  ) async {
+    var url = '${baseUrl}api/SignupApi/NurseRegistration';
     var body = {
-      "NurseType_Id": NurseType_IdController,
-      "CertificateNumber": CertificateNumberController,
-      "CityName": CityNameController,
-      "PinCode": PinCodeController,
-      "NurseName": NurseNameController,
-      "PhoneNumber": PhoneNumberController,
-      "MobileNumber": MobileNumberController,
-      "EmailId": EmailIdController,
-      "StateMaster_Id": StateMaster_IdController,
-      "CityMaster_Id": CityMaster_IdController,
-      "Location": LocationController,
-      "Fee": FeeController,
-      "Password": PasswordController,
-      "ConfirmPassword": ConfirmPasswordController,
-      "PanImageFile": PanImageFileController,
-      "LicenceImage": LicenceImageController,
-      "CertificateImageName": CertificateImageNameController,
-      "VerificationDoc": VerificationDocController,
-      "CertificateImage": CertificateImageController,
-      "CertificateBase64Image": base64Code
+      "PAN": "$PAN",
+      "NurseName": NurseName,
+      "EmailId": EmailId,
+      "Password": Password,
+      "ConfirmPassword": ConfirmPassword,
+      "MobileNumber": MobileNumber,
+      "Location": Location,
+      "StateMaster_Id": StateMaster_Id,
+      "CityMaster_Id": CityMaster_Id,
+      "PanImage": PanImage,
+      "PanBase64Image": PanBase64Image,
+      "NurseImage": NurseImage,
+      "NurseImageBase64Image": NurseImageBase64Image,
+      "CertificateImage": CertificateImage,
+      "CertificateBase64Image": CertificateBase64Image,
+      "CertificateNumber": CertificateNumber,
+      "PinCode": PinCode,
+      "NurseType_Id": NurseType_Id,
+      "Fee": Fee,
+      "Location_id": Location_id,
+      "experience": experience,
+      "about": about,
+      "Vendor_Id": "$Vendor_Id",
     };
 
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("Nurse Signup Api: ${body}");
     if (r.statusCode == 200) {
+      print("Nurse 200: ${body}");
+
       Get.snackbar('message', r.body);
       return r;
     } else {
@@ -1666,8 +1929,7 @@ class ApiProvider {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
-    var url =
-        'http://test.pswellness.in/api/PatientApi/GetPatientList?RWA_Id=$userid';
+    var url = '${baseUrl}api/PatientApi/GetPatientList?RWA_Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1685,8 +1947,7 @@ class ApiProvider {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
-    var url =
-        'http://test.pswellness.in/api/PatientApi/GetRWA_PayoutList?RWA_Id=$userid';
+    var url = '${baseUrl}api/PatientApi/GetRWA_PayoutList?RWA_Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       print("RWAPayoutbodyurlrr: ${url}");
@@ -1709,16 +1970,14 @@ class ApiProvider {
   static RWAProfileDetailApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
-    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
-    var url =
-        'http://test.pswellness.in/api/PatientApi/GetRWA_ProfileDetails?RWA_Id=$userid';
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${userid}');
+    var url = '${baseUrl}api/PatientApi/GetRWA_ProfileDetails?RWA_Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         final rwaProfileDetailModel = rwaProfileDetailModelFromJson(r.body);
         print("RWAPayoutReportbody: ${r.body}");
-        print(
-            "RWAPayoutReport: ${rwaProfileDetailModel.rwaProfileDetails?[0].authorityName}");
+
         return rwaProfileDetailModel;
       }
     } catch (error) {
@@ -1727,7 +1986,7 @@ class ApiProvider {
     }
   }
 
-  /// todo RWA Add Patient............Rahul
+  /// todo RWA Add Patient...........
   static RWAAddPatientApi(var PatientName, var EmailId, var MobileNumber,
       var Password, var ConfirmPassword, var Location, var PinCode) async {
     var prefs = GetStorage();
@@ -1736,9 +1995,12 @@ class ApiProvider {
     //     json.decode(r.body)['data']['AdminLogin_Id']);
     adminId = prefs.read("AdminLogin_Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userirwaaid:${userid}');
     var url = '${baseUrl}api/PatientApi/AddPatient';
     var body = {
-      "AdminLogin_Id": adminId,
+      "Rwa_Id": userid,
+      //"AdminLogin_Id": adminId,
       "PatientName": PatientName,
       "EmailId": EmailId,
       "MobileNumber": MobileNumber,
@@ -1759,8 +2021,8 @@ class ApiProvider {
     }
   }
 
-  /// todo RWA Update Bank Detail............Rahul
-  static RWAUpdateBankDetailApi(
+  /// todo Add All  Bank Detail...........5 march 2024....prince
+  static AddBankDetailApi(
     var AccountNo,
     var IFSCCode,
     var BranchName,
@@ -1768,13 +2030,13 @@ class ApiProvider {
     var HolderName,
     var MobileNumber,
   ) async {
-    var url = '${baseUrl}api/SignupApi/UpdateBank';
+    var url = '${baseUrl}api/CommonApi/AddBankDetail';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
     var body = {
-      "Id": userid,
+      //"Id": userid,
       "Login_Id": adminId,
       "AccountNo": AccountNo,
       "IFSCCode": IFSCCode,
@@ -1783,11 +2045,57 @@ class ApiProvider {
       "HolderName": HolderName,
       "MobileNumber": MobileNumber,
     };
-    print('AddPatientBody: ${body}');
+    print('AddbankjBody: ${body}');
+    print(adminId);
+    print(AccountNo);
+    print(IFSCCode);
+    print(BranchName);
+    print(BranchAddress);
+    print(HolderName);
+    print(MobileNumber);
+
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print('AddbankjBody: ${body}');
+
+      print("BankDetailSuccesss: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      // Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo update All  Bank Detail...coman........5 march 2024....prince
+  static UpdateBankDetailApi(
+    var AccountNo,
+    var IFSCCode,
+    var BranchName,
+    var BranchAddress,
+    var HolderName,
+    var MobileNumber,
+  ) async {
+    var url = '${baseUrl}api/CommonApi/UpdateBank';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    var body = {
+      //"Id": userid,
+      "Login_Id": adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName,
+      "BranchAddress": BranchAddress,
+      "HolderName": HolderName,
+      "MobileNumber": MobileNumber,
+    };
+    print('update bank Body: ${body}');
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       print("BankDetailSuccesss: ${r.body}");
-      Get.snackbar("Success", "${r.body}");
+      // Get.snackbar("Success", "${r.body}");
       return r;
     } else {
       Get.snackbar("Failed", r.body);
@@ -1804,6 +2112,16 @@ class ApiProvider {
     var HolderName,
     var MobileNumber,
   ) async {
+    //http://pswellness.in/api/CommonApi/AddBankDetail
+    //{
+    //     "Login_Id":"3712",
+    //     "AccountNo":"8757439598357937",
+    //     "IFSCCode":"PNBU783647",
+    //     "BranchName":"PNB",
+    //     "BranchAddress":"Noida",
+    //     "HolderName":"Madhu",
+    //     "MobileNumber":"89746676767"
+    // }
     var url = '${baseUrl}api/DoctorApi/Doctor_AddBankDetail';
     var prefs = GetStorage();
     adminId = prefs.read("AdminLogin_Id").toString();
@@ -1830,13 +2148,35 @@ class ApiProvider {
     }
   }
 
+  ///get_bank detail all common api.......4 march 2024...
+  ///
+  static GetbankDetailAllApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&d:${adminId}');
+
+    var url = '${baseUrl}api/CommonApi/GetBankDetail?AdminLogin_Id=$adminId';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final allbankgetModel = bankAllDetailModelFromJson(r.body);
+        return allbankgetModel;
+      }
+    } catch (error) {
+      print("RWAPaymentReportApiError: ${error}");
+      return;
+    }
+  }
+
   ///todo: all update Bank Detail...........12 june 2023
   static ChemistBankSeperateDetailApi(
     var AccountNo,
     var IFSCCode,
     var BranchName,
   ) async {
-    var url = 'http://test.pswellness.in/api/CommonApi/UpdateBank';
+    var url = '${baseUrl}api/CommonApi/UpdateBank';
     //http://test.pswellness.in/api/CommonApi/UpdateBank
     //var url = '${baseUrl}api/ComplaintApi/CHUpdateBank';
     var prefs = GetStorage();
@@ -1861,13 +2201,43 @@ class ApiProvider {
     }
   }
 
-  /// todo Rwa Payment Report.........Rahul
+  ///todo: all franchise update Bank Detail...........3 august 2023
+  static FranchiseBankSeperateDetailApi(
+    var AccountNo,
+    var IFSCCode,
+    var BranchName,
+  ) async {
+    var url = '${baseUrl}api/CommonApi/UpdateBank';
+    //http://test.pswellness.in/api/CommonApi/UpdateBank
+    //var url = '${baseUrl}api/ComplaintApi/CHUpdateBank';
+    var prefs = GetStorage();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usercomplain:${adminId}');
+    var body = {
+      "Login_Id": adminId,
+      "AccountNo": AccountNo,
+      "IFSCCode": IFSCCode,
+      "BranchName": BranchName,
+    };
+    print('AddPatientBodyggdd: ${body}');
+    http.Response r = await http.post(Uri.parse(url), body: body);
+    if (r.statusCode == 200) {
+      print("BankDetailSuccessstdddt: ${r.body}");
+      Get.snackbar("Success", "${r.body}");
+      return r;
+    } else {
+      Get.snackbar("Failed", r.body);
+      return r;
+    }
+  }
+
+  /// todo Rwa Payment Report........
   static RWAPaymentReportApi() async {
     var prefs = GetStorage();
     userid = prefs.read("Id").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&userid:${Id}');
-    var url =
-        'http://test.pswellness.in/api/PatientApi/GetRWA_PaymentReport?RWA_Id=$userid';
+    var url = '${baseUrl}api/PatientApi/GetRWA_PaymentReport?RWA_Id=$userid';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1900,15 +2270,15 @@ class ApiProvider {
     }
   }
 
-  /// todo RWA Complain ............Rahul
+  /// todo RWA Complain ........
   static RWAProfileApi(
     var AuthorityName,
     var LandlineNumber,
     var StateMaster_Id,
     var CityMaster_Id,
     var Location,
-    var CertificateImage,
-    var CertificateImagebase64,
+    var EmailId,
+    var PinCode,
   ) async {
     var url = '${baseUrl}api/PatientApi/UpdateRWA_Data';
     var prefs = GetStorage();
@@ -1922,8 +2292,12 @@ class ApiProvider {
       "StateMaster_Id": StateMaster_Id,
       "CityMaster_Id": CityMaster_Id,
       "Location": Location,
-      "CertificateImage": "$CertificateImage",
-      "CertificateImagebase64": "$CertificateImagebase64"
+      "EmailId": EmailId,
+      "PinCode": PinCode,
+      //"ClinicName": clinicNameController,
+
+      // "CertificateImage": "$CertificateImage",
+      // "CertificateImagebase64": "$CertificateImagebase64"
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("RWAPROFILEAPI:5454 ${body}");
@@ -1981,7 +2355,7 @@ class ApiProvider {
 
   ///todo: RWA banner Api for doctor.........
   static rwaBannerApi() async {
-    var url = "http://test.pswellness.in/api/SignupApi/getBanner/?id=7";
+    var url = "${baseUrl}api/SignupApi/getBanner/?id=7";
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -2051,7 +2425,7 @@ class ApiProvider {
 
   ///todo nurse list detail...18april 2023....after api it will change in future it will based on location id...18 april 2023...................
   static NursListApi() async {
-    var url = "http://test.pswellness.in/api/NurseAPI/getNurseList?cityid=67";
+    var url = "${baseUrl}api/NurseAPI/getNurseList?cityid=67";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -2072,8 +2446,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var NurseuserListId = preferences.getString("NurseuserListId");
     print("nurseuserlistId: ${NurseuserListId}");
-    var url =
-        "http://test.pswellness.in/api/NurseAPI/NurseDetails?id=$NurseuserListId";
+    var url = "${baseUrl}api/NurseAPI/NurseDetails?id=$NurseuserListId";
     //baseUrl + 'api/NurseAppointmentAPI/NurseAppointmentList?NurseId=56';
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -2094,13 +2467,70 @@ class ApiProvider {
   ///time slots Api get...........................26 april 2023.....slot........
 
   static Future<List<TimeSlot>?> gettimeslotApi() async {
-    var url = "http://test.pswellness.in/api/CommonApi/TimeSlot";
+    var url = "${baseUrl}api/CommonApi/TimeSlot";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
       if (r.statusCode == 200) {
         var timeslotData = timeSlotsFromJson(r.body);
         return timeslotData.timeSlots;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///time slots duration Api get...........................27 feb 2024.....slot........
+
+  static Future<List<DurationSlot>?> gettimeslotDurationsApi() async {
+    var url = "${baseUrl}api/DoctorApi/DurationDropdown";
+    //http://pswellness.in/api/DoctorApi/DurationDropdown
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var timesduration = timeDurationSlotFromJson(r.body);
+        return timesduration.durationSlot;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///time slots franchise Id Api get...........................28 feb 2024.....slot........
+
+  static Future<List<Vendor>?> getfranchiseDurationsApi() async {
+    var url = "${baseUrl}api/DoctorApi/FranchiseDropdown";
+    //http://pswellness.in/api/DoctorApi/DurationDropdown
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var franchiseid = franchiseIdSelectFromJson(r.body);
+        return franchiseid.vendor;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///time slots weekly off Api get...........................28 feb 2024.....slot........
+
+  static Future<List<Day>?> getweekoffApi() async {
+    var url = "${baseUrl}api/DoctorApi/DaysDropdown";
+    //http://pswellness.in/api/DoctorApi/DurationDropdown
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var weekdayid = weekAbsentSelectFromJson(r.body);
+        return weekdayid.days;
       } else {
         return [];
       }
@@ -2198,7 +2628,7 @@ class ApiProvider {
     }
   }
 
-  /// todo Chemist Update Profile ............Rahul
+  /// todo Chemist Update Profile ............
   static ChemistUpdateProfileApi(
     // var id,
     var ShopName,
@@ -2208,6 +2638,7 @@ class ApiProvider {
     var Location,
     //var AdminLogin_Id,
     var PinCode,
+    var EmailId,
     // var AccountNo,
     // var IFSCCode,
     // var BranchName
@@ -2229,6 +2660,7 @@ class ApiProvider {
       "Location": Location,
       "AdminLogin_Id": adminId,
       "PinCode": PinCode,
+      "EmailId": EmailId,
       //"AccountNo": AccountNo,
       //"IFSCCode": IFSCCode,
       //"BranchName": BranchName
@@ -2356,6 +2788,7 @@ class ApiProvider {
 
   /// todo Chemist SignUp............
   static ChemistSignupApi(
+      var PAN,
       var ChemistName,
       var ShopName,
       var EmailId,
@@ -2379,6 +2812,7 @@ class ApiProvider {
     //userid
     var url = '${baseUrl}api/SignupApi/ChemistRegistration';
     var body = {
+      "PAN": "$PAN",
       "ChemistName": ChemistName,
       "ShopName": ShopName,
       "EmailId": EmailId,
@@ -2425,6 +2859,7 @@ class ApiProvider {
   ///todo:from here we have signup Api for RWA....31 may 2023 prince
 
   static RwaSignupApi(
+    var PAN,
     var AuthorityName,
     var PhoneNumber,
     var EmailId,
@@ -2438,9 +2873,12 @@ class ApiProvider {
     var CertificateNo,
     var CertificateImage,
     var CertificateImagebase64,
+    //var Vendor_Id
+
     //var Patient_Id,
   ) async {
     var body = {
+      "PAN": "$PAN",
       "AuthorityName": AuthorityName,
       "PhoneNumber": PhoneNumber,
       "EmailId": EmailId,
@@ -2454,13 +2892,16 @@ class ApiProvider {
       "CertificateNo": CertificateNo,
       'CertificateImagebase64': '$CertificateImagebase64',
       'CertificateImage': '$CertificateImage',
+      // "Vendor_Id": Vendor_Id
     };
     try {
-      var url = 'http://test.pswellness.in/api/SignupApi/SignUpRWA';
+      var url = '${baseUrl}api/SignupApi/SignUpRWA';
       var r = await http.post(Uri.parse(url), body: body);
       print("nlmknmkmk:${r.body}");
       print("###3###3####1rrrererttrrrrr: ${body}");
       if (r.statusCode == 200) {
+        print("body3200:${body}");
+
         print("###3###3####1rwwwrr: ${r.body}");
         print('&&&&&&&&&&&&&&&&&&&&&&rwausewwwreportrerer:${userid}');
         //print("####userid: ${r.Patient_Id}");
@@ -2479,6 +2920,7 @@ class ApiProvider {
 
   ///driver signup.........16 june....
   static DriverSignupApi(
+    var PAN,
     var DriverName,
     var PinCode,
     var MobileNumber,
@@ -2500,12 +2942,14 @@ class ApiProvider {
     var AadharImageBase64,
     var AadharImage2,
     var AadharImage2Base64,
-    var VehicleType_Id,
-    var Paidamount,
+    var Vendor_Id,
+    // var VehicleType_Id,
+    ///var Paidamount,
 
     //var Patient_Id,
   ) async {
     var body = {
+      "PAN": "$PAN",
       "DriverName": DriverName,
       "PinCode": PinCode,
       "MobileNumber": MobileNumber,
@@ -2527,15 +2971,17 @@ class ApiProvider {
       "AadharImageBase64": "$AadharImageBase64",
       "AadharImage2": "$AadharImage2",
       "AadharImage2Base64": "$AadharImage2Base64",
-      "VehicleType_Id": "$VehicleType_Id",
-      "Paidamount": "$Paidamount"
+      "Vendor_Id": "$Vendor_Id",
+      // "VehicleType_Id": "null",
+      ///"Paidamount": "$Paidamount"
     };
     try {
-      var url = 'http://test.pswellness.in/api/SignupApi/DriverRegistration';
+      var url = '${baseUrl}api/SignupApi/DriverRegistration';
       var r = await http.post(Uri.parse(url), body: body);
       print("nlmknmkmkdriveree:${r.body}");
       print("###3###3####1rrrererttrrrrrrttt: ${body}");
       if (r.statusCode == 200) {
+        print("###3###3###200: ${body}");
         print("###3###3####1drriver22: ${r.body}");
         print('&&&&&&&&&&&&&&&&&&&&&driverrsq:${userid}');
         //print("####userid: ${r.Patient_Id}");
@@ -2610,6 +3056,7 @@ class ApiProvider {
 
   /// todo Frenchies SignUp ............Rahul
   static FrenchiesSignUpApi(
+      var VendorName,
       var CompanyName,
       var EmailId,
       var Password,
@@ -2622,9 +3069,10 @@ class ApiProvider {
       var PanNumber,
       var AadharOrPANNumber,
       var AadharOrPANImage,
-      var VendorName) async {
+      var AadharOrPANImageBase64) async {
     var url = '${baseUrl}api/SignupApi/FranchiseRegistration';
     var body = {
+      "VendorName": VendorName,
       "CompanyName": CompanyName,
       "EmailId": EmailId,
       "Password": Password,
@@ -2637,34 +3085,57 @@ class ApiProvider {
       "PanNumber": PanNumber,
       "AadharOrPANNumber": AadharOrPANNumber,
       "AadharOrPANImage": AadharOrPANImage,
-      "VendorName": VendorName,
-      "AadharOrPANImageBase64": "", //base64Code
+      "AadharOrPANImageBase64": AadharOrPANImageBase64, //base64Code
     };
     print("Frenchies Signupbody:: $body");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      print("Frenchies Signupbody2000:: $body");
+
+      Get.snackbar(
+        'Success',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
       print("Frenchies SignupApi: ${r.body}");
       return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar(
+        'message',
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
     } else {
-      Get.snackbar("Failed", r.body);
+      Get.snackbar(
+        "Failed",
+        "${r.body}",
+        duration: const Duration(seconds: 2),
+      );
       return r;
     }
   }
 
   /// todo Frenchies Add Gallery ............Rahul
   static FrenchiesAddGalleryApi(var ImageName, var Images, var base) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewe:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&&usersds:${userid}');
     var url = '${baseUrl}api/FranchisesApi/Add_Gallery';
     var body = {
       "ImageName": "$ImageName",
       "Images": '$Images',
-      "Imagesbase64": "$base"
+      "Imagesbase64": "$base",
+      "Franchise_Id": "$Id"
     };
     print("Frenchies Add Gallery body: $body");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       Get.snackbar("Success", "${r.body}");
       print("Frenchies Add Gallery : ${r.body}");
+      print("Frenchiesid:${userid}");
       return r;
     } else {
       Get.snackbar("Failed", r.body);
@@ -2674,10 +3145,14 @@ class ApiProvider {
 
   ///Todo Get Gallery
   static FrenchiesGetGalleryApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Get_Gallery';
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    var url = '${baseUrl}api/FranchisesApi/Get_Gallery?Id=$Id';
+    //http://test.pswellness.in/api/FranchisesApi/Get_Gallery?Id=28
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print('Frenchurl: ${url}');
         final franchiseGetGallery = franchiseGetGalleryFromJson(r.body);
         return franchiseGetGallery;
       }
@@ -2719,13 +3194,14 @@ class ApiProvider {
     }
   }
 
-  /// todo Frenchies Profile Detail .............Rahul
+  /// todo Frenchies Profile Detail ...........
   static FrenchiesProfileDetailApi() async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_ProfileDetail?Id=${Id}';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("frdetail:$url");
         final frenchiesProfileDetailModel =
             frenchiesProfileDetailModelFromJson(r.body);
         return frenchiesProfileDetailModel;
@@ -2777,13 +3253,17 @@ class ApiProvider {
   static FranchiseUpdateBankApi(var HolderName, var mobile, var Location,
       var AccountNo, var IFSCCode, var BranchName) async {
     //Id = prefs.read("Id").toString();
+    var prefs = GetStorage();
     AdminLoginId = prefs.read("AdminLoginId").toString();
+
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&:${adminId}');
     var url = '${baseUrl}api/SignupApi/Franchises_UpdateBank';
     var body = {
       "HolderName": HolderName,
       "MobileNumber": mobile,
       "BranchAddress": Location,
-      "Login_Id": "$AdminLoginId",
+      "Login_Id": "$adminId",
       "AccountNo": AccountNo,
       "IFSCCode": IFSCCode,
       "BranchName": BranchName
@@ -2802,8 +3282,7 @@ class ApiProvider {
 
   ///Department Id Api get........Dropdown...................Rahul
   static Future<List<FranchiseDepartment>> getDepartmentApi() async {
-    var url =
-        "http://test.pswellness.in/api/FranchisesApi/Fra_DepartmentDropdown";
+    var url = "${baseUrl}api/FranchisesApi/Fra_DepartmentDropdown";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print("DepartmentDropDownData: ${r.body}");
@@ -2824,7 +3303,7 @@ class ApiProvider {
   static Future<List<FranchiseSpecialist>> getSpecialistApi(
       String stateID) async {
     var url =
-        "http://test.pswellness.in/api/FranchisesApi/Fra_SpecialistDropdown_By_DepID?dep_Id=$stateID";
+        "${baseUrl}api/FranchisesApi/Fra_SpecialistDropdown_By_DepID?dep_Id=$stateID";
     try {
       http.Response r = await http.get(Uri.parse(url));
       print(r.body.toString());
@@ -2841,18 +3320,27 @@ class ApiProvider {
 
   /// todo Dept&Spec post Api ............Rahul
   static addDeptSpecApi(var deptId, var specId) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
     AdminLoginId = prefs.read("AdminLoginId").toString();
     print("add DepartSpecApi: ${AdminLoginId}");
-    var url = 'http://test.pswellness.in/api/FranchisesApi/AddDepartment';
+    var url = '${baseUrl}api/FranchisesApi/AddDepartment';
     final body = {
       "Dep_Id": "$deptId",
       "Spec_Id": "$specId",
-      "AdminLogin_Id": "$AdminLoginId"
+      "AdminLogin_Id": "$adminId"
     };
     print("body12345: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       Get.snackbar("Success", "${r.body}");
+    }
+    if (r.statusCode == 400) {
+      Get.snackbar("Failed", "${r.body}");
     }
   }
 
@@ -2880,15 +3368,28 @@ class ApiProvider {
     //var prefs = GetStorage();
     // AdminLoginId = prefs.read("AdminLoginId").toString();
     // print("Admin:${AdminLoginId}");
-    var url = '${baseUrl}api/FranchisesApi/Dept_spec_List?Id=644';
-    print("urlvvr1: ${url}");
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
+
+    var url = '${baseUrl}api/FranchisesApi/Dept_spec_List?Id=$adminId';
+    // print("urlvvr1: ${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         print("URL: ${url}");
+        // Get.snackbar("Success", " Department Successfully Added",
+        //     duration: Duration(seconds: 3));
+
         final deptSpecListModel = deptSpecListModelFromJson(r.body);
         print("Admin12:${deptSpecListModel.deptspecList?[0].specialistName}");
         return deptSpecListModel;
+      } else {
+        //Get.snackbar("Message", "Department Already added",
+        //duration: Duration(seconds: 3));
       }
     } catch (error) {
       print("error:${error}");
@@ -2962,8 +3463,8 @@ class ApiProvider {
   }
 
   /// todo Frenchies Edit Profile .........Rahul
-  static FrenchiesEditProfile(
-      CompanyName, MobileNumber, StateId, CityId, Location, PinCode) async {
+  static FrenchiesEditProfile(CompanyName, MobileNumber, StateId, CityId,
+      Location, PinCode, VendorName, EmailId) async {
     Id = prefs.read("Id").toString();
     var body = {
       "Id": "$Id",
@@ -2972,7 +3473,9 @@ class ApiProvider {
       "StateMaster_Id": StateId,
       "City_Id": CityId,
       "Location": Location,
-      "PinCode": PinCode
+      "PinCode": PinCode,
+      "VendorName": "$VendorName",
+      "EmailId": "$EmailId"
     };
     var url = '${baseUrl}api/FranchisesApi/Fra_EditProfile';
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -2980,86 +3483,6 @@ class ApiProvider {
       print("FrenchiesEditProfile##: ${body}");
       Get.snackbar("Success", "${r.body}");
     } else {}
-  }
-
-  /// todo Frenchies Vehicle Detail ............Rahul
-  static FrenchiesVehicleDetail() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesVehicleDetailModel =
-            frenchiesVehicleDetailModelFromJson(r.body);
-        return frenchiesVehicleDetailModel;
-      }
-    } catch (error) {
-      print('FrenchiesVehicleDetail: ${error}');
-      return;
-    }
-  }
-
-  static FrenchiesDriverDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_DriverRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesDriverDetailModel =
-            frenchiesDriverDetailModelFromJson(r.body);
-        return frenchiesDriverDetailModel;
-      }
-    } catch (error) {
-      return;
-    }
-  }
-
-  static FrenchiesDoctorDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_DoctorRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesDoctorDetailModel =
-            frenchiesDoctorDetailModelFromJson(r.body);
-        print(
-            "FrenchiesDoctorDetailApi0: ${frenchiesDoctorDetailModel.doctorRegDetail?[0].vendorName}");
-        return frenchiesDoctorDetailModel;
-      }
-    } catch (error) {
-      print("FrenchiesDoctorDetailApi1: ${error}");
-      return;
-    }
-  }
-
-  /// todo Frenchies PatientDetail...........Rahul
-  static FrenchiesPatientDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_PatientRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesPatientDetailModel =
-            frenchiesPatientDetailModelFromJson(r.body);
-        return frenchiesPatientDetailModel;
-      }
-    } catch (error) {
-      return;
-    }
-  }
-
-  /// todo FrenchiesChemistDetailApi....Rahul
-  static FrenchiesChemistDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_ChemistRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesChemistDetailModel =
-            frenchiesChemistDetailModelFromJson(r.body);
-        print(
-            "FrenchiesChemistDetailApi8: ${frenchiesChemistDetailModel.chemistRegDetail?[0].chemistName}");
-        return frenchiesChemistDetailModel;
-      }
-    } catch (error) {
-      print("FrenchiesChemistDetailApi: ${error}");
-      return;
-    }
   }
 
   /// todo Frenchies Edit Chemist Detail Api ..........Rahul
@@ -3101,22 +3524,7 @@ class ApiProvider {
     } else {}
   }
 
-  /// todo FrenchiesNurseDetailApi .......Rahul
-  static FrenchiesNurseDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_NurseRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesNurseDetailModel =
-            frenchiesNurseDetailModelFromJson(r.body);
-        return frenchiesNurseDetailModel;
-      }
-    } catch (error) {
-      return;
-    }
-  }
-
-  ///todo Frenchies Delete NurseDetailApi ........... Rahul
+  ///todo Frenchies Delete NurseDetailApi ...........
   static FrenchiesDeleteNurseDetailApi(id) async {
     var url = '${baseUrl}api/FranchisesApi/Fra_DeleteNurseRegDetail?Id=$id';
     http.Response r = await http.post(Uri.parse(url));
@@ -3125,19 +3533,7 @@ class ApiProvider {
     } else {}
   }
 
-  ///todo FrenchiesLabDetailApi ........... Rahul
-  static FrenchiesLabDetailApi() async {
-    var url = '${baseUrl}api/FranchisesApi/Fra_LabRegistrationDetail';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesLabDetailModel = frenchiesLabDetailModelFromJson(r.body);
-        return frenchiesLabDetailModel;
-      }
-    } catch (error) {}
-  }
-
-  ///todo FrenchiesDeleteLabDetailApi .....Rahul
+  ///todo FrenchiesDeleteLabDetailApi .....
   static FrenchiesDeleteLabDetailApi(id) async {
     var url = '${baseUrl}api/FranchisesApi/Fra_DeleteLabRegDetail?Id=$id';
     http.Response r = await http.post(Uri.parse(url));
@@ -3146,7 +3542,7 @@ class ApiProvider {
     } else {}
   }
 
-  /// todo  FrenchiesRWADetailApi ........Rahul
+  /// todo  FrenchiesRWADetailApi ........
   static FrenchiesRWADetailApi() async {
     var url = '${baseUrl}api/FranchisesApi/Fra_RWARegistrationDetail';
     try {
@@ -3169,9 +3565,12 @@ class ApiProvider {
     } else {}
   }
 
-  /// todo Frenchies Payment Report Api ........Rahul
+  /// todo Frenchies Payment Report Api .......prince...
   static FrenchiesPaymentReportApi(String p) async {
-    var url = '${baseUrl}api/FranchisesApi/PaymentHistories_ByRole?Role=$p';
+    Id = prefs.read("Id").toString();
+
+    var url =
+        '${baseUrl}api/FranchisesApi/PaymentHistories_ByRole?Role=$p&VendorId=$Id';
     print("FrenchiesPaymentReportUrl:${url}");
     try {
       http.Response r = await http.get(Uri.parse(url));
@@ -3187,7 +3586,7 @@ class ApiProvider {
 
   /// todo Frenchies Role DropDown .........Rahul
   static Future<List<Role>> FrenchiesPaymentRole() async {
-    var url = "http://test.pswellness.in/api/FranchisesApi/GetRole";
+    var url = "${baseUrl}api/FranchisesApi/GetRole";
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -3279,7 +3678,7 @@ class ApiProvider {
     }
   }
 
-  ///todo get_VehicleType_api...........Rahul
+  ///todo get_VehicleType_api..........
   static Future<List<VehicleTypeName>> getVehicleTypeApi(String catID) async {
     var url = "${baseUrl}api/FranchisesApi/Fra_VehicleType_By_cat?Id=$catID";
     try {
@@ -3297,32 +3696,37 @@ class ApiProvider {
     }
   }
 
-  ///todo Registration, Register Vehicle..............Rahul
+  ///todo Registration, Register Vehicle.............prince,.....
   static FrenchiesRegisterVehicle(
+      var PAN,
       var name,
       var number,
       var accountNo,
-      var DriverCharges,
+      //var DriverCharges,
       var holderName,
       var VcatId,
       var VtypeId,
       var ifsc,
-      var img,
-      String imageAsBase64) async {
+      var VehicleOwnerName
+      //  var img,
+      //String imageAsBase64
+      ) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_VehicleRegistration';
     final body = {
+      "PAN": "$PAN",
       "VehicleName": "$name",
       "VehicleNumber": "$number",
       "AccountNo": "$accountNo",
-      "DriverCharges": "$DriverCharges",
+      // "DriverCharges": "$DriverCharges",
       "AccountHolderName": "$holderName",
       "VehicleCat_Id": "$VcatId",
       "VehicleType_Id": "$VtypeId",
       "IFSCCode": "$ifsc",
-      "CancelCheque": "$img",
-      "CancelChequeBase64": "$imageAsBase64",
-      "Vendor_Id": "$Id"
+      // "CancelCheque": "$img",
+      //"CancelChequeBase64": "$imageAsBase64",
+      "Vendor_Id": "$Id",
+      "VehicleOwnerName": "$VehicleOwnerName"
     };
     print("FrenchiesVehicleRegister: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
@@ -3333,30 +3737,40 @@ class ApiProvider {
 
   ///todo  Register Driver..............Rahul
   static FrenchiesRegisterDriver(
-      var name,
-      var password,
-      var confirmPassword,
-      var mobileNumber,
-      var location,
-      var DlNumber,
-      var stateId,
-      var cityId,
-      var DlImage1,
-      var DlImage1Base64,
-      var DlImage2,
-      var DlImage2Base64,
-      var AadharImage,
-      var AadharImageBase64Image,
-      var AadharImage2,
-      var AadharImage2base64Image,
-      var PinCode) async {
+    var PAN,
+    var name,
+    var EmailId,
+    var password,
+    var confirmPassword,
+    var mobileNumber,
+    var location,
+    var DlNumber,
+    var DlValidity,
+    var stateId,
+    var cityId,
+    var DlImage1,
+    var DlImage1Base64,
+    var DlImage2,
+    var DlImage2Base64,
+    var AadharImage,
+    var AadharImageBase64Image,
+    var AadharImage2,
+    var AadharImage2base64Image,
+    var PinCode,
+    var DriverImage,
+    var DriverImageBase64,
+  ) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_DriverRegistration';
     final body = {
+      "PAN": "$PAN",
       "DriverName": "$name",
-      "Password": "$password",
-      "ConfirmPassword": "$confirmPassword",
-      "MobileNumber": "$mobileNumber",
+      "Password": "$mobileNumber",
+      //password
+      "ConfirmPassword": "$EmailId",
+      //confirmPassword
+      "MobileNumber": "$password",
+      //mobileNumber
       "Location": "$location",
       "DlNumber": "$DlNumber",
       "StateMaster_Id": "$stateId",
@@ -3369,73 +3783,181 @@ class ApiProvider {
       "AadharImageBase64Image": "$AadharImageBase64Image",
       "AadharImage2": "$AadharImage2",
       "AadharImage64Image1": "$AadharImage2base64Image",
+      "Vendor_Id": "$Id",
+      "DriverImage": "$DriverImage",
+      //"$DriverImage",
+      "DriverImageBase64": "$DriverImageBase64",
       "PinCode": "$PinCode",
-      "Vendor_Id": "$Id"
+      "EmailId": "$confirmPassword",
+      //EmailId
+      "DlValidity": "$DlValidity"
+      //var DriverImage,
+      //       var DriverImageBase64,
     };
     print("FrenchiesDoctorRegister: ${body}");
+    print("PinCode: ${PinCode}");
+    print("DlImage1: ${DlImage1}");
+    print("DlImage2: ${DlImage2}");
+    print("AadharImage: ${AadharImage}");
+    print("AadharImage2: ${AadharImage2}");
+    print("PAN: ${PAN}");
+    print("DriverName: ${name}");
+    print("Password: ${password}");
+    print("mobileNumber: ${mobileNumber}");
+    print("DlNumber: ${DlNumber}");
+    print("EmailId: ${EmailId}");
+    print("DlValidity: ${DlValidity}");
+
+    print("FrenchiesDoctorRegisterree1: ${Id}");
+    print("DriverImageBase64: $DriverImageBase64");
+    print("AadharImageBase64Image: $AadharImageBase64Image");
+    print("DlImage2Base64: ${DlImage2Base64}");
+    print("DlImage1Base64: ${DlImage1Base64}");
+    print("FrenchiesDoctorRegisterree0: ${PinCode}");
+    print("FrenchiesDoctorRegisterree2: ${body}");
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
+      print("PinCode: ${PinCode}");
+      print("DlImage1: ${DlImage1}");
+      print("DlImage2: ${DlImage2}");
+      print("AadharImage: ${AadharImage}");
+      print("AadharImage2: ${AadharImage2}");
+      print("PAN: ${PAN}");
+      print("DriverName: ${name}");
+      print("Password: ${password}");
+      print("mobileNumber: ${mobileNumber}");
+      print("DlNumber: ${DlNumber}");
+      print("FrenchiesDoctorRegisterree1: ${Id}");
+      print("DriverImageBase64: $DriverImageBase64");
+      print("AadharImageBase64Image: $AadharImageBase64Image");
+      print("DlImage2Base64: ${DlImage2Base64}");
+      print("DlImage1Base64: ${DlImage1Base64}");
+      print("FrenchiesDoctorRegisterree0: ${PinCode}");
+      print("FrenchiesDoctorRegisterree2: ${body}");
       Get.snackbar("Successs", "${r.body}");
     }
   }
 
-  ///todo Register Doctor................Rahul
+  ///todo Register Doctor..................26_august....
   static FrenchiesRegisterDoctor(
-      var doctorName,
-      var email,
-      var password,
-      var confirmPassword,
-      var mobileNumber,
-      var phone,
-      var clinicName,
-      var stateId,
-      var cityId,
-      var location,
-      var licenceImage,
-      var licenceBase64,
-      var licenceNumber,
-      var licenceValidity,
-      var pin,
-      var panImage,
-      var panImageBase64,
-      var SlotTime,
-      var startTime,
-      var endTime,
-      var SlotTime2,
-      var StartTime2,
-      var EndTime2) async {
+    var PAN,
+    var DoctorName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var PhoneNumber,
+    var ClinicName,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    var LicenceImage,
+    var LicenceBase64,
+    var LicenceNumber,
+    var LicenseValidity,
+    var PinCode,
+    var PanImage,
+    var PanImageBase64,
+    var SlotTime,
+    TimeOfDay? startTime,
+    TimeOfDay? EndTime,
+    var SlotTime2,
+    TimeOfDay? StartTime2,
+    TimeOfDay? EndTime2,
+    var Experience,
+    var Department_Id,
+    var Specialist_Id,
+    var Fee,
+    var Qualification,
+    var RegistrationNumber,
+    var SignaturePic,
+    var SignaturePicBase64,
+    var Day_Id,
+    var VirtualFee,
+    var About,
+  ) async {
     Id = prefs.read("Id").toString();
     final url = '${baseUrl}api/FranchisesApi/fra_DoctorRegistration';
+    String formattedTime =
+        '${startTime?.hour.toString().padLeft(2, '0')}:${startTime?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenchies122: ${formattedTime}');
+
+    String formattedTime1 =
+        '${EndTime?.hour.toString().padLeft(2, '0')}:${EndTime?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenc1: ${formattedTime1}');
+
+    String formattedTime2 =
+        '${StartTime2?.hour.toString().padLeft(2, '0')}:${StartTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenchies122: ${formattedTime2}');
+
+    String formattedTime3 =
+        '${EndTime2?.hour.toString().padLeft(2, '0')}:${EndTime2?.minute.toString().padLeft(2, '0')}:00.0000000';
+    print('Frenchies122: ${formattedTime3}');
     final body = {
-      "DoctorName": "$doctorName",
-      "EmailId": "$email",
-      "Password": "$password",
-      "ConfirmPassword": "$confirmPassword",
-      "MobileNumber": "$mobileNumber",
-      "PhoneNumber": "$phone",
-      "ClinicName": "$clinicName",
-      "StateMaster_Id": "$stateId",
-      "CityMaster_Id": "$cityId",
-      "Location": "$location",
-      "LicenceImage": "$licenceImage",
-      "LicenceBase64": "$licenceBase64",
-      "LicenceNumber": "$licenceNumber",
-      "LicenseValidity": "$licenceValidity",
-      "PinCode": "$pin",
-      "PanImage": "$panImage",
-      "PanImageBase64": "$panImageBase64",
+      "PAN": "$PAN",
+      "DoctorName": "$DoctorName",
+      "EmailId": "$EmailId",
+      "Password": "$Password",
+      "ConfirmPassword": "$ConfirmPassword",
+      "MobileNumber": "$MobileNumber",
+      "PhoneNumber": "$PhoneNumber",
+      "ClinicName": "$ClinicName",
+      "StateMaster_Id": "$StateMaster_Id",
+      "CityMaster_Id": "$CityMaster_Id",
+      "Location": "$Location",
+      "LicenceImage": "$LicenceImage",
+      "LicenceBase64": "$LicenceBase64",
+      "LicenceNumber": "$LicenceNumber",
+      "LicenseValidity": "$LicenseValidity",
+      "PinCode": "$PinCode",
+      "PanImage": "$PanImage",
+      "PanImageBase64": "$PanImageBase64",
       "SlotTime": "$SlotTime",
-      "StartTime": "$startTime",
-      "EndTime": "$endTime",
+      "StartTime": formattedTime,
+      //"01:50:00.0000000",
+      "EndTime": formattedTime1,
+      //"14:27:00.0000000",
       "SlotTime2": "$SlotTime2",
-      "StartTime2": "$StartTime2",
-      "EndTime2": "$EndTime2",
-      "Vendor_Id": "$Id"
+      "StartTime2": formattedTime2,
+      //"14:27:00.0000000",
+      "EndTime2": formattedTime3,
+      //"18:24:00.0000000",
+      "Vendor_Id": "$Id",
+      "Experience": "$Experience",
+      "Department_Id": "$Department_Id",
+      "Specialist_Id": "$Specialist_Id",
+      "Fee": "$Fee",
+      "Qualification": "$Qualification",
+      "RegistrationNumber": "$RegistrationNumber",
+      "SignaturePic": "$SignaturePic",
+      "SignaturePicBase64": "$SignaturePicBase64",
+      "Day_Id": "$Day_Id",
+      "VirtualFee": "$VirtualFee",
+      "About": "$About"
     };
-    final http.Response r = await http.post(Uri.parse(url), body: body);
+
     print('FrenchiesRegisterDoctor1212: ${body}');
+
+    print('FrenchiesRetimeqw: $formattedTime');
+    print('FrenchiesRetimeqw1: $formattedTime1');
+    print('FrenchiesRetimeqw2: $formattedTime2');
+    print('FrenchiesRetimeqw3: $formattedTime3');
+
+    print("ttf:${body}");
+
+    final http.Response r = await http.post(Uri.parse(url), body: body);
+
     if (r.statusCode == 200) {
+      print("ttftft66:${EndTime2}");
+      print("ttftft662323:${Experience}");
+      print("ttftftime1:${SlotTime}");
+      print("ttftftime2:${SlotTime2}");
+      print('FrenchiesRetimeqw22: $formattedTime');
+      print('FrenchiesRetimeqw221: $formattedTime1');
+      print('FrenchiesRetimeqw222: $formattedTime2');
+      print('FrenchiesRetimeqw223: $formattedTime3');
       Get.snackbar("Successs", "${r.body}");
+      Get.offAll(FranchiesHomePage());
     }
   }
 
@@ -3449,11 +3971,13 @@ class ApiProvider {
       var Location,
       var stateId,
       var cityId,
+      var DOB,
+      var Gender,
       var pinCode) async {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_PatientRegistration';
     final body = {
-      "PatientName": "$PatientName}",
+      "PatientName": "$PatientName",
       "MobileNumber": "$MobileNumber",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3462,16 +3986,23 @@ class ApiProvider {
       "StateMaster_Id": "$stateId",
       "CityMaster_Id": "$cityId",
       "PinCode": "$pinCode",
-      "vendorId": "$Id"
+      "vendorId": "$Id",
+      "DOB": "$DOB",
+      "Gender": "$Gender",
     };
+
     http.Response r = await http.post(Uri.parse(url), body: body);
+    print("ttfpatient:${body}");
     if (r.statusCode == 200) {
+      print("ttfpatient200:${body}");
+
       Get.snackbar("Success", "${r.body}");
     }
   }
 
   /// todo Frenchies Register Chemist
   static FrenchiesRegisterChemist(
+      var PAN,
       var ChemistName,
       var ShopName,
       var EmailId,
@@ -3489,6 +4020,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_ChemistReg';
     final body = {
+      "PAN": "$PAN",
       "ChemistName": "$ChemistName",
       "ShopName": "$ShopName",
       "EmailId": "$EmailId",
@@ -3507,31 +4039,42 @@ class ApiProvider {
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterChemist: ${body}");
+    print("FrenchiesRegisterChemistvalidity: ${LicenseValidity}");
+    print("FrenchiesRegisterChemistbunbbr: ${licenceNumber}");
+
     if (r.statusCode == 200) {
+      print("Frenchies232323RegisterChemist: ${body}");
+      print("FrenchiesRegisterChemistvalidity1: ${LicenseValidity}");
+      print("FrenchiesRegisterChemistbunbbr2: ${licenceNumber}");
       Get.snackbar("Success", "${r.body}");
     }
   }
 
   /// todo Frenchies Register Nurse....................Rahul
   static FrenchiesRegisterNurse(
-      var NurseName,
-      var EmailId,
-      var Password,
-      var ConfirmPassword,
-      var MobileNumber,
-      var Location,
-      var stateId,
-      var cityId,
-      var Certificateimg,
-      var certificateBase64,
-      var CertificateNumber,
-      var PinCode,
-      var NurseType_Id,
-      var fee) async {
+    var PAN,
+    var NurseName,
+    var EmailId,
+    var Password,
+    var ConfirmPassword,
+    var MobileNumber,
+    var Location,
+    var stateId,
+    var cityId,
+    var Certificateimg,
+    var certificateBase64,
+    var CertificateNumber,
+    var PinCode,
+    var NurseType_Id,
+    var fee,
+    //var Location_id,
+    var experience,
+  ) async {
     print("NurseType : ${NurseType_Id}");
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_NurseRegistration';
     final body = {
+      "PAN": "$PAN",
       "NurseName": "$NurseName",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3547,17 +4090,21 @@ class ApiProvider {
       "NurseType_Id": "$NurseType_Id",
       "Fee": "$fee",
       "Location_id": "67",
-      "Vendor_Id": "$Id"
+      "Vendor_Id": "$Id",
+      "experience": "$experience",
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterNurse: ${body}");
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
+    } else {
+      Get.snackbar("Failed", "${r.body}", duration: Duration(seconds: 3));
     }
   }
 
   /// todo Frenchies Register Lab....................Rahul
   static FrenchiesRegisterLab(
+      var PAN,
       var LabName,
       var EmailId,
       var Password,
@@ -3579,6 +4126,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_LabRegistration';
     final body = {
+      "PAN": "$PAN",
       "LabName": "$LabName",
       "EmailId": "$EmailId",
       "Password": "$Password",
@@ -3595,18 +4143,24 @@ class ApiProvider {
       "PanImageBase64": "$PanImageBase64",
       "GSTNumber": "$GSTNumber",
       "AadharNumber": "$AadharNumber",
-      "StartTime": "$StartTime",
-      "EndTime": "$EndTime",
+      "StartTime": "14:27:00.0000000",
+      //"$StartTime",
+      "EndTime": "14:27:00.0000000",
+      //"$EndTime",
       "Vendor_Id": "$Id"
     };
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterLab: ${body}");
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 3));
+      //isLoading(false);
+    } else {
+      Get.snackbar("Failed", "${r.body}", duration: Duration(seconds: 3));
     }
   }
 
   static FrenchiesRegisterRWA(
+      var PAN,
       var AuthorityName,
       var MobileNumber,
       var EmailId,
@@ -3622,6 +4176,7 @@ class ApiProvider {
     Id = prefs.read("Id").toString();
     var url = '${baseUrl}api/FranchisesApi/Fra_RWARegistration';
     final body = {
+      "PAN": "$PAN",
       "AuthorityName": "$AuthorityName",
       "MobileNumber": "$MobileNumber",
       "EmailId": "$EmailId",
@@ -3639,137 +4194,20 @@ class ApiProvider {
     http.Response r = await http.post(Uri.parse(url), body: body);
     print("FrenchiesRegisterRWA: ${body}");
     if (r.statusCode == 200) {
-      Get.snackbar("Success", "${r.body}");
-    }
-  }
-
-  /// todo Frenchies TDS Report .............Rahul
-  static FrenchiesTDSReportApi(String p) async {
-    var url = '${baseUrl}api/FranchisesApi/TDSReports_ByRole?Role=${p}';
-    print("FrenchiesTDsReportUrl:${url}");
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTdsReportModel = frenchiesTdsReportModelFromJson(r.body);
-        print("FrenchiesTDSReport: ${frenchiesTdsReportModel.tdsReport}");
-        return frenchiesTdsReportModel;
-      }
-    } catch (error) {}
-  }
-
-  /// todo Frenchies TDS report DropDown .........Rahul
-  static Future<List<TdsDropdown>> FrenchiesTdsReportRole() async {
-    var url = "${baseUrl}api/FranchisesApi/GetTDSDropdown";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTdsReportDdModel =
-            frenchiesTdsReportDdModelFromJson(r.body);
-        return frenchiesTdsReportDdModel.tdsDropdown;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      return [];
-    }
-  }
-
-  ///todo frenchies total TDS Amount................Rahul
-  static FrenchiesTotalTDSAmountApi(var p, var fDate, var tDate) async {
-    var url =
-        '${baseUrl}api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTotalTdsModel = frenchiesTotalTdsModelFromJson(r.body);
-        return frenchiesTotalTdsModel;
-      }
-    } catch (error) {}
-  }
-
-  ///todo frenchies TDS List by date
-  static FrenchiesTDSListByDateApi(var p, var fromDate, var toDate) async {
-    var tDate = toDate;
-    print("qwertyufrom: ${fromDate}");
-    print("sdfgh:${tDate}");
-    print("ppppppp:${p}");
-    var url =
-        '${baseUrl}api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=$p&FromDate=$fromDate&ToDate=$tDate';
-    print("Urlllllllllllllllll:${url}");
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final tdsByDateModel = tdsByDateModelFromJson(r.body);
-        return tdsByDateModel;
-      }
-    } catch (error) {
-      print("FrenchiesTdsListBydateError: ${error}");
-    }
-  }
-
-  /// todo Frenchies Commission Report .............Rahul
-  static FrenchiesCommissionReportApi(var role, var fDate, var tDate) async {
-    // var url = '${baseUrl}api/FranchisesApi/CommissionReports_ByRole?Role=${p}';
-    var fromDate = fDate;
-    var toDate = tDate;
-    print("Role: ${role}");
-    print("FromDate: ${fDate}");
-    print("toDate : ${toDate}");
-    var url =
-        '${baseUrl}api/FranchisesApi/GetCommissionData_ByToDateFromDate?Role=$role&FromDate=$fromDate&ToDate=$toDate';
-    print("Commission Url: ${url}");
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesCommissionReportModel =
-            frenchiesCommissionReportModelFromJson(r.body);
-        return frenchiesCommissionReportModel;
-      }
-    } catch (error) {
-      print("Commission: ${error}");
-    }
-  }
-
-  /// todo total commission amount .....Rahul
-  static FrenchiesTotalCommissionAmountApi(var p, var fDate, var tDate) async {
-    var url =
-        '${baseUrl}api/FranchisesApi/TotalCommissionAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate';
-    print("FrenchiesTotalCommissionAmountApi: ${url}");
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesTotalCommissionModel =
-            frenchiesTotalCommissionModelFromJson(r.body);
-        return frenchiesTotalCommissionModel;
-      }
-    } catch (error) {}
-  }
-
-  /// todo Frenchies TDS report DropDown .........Rahul
-  static Future<List<CommissionDropdown>>
-      FrenchiesCommissionReportRole() async {
-    var url = "${baseUrl}api/FranchisesApi/GetCommissionDropdown";
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesCommissionReportDdModel =
-            frenchiesCommissionReportDdModelFromJson(r.body);
-        return frenchiesCommissionReportDdModel.commissionDropdown;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      return [];
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 4));
     }
   }
 
   /// todo Frenchies YMWDDoctorReportApi
   static FrenchiesYMWDDoctorReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetDoctorReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetDoctorReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurldd${url}");
         final frenchiesYmdwDoctorModel =
             frenchiesYmdwDoctorModelFromJson(r.body);
         return frenchiesYmdwDoctorModel;
@@ -3779,11 +4217,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDVehicleReportApi
   static FrenchiesYMWDVehicleReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetVehicleReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetVehicleReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurlvehicle${url}");
+
         final frenchiesYmdwVehicleModel =
             frenchiesYmdwVehicleModelFromJson(r.body);
         return frenchiesYmdwVehicleModel;
@@ -3795,11 +4237,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDLabReportApi
   static FrenchiesYMWDLabReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetLabReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetLabReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurllab${url}");
+
         final frenchiesYmdwLabModel = frenchiesYmdwLabModelFromJson(r.body);
         return frenchiesYmdwLabModel;
       }
@@ -3808,11 +4254,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDNurseReportApi
   static FrenchiesYMWDNurseReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetNurseReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetNurseReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurnrs${url}");
+
         final frenchiesYmdwNurseModel = frenchiesYmdwNurseModelFromJson(r.body);
         return frenchiesYmdwNurseModel;
       }
@@ -3821,11 +4271,15 @@ class ApiProvider {
 
   /// todo Frenchies YMWDChemistReportApi
   static FrenchiesYMWDChemistReportApi(String role) async {
+    Id = prefs.read("Id").toString();
+
     var url =
-        '${baseUrl}api/FranchisesApi/GetChemistReport_By_YMWD?Timeperiod=${role}';
+        '${baseUrl}api/FranchisesApi/GetChemistReport_By_YMWD?Timeperiod=${role}&VendorId=$Id';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
+        print("okurlchem${url}");
+
         final frenchiesYmdwChemistModel =
             frenchiesYmdwChemistModelFromJson(r.body);
         return frenchiesYmdwChemistModel;
@@ -3833,29 +4287,45 @@ class ApiProvider {
     } catch (error) {}
   }
 
-  /// todo Add Vehicle type Post Api...........Rahul
+  /// todo Add Vehicle type Post Api........
   static FrenchiesVehicleType(var CategoryId, var VehicleTypeId) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${userid}');
+
     AdminLoginId = prefs.read("AdminLoginId").toString();
     final body = {
       "Category_Id": "${CategoryId}",
       "VehicleType_Id": "${VehicleTypeId}",
-      "AdminLogin_Id": "$AdminLoginId"
+      "AdminLogin_Id": "$adminId"
     };
     print("FrenchiesVehicleType: ${body}");
     var url = '${baseUrl}api/FranchisesApi/AddVehicle_type';
     http.Response r = await http.post(Uri.parse(url), body: body);
     if (r.statusCode == 200) {
       print("###########333333333#########33#${r.body}");
-      Get.snackbar("Success", "${r.body}");
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 2));
+    } else {
+      Get.snackbar("Success", "${r.body}", duration: Duration(seconds: 2));
     }
   }
 
   /// todo Frenchies YMWDChemistReportApi
   static FrenchiesAddVehicleListApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    userid = prefs.read("userid").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&&useasdrsds:${userid}');
     print("$AdminLoginId");
     //AdminLoginId =  prefs.read("AdminLoginId");
     //  print("FrenchiesAddVehicleListApi:${AdminLoginId}");
-    var url = '${baseUrl}api/FranchisesApi/AddedVehicleList?AdminLoginId=644';
+    var url =
+        '${baseUrl}api/FranchisesApi/AddedVehicleList?AdminLoginId=$adminId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -3870,37 +4340,7 @@ class ApiProvider {
     }
   }
 
-  ///todo Frenchies Get New Driver List pending....create controller
-  static FrenchiesNewDriverListApi() async {
-    var url = '${baseUrl}api/FranchisesApi/GetNewDriverList';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesNewDriverListModel =
-            frenchiesNewDriverListModelFromJson(r.body);
-        return frenchiesNewDriverListModel;
-      }
-    } catch (error) {
-      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
-    }
-  }
-
-  ///todo Frenchies Get Old Driver List ......rahul
-  static FrenchiesOldDriverListApi() async {
-    var url = '${baseUrl}api/FranchisesApi/GetOldDriverList';
-    try {
-      http.Response r = await http.get(Uri.parse(url));
-      if (r.statusCode == 200) {
-        final frenchiesOldDriverListModel =
-            frenchiesOldDriverListModelFromJson(r.body);
-        return frenchiesOldDriverListModel;
-      }
-    } catch (error) {
-      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
-    }
-  }
-
-  ///todo Frenchies Get Old Driver Update ..............Rahul
+  ///todo Frenchies Get Old Driver Update ...........
   static FrenchiesOldDriverUpdateApi(id, var vehicleNo, var driverName) async {
     var url = '${baseUrl}api/FranchisesApi/UpdateOldDriver';
     final body = {
@@ -3915,7 +4355,7 @@ class ApiProvider {
     }
   }
 
-  ///todo Frenchies Get New Driver Update ..............Rahul
+  ///todo Frenchies Get New Driver Update .............
   static FrenchiesNewDriverUpdateApi(var driverName, id) async {
     var url = '${baseUrl}api/FranchisesApi/UpdateNewDriver';
     final body = {"DriverName": "$driverName", "Id": "$id"};
@@ -3933,5 +4373,614 @@ class ApiProvider {
     if (r.statusCode == 200) {
       Get.snackbar("Deleted", "Item Deleted");
     } else {}
+  }
+
+  /// add new vehicle.......franchise...
+
+  static AddnewVehicleApi(
+    var VehicleTypeName,
+    var CategoryName,
+  ) async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&labusdoctorr:${userid}');
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
+    var url = '${baseUrl}api/FranchisesApi/AddVehCat_Type';
+    var body = {
+      "VehicleTypeName": "$VehicleTypeName",
+      "CategoryName": "$CategoryName"
+    };
+    print('&&&&&&qwqw&:${body}');
+
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
+
+      print('&&&&&&&&&&:${r.body}');
+
+      ///todo:nursebookingid.........5  june 2023....
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      print('qwstate:${r.statusCode}');
+
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: update new driver.......franchise...20 march 2024....
+
+  static UpdatenewDriverApi(
+    var VehicleTypeId,
+    var VehicleNumberId,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DrivernewListId = preferences.getString("DrivernewListId");
+    print("DrivernewListId: ${DrivernewListId}");
+    // var prefs = GetStorage();
+    // userid = prefs.read("Id").toString();
+    // print('&&&&&&frrrorr:${userid}');
+    //DrivernewListId
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
+    var url = '${baseUrl}api/FranchisesApi/VehicleAllotment';
+    var body = {
+      "DriverId": "$DrivernewListId",
+      "VehicleTypeId": "$VehicleTypeId",
+      "VehicleNumberId": "$VehicleNumberId"
+    };
+    print('&&fr&:${body}');
+
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
+
+      print('&&&&&&&&&&:${r.body}');
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      print('qwstate:${r.statusCode}');
+
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///todo: update old driver.......franchise...21 march 2024....
+
+  static UpdateoldDriverApi(
+    var DriverId,
+    //var Id,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var DriveroldListId = preferences.getString("DriveroldListId");
+    print("DriveroldListId: ${DriveroldListId}");
+    // var prefs = GetStorage();
+    // userid = prefs.read("Id").toString();
+    // print('&&&&&&frrrorr:${userid}');
+    //DrivernewListId
+    //nursebooking_Id = prefs.read("nursebooking_Id").toString();
+
+    var url = '${baseUrl}api/FranchisesApi/SwapDriver';
+    var body = {
+      "DriverId": "$DriverId",
+      "Id": "$DriveroldListId",
+    };
+    print('&&sdsdfr&:${body}');
+
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Success', r.body);
+
+      print('&&&&&&&&&&:${r.body}');
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      print('qwstate:${r.statusCode}');
+
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  /// todo update new driver Vehicle Id DropDown .......20 mar 2024....
+  static Future<List<NewVehicleType>> getnewdriverVehicletypeApi() async {
+    var url = '${baseUrl}api/CommonApi/GetVehicleType';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesVehicleCategoryModel = vehicleTypeIdddFromJson(r.body);
+        return frenchiesVehicleCategoryModel.vehicleType;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update new driver Vehicle number DropDown .......20 mar 2024....
+  static Future<List<VehicleNumberListElement>> getVehicfornewdriverApi(
+      String typeID) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&useffrrrrr:${Id}');
+    //http://pswellness.in/api/CommonApi/GetVehicleNumberListByVehicleType?VehicleType_Id=1136&Vendor_Id=11
+    var url =
+        "${baseUrl}api/CommonApi/GetVehicleNumberListByVehicleType?VehicleType_Id=$typeID&Vendor_Id=$Id";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesVehicleNumberModel = vehicleNumberListFromJson(r.body);
+        return frenchiesVehicleNumberModel.vehicleNumberList;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update old driver Vehicle Id DropDown .......21 mar 2024....
+  static Future<List<VehicleNumberListdrop>>
+      getolddriverVehicletypeApi() async {
+    var url = '${baseUrl}api/CommonApi/GetVehicleNumberListByVehicleType';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesVehicleCategoryModel =
+            vehicleNumberListdropdownFromJson(r.body);
+        return frenchiesVehicleCategoryModel.vehicleNumberList;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo update old driver Vehicle number DropDown .......21 mar 2024....
+  static Future<List<VehicleNumberdetail>> getVehicforolddriverApi(
+      String typeID) async {
+    var url =
+        "${baseUrl}api/FranchisesApi/GetDriverVehicleId?VehicleNumberId=$typeID";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesVehicleNumberModel2 =
+            vehicletypebyVehicleNoIdFromJson(r.body);
+        return frenchiesVehicleNumberModel2.vehicleNumberdetail;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///todo: fr doctor detail....3 apr 2024...PRINCE
+
+  static FrenchiesDoctorDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    adminId = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&wewwsadaqewqee:${adminId}');
+    print('&&&&&&&&&&&&&&&&&&&&&asdsa&useasdrsds:${Id}');
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_DoctorRegistrationDetail?VendorId=$Id';
+    //'10';
+    //'api/FranchisesApi/Fra_DoctorRegistrationDetail';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesDoctorDetailModel =
+            frenchiesDoctorDetailModelFromJson(r.body);
+        print(
+            "FrenchiesDoctorDetailApi0: ${frenchiesDoctorDetailModel.doctorRegDetail?[0].vendorName}");
+        return frenchiesDoctorDetailModel;
+      }
+    } catch (error) {
+      print("FrenchiesDoctorDetailApi1: ${error}");
+      return;
+    }
+  }
+
+  /// todo Frenchies Vehicle Detail .....3..apr.......Prince
+  //http://pswellness.in/api/FranchisesApi/Fra_VehicleRegistrationDetail?VendorId=10
+
+  static FrenchiesVehicleDetail() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&&&&&&sdrsds:${Id}');
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_VehicleRegistrationDetail?VendorId=$Id';
+    //'api/FranchisesApi/Fra_VehicleRegistrationDetail';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesVehicleDetailModel =
+            frenchiesVehicleDetailModelFromJson(r.body);
+        return frenchiesVehicleDetailModel;
+      }
+    } catch (error) {
+      print('FrenchiesVehicleDetail: ${error}');
+      return;
+    }
+  }
+
+  /// todo: FrenchiesNurseDetailApi ......prince....3..apr_2024
+  static FrenchiesNurseDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&nrss:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_NurseRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_NurseRegistrationDetail?VendorId=$Id';
+    //'api/FranchisesApi/Fra_NurseRegistrationDetail';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesNurseDetailModel =
+            frenchiesNurseDetailModelFromJson(r.body);
+        return frenchiesNurseDetailModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: driver detail franchise........3 apr 2024......
+
+  static FrenchiesDriverDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&driver:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_DriverRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_DriverRegistrationDetail?VendorId=$Id';
+    //'api/FranchisesApi/Fra_DriverRegistrationDetail';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesDriverDetailModel =
+            frenchiesDriverDetailModelFromJson(r.body);
+        return frenchiesDriverDetailModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  /// todo Frenchies PatientDetail..........prince...3apr 2024..
+  static FrenchiesPatientDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&user:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_PatientRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_PatientRegistrationDetail?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesPatientDetailModel =
+            frenchiesPatientDetailModelFromJson(r.body);
+        return frenchiesPatientDetailModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  /// todo FrenchiesChemistDetailApi....Prince....4..apr...2024...
+  static FrenchiesChemistDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&chemist:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_ChemistRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_ChemistRegistrationDetail?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesChemistDetailModel =
+            frenchiesChemistDetailModelFromJson(r.body);
+        print(
+            "FrenchiesChemistDetailApi8: ${frenchiesChemistDetailModel.chemistRegDetail?[0].chemistName}");
+        return frenchiesChemistDetailModel;
+      }
+    } catch (error) {
+      print("FrenchiesChemistDetailApi: ${error}");
+      return;
+    }
+  }
+
+  ///todo FrenchiesLabDetailApi ...........5 april 2024...
+  static FrenchiesLabDetailApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&chemist:${Id}');
+    //http://pswellness.in/api/FranchisesApi/Fra_LabRegistrationDetail?VendorId=10
+    var url =
+        '${baseUrl}api/FranchisesApi/Fra_LabRegistrationDetail?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesLabDetailModel = frenchiesLabDetailModelFromJson(r.body);
+        return frenchiesLabDetailModel;
+      }
+    } catch (error) {}
+  }
+
+  /// todo Frenchies Commission Report .............4april....prince
+  static FrenchiesCommissionReportApi(var role, var fDate, var tDate) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&user:${Id}');
+    // var url = '${baseUrl}api/FranchisesApi/CommissionReports_ByRole?Role=${p}';
+    //http://pswellness.in/api/FranchisesApi/CommissionReports_ByRole?Role=Doctor
+    var fromDate = fDate;
+    var toDate = tDate;
+    print("Role: ${role}");
+    print("FromDate: ${fDate}");
+    print("toDate : ${toDate}");
+    var url =
+        '${baseUrl}api/FranchisesApi/GetCommissionData_ByToDateFromDate?Role=$role&FromDate=$fromDate&ToDate=$toDate&VendorId=$Id';
+    print("Commission Url: ${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesCommissionReportModel =
+            frenchiesCommissionReportModelFromJson(r.body);
+        return frenchiesCommissionReportModel;
+      }
+    } catch (error) {
+      print("Commission: ${error}");
+    }
+  }
+
+  /// todo total commission amount .....4 april....Prince
+  static FrenchiesTotalCommissionAmountApi(var p, var fDate, var tDate) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&user:${Id}');
+    var url =
+        '${baseUrl}api/FranchisesApi/TotalCommissionAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate&VendorId=$Id';
+    print("FrenchiesTotalCommissionAmountApi: ${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTotalCommissionModel =
+            frenchiesTotalCommissionModelFromJson(r.body);
+        return frenchiesTotalCommissionModel;
+      }
+    } catch (error) {}
+  }
+
+  /// todo Frenchies Commission Report .............4april....prince
+  static FranchiesCommissionByRoleOnly(var role) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    //adminId = prefs.read("AdminLogin_Id").toString();
+    //print('&&&&&&&&&&&&&&ee:${adminId}');
+    print('&&&&&user:${Id}');
+    // var url = '${baseUrl}api/FranchisesApi/CommissionReports_ByRole?Role=${p}';
+    print("Rolerfff: $role");
+    var url =
+        '${baseUrl}api/FranchisesApi/CommissionReports_ByRole?Role=$role&VendorId=$Id';
+    //http://pswellness.in/api/FranchisesApi/CommissionReports_ByRole?Role=Doctor
+    //'api/FranchisesApi/GetCommissionData_ByToDateFromDate?Role=$role&FromDate=$fromDate&ToDate=$toDate';
+    print("Commission Url by role: ${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesCommissionReportModelrole =
+            frenchieCommisionReportModelbyRoleFromJson(r.body);
+        return frenchiesCommissionReportModelrole;
+      }
+    } catch (error) {
+      print("Commissionrole: ${error}");
+    }
+  }
+
+  /// todo Frenchies TDS Report ...........6 apr 2024...prince
+  static FrenchiesTDSReportByIdApi(var role) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    print("Rolefrr: $role");
+    //http://pswellness.in/api/FranchisesApi/TDSReports_ByRole?Role=Doctor&VendorId=12
+    var url =
+        '${baseUrl}api/FranchisesApi/TDSReports_ByRole?Role=$role&VendorId=$Id';
+    //'api/FranchisesApi/TDSReports_ByRole?Role=${p}';
+    print("FrenchiesTDsReportUrl:${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTdsReportModel = frenchiesTdsReportModelFromJson(r.body);
+        print(
+            "FrenchiesTDSReporteerr: ${frenchiesTdsReportModel.tdsReport?[0].paidFees}");
+        return frenchiesTdsReportModel;
+      }
+    } catch (error) {}
+  }
+
+  ///todo frenchies total TDS Amount................6 april 2024.......prince...
+  static FrenchiesTotalTDSAmountApi(var p, var fDate, var tDate) async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    print("Rolefrrsacsa: $p");
+    http: //pswellness.in/api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=Doctor&FromDate=2024-01-01&ToDate=2024-05-02&VendorId=12
+    var url =
+        '${baseUrl}api/FranchisesApi/TotalTDSAmount_ByFromTodate?Role=$p&FromDate=$fDate&ToDate=$tDate&VendorId=$Id';
+    print("Urtdsl:${url}");
+
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTotalTdsModel = frenchiesTotalTdsModelFromJson(r.body);
+        return frenchiesTotalTdsModel;
+      }
+    } catch (error) {}
+  }
+
+  ///todo frenchies TDS List by date
+  static FrenchiesTDSListByDateApi(var p, var fromDate, var toDate) async {
+    var tDate = toDate;
+    print("qwertyufrom: ${fromDate}");
+    print("sdfgh:${tDate}");
+    print("ppppppp:${p}");
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    //http://pswellness.in/api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=Doctor&FromDate=2024-01-01&ToDate=2024-04-02&VendorId=12
+    var url =
+        '${baseUrl}api/FranchisesApi/GetTDSData_ByToDateFromDate?Role=$p&FromDate=$fromDate&ToDate=$tDate&VendorId=$Id';
+    print("Urlllllllllllllllll:${url}");
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final tdsByDateModel = tdsByDateModelFromJson(r.body);
+        return tdsByDateModel;
+      }
+    } catch (error) {
+      print("FrenchiesTdsListBydateError: ${error}");
+    }
+  }
+
+  /// todo Frenchies TDS report DropDown .........apr 6 2024...
+  static Future<List<CommissionDropdown>>
+      FrenchiesCommissionReportRole() async {
+    var url = "${baseUrl}api/FranchisesApi/GetCommissionDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesCommissionReportDdModel =
+            frenchiesCommissionReportDdModelFromJson(r.body);
+        return frenchiesCommissionReportDdModel.commissionDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /// todo Frenchies TDS report DropDown .........prince...apr6 2024
+  static Future<List<TdsDropdown>> FrenchiesTdsReportRole() async {
+    var url = "${baseUrl}api/FranchisesApi/GetTDSDropdown";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesTdsReportDdModel =
+            frenchiesTdsReportDdModelFromJson(r.body);
+        return frenchiesTdsReportDdModel.tdsDropdown;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///todo Frenchies Get Old Driver List ......10 april 2024
+  static FrenchiesOldDriverListApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+
+    ///http://pswellness.in/api/FranchisesApi/GetOldDriverList?VendorId=10
+    var url = '${baseUrl}api/FranchisesApi/GetOldDriverList?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesOldDriverListModel =
+            frenchiesOldDriverListModelFromJson(r.body);
+        return frenchiesOldDriverListModel;
+      }
+    } catch (error) {
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+
+  ///todo Frenchies Get New Driver List pending....create controller
+  static FrenchiesNewDriverListApi() async {
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    //http://pswellness.in/api/FranchisesApi/GetNewDriverList?VendorId=10
+    var url = '${baseUrl}api/FranchisesApi/GetNewDriverList?VendorId=$Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        final frenchiesNewDriverListModel =
+            frenchiesNewDriverListModelFromJson(r.body);
+        return frenchiesNewDriverListModel;
+      }
+    } catch (error) {
+      print("&&&&&&&&&&&&&&&&&&&&yuyy:${error}");
+    }
+  }
+
+  /// todo update old driver DropDown .......10 april... 2024....prince
+  static Future<List<Driver>> getUpdatedolddriverListApi() async {
+    //http://pswellness.in/api/FranchisesApi/GetOldDriverList?VendorId=10
+    //http://pswellness.in/api/FranchisesApi/GetDriverForUpdate?VendorId=10
+    var prefs = GetStorage();
+    Id = prefs.read("Id").toString();
+    print('&&&&&user:${Id}');
+    var url = "${baseUrl}api/FranchisesApi/GetDriverForUpdate?VendorId=$Id";
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        final frenchiesupdatedriver = driverListUpdatedModelFromJson(r.body);
+        return frenchiesupdatedriver.drivers;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
   }
 }

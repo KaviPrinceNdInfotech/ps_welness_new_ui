@@ -7,17 +7,24 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/banner_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_appointment_history_controller/nurse_pay_hist_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_upload_report_controller/nurse_upload_report_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/view_report_nurse_controller/nurse_view_report_controllers.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_details/nurse_appointment_details.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
+//import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_appointment_history_view/appointment_history_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drawerpage.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_payment_history/nurse_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_report_view/nurse_report_view.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_upload_report/nurse_upload_report.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
+import '../../../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
+import '../../../controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
+import '../../../controllers/9_doctor_controllers_RRR/apointment_history/apointment_historydetail.dart';
+import '../../../widgets/circular_loader.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
 
 class NurseHomePage extends StatelessWidget {
@@ -29,16 +36,24 @@ class NurseHomePage extends StatelessWidget {
   NursereportviewController _nursereportviewController =
       Get.put(NursereportviewController());
 
+  NurseProfileControllersdetail _nurseprofileContrller =
+      Get.put(NurseProfileControllersdetail());
+
+  NurseAppoointmentHistoryControllerss _appoointmentHistoryControllerss =
+      Get.put(NurseAppoointmentHistoryControllerss());
+  NurseAppointmentNurseDetailController _nurseappointmentnursedetailController =
+      Get.put(NurseAppointmentNurseDetailController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keynurse = GlobalKey();
 
     final List<String> productname = [
-      'Appointment Detail',
-      'Upload Report',
+      'Booking Request',
+      'Submit Feedback',
       'Payment History',
-      'Appointment History',
+      'Booking History',
       'Report view',
       'Add Bank Details',
       //'Contact Us',
@@ -82,7 +97,7 @@ class NurseHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keynurse,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -125,8 +140,10 @@ class NurseHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _key.currentState!.openDrawer();
+              onPressed: () async {
+                await _nurseprofileContrller.nurseprofileApi();
+                _nurseprofileContrller.update();
+                _keynurse.currentState!.openDrawer();
               },
             ),
             // leading: Icon(Icons.read_more_outlined),
@@ -211,23 +228,46 @@ class NurseHomePage extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
-                                        Get.to(() => NurseeAppointmentDetail());
+                                        _nurseappointmentnursedetailController
+                                            .nurseappointmentApi();
+                                        _nurseappointmentnursedetailController
+                                            .update();
+                                        _nurseappointmentnursedetailController
+                                            .onInit();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 900));
+                                        CallLoader.hideLoader();
+                                        await Get.to(() =>
+                                            NurseeAppointmentDetail(
+                                                id: "123456891100"));
                                       } else if (index == 1) {
-                                        // _nursdeUploadReportController
-                                        //.getnursepatientApi();
+                                        _nursdeUploadReportController.refresh();
+                                        _nursdeUploadReportController.update();
+                                        _nursdeUploadReportController
+                                            .getnursepatientssApi();
+                                        CallLoader.loader();
+
+                                        await Future.delayed(
+                                            Duration(seconds: 3));
+                                        CallLoader.hideLoader();
                                         //_nursdeUploadReportController
                                         //.getnursepatientssApi();
                                         //.postnurseUploadreportApi();
                                         //_nursdeUploadReportController.update();
-                                        Get.to(() => NurseUploadReport());
+                                        await Get.to(() => NurseUploadReport());
                                       } else if (index == 2) {
                                         _nursePaymentHistoryController
                                             .nursePaymentHistoryApi();
                                         _nursePaymentHistoryController.update();
                                         Get.to(() => NursePaymentHistory());
                                       } else if (index == 3) {
+                                        _appoointmentHistoryControllerss
+                                            .nurseAppointmentHistoryApi();
+                                        _appoointmentHistoryControllerss
+                                            .update();
                                         Get.to(
                                             () => NurseeAppointmentHistory());
                                       } else if (index == 4) {
@@ -236,7 +276,7 @@ class NurseHomePage extends StatelessWidget {
                                         _nursereportviewController.update();
                                         Get.to(NurseReportView());
                                       } else if (index == 5) {
-                                        Get.to(() => AddBankDetail());
+                                        Get.to(() => AddNurseBankDetail());
                                         //SupportView());
                                       }
                                     },
@@ -314,6 +354,9 @@ class Mycrusial extends StatelessWidget {
   final _sliderKey = GlobalKey();
   Mycrusial({Key? key}) : super(key: key);
 
+  final NurseBannerContreoller _nurseBannerContreoller =
+      Get.put(NurseBannerContreoller());
+
   final List<Color> colors = [
     Colors.red,
     Colors.orange,
@@ -324,15 +367,15 @@ class Mycrusial extends StatelessWidget {
     Colors.purple,
   ];
 
-  final List<String> images = [
-    'https://images.unsplash.com/photo-1578307986144-d248cb7434db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjB8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1613758947307-f3b8f5d80711?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTl8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1612277795163-49a1a64e8f34?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1587556930720-58ec521056a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fG51cnNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1590611936760-eeb9bc598548?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG51cnNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1592671748854-2e0ed15b0441?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bnVyc2V8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
-  ];
+  // final List<String> images = [
+  //   'https://images.unsplash.com/photo-1578307986144-d248cb7434db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTF8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjB8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1613758947307-f3b8f5d80711?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTl8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1612277795163-49a1a64e8f34?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTB8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1587556930720-58ec521056a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fG51cnNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1590611936760-eeb9bc598548?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG51cnNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1592671748854-2e0ed15b0441?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bnVyc2V8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+  // ];
   final bool _isPlaying = true;
 
   //get _sliderKey => null;
@@ -340,67 +383,85 @@ class Mycrusial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Container(
-          height: size.height * 0.28,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              color: MyTheme.ThemeColors,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: CarouselSlider.builder(
-                //scrollPhysics: NeverScrollableScrollPhysics(),
-                key: _sliderKey,
-                unlimitedMode: true,
-                autoSliderTransitionTime: Duration(seconds: 1),
-                //autoSliderDelay: Duration(seconds: 5),
-                slideBuilder: (index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Material(
-                      elevation: 12,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        height: size.height * 38,
-                        width: size.width,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
+    return Obx(
+      () => (_nurseBannerContreoller.isLoading.value)
+          ? Center(child: CircularProgressIndicator())
+          : _nurseBannerContreoller.banerlistmodel?.bannerImageList == null
+              ? Center(
+                  child: Text('No data'),
+                )
+              : Scaffold(
+                  body: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: size.height * 0.28,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: MyTheme.ThemeColors,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.white, width: 3),
-                          image: DecorationImage(
-                              image: NetworkImage(images[index]),
-                              fit: BoxFit.fill),
+                          elevation: 0,
+                          child: CarouselSlider.builder(
+                            //scrollPhysics: NeverScrollableScrollPhysics(),
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime: Duration(seconds: 1),
+
+                            //autoSliderDelay: Duration(seconds: 5),
+                            slideBuilder: (index) {
+                              final items = _nurseBannerContreoller
+                                  .banerlistmodel?.bannerImageList;
+                              return Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Material(
+                                  elevation: 12,
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: Colors.white, width: 3),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                '$IMAGE_BASE_URL${items?[index].bannerPath}' ??
+                                                    ''),
+                                            fit: BoxFit.cover,
+                                            onError: (error, stackTrace) {
+                                              Text("No Image Found");
+                                              // .log(error, stackTrace);
+                                            })),
+                                    //color: colors[index],
+                                    // child: Text(
+                                    //   letters[index],
+                                    //   style: TextStyle(fontSize: 200, color: Colors.white),
+                                    // ),
+                                  ),
+                                ),
+                              );
+                            },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 2,
+                              indicatorRadius: 4,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              padding: EdgeInsets.only(bottom: 0),
+                            ),
+                            itemCount: _nurseBannerContreoller
+                                .banerlistmodel!.bannerImageList!.length,
+                            enableAutoSlider: true,
+                          ),
                         ),
-                        //color: colors[index],
-                        // child: Text(
-                        //   letters[index],
-                        //   style: TextStyle(fontSize: 200, color: Colors.white),
-                        // ),
                       ),
                     ),
-                  );
-                },
-                slideTransform: DefaultTransform(),
-                slideIndicator: CircularSlideIndicator(
-                  indicatorBorderWidth: 2,
-                  indicatorRadius: 4,
-                  itemSpacing: 15,
-                  currentIndicatorColor: Colors.white,
-                  padding: EdgeInsets.only(bottom: 0),
+                  ),
                 ),
-                itemCount: images.length,
-                enableAutoSlider: true,
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

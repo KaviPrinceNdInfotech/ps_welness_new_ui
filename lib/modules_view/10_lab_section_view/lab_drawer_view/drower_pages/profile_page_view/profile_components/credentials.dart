@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 
@@ -19,6 +20,10 @@ class LabProfileCredentials extends StatelessWidget {
 //DraweerLabProfileController
   LabProfileUpdateController _labProfileUpdateController =
       Get.put(LabProfileUpdateController());
+  LabprofiledetailController _labprofiledetailController =
+      Get.put(LabprofiledetailController());
+  // NurseProfileControllersdetail _nurseprofileContrller =
+  //     Get.put(NurseProfileControllersdetail());
   // DraweerFranchiesProfileController _labrofileController =
   //     Get.put(DraweerFranchiesProfileController());
 
@@ -46,39 +51,6 @@ class LabProfileCredentials extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///todo: phone number..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _labProfileUpdateController.MobileNumberController,
-                onSaved: (value) {
-                  _labProfileUpdateController.MobileNumber = value!;
-                },
-                validator: (value) {
-                  return _labProfileUpdateController.validPhone(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Phone No',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
             ///TODO: Name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -112,6 +84,72 @@ class LabProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            ///TODO: Email.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                //initialValue: "I am smart",
+                autofillHints: [AutofillHints.name],
+                controller: _labProfileUpdateController.emailidController,
+                onSaved: (value) {
+                  _labProfileUpdateController.EmailId = value!;
+                },
+                validator: (value) {
+                  return _labProfileUpdateController.validEmail(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Email Id',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo: phone number.....................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _labProfileUpdateController.MobileNumberController,
+                onSaved: (value) {
+                  _labProfileUpdateController.MobileNumber = value!;
+                },
+                validator: (value) {
+                  return _labProfileUpdateController.validPhone(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Phone No',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///todo: state...............
             ///
             NeumorphicTextFieldContainer(
@@ -128,7 +166,8 @@ class LabProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: const Text('Select State'),
+                      hint: Text(
+                          "${_labprofiledetailController.labprofileModel?.stateName.toString()}"),
                       items: _labProfileUpdateController.states
                           .map((StateModel state) {
                         return DropdownMenuItem(
@@ -178,7 +217,8 @@ class LabProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: const Text('Selected City'),
+                      hint: Text(
+                          "${_labprofiledetailController.labprofileModel?.cityName.toString()}"),
                       items:
                           _labProfileUpdateController.cities.map((City city) {
                         return DropdownMenuItem(
@@ -287,7 +327,7 @@ class LabProfileCredentials extends StatelessWidget {
                 autofillHints: [AutofillHints.password],
                 controller: _labProfileUpdateController.PinCodeController,
                 onSaved: (value) {
-                  _labProfileUpdateController.pin = value!;
+                  _labProfileUpdateController.PinCode = value!;
                 },
                 validator: (value) {
                   return _labProfileUpdateController.validPin(value!);
@@ -295,7 +335,7 @@ class LabProfileCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -311,7 +351,7 @@ class LabProfileCredentials extends StatelessWidget {
             ),
 
             SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.02,
               //appPadding / 2,
             ),
 
@@ -322,9 +362,17 @@ class LabProfileCredentials extends StatelessWidget {
 
             RectangularButton(
                 text: 'UPDATE',
-                press: () {
+                press: () async {
                   CallLoader.loader();
                   _labProfileUpdateController.checkLAbProfilee();
+                  await _labprofiledetailController.labprofileApi();
+                  _labprofiledetailController.onInit();
+                  //_nurseprofileContrller.update();
+                  _labProfileUpdateController.clearSelectedState();
+
+                  await Future.delayed(Duration(milliseconds: 100));
+                  // await Get.offAll(() => LabHomePage());
+                  _labProfileUpdateController.selectedState.value = null;
                   //Get.to(NurseHomePage());
                   //_loginpasswordController.checkLoginpassword();
                 })

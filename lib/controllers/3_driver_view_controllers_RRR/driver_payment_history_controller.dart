@@ -16,6 +16,7 @@ class DriverPaymentHistoryController extends GetxController {
       isLoading(false);
       foundpaymenthistorydriver.value = getDriverPaymentHistory!;
     }
+    isLoading(false);
   }
 
   @override

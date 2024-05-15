@@ -12,13 +12,16 @@ class DoctorPaymentViewControllers extends GetxController {
 
   DoctorPaymentHistoryModel? getdoctorpaymenthistory;
 
-  void doctorPaymentHistoryApi() async {
+  Future<void> doctorPaymentHistoryApi() async {
     isLoading(true);
     getdoctorpaymenthistory = await ApiProvider.DoctorPaymentHistoryApi();
-    if (getdoctorpaymenthistory != null) {
+    if (getdoctorpaymenthistory?.paymentHistory![0].amount != null
+        //!= null
+        ) {
       isLoading(false);
       foundPaymentdr.value = getdoctorpaymenthistory!.paymentHistory!;
     }
+    isLoading(false);
   }
 
   @override

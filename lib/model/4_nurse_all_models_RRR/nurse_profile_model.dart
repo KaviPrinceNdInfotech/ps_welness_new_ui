@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final nurseProfileModel = nurseProfileModelFromJson(jsonString);
+
 import 'dart:convert';
 
 NurseProfileModel nurseProfileModelFromJson(String str) =>
@@ -15,6 +19,8 @@ class NurseProfileModel {
   String? cityName;
   String? pinCode;
   String? location;
+  num? cityMasterId;
+  num? stateMasterId;
 
   NurseProfileModel({
     this.id,
@@ -25,6 +31,8 @@ class NurseProfileModel {
     this.cityName,
     this.pinCode,
     this.location,
+    this.cityMasterId,
+    this.stateMasterId,
   });
 
   factory NurseProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +45,8 @@ class NurseProfileModel {
         cityName: json["CityName"],
         pinCode: json["PinCode"],
         location: json["Location"],
+        cityMasterId: json["CityMaster_Id"],
+        stateMasterId: json["StateMaster_Id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,9 +54,11 @@ class NurseProfileModel {
         "NurseName": nurseName,
         "MobileNumber": mobileNumber,
         "EmailId": emailId,
-        "State": stateName,
+        "StateName": stateName,
         "CityName": cityName,
         "PinCode": pinCode,
         "Location": location,
+        "CityMaster_Id": cityMasterId,
+        "StateMaster_Id": stateMasterId,
       };
 }

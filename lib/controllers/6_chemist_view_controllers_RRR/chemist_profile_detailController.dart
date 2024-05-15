@@ -7,7 +7,7 @@ import '../../servicess_api/api_services_all_api.dart';
 class ChemistProfileDetailController extends GetxController {
   RxBool isLoading = true.obs;
   ChemistProfileDetailModel? getChemistProfileDetailModel;
-  void chemistProfileDetailsApi() async {
+  Future<void> chemistProfileDetailsApi() async {
     isLoading(true);
     getChemistProfileDetailModel = await ApiProvider.chemistProfileDetailApi();
     if (getChemistProfileDetailModel != null) {

@@ -23,7 +23,7 @@ class FranchiseTdsHistoryReportController extends GetxController {
   var appointment = ''.obs;
   var appointment2 = ''.obs;
 
-  FrenchiesTdsReportModel? getfrenchiesTdsReportModel;
+  FrenchiesTdsReportModel? getfrenchiesTdsReportModelbyid;
   FrenchiesTotalTdsModel? getfrenchiesTotalTdsModel;
   TdsByDateModel? gettdsByDateModel;
   Rx<TdsDropdown?> selectedRole = (null as TdsDropdown?).obs;
@@ -31,57 +31,62 @@ class FranchiseTdsHistoryReportController extends GetxController {
   void getTdsRoleApi() async {
     role = await ApiProvider.FrenchiesTdsReportRole();
   }
-  void frenchiesTDSReportApi(String p)async{
+
+  Future<void> frenchiesTDSReportbyIdApi() async {
     isLoading(true);
-    getfrenchiesTdsReportModel = await ApiProvider.FrenchiesTDSReportApi(p);
-    if(getfrenchiesTdsReportModel?.tdsReport != null){
-      isLoading(false);
-    }
-  }
-  void frenchiesTotalTDSAmountApi()async{
-    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
-    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
-    isLoading(true);
-    getfrenchiesTotalTdsModel = await ApiProvider.FrenchiesTotalTDSAmountApi(
-        selectedRole.value?.name.toString(),
-        d1.toString(),
-        d2.toString()
-    );
-    if(getfrenchiesTotalTdsModel?.amount != null){
-      isLoading(false);
-    }
-  }
-  /// tds list by date
-  void frenchiesTDSListByDateApi()async{
-    var d1=DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
-    var d2=DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
-    isLoading(true);
-    gettdsByDateModel = await ApiProvider.FrenchiesTDSListByDateApi(
-      selectedRole.value?.name.toString(),
-        d1.toString(),
-      d2.toString()
-    );
-    if(gettdsByDateModel?.tdsReport != null){
+    getfrenchiesTdsReportModelbyid =
+        await ApiProvider.FrenchiesTDSReportByIdApi(
+            selectedRole.value?.name.toString());
+    if (getfrenchiesTdsReportModelbyid?.tdsReport != null) {
+      print(
+          "paymentds${getfrenchiesTdsReportModelbyid?.tdsReport?[0].paidFees}");
       isLoading(false);
     }
     isLoading(false);
   }
+
+  void frenchiesTotalTDSAmountApi() async {
+    var d1 = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2 = DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+    isLoading(true);
+    getfrenchiesTotalTdsModel = await ApiProvider.FrenchiesTotalTDSAmountApi(
+        selectedRole.value?.name.toString(), d1.toString(), d2.toString());
+    if (getfrenchiesTotalTdsModel?.amount != null) {
+      isLoading(false);
+    }
+  }
+
+  /// tds list by date
+  void frenchiesTDSListByDateApi() async {
+    var d1 = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    var d2 = DateFormat("yyyy-MM-dd").format(selectedDate2.value).toString();
+    isLoading(true);
+    gettdsByDateModel = await ApiProvider.FrenchiesTDSListByDateApi(
+        selectedRole.value?.name.toString(), d1.toString(), d2.toString());
+    if (gettdsByDateModel?.tdsReport != null) {
+      isLoading(false);
+    }
+    isLoading(false);
+  }
+
   @override
   void onInit() {
     super.onInit();
     getTdsRoleApi();
-    frenchiesTDSReportApi('');
+    frenchiesTDSReportbyIdApi();
     frenchiesTotalTDSAmountApi();
     frenchiesTDSListByDateApi();
-   appointmentController = TextEditingController();
-   appointmentController.text = 'dd-MM-yyyy';
-   appointmentController2 = TextEditingController();
-   appointmentController2.text = 'dd-MM-yyyy';
+    appointmentController = TextEditingController();
+    appointmentController.text = 'dd-MM-yyyy';
+    appointmentController2 = TextEditingController();
+    appointmentController2.text = 'dd-MM-yyyy';
   }
+
   @override
   void onReady() {
     super.onReady();
   }
+
   @override
   void onClose() {
     //TextEditingController.dispose();
@@ -94,13 +99,12 @@ class FranchiseTdsHistoryReportController extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
-
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Selected Date',
     );
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
@@ -120,13 +124,13 @@ class FranchiseTdsHistoryReportController extends GetxController {
       lastDate: DateTime(2025),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
+      helpText: 'Select Date',
       cancelText: 'Close',
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
 
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Selected date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+
 //import 'package:ps_welness/constants/my_theme.dart';
 
 import '../../controllers/splash_controller/splash_controllerss.dart';
@@ -13,6 +15,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
       body: GetBuilder<SplashScreenViewModel>(
@@ -28,8 +31,10 @@ class SplashScreen extends StatelessWidget {
                   width: size.width,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage('lib/assets/icons/welcome1.gif'
-
+                    image: AssetImage(
+                        //'lib/assets/logo/appstore.png'
+                        'lib/assets/icons/welcome1.gif'
+                        //'lib/assets/background_stack_png/welcome2_login.png'
                         //'lib/assets/background_stack_png/welcomwe001.png'
                         ),
                     fit: BoxFit.fill,
@@ -71,7 +76,7 @@ class SplashScreen extends StatelessWidget {
                       //     ),
                       //   ),
                       // ),
-                      ///
+                      /////.........
                       // Image.asset(
                       //   'lib/assets/background_stack_png/welcome002.png',
                       //   fit: BoxFit.fill,

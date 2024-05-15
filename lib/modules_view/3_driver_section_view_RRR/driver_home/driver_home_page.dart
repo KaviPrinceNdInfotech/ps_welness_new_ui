@@ -13,14 +13,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers/driver_home_page_controller/driver_home_page_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_payout_history_controller.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_controller/driver_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers_RRR/driver_profile_detail_controller.dart';
 import 'package:ps_welness_new_ui/controllers/device_token_controller/devicetoken_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_page_message_firebase.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/add_bank_for_driver/add_bnk_view_driver/view_bank_add_driver.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_appointment_history_view/driver_order_history.dart';
 import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/driver_drawer_view/drawerpage.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
+import 'package:ps_welness_new_ui/modules_view/3_driver_section_view_RRR/ongoing_ride_page/ongoing_ride_trip.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/notificationservice/local_notification_service.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/constants/my_theme.dart';
@@ -30,13 +36,13 @@ import 'package:ps_welness_new_ui/notificationservice/local_notification_service
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_drawer_view/drawerpage.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_payment_history/driver_payment_history_controller.dart';
 // import 'package:ps_welness/modules_view/3_driver_section_view/driver_profile_page_view/profile_view.dart';
-// import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_update_view.dart';
+// import 'package:ps_welness/modules_view/3_driver_section_view/driver_update_bank_details/bank_add_view.dart';
 
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
+import '../../../controllers/3_driver_view_controllers/driver_complete_ride_controller/driver_complete_ride_controller.dart';
 import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../../../notificationservice/notification_fb_service.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
-import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
 import '../driver_drawer_view/driver_drower_pages/location_practice/location_practiceeee.dart';
 import '../driver_payment_history/driver_payment_history.dart';
 import '../driver_payout_history/driver_payout_histories.dart';
@@ -47,6 +53,9 @@ DriverProfileController _driverProfileController =
     Get.put(DriverProfileController());
 UseracptrejectController _useracptrejectController =
     Get.put(UseracptrejectController());
+
+DriverHomepagContreoller _driverHomepagContreoller =
+    Get.put(DriverHomepagContreoller());
 
 DevicetokenController _devicetokenController = Get.put(DevicetokenController());
 
@@ -70,10 +79,20 @@ class _DriverHomePageState extends State<DriverHomePage> {
   DriverPayoutHistoryController _driverPayoutHistoryController =
       Get.put(DriverPayoutHistoryController());
 
+  DriverProfileDetailController _driverprofiledetail =
+      Get.put(DriverProfileDetailController());
+
+  BankDetailController _getbank = Get.put(BankDetailController());
+
+  OngoingRideController _ongoingRideController =
+      Get.put(OngoingRideController());
+
   ///implement firebase....27...jun..2023
   @override
   void initState() {
     super.initState();
+    _driverprofiledetail.driverProfileDetailApi();
+    _driverprofiledetail.update();
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
     notificationServices.firebaseInit(context);
@@ -141,15 +160,15 @@ class _DriverHomePageState extends State<DriverHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keydriver = GlobalKey();
 
     final List<String> productname = [
       'Booking Request',
-      'Update Bank Details',
+      'Current Ride',
       'Booking History',
       'Payment History',
       'Payout history',
-      'Contact Us',
+      'Add Bank Details',
     ];
 
     final List<String> underprocess = [
@@ -172,11 +191,12 @@ class _DriverHomePageState extends State<DriverHomePage> {
     final List<String> productimage = [
       'lib/assets/icons/notificationsdriver.png',
       // 'lib/assets/icons/driving.png',
-      'lib/assets/icons/drbank.png',
+      'lib/assets/user_assets/travel-insurance.png',
+      //'lib/assets/icons/drbank.png',
       'lib/assets/icons/drbookinghis.png',
       'lib/assets/icons/drhistory.png',
       'lib/assets/icons/drpayout.png',
-      'lib/assets/icons/contact22.png',
+      'lib/assets/icons/drbank.png',
     ];
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
@@ -190,7 +210,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keydriver,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -237,8 +257,10 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _key.currentState!.openDrawer();
+              onPressed: () async {
+                await _driverprofiledetail.driverProfileDetailApi();
+                _driverprofiledetail.update();
+                _keydriver.currentState!.openDrawer();
               },
             ),
             actions: [
@@ -319,13 +341,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
                         print(
                             '&&&&&&&&&&&&&&&&&&&&&&driverrcredentials:${DriverId}');
                         var body = {
-                          "UserId": "${DriverId}",
+                          "UserId": "$DriverId",
                           "DeviceId": value.toString(),
                         };
                         print("userrrtokenupdateeeddbeforetttt${body}");
                         http.Response r = await http.post(
                           Uri.parse(
-                              'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                              'https://pswellness.in/api/DriverApi/UpadateDiviceId'),
                           body: body,
                         );
 
@@ -345,7 +367,14 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
                       ///end....
                       ///
-                      Get.to(MyLocation());
+                      CallLoader.loader();
+                      await Future.delayed(Duration(milliseconds: 1500));
+                      CallLoader.hideLoader();
+
+                      ///todo: ongoing ride apisss...............
+                      _ongoingRideController.ongoingRideApi();
+                      _ongoingRideController.update();
+                      await Get.to(MyLocation());
                     },
                     child: Container(
                       height: size.height * 0.02,
@@ -373,7 +402,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            """Update\nLocation""",
+                            """Complete\nYour Ride""",
                             // '\u{20B9}',
                             //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                             style: GoogleFonts.actor(
@@ -386,7 +415,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
                             width: size.width * 0.00,
                           ),
                           Icon(
-                            Icons.place_rounded,
+                            // Icons.place_rounded,
+                            Icons.cable_rounded,
+
                             color: Colors.red,
                           ),
                           // Text(
@@ -486,7 +517,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (index == 0) {
                                         _useracptrejectController
                                             .driveracceptrejctlistApi();
@@ -495,7 +526,18 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                         Get.to(
                                             () => MessageScreen(id: "123456"));
                                       } else if (index == 1) {
-                                        Get.to(() => AddBankDetail());
+                                        await _ongoingRideController
+                                            .ongoingRideApi();
+                                        _ongoingRideController.onInit();
+                                        _ongoingRideController.update();
+                                        CallLoader.loader();
+                                        await Future.delayed(
+                                            Duration(milliseconds: 300));
+                                        CallLoader.hideLoader();
+                                        await Get.to(() =>
+                                            OngoingRideTracking(id: "1233"));
+
+                                        // Get.to(() => AddDriverBankDetail());
                                         //UpdateDriverBankDetail());
                                       } else if (index == 2) {
                                         Get.to(() => DriverOrderHistory());
@@ -507,9 +549,11 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                         _driverPayoutHistoryController.update();
                                         Get.to(() => DriverPayoutHistory());
                                       } else if (index == 5) {
-                                        Get.to(() => SupportView()
-                                            //DriverAppointmentDetails()
-                                            );
+                                        Get.to(() => AddDriverBankDetail());
+
+                                        ///Get.to(() => SupportViewPsComman()
+                                        //DriverAppointmentDetails()
+                                        // );
                                       }
                                     },
                                     child: Container(
@@ -588,6 +632,9 @@ class Mycrusial extends StatelessWidget {
   final _sliderKey = GlobalKey();
   Mycrusial({Key? key}) : super(key: key);
 
+  DriverHomepagContreoller _driverHomepagContreoller =
+      Get.put(DriverHomepagContreoller());
+
   final List<Color> colors = [
     Colors.red,
     Colors.orange,
@@ -599,73 +646,92 @@ class Mycrusial extends StatelessWidget {
   ];
 
   ///
-  final List<String> images = [
-    'https://images.unsplash.com/photo-1600959907703-125ba1374a12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
-        'https://images.unsplash.com/photo-1602021727931-f85e48d5ebaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1580216818061-70d2f9021cd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1612574935301-af13ccce9258?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1631181231565-0dd0a45682cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1630964046403-c6eda735e7c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
-  ];
+  // final List<String> images = [
+  //   'https://images.unsplash.com/photo-1600959907703-125ba1374a12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+  //       'https://images.unsplash.com/photo-1602021727931-f85e48d5ebaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1580216818061-70d2f9021cd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1612574935301-af13ccce9258?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1631181231565-0dd0a45682cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+  //   'https://images.unsplash.com/photo-1630964046403-c6eda735e7c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
+  // ];
 
   final bool _isPlaying = true;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    //var imgpath = 'http://pswellness.in/Images/';
+
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Container(
-          height: size.height * 0.28,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              color: MyTheme.ThemeColors,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: CarouselSlider.builder(
-                key: _sliderKey,
-                unlimitedMode: true,
-                autoSliderTransitionTime: Duration(seconds: 1),
-                slideBuilder: (index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Material(
-                      elevation: 12,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        height: size.height * 38,
-                        width: size.width,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
+      body: Obx(
+        () => (_driverHomepagContreoller.isLoading.value)
+            ? Center(child: CircularProgressIndicator())
+            : _driverHomepagContreoller.banerlistmodel?.bannerImageList == null
+                ? Center(
+                    child: Text('No data'),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: size.height * 0.28,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: MyTheme.ThemeColors,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.white, width: 3),
-                          image: DecorationImage(
-                              image: NetworkImage(images[index]),
-                              fit: BoxFit.fill),
+                          elevation: 0,
+                          child: CarouselSlider.builder(
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime: Duration(seconds: 1),
+                            slideBuilder: (index) {
+                              final items = _driverHomepagContreoller
+                                  .banerlistmodel?.bannerImageList;
+                              return Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Material(
+                                  elevation: 12,
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: Colors.white, width: 3),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                '$IMAGE_BASE_URL${items?[index].bannerPath}' ??
+                                                    ''),
+                                            fit: BoxFit.cover,
+                                            onError: (error, stackTrace) {
+                                              Text("No Image Found");
+                                              // .log(error, stackTrace);
+                                            })),
+                                  ),
+                                ),
+                              );
+                            },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 2,
+                              indicatorRadius: 4,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              padding: EdgeInsets.only(bottom: 0),
+                            ),
+                            itemCount: _driverHomepagContreoller
+                                .banerlistmodel!.bannerImageList!.length,
+                            enableAutoSlider: true,
+                          ),
                         ),
                       ),
                     ),
-                  );
-                },
-                slideTransform: DefaultTransform(),
-                slideIndicator: CircularSlideIndicator(
-                  indicatorBorderWidth: 2,
-                  indicatorRadius: 4,
-                  itemSpacing: 15,
-                  currentIndicatorColor: Colors.white,
-                  padding: EdgeInsets.only(bottom: 0),
-                ),
-                itemCount: images.length,
-                enableAutoSlider: true,
-              ),
-            ),
-          ),
-        ),
+                  ),
       ),
     );
   }

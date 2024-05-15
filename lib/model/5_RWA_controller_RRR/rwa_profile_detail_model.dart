@@ -4,27 +4,13 @@
 
 import 'dart:convert';
 
-RwaProfileDetailModel rwaProfileDetailModelFromJson(String str) => RwaProfileDetailModel.fromJson(json.decode(str));
+RwaProfileDetailModel rwaProfileDetailModelFromJson(String str) =>
+    RwaProfileDetailModel.fromJson(json.decode(str));
 
-String rwaProfileDetailModelToJson(RwaProfileDetailModel data) => json.encode(data.toJson());
+String rwaProfileDetailModelToJson(RwaProfileDetailModel data) =>
+    json.encode(data.toJson());
 
 class RwaProfileDetailModel {
-  List<RwaProfileDetail>? rwaProfileDetails;
-
-  RwaProfileDetailModel({
-    this.rwaProfileDetails,
-  });
-
-  factory RwaProfileDetailModel.fromJson(Map<String, dynamic> json) => RwaProfileDetailModel(
-    rwaProfileDetails: json["RWA_ProfileDetails"] == null ? [] : List<RwaProfileDetail>.from(json["RWA_ProfileDetails"]!.map((x) => RwaProfileDetail.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "RWA_ProfileDetails": rwaProfileDetails == null ? [] : List<dynamic>.from(rwaProfileDetails!.map((x) => x.toJson())),
-  };
-}
-
-class RwaProfileDetail {
   int? id;
   String? authorityName;
   String? emailId;
@@ -32,9 +18,11 @@ class RwaProfileDetail {
   String? stateName;
   String? cityName;
   String? location;
-  dynamic pincode;
+  String? pincode;
+  num? stateMasterId;
+  num? cityMasterId;
 
-  RwaProfileDetail({
+  RwaProfileDetailModel({
     this.id,
     this.authorityName,
     this.emailId,
@@ -43,27 +31,34 @@ class RwaProfileDetail {
     this.cityName,
     this.location,
     this.pincode,
+    this.stateMasterId,
+    this.cityMasterId,
   });
 
-  factory RwaProfileDetail.fromJson(Map<String, dynamic> json) => RwaProfileDetail(
-    id: json["Id"],
-    authorityName: json["AuthorityName"],
-    emailId: json["EmailId"],
-    phoneNumber: json["PhoneNumber"],
-    stateName: json["StateName"],
-    cityName: json["CityName"],
-    location: json["Location"],
-    pincode: json["Pincode"],
-  );
+  factory RwaProfileDetailModel.fromJson(Map<String, dynamic> json) =>
+      RwaProfileDetailModel(
+        id: json["Id"],
+        authorityName: json["AuthorityName"],
+        emailId: json["EmailId"],
+        phoneNumber: json["PhoneNumber"],
+        stateName: json["StateName"],
+        cityName: json["CityName"],
+        location: json["Location"],
+        pincode: json["Pincode"],
+        stateMasterId: json["StateMaster_Id"],
+        cityMasterId: json["CityMaster_Id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "Id": id,
-    "AuthorityName": authorityName,
-    "EmailId": emailId,
-    "PhoneNumber": phoneNumber,
-    "StateName": stateName,
-    "CityName": cityName,
-    "Location": location,
-    "Pincode": pincode,
-  };
+        "Id": id,
+        "AuthorityName": authorityName,
+        "EmailId": emailId,
+        "PhoneNumber": phoneNumber,
+        "StateName": stateName,
+        "CityName": cityName,
+        "Location": location,
+        "Pincode": pincode,
+        "StateMaster_Id": stateMasterId,
+        "CityMaster_Id": cityMasterId,
+      };
 }

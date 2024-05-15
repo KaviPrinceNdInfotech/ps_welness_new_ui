@@ -7,20 +7,22 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
 import 'package:ps_welness_new_ui/model/3_driver_controllers_RRR/vehicle_type_dropdown.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model/franchise_model_comman/franchise_model_id.dart';
 import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-
-//import '../../servicess_api/api_services_all_api.dart';
-import '../../utils/services/account_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Driver_1111_Controller extends GetxController {
   final GlobalKey<FormState> driver1111formkey = GlobalKey<FormState>();
 
   var selectedDate = DateTime.now().obs;
+  LoginpasswordController _loginpasswordControllerr =
+      Get.put(LoginpasswordController());
 
   //RxInt selectedimg = 0.obs;
   var selectedPath = ''.obs;
@@ -36,6 +38,10 @@ class Driver_1111_Controller extends GetxController {
 
   RxInt selectedimg4 = 0.obs;
   var selectedPath4 = ''.obs;
+
+  ///this is for franchise id.................................
+  Rx<Vendor?> selectedFranchiseId = (null as Vendor?).obs;
+  List<Vendor> franchiseid = <Vendor>[].obs;
   //var selectedPath = ''.obs;
 
   void getImage(ImageSource imageSource) async {
@@ -133,6 +139,13 @@ class Driver_1111_Controller extends GetxController {
     print("rfrfrfrfr${vehicletype}");
   }
 
+  ///franchise id api class........45  1.........
+  Future<void> franchiseIddriverApi() async {
+    franchiseid = (await ApiProvider.getfranchiseDurationsApi())!;
+    print('Prince  franchise  list');
+    print(franchiseid);
+  }
+
   void getStateDriverApi() async {
     states = await ApiProvider.getSatesApi();
     print('Prince state  list');
@@ -148,7 +161,8 @@ class Driver_1111_Controller extends GetxController {
     print(cities);
   }
 
-  late TextEditingController nameController,
+  late TextEditingController? panController,
+      nameController,
       pincontroller,
       mobileController,
       emailController,
@@ -173,6 +187,7 @@ class Driver_1111_Controller extends GetxController {
       vehicletypecontroller,
       paidamountcontroller;
 
+  var pan = '';
   var name = '';
   var email = '';
   var password = '';
@@ -226,17 +241,18 @@ class Driver_1111_Controller extends GetxController {
         base64Encode(await File(selectedPath4.value).readAsBytes());
     print("imagebaseeee6444:${imageAsBase644}");
     http.Response r = await ApiProvider.DriverSignupApi(
-      nameController.text,
-      pincontroller.text,
-      mobileController.text,
-      emailController.text,
+      panController?.text,
+      nameController?.text,
+      pincontroller?.text,
+      mobileController?.text,
+      emailController?.text,
       selectedState.value?.id.toString(),
       selectedCity.value?.id.toString(),
-      locationcontroller.text,
-      dlnumbercontroller.text,
-      dlvaliditycontroller.text,
-      passwordController.text,
-      confirmpasswordController.text,
+      locationcontroller?.text,
+      dlnumbercontroller?.text,
+      dlvaliditycontroller?.text,
+      passwordController?.text,
+      confirmpasswordController?.text,
       selectedPath.value.split('/').last,
       imageAsBase64,
       selectedPath1.value.split('/').last,
@@ -247,49 +263,69 @@ class Driver_1111_Controller extends GetxController {
       imageAsBase643,
       selectedPath3.value.split('/').last,
       imageAsBase644,
-      selectevehicletype.value?.id.toString(),
-      paidamountcontroller.text,
+
+      ///this is remaining part
+      selectedFranchiseId.value?.id.toString(),
+
+      ///selectevehicletype.value?.id.toString(),
+      /// paidamountcontroller?.text,
       // selectedPath.value.split('/').last,
       //imageAsBase64,
     );
 
     if (r.statusCode == 200) {
-      accountService.getAccountData.then((accountData) {
-        Timer(
-          const Duration(milliseconds: 200),
-          () {
-            //  _viewdoctorreviewController.doctorreviewratingApi();
-            //_viewdoctorreviewController.update();
-            Get.snackbar('Registration Successfully',
-                "You are registered and wait for approval"
-                // "${r.body}"
-                );
-            Get.to(SignInScreen());
-
-            // Get.to(() => DriverHomePage());
-            // _doctorListController.doctordetailApi();
-            // _doctorListController.update();
-            // _viewdoctorreviewController.doctorreviewratingApi();
-            // _viewdoctorreviewController.update();
-
-            //Get.to((page))
-            ///
-          },
-        );
-      });
-      CallLoader.hideLoader();
-    } else {
+      Get.snackbar(
+        'Success',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+      _loginpasswordControllerr.onInit();
+      //CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
       //CallLoader.hideLoader();
+      await SharedPreferences.getInstance()
+          .then((value) => Get.offAll(() => SignInScreen()));
+    } else {
+      Get.snackbar(
+        'Error',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
     }
+    // accountService.getAccountData.then((accountData) {
+    //   Timer(
+    //     const Duration(milliseconds: 200),
+    //     () {
+    //       //  _viewdoctorreviewController.doctorreviewratingApi();
+    //       //_viewdoctorreviewController.update();
+    //       Get.snackbar(
+    //         'Success',
+    //         "${r.body}",
+    //         duration: const Duration(seconds: 1),
+    //       );
+    //       Get.to(SignInScreen());
+    //
+    //       // Get.to(() => DriverHomePage());
+    //       // _doctorListController.doctordetailApi();
+    //       // _doctorListController.update();
+    //       // _viewdoctorreviewController.doctorreviewratingApi();
+    //       // _viewdoctorreviewController.update();
+    //
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    // });
   }
 
   @override
   void onInit() {
     super.onInit();
     ambulancecatagaryyApi();
+    franchiseIddriverApi();
 
     /// ambulancecatagaryyApi();
-
+    panController = TextEditingController();
     nameController = TextEditingController();
     pincontroller = TextEditingController();
     mobileController = TextEditingController();
@@ -314,7 +350,7 @@ class Driver_1111_Controller extends GetxController {
     vehicletypecontroller = TextEditingController();
     paidamountcontroller = TextEditingController();
     dlvaliditycontroller = TextEditingController();
-    dlvaliditycontroller.text = "DL Validity";
+    dlvaliditycontroller?.text = "DL Validity";
 
     getStateDriverApi();
     //getdepartmentApi();
@@ -330,7 +366,7 @@ class Driver_1111_Controller extends GetxController {
       context: Get.context!,
       initialDate: selectedDate.value,
       firstDate: DateTime(2018),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2060),
       initialEntryMode: DatePickerEntryMode.input,
       initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select DL Validity',
@@ -338,16 +374,16 @@ class Driver_1111_Controller extends GetxController {
       confirmText: 'Confirm',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
+      fieldLabelText: 'Select date',
       //fieldHintText: 'Month/Date/Year',
       //selectableDayPredicate: disableDate,
     );
     if (newpickedDate != null) {
       selectedDate.value = newpickedDate;
       dlvaliditycontroller
-        ..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
+        ?..text = DateFormat('yyyy-MM-d').format(selectedDate.value).toString()
         ..selection = TextSelection.fromPosition(TextPosition(
-            offset: dlvaliditycontroller.text.length,
+            offset: dlvaliditycontroller!.text.length,
             affinity: TextAffinity.upstream));
     }
     // if (pickedDate != null && pickedDate != selectedDate) {
@@ -364,11 +400,17 @@ class Driver_1111_Controller extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmpasswordController.dispose();
-    mobileController.dispose();
+    nameController?.dispose();
+    emailController?.dispose();
+    passwordController?.dispose();
+    confirmpasswordController?.dispose();
+    mobileController?.dispose();
+    locationcontroller?.dispose();
+    dlnumbercontroller?.dispose();
+    dlvaliditycontroller?.dispose();
+    passwordController?.dispose();
+    confirmpasswordController?.dispose();
+    paidamountcontroller?.dispose();
   }
 
   String? validName(String value) {
@@ -427,14 +469,24 @@ class Driver_1111_Controller extends GetxController {
     return null;
   }
 
-  String? validFees(String value) {
+  String? validPan(String value) {
     if (value.isEmpty) {
-      return '              Enter your charge per KM';
+      return '              This field is required';
     }
-    if (value.length < 2) {
-      return '              maximum fees in 3 digits';
+    if (value.length != 10) {
+      return '              A valid pan number should be of 10 digits';
     }
     return null;
+  }
+
+  String? validFees(String value) {
+    if (value.isEmpty) {
+      return '                Enter your charge per KM';
+    }
+    // if (value.length < 2) {
+    //   return '              maximum fees in 3 digits';
+    // }
+    // return null;
   }
 
   String? validPin(String value) {
@@ -470,9 +522,10 @@ class Driver_1111_Controller extends GetxController {
 
 //DriverSignupApi
   void checkDriver1111() {
-    if (driver1111formkey.currentState!.validate()) {
-      //driverSignupApi();
-    }
-    driver1111formkey.currentState!.save();
+    // if (driver1111formkey.currentState!.validate()) {
+    //   driverSignupApi();
+    // }
+    driverSignupApi();
+    //driver1111formkey.currentState!.save();
   }
 }

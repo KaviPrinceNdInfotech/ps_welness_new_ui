@@ -15,8 +15,8 @@ class NurseDetailProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    NurseProfileControllers _nurseprofileContrller =
-        Get.put(NurseProfileControllers());
+    NurseProfileControllersdetail _nurseprofileContrller =
+        Get.put(NurseProfileControllersdetail());
 
     return Scaffold(
       backgroundColor: MyTheme.white,
@@ -38,7 +38,7 @@ class NurseDetailProfile extends StatelessWidget {
                           height: size.height * 0.1,
                         ),
                         PhysicalModel(
-                          color: Colors.greenAccent,
+                          color: Colors.cyan,
                           shadowColor: Colors.cyan.shade700,
                           elevation: 10,
                           child: Padding(
@@ -47,12 +47,13 @@ class NurseDetailProfile extends StatelessWidget {
                               height: size.height * 0.4,
                               width: size.width * 0.8,
                               decoration: BoxDecoration(
-                                  color: Colors.red.shade200,
-                                  image: const DecorationImage(
-                                      image: NetworkImage(
-                                        'https://images.unsplash.com/photo-1623682687826-fe06bf64e6d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTV8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60',
-                                      ),
-                                      fit: BoxFit.fill)),
+                                  //color: Colors.red.shade200,
+                                  // image: const DecorationImage(
+                                  //     image: NetworkImage(
+                                  //       'https://images.unsplash.com/photo-1623682687826-fe06bf64e6d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTV8blNwa29NdC1DeW98fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60',
+                                  //     ),
+                                  //     fit: BoxFit.fill)
+                                  ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
@@ -162,14 +163,21 @@ class NurseDetailProfile extends StatelessWidget {
                                         SizedBox(
                                           height: size.height * 0.01,
                                         ),
-                                        Text(
-                                          _nurseprofileContrller
-                                              .getNurseProfile!.location
-                                              .toString(),
-                                          style: GoogleFonts.poppins(
-                                            fontSize: size.height * 0.018,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
+                                        SizedBox(
+                                          height: size.height * 0.05,
+                                          width: size.width * 0.6,
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              _nurseprofileContrller
+                                                  .getNurseProfile!.location
+                                                  .toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontSize: size.height * 0.016,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(

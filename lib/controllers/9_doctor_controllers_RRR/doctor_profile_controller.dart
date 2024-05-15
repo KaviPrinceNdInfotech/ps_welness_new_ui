@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
+import 'package:ps_welness_new_ui/model/9_doctors_model_RRR/doctor_profile_model.dart';
 
-import '../../model/9_doctors_model/doctor_profile_model.dart';
 import '../../servicess_api/api_services_all_api.dart';
 //import 'package:ps_welness/model/9_doctors_model/doctor_profile_model.dart';
 //import 'package:ps_welness/servicess_api/api_services_all_api.dart';
@@ -11,18 +11,19 @@ class DoctorProfileControllers extends GetxController {
 
   void toggle(int index) => selectedIndex.value = index;
 
-  DoctorProfile? doctorProfile;
+  DoctorProfileDetail? doctorProfile;
 
   //all catagary list .........
 
-  void doctorprofileApi() async {
+  Future<void> doctorprofileApi() async {
     isLoading(true);
-    doctorProfile = await ApiProvider. DoctorProfileApi();
-    if (doctorProfile != null
+    doctorProfile = await ApiProvider.DoctorProfileDetailApi();
+    if (doctorProfile?.doctorName != null
         //getcatagartlist!.result!.isNotEmpty
         ) {
       isLoading(false);
     }
+    isLoading(false);
   }
 
   @override

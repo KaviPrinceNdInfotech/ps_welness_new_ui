@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 // import 'package:ps_welness/constants/constants/constants.dart';
@@ -19,8 +21,11 @@ import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
 class NurseProfileCredentials extends StatelessWidget {
   NurseProfileCredentials({Key? key}) : super(key: key);
 
-  NurseProfileController _nurseprofileController =
-      Get.put(NurseProfileController());
+  NurseProfileUpdateController _nurseprofileUpdateController =
+      Get.put(NurseProfileUpdateController());
+
+  NurseProfileControllersdetail _nurseprofileContrller =
+      Get.put(NurseProfileControllersdetail());
 
   ///todo nurse ui.............................do t
   var items = [
@@ -36,7 +41,7 @@ class NurseProfileCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _nurseprofileController.nurseprofileformkey,
+      key: _nurseprofileUpdateController.nurseprofileformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -69,45 +74,14 @@ class NurseProfileCredentials extends StatelessWidget {
             // SizedBox(
             //   height: size.height * 0.02,
             // ),
-
-            ///todo: phone number..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _nurseprofileController.mobileController,
-                validator: (value) {
-                  return _nurseprofileController.validPhone(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Phone No',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.phone_android_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
             ///TODO: Name.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 //initialValue: "I am smart",
                 autofillHints: [AutofillHints.name],
-                controller: _nurseprofileController.nameController,
+                controller: _nurseprofileUpdateController.nameController,
                 validator: (value) {
-                  return _nurseprofileController.validName(value!);
+                  return _nurseprofileUpdateController.validName(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -130,13 +104,71 @@ class NurseProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
+            ///Todo: email..............
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                controller: _nurseprofileUpdateController.EmailIdController,
+                validator: (value) {
+                  return _nurseprofileUpdateController.validEmail(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Email Id',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo: phone number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _nurseprofileUpdateController.mobileController,
+                validator: (value) {
+                  return _nurseprofileUpdateController.validPhone(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Phone No',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.phone_android_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///Todo: state............................
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<StateModel>(
-                      value: _nurseprofileController.selectedStatee.value,
+                      value: _nurseprofileUpdateController.selectedStatee.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.real_estate_agent,
@@ -145,8 +177,9 @@ class NurseProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
-                      items: _nurseprofileController.statess
+                      hint: Text(
+                          "${_nurseprofileContrller.getNurseProfile?.stateName.toString()}"),
+                      items: _nurseprofileUpdateController.statess
                           .map((StateModel model) {
                         return DropdownMenuItem(
                           value: model,
@@ -160,9 +193,10 @@ class NurseProfileCredentials extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (StateModel? newValue) {
-                        _nurseprofileController.selectedStatee.value =
+                        _nurseprofileUpdateController.selectedStatee.value =
                             newValue!;
-                        _nurseprofileController.selectedCityy.value = null;
+                        _nurseprofileUpdateController.selectedCityy.value =
+                            null;
                       }),
                 ),
               ),
@@ -177,7 +211,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<City>(
-                      value: _nurseprofileController.selectedCityy.value,
+                      value: _nurseprofileUpdateController.selectedCityy.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.location_city,
@@ -186,8 +220,10 @@ class NurseProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
-                      items: _nurseprofileController.citiess.map((City city) {
+                      hint: Text(
+                          "${_nurseprofileContrller.getNurseProfile?.cityName.toString()}"),
+                      items: _nurseprofileUpdateController.citiess
+                          .map((City city) {
                         return DropdownMenuItem(
                           value: city,
                           child: Text(
@@ -199,8 +235,12 @@ class NurseProfileCredentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
+                      onTap: () {
+                        _nurseprofileUpdateController.refresh();
+                      },
                       onChanged: (City? newValue) {
-                        _nurseprofileController.selectedCityy.value = newValue!;
+                        _nurseprofileUpdateController.selectedCityy.value =
+                            newValue!;
                       }),
                 ),
               ),
@@ -213,9 +253,9 @@ class NurseProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.addressCityAndState],
-                controller: _nurseprofileController.locationController,
+                controller: _nurseprofileUpdateController.locationController,
                 validator: (value) {
-                  return _nurseprofileController.validLocation(value!);
+                  return _nurseprofileUpdateController.validLocation(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -234,34 +274,7 @@ class NurseProfileCredentials extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
 
-            ///Todo: fees..............
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                controller: _nurseprofileController.feeController,
-                validator: (value) {
-                  return _nurseprofileController.validFees(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Fees',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.currency_rupee,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -273,14 +286,14 @@ class NurseProfileCredentials extends StatelessWidget {
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.password],
-                controller: _nurseprofileController.pinController,
+                controller: _nurseprofileUpdateController.pinController,
                 validator: (value) {
-                  return _nurseprofileController.validPin(value!);
+                  return _nurseprofileUpdateController.validPin(value!);
                 },
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Pin',
+                  hintText: 'Pin Code',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,
@@ -300,30 +313,31 @@ class NurseProfileCredentials extends StatelessWidget {
             ),
 
             /// todo ClinicName
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _nurseprofileController.clinicNameController,
-                validator: (value) {
-                  return _nurseprofileController.validName(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Clinic Name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.pin,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     autofillHints: [AutofillHints.name],
+            //     controller: _nurseprofileUpdateController.clinicNameController,
+            //     validator: (value) {
+            //       return _nurseprofileUpdateController.validName(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'Clinic Name',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.pin,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            ///
             // SizedBox(
             //   height: size.height * 0.01,
             //   //appPadding / 2,
@@ -464,8 +478,19 @@ class NurseProfileCredentials extends StatelessWidget {
             ),
             RectangularButton(
                 text: 'UPDATE',
-                press: () {
-                  _nurseprofileController.checkProfilee();
+                press: () async {
+                  _nurseprofileUpdateController.checkProfilee();
+
+                  /// _nurseprofileUpdateController.onInit();
+                  await _nurseprofileContrller.nurseprofileApi();
+                  _nurseprofileContrller.onInit();
+                  //_nurseprofileContrller.update();
+                  _nurseprofileUpdateController.clearSelectedState();
+
+                  await Future.delayed(Duration(milliseconds: 100));
+                  await Get.offAll(() => NurseHomePage());
+                  _nurseprofileUpdateController.selectedStatee.value = null;
+                  //  await _nurseprofileContrller.nurseprofileApi();
                 })
           ],
         ),

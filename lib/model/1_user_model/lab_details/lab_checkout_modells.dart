@@ -11,13 +11,16 @@ String labcheckoutmodelToJson(Labcheckoutmodel data) =>
     json.encode(data.toJson());
 
 class Labcheckoutmodel {
-  int? id;
+  num? id;
   String? labName;
-  String? labTypeName;
-  String? year;
-  double? fee;
+  dynamic labTypeName;
+  dynamic year;
+  num? fee;
+  num? gst;
+  num? totalFee;
   DateTime? testDate;
   String? slotTime;
+  dynamic deviceId;
 
   Labcheckoutmodel({
     this.id,
@@ -25,8 +28,11 @@ class Labcheckoutmodel {
     this.labTypeName,
     this.year,
     this.fee,
+    this.gst,
+    this.totalFee,
     this.testDate,
     this.slotTime,
+    this.deviceId,
   });
 
   factory Labcheckoutmodel.fromJson(Map<String, dynamic> json) =>
@@ -36,8 +42,12 @@ class Labcheckoutmodel {
         labTypeName: json["LabTypeName"],
         year: json["year"],
         fee: json["Fee"],
-        testDate: DateTime.parse(json["TestDate"]),
+        gst: json["GST"],
+        totalFee: json["TotalFee"],
+        testDate:
+            json["TestDate"] == null ? null : DateTime.parse(json["TestDate"]),
         slotTime: json["SlotTime"],
+        deviceId: json["DeviceId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +56,10 @@ class Labcheckoutmodel {
         "LabTypeName": labTypeName,
         "year": year,
         "Fee": fee,
+        "GST": gst,
+        "TotalFee": totalFee,
         "TestDate": testDate?.toIso8601String(),
         "SlotTime": slotTime,
+        "DeviceId": deviceId,
       };
 }

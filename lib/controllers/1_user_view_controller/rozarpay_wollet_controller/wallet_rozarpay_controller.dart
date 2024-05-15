@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/wallet_user_controller/wallet_controllers_user.dart';
-
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 //import '../post_order_controller/post_order_controller.dart';
@@ -15,9 +14,6 @@ class RozarwalletController extends GetxController {
   Wallet_2_Controller _walletController = Get.put(Wallet_2_Controller());
   //Wallet_2_Controller _walletPostController = Get.put(WalletPostController());
   //GetProfileController _getProfileController = Get.put(GetProfileController());
-
-
-
 
   @override
   void onInit() {
@@ -35,36 +31,38 @@ class RozarwalletController extends GetxController {
     _razorpay.clear();
     super.dispose();
   }
+
 //int.parse(amount != null ? amount : '0');
   void openCheckout() async {
     var options = {
-     // 'key': 'rzp_live_sTN4TNvGmEs3C1',
-      'key': 'rzp_test_aeRns0u8gPpOUK',
+      // 'key': 'rzp_live_sTN4TNvGmEs3C1',
+      //'key': 'rzp_test_aeRns0u8gPpOUK',
+      'key': 'rzp_test_s1VIQAlF8CZRCE',
       'amount':
-      //100*100,
+          //100*100,
 
-      int.parse(_walletController.walletAmount.text,
-        // _walletPostController.Money.toString()
-        // '${_walletPostController.walletamountFormKey.currentState}'
-      )
-          *
-          100,
+          int.parse(
+                _walletController.walletAmount.text,
+                // _walletPostController.Money.toString()
+                // '${_walletPostController.walletamountFormKey.currentState}'
+              ) *
+              100,
 
       // 'amount': int.parse(
       //     '${_walletPostController.walletPostApi.toString()}') *
       //     100,
       'name':
-     // _walletController.getprofileModel?.result?.name.toString(),
-      'Kumar Prince',
+          // _walletController.getprofileModel?.result?.name.toString(),
+          'Kumar Prince',
       'timeout': 60 * 5,
       'description': 'Do Payment',
       'prefill': {
         'contact':
-        //_getProfileController.getprofileModel?.result?.mobileNo.toString(),
-         '7019380053',
+            //_getProfileController.getprofileModel?.result?.mobileNo.toString(),
+            '7019380053',
         'email':
-        //_getProfileController.getprofileModel?.result?.emailId.toString(),
-         'kumarprince269@gmail.com'
+            //_getProfileController.getprofileModel?.result?.emailId.toString(),
+            'kumarprince269@gmail.com'
       },
       'external': {
         'wallets': ['paytm']
@@ -85,7 +83,6 @@ class RozarwalletController extends GetxController {
     Get.snackbar("SUCCESS", "ID: ${response.paymentId}");
     print('payment sucess');
 
-
     _walletController.walletPostApi().then((statusCode) {
       // _postOrderController.postOrderApi().then((statusCode) {
       if (statusCode == 200) {
@@ -93,12 +90,11 @@ class RozarwalletController extends GetxController {
         // _getProfileController.OrderHistoryApi();
         _walletController.walletListssApi();
         //  Get.to(OrderConfirmationPage());
-       // _getProfileController.update();
+        // _getProfileController.update();
         // _walletController.getwalletlist!.result[index].walletAmount!.toDouble()
         // _walletController.getwalletlist!.result.first.walletAmount!.toDouble();
 
         _walletController.walletAmount.text;
-
 
         //_walletPostController.walletPostApi();
         //_walletPostController.update();
@@ -110,10 +106,8 @@ class RozarwalletController extends GetxController {
       } else {
         // SHow
       }
-    }
-    );
+    });
   }
-
 
   void _handlePaymentError(PaymentFailureResponse response) {
     Get.snackbar(

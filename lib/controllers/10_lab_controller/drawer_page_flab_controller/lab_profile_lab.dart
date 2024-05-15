@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/10_lab_controller/lab_profile_details_controller/lab_profile_details_controller.dart';
 
 import '../../../model/1_user_model/city_model/city_modelss.dart';
 import '../../../model/1_user_model/states_model/state_modells.dart';
@@ -12,6 +13,9 @@ import '../../../servicess_api/api_services_all_api.dart';
 
 class LabProfileUpdateController extends GetxController {
   final GlobalKey<FormState> labprofileupdateformkey = GlobalKey<FormState>();
+
+  LabprofiledetailController _labprofiledetailController =
+      Get.put(LabprofiledetailController());
 
   ///this is for state.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
@@ -30,6 +34,11 @@ class LabProfileUpdateController extends GetxController {
     print(states);
   }
 
+  void clearSelectedState() {
+    selectedState.value = null;
+    //states?.clear();
+  }
+
   ///get cities api...........
   void getCityByStateIDLab(String stateID) async {
     cities.clear();
@@ -46,22 +55,40 @@ class LabProfileUpdateController extends GetxController {
       idController.text,
       labNameController.text,
       MobileNumberController.text,
-      selectedState.value?.id.toString(),
-      selectedCity.value?.id.toString(),
+      emailidController.text,
+      selectedState.value?.id.toString() ??
+          _labprofiledetailController.labprofileModel?.stateMasterId.toString(),
+
+      //_labprofiledetailController
+
+      selectedCity.value?.id.toString() ??
+          _labprofiledetailController.labprofileModel?.cityMasterId.toString(),
       LocationController.text,
       PinCodeController.text,
-      adminLogin_idController.text,
-      AccountNoController.text,
-      IFSCCodeController.text,
-      BranchNameController.text,
+
+      ///adminLogin_idController.text,
+      // AccountNoController.text,
+      // IFSCCodeController.text,
+      // BranchNameController.text,
     );
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
+      Get.snackbar('Success', r.body);
+
+      await Future.delayed(Duration(milliseconds: 1000));
+      CallLoader.hideLoader();
+      // Get.offAll(NurseHomePage());
+      Get.offAll(() => LabHomePage());
+
+      ///.....///......///......///........///.........///.....
+      await Future.delayed(Duration(milliseconds: 900));
+      await _labprofiledetailController.labprofileApi();
+      clearSelectedState();
       CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
-      Get.to(LabHomePage());
+      ///Get.to(LabHomePage());
     }
   }
 
@@ -76,6 +103,7 @@ class LabProfileUpdateController extends GetxController {
       adminLogin_idController,
       AccountNoController,
       IFSCCodeController,
+      emailidController,
       BranchNameController;
 
 // var id = '';
@@ -85,26 +113,40 @@ class LabProfileUpdateController extends GetxController {
   var MobileNumber = '';
   var Location = '';
   var PinCode = '';
-  var pin = '';
+  //var pin = '';
   var AccountNo = '';
   var IFSCCode = '';
   var BranchName = '';
+  var EmailId = '';
 
   @override
   void onInit() {
     //states.refresh();
     super.onInit();
+    //_labprofiledetailController
     idController = TextEditingController();
-    labNameController = TextEditingController(text: 'Mrs Ak Singh');
+    labNameController = TextEditingController(
+        //text:
+        text:
+            "${_labprofiledetailController.labprofileModel?.labName.toString()}");
     //emailController = TextEditingController();
-    MobileNumberController = TextEditingController(text: '9888776655');
-    LocationController = TextEditingController(text: 'Palam');
+    MobileNumberController = TextEditingController(
+        text:
+            "${_labprofiledetailController.labprofileModel?.mobileNumber.toString()}");
+    emailidController = TextEditingController(
+        text:
+            "${_labprofiledetailController.labprofileModel?.emailId.toString()}");
+    LocationController = TextEditingController(
+        text:
+            "${_labprofiledetailController.labprofileModel?.location.toString()}");
     //feesController = TextEditingController(text: '2000');
-    PinCodeController = TextEditingController(text: '119999');
-    AccountNoController = TextEditingController(text: '4898666666');
-    IFSCCodeController = TextEditingController(text: '149ONSBI');
-    BranchNameController = TextEditingController(text: 'IDBI');
-    adminLogin_idController = TextEditingController();
+    PinCodeController = TextEditingController(
+        text:
+            "${_labprofiledetailController.labprofileModel?.pinCode.toString()}");
+    // AccountNoController = TextEditingController(text: '');
+    // IFSCCodeController = TextEditingController(text: '');
+    // BranchNameController = TextEditingController(text: '');
+    ///adminLogin_idController = TextEditingController();
 
     getStateLabApi();
 

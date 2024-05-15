@@ -143,7 +143,6 @@ class Ambulanceget2Controller extends GetxController {
       accountService.getAccountData.then((accountData) {
         CallLoader.loader();
         // nearlistdriverApi();
-
         Timer(
           const Duration(seconds: 1),
           () {

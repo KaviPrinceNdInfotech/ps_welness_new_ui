@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>logFormatVersion</key>
-	<integer>10</integer>
+	<integer>11</integer>
 	<key>logs</key>
 	<dict>
-		<key>4F7B2ED9-F658-41C4-9137-3EA7293E94C4</key>
+		<key>2ED07EC8-0339-4197-ADFF-F93095AABFD4</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,13 +15,21 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>4F7B2ED9-F658-41C4-9137-3EA7293E94C4.xcactivitylog</string>
+			<string>2ED07EC8-0339-4197-ADFF-F93095AABFD4.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
 				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Runner project</string>
@@ -32,13 +40,13 @@
 			<key>signature</key>
 			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>timeStartedRecording</key>
-			<real>711720664.85038304</real>
+			<real>736667935.94790697</real>
 			<key>timeStoppedRecording</key>
-			<real>711720665.19879496</real>
+			<real>736667936.136392</real>
 			<key>title</key>
 			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>uniqueIdentifier</key>
-			<string>4F7B2ED9-F658-41C4-9137-3EA7293E94C4</string>
+			<string>2ED07EC8-0339-4197-ADFF-F93095AABFD4</string>
 		</dict>
 	</dict>
 </dict>

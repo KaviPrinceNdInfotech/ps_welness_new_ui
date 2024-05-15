@@ -18,10 +18,47 @@ class DevicetokenController extends GetxController {
 
   // var Id = '';
 
-  ///todo: this is user token.....
-  void UsertokenApi() async {
+  ///todo: this is user token.....28..august..2023...
+  // Future<void> UsertokenApi() async {
+  //   //CallLoader.loader();
+  //   http.Response r = await ApiProvider.UserdevicetokenApi();
+  //
+  //   if (r.statusCode == 200) {
+  //     var data = jsonDecode(r.body);
+  //
+  //     CallLoader.hideLoader();
+  //     // _labListController.labListApi();
+  //     // _labListController.update();
+  //
+  //     /// we can navigate to user page.....................................
+  //     // Get.to(LabCatagaryDetails());
+  //     ///Get.to(LabListPage());
+  //   }
+  // }
+
+  ///todo: this is user token.....updsytde on 6 may 2024..
+
+  Future<void> UsertokenApi() async {
+    // CallLoader.loader();
+    http.Response? r = await ApiProvider.UserdevicetokenApi();
+
+    if (r != null && r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      // _labListController.labListApi();
+      // _labListController.update();
+
+      /// we can navigate to user page.....................................
+      // Get.to(LabCatagaryDetails());
+      /// Get.to(LabListPage());
+    }
+  }
+
+  ///todo: this  driver is device token.....28..august..2023...
+  Future<void> DrivertokenApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.UserdevicetokenApi();
+    http.Response r = await ApiProvider.DriverdevicetokenApi();
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
@@ -36,10 +73,28 @@ class DevicetokenController extends GetxController {
     }
   }
 
-  ///todo: this is device token.....
-  void DrivertokenApi() async {
+  ///todo: this is doctor device token.....28..august..2023...
+  Future<void> DoctortokenApi() async {
+    // CallLoader.loader();
+    http.Response r = await ApiProvider.DoctordevicetokenApi();
+
+    if (r.statusCode == 200) {
+      var data = jsonDecode(r.body);
+
+      CallLoader.hideLoader();
+      // _labListController.labListApi();
+      // _labListController.update();
+
+      /// we can navigate to user page.....................................
+      // Get.to(LabCatagaryDetails());
+      ///Get.to(LabListPage());
+    }
+  }
+
+  ///todo: this is nurse device token.....api....28----aug 2023
+  void NursetokenApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.DriverdevicetokenApi();
+    http.Response r = await ApiProvider.NursedevicetokenApi();
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);

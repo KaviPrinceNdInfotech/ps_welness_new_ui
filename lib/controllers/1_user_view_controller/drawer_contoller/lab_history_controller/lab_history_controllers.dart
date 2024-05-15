@@ -219,6 +219,6 @@ class LabHistoryController extends GetxController {
           .toList();
     }
     print(finalResult!.length);
-    foundLab.value = finalResult!;
+    foundLab.value = finalResult;
   }
 }

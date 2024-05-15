@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 
 import '../../../servicess_api/rahul_api_provider/api_provider_RRR.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
-class AdddBankController extends GetxController {
-  final GlobalKey<FormState> updatebankformkey = GlobalKey<FormState>();
+class AdddChemistBankController extends GetxController {
+  final GlobalKey<FormState> updatebankchemistformkey = GlobalKey<FormState>();
   TextEditingController? AccountNo,
       IFSCCode,
       BranchName,
@@ -23,8 +23,8 @@ class AdddBankController extends GetxController {
   var mobileNumber = '';
 
   void addchemistBankDetailApi() async {
-    CallLoader.loader();
-    http.Response r = await ApiProvider.AddAllBankDetailApi(
+    //CallLoader.loader();
+    http.Response r = await ApiProvider.AddBankDetailApi(
       AccountNo?.text,
       IFSCCode?.text,
       BranchName?.text,
@@ -32,25 +32,49 @@ class AdddBankController extends GetxController {
       HolderName?.text,
       MobileNumber?.text,
     );
+    print('chemist');
+    print(AccountNo);
+    print(IFSCCode);
+    print(BranchName);
+    print(BranchAddress);
+    print(HolderName);
+    print(MobileNumber);
     if (r.statusCode == 200) {
-      CallLoader.hideLoader();
+      /// CallLoader.hideLoader();
+      ///CallLoader.hideLoader();
+      await Future.delayed(Duration(milliseconds: 900));
+      // await SharedPreferences.getInstance()
+      //     .then((value) => Get.offAll(() => DriverHomePage()));
+      //Get.snackbar("Success", "${r.body}");
       //Get.back();
-
       /// we can navigate to user page.....................................
-      //Get.to(ChemistHomePage());
-    } else {}
+      Get.to(ChemistHomePage());
+    } else {
+      Get.snackbar(
+        'Fail',
+        "${r.body}",
+        duration: const Duration(seconds: 1),
+      );
+      print('chemist');
+      print(AccountNo);
+      print(IFSCCode);
+      print(BranchName);
+      print(BranchAddress);
+      print(HolderName);
+      print(MobileNumber);
+    }
   }
 
   @override
   void onInit() {
     //Id = TextEditingController(text: '');
     //Login_Id = TextEditingController(text: '');
-    AccountNo = TextEditingController(text: '');
-    IFSCCode = TextEditingController(text: '');
-    BranchName = TextEditingController(text: '');
-    BranchAddress = TextEditingController(text: '');
-    HolderName = TextEditingController(text: '');
-    MobileNumber = TextEditingController(text: '');
+    AccountNo = TextEditingController();
+    IFSCCode = TextEditingController();
+    BranchName = TextEditingController();
+    BranchAddress = TextEditingController();
+    HolderName = TextEditingController();
+    MobileNumber = TextEditingController();
     //isverified = TextEditingController(text: '');
     super.onInit();
   }
@@ -66,7 +90,7 @@ class AdddBankController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 9) {
+    if (value.length < 2) {
       return '              Provide valid account no.';
     }
     return null;
@@ -76,7 +100,7 @@ class AdddBankController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 4) {
+    if (value.length < 2) {
       return '              Provide valid IFSC code.';
     }
     return null;
@@ -97,7 +121,7 @@ class AdddBankController extends GetxController {
       return '              This field is required';
     }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return '              Provide valid Branch address.';
     }
     return null;
   }
@@ -107,7 +131,7 @@ class AdddBankController extends GetxController {
       return '              This field is required';
     }
     if (value.length < 2) {
-      return '              Provide valid Branch name.';
+      return '              Provide valid  name.';
     }
     return null;
   }
@@ -116,16 +140,16 @@ class AdddBankController extends GetxController {
     if (value.isEmpty) {
       return '              This field is required';
     }
-    if (value.length < 2) {
-      return '              Provide valid Branch name.';
+    if (value.length != 10) {
+      return '              Provide valid mobile number.';
     }
     return null;
   }
 
   void checkAddddBankDetail() {
-    if (updatebankformkey.currentState!.validate()) {
+    if (updatebankchemistformkey.currentState!.validate()) {
       addchemistBankDetailApi();
     }
-    updatebankformkey.currentState!.save();
+    updatebankchemistformkey.currentState!.save();
   }
 }

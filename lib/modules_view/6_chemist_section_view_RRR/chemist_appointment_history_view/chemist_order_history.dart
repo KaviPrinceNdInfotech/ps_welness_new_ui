@@ -148,8 +148,7 @@ class ChemistOrderHistory extends StatelessWidget {
                               ? Center(
                                   child: Text('No List'),
                                 )
-                              : SizedBox(
-                                  height: size.height * 0.80,
+                              : Expanded(
                                   child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: _chemistOrderController
@@ -424,7 +423,8 @@ class ChemistOrderHistory extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      })),
+                                      }),
+                                ),
                         ],
                       ),
                     ],

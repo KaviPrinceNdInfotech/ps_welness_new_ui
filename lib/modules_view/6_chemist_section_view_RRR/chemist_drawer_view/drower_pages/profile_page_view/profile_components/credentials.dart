@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/ChemistUpdateProfile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 //import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers/ChemistUpdateProfile_controller.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
+import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_home/chemist_home_page.dart';
 //import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view/nurse_home/nurse_home_page.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
@@ -15,6 +17,8 @@ class ChemistUpdateProfileCredentials extends StatelessWidget {
   ChemistUpdateProfileCredentials({Key? key}) : super(key: key);
   ChemistUpdateProfileController _chemistUpdateProfileController =
       Get.put(ChemistUpdateProfileController());
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
 
   var items = [
     'Item 1',
@@ -30,13 +34,71 @@ class ChemistUpdateProfileCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _chemistUpdateProfileController.nurseprofileformkey,
+      key: _chemistUpdateProfileController.chemistprofileformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ///TODO: Name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _chemistUpdateProfileController.nameController,
+                validator: (value) {
+                  return _chemistUpdateProfileController.validName(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Clinic Name',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.home_repair_service_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///TODO: email.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _chemistUpdateProfileController.emailController,
+                validator: (value) {
+                  return _chemistUpdateProfileController.validEmail(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Email Id',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -67,35 +129,6 @@ class ChemistUpdateProfileCredentials extends StatelessWidget {
               height: size.height * 0.02,
             ),
 
-            ///TODO: Name.......................
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.name],
-                controller: _chemistUpdateProfileController.nameController,
-                validator: (value) {
-                  return _chemistUpdateProfileController.validName(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Clinic Name',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.home_repair_service_outlined,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-
             ///Todo: state............................
             NeumorphicTextFieldContainer(
               child: Padding(
@@ -112,7 +145,8 @@ class ChemistUpdateProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Select State'),
+                      hint: Text(
+                          "${_chemistProfileDetailController.getChemistProfileDetailModel?.stateName.toString()}"),
                       items: _chemistUpdateProfileController.states
                           .map((StateModel items) {
                         return DropdownMenuItem(
@@ -152,7 +186,8 @@ class ChemistUpdateProfileCredentials extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         border: InputBorder.none,
                       ),
-                      hint: Text('Selected City'),
+                      hint: Text(
+                          "${_chemistProfileDetailController.getChemistProfileDetailModel?.cityname.toString()}"),
                       items: _chemistUpdateProfileController.cities
                           .map((City city) {
                         return DropdownMenuItem(
@@ -340,7 +375,19 @@ class ChemistUpdateProfileCredentials extends StatelessWidget {
             ),
             RectangularButton(
                 text: 'UPDATE',
-                press: _chemistUpdateProfileController.checkUpdateProfile)
+                press: () async {
+                  _chemistUpdateProfileController.checkUpdateProfile();
+
+                  await _chemistProfileDetailController
+                      .chemistProfileDetailsApi();
+                  _chemistProfileDetailController.onInit();
+                  //_nurseprofileContrller.update();
+                  _chemistUpdateProfileController.clearSelectedState();
+
+                  await Future.delayed(Duration(milliseconds: 100));
+                  await Get.offAll(() => ChemistHomePage());
+                  _chemistUpdateProfileController.selectedState.value = null;
+                })
           ],
         ),
       ),

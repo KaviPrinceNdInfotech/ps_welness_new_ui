@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchies_chemist_signup2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/franchise_chemist_view/franchise_chemist_signup2/franchies_chemist_signup2.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
@@ -16,7 +16,8 @@ import '../../../../../../controllers/2_franchises_controller/registration_part_
 class FranchiesChemist1Credentials extends StatelessWidget {
   FranchiesChemist1Credentials({Key? key}) : super(key: key);
 
-  Fr_Chemist_1_Controller _fr_chemist_1_controller = Get.put(Fr_Chemist_1_Controller());
+  Fr_Chemist_1_Controller _fr_chemist_1_controller =
+      Get.put(Fr_Chemist_1_Controller());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -121,6 +122,7 @@ class FranchiesChemist1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -151,6 +153,7 @@ class FranchiesChemist1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -182,9 +185,11 @@ class FranchiesChemist1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _fr_chemist_1_controller.mobileController,
                 onSaved: (value) {
@@ -210,9 +215,43 @@ class FranchiesChemist1Credentials extends StatelessWidget {
                 ),
               ),
             ),
+
             SizedBox(
-              height: size.height * 0.00,
+              height: size.height * 0.02,
+
               //appPadding / 2,
+            ),
+
+            ///todo: pan number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _fr_chemist_1_controller.panController,
+                onSaved: (value) {
+                  _fr_chemist_1_controller.pan = value!;
+                },
+                validator: (value) {
+                  return _fr_chemist_1_controller.validPan(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pan number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.add_card_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
             ),
             SizedBox(
               height: size.height * 0.03,
@@ -221,7 +260,7 @@ class FranchiesChemist1Credentials extends StatelessWidget {
                 text: 'Go Next >',
                 press: () {
                   _fr_chemist_1_controller.checkChemist1();
-                 // Get.to(FranchiseChemistSignup2());
+                  // Get.to(FranchiseChemistSignup2());
                 })
           ],
         ),

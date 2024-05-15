@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/city_model/city_modelss.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/complain_dropdown_subject_model/complain_dropdown_get_model.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/states_model/state_modells.dart';
@@ -12,7 +13,10 @@ import '../../modules_view/1_user_section_views/home_page_user_view/user_home_pa
 import '../../modules_view/circular_loader/circular_loaders.dart';
 
 class ProfileController extends GetxController {
+  RxBool isLoading = false.obs;
+
   final GlobalKey<FormState> profileformkey = GlobalKey<FormState>();
+  UserProfileControllers _userprofile = Get.put(UserProfileControllers());
 
   ///this is for state.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
@@ -47,6 +51,10 @@ class ProfileController extends GetxController {
     print(states);
   }
 
+  void clearSelectedState() {
+    selectedState.value = null;
+  }
+
   ///get cities api...........
   void getCityByStateIDLab(String stateID) async {
     cities.clear();
@@ -62,9 +70,12 @@ class ProfileController extends GetxController {
     http.Response r = await ApiProvider.Userprofileupdate(
       //idController.text,
       patientNameController.text,
+      emailController.text,
       MobileNumberController.text,
-      selectedState.value?.id.toString(),
-      selectedCity.value?.id.toString(),
+      selectedState.value?.id.toString() ??
+          _userprofile.userProfile?.stateMasterId,
+      selectedCity.value?.id.toString() ??
+          _userprofile.userProfile?.cityMasterId,
       LocationController.text,
       PinCodeController.text,
       //adminLogin_idController.text,
@@ -74,18 +85,29 @@ class ProfileController extends GetxController {
     );
 
     if (r.statusCode == 200) {
+      // CallLoader.hideLoader();
+
       var data = jsonDecode(r.body);
-
+      //_userprofile.update();
+      //_userprofile.userprofileApi();
+      //  _userprofile.onInit();
+      ///CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
       CallLoader.hideLoader();
-
+      // CallLoader.hideLoader();
       /// we can navigate to user page.....................................
-      Get.to(UserHomePage());
+      Get.offAll(UserHomePage());
+      await Future.delayed(Duration(milliseconds: 900));
+      await _userprofile.userprofileApi();
+      clearSelectedState();
+    } else {
+      Get.snackbar('Error', "Please fill correctly");
     }
   }
 
   late TextEditingController idController,
       patientNameController,
-      //emailController,
+      emailController,
       MobileNumberController,
       LocationController,
       PinCodeController,
@@ -97,7 +119,7 @@ class ProfileController extends GetxController {
   // var id = '';
   //var adminLogin_id = '';
   var patientName = '';
-  // var email = '';
+  var email = '';
   var MobileNumber = '';
   var Location = '';
   var PinCode = '';
@@ -108,25 +130,33 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
-    patientNameController = TextEditingController(text: '');
-    //emailController = TextEditingController();
-    MobileNumberController = TextEditingController(text: '');
-    LocationController = TextEditingController(text: '');
-    adminLogin_idController = TextEditingController(text: '');
-    PinCodeController = TextEditingController(text: '');
-    AccountNoController = TextEditingController(text: '9898666666');
-    IFSCCodeController = TextEditingController(text: '999ONSBI');
-    BranchNameController = TextEditingController(text: 'SBI');
-    idController = TextEditingController();
     getStateLabApi();
-
     //states.refresh();
     selectedState.listen((p0) {
       if (p0 != null) {
         getCityByStateIDLab("${p0.id}");
       }
     });
+    patientNameController = TextEditingController(
+        text: "${_userprofile.userProfile?.patientName.toString() ?? 0}");
+    print("dfdfdfd${_userprofile.userProfile?.patientName.toString()}");
+    emailController = TextEditingController(
+        text: "${_userprofile.userProfile?.emailId.toString() ?? 0}");
+    MobileNumberController = TextEditingController(
+        text: "${_userprofile.userProfile?.mobileNumber.toString() ?? 0}");
+    LocationController = TextEditingController(
+        text: "${_userprofile.userProfile?.location.toString() ?? 0}");
+    adminLogin_idController =
+        TextEditingController(text: "${_userprofile.userProfile?.id ?? 0}");
+    PinCodeController = TextEditingController(
+        text: "${_userprofile.userProfile?.pincode.toString() ?? 0}");
+    AccountNoController = TextEditingController(text: '9898666666');
+    IFSCCodeController = TextEditingController(text: '999ONSBI');
+    BranchNameController = TextEditingController(text: 'SBI');
+    idController = TextEditingController();
+
+    super.onInit();
+
     // selectedDepartment.listen((p0) {
     //   if (p0 != null) {
     //     getspecialistByDeptID("${p0.id}");
@@ -142,16 +172,16 @@ class ProfileController extends GetxController {
 
   @override
   void onClose() {
-    patientNameController.dispose();
-    // emailController.dispose();
-    MobileNumberController.dispose();
-    LocationController.dispose();
-    PinCodeController.dispose();
-    AccountNoController.dispose();
-    IFSCCodeController.dispose();
-    BranchNameController.dispose();
-    adminLogin_idController.dispose();
-    idController.dispose();
+    // patientNameController.dispose();
+    // // emailController.dispose();
+    // MobileNumberController.dispose();
+    // LocationController.dispose();
+    // PinCodeController.dispose();
+    // AccountNoController.dispose();
+    // IFSCCodeController.dispose();
+    // BranchNameController.dispose();
+    // adminLogin_idController.dispose();
+    // idController.dispose();
   }
 
   String? validName(String value) {

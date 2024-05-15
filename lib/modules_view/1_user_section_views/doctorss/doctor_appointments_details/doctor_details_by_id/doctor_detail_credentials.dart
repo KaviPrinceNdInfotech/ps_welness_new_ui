@@ -9,7 +9,8 @@ import '../../../../../constants/constants/constants.dart';
 import '../../../../../constants/my_theme.dart';
 import '../../../../../controllers/1_user_view_controller/doctor_sections/get_doctor_list_controller.dart';
 import '../../../../../controllers/1_user_view_controller/lab_controller/lab_bboking_scedule/lab_booking_schedule_controller.dart';
-import '../../../../../model/1_user_model/time_slots_common_model/time_slots_common.dart';
+import '../../../../../model/1_user_model/doctor_timing_slot_booking/slot_timing_doctor_booking.dart';
+import '../../../../../model/1_user_model/dr_booking_mode_dropdown/dr_booking_mode_drp_dn.dart';
 
 class DoctorScheduleCredentials extends StatelessWidget {
   DoctorScheduleCredentials({Key? key, this.bevel = 2.0}) : super(key: key);
@@ -43,7 +44,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
           child: Obx(
-            () => (_doctorListController.isLoading.value)
+            () => (_doctorListController.isLoading.isTrue)
                 ? Center(child: CircularProgressIndicator())
                 // : _nurseAppointmentDetailController.nursedetailbyId != null
                 // ? Center(
@@ -59,7 +60,7 @@ class DoctorScheduleCredentials extends StatelessWidget {
                       ///todo:selected date starting...
 
                       Text(
-                        'Choose Date:',
+                        'Date of Booking:',
                         style: TextStyle(
                           fontSize: size.height * 0.016,
                           fontWeight: FontWeight.bold,
@@ -249,144 +250,312 @@ class DoctorScheduleCredentials extends StatelessWidget {
                         height: size.height * 0.005,
                       ),
 
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Book a Time:',
-                          style: TextStyle(
-                            fontSize: size.height * 0.016,
-                            fontWeight: FontWeight.bold,
-                            color: MyTheme.blueww,
-                            //color: Colors.red.shade300,
+                      Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Book a Time:',
+                              style: TextStyle(
+                                fontSize: size.height * 0.016,
+                                fontWeight: FontWeight.bold,
+                                color: MyTheme.blueww,
+                                //color: Colors.red.shade300,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: size.width * 0.3,
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Select Mode:',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.016,
+                                  fontWeight: FontWeight.bold,
+                                  color: MyTheme.blueww,
+                                  //color: Colors.red.shade300,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: size.height * 0.075,
-                        width: size.width,
-                        child: Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.symmetric(vertical: 30 / 7),
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    lightPrimary,
-                                    darkPrimary,
-                                  ]),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(-1, -1),
-                                  spreadRadius: 1,
-                                  blurRadius: 3,
-                                  color: Colors.white,
-                                ),
-                                BoxShadow(
-                                  offset: Offset(2, 2),
-                                  spreadRadius: 1,
-                                  blurRadius: 0,
-                                  color: Colors.grey,
-                                ),
-                              ]),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.01,
-                              //vertical: size.height * 0.02
-                            ),
-                            child: Obx(
-                              () => DropdownButtonFormField<TimeSlot>(
-                                  value: _doctorListController
-                                      .selectedTimeslot.value,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.place,
-                                      color: Colors.black,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.075,
+                            width: size.width * 0.45,
+                            child: Container(
+                              // width: size.width * 0.4,
+                              margin: EdgeInsets.symmetric(vertical: 30 / 7),
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        lightPrimary,
+                                        darkPrimary,
+                                      ]),
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(-1, -1),
+                                      spreadRadius: 1,
+                                      blurRadius: 3,
+                                      color: Colors.white,
                                     ),
-                                    enabledBorder: InputBorder.none,
-                                    border: InputBorder.none,
-                                  ),
-                                  hint: Text('Select Time Slot'),
-                                  items: _doctorListController.timeslot
-                                      .map((TimeSlot timeslot) {
-                                    return DropdownMenuItem(
-                                      value: timeslot,
-                                      child: Text(
-                                        timeslot.slotTime.toString(),
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: size.height * 0.015,
-                                        ),
+                                    BoxShadow(
+                                      offset: Offset(2, 2),
+                                      spreadRadius: 1,
+                                      blurRadius: 0,
+                                      color: Colors.grey,
+                                    ),
+                                  ]),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.01,
+                                  //vertical: size.height * 0.02
+                                ),
+                                child: Obx(
+                                  () => DropdownButtonFormField<
+                                          TimeSlotDoctorss>(
+                                      value: _doctorListController
+                                          .selectedTimeslotdoctor.value,
+                                      decoration: InputDecoration(
+                                        // prefixIcon: Icon(
+                                        //   Icons.watch_later_outlined,
+                                        //   color: Colors.black,
+                                        //   size: size.height * 0.02,
+                                        // ),
+                                        enabledBorder: InputBorder.none,
+                                        border: InputBorder.none,
                                       ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (TimeSlot? newValue) {
-                                    _doctorListController
-                                        .selectedTimeslot.value = newValue!;
-                                    // _nurseBooking1Controller.selectedCity.value = null;
-                                    // _hospital_2_controller.states.value =
-                                    //     newValue! as List<String>;
-                                    // _hospital_2_controller.selectedCity.value = null;
-                                    // _hospital_2_controller.cities.clear();
-                                    // _hospital_2_controller.cities
-                                    //     .addAll(stateCityMap[newvalue]!);
-                                  }),
+                                      hint: Text('Select Time Slot'),
+                                      items: _doctorListController
+                                          .timeSlotdoctor
+                                          .map((TimeSlotDoctorss
+                                              timeSlotdoctor) {
+                                        return DropdownMenuItem(
+                                          value: timeSlotdoctor,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: size.width * 0.02),
+                                            child: Text(
+                                              timeSlotdoctor.startTime
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.height * 0.015,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (TimeSlotDoctorss? newValue) {
+                                        _doctorListController
+                                            .selectedTimeslotdoctor
+                                            .value = newValue!;
+                                        // _nurseBooking1Controller.selectedCity.value = null;
+                                        // _hospital_2_controller.states.value =
+                                        //     newValue! as List<String>;
+                                        // _hospital_2_controller.selectedCity.value = null;
+                                        // _hospital_2_controller.cities.clear();
+                                        // _hospital_2_controller.cities
+                                        //     .addAll(stateCityMap[newvalue]!);
+                                      }),
+                                ),
+                              ),
                             ),
+                            // ListView.builder(
+                            //     shrinkWrap: true,
+                            //     scrollDirection: Axis.horizontal,
+                            //     itemCount: 32,
+                            //     itemBuilder: (BuildContext context, int index) {
+                            //       return Padding(
+                            //         padding: const EdgeInsets.all(3.0),
+                            //         child: PhysicalModel(
+                            //           color: MyTheme.white,
+                            //           borderRadius: BorderRadius.circular(5),
+                            //           elevation: 20,
+                            //           child: Padding(
+                            //             padding: EdgeInsets.symmetric(
+                            //                 horizontal: size.width * 0.01,
+                            //                 vertical: size.height * 0.004),
+                            //             child: Container(
+                            //               //height: size.height * 0.025,
+                            //               width: size.width * 0.17,
+                            //               decoration: BoxDecoration(
+                            //                 color: MyTheme.ThemeColors,
+                            //                 borderRadius: BorderRadius.circular(5),
+                            //               ),
+                            //               child: Column(
+                            //                 mainAxisAlignment:
+                            //                     MainAxisAlignment.center,
+                            //                 children: [
+                            //                   Text(
+                            //                     'MAR',
+                            //                     style: TextStyle(
+                            //                       fontSize: size.height * 0.015,
+                            //                       fontWeight: FontWeight.w600,
+                            //                       color: Colors.white,
+                            //                     ),
+                            //                   ),
+                            //                   SizedBox(
+                            //                     height: size.height * 0.01,
+                            //                   ),
+                            //                   Text(
+                            //                     '${index}',
+                            //                     style: TextStyle(
+                            //                       fontSize: size.height * 0.016,
+                            //                       fontWeight: FontWeight.w600,
+                            //                       color: Colors.white,
+                            //                     ),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }),
                           ),
-                        ),
-                        // ListView.builder(
-                        //     shrinkWrap: true,
-                        //     scrollDirection: Axis.horizontal,
-                        //     itemCount: 32,
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       return Padding(
-                        //         padding: const EdgeInsets.all(3.0),
-                        //         child: PhysicalModel(
-                        //           color: MyTheme.white,
-                        //           borderRadius: BorderRadius.circular(5),
-                        //           elevation: 20,
-                        //           child: Padding(
-                        //             padding: EdgeInsets.symmetric(
-                        //                 horizontal: size.width * 0.01,
-                        //                 vertical: size.height * 0.004),
-                        //             child: Container(
-                        //               //height: size.height * 0.025,
-                        //               width: size.width * 0.17,
-                        //               decoration: BoxDecoration(
-                        //                 color: MyTheme.ThemeColors,
-                        //                 borderRadius: BorderRadius.circular(5),
-                        //               ),
-                        //               child: Column(
-                        //                 mainAxisAlignment:
-                        //                     MainAxisAlignment.center,
-                        //                 children: [
-                        //                   Text(
-                        //                     'MAR',
-                        //                     style: TextStyle(
-                        //                       fontSize: size.height * 0.015,
-                        //                       fontWeight: FontWeight.w600,
-                        //                       color: Colors.white,
-                        //                     ),
-                        //                   ),
-                        //                   SizedBox(
-                        //                     height: size.height * 0.01,
-                        //                   ),
-                        //                   Text(
-                        //                     '${index}',
-                        //                     style: TextStyle(
-                        //                       fontSize: size.height * 0.016,
-                        //                       fontWeight: FontWeight.w600,
-                        //                       color: Colors.white,
-                        //                     ),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }),
+                          SizedBox(
+                            height: size.height * 0.075,
+                            width: size.width * 0.45,
+                            child: Container(
+                              // width: size.width * 0.4,
+                              margin: EdgeInsets.symmetric(vertical: 30 / 7),
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        lightPrimary,
+                                        darkPrimary,
+                                      ]),
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(-1, -1),
+                                      spreadRadius: 1,
+                                      blurRadius: 3,
+                                      color: Colors.white,
+                                    ),
+                                    BoxShadow(
+                                      offset: Offset(2, 2),
+                                      spreadRadius: 1,
+                                      blurRadius: 0,
+                                      color: Colors.grey,
+                                    ),
+                                  ]),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.01,
+                                  //vertical: size.height * 0.02
+                                ),
+                                child: Obx(
+                                  () => DropdownButtonFormField<BookingMode>(
+                                      value: _doctorListController
+                                          .selectedmodedoctor.value,
+                                      decoration: InputDecoration(
+                                        // prefixIcon: Icon(
+                                        //   Icons.watch_later_outlined,
+                                        //   color: Colors.black,
+                                        //   size: size.height * 0.02,
+                                        // ),
+                                        enabledBorder: InputBorder.none,
+                                        border: InputBorder.none,
+                                      ),
+                                      hint: Text('Select mode'),
+                                      items: _doctorListController.bookingMode
+                                          .map((BookingMode bookingMode) {
+                                        return DropdownMenuItem(
+                                          value: bookingMode,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: size.width * 0.02),
+                                            child: Text(
+                                              bookingMode.mode.toString(),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: size.height * 0.015,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (BookingMode? newValue) {
+                                        _doctorListController.selectedmodedoctor
+                                            .value = newValue!;
+                                        // _nurseBooking1Controller.selectedCity.value = null;
+                                        // _hospital_2_controller.states.value =
+                                        //     newValue! as List<String>;
+                                        // _hospital_2_controller.selectedCity.value = null;
+                                        // _hospital_2_controller.cities.clear();
+                                        // _hospital_2_controller.cities
+                                        //     .addAll(stateCityMap[newvalue]!);
+                                      }),
+                                ),
+                              ),
+                            ),
+                            // ListView.builder(
+                            //     shrinkWrap: true,
+                            //     scrollDirection: Axis.horizontal,
+                            //     itemCount: 32,
+                            //     itemBuilder: (BuildContext context, int index) {
+                            //       return Padding(
+                            //         padding: const EdgeInsets.all(3.0),
+                            //         child: PhysicalModel(
+                            //           color: MyTheme.white,
+                            //           borderRadius: BorderRadius.circular(5),
+                            //           elevation: 20,
+                            //           child: Padding(
+                            //             padding: EdgeInsets.symmetric(
+                            //                 horizontal: size.width * 0.01,
+                            //                 vertical: size.height * 0.004),
+                            //             child: Container(
+                            //               //height: size.height * 0.025,
+                            //               width: size.width * 0.17,
+                            //               decoration: BoxDecoration(
+                            //                 color: MyTheme.ThemeColors,
+                            //                 borderRadius: BorderRadius.circular(5),
+                            //               ),
+                            //               child: Column(
+                            //                 mainAxisAlignment:
+                            //                     MainAxisAlignment.center,
+                            //                 children: [
+                            //                   Text(
+                            //                     'MAR',
+                            //                     style: TextStyle(
+                            //                       fontSize: size.height * 0.015,
+                            //                       fontWeight: FontWeight.w600,
+                            //                       color: Colors.white,
+                            //                     ),
+                            //                   ),
+                            //                   SizedBox(
+                            //                     height: size.height * 0.01,
+                            //                   ),
+                            //                   Text(
+                            //                     '${index}',
+                            //                     style: TextStyle(
+                            //                       fontSize: size.height * 0.016,
+                            //                       fontWeight: FontWeight.w600,
+                            //                       color: Colors.white,
+                            //                     ),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }),
+                          ),
+                        ],
                       ),
 
                       // SizedBox(

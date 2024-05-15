@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
+import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
 //import 'package:ps_welness/constants/constants/constants.dart';
 
 class ProfileHeadText extends StatelessWidget {
@@ -24,7 +25,9 @@ class ProfileHeadText extends StatelessWidget {
             children: [
               InkWell(
                   onTap: () {
-                    Get.back();
+                    Get.to(UserHomePage());
+
+                    //Get.back();
                   },
                   child: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(
@@ -42,7 +45,7 @@ class ProfileHeadText extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.05),
           Text(
-            'Kumar Prince',
+            'Ps User Profile',
             style: GoogleFonts.alatsi(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -52,7 +55,7 @@ class ProfileHeadText extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: 'Kavi@gmail.com',
+                  text: '',
                   style: GoogleFonts.poppins(
                     fontSize: 23,
                     color: Colors.black87,

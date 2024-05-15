@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/lab_list_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/home_page_user_view/user_home_page.dart';
+import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../drawer_contoller/lab_history_controller/lab_history_controllers.dart';
 import '../lab_controller/post_lab_order_controller/post_lab_order_controller.dart';
@@ -21,6 +27,7 @@ class RozarPayLabController extends GetxController {
   //CheckoutController _checkoutController = Get.put(CheckoutController());
   PostOrderController _postOrderController = Get.put(PostOrderController());
   LabHistoryController _labHistoryController = Get.put(LabHistoryController());
+  //LabListController _labListController = Get.put(LabListController());
 
   @override
   void onInit() {
@@ -39,14 +46,21 @@ class RozarPayLabController extends GetxController {
     super.dispose();
   }
 
-  void openCheckout() async {
+  Future<void> openCheckout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var LabFee1 = preferences.getString("LabFee1");
+    print("Fee5454543434: ${LabFee1}");
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
-      'key': 'rzp_test_aeRns0u8gPpOUK',
-      'amount': int.parse(
-          // '100'
+      'key': 'rzp_test_s1VIQAlF8CZRCE',
+      //'rzp_test_aeRns0u8gPpOUK',
+      'amount': double.parse(
+              // '100'
 
-          '${_labListController.labCheckoutModel?.fee!.toInt()}') * 100,
+              '${LabFee1}'
+              //'${_labListController.labCheckoutModel?.fee!.toInt()}'
+              ) *
+          100,
       'name':
           //'Kavi Singh',
           _userrsProfileControllers.userProfile!.patientName.toString(),
@@ -88,6 +102,74 @@ class RozarPayLabController extends GetxController {
       if (statusCode == 200) {
         ///This is the main thing to provide updated list history...
         _labHistoryController.labHistorybyUserId();
+
+        ///...1
+        ///todo: this is api call delete list of api.....
+        print('princee notification');
+        notificationServices.getDeviceToken().then((value) async {
+          var data = {
+            ///not same controller
+            //this the particular device id.....
+            'to':
+                //"${
+                _labListController.labCheckoutModel?.deviceId ??
+                    value.toString(),
+
+            /// _doctorappointmentcheckout.doctorCheckoutModel?.id,
+            //_doctorHomepageController.founddoctoraptProducts?[index].deviceId
+            // }",
+
+            ///this is same device token....
+            //  value.toString(),
+            'notification': {
+              'title': 'Ps_Wellness Patient',
+              'body':
+                  'Your payment done by "${_userrsProfileControllers.userProfile!.patientName.toString()}" and request generated',
+              //"sound": "jetsons_doorbell.mp3"
+            },
+            'android': {
+              'notification': {
+                'notification_count': 23,
+              },
+            },
+            // 'data': {
+            //   'type': 'cancel_case_doctor',
+            //   'id': '12345689'
+            // }
+          };
+          // print("dataccept:${data}");
+
+          await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+              body: jsonEncode(data),
+              headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization':
+                    //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                    'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+              }).then((value) {
+            if (kDebugMode) {
+              print("princedriver${value.body.toString()}");
+            }
+          }).onError((error, stackTrace) {
+            if (kDebugMode) {
+              print(error);
+            }
+          });
+          // CallLoader.loader();
+          // await Future.delayed(Duration(seconds: 1));
+          // await accountService.getAccountData.then((accountData) {
+          //   Timer(
+          //     const Duration(seconds: 0),
+          //         () {
+          //       Get.offAll(UserHomePage());
+          //       //Get.to((page))
+          //       ///
+          //     },
+          //   );
+          // });
+        });
+
+        ///..1..
 
         ///nov 14....................................
         //Get.to(LabHistoryUser());

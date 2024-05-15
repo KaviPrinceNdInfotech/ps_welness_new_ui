@@ -8,7 +8,6 @@ import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_cont
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/report_controller/nurse_report_user_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/doctor_report_listtts.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/lab_user_report_page.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/nurse_report_list_user.dart';
 
 //import 'package:ps_welness/lib/modules_view/1_user_section_views/user_drawer/reports_section/report_section_pages/health_checkup_report_page.dart';
 
@@ -109,72 +108,76 @@ class ReportLists extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.height * 0.014,
-                                vertical: size.height * 0.0),
-                            child: InkWell(
-                              onTap: () {
-                                _nursereportuserviewController
-                                    .nurseuserreportviewApi();
-                                _nursereportuserviewController.update();
 
-                                Get.to(() => NurseUserreportList());
+                        ///todo:nurse.......
+                        // Padding(
+                        //     padding: EdgeInsets.symmetric(
+                        //         horizontal: size.height * 0.014,
+                        //         vertical: size.height * 0.0),
+                        //     child: InkWell(
+                        //       onTap: () {
+                        //         _nursereportuserviewController
+                        //             .nurseuserreportviewApi();
+                        //         _nursereportuserviewController.update();
+                        //
+                        //         Get.to(() => NurseUserreportList());
+                        //
+                        //         //Get.to(()=>HealthCheckupPdf());
+                        //       },
+                        //       child: Container(
+                        //           height: size.height * 0.04,
+                        //           width: double.infinity,
+                        //           margin:
+                        //               EdgeInsets.symmetric(vertical: 30 / 2),
+                        //           decoration: BoxDecoration(
+                        //               gradient: LinearGradient(
+                        //                   begin: Alignment.topCenter,
+                        //                   end: Alignment.bottomCenter,
+                        //                   colors: [
+                        //                     darkPrimary2,
+                        //                     lightPrimary,
+                        //                   ]),
+                        //               borderRadius: BorderRadius.circular(12),
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   offset: Offset(-0, -0),
+                        //                   spreadRadius: 1,
+                        //                   blurRadius: 0,
+                        //                   color: Colors.grey.shade300,
+                        //                 ),
+                        //                 BoxShadow(
+                        //                   offset: Offset(3, 3),
+                        //                   spreadRadius: 1,
+                        //                   blurRadius: 0,
+                        //                   color: Colors.grey.shade300,
+                        //                 ),
+                        //               ]),
+                        //           child: Center(
+                        //               child: Padding(
+                        //             padding: EdgeInsets.symmetric(
+                        //                 horizontal: size.width * 0.03),
+                        //             child: Row(
+                        //               mainAxisAlignment:
+                        //                   MainAxisAlignment.spaceBetween,
+                        //               children: [
+                        //                 Icon(Icons.health_and_safety),
+                        //                 Text(
+                        //                   'Nurse Report',
+                        //                   style: TextStyle(
+                        //                     fontSize: size.height * 0.018,
+                        //                     fontWeight: FontWeight.bold,
+                        //                   ),
+                        //                 ),
+                        //                 Icon(
+                        //                   Icons.arrow_forward_ios,
+                        //                   size: size.height * 0.02,
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ))),
+                        //     )),
+                        ///todo:nurse.......
 
-                                //Get.to(()=>HealthCheckupPdf());
-                              },
-                              child: Container(
-                                  height: size.height * 0.04,
-                                  width: double.infinity,
-                                  margin:
-                                      EdgeInsets.symmetric(vertical: 30 / 2),
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            darkPrimary2,
-                                            lightPrimary,
-                                          ]),
-                                      borderRadius: BorderRadius.circular(12),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: Offset(-0, -0),
-                                          spreadRadius: 1,
-                                          blurRadius: 0,
-                                          color: Colors.grey.shade300,
-                                        ),
-                                        BoxShadow(
-                                          offset: Offset(3, 3),
-                                          spreadRadius: 1,
-                                          blurRadius: 0,
-                                          color: Colors.grey.shade300,
-                                        ),
-                                      ]),
-                                  child: Center(
-                                      child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: size.width * 0.03),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(Icons.health_and_safety),
-                                        Text(
-                                          'Nurse Report',
-                                          style: TextStyle(
-                                            fontSize: size.height * 0.018,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: size.height * 0.02,
-                                        ),
-                                      ],
-                                    ),
-                                  ))),
-                            )),
                         Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.height * 0.014,

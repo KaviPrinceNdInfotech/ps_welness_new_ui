@@ -3,6 +3,8 @@
     package="com.ndinfotech.pswellnessapp.ps_welness_new_ui">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -12,6 +14,9 @@
     <uses-permission android:name="android.hardware.location.gps" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>
+
+    <!--uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" /-->
+
 
 
     <!--uses-library android:name="org.apache.http.legacy" android:required="false" tools:ignore="WrongManifestParent" /-->
@@ -36,9 +41,11 @@
             <data android:scheme="tel" />
         </intent>
     </queries>
-   <application
-        android:label="ps_welness_new_ui"
+    <application
+        android:requestLegacyExternalStorage="true"
+        android:label="P S Wellness"
         android:name="${applicationName}"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -47,15 +54,17 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            tools:targetApi="honeycomb"
+            tools:ignore="Instantiatable">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="pswellnesspushnotification"/>
@@ -69,10 +78,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-       <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw"/>
-       <meta-data
-           android:name="com.google.firebase.messaging.default_notification_channel_id"
-           android:value="high_importance_channel" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel" />
     </application>
+
 </manifest>

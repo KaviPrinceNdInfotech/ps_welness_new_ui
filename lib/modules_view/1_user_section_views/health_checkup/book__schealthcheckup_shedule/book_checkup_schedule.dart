@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 //import 'package:ps_welness/constants/my_theme.dart';
@@ -31,7 +32,7 @@ class CheckupSchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var base = 'http://test.pswellness.in/Images/';
+    //var base = 'http://test.pswellness.in/Images/';
 
     return Scaffold(
       backgroundColor: MyTheme.ThemeColors,
@@ -488,7 +489,7 @@ class CheckupSchedulePage extends StatelessWidget {
                                                                 ),
                                                                 child: Image
                                                                     .network(
-                                                                  '$base${_viewhealthchkpreviewController?.healthchkpviewreview?.rating?[index].image.toString()}',
+                                                                  '$IMAGE_BASE_URL${_viewhealthchkpreviewController?.healthchkpviewreview?.rating?[index].image.toString()}',
                                                                   //base+'${_userhomePageController.banerlistmodel!.bannerImageList![index].toString()}',
                                                                   fit: BoxFit
                                                                       .fill,

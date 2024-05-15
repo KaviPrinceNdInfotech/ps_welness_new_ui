@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -19,12 +20,15 @@ import '../../../modules_view/circular_loader/circular_loaders.dart';
 import 'get_doctor_list_controller.dart';
 
 class Doctor_appointment_1_Controller extends GetxController {
+  RxBool isLoading = true.obs;
+
   DoctorListController _doctorListController = Get.put(DoctorListController());
 
   final GlobalKey<FormState> doctorappointment1key = GlobalKey<FormState>();
 
   ///this is for state.................................
   Rx<StateModel?> selectedState = (null as StateModel?).obs;
+
   List<StateModel> states = <StateModel>[].obs;
 
   ///this is for city....................................
@@ -44,7 +48,7 @@ class Doctor_appointment_1_Controller extends GetxController {
 
   ///get state api.........
 
-  void getStateLabApi() async {
+  Future<void> getStateLabApi() async {
     states = await ApiProvider.getSatesApi();
     print('Prince state  list');
     print(states);
@@ -61,7 +65,7 @@ class Doctor_appointment_1_Controller extends GetxController {
 
   ///get department api.........
 
-  void getdepartmentApi() async {
+  Future<void> getdepartmentApi() async {
     department = await ApiProvider.getDortorDepartmentApi();
     print('Prince departmrntttss  list');
     print(department);
@@ -94,7 +98,15 @@ class Doctor_appointment_1_Controller extends GetxController {
       //Get.to(NurseListUser());
       /// we can navigate to user page.....................................
       // Get.to(LabCatagaryDetails());
-      Get.to(DoctorListUser());
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 900));
+      CallLoader.hideLoader();
+      await Get.offAll(DoctorListUser());
+
+      // await Timer(Duration(seconds: 2),
+      //     () => Get.delete<Doctor_appointment_1_Controller>());
+      //
+      // await Get.deleteAll();
     }
   }
 

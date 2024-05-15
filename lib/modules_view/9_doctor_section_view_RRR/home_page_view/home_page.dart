@@ -10,10 +10,14 @@ import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_pa
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_profile_controller.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_upload_report_controller/doctor_upload_report_controllers.dart';
 import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/doctor_view_report1_controller/doctor_viewreport_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
+import 'package:ps_welness_new_ui/controllers/9_doctor_controllers_RRR/patient_list_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_add_bank_details/bank_update_view.dart';
+//import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_update_bank_details/bank_update_view.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_upload_report/doctor_upload_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/doctor_view_reportt/doctor_view_report.dart';
 import 'package:ps_welness_new_ui/modules_view/9_doctor_section_view_RRR/drawer_view/drower_pages/patient_lists/patient_list.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
 import '../../../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
 //import '../../2_franchies_section_view/franchies_drawer_view/drower_pages/patient_lists/patient_list.dart';
@@ -29,8 +33,10 @@ class DoctorHomePage extends StatelessWidget {
   //Get.put(DoctorHomepageController());
   DoctorHomepageController _doctorHomepageController =
       Get.put(DoctorHomepageController());
-  final DoctorPaymentViewControllers _paymentViewControllers =
-      Get.put(DoctorPaymentViewControllers());
+  PatientListController _patientListController =
+      Get.put(PatientListController());
+  // final DoctorPaymentViewControllers _paymentViewControllers =
+  //     Get.put(DoctorPaymentViewControllers());
   DoctorProfileControllers _doctorProfileControllers =
       Get.put(DoctorProfileControllers());
   DoctorrUploadReportController _doctorrUploadReportController =
@@ -39,16 +45,21 @@ class DoctorHomePage extends StatelessWidget {
   DoctorreportviewController _doctorreportviewController =
       Get.put(DoctorreportviewController());
 
+  DoctorPaymentViewControllers _doctorPaymentViewControllers =
+      Get.put(DoctorPaymentViewControllers());
+
+  RxBool isLoading = true.obs;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keydoctor = GlobalKey();
 
     final List<String> productname = [
-      'Appointment Detail',
+      'Booking Request',
       'Upload Report',
       'Payment History',
-      'Appointment History',
+      'Booking History',
       'Report view',
       'Add Bank',
     ];
@@ -71,7 +82,7 @@ class DoctorHomePage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () => showExitPopup(context),
       child: Scaffold(
-        key: _key,
+        key: _keydoctor,
         backgroundColor: MyTheme.ThemeColors,
         appBar: AppBar(
           centerTitle: true,
@@ -111,10 +122,10 @@ class DoctorHomePage extends StatelessWidget {
               size: 23,
               color: Colors.white,
             ),
-            onPressed: () {
-              _key.currentState!.openDrawer();
-              _doctorProfileControllers.doctorprofileApi();
+            onPressed: () async {
+              await _doctorProfileControllers.doctorprofileApi();
               _doctorProfileControllers.update();
+              _keydoctor.currentState!.openDrawer();
             },
           ),
         ),
@@ -184,33 +195,61 @@ class DoctorHomePage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     if (index == 0) {
                                       _doctorHomepageController
                                           .doctorAppoinmentDetail();
                                       _doctorHomepageController.update();
+                                      _doctorHomepageController
+                                          .doctorAppoinmentOnline();
+                                      _doctorHomepageController.onInit();
                                       Get.to(() => AppointmentDetails());
                                     } else if (index == 1) {
+                                      _doctorrUploadReportController.update();
+                                      _doctorrUploadReportController.refresh();
                                       // _doctorrUploadReportController
                                       // .getdoctorrpatientApi();
                                       //.getlabpatientApi();
                                       // _doctorrUploadReportController.update();
+                                      await _doctorrUploadReportController
+                                          .getdoctorrpatientApi2();
+                                      CallLoader.loader();
 
-                                      Get.to(DoctorUploadReport());
+                                      await Future.delayed(
+                                          Duration(seconds: 3));
+                                      CallLoader.hideLoader();
+                                      //await Get.to(DoctorSignup2());
+                                      // await Get.offAll(
+                                      //         () => NurseBoooking1());
+
+                                      await Get.to(DoctorUploadReport());
                                     } else if (index == 2) {
-                                      _paymentViewControllers
+                                      await _doctorPaymentViewControllers
                                           .doctorPaymentHistoryApi();
-                                      _paymentViewControllers.update();
-                                      Get.to(() => PaymentHistory());
+                                      _doctorPaymentViewControllers.update();
+
+                                      await Future.delayed(
+                                          Duration(seconds: 1));
+                                      print("drpayment");
+                                      //isLoading(false);
+                                      CallLoader.hideLoader();
+                                      await Get.to(() => PaymentHistory());
                                     } else if (index == 3) {
                                       _doctorHomepageController
                                           .doctorAppoinmentHistory();
                                       _doctorHomepageController.update();
+
+                                      ///patientListApi
+                                      await _patientListController
+                                          .patientListApi();
+                                      // _patientListController.onInit();
+                                      _patientListController.update();
+
                                       // doctorHomepageController
                                       //.doctorAppoinmentHistory();
                                       //doctorHomepageController.update();
                                       //Get.to(() => AppointmentHistory());
-                                      Get.to(PatientListDoctor());
+                                      await Get.to(PatientListDoctor());
 
                                       ///Todo this is showing dark and white mode
                                     } else if (index == 4) {
@@ -219,7 +258,7 @@ class DoctorHomePage extends StatelessWidget {
                                       _doctorreportviewController.update();
                                       Get.to(() => DoctorViewssReport());
                                     } else if (index == 5) {
-                                      Get.to(() => UpdateDoctorBankDetail());
+                                      Get.to(() => AddDoctorBankDetail());
                                       //Get.to(() => SupportView());
                                     }
                                   },
@@ -305,7 +344,7 @@ class Mycrusial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var imgpath = 'http://test.pswellness.in/Images/';
+    ///var imgpath = 'http://pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Obx(
@@ -351,7 +390,7 @@ class Mycrusial extends StatelessWidget {
                                           color: Colors.white, width: 3),
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              '$imgpath${items?[index].bannerPath}' ??
+                                              '$IMAGE_BASE_URL${items?[index].bannerPath}' ??
                                                   ''),
                                           fit: BoxFit.cover,
                                           onError: (error, stackTrace) {

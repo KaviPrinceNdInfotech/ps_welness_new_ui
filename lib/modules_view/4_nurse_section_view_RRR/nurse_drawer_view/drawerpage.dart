@@ -8,19 +8,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_about_us/user_about_us_controller.dart';
 import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_aboutus_controller/nurse_about_us_controller.dart';
-import 'package:ps_welness_new_ui/modules_view/1_user_section_views/user_drawer/drawer_pages_user/about_us_user/about_us.dart';
+import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_drawer_controllers/nurse_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/login_email/login_email_controller.dart';
 //import 'package:ps_welness_new_ui/controllers/4_nurse_controllerRRR33344new/nurse_complain_controller/nurse_complain_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/nurse_profile_details/profile_nurse_detail_page.dart';
-import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/bank_update_seperate_chemist/bank_update_saperate_chemist.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/update_bank_nurse/bank_update_nurse_view.dart';
+import 'package:ps_welness_new_ui/modules_view/4_nurse_section_view_RRR/nurse_drawer_view/drower_pages/update_bank_nurse/update_bank_nrs_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/change_password_view/change_password_view.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
+import 'package:ps_welness_new_ui/modules_view/comman_appi/get_all_bank_detail/get_bank_detail_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/sign_in/sigin_screen.dart';
+import 'package:ps_welness_new_ui/widgets/share_your_link/share_link_pagee.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_aboutus.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/web_view_privecy_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'drower_pages/about_us/about_us.dart';
 import '../../../controllers/4_nurse_controllerRRR33344new/nurse_profile_controller.dart';
+import '../../../widgets/support_page_comman/support_comman_page.dart';
 import 'drower_pages/complaint_page/complaint_page.dart';
 import 'drower_pages/patient_lists/patient_list.dart';
 import 'drower_pages/profile_page_view/nurse_profile.dart';
-import 'drower_pages/supports/support_view.dart';
 
 class NurseMainDrawer extends StatelessWidget {
   // NurseComplaintController _nurseComplaintController =
@@ -30,11 +38,22 @@ class NurseMainDrawer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     NurseAboutusController _nurseAboutusController =
         Get.put(NurseAboutusController());
-    NurseProfileControllers _nurseprofileContrller =
-        Get.put(NurseProfileControllers());
+    NurseProfileControllersdetail _nurseprofileContrller =
+        Get.put(NurseProfileControllersdetail());
+
+    UpdateBankSeperatenrsController _updateBankSeperatenrsController =
+        Get.put(UpdateBankSeperatenrsController());
+
+    NurseProfileUpdateController _nurseprofileUpdateController =
+        Get.put(NurseProfileUpdateController());
+
+    // NurseProfileControllersdetail _nurseprofileContrller =
+    // Get.put(NurseProfileControllersdetail());
 
     UserAboutusController _userAboutusController =
         Get.put(UserAboutusController());
+    LoginpasswordController _loginpasswordControllerr3 = Get.find();
+    BankDetailController _getbank = Get.put(BankDetailController());
 
     return SafeArea(
       child: Drawer(
@@ -76,10 +95,8 @@ class NurseMainDrawer extends StatelessWidget {
                           color: MyTheme.blueww),
                     ),
                     Text(
-                      "${_nurseprofileContrller.getNurseProfile?.emailId.toString()}"
-
-                      //'Ak@gmail.com',
-                      ,
+                      "${_nurseprofileContrller.getNurseProfile?.emailId.toString()}",
+                      //'Ak@gmail.com',,
                       style: GoogleFonts.roboto(
                           fontSize: size.height * 0.015,
                           fontWeight: FontWeight.w700,
@@ -123,6 +140,39 @@ class NurseMainDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
+                FontAwesomeIcons.person,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Profile',
+                style: TextStyle(
+                    fontSize: size.height * 0.017,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/NurseDetailProfile'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                // _nurseAboutusController.NurseaboutusApi();
+                // _nurseAboutusController.update();
+                Get.to(() => NurseDetailProfile());
+                Get.offNamed('/NurseDetailProfile');
+              },
+            ),
+            ListTile(
+              leading: Icon(
                 FontAwesomeIcons.edit,
                 color: MyTheme.blueww,
                 size: size.height * 0.021,
@@ -145,11 +195,24 @@ class NurseMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/NurseEditProfilePage'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
-                Get.to(() => NurseEditProfilePage());
-                Get.offNamed('/NurseEditProfilePage');
+                //Get.back();
+
+                await _nurseprofileContrller.nurseprofileApi();
+                _nurseprofileContrller.update();
+                _nurseprofileContrller.onInit();
+
+                _nurseprofileUpdateController.onInit();
+                _nurseprofileUpdateController.clearSelectedState();
+                //_nurseprofileContrller.onInit();
+                _nurseprofileUpdateController.getStateApi();
+                await Future.delayed(Duration(milliseconds: 1000));
+                await Get.offAll(() => NurseEditProfilePage());
+                await Future.delayed(Duration(milliseconds: 10));
+
+                //await _nurseprofileContrller.nurseprofileApi();
+                //Get.offNamed('/NurseEditProfilePage');
               },
             ),
 
@@ -178,11 +241,19 @@ class NurseMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/UpdateBankSeperateDetail'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => UpdateBankSeperateDetail());
-                Get.offNamed('/UpdateBankSeperateDetail');
+                await _getbank.BankDetailCommonApi();
+                _getbank.update();
+                _getbank.onInit();
+                // _updateBankSeperatenrsController.onInit();
+                await Future.delayed(Duration(milliseconds: 1000));
+                await Get.offAll(() => UpdateBankSeperateNrsDetail());
+                await Future.delayed(Duration(milliseconds: 10));
+                await _getbank.BankDetailCommonApi();
+                //Get.to(() => UpdateBankSeperateNrsDetail());
+                //Get.offNamed('/UpdateBankSeperateDetail');
               },
             ),
 
@@ -202,7 +273,7 @@ class NurseMainDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'List',
+                'Patient List',
                 style: TextStyle(
                     fontSize: size.height * 0.017,
                     fontWeight: FontWeight.w600,
@@ -255,39 +326,7 @@ class NurseMainDrawer extends StatelessWidget {
                 Get.offNamed('/ComplaintPage');
               },
             ),
-            ListTile(
-              leading: Icon(
-                FontAwesomeIcons.person,
-                color: MyTheme.blueww,
-                size: size.height * 0.021,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: MyTheme.blueww,
-                size: size.height * 0.02,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
-              title: Text(
-                'Profile',
-                style: TextStyle(
-                    fontSize: size.height * 0.017,
-                    fontWeight: FontWeight.w600,
-                    color: MyTheme.blueww),
-              ),
-              tileColor: Get.currentRoute == '/NurseDetailProfile'
-                  ? Colors.grey[300]
-                  : Colors.transparent,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // _nurseAboutusController.NurseaboutusApi();
-                // _nurseAboutusController.update();
-                Get.to(() => NurseDetailProfile());
-                Get.offNamed('/NurseDetailProfile');
-              },
-            ),
+
             ListTile(
               // horizontalTitleGap: 10,
               leading: Icon(
@@ -310,7 +349,7 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/UserAboutUsView'
+              tileColor: Get.currentRoute == '/WebViewPswebsiteabout'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
@@ -322,9 +361,42 @@ class NurseMainDrawer extends StatelessWidget {
 
                 _userAboutusController.update();
                 _userAboutusController.useraboutusApi();
-                Get.to(() => UserAboutUsView());
+                Get.to(() => WebViewPswebsiteabout());
                 //  Get.to(() => NurseAboutUsView());
-                Get.offNamed('/UserAboutUsView');
+                Get.offNamed('/WebViewPswebsiteabout');
+              },
+            ),
+
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.policy,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Privacy Policy',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/WebViewPswebsiteprivecy'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                Get.to(() => WebViewPswebsiteprivecy()
+                    // PrivacyPolicyView()
+                    );
               },
             ),
 
@@ -350,14 +422,77 @@ class NurseMainDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: MyTheme.blueww),
               ),
-              tileColor: Get.currentRoute == '/SupportView'
+              tileColor: Get.currentRoute == '/SupportViewPsComman'
                   ? Colors.grey[300]
                   : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => SupportView());
-                Get.offNamed('/SupportView');
+                Get.to(() => SupportViewPsComman());
+                Get.offNamed('/SupportViewPsComman');
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.share_rounded,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Share with others',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/Sharelinkweight'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                Get.back();
+                //Get.to(() => ShareData());
+                Get.to(() => Sharelinkweight());
+              },
+            ),
+            ListTile(
+              // horizontalTitleGap: 10,
+              leading: Icon(
+                Icons.password,
+                color: MyTheme.blueww,
+                size: size.height * 0.021,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: MyTheme.blueww,
+                size: size.height * 0.02,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Change Password',
+                style: TextStyle(
+                    fontSize: size.height * 0.016,
+                    fontWeight: FontWeight.w600,
+                    color: MyTheme.blueww),
+              ),
+              tileColor: Get.currentRoute == '/ChangePassword'
+                  ? Colors.grey[300]
+                  : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => ChangePassword());
+                Get.offNamed('/ChangePassword');
               },
             ),
 
@@ -386,11 +521,20 @@ class NurseMainDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/AboutUs'
                   ? Colors.grey[300]
                   : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 ///....logout
-                SharedPreferences.getInstance().then((value) => value.clear());
+                _loginpasswordControllerr3.onInit();
+                _loginpasswordControllerr3.emailController.clear();
+                _loginpasswordControllerr3.passwordController.clear();
+                _loginpasswordControllerr3.toggleCheckbox(false);
+
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
                 //Get.back();
-                Get.to(() => SignInScreen());
+                await Get.offAll(() => SignInScreen());
               },
             ),
 

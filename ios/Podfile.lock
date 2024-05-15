@@ -1,30 +1,28 @@
 PODS:
-  - "app_settings (3.0.0+1)":
-    - Flutter
-  - Firebase/CoreOnly (10.7.0):
-    - FirebaseCore (= 10.7.0)
-  - Firebase/Messaging (10.7.0):
+  - Firebase/CoreOnly (10.18.0):
+    - FirebaseCore (= 10.18.0)
+  - Firebase/Messaging (10.18.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 10.7.0)
-  - firebase_core (2.11.0):
-    - Firebase/CoreOnly (= 10.7.0)
+    - FirebaseMessaging (~> 10.18.0)
+  - firebase_core (2.24.2):
+    - Firebase/CoreOnly (= 10.18.0)
     - Flutter
-  - firebase_messaging (14.5.0):
-    - Firebase/Messaging (= 10.7.0)
+  - firebase_messaging (14.7.10):
+    - Firebase/Messaging (= 10.18.0)
     - firebase_core
     - Flutter
-  - FirebaseCore (10.7.0):
+  - FirebaseCore (10.18.0):
     - FirebaseCoreInternal (~> 10.0)
-    - GoogleUtilities/Environment (~> 7.8)
-    - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreInternal (10.11.0):
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreInternal (10.20.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseInstallations (10.11.0):
+  - FirebaseInstallations (10.20.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseMessaging (10.7.0):
+  - FirebaseMessaging (10.18.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleDataTransport (~> 9.2)
@@ -41,48 +39,53 @@ PODS:
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
-  - geocoding (1.0.5):
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - geocoding_ios (1.0.5):
     - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
   - google_maps_flutter_ios (0.0.1):
     - Flutter
-    - GoogleMaps
-  - GoogleDataTransport (9.2.3):
+    - GoogleMaps (< 8.0)
+  - GoogleDataTransport (9.3.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (5.2.0):
-    - GoogleMaps/Maps (= 5.2.0)
-  - GoogleMaps/Base (5.2.0)
-  - GoogleMaps/Maps (5.2.0):
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
     - GoogleMaps/Base
-  - GoogleUtilities/AppDelegateSwizzler (7.11.1):
+  - GoogleUtilities/AppDelegateSwizzler (7.12.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.11.1):
+  - GoogleUtilities/Environment (7.12.0):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.11.1):
+  - GoogleUtilities/Logger (7.12.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/Network (7.11.1):
+  - GoogleUtilities/Network (7.12.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.11.1)"
-  - GoogleUtilities/Reachability (7.11.1):
+  - "GoogleUtilities/NSData+zlib (7.12.0)"
+  - GoogleUtilities/Reachability (7.12.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.11.1):
+  - GoogleUtilities/UserDefaults (7.12.0):
     - GoogleUtilities/Logger
   - image_picker_ios (0.0.1):
     - Flutter
   - location (0.0.1):
     - Flutter
-  - nanopb (2.30909.0):
-    - nanopb/decode (= 2.30909.0)
-    - nanopb/encode (= 2.30909.0)
-  - nanopb/decode (2.30909.0)
-  - nanopb/encode (2.30909.0)
+  - maps_launcher (0.0.1):
+    - Flutter
+  - nanopb (2.30909.1):
+    - nanopb/decode (= 2.30909.1)
+    - nanopb/encode (= 2.30909.1)
+  - nanopb/decode (2.30909.1)
+  - nanopb/encode (2.30909.1)
   - open_file (0.0.1):
     - Flutter
   - package_info_plus (0.4.5):
@@ -90,39 +93,46 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - permission_handler_apple (9.0.4):
+  - permission_handler_apple (9.1.1):
     - Flutter
-  - PromisesObjC (2.2.0)
-  - razorpay-pod (1.3.2)
+  - PromisesObjC (2.3.1)
+  - razorpay-pod (1.3.4)
   - razorpay_flutter (1.1.10):
     - Flutter
     - razorpay-pod
+  - share_plus (0.0.1):
+    - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - Toast (4.0.0)
+  - sqflite (0.0.3):
+    - Flutter
+    - FMDB (>= 2.7.5)
+  - Toast (4.1.0)
   - url_launcher_ios (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - app_settings (from `.symlinks/plugins/app_settings/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
-  - geocoding (from `.symlinks/plugins/geocoding/ios`)
+  - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - location (from `.symlinks/plugins/location/ios`)
+  - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - razorpay_flutter (from `.symlinks/plugins/razorpay_flutter/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
@@ -132,6 +142,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseInstallations
     - FirebaseMessaging
+    - FMDB
     - GoogleDataTransport
     - GoogleMaps
     - GoogleUtilities
@@ -141,8 +152,6 @@ SPEC REPOS:
     - Toast
 
 EXTERNAL SOURCES:
-  app_settings:
-    :path: ".symlinks/plugins/app_settings/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_messaging:
@@ -155,8 +164,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
-  geocoding:
-    :path: ".symlinks/plugins/geocoding/ios"
+  geocoding_ios:
+    :path: ".symlinks/plugins/geocoding_ios/ios"
   geolocator_apple:
     :path: ".symlinks/plugins/geolocator_apple/ios"
   google_maps_flutter_ios:
@@ -165,6 +174,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
+  maps_launcher:
+    :path: ".symlinks/plugins/maps_launcher/ios"
   open_file:
     :path: ".symlinks/plugins/open_file/ios"
   package_info_plus:
@@ -175,44 +186,51 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   razorpay_flutter:
     :path: ".symlinks/plugins/razorpay_flutter/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  app_settings: d103828c9f5d515c4df9ee754dabd443f7cedcf3
-  Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
-  firebase_core: dee76ded6c693fdb38b8ea39aef7129e32e587a3
-  firebase_messaging: 67fbcdaf6a7c81849590e542eff2409dc49d9fa5
-  FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
-  FirebaseCoreInternal: 9e46c82a14a3b3a25be4e1e151ce6d21536b89c0
-  FirebaseInstallations: 2a2c6859354cbec0a228a863d4daf6de7c74ced4
-  FirebaseMessaging: ac9062bcc35ed56e15a0241d8fd317022499baf8
+  Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
+  firebase_core: 0af4a2b24f62071f9bf283691c0ee41556dcb3f5
+  firebase_messaging: 90e8a6db84b6e1e876cebce4f30f01dc495e7014
+  FirebaseCore: 2322423314d92f946219c8791674d2f3345b598f
+  FirebaseCoreInternal: efeeb171ac02d623bdaefe121539939821e10811
+  FirebaseInstallations: 558b1da7d65afeb996fd5c814332f013234ece4e
+  FirebaseMessaging: 9bc34a98d2e0237e1b121915120d4d48ddcf301e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
-  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
-  fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
-  geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
-  geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
-  google_maps_flutter_ios: 66201f392bf62d500f07670a30488a247b9bb5b9
-  GoogleDataTransport: f0308f5905a745f94fb91fea9c6cbaf3831cb1bd
-  GoogleMaps: 025272d5876d3b32604e5c080dc25eaf68764693
-  GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
-  image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
-  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
-  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
+  fluttertoast: 9f2f8e81bb5ce18facb9748d7855bf5a756fe3db
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  geocoding_ios: d7460f56e80e118d57678efe5c2cdc888739ff18
+  geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
+  google_maps_flutter_ios: abdac20d6ce8931f6ebc5f46616df241bfaa2cfd
+  GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
+  location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
+  maps_launcher: 2e5b6a2d664ec6c27f82ffa81b74228d770ab203
+  nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
-  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
-  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
-  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
-  razorpay-pod: b129f60de5f0d0952bebfb9480a10909d4fd6b6d
+  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
+  razorpay-pod: df3aa440969489d242c40ec606db9a0c7095743f
   razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
-  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
-  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
+  share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
+  Toast: ec33c32b8688982cecc6348adeae667c1b9938da
+  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
-PODFILE CHECKSUM: c4a8ff13edee7c702a51bf30ec4347e4c07e0ce9
+PODFILE CHECKSUM: 342270611db8dab2b73220e1902bbcfac1c9c27b
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.2

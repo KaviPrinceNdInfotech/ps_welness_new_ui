@@ -21,7 +21,7 @@ class NurseUserreportList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var base = 'http://test.pswellness.in/Images/';
+    var base = 'http://pswellness.in/Images/';
     Size size = MediaQuery.of(context).size;
     return Container(
       color: MyTheme.ThemeColors,

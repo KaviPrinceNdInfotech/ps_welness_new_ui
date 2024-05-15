@@ -1,21 +1,20 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 import '../../../../../controllers/2_franchises_controller/registration_part_controller/vehicle_part_controller/vehicle_part_controller.dart';
 
 class FrVehicleCredentials extends StatelessWidget {
   FrVehicleCredentials({Key? key}) : super(key: key);
 
-  Franchies_vehicle_Controller _franchies_vehicle_controller = Get.put(Franchies_vehicle_Controller());
+  Franchies_vehicle_Controller _franchies_vehicle_controller =
+      Get.put(Franchies_vehicle_Controller());
 
   var items = [
     'Item 1',
@@ -68,11 +67,47 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
+            //VehicleOwnerNameColller
+            ///TODO: owner Name.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller:
+                    _franchies_vehicle_controller.VehicleOwnerNameColller,
+                onSaved: (value) {
+                  _franchies_vehicle_controller.VehicleOwnerName = value!;
+                },
+                validator: (value) {
+                  return _franchies_vehicle_controller.validownerName(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Vehicle Owner Name',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.people,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
             ///Todo: vehicle number.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
                 autofillHints: [AutofillHints.email],
-                controller: _franchies_vehicle_controller.vehiclenumberController,
+                controller:
+                    _franchies_vehicle_controller.vehiclenumberController,
                 onSaved: (value) {
                   _franchies_vehicle_controller.vehiclenumber = value!;
                 },
@@ -99,6 +134,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: account..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -129,6 +165,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm account no...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -138,9 +175,8 @@ class FrVehicleCredentials extends StatelessWidget {
                   _franchies_vehicle_controller.confirmaccount = value!;
                 },
                 validator: (value) {
-                  return _franchies_vehicle_controller.validAcno(value!);
+                  return _franchies_vehicle_controller.validConfirmAcno(value!);
                 },
-
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -162,37 +198,41 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: driver charge..........
-            NeumorphicTextFieldContainer(
-              child: TextFormField(
-                autofillHints: [AutofillHints.telephoneNumber],
-                controller: _franchies_vehicle_controller.driverchargeController,
-                onSaved: (value) {
-                  _franchies_vehicle_controller.drivercharge = value!;
-                },
-                validator: (value) {
-                  return _franchies_vehicle_controller.validcharge(value!);
-                },
-                cursorColor: Colors.black,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'driver charge',
-                  helperStyle: TextStyle(
-                    color: black.withOpacity(0.7),
-                    fontSize: 18,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.currency_rupee,
-                    color: black.withOpacity(0.7),
-                    size: 20,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
+            // NeumorphicTextFieldContainer(
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.number,
+            //     autofillHints: [AutofillHints.telephoneNumber],
+            //     controller:
+            //         _franchies_vehicle_controller.driverchargeController,
+            //     onSaved: (value) {
+            //       _franchies_vehicle_controller.drivercharge = value!;
+            //     },
+            //     validator: (value) {
+            //       return _franchies_vehicle_controller.validcharge(value!);
+            //     },
+            //     cursorColor: Colors.black,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       hintText: 'driver charge per Km',
+            //       helperStyle: TextStyle(
+            //         color: black.withOpacity(0.7),
+            //         fontSize: 18,
+            //       ),
+            //       prefixIcon: Icon(
+            //         Icons.currency_rupee,
+            //         color: black.withOpacity(0.7),
+            //         size: 20,
+            //       ),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.02,
+            // ),
+
             ///todo: ac holder name value..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -222,7 +262,40 @@ class FrVehicleCredentials extends StatelessWidget {
                 ),
               ),
             ),
+
             ///Todo: catagary............................
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///todo: pan number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _franchies_vehicle_controller.panController,
+                onSaved: (value) {
+                  _franchies_vehicle_controller.pan = value!;
+                },
+                validator: (value) {
+                  return _franchies_vehicle_controller.validPan(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pan number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.add_card_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -231,7 +304,8 @@ class FrVehicleCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<VehicleCatDropdown>(
-                      value: _franchies_vehicle_controller.selectedVehicleCat.value,
+                      value: _franchies_vehicle_controller
+                          .selectedVehicleCat.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.car_repair,
@@ -241,25 +315,43 @@ class FrVehicleCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select vehicle category'),
-                      items: _franchies_vehicle_controller.vehicles.map((VehicleCatDropdown items) {
+                      items: _franchies_vehicle_controller.vehicles
+                          .map((VehicleCatDropdown items) {
                         return DropdownMenuItem(
                           value: items,
-                          child: Text(
-                            items.categoryName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                          child: SizedBox(
+                            //height: size.height * 0.03,
+                            width: size.width * 0.7,
+                            height: size.height * 0.04,
+                            // width: size.width * 0.7,
+                            child: Center(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  items.categoryName,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.014,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? '  field required' : null,
+                      validator: (value) =>
+                          value == null ? '  field required' : null,
                       onChanged: (VehicleCatDropdown? newValue) {
-                        _franchies_vehicle_controller.selectedVehicleCat.value = newValue!;
+                        _franchies_vehicle_controller.selectedVehicleCat.value =
+                            newValue!;
+                        _franchies_vehicle_controller
+                            .selectedVehicleType.value = null;
                       }),
                 ),
               ),
             ),
+
             ///Todo: type.....................................
             SizedBox(
               height: size.height * 0.02,
@@ -269,7 +361,8 @@ class FrVehicleCredentials extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
                   () => DropdownButtonFormField<VehicleTypeName>(
-                      value: _franchies_vehicle_controller.selectedVehicleType.value,
+                      value: _franchies_vehicle_controller
+                          .selectedVehicleType.value,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.bus_alert,
@@ -279,21 +372,29 @@ class FrVehicleCredentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select Vehicle Type'),
-                      items: _franchies_vehicle_controller.vehicleType.map((VehicleTypeName items) {
+                      items: _franchies_vehicle_controller.vehicleType
+                          .map((VehicleTypeName items) {
                         return DropdownMenuItem(
                           value: items,
-                          child: Text(
-                            items.vehicleTypeName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                          child: SizedBox(
+                            height: size.height * 0.04,
+                            width: size.width * 0.7,
+                            child: Text(
+                              items.vehicleTypeName,
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.015,
+                              ),
                             ),
                           ),
                         );
                       }).toList(),
-                      validator: (value) => value == null ? '  field required' : null,
+                      validator: (value) =>
+                          value == null ? '  field required' : null,
                       onChanged: (VehicleTypeName? newValue) {
-                        _franchies_vehicle_controller.selectedVehicleType.value = newValue!;
+                        _franchies_vehicle_controller
+                            .selectedVehicleType.value = newValue!;
                       }),
                 ),
               ),
@@ -301,6 +402,7 @@ class FrVehicleCredentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///TODO: Ifsc.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -329,54 +431,59 @@ class FrVehicleCredentials extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.033,
-            ),
-            GetBuilder<Franchies_vehicle_Controller>(
-              init: Franchies_vehicle_Controller(), // intialize with the Controller
-              builder: (value) => InkWell(
-                onTap: () {
-                  _franchies_vehicle_controller.getImage(ImageSource.gallery);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Cancel Cheque',
-                      style: TextStyle(
-                        fontSize: size.width * 0.03,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Container(
-                      height: 70,width: 70,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border:  Border.all(color: Colors.blue, width: 1.0),
-                          borderRadius:BorderRadius.circular(5)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Obx(()=> _franchies_vehicle_controller.selectedImagepath.value=='' ?
-                        const Center(
-                            child: Text("No Image")) :
-                        Image.file(File(_franchies_vehicle_controller.selectedImagepath.value),
-                          fit: BoxFit.cover,
-                        ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   height: size.height * 0.033,
+            // ),
+            // GetBuilder<Franchies_vehicle_Controller>(
+            //   init:
+            //       Franchies_vehicle_Controller(), // intialize with the Controller
+            //   builder: (value) => InkWell(
+            //     onTap: () {
+            //       _franchies_vehicle_controller.getImage(ImageSource.gallery);
+            //     },
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Text(
+            //           'Cancel Cheque',
+            //           style: TextStyle(
+            //             fontSize: size.width * 0.03,
+            //             fontWeight: FontWeight.w700,
+            //           ),
+            //         ),
+            //         Container(
+            //           height: 70,
+            //           width: 70,
+            //           decoration: BoxDecoration(
+            //               color: Colors.white,
+            //               border: Border.all(color: Colors.blue, width: 1.0),
+            //               borderRadius: BorderRadius.circular(5)),
+            //           child: ClipRRect(
+            //             borderRadius: BorderRadius.circular(5),
+            //             child: Obx(
+            //               () => _franchies_vehicle_controller
+            //                           .selectedImagepath.value ==
+            //                       ''
+            //                   ? const Center(child: Text("No Image"))
+            //                   : Image.file(
+            //                       File(_franchies_vehicle_controller
+            //                           .selectedImagepath.value),
+            //                       fit: BoxFit.cover,
+            //                     ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: size.height * 0.02,
             ),
             RectangularButton(
                 text: 'Submit',
                 press: () {
-                    _franchies_vehicle_controller.checkFrvehicle();
-
+                  _franchies_vehicle_controller.checkFrvehicle();
                 })
           ],
         ),

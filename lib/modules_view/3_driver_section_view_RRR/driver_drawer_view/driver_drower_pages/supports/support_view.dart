@@ -6,6 +6,8 @@ import 'package:ps_welness_new_ui/constants/my_theme.dart';
 //import 'package:ps_welness/constants/my_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../1_user_section_views/user_drawer/drawer_pages_user/website_view/website_view.dart';
+
 final Uri _url = Uri.parse('http://pswellness.in/');
 final Uri _url2 = Uri.parse('info@pswellness.in/');
 final Uri _url3 = Uri.parse('https://twitter.com/');
@@ -21,9 +23,9 @@ final Uri emailLaunchUri = Uri.parse('info@pswellness.in/');
 //launchUrl(emailLaunchUri);
 
 _launchWhatsapp() async {
-  var whatsapp = "+919716412565";
+  var whatsapp = "+919350016581";
   var whatsappAndroid =
-      Uri.parse("whatsapp://send?phone=$whatsapp&text=hello Prince");
+      Uri.parse("whatsapp://send?phone=$whatsapp&text=Hi Ps wellness");
   if (await canLaunchUrl(whatsappAndroid)) {
     await launchUrl(whatsappAndroid);
   } else {
@@ -61,8 +63,8 @@ Future<void> _launchUrl3() async {
   }
 }
 
-class SupportView extends StatelessWidget {
-  const SupportView({Key? key}) : super(key: key);
+class SupportViewPs extends StatelessWidget {
+  const SupportViewPs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -492,12 +494,14 @@ class SupportView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              _launchUrl();
+                              //_launchUrl();
+                              Get.to(WebViewPswebsite());
+                              print("clickios");
                             },
                             child: Row(
                               children: [
                                 Text(
-                                  ' http://pswellness.in/',
+                                  'http://pswellness.in/',
                                   style: GoogleFonts.poppins(
                                     color: MyTheme.blueww,
                                     fontSize: size.width * 0.04,

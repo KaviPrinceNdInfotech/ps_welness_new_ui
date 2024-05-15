@@ -45,15 +45,17 @@ class DoctorrUploadReportController extends GetxController {
   }
 
   ///patient dropdown api class.................
-  void getdoctorrpatientApi() async {
+  Future<void> getdoctorrpatientApi2() async {
+    //isLoading(true);
     patient = (await ApiProvider.getdoctorpatientApi())!;
     print('Prince Nurse list');
     print(patient);
+    //isLoading(false);
   }
 
   ///todo:  upload report doctor post Api...........15 may 2023.....
 
-  void postdoctorUploadreportApi() async {
+  Future<void> postdoctorUploadreportApi() async {
     CallLoader.loader();
     final imageAsBase64 =
         base64Encode(await File(selectedPath.value).readAsBytes());
@@ -78,7 +80,9 @@ class DoctorrUploadReportController extends GetxController {
     //states.refresh();
     //subject.refresh();
     super.onInit();
-    getdoctorrpatientApi();
+    getdoctorrpatientApi2();
+
+    ///getdoctorrpatientApi();
 
     //getcomplainTypeeApi();
     //selectedpatientController = TextEditingController();

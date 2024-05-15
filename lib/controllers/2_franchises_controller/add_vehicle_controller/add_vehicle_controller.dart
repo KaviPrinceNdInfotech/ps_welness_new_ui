@@ -1,47 +1,111 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesAddVehicleList_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleCategoryDD_model.dart';
 import 'package:ps_welness_new_ui/model/franchies_models/frenchiesVehicleTypeDD_model.dart';
+import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/franchies_home/franchises_home_page.dart';
+import 'package:ps_welness_new_ui/modules_view/circular_loader/circular_loaders.dart';
 import 'package:ps_welness_new_ui/servicess_api/rahul_api_provider/api_provider_RRR.dart';
-import 'package:http/http.dart' as http;
 
 class AddVehicleController extends GetxController {
   final GlobalKey<FormState> addvehicleformkey = GlobalKey<FormState>();
-    RxBool isLoading = false.obs;
+  RxBool isLoading = false.obs;
   var selectedImagepath = ''.obs;
 
-  Rx<VehicleCatDropdown?> selectedVehicleCat = (null as VehicleCatDropdown?).obs;
+  Rx<VehicleCatDropdown?> selectedVehicleCat =
+      (null as VehicleCatDropdown?).obs;
   List<VehicleCatDropdown> vehiclesCat = <VehicleCatDropdown>[].obs;
   Rx<VehicleTypeName?> selectedVehicleType = (null as VehicleTypeName?).obs;
   List<VehicleTypeName> vehicleType = <VehicleTypeName>[].obs;
-  var name = '';
-  var branch = '';
+
+  var vehicletype = '';
+  var vehiclecatagary = '';
+
+  late TextEditingController vehicletypeController,
+      vehiclecatagaryvehicleController;
+
   FrenchiesAddVehicleListModel? getfrenchiesAddVehicleList;
+
   ///todo view list button.............
-  void FrenchiesAddVehicleList()async{
-    isLoading(true);
+  Future<void> FrenchiesAddVehicleList() async {
     getfrenchiesAddVehicleList = await ApiProvider.FrenchiesAddVehicleListApi();
-    if(getfrenchiesAddVehicleList?.vehicleList != null){
+    if (getfrenchiesAddVehicleList?.vehicleList != null) {
       isLoading(false);
     }
   }
-  void getVehicleCategoryApi() async {
+
+  Future<void> getVehicleCategoryApi() async {
+    isLoading(false);
+
     vehiclesCat = await ApiProvider.getVehicleCategoryApi();
+    if (vehiclesCat != null) {
+      isLoading(false);
+    }
   }
-  void getCityByStateID(String stateID) async {
+
+  Future<void> getCityByStateID(String stateID) async {
+    isLoading(false);
+
     vehicleType.clear();
     final localList = await ApiProvider.getVehicleTypeApi(stateID);
     vehicleType.addAll(localList);
-  }
-  void FrenchiesAddVehicleType()async{
-    http.Response r =await ApiProvider.FrenchiesVehicleType(
-        selectedVehicleCat.value?.id.toString(),
-        selectedVehicleType.value?.id.toString());
-    if(r.statusCode == 200){
+
+    if (vehicleType != null) {
+      isLoading(false);
     }
   }
+
+  Future<void> FrenchiesAddVehicleType() async {
+    http.Response r = await ApiProvider.FrenchiesVehicleType(
+        selectedVehicleCat.value?.id.toString(),
+        selectedVehicleType.value?.id.toString());
+    if (r.statusCode == 200) {}
+  }
+
+  ///add new vehicle........
+  Future<void> addVeciclenewApi() async {
+    http.Response r = await ApiProvider.AddnewVehicleApi(
+      vehicletypeController.text,
+      vehiclecatagaryvehicleController.text,
+    );
+
+    if (r.statusCode == 200) {
+      CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
+      CallLoader.hideLoader();
+
+      await Get.to(FranchiesHomePage());
+      // await getVehicleCategoryApi();
+
+      // await FrenchiesAddVehicleType();
+      //await FrenchiesAddVehicleList();
+      //CallLoader.loader();
+      // await Future.delayed(Duration(milliseconds: 900));
+      // CallLoader.hideLoader();
+      //await Get.to(VehicleList());
+      // Timer(const Duration(seconds: 2),
+      //     () => FrenchiesAddVehicleList());
+      // Timer(
+      //     const Duration(seconds: 2),
+      //
+      //         () async =>
+      //         await FrenchiesAddVehicleList();
+      //     await Get.to(VehicleList()));
+      //CallLoader.hideLoader();
+      // _nurseUserListController.update();
+      //_nurseUserListController.nurselistsuserApi();
+
+      // Get.offAll(NurseListUser());
+      //Get.to(NurseDetailsSchedulePage());
+
+      /// we can navigate to user page.....................................
+      //Get.to(NurseAppointmentHistory());
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -52,39 +116,48 @@ class AddVehicleController extends GetxController {
         getCityByStateID("${p0.id}");
       }
     });
-   // nameController = TextEditingController(text: '');
-  //  branchController = TextEditingController(text: '');
+
+    vehicletypeController = TextEditingController(text: '');
+    vehiclecatagaryvehicleController = TextEditingController(text: '');
+    // nameController = TextEditingController(text: '');
+    //  branchController = TextEditingController(text: '');
   }
+
   @override
   void onReady() {
     super.onReady();
   }
+
   @override
   void onClose() {
-   // nameController.dispose();
+    //AddVehicleController
+    //nameController.dispose();
   }
-  // String? validName(String value) {
-  //   if (value.length < 2) {
-  //     return "Provide valid Type";
-  //   }
-  //   return null;
-  // }
-  // String? validDept(String value) {
-  //   if (value.length < 2) {
-  //     return "              Provide valid name";
-  //   }
-  //   return null;
-  // }
-  // void checkaddVehicle() {
-  //   final isValid = addvehicleformkey.currentState!.validate();
-  //   if (isValid) {
-  //
-  //     return;
-  //   }else{
-  //
-  //     Get.snackbar("Failed", "please add all data");
-  //   }
-  //   addvehicleformkey.currentState!.save();
-  //
-  // }
+  @override
+  void dispose() {
+    Get.delete<AddVehicleController>();
+    super.dispose();
+  }
+
+  String? validvehicletype(String value) {
+    if (value.length < 2) {
+      return "              Provide valid type";
+    }
+    return null;
+  }
+
+  String? validcatagary(String value) {
+    if (value.length < 2) {
+      return "              Provide valid catagary";
+    }
+    return null;
+  }
+
+  Future<void> checkvehicleAdd() async {
+    if (addvehicleformkey.currentState!.validate()) {
+      addVeciclenewApi();
+      //await Get.to(VehicleList());
+    }
+    addvehicleformkey.currentState!.save();
+  }
 }

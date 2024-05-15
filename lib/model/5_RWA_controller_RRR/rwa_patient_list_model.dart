@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-RwaPatientListModel rwaPatientListModelFromJson(String str) => RwaPatientListModel.fromJson(json.decode(str));
+RwaPatientListModel rwaPatientListModelFromJson(String str) =>
+    RwaPatientListModel.fromJson(json.decode(str));
 
-String rwaPatientListModelToJson(RwaPatientListModel data) => json.encode(data.toJson());
+String rwaPatientListModelToJson(RwaPatientListModel data) =>
+    json.encode(data.toJson());
 
 class RwaPatientListModel {
   List<Patient>? patient;
@@ -15,23 +17,30 @@ class RwaPatientListModel {
     this.patient,
   });
 
-  factory RwaPatientListModel.fromJson(Map<String, dynamic> json) => RwaPatientListModel(
-    patient: json["Patient"] == null ? [] : List<Patient>.from(json["Patient"]!.map((x) => Patient.fromJson(x))),
-  );
+  factory RwaPatientListModel.fromJson(Map<String, dynamic> json) =>
+      RwaPatientListModel(
+        patient: json["Patient"] == null
+            ? []
+            : List<Patient>.from(
+                json["Patient"]!.map((x) => Patient.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "Patient": patient == null ? [] : List<dynamic>.from(patient!.map((x) => x.toJson())),
-  };
+        "Patient": patient == null
+            ? []
+            : List<dynamic>.from(patient!.map((x) => x.toJson())),
+      };
 }
 
 class Patient {
   int? id;
   String? patientName;
   String? mobileNumber;
-  String? stateName;
-  String? cityName;
+  dynamic stateName;
+  dynamic cityName;
   String? location;
   String? pincode;
+  String? emailId;
 
   Patient({
     this.id,
@@ -41,25 +50,28 @@ class Patient {
     this.cityName,
     this.location,
     this.pincode,
+    this.emailId,
   });
 
   factory Patient.fromJson(Map<String, dynamic> json) => Patient(
-    id: json["Id"],
-    patientName: json["PatientName"],
-    mobileNumber: json["MobileNumber"],
-    stateName: json["StateName"],
-    cityName: json["CityName"],
-    location: json["Location"],
-    pincode: json["Pincode"],
-  );
+        id: json["Id"],
+        patientName: json["PatientName"],
+        mobileNumber: json["MobileNumber"],
+        stateName: json["StateName"],
+        cityName: json["CityName"],
+        location: json["Location"],
+        pincode: json["Pincode"],
+        emailId: json["EmailId"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "Id": id,
-    "PatientName": patientName,
-    "MobileNumber": mobileNumber,
-    "StateName": stateName,
-    "CityName": cityName,
-    "Location": location,
-    "Pincode": pincode,
-  };
+        "Id": id,
+        "PatientName": patientName,
+        "MobileNumber": mobileNumber,
+        "StateName": stateName,
+        "CityName": cityName,
+        "Location": location,
+        "Pincode": pincode,
+        "EmailId": emailId,
+      };
 }

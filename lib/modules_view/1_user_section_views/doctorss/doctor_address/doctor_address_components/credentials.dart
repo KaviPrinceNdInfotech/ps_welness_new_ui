@@ -31,6 +31,9 @@ class DoctorAddressCredentials extends StatelessWidget {
       Get.put(Doctor_appointment_1_Controller());
   DoctorListController _doctorListController = Get.put(DoctorListController());
 
+  //Rx<StateModel?> selectedState = (null as StateModel?).obs;
+  String selectedState = '';
+
   var items = [
     'Item 1',
     'Item 2',
@@ -39,7 +42,10 @@ class DoctorAddressCredentials extends StatelessWidget {
     'Item 5',
   ];
 
-  get newvalue => null!;
+  // get newvalue => "";
+  // get newvalue2 => null!;
+  //get newvalue3 => null!;
+  //get newvalue4 => null!;
 
   // LoginpasswordController _loginpasswordController =
   //     Get.put(LoginpasswordController());
@@ -77,43 +83,55 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField<StateModel>(
-                      value:
-                          _doctor_appointment_1_controller.selectedState.value,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.real_estate_agent,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: const Text('Select State'),
-                      items: _doctor_appointment_1_controller.states
-                          .map((StateModel state) {
-                        return DropdownMenuItem(
-                          value: state,
-                          child: Text(
-                            state.stateName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                  () => (_doctor_appointment_1_controller.isLoading.isFalse)
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : DropdownButtonFormField<StateModel>(
+                          value: _doctor_appointment_1_controller
+                              .selectedState.value,
+
+                          ///..........................................................
+                          // value: selectedValue.isEmpty ? null : selectedValue,
+
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.real_estate_agent,
+                              color: Colors.black,
                             ),
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
                           ),
-                        );
-                      }).toList(),
-                      onChanged: (StateModel? newValue) {
-                        _doctor_appointment_1_controller.selectedState.value =
-                            newValue!;
-                        _doctor_appointment_1_controller.selectedCity.value =
-                            null;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
-                      }),
+                          hint: const Text('Select State'),
+                          items: _doctor_appointment_1_controller.states
+                              .map((StateModel state) {
+                            return DropdownMenuItem(
+                              value: state,
+                              child: Text(
+                                state.stateName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.015,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          validator: (value) =>
+                              value == null ? '  field required' : null,
+                          onChanged: (StateModel? newValue) {
+                            _doctor_appointment_1_controller
+                                .selectedState.value = newValue!;
+                            _doctor_appointment_1_controller
+                                .selectedCity.value = null;
+                            _doctor_appointment_1_controller.update();
+
+                            // _hospital_2_controller.states.value =
+                            //     newValue! as List<String>;
+                            // _hospital_2_controller.selectedCity.value = null;
+                            // _hospital_2_controller.cities.clear();
+                            // _hospital_2_controller.cities
+                            //     .addAll(stateCityMap[newvalue]!);
+                          }),
                 ),
               ),
             ),
@@ -137,45 +155,51 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField<City>(
-                      //icon: Icon(Icons.location_city),
-                      value:
-                          _doctor_appointment_1_controller.selectedCity.value,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.location_city,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: const Text('Selected City'),
-                      items: _doctor_appointment_1_controller.cities
-                          .map((City city) {
-                        return DropdownMenuItem(
-                          value: city,
-                          child: Text(
-                            city.cityName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                  () => (_doctor_appointment_1_controller.isLoading.isFalse)
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : DropdownButtonFormField<City>(
+                          //icon: Icon(Icons.location_city),
+                          value: _doctor_appointment_1_controller
+                              .selectedCity.value,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.location_city,
+                              color: Colors.black,
                             ),
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
                           ),
-                        );
-                      }).toList(),
-                      onTap: () {
-                        _doctor_appointment_1_controller.refresh();
-                      },
-                      onChanged: (City? newValue) {
-                        _doctor_appointment_1_controller.selectedCity.value =
-                            newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
-                      }),
+                          hint: const Text('Selected City'),
+                          items: _doctor_appointment_1_controller.cities
+                              .map((City city) {
+                            return DropdownMenuItem(
+                              value: city,
+                              child: Text(
+                                city.cityName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.015,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          onTap: () {
+                            _doctor_appointment_1_controller.refresh();
+                          },
+                          validator: (value) =>
+                              value == null ? '  field required' : null,
+                          onChanged: (City? newValue) {
+                            _doctor_appointment_1_controller
+                                .selectedCity.value = newValue!;
+                            // _hospital_2_controller.states.value =
+                            //     newValue! as List<String>;
+                            // _hospital_2_controller.selectedCity.value = null;
+                            // _hospital_2_controller.cities.clear();
+                            // _hospital_2_controller.cities
+                            //     .addAll(stateCityMap[newvalue]!);
+                          }),
                 ),
               ),
             ),
@@ -203,43 +227,49 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField<DepartmentModel>(
-                      value: _doctor_appointment_1_controller
-                          .selectedDepartment.value,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.space_dashboard_outlined,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: const Text('Select Department'),
-                      items: _doctor_appointment_1_controller.department
-                          .map((DepartmentModel department) {
-                        return DropdownMenuItem(
-                          value: department,
-                          child: Text(
-                            department.departmentName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.0134,
+                  () => (_doctor_appointment_1_controller.isLoading.isFalse)
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : DropdownButtonFormField<DepartmentModel>(
+                          value: _doctor_appointment_1_controller
+                              .selectedDepartment.value,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.space_dashboard_outlined,
+                              color: Colors.black,
                             ),
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
                           ),
-                        );
-                      }).toList(),
-                      onChanged: (DepartmentModel? newValue) {
-                        _doctor_appointment_1_controller
-                            .selectedDepartment.value = newValue!;
-                        _doctor_appointment_1_controller
-                            .selectedSpecialist.value = null;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
-                      }),
+                          hint: const Text('Select Department'),
+                          items: _doctor_appointment_1_controller.department
+                              .map((DepartmentModel department) {
+                            return DropdownMenuItem(
+                              value: department,
+                              child: Text(
+                                department.departmentName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.013,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          validator: (value) =>
+                              value == null ? '  field required' : null,
+                          onChanged: (DepartmentModel? newValue) {
+                            _doctor_appointment_1_controller
+                                .selectedDepartment.value = newValue!;
+                            _doctor_appointment_1_controller
+                                .selectedSpecialist.value = null;
+                            // _hospital_2_controller.states.value =
+                            //     newValue! as List<String>;
+                            // _hospital_2_controller.selectedCity.value = null;
+                            // _hospital_2_controller.cities.clear();
+                            // _hospital_2_controller.cities
+                            //     .addAll(stateCityMap[newvalue]!);
+                          }),
                 ),
               ),
             ),
@@ -263,45 +293,51 @@ class DoctorAddressCredentials extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                  () => DropdownButtonFormField<SpecialistModel>(
-                      //icon: Icon(Icons.location_city),
-                      value: _doctor_appointment_1_controller
-                          .selectedSpecialist.value,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.folder_special,
-                          color: Colors.black,
-                        ),
-                        enabledBorder: InputBorder.none,
-                        border: InputBorder.none,
-                      ),
-                      hint: const Text(' Choose Specialist'),
-                      items: _doctor_appointment_1_controller.specialist
-                          .map((SpecialistModel specialist) {
-                        return DropdownMenuItem(
-                          value: specialist,
-                          child: Text(
-                            specialist.specialistName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.height * 0.015,
+                  () => (_doctor_appointment_1_controller.isLoading.isFalse)
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : DropdownButtonFormField<SpecialistModel>(
+                          //icon: Icon(Icons.location_city),
+                          value: _doctor_appointment_1_controller
+                              .selectedSpecialist.value,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.folder_special,
+                              color: Colors.black,
                             ),
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
                           ),
-                        );
-                      }).toList(),
-                      onTap: () {
-                        _doctor_appointment_1_controller.refresh();
-                      },
-                      onChanged: (SpecialistModel? newValue) {
-                        _doctor_appointment_1_controller
-                            .selectedSpecialist.value = newValue!;
-                        // _hospital_2_controller.states.value =
-                        //     newValue! as List<String>;
-                        // _hospital_2_controller.selectedCity.value = null;
-                        // _hospital_2_controller.cities.clear();
-                        // _hospital_2_controller.cities
-                        //     .addAll(stateCityMap[newvalue]!);
-                      }),
+                          hint: const Text(' Choose Specialist'),
+                          items: _doctor_appointment_1_controller.specialist
+                              .map((SpecialistModel specialist) {
+                            return DropdownMenuItem(
+                              value: specialist,
+                              child: Text(
+                                specialist.specialistName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.015,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          onTap: () {
+                            _doctor_appointment_1_controller.refresh();
+                          },
+                          validator: (value) =>
+                              value == null ? '  field required' : null,
+                          onChanged: (SpecialistModel? newValue) {
+                            _doctor_appointment_1_controller
+                                .selectedSpecialist.value = newValue!;
+                            // _hospital_2_controller.states.value =
+                            //     newValue! as List<String>;
+                            // _hospital_2_controller.selectedCity.value = null;
+                            // _hospital_2_controller.cities.clear();
+                            // _hospital_2_controller.cities
+                            //     .addAll(stateCityMap[newvalue]!);
+                          }),
                 ),
               ),
             ),

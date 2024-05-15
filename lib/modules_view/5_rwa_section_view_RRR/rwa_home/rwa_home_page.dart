@@ -4,6 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile/rwa_profile_controller.dart';
+import 'package:ps_welness_new_ui/controllers/5_rwa_controller_RRR/rwa_profile_detail_controller.dart';
+import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_add_bank_details/bank_add_view.dart';
 
 ///import 'package:ps_welness_new_ui/controllers/5_rwa_controller/rwaBanner_controller.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_drawer_view/drawerpage.dart';
@@ -11,7 +14,6 @@ import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_home/r
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_patient_list/rwa_patient_list.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_payment_history/rwa_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_profile_page_view/profile_view.dart';
-import 'package:ps_welness_new_ui/modules_view/5_rwa_section_view_RRR/rwa_update_bank_details/bank_update_view.dart';
 
 import '../../../controllers/5_rwa_controller_RRR/rwaBanner_controller.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
@@ -22,14 +24,18 @@ class RwaHomePage extends StatelessWidget {
   RwaHomePage({Key? key}) : super(key: key);
   RwaBannerController _rwaBannerController = Get.put(RwaBannerController());
 
+  final RwaProfileDetailController _rwaProfileDetailController =
+      Get.put(RwaProfileDetailController());
+  RwaProfileController _rwaProfileControllerupdate =
+      Get.put(RwaProfileController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keyrwa = GlobalKey();
 
     final List<String> productname = [
       'Add Patient',
-      'Update Bank Details',
+      'Add Bank Details',
       'Patient List',
       'My Payment Report',
       'My Payout Report',
@@ -73,7 +79,7 @@ class RwaHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keyrwa,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -117,8 +123,10 @@ class RwaHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _key.currentState!.openDrawer();
+              onPressed: () async {
+                await _rwaProfileDetailController.RwaProfileDetailApi();
+                _rwaProfileDetailController.update();
+                _keyrwa.currentState!.openDrawer();
               },
             ),
           ),
@@ -209,12 +217,12 @@ class RwaHomePage extends StatelessWidget {
                                             ),
                                           ),
                                           InkWell(
-                                            onTap: () {
+                                            onTap: () async {
                                               if (index == 0) {
                                                 Get.to(() => RwaaaAddPatient());
                                               } else if (index == 1) {
-                                                Get.to(() =>
-                                                    UpdateRwaBankDetail());
+                                                Get.to(
+                                                    () => AddRwaBankDetail());
                                               } else if (index == 2) {
                                                 Get.to(() => RwaPatientList());
                                               } else if (index == 3) {
@@ -224,7 +232,26 @@ class RwaHomePage extends StatelessWidget {
                                                 Get.to(
                                                     () => RwaPayoutHistory());
                                               } else if (index == 5) {
-                                                Get.to(() => RwaProfilePage());
+                                                await _rwaProfileDetailController
+                                                    .RwaProfileDetailApi();
+                                                _rwaProfileDetailController
+                                                    .update();
+                                                _rwaProfileDetailController
+                                                    .onInit();
+
+                                                _rwaProfileControllerupdate
+                                                    .onInit();
+                                                _rwaProfileControllerupdate
+                                                    .clearSelectedState();
+
+                                                await Future.delayed(Duration(
+                                                    milliseconds: 1000));
+
+                                                Get.offAll(
+                                                    () => RwaProfilePage());
+                                                await Future.delayed(
+                                                    Duration(milliseconds: 10));
+                                                //Get.to(() => RwaProfilePage());
                                               } else if (index == 6) {
                                               } else if (index == 7) {}
                                             },

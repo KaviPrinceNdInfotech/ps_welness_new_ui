@@ -13,7 +13,7 @@ class PostOrderController extends GetxController {
 
   Future<int> postOrderApi() async {
     //isLoading(true);
-    CallLoader.loader();
+    //CallLoader.loader();
     //print(ProductName.text);
     http.Response r = await ApiProvider.LabpaynowOnlineApi();
     if (r.statusCode == 200) {
@@ -44,7 +44,7 @@ class PostOrderController extends GetxController {
     //ProductName;
     //Total_Item;
     //Price;
-    postOrderApi();
+    //postOrderApi();
 
     //postqueryApi();
   }

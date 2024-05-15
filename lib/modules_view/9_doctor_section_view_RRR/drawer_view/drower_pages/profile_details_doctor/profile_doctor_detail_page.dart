@@ -50,14 +50,15 @@ class DoctorDetailProfile extends StatelessWidget {
                                 padding: const EdgeInsets.all(6.0),
                                 child: Container(
                                   height: size.height * 0.5,
-                                  width: size.width * 0.8,
+                                  width: size.width * 0.9,
                                   decoration: BoxDecoration(
-                                      color: Colors.grey.shade200,
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                            'https://images.unsplash.com/photo-1604116395843-94f7b28a8080?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80',
-                                          ),
-                                          fit: BoxFit.fill)),
+                                    color: Colors.grey.shade200,
+                                    // image: const DecorationImage(
+                                    //     image: NetworkImage(
+                                    //       'https://images.unsplash.com/photo-1604116395843-94f7b28a8080?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80',
+                                    //     ),
+                                    //     fit: BoxFit.fill)
+                                  ),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -156,7 +157,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.doctorName
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -169,7 +170,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.emailId
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -181,7 +182,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.mobileNumber
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -194,7 +195,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.clinicName
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -206,7 +207,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.departmentName
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -219,7 +220,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.stateName
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -232,7 +233,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.cityName
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),
@@ -240,14 +241,19 @@ class DoctorDetailProfile extends StatelessWidget {
                                             SizedBox(
                                               height: size.height * 0.01,
                                             ),
-                                            Text(
-                                              _doctorProfileControllers
-                                                  .doctorProfile!.location
-                                                  .toString(),
-                                              style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
-                                                fontWeight: FontWeight.w600,
-                                                color: MyTheme.blueww,
+                                            SizedBox(
+                                              height: size.height * 0.035,
+                                              width: size.width * 0.65,
+                                              child: Text(
+                                                _doctorProfileControllers
+                                                    .doctorProfile!.location
+                                                    .toString(),
+                                                maxLines: 2,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: size.height * 0.013,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: MyTheme.blueww,
+                                                ),
                                               ),
                                             ),
                                             SizedBox(
@@ -258,7 +264,7 @@ class DoctorDetailProfile extends StatelessWidget {
                                                   .doctorProfile!.availableTime
                                                   .toString(),
                                               style: GoogleFonts.poppins(
-                                                fontSize: size.height * 0.018,
+                                                fontSize: size.height * 0.015,
                                                 fontWeight: FontWeight.w600,
                                                 color: MyTheme.blueww,
                                               ),

@@ -11,14 +11,15 @@ import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/che
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_order_history_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payment_history_controller/chemist_payment_controller.dart';
 import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_payout_history_controller/chemist_payoutHistory_controller.dart';
+import 'package:ps_welness_new_ui/controllers/6_chemist_view_controllers_RRR/chemist_profile_detailController.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_Addd_bank_details/bank_add_view.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payment_history/chemist_payment_history.dart';
 import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_payout_history/chemist_payout_histories.dart';
 import 'package:ps_welness_new_ui/widgets/exit_popup_warning/exit_popup.dart';
+import 'package:ps_welness_new_ui/widgets/support_page_comman/support_comman_page.dart';
+import 'package:ps_welness_new_ui/widgets/widgets/constant_string.dart';
 
-//import 'package:ps_welness_new_ui/modules_view/6_chemist_section_view_RRR/chemist_update_bank_details/bank_add_view.dart';
-
-import '../../10_lab_section_view/lab_drawer_view/drower_pages/supports/support_view.dart';
+//s/support_view.dart';
 import '../chemist_appointment_history_view/chemist_order_history.dart';
 import '../chemist_drawer_view/drawerpage.dart';
 import '../chemist_profile_page_view/profile_view.dart';
@@ -31,11 +32,13 @@ class ChemistHomePage extends StatelessWidget {
       Get.put(ChemispaymentController());
   ChemistPayoutController _chemistPayoutController =
       Get.put(ChemistPayoutController());
+  ChemistProfileDetailController _chemistProfileDetailController =
+      Get.put(ChemistProfileDetailController());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    GlobalKey<ScaffoldState> _key = GlobalKey();
+    GlobalKey<ScaffoldState> _keychemist = GlobalKey();
 
     final List<String> productname = [
       'Manage Profile',
@@ -82,7 +85,7 @@ class ChemistHomePage extends StatelessWidget {
               darkPrimary,
             ])),
         child: Scaffold(
-          key: _key,
+          key: _keychemist,
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
@@ -124,8 +127,11 @@ class ChemistHomePage extends StatelessWidget {
                 size: 23,
                 color: Colors.white,
               ),
-              onPressed: () {
-                _key.currentState!.openDrawer();
+              onPressed: () async {
+                await _chemistProfileDetailController
+                    .chemistProfileDetailsApi();
+                _chemistProfileDetailController.update();
+                _keychemist.currentState!.openDrawer();
               },
             ),
           ),
@@ -214,7 +220,7 @@ class ChemistHomePage extends StatelessWidget {
                                       if (index == 0) {
                                         Get.to(() => ChemistProfilePage());
                                       } else if (index == 1) {
-                                        Get.to(() => AddBankDetail());
+                                        Get.to(() => AddChemistBankDetail());
                                       } else if (index == 2) {
                                         _chemistOrderController
                                             .chemistOrderHistorysApi();
@@ -231,7 +237,8 @@ class ChemistHomePage extends StatelessWidget {
                                         _chemistPayoutController.update();
                                         Get.to(() => ChemistPayoutHistory());
                                       } else if (index == 5) {
-                                        Get.to(() => SupportView());
+                                        Get.to(() => SupportViewPsComman());
+                                        // Get.offNamed('/SupportViewPsComman');
                                       } else if (index == 6) {
                                       } else if (index == 7) {}
                                     },
@@ -312,7 +319,8 @@ class Mycrusial extends StatelessWidget {
   Mycrusial({Key? key}) : super(key: key);
   ChemistBannerController _chemistBannerController =
       Get.put(ChemistBannerController());
-  var image = 'http://test.pswellness.in/Images/';
+
+  ///var image = 'http://test.pswellness.in/Images/';
   final List<Color> colors = [
     Colors.red,
     Colors.orange,
@@ -369,7 +377,7 @@ class Mycrusial extends StatelessWidget {
                                           color: Colors.white, width: 3),
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              '$image${item?[index].bannerPath}' ??
+                                              '$IMAGE_BASE_URL${item?[index].bannerPath}' ??
                                                   ''),
                                           fit: BoxFit.fill),
                                     ),

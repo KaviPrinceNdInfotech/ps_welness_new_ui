@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
 class forget_password_Controller extends GetxController {
   final GlobalKey<FormState> forgetpasswordformkey = GlobalKey<FormState>();
 
   late TextEditingController emailController;
+
+  void forgotpasswordApi() async {
+    //isLoading(true);
+    //CallLoader.loader();
+    http.Response r = await ApiProvider.ForgetPasswordApi(
+      emailController.text,
+    );
+
+    if (r.statusCode == 200) {
+      /// Get.to(SignInScreen());
+
+      //CallLoader.loader();
+      print("ACCOUNT ${r.body}");
+    }
+  }
 
   var email = '';
 
@@ -41,11 +58,9 @@ class forget_password_Controller extends GetxController {
   }
 
   void checkForget() {
-    final isValid = forgetpasswordformkey.currentState!.validate();
-    if (!isValid) {
-      return;
+    if (forgetpasswordformkey.currentState!.validate()) {
+      forgotpasswordApi();
     }
     forgetpasswordformkey.currentState!.save();
-    //Get.to(() => HomePage());
   }
 }

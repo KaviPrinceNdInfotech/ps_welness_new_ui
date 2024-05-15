@@ -16,12 +16,13 @@ import '../../../../controllers/6_chemist_view_controllers_RRR/update_bank_contr
 
 //import '../../../../controllers/6_chemist_view_controllers/update_bank_controller/update_bank_detail_controller.dart';
 
-class AdddBankCredentials extends StatelessWidget {
-  AdddBankCredentials({Key? key}) : super(key: key);
+class AdddBankChemistCredentials extends StatelessWidget {
+  AdddBankChemistCredentials({Key? key}) : super(key: key);
   // DoctorUpdateBankDetailController _doctorUpdateBankDetailController =
   //     Get.put(DoctorUpdateBankDetailController());
 
-  AdddBankController _adddBankController = Get.put(AdddBankController());
+  AdddChemistBankController _adddBankController =
+      Get.put(AdddChemistBankController());
 
   var items = [
     'Item 1',
@@ -37,7 +38,7 @@ class AdddBankCredentials extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Form(
-      key: _adddBankController.updatebankformkey,
+      key: _adddBankController.updatebankchemistformkey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: EdgeInsets.all(30),
@@ -60,7 +61,7 @@ class AdddBankCredentials extends StatelessWidget {
             ///TODO: bankAc  no.......................
             NeumorphicTextFieldContainer(
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                //keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.creditCardNumber],
                 controller: _adddBankController.AccountNo,
                 onSaved: (value) {
@@ -138,7 +139,7 @@ class AdddBankCredentials extends StatelessWidget {
                 cursorColor: Colors.black,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'Branch name.',
+                  hintText: 'Bank name.',
                   helperStyle: TextStyle(
                     color: black.withOpacity(0.7),
                     fontSize: 18,

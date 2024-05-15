@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ps_welness_new_ui/constants/constants/constants.dart';
 import 'package:ps_welness_new_ui/model/1_user_model/nurse_type_model/nurse_type_model.dart';
-import 'package:ps_welness_new_ui/modules_view/2_franchies_section_view/registration_view_part/fr_nurses_view/nurses_sighup2/nurses_signup2.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/neumorphic_text_field_container.dart';
 import 'package:ps_welness_new_ui/widgets/widgets/rectangular_button.dart';
+
 // import 'package:ps_welness/constants/constants/constants.dart';
 // import 'package:ps_welness/modules_view/2_franchies_section_view/registration_view_part/fr_nurses_view/nurses_sighup2/nurses_signup2.dart';
 // import 'package:ps_welness/widgets/widgets/neumorphic_text_field_container.dart';
@@ -17,7 +17,8 @@ import '../../../../../../controllers/2_franchises_controller/registration_part_
 class FrNurses1Credentials extends StatelessWidget {
   FrNurses1Credentials({Key? key}) : super(key: key);
 
-  FrNurses_1_controller _frnurses_1_controller = Get.put(FrNurses_1_controller());
+  FrNurses_1_controller _frnurses_1_controller =
+      Get.put(FrNurses_1_controller());
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,7 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: email.....................
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -92,6 +94,7 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: password..............
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -122,6 +125,7 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///Todo: confirm password...........
             NeumorphicTextFieldContainer(
               child: TextFormField(
@@ -155,9 +159,11 @@ class FrNurses1Credentials extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
+
             ///todo: phone number..........
             NeumorphicTextFieldContainer(
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 autofillHints: [AutofillHints.telephoneNumber],
                 controller: _frnurses_1_controller.mobileController,
                 onSaved: (value) {
@@ -183,18 +189,82 @@ class FrNurses1Credentials extends StatelessWidget {
                 ),
               ),
             ),
+
             SizedBox(
-              height: size.height * 0.00,
+              height: size.height * 0.02,
               //appPadding / 2,
             ),
+
+            ///todo: pan number..........
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.telephoneNumber],
+                controller: _frnurses_1_controller.panController,
+                onSaved: (value) {
+                  _frnurses_1_controller.pan = value!;
+                },
+                validator: (value) {
+                  return _frnurses_1_controller.validPan(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Pan number',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.add_card_outlined,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+
+            ///TODO: experience.......................
+            NeumorphicTextFieldContainer(
+              child: TextFormField(
+                autofillHints: [AutofillHints.name],
+                controller: _frnurses_1_controller.experienceController,
+                onSaved: (value) {
+                  _frnurses_1_controller.experience = value!;
+                },
+                validator: (value) {
+                  return _frnurses_1_controller.validAddress(value!);
+                },
+                cursorColor: Colors.black,
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: 'Enter Experience in year',
+                  helperStyle: TextStyle(
+                    color: black.withOpacity(0.7),
+                    fontSize: 18,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.accessibility,
+                    color: black.withOpacity(0.7),
+                    size: 20,
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+
             SizedBox(
               height: size.height * 0.03,
             ),
+
             NeumorphicTextFieldContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.01),
                 child: Obx(
-                      () => DropdownButtonFormField<NurseModels>(
+                  () => DropdownButtonFormField<NurseModels>(
                       value: _frnurses_1_controller.selectedNurse.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -205,8 +275,8 @@ class FrNurses1Credentials extends StatelessWidget {
                         border: InputBorder.none,
                       ),
                       hint: Text('Select Nurse'),
-                      items: _frnurses_1_controller.nurse
-                          .map((NurseModels nurse) {
+                      items:
+                          _frnurses_1_controller.nurse.map((NurseModels nurse) {
                         return DropdownMenuItem(
                           value: nurse,
                           child: Text(
@@ -218,7 +288,8 @@ class FrNurses1Credentials extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                          validator: (value) => value == null ? 'field required' : null,
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
                       onChanged: (NurseModels? newValue) {
                         _frnurses_1_controller.selectedNurse.value = newValue!;
                       }),
@@ -232,7 +303,6 @@ class FrNurses1Credentials extends StatelessWidget {
                 text: 'Go Next >',
                 press: () {
                   _frnurses_1_controller.checkNurses1();
-
                 })
           ],
         ),

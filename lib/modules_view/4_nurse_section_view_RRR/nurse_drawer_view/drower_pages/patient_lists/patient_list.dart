@@ -29,7 +29,7 @@ class PatientListNurse extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                top: -size.height * 0.15,
+                top: -size.height * 0.12,
                 right: -size.width * 0.006,
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
@@ -87,8 +87,7 @@ class PatientListNurse extends StatelessWidget {
                         ? Center(
                             child: CircularProgressIndicator(),
                           )
-                        : SizedBox(
-                            height: size.height * 0.73,
+                        : Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: _nursePatientListController
@@ -106,7 +105,7 @@ class PatientListNurse extends StatelessWidget {
                                         child: Container(
                                           height: size.height * 0.25,
                                           margin: const EdgeInsets.symmetric(
-                                              vertical: 30 / 5),
+                                              vertical: 30 / 7),
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20),
@@ -150,7 +149,7 @@ class PatientListNurse extends StatelessWidget {
                                               ),
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.all(6.0),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -203,17 +202,24 @@ class PatientListNurse extends StatelessWidget {
                                                                     0.035,
                                                           ),
                                                         ),
-                                                        Text(
-                                                          'Patient Address:',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            color:
-                                                                MyTheme.text1,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.035,
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.3,
+                                                          height: size.height *
+                                                              0.03,
+                                                          child: Text(
+                                                            'Patient Address:',
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              color:
+                                                                  MyTheme.text1,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize:
+                                                                  size.width *
+                                                                      0.035,
+                                                            ),
                                                           ),
                                                         ),
                                                         Text(
@@ -257,18 +263,64 @@ class PatientListNurse extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          '${item?[index].patientName}',
-                                                          style: GoogleFonts
-                                                              .raleway(
+                                                    SizedBox(
+                                                      width: size.width * 0.5,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            '${item?[index].patientName}',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                          ),
+                                                          Text(
+                                                            '${item?[index].mobileNumber}',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                          ),
+                                                          Text(
+                                                            '₹ ${'${item?[index].amount ?? 0.0}'}',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                          ),
+                                                          SizedBox(
+                                                            width: size.width *
+                                                                0.5,
+                                                            height:
+                                                                size.height *
+                                                                    0.032,
+                                                            child: Text(
+                                                              '${item?[index].location}',
+                                                              style: GoogleFonts.raleway(
                                                                   color: Colors
                                                                       .grey
                                                                       .shade800,
@@ -277,93 +329,50 @@ class PatientListNurse extends StatelessWidget {
                                                                           .w700,
                                                                   fontSize: size
                                                                           .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].mobileNumber}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '₹ ${'${item?[index].amount}'}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].location}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].startSlotTime}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].endSlotTime}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                        Text(
-                                                          '${item?[index].workingShift}',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .shade800,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: size
-                                                                          .width *
-                                                                      0.035),
-                                                        ),
-                                                      ],
+                                                                      0.0306),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '${item?[index].startSlotTime}',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                          ),
+                                                          Text(
+                                                            '${item?[index].endSlotTime}',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                          ),
+                                                          Text(
+                                                            '${item?[index].workingShift}',
+                                                            style: GoogleFonts.raleway(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.035),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -374,7 +383,8 @@ class PatientListNurse extends StatelessWidget {
                                       ),
                                     ],
                                   );
-                                })),
+                                }),
+                          ),
                   ),
                 ],
               ),
