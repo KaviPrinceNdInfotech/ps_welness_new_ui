@@ -624,6 +624,9 @@ class LabMainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordController.onInit();
+                _loginpasswordController.emailController.clear();
+                _loginpasswordController.passwordController.clear();
+                _loginpasswordController.toggleCheckbox(false);
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();

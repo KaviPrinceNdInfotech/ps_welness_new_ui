@@ -478,6 +478,9 @@ class ChemistMainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordControllerr5.onInit();
+                _loginpasswordControllerr5.emailController.clear();
+                _loginpasswordControllerr5.passwordController.clear();
+                _loginpasswordControllerr5.toggleCheckbox(false);
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();

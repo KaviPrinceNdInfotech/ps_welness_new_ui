@@ -580,6 +580,9 @@ class MainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordControllerr6.onInit();
+                _loginpasswordControllerr6.emailController.clear();
+                _loginpasswordControllerr6.passwordController.clear();
+                _loginpasswordControllerr6.toggleCheckbox(false);
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();

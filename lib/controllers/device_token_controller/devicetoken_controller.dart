@@ -56,7 +56,7 @@ class DevicetokenController extends GetxController {
   }
 
   ///todo: this  driver is device token.....28..august..2023...
-  void DrivertokenApi() async {
+  Future<void> DrivertokenApi() async {
     CallLoader.loader();
     http.Response r = await ApiProvider.DriverdevicetokenApi();
 

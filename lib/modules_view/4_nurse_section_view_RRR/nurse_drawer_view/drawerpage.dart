@@ -524,6 +524,10 @@ class NurseMainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordControllerr3.onInit();
+                _loginpasswordControllerr3.emailController.clear();
+                _loginpasswordControllerr3.passwordController.clear();
+                _loginpasswordControllerr3.toggleCheckbox(false);
+
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();

@@ -523,6 +523,9 @@ class FranchiesisMainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordControllerr1.onInit();
+                _loginpasswordControllerr1.emailController.clear();
+                _loginpasswordControllerr1.passwordController.clear();
+                _loginpasswordControllerr1.toggleCheckbox(false);
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();

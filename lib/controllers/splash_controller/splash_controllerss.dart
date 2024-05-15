@@ -283,7 +283,7 @@ class SplashScreenViewModel extends GetxController
                 case 'driver':
                   _driverprofile.driverProfileDetailApi();
                   _driverprofile.update();
-                  _devicetokenController.DrivertokenApi();
+                  await _devicetokenController.DrivertokenApi();
                   Get.to(DriverHomePage());
                   break;
                 case 'nurse':

@@ -557,6 +557,9 @@ class DriverMainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordControllerr2.onInit();
+                _loginpasswordControllerr2.emailController.clear();
+                _loginpasswordControllerr2.passwordController.clear();
+                _loginpasswordControllerr2.toggleCheckbox(false);
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();

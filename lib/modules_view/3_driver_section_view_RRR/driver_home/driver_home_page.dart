@@ -341,13 +341,13 @@ class _DriverHomePageState extends State<DriverHomePage> {
                         print(
                             '&&&&&&&&&&&&&&&&&&&&&&driverrcredentials:${DriverId}');
                         var body = {
-                          "UserId": "${DriverId}",
+                          "UserId": "$DriverId",
                           "DeviceId": value.toString(),
                         };
                         print("userrrtokenupdateeeddbeforetttt${body}");
                         http.Response r = await http.post(
                           Uri.parse(
-                              'http://pswellness.in/api/DriverApi/UpadateDiviceId'),
+                              'https://pswellness.in/api/DriverApi/UpadateDiviceId'),
                           body: body,
                         );
 

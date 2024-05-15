@@ -509,6 +509,9 @@ class RwaMainDrawer extends StatelessWidget {
               onTap: () async {
                 ///....logout
                 _loginpasswordControllerr4.onInit();
+                _loginpasswordControllerr4.emailController.clear();
+                _loginpasswordControllerr4.passwordController.clear();
+                _loginpasswordControllerr4.toggleCheckbox(false);
                 CallLoader.loader();
                 await Future.delayed(Duration(seconds: 2));
                 CallLoader.hideLoader();
