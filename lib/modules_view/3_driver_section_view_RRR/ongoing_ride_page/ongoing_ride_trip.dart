@@ -321,6 +321,14 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
+                                        Text(
+                                          "Ps Wellness will pay you ₹ 500 in every accidental case.",
+                                          style: GoogleFonts.nunitoSans(
+                                            fontSize: size.height * 0.020,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                         Row(
                                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
@@ -521,11 +529,11 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                                   ),
                                                   child: ClipRect(
                                                     child: Image.asset(
-                                                      'lib/assets/icons/contact1.png',
+                                                      'lib/assets/icons/phone_cll_1.png',
                                                       height:
                                                           size.height * 0.04,
-                                                      color:
-                                                          Colors.green.shade700,
+                                                      //color:
+                                                      // Colors.green.shade700,
                                                     ),
 
                                                     ///todo: user Imag

@@ -106,7 +106,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     // periodicSub = Stream.periodic(const Duration(seconds: 10))
     //     .listen((_) => _getCurrentPosition());
 
-    periodicSub = Stream.periodic(const Duration(seconds: 10))
+    periodicSub = Stream.periodic(const Duration(seconds: 15))
         //.take(6)
         .listen((_) => _getCurrentPosition());
     // periodicSub = Stream.periodic(const Duration(seconds: 08))
@@ -115,7 +115,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
     ///todo: it is periodic function STREAM periodic.....
 
-    periodicSub = Stream.periodic(const Duration(seconds: 12))
+    periodicSub = Stream.periodic(const Duration(seconds: 20))
         //.take(6)
         .listen((_) => postssDriverUpdateApi3());
 
