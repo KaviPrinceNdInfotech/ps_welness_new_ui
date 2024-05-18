@@ -89,10 +89,15 @@ class RwaMainDrawer extends StatelessWidget {
                           Column(
                         children: [
                           Text(
-                            '${_rwaProfileDetailController.getRwaProfileDetail?.authorityName.toString()
+                            _rwaProfileDetailController
+                                    .getRwaProfileDetail?.authorityName
+                                    .toString() ??
+                                "loading..",
+
+                            //'${_rwaProfileDetailController.getRwaProfileDetail?.authorityName.toString()
 
                             /// item?[index].authorityName
-                            }',
+                            //}',
                             // 'Ps Foundation',
                             style: GoogleFonts.roboto(
                                 fontSize: size.height * 0.02,
@@ -100,9 +105,10 @@ class RwaMainDrawer extends StatelessWidget {
                                 color: MyTheme.blueww),
                           ),
                           Text(
-                            '${_rwaProfileDetailController.getRwaProfileDetail?.emailId.toString()
-                            //item?[index].emailId
-                            }',
+                            _rwaProfileDetailController
+                                    .getRwaProfileDetail?.emailId
+                                    .toString() ??
+                                "loading..",
                             style: GoogleFonts.roboto(
                                 fontSize: size.height * 0.017,
                                 fontWeight: FontWeight.w700,

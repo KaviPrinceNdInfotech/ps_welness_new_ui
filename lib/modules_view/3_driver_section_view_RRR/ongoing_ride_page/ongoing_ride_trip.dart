@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,13 +7,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:ps_welness_new_ui/controllers/3_driver_view_controllers/driver_complete_ride_controller/driver_complete_ride_controller.dart';
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/my_theme.dart';
 import '../../../notificationservice/local_notification_service.dart';
+import '../../../utils/services/account_service.dart';
+
+String PatientRegNo = ''.toString();
+String DriverId = ''.toString();
 
 class OngoingRideTracking extends StatefulWidget {
   final String id;
@@ -674,6 +683,10 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                           height: size.height * 0.012,
                                         ),
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
                                               height: size.height * 0.063,
@@ -689,8 +702,8 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.063,
-                                              width: size.width * 0.59,
+                                              height: size.height * 0.09,
+                                              width: size.width * 0.4,
                                               child: Center(
                                                 child: Align(
                                                   alignment: Alignment.topLeft,
@@ -714,360 +727,363 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                             ),
 
                                             ///start location.......
-                                            // SizedBox(
-                                            //   height: size.height * 0.065,
-                                            //   width: size.width * 0.14,
-                                            //   child: ElevatedButton(
-                                            //     child: Center(
-                                            //       child: SizedBox(
-                                            //         height: size.height * 0.065,
-                                            //         width: size.width * 0.14,
-                                            //         child: Icon(
-                                            //           Icons.navigation,
-                                            //           color: Colors.white,
-                                            //           size: 19,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //     onPressed: () {
-                                            //       showDialog(
-                                            //         context: context,
-                                            //         builder:
-                                            //             (BuildContext context) {
-                                            //           return SizedBox(
-                                            //             height:
-                                            //                 size.height * 0.1,
-                                            //             width:
-                                            //                 size.width * 0.21,
-                                            //             child: AlertDialog(
-                                            //               title:
-                                            //                   Text("Meet User"),
-                                            //               content: Text(
-                                            //                   "Reach Your Pickup Location"),
-                                            //               actions: [
-                                            //                 ElevatedButton(
-                                            //                   child: SizedBox(
-                                            //                     width:
-                                            //                         size.width *
-                                            //                             0.21,
-                                            //                     child: Text(
-                                            //                       "   Cancel   ",
-                                            //                       style:
-                                            //                           TextStyle(
-                                            //                         color: Colors
-                                            //                             .white,
-                                            //                       ),
-                                            //                     ),
-                                            //                   ),
-                                            //                   style: ElevatedButton
-                                            //                       .styleFrom(
-                                            //                           primary:
-                                            //                               Colors
-                                            //                                   .red,
-                                            //                           shape:
-                                            //                               RoundedRectangleBorder(
-                                            //                             borderRadius:
-                                            //                                 BorderRadius.circular(10),
-                                            //                           ),
-                                            //                           textStyle: TextStyle(
-                                            //                               fontSize:
-                                            //                                   15,
-                                            //                               color: Colors
-                                            //                                   .white,
-                                            //                               fontWeight:
-                                            //                                   FontWeight.bold)),
-                                            //                   onPressed: () {
-                                            //                     Navigator.of(
-                                            //                             context)
-                                            //                         .pop();
-                                            //                   },
-                                            //                 ),
-                                            //                 //Spacer(),
-                                            //                 ElevatedButton(
-                                            //                   child: Text(
-                                            //                     "Track User",
-                                            //                     style:
-                                            //                         TextStyle(
-                                            //                       color: Colors
-                                            //                           .white,
-                                            //                     ),
-                                            //                   ),
-                                            //                   style: ElevatedButton
-                                            //                       .styleFrom(
-                                            //                           primary:
-                                            //                               Colors
-                                            //                                   .green,
-                                            //                           shape:
-                                            //                               RoundedRectangleBorder(
-                                            //                             borderRadius:
-                                            //                                 BorderRadius.circular(10),
-                                            //                           ),
-                                            //                           textStyle: TextStyle(
-                                            //                               fontSize:
-                                            //                                   15,
-                                            //                               color: Colors
-                                            //                                   .white,
-                                            //                               fontWeight:
-                                            //                                   FontWeight.bold)),
-                                            //                   onPressed:
-                                            //                       () async {
-                                            //                     ///todo: start...
-                                            //                     SharedPreferences
-                                            //                         prefs =
-                                            //                         await SharedPreferences
-                                            //                             .getInstance();
-                                            //                     await prefs.setString(
-                                            //                         "driverId",
-                                            //                         "${_ongoingRideController.ongoingRide?.id}");
-                                            //                     await prefs.setString(
-                                            //                         "startLat5",
-                                            //                         "${_ongoingRideController.ongoingRide?.startLat}");
-                                            //                     await prefs.setString(
-                                            //                         "startLong5",
-                                            //                         "${_ongoingRideController.ongoingRide?.startLong}");
-                                            //                     await prefs.setString(
-                                            //                         "endLat5",
-                                            //                         "${_ongoingRideController.ongoingRide?.endLat}");
-                                            //                     await prefs.setString(
-                                            //                         "endLong5",
-                                            //                         "${_ongoingRideController.ongoingRide?.endLong}");
-                                            //
-                                            //                     // await Future.delayed(
-                                            //                     //     Duration(
-                                            //                     //         milliseconds:
-                                            //                     //             400));
-                                            //
-                                            //                     ///
-                                            //                     prefs.setString(
-                                            //                         "driverlistssId",
-                                            //                         "${_ongoingRideController.ongoingRide?.id}");
-                                            //
-                                            //                     prefs.setString(
-                                            //                         "drivertotalamount",
-                                            //                         "${_ongoingRideController.ongoingRide?.totalPrice}");
-                                            //                     prefs.setString(
-                                            //                         "driverlistbookingId",
-                                            //                         "${_ongoingRideController.ongoingRide?.patientId}");
-                                            //
-                                            //                     prefs.setString(
-                                            //                         "lng1",
-                                            //                         "${_ongoingRideController.ongoingRide?.startLat}");
-                                            //                     prefs.setString(
-                                            //                         "lat1",
-                                            //                         "${_ongoingRideController.ongoingRide?.startLong}");
-                                            //
-                                            //                     prefs.setString(
-                                            //                         "lng2",
-                                            //                         "${_ongoingRideController.ongoingRide?.endLong}");
-                                            //                     prefs.setString(
-                                            //                         "lat2",
-                                            //                         "${_ongoingRideController.ongoingRide?.endLat}");
-                                            //
-                                            //                     print(
-                                            //                       "${_ongoingRideController.ongoingRide?.deviceId}"
-                                            //                           .toString(),
-                                            //                     );
-                                            //
-                                            //                     ///.......
-                                            //                     print(
-                                            //                         'princee notificationplplp');
-                                            //                     try {
-                                            //                       notificationServices
-                                            //                           .getDeviceToken()
-                                            //                           .then(
-                                            //                               (value) async {
-                                            //                         var data = {
-                                            //                           //this the particular device id.....
-                                            //                           ///todo device token......
-                                            //                           'to': "${_ongoingRideController.ongoingRide?.deviceId}"
-                                            //                               .toString(),
-                                            //
-                                            //                           ///this is same device token....
-                                            //                           //value
-                                            //                           //.toString(),
-                                            //                           'notification':
-                                            //                               {
-                                            //                             'title':
-                                            //                                 'Ambrd driver',
-                                            //                             'body':
-                                            //                                 'Your Driver is coming',
-                                            //                             //"sound": "jetsons_doorbell.mp3"
-                                            //                           },
-                                            //                           'android':
-                                            //                               {
-                                            //                             'notification':
-                                            //                                 {
-                                            //                               'notification_count':
-                                            //                                   23,
-                                            //                             },
-                                            //                           },
-                                            //                           'data': {
-                                            //                             'type':
-                                            //                                 'comingride_case',
-                                            //                             'id':
-                                            //                                 '12334'
-                                            //                           }
-                                            //                         };
-                                            //
-                                            //                         print(
-                                            //                             "data3342323${data}");
-                                            //
-                                            //                         await http.post(
-                                            //                             Uri.parse(
-                                            //                                 'https://fcm.googleapis.com/fcm/send'),
-                                            //                             body: jsonEncode(
-                                            //                                 data),
-                                            //                             headers: {
-                                            //                               'Content-Type':
-                                            //                                   'application/json; charset=UTF-8',
-                                            //                               'Authorization':
-                                            //                                   'key=AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
-                                            //
-                                            //                               //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                                            //                               //'key=AAAAp6CyXz4:APA91bEKZ_ArxpUWyMYnP8Do3oYrgXFVdNm2jQk-i1DjKcR8duPeccS64TohP-OAqxL57-840qWe0oeYDBAOO68-aOO2z9EWIcBbUIsXc-3kA5usYMviDYc_wK6qMsQecvAdM54xfZsO'
-                                            //                               //'AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
-                                            //                             }).then(
-                                            //                             (value) {
-                                            //                           if (kDebugMode) {
-                                            //                             print(
-                                            //                                 "bookdriver${value.body.toString()}");
-                                            //                           }
-                                            //                         }).onError(
-                                            //                             (error,
-                                            //                                 stackTrace) {
-                                            //                           if (kDebugMode) {
-                                            //                             print(
-                                            //                                 error);
-                                            //                           }
-                                            //                         });
-                                            //
-                                            //                         ///todo: google map launcher......
-                                            //
-                                            //                         MapsLauncher.launchCoordinates(
-                                            //                             usersatartlat,
-                                            //                             usersatartlang,
-                                            //                             "${userstartlocation}");
-                                            //                         Navigator.of(
-                                            //                                 context)
-                                            //                             .pop();
-                                            //
-                                            //                         ///todo: from here custom from backend start...
-                                            //                         var prefs =
-                                            //                             GetStorage();
-                                            //
-                                            //                         ///todo: from here custom from backend start...
-                                            //                         // PatientRegNo =
-                                            //                         // prefs.read("PatientRegNo").toString();
-                                            //
-                                            //                         AdminLogin_Id = prefs
-                                            //                             .read(
-                                            //                                 "AdminLogin_Id")
-                                            //                             .toString();
-                                            //                         PatientRegNo = prefs
-                                            //                             .read(
-                                            //                                 "PatientRegNo")
-                                            //                             .toString();
-                                            //                         print(
-                                            //                             '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
-                                            //                         var body = {
-                                            //                           "AdminLoginId":
-                                            //                               "${AdminLogin_Id}",
-                                            //                           "DeviceId":
-                                            //                               value
-                                            //                                   .toString(),
-                                            //                         };
-                                            //                         print(
-                                            //                             "uqdtt${body}");
-                                            //                         http.Response
-                                            //                             r =
-                                            //                             await http
-                                            //                                 .post(
-                                            //                           Uri.parse(
-                                            //                               'https://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
-                                            //                           body:
-                                            //                               body,
-                                            //                         );
-                                            //
-                                            //                         print(
-                                            //                             r.body);
-                                            //                         if (r.statusCode ==
-                                            //                             200) {
-                                            //                           ///todo: bottom nav bar......start..
-                                            //                           ///
-                                            //                           // _navcontroller
-                                            //                           //     .tabindex(
-                                            //                           //         0);
-                                            //                           ///
-                                            //
-                                            //                           // Get.to(
-                                            //                           //     BottomNavBar());
-                                            //
-                                            //                           ///todo: bottom nav bar......end...
-                                            //                           print(
-                                            //                               "usesxssxedd99999${body}");
-                                            //                           return r;
-                                            //                         } else if (r
-                                            //                                 .statusCode ==
-                                            //                             401) {
-                                            //                           Get.snackbar(
-                                            //                               'message',
-                                            //                               r.body);
-                                            //                         } else {
-                                            //                           Get.snackbar(
-                                            //                               'Error',
-                                            //                               r.body);
-                                            //                           return r;
-                                            //                         }
-                                            //
-                                            //                         ///todo end post api from backend..
-                                            //                         ///
-                                            //                         ///call message 2 screen....from book driver....21 july..
-                                            //
-                                            //                         accountService
-                                            //                             .getAccountData
-                                            //                             .then(
-                                            //                                 (accountData) {});
-                                            //                       });
-                                            //                     } catch (e, s) {
-                                            //                       print(s);
-                                            //
-                                            //                       ///todo: open google map and reache to ride.........start....maplaunch
-                                            //                       ///todo: changed from 9 jan 2024...kumar prince...
-                                            //
-                                            //                       // MapUtils.openMap(
-                                            //                       //     usersatartlat,
-                                            //                       //     usersatartlang);
-                                            //
-                                            //                       ///end
-                                            //                       ///
-                                            //                       /// useing packkage map launcher
-                                            //
-                                            //                     }
-                                            //
-                                            //                     ///todo;;
-                                            //                     ///todo: end........................................
-                                            //                   },
-                                            //                 ),
-                                            //               ],
-                                            //             ),
-                                            //           );
-                                            //         },
-                                            //       );
-                                            //     },
-                                            //     style: ElevatedButton.styleFrom(
-                                            //       primary: Colors.green,
-                                            //       shape: RoundedRectangleBorder(
-                                            //         borderRadius:
-                                            //             BorderRadius.circular(
-                                            //                 15),
-                                            //       ),
-                                            //       // textStyle: TextStyle(
-                                            //       //     fontSize: 15,
-                                            //       //     fontWeight:
-                                            //       //         FontWeight.bold)
-                                            //     ),
-                                            //   ),
-                                            // ),
+                                            SizedBox(
+                                              height: size.height * 0.065,
+                                              width: size.width * 0.14,
+                                              child: ElevatedButton(
+                                                child: Center(
+                                                  child: SizedBox(
+                                                    height: size.height * 0.065,
+                                                    width: size.width * 0.14,
+                                                    child: Icon(
+                                                      Icons.navigation,
+                                                      color: Colors.white,
+                                                      size: 19,
+                                                    ),
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return SizedBox(
+                                                        height:
+                                                            size.height * 0.1,
+                                                        width:
+                                                            size.width * 0.21,
+                                                        child: AlertDialog(
+                                                          title:
+                                                              Text("Meet User"),
+                                                          content: Text(
+                                                              "Reach Your Pickup Location"),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                              child: SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.21,
+                                                                child: Text(
+                                                                  "   Cancel   ",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          Colors
+                                                                              .red,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                      ),
+                                                                      textStyle: TextStyle(
+                                                                          fontSize:
+                                                                              15,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight.bold)),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            //Spacer(),
+                                                            ElevatedButton(
+                                                              child: Text(
+                                                                "Track User",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          Colors
+                                                                              .green,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                      ),
+                                                                      textStyle: TextStyle(
+                                                                          fontSize:
+                                                                              15,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight.bold)),
+                                                              onPressed:
+                                                                  () async {
+                                                                ///todo: start...notification....
+                                                                SharedPreferences
+                                                                    prefs =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+                                                                // await prefs.setString(
+                                                                //     "driverId",
+                                                                //     "${_ongoingRideController.ongoingRide?.id}");
+                                                                // await prefs.setString(
+                                                                //     "startLat5",
+                                                                //     "${_ongoingRideController.ongoingRide?.startLat}");
+                                                                // await prefs.setString(
+                                                                //     "startLong5",
+                                                                //     "${_ongoingRideController.ongoingRide?.startLong}");
+                                                                // await prefs.setString(
+                                                                //     "endLat5",
+                                                                //     "${_ongoingRideController.ongoingRide?.endLat}");
+                                                                // await prefs.setString(
+                                                                //     "endLong5",
+                                                                //     "${_ongoingRideController.ongoingRide?.endLong}");
+
+                                                                // await Future.delayed(
+                                                                //     Duration(
+                                                                //         milliseconds:
+                                                                //             400));
+
+                                                                ///
+                                                                await prefs.setString(
+                                                                    "driverlistssId",
+                                                                    "${_ongoingRideController.ongoingRide?.id}");
+
+                                                                prefs.setString(
+                                                                    "drivertotalamount",
+                                                                    "${_ongoingRideController.ongoingRide?.totalPrice}");
+                                                                prefs.setString(
+                                                                    "driverlistbookingId",
+                                                                    "${_ongoingRideController.ongoingRide?.patientId}");
+
+                                                                prefs.setString(
+                                                                    "lng1",
+                                                                    "${_ongoingRideController.ongoingRide?.startLat}");
+                                                                prefs.setString(
+                                                                    "lat1",
+                                                                    "${_ongoingRideController.ongoingRide?.startLong}");
+
+                                                                prefs.setString(
+                                                                    "lng2",
+                                                                    "${_ongoingRideController.ongoingRide?.endLong}");
+                                                                prefs.setString(
+                                                                    "lat2",
+                                                                    "${_ongoingRideController.ongoingRide?.endLat}");
+
+                                                                print(
+                                                                  "${_ongoingRideController.ongoingRide?.deviceId}"
+                                                                      .toString(),
+                                                                );
+                                                                print(
+                                                                    "okokotokenwwsacsac:${"${_ongoingRideController.ongoingRide?.deviceId}".toString()}");
+
+                                                                ///.......
+                                                                print(
+                                                                    'princee notificationplplp');
+                                                                try {
+                                                                  notificationServices
+                                                                      .getDeviceToken()
+                                                                      .then(
+                                                                          (value) async {
+                                                                    var data = {
+                                                                      //this the particular device id.....
+                                                                      ///todo device token......
+                                                                      'to': "${_ongoingRideController.ongoingRide?.deviceId}"
+                                                                          .toString(),
+
+                                                                      ///this is same device token....
+                                                                      //value
+                                                                      //.toString(),
+                                                                      'notification':
+                                                                          {
+                                                                        'title':
+                                                                            'Ps_Wellness',
+                                                                        'body':
+                                                                            'Your Driver is coming , Ride started',
+                                                                        //"sound": "jetsons_doorbell.mp3"
+                                                                      },
+                                                                      'android':
+                                                                          {
+                                                                        'notification':
+                                                                            {
+                                                                          'notification_count':
+                                                                              23,
+                                                                        },
+                                                                      },
+                                                                      'data': {
+                                                                        'type':
+                                                                            'accident_amblnce_case',
+                                                                        'id':
+                                                                            '5555'
+                                                                      }
+                                                                    };
+
+                                                                    print(
+                                                                        "data3342323${data}");
+
+                                                                    await http.post(
+                                                                        Uri.parse(
+                                                                            'https://fcm.googleapis.com/fcm/send'),
+                                                                        body: jsonEncode(
+                                                                            data),
+                                                                        headers: {
+                                                                          'Content-Type':
+                                                                              'application/json; charset=UTF-8',
+                                                                          'Authorization':
+                                                                              'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+                                                                          //'key=AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
+
+                                                                          //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                          //'key=AAAAp6CyXz4:APA91bEKZ_ArxpUWyMYnP8Do3oYrgXFVdNm2jQk-i1DjKcR8duPeccS64TohP-OAqxL57-840qWe0oeYDBAOO68-aOO2z9EWIcBbUIsXc-3kA5usYMviDYc_wK6qMsQecvAdM54xfZsO'
+                                                                          //'AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
+                                                                        }).then(
+                                                                        (value) {
+                                                                      if (kDebugMode) {
+                                                                        print(
+                                                                            "bookdriver${value.body.toString()}");
+                                                                      }
+                                                                    }).onError(
+                                                                        (error,
+                                                                            stackTrace) {
+                                                                      if (kDebugMode) {
+                                                                        print(
+                                                                            error);
+                                                                      }
+                                                                    });
+
+                                                                    ///todo: google map launcher......
+
+                                                                    MapsLauncher.launchCoordinates(
+                                                                        usersatartlat,
+                                                                        usersatartlang,
+                                                                        "${userstartlocation}");
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+
+                                                                    ///todo: from here custom from backend start...
+                                                                    var prefs =
+                                                                        GetStorage();
+
+                                                                    ///todo: from here custom from backend start...
+                                                                    // PatientRegNo =
+                                                                    // prefs.read("PatientRegNo").toString();
+
+                                                                    AdminLogin_Id = prefs
+                                                                        .read(
+                                                                            "AdminLogin_Id")
+                                                                        .toString();
+                                                                    PatientRegNo = prefs
+                                                                        .read(
+                                                                            "PatientRegNo")
+                                                                        .toString();
+                                                                    print(
+                                                                        '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                                                                    var body = {
+                                                                      "UserId":
+                                                                          "${PatientRegNo}",
+                                                                      "DeviceId":
+                                                                          value
+                                                                              .toString(),
+                                                                    };
+                                                                    print(
+                                                                        "uqdtt${body}");
+                                                                    http.Response
+                                                                        r =
+                                                                        await http
+                                                                            .post(
+                                                                      Uri.parse(
+                                                                          'https://pswellness.in/api/DriverApi/UpadateDiviceId'),
+                                                                      body:
+                                                                          body,
+                                                                    );
+
+                                                                    print(
+                                                                        r.body);
+                                                                    if (r.statusCode ==
+                                                                        200) {
+                                                                      ///todo: bottom nav bar......start..
+                                                                      ///
+                                                                      // _navcontroller
+                                                                      //     .tabindex(
+                                                                      //         0);
+                                                                      ///
+
+                                                                      // Get.to(
+                                                                      //     BottomNavBar());
+
+                                                                      ///todo: bottom nav bar......end...
+                                                                      print(
+                                                                          "usesxssxedd99999${body}");
+                                                                      return r;
+                                                                    } else if (r
+                                                                            .statusCode ==
+                                                                        401) {
+                                                                      Get.snackbar(
+                                                                          'message',
+                                                                          r.body);
+                                                                    } else {
+                                                                      Get.snackbar(
+                                                                          'Error',
+                                                                          r.body);
+                                                                      return r;
+                                                                    }
+
+                                                                    ///todo end post api from backend..
+                                                                    ///
+                                                                    ///call message 2 screen....from book driver....21 july..
+
+                                                                    accountService
+                                                                        .getAccountData
+                                                                        .then(
+                                                                            (accountData) {});
+                                                                  });
+                                                                } catch (e, s) {
+                                                                  print(s);
+
+                                                                  ///todo: open google map and reache to ride.........start....maplaunch
+                                                                  ///todo: changed from 9 jan 2024...kumar prince...
+
+                                                                  // MapUtils.openMap(
+                                                                  //     usersatartlat,
+                                                                  //     usersatartlang);
+
+                                                                  ///end
+                                                                  ///
+                                                                  /// useing packkage map launcher
+
+                                                                }
+
+                                                                ///todo;;
+                                                                ///todo: end........................................
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.green,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  // textStyle: TextStyle(
+                                                  //     fontSize: 15,
+                                                  //     fontWeight:
+                                                  //         FontWeight.bold)
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         //Spacer(),
@@ -1076,7 +1092,9 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
                                               height: size.height * 0.069,
@@ -1092,8 +1110,8 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: size.height * 0.065,
-                                              width: size.width * 0.59,
+                                              height: size.height * 0.09,
+                                              width: size.width * 0.4,
                                               child: Center(
                                                 child: Align(
                                                   alignment: Alignment.topLeft,
@@ -1116,158 +1134,158 @@ class _OngoingRideTrackingState extends State<OngoingRideTracking> {
                                             ),
 
                                             ///drop: navigation.
-                                            // SizedBox(
-                                            //   height: size.height * 0.065,
-                                            //   width: size.width * 0.14,
-                                            //   child: ElevatedButton(
-                                            //     child: Center(
-                                            //       child: SizedBox(
-                                            //         height: size.height * 0.065,
-                                            //         width: size.width * 0.14,
-                                            //         child: Icon(
-                                            //           Icons.navigation,
-                                            //           color: Colors.white,
-                                            //           size: 19,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //     onPressed: () {
-                                            //       showDialog(
-                                            //         context: context,
-                                            //         builder:
-                                            //             (BuildContext context) {
-                                            //           return SizedBox(
-                                            //             height:
-                                            //                 size.height * 0.1,
-                                            //             width:
-                                            //                 size.width * 0.21,
-                                            //             child: AlertDialog(
-                                            //               title: Text(
-                                            //                   "Start Your Ride"),
-                                            //               content: Text(
-                                            //                   "Enjoy your journey All The Best!"),
-                                            //               actions: [
-                                            //                 ElevatedButton(
-                                            //                   child: SizedBox(
-                                            //                     width:
-                                            //                         size.width *
-                                            //                             0.21,
-                                            //                     child: Text(
-                                            //                       "   Cancel   ",
-                                            //                       style:
-                                            //                           TextStyle(
-                                            //                         color: Colors
-                                            //                             .white,
-                                            //                       ),
-                                            //                     ),
-                                            //                   ),
-                                            //                   style: ElevatedButton
-                                            //                       .styleFrom(
-                                            //                           primary:
-                                            //                               Colors
-                                            //                                   .red,
-                                            //                           shape:
-                                            //                               RoundedRectangleBorder(
-                                            //                             borderRadius:
-                                            //                                 BorderRadius.circular(10),
-                                            //                           ),
-                                            //                           textStyle: TextStyle(
-                                            //                               fontSize:
-                                            //                                   15,
-                                            //                               color: Colors
-                                            //                                   .white,
-                                            //                               fontWeight:
-                                            //                                   FontWeight.bold)),
-                                            //                   onPressed: () {
-                                            //                     Navigator.of(
-                                            //                             context)
-                                            //                         .pop();
-                                            //                   },
-                                            //                 ),
-                                            //                 // Spacer(),
-                                            //                 ElevatedButton(
-                                            //                   child: Text(
-                                            //                     "Start Ride! ",
-                                            //                     style:
-                                            //                         TextStyle(
-                                            //                       color: Colors
-                                            //                           .white,
-                                            //                     ),
-                                            //                   ),
-                                            //                   style: ElevatedButton
-                                            //                       .styleFrom(
-                                            //                           primary:
-                                            //                               Colors
-                                            //                                   .green,
-                                            //                           shape:
-                                            //                               RoundedRectangleBorder(
-                                            //                             borderRadius:
-                                            //                                 BorderRadius.circular(10),
-                                            //                           ),
-                                            //                           textStyle: TextStyle(
-                                            //                               fontSize:
-                                            //                                   15,
-                                            //                               color: Colors
-                                            //                                   .white,
-                                            //                               fontWeight:
-                                            //                                   FontWeight.bold)),
-                                            //                   onPressed: () {
-                                            //                     // await _ongoingRideController
-                                            //                     //     .ongoingRideApi();
-                                            //                     // _ongoingRideController
-                                            //                     //     .onInit();
-                                            //                     // _ongoingRideController
-                                            //                     //     .update();
-                                            //
-                                            //                     ///todo: open google map and reache to ride.........start..
-                                            //                     ///cmmenting custom code through url launcher...
-                                            //
-                                            //                     // MapUtils.openMap(
-                                            //                     //     userendlat,
-                                            //                     //     userendlang);
-                                            //
-                                            //                     ///todo: we are using urlmap launcher package 9 jan 2024...kumar prince
-                                            //
-                                            //                     MapsLauncher.launchCoordinates(
-                                            //                         userendlat,
-                                            //                         userendlang,
-                                            //                         "${userendlocation}");
-                                            //
-                                            //                     ///    print("userstartlocation${userstartlocation}");
-                                            //                     //     print("userendlocation${userendlocation}");
-                                            //                     // Navigator.of(
-                                            //                     //         context)
-                                            //                     //     .pop();
-                                            //                   },
-                                            //                 ),
-                                            //               ],
-                                            //             ),
-                                            //           );
-                                            //         },
-                                            //       );
-                                            //
-                                            //       ///todo: ongpoing api commented....10 jan 2024...kumar prince...........
-                                            //       //  _ongoingRideController
-                                            //       //.ongoingRideApi();
-                                            //       // _ongoingRideController
-                                            //       //.onInit();
-                                            //       // _ongoingRideController
-                                            //       //.update();
-                                            //     },
-                                            //     style: ElevatedButton.styleFrom(
-                                            //       primary: Colors.red,
-                                            //       shape: RoundedRectangleBorder(
-                                            //         borderRadius:
-                                            //             BorderRadius.circular(
-                                            //                 15),
-                                            //       ),
-                                            //       // textStyle: TextStyle(
-                                            //       //     fontSize: 15,
-                                            //       //     fontWeight:
-                                            //       //         FontWeight.bold)
-                                            //     ),
-                                            //   ),
-                                            // ),
+                                            SizedBox(
+                                              height: size.height * 0.065,
+                                              width: size.width * 0.14,
+                                              child: ElevatedButton(
+                                                child: Center(
+                                                  child: SizedBox(
+                                                    height: size.height * 0.065,
+                                                    width: size.width * 0.14,
+                                                    child: Icon(
+                                                      Icons.navigation,
+                                                      color: Colors.white,
+                                                      size: 19,
+                                                    ),
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return SizedBox(
+                                                        height:
+                                                            size.height * 0.1,
+                                                        width:
+                                                            size.width * 0.21,
+                                                        child: AlertDialog(
+                                                          title: Text(
+                                                              "Start Your Ride"),
+                                                          content: Text(
+                                                              "Start your Ride  "),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                              child: SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.21,
+                                                                child: Text(
+                                                                  "   Cancel   ",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          Colors
+                                                                              .red,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                      ),
+                                                                      textStyle: TextStyle(
+                                                                          fontSize:
+                                                                              15,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight.bold)),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            // Spacer(),
+                                                            ElevatedButton(
+                                                              child: Text(
+                                                                "Start Ride! ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          Colors
+                                                                              .green,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                      ),
+                                                                      textStyle: TextStyle(
+                                                                          fontSize:
+                                                                              15,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontWeight:
+                                                                              FontWeight.bold)),
+                                                              onPressed: () {
+                                                                // await _ongoingRideController
+                                                                //     .ongoingRideApi();
+                                                                // _ongoingRideController
+                                                                //     .onInit();
+                                                                // _ongoingRideController
+                                                                //     .update();
+
+                                                                ///todo: open google map and reache to ride.........start..
+                                                                ///cmmenting custom code through url launcher...
+
+                                                                // MapUtils.openMap(
+                                                                //     userendlat,
+                                                                //     userendlang);
+
+                                                                ///todo: we are using urlmap launcher package 9 jan 2024...kumar prince
+
+                                                                MapsLauncher.launchCoordinates(
+                                                                    userendlat,
+                                                                    userendlang,
+                                                                    "${userendlocation}");
+
+                                                                ///    print("userstartlocation${userstartlocation}");
+                                                                //     print("userendlocation${userendlocation}");
+                                                                // Navigator.of(
+                                                                //         context)
+                                                                //     .pop();
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+
+                                                  ///todo: ongpoing api commented....10 jan 2024...kumar prince...........
+                                                  //  _ongoingRideController
+                                                  //.ongoingRideApi();
+                                                  // _ongoingRideController
+                                                  //.onInit();
+                                                  // _ongoingRideController
+                                                  //.update();
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.red,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  // textStyle: TextStyle(
+                                                  //     fontSize: 15,
+                                                  //     fontWeight:
+                                                  //         FontWeight.bold)
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         // Spacer(),

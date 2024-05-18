@@ -45,7 +45,7 @@ class DevicetokenController extends GetxController {
     if (r != null && r.statusCode == 200) {
       var data = jsonDecode(r.body);
 
-      CallLoader.hideLoader();
+      // CallLoader.hideLoader();
       // _labListController.labListApi();
       // _labListController.update();
 

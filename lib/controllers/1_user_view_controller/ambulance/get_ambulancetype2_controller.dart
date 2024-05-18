@@ -112,15 +112,15 @@ class Ambulanceget2Controller extends GetxController {
 
     final endLat = markers.last.position.latitude;
     final endLong = markers.last.position.longitude;
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.GooglebookambulanceApi2(
       startLat.toDouble(),
       startLong.toDouble(),
-      endLat.toDouble(),
-      endLong.toDouble(),
-      patientidcontroller.text,
-      selectedambCatagary.value?.id.toString(),
-      selectedvhicleCatagary.value?.id.toString(),
+      //endLat.toDouble(),
+      //endLong.toDouble(),
+      //patientidcontroller.text,
+      //selectedambCatagary.value?.id.toString(),
+      //selectedvhicleCatagary.value?.id.toString(),
     );
 
     if (r.statusCode == 200) {
@@ -132,7 +132,7 @@ class Ambulanceget2Controller extends GetxController {
       var data = jsonDecode(r.body);
       //nearlistdriverApi();
 
-      CallLoader.hideLoader();
+      //CallLoader.hideLoader();
 
       /// we can navigate to user page.....................................
       //Get.offAll(UserHomePage());
@@ -141,7 +141,7 @@ class Ambulanceget2Controller extends GetxController {
       //_nearambulancelistController.update();
 
       accountService.getAccountData.then((accountData) {
-        CallLoader.loader();
+        //CallLoader.loader();
         // nearlistdriverApi();
         Timer(
           const Duration(seconds: 1),
@@ -166,6 +166,12 @@ class Ambulanceget2Controller extends GetxController {
       //Get.offAll(() => UserHomePage());
       // ambulancecatagaryyApi();
       //getvehicletype(markers);
+    } else {
+      // Get.to(
+      // Driver_List_LocationId2(
+      //     // driverlist: driverListApiFromJson(r.body),
+      //  ),
+      // );
     }
   }
 

@@ -97,6 +97,7 @@ import '../model/9_prince_doctors_model/doctor_payment_history.dart';
 import '../model/9_prince_doctors_model/get_doctor_list_model/get_doctorlist_model.dart';
 import '../model/lab_review_model/lab_view_review_model.dart';
 import '../modules_view/1_user_section_views/doctorss/doctor_appointments_details/doctor_details_by_id/doctor_detail_by_id_model.dart';
+import '../modules_view/1_user_section_views/emergency_cases_booking/model_emergency/comin_emgy_driver_model.dart';
 import '../modules_view/1_user_section_views/invoice_views/invoice_ambulance/model_ambulance/models_amblnce/ambulance_modelss.dart';
 import '../modules_view/1_user_section_views/invoice_views/invoice_doctor/model_dr/models_drr/doctorr_modelss.dart';
 import '../modules_view/1_user_section_views/invoice_views/invoice_medicine/model/models/medicine_modelss.dart';
@@ -1370,11 +1371,11 @@ class ApiProvider {
   static GooglebookambulanceApi2(
     var start_Lat,
     var start_Long,
-    var end_Lat,
-    var end_Long,
-    var Patient_Id,
-    var AmbulanceType_id,
-    var VehicleType_id,
+    //var end_Lat,
+    //var end_Long,
+    //var Patient_Id,
+    //var AmbulanceType_id,
+    //var VehicleType_id,
   ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
@@ -1387,13 +1388,13 @@ class ApiProvider {
     var body = {
       "start_Lat": start_Lat.toString(),
       "start_Long": start_Long.toString(),
-      "end_Long": end_Long.toString(),
-      "end_Lat": end_Lat.toString(),
+      // "end_Long": end_Long.toString(),
+      //"end_Lat": end_Lat.toString(),
       "Patient_Id": userid,
       "AmbulanceType_id": "${2}",
       //"$AmbulanceType_id",
       //AmbulanceType_id,
-      "VehicleType_id": VehicleType_id
+      //"VehicleType_id": VehicleType_id
     };
     //
     print(body);
@@ -1401,7 +1402,8 @@ class ApiProvider {
       Uri.parse(url), body: body,
       //headers: headers
     );
-    //print(r.body);
+
+    print("okokoscksa${r.body}");
     if (r.statusCode == 200) {
       ///ambulance..
       //saved id..........
@@ -1409,7 +1411,7 @@ class ApiProvider {
       prefs.write("ambulancetypeid".toString(),
           json.decode(r.body)['AmbulanceType_id']);
       ambulancetypeid = prefs.read("AmbulanceType_id").toString();
-      print('&userdriambulance:${AmbulanceType_id}');
+      //print('&userdriambulance:${AmbulanceType_id}');
 
       ///lat
       prefs.write("lat".toString(), json.decode(r.body)['start_Lat']);
@@ -1424,18 +1426,20 @@ class ApiProvider {
       ///lat2
       prefs.write("lat2".toString(), json.decode(r.body)['end_Lat']);
       lat2 = prefs.read("end_Lat").toString();
-      print('&userdriverlat21:${end_Lat}');
+
+      /// print('&userdriverlat21:${end_Lat}');
 
       ///lng2
       prefs.write("lng2".toString(), json.decode(r.body)['end_Long']);
       lng2 = prefs.read("end_Long").toString();
-      print('&user33lng:${end_Long}');
+
+      ///print('&user33lng:${end_Long}');
 
       ///vehicle
       prefs.write(
           "vehicletypeid".toString(), json.decode(r.body)['VehicleType_id']);
       vehicletypeid = prefs.read("VehicleType_id").toString();
-      print('&user33vehicleid:${VehicleType_id}');
+      // print('&user33vehicleid:${VehicleType_id}');
 
       ///driverid
       ///userdriverid
@@ -1546,6 +1550,94 @@ class ApiProvider {
       return r;
     }
   }
+
+  ///todo: google post emergency ambulance api on 2 .......16 may 2024.......,,,,,,.....................
+  static Future<http.Response> GooglebookEmengencyambulanceApi(
+    double endLat,
+    double endLong,
+  ) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      var AmbulancelistssId = preferences.getString("AmbulancelistssId");
+
+      // Get current location
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best,
+      );
+      double currentLat = position.latitude;
+      double currentLng = position.longitude;
+
+      var url = '${baseUrl}api/DriverApi/AddRoadAccidentAmbulance';
+      var prefs = GetStorage();
+      userid = prefs.read("Id").toString();
+
+      var body = {
+        "end_Long": endLong.toString(), // Use the provided longitude
+        "end_Lat": endLat.toString(), // Use the provided latitude
+        "Patient_Id": userid,
+        "AmbulanceType_id": "${2}",
+      };
+
+      http.Response r = await http.post(
+        Uri.parse(url),
+        body: body,
+      );
+
+      return r; // Return the response object
+    } catch (e) {
+      print("Error: $e");
+      // Handle error
+      return http.Response('Error: $e', 500);
+    }
+  }
+
+  ///
+
+  // static Future<http.Response> GooglebookEmengencyambulanceApi(
+  //   var end_Long,
+  //   var end_Lat,
+  // ) async {
+  //   try {
+  //     SharedPreferences preferences = await SharedPreferences.getInstance();
+  //     var AmbulancelistssId = preferences.getString("AmbulancelistssId");
+  //
+  //     var lng2 = preferences.getString("lng2");
+  //     //lat1
+  //     var lat2 = preferences.getString("lat2");
+  //
+  //     // Get current location
+  //     Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.best,
+  //     );
+  //     double currentLat = position.latitude;
+  //     double currentLng = position.longitude;
+  //
+  //     var url = '${baseUrl}api/DriverApi/AddRoadAccidentAmbulance';
+  //     var prefs = GetStorage();
+  //     userid = prefs.read("Id").toString();
+  //
+  //     lat2 = currentLat.toString(); // Update lat2 with current latitude
+  //     lng2 = currentLng.toString(); // Update lng2 with current longitude
+  //
+  //     var body = {
+  //       "end_Long": lng2.toString(),
+  //       "end_Lat": lat2.toString(),
+  //       "Patient_Id": userid,
+  //       "AmbulanceType_id": "${2}",
+  //     };
+  //
+  //     http.Response r = await http.post(
+  //       Uri.parse(url),
+  //       body: body,
+  //     );
+  //
+  //     return r; // Return the response object
+  //   } catch (e) {
+  //     print("Error: $e");
+  //     // Handle error
+  //     return http.Response('Error: $e', 500);
+  //   }
+  // }
 
   ///todo: book ambulance 2 booking api........
   static Googlebookambulance2Api(
@@ -1738,6 +1830,122 @@ class ApiProvider {
         backgroundColor: Colors.green, // Custom background color
         colorText: Colors.white, // Duration in seconds
       );
+      //Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: google update driver location api on .......15  may 2024.......,,,,,,.....................
+
+  static GoogleupdateautodriverApi(
+    var Lat,
+    var Lang,
+  ) async {
+    var url = '${baseUrl}api/DriverApi/UpdateDriverLocation';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogledriver:${userid}');
+
+    var body = {
+      "Lat": Lat.toString(),
+      "Lang": Lang.toString(),
+      "DriverId": userid,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print(r.body);
+      print(r.statusCode);
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4),
+      //   backgroundColor: Colors.green, // Custom background color
+      //   colorText: Colors.white, // Duration in seconds
+      // );
+
+      /// Get.snackbar("title", '${r.body}');
+      return r;
+    } else if (r.statusCode == 401) {
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4),
+      //   backgroundColor: Colors.green, // Custom background color
+      //   colorText: Colors.white, // Duration in seconds
+      // );
+
+      /// Get.snackbar('message', r.body);
+    } else {
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4),
+      //   backgroundColor: Colors.green, // Custom background color
+      //   colorText: Colors.white, // Duration in seconds
+      // );
+      //Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: google update user location api on .......1 5may 2024.......,,,,,,.....................
+
+  static GoogleupdateuserApi(
+    var Lat,
+    var Lang,
+  ) async {
+    var url = '${baseUrl}api/PatientApi/UpdateUserLocation';
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogledriver:${userid}');
+
+    var body = {
+      "Lat": Lat.toString(),
+      "Lang": Lang.toString(),
+      "PatientId": userid,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print(r.body);
+      print(r.statusCode);
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4),
+      //   backgroundColor: Colors.green, // Custom background color
+      //   colorText: Colors.white, // Duration in seconds
+      // );
+
+      /// Get.snackbar("title", '${r.body}');
+      return r;
+    } else if (r.statusCode == 401) {
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4),
+      //   backgroundColor: Colors.green, // Custom background color
+      //   colorText: Colors.white, // Duration in seconds
+      // );
+
+      /// Get.snackbar('message', r.body);
+    } else {
+      // Get.snackbar(
+      //   'message', // Title
+      //   r.body, // Message
+      //   duration: Duration(seconds: 4),
+      //   backgroundColor: Colors.green, // Custom background color
+      //   colorText: Colors.white, // Duration in seconds
+      // );
       //Get.snackbar('Errorgoogle', r.body);
       return r;
     }
@@ -6271,6 +6479,35 @@ class ApiProvider {
     }
   }
 
+  //http://pswellness.in/api/DriverApi/GetRoadAccidendAmbOngoingRide?PatientId=264
+
+  ///todo: accepted emergency driver coming list  16 may 2024....user api...
+  static ComingDriverEmergencyUserApi() async {
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogleewew:${userid}');
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistbookingId = preferences.getString("driverlistbookingId");
+    print("driverlistbookingId: ${driverlistbookingId}");
+    //driverlistbookingId
+    //http://test.pswellness.in/api/DriverApi/GetAcceptedandPaidamtDriverDetail?Id=268
+    var url =
+        '${baseUrl}api/DriverApi/GetRoadAccidendAmbOngoingRide?PatientId=$userid';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("ambulanceonlinerrreeeww:${r.body}");
+        print("ambulanceonlinerrreeeww:${url}");
+
+        EmergencyComingDriver comingemgydvrDetail =
+            emergencyComingDriverFromJson(r.body);
+        return comingemgydvrDetail;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
   ///ambulance_paynow.ONLINE.lab....api..of...user........29 april 2023...........
 
   static AmbulancepaynowOnlineApi(num? driverId) async {
@@ -6896,6 +7133,67 @@ class ApiProvider {
 
     var body = {
       "Driver_Id": "$driverId",
+      "Patient_Id": userid,
+      // "end_Long": "$endLong5",
+      // "end_Lat": "$endLat5",
+      // "Patient_Id": userId,
+      // "VehicleType_id": "${AmbulancecatserviceId}",
+    };
+    //
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print("bodyyy123: ${r.body}");
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print("bodyyy1234: ${r.body}");
+
+      print(r.body);
+      print(r.statusCode);
+      Get.snackbar("Booking Status", r.body);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: here from post request individual post api......9 aprl..2024..
+  static AcceptIndividualEmergencyPostApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+    // print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+
+    var driveremgId = preferences.getString("driveremgId");
+    print("driveremgId: ${driveremgId}");
+    //driverId
+    //driverId
+    var prefs = GetStorage();
+    userid = prefs.read("Id").toString();
+    print('&userdriambulance:${ambulancetypeid}');
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userid}');
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var startLat5 = preferences.getString("startLat5");
+    // print("driverlistssId88899: ${startLat5}");
+    //lat1
+    // var startLong5 = preferences.getString("startLong5");
+    // print("driverlistssId88899: ${startLong5}");
+    //lat1
+    // var endLat5 = preferences.getString("endLat5");
+    // print("lat133: ${endLat5}");
+    //lat1
+    // var endLong5 = preferences.getString("endLong5");
+    // print("lng244: ${endLong5}");
+    //lat1
+
+    var url = '${baseUrl}api/PatientApi/BookDriver';
+
+    var body = {
+      "Driver_Id": "$driveremgId",
       "Patient_Id": userid,
       // "end_Long": "$endLong5",
       // "end_Lat": "$endLat5",

@@ -20,11 +20,13 @@ import 'package:ps_welness_new_ui/notificationservice/local_notification_service
 import 'package:ps_welness_new_ui/notificationservice/notification_fb_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
-import '../../../controllers/1_user_view_controller/ambulance/get_ambulancetype_controller.dart';
-import '../../../utils/services/account_service.dart';
-import '../../../widgets/circular_loader.dart';
-import '../notiification_view_page/notification_message2.dart';
+import '../../../../controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
+import '../../../../utils/services/account_service.dart';
+import '../../../../widgets/circular_loader.dart';
+import '../controllerss/booked_amblnce_controller.dart';
+import '../controllerss/emergency_controllers.dart';
+import '../model_emergency/emergency_model.dart';
+import 'booked_ambulance_screen.dart';
 
 String PatientRegNo = ''.toString();
 String userPassword = ''.toString();
@@ -33,23 +35,29 @@ String DriverId = ''.toString();
 String driverpassword = ''.toString();
 var alldevicetoken = '';
 
-class Driver_List_LocationId extends StatefulWidget {
-  Driver_List_LocationId({Key? key, this.driverlist}) : super(key: key);
-  DriverListApi? driverlist;
+class Driver_List_Emergency extends StatefulWidget {
+  Driver_List_Emergency({Key? key, this.driverlist}) : super(key: key);
+  EmergencyAmbulanceList? driverlist;
+  //EmergencyAmbulanceList
 
   @override
-  State<Driver_List_LocationId> createState() => _Driver_List_LocationIdState();
+  State<Driver_List_Emergency> createState() => _Driver_List_LocationIdState();
 }
 
-class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
+class _Driver_List_LocationIdState extends State<Driver_List_Emergency> {
   //NotificationServices notificationServices = NotificationServices();
 
   //DriverPayoutController _driverPayoutController =
-  AmbulancegetController _ambulancegetController =
-      Get.put(AmbulancegetController());
+  // AmbulancegetController _ambulancegetController =
+  //     Get.put(AmbulancegetController());
+  AmbulanceEmergencygetController _ambulanceEmergencygetController =
+      Get.put(AmbulanceEmergencygetController());
   NotificationServices notificationServices = NotificationServices();
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
+
+  CommingemergencyDriverController _commingDriveremgcyController =
+      Get.put(CommingemergencyDriverController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -152,14 +160,15 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
         return shouldPop;
       },
       child: Container(
-        color: MyTheme.ThemeColors,
+        color: MyTheme.white,
+        //ThemeColors,
         height: size.height,
         width: size.width,
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Obx(
-              () => _ambulancegetController.isLoading.isFalse
+              () => _ambulanceEmergencygetController.isLoading.value
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
@@ -167,7 +176,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                       clipBehavior: Clip.none,
                       children: [
                         Positioned(
-                          top: size.height * 0.007,
+                          top: size.height * 0.00,
                           //bottom: size.height * 0.64,
                           //left: -30,
                           left: -size.width * 0.024,
@@ -190,13 +199,13 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                           ),
                         ),
                         Positioned(
-                          top: size.height * 0.09,
+                          top: size.height * 0.05,
                           //bottom: size.height * 0.64,
                           //left: -30,
-                          right: size.width * 0.024,
+                          right: size.width * 0.02,
                           child: Container(
                             height: size.height * 0.05,
-                            width: size.width * 0.3,
+                            width: size.width * 0.33,
                             child: NeoPopButton(
                               color: Colors.red.shade800,
                               bottomShadowColor: ColorUtils.getVerticalShadow(
@@ -208,112 +217,19 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                               //animationDuration: kButtonAnimationDuration,
                               depth: kButtonDepth,
                               onTapUp: () async {
-                                widget.driverlist?.message
-                                    ?.forEach((element) async {
-                                  ///.......
-                                  // _ambulancegetController
-                                  //     .postAmbulancerequestApi2();
-                                  await _ambulancegetController
-                                      .postRequestAllApi();
-                                  print('princee notification');
-                                  notificationServices
-                                      .getDeviceToken()
-                                      .then((value) async {
-                                    var data = {
-                                      //this the particular device id.....
-                                      'to':
-                                          // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                                          //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
-                                          //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                                _driverAcceptlistController
+                                    .driveracceptuserDetailApi();
 
-                                          ///todo device token......
-                                          // "${widget.driverlist?.message?[0].deviceId}"
-                                          "${element.deviceId}".toString(),
+                                await _commingDriveremgcyController
+                                    .drivercominguseremrgencyDetailApi();
+                                _commingDriveremgcyController.update();
+                                _commingDriveremgcyController.onInit();
+                                _commingDriveremgcyController.refresh();
 
-                                      ///
-                                      //
-                                      //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                                      //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                                      //.toString(),
-
-                                      ///this is same device token....
-                                      //value
-                                      //.toString(),
-                                      'notification': {
-                                        'title': 'Ps_Wellness',
-                                        'body':
-                                            'You have request for ambulance',
-                                        //"sound": "jetsons_doorbell.mp3"
-                                      },
-                                      'android': {
-                                        'notification': {
-                                          'notification_count': 23,
-                                        },
-                                      },
-                                      'data': {
-                                        'type': 'msj',
-                                        'id': '123456',
-                                      }
-                                    };
-                                    print("data1${data}");
-
-                                    await http.post(
-                                        Uri.parse(
-                                            'https://fcm.googleapis.com/fcm/send'),
-                                        body: jsonEncode(data),
-                                        headers: {
-                                          'Content-Type':
-                                              'application/json; charset=UTF-8',
-                                          'Authorization':
-                                              //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                                              'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
-                                        }).then((value) {
-                                      if (kDebugMode) {
-                                        print(
-                                            "bookdriver${value.body.toString()}");
-                                      }
-                                    }).onError((error, stackTrace) {
-                                      if (kDebugMode) {
-                                        print(error);
-                                      }
-                                    });
-
-                                    ///todo: from here custom from backend start...
-                                    var prefs = GetStorage();
-                                    PatientRegNo =
-                                        prefs.read("PatientRegNo").toString();
-                                    print(
-                                        '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
-                                    var body = {
-                                      "UserId": "${PatientRegNo}",
-                                      "DeviceId": value.toString(),
-                                    };
-                                    print(
-                                        "userrrtokenupdateeeddbeforetttt${body}");
-                                    http.Response r = await http.post(
-                                      Uri.parse(
-                                          'https://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
-                                      body: body,
-                                    );
-
-                                    print(r.body);
-                                    if (r.statusCode == 200) {
-                                      ///todo: 9 april 2024... it will redirect to home page
-
-                                      await Get.to(UserHomePage());
-
-                                      print("userrrtokenupdateeedd111${body}");
-                                      return r;
-                                    } else if (r.statusCode == 401) {
-                                      Get.snackbar('message', r.body);
-                                    } else {
-                                      Get.snackbar('Error', r.body);
-                                      return r;
-                                    }
-
-                                    ///todo end post api from backend...
-                                  });
-                                });
+                                CallLoader.loader();
+                                await Future.delayed(Duration(seconds: 1));
+                                CallLoader.hideLoader();
+                                await Get.to(ComingEmergencyDriver(id: "5555"));
                               },
                               border: Border.all(
                                 color: Colors.black,
@@ -325,10 +241,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
-                                    Text("Request All",
+                                    Text("Check Your Ambulance",
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 15,
+                                          fontSize: 10,
                                           fontWeight: FontWeight.bold,
                                         )),
                                   ],
@@ -338,131 +254,6 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                           ),
                         ),
 
-                        ///request all driver bhaiya.....suggession...
-                        // Positioned(
-                        //   top: size.height * 0.066,
-                        //   //bottom: size.height * 0.64,
-                        //   //left: -30,
-                        //   left: size.width * 0.3,
-                        //
-                        //   ///todo: all booking driver...
-                        //   child: Padding(
-                        //     padding: EdgeInsets.all(2.0),
-                        //     child: InkWell(
-                        //         onTap: () async {
-                        //           widget.driverlist?.message?.forEach((element) {
-                        //             ///.......
-                        //             print('princee notification');
-                        //             notificationServices
-                        //                 .getDeviceToken()
-                        //                 .then((value) async {
-                        //               var data = {
-                        //                 //this the particular device id.....
-                        //                 'to':
-                        //                     // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                        //                     //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
-                        //                     //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                        //
-                        //                     ///todo device token......
-                        //                     // "${widget.driverlist?.message?[0].deviceId}"
-                        //                     "${element.deviceId}".toString(),
-                        //
-                        //                 ///
-                        //                 //
-                        //                 //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                        //                 //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                        //                 //.toString(),
-                        //
-                        //                 ///this is same device token....
-                        //                 //value
-                        //                 //.toString(),
-                        //                 'notification': {
-                        //                   'title': 'Ps_Wellness',
-                        //                   'body':
-                        //                       'You have request for ambulance',
-                        //                   //"sound": "jetsons_doorbell.mp3"
-                        //                 },
-                        //                 'android': {
-                        //                   'notification': {
-                        //                     'notification_count': 23,
-                        //                   },
-                        //                 },
-                        //                 'data': {
-                        //                   'type': 'msj',
-                        //                   'id': '123456',
-                        //                 }
-                        //               };
-                        //
-                        //               await http.post(
-                        //                   Uri.parse(
-                        //                       'https://fcm.googleapis.com/fcm/send'),
-                        //                   body: jsonEncode(data),
-                        //                   headers: {
-                        //                     'Content-Type':
-                        //                         'application/json; charset=UTF-8',
-                        //                     'Authorization':
-                        //                         //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                        //                         'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
-                        //                   }).then((value) {
-                        //                 if (kDebugMode) {
-                        //                   print(value.body.toString());
-                        //                 }
-                        //               }).onError((error, stackTrace) {
-                        //                 if (kDebugMode) {
-                        //                   print(error);
-                        //                 }
-                        //               });
-                        //
-                        //               ///todo: from here custom from backend start...
-                        //               var prefs = GetStorage();
-                        //               PatientRegNo =
-                        //                   prefs.read("PatientRegNo").toString();
-                        //               print(
-                        //                   '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
-                        //               var body = {
-                        //                 "UserId": "${PatientRegNo}",
-                        //                 "DeviceId": value.toString(),
-                        //               };
-                        //               print(
-                        //                   "userrrtokenupdateeeddbeforetttt${body}");
-                        //               http.Response r = await http.post(
-                        //                 Uri.parse(
-                        //                     'http://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
-                        //                 body: body,
-                        //               );
-                        //
-                        //               print(r.body);
-                        //               if (r.statusCode == 200) {
-                        //                 print("userrrtokenupdateeedd111${body}");
-                        //                 return r;
-                        //               } else if (r.statusCode == 401) {
-                        //                 Get.snackbar('message', r.body);
-                        //               } else {
-                        //                 Get.snackbar('Error', r.body);
-                        //                 return r;
-                        //               }
-                        //
-                        //               ///todo end post api from backend...
-                        //             });
-                        //           });
-                        //         },
-                        //         child: Icon(Icons.select_all)),
-                        //     // Container(
-                        //     //   height: size.height * 0.20,
-                        //     //   width: size.width * 0.5,
-                        //     //   decoration: BoxDecoration(
-                        //     //     //color: Colors.,
-                        //     //       borderRadius: BorderRadius.only(
-                        //     //         topRight: Radius.circular(20),
-                        //     //       ),
-                        //     //       image: DecorationImage(
-                        //     //           image: AssetImage(
-                        //     //             'lib/assets/image/psambulance.png',
-                        //     //           ),
-                        //     //           fit: BoxFit.cover)),
-                        //     // ),
-                        //   ),
-                        // ),
                         ///end.....
                         Column(
                           children: [
@@ -498,59 +289,14 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                     width: size.width * 0.03,
                                   ),
                                   Text(
-                                    'Available Driver\'s',
+                                    'Available Driver\'s for Accident',
                                     style: GoogleFonts.alatsi(
                                         fontSize: size.height * 0.022,
                                         fontWeight: FontWeight.w600,
                                         color: Color(0xff023382)),
                                   ),
                                   SizedBox(
-                                    width: size.width * 0.3,
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 4, right: 0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          _driverAcceptlistController
-                                              .driveracceptuserDetailApi();
-                                          _driverAcceptlistController.update();
-                                          accountService.getAccountData
-                                              .then((accountData) {
-                                            // CallLoader.loader();
-                                            // nearlistdriverApi();
-
-                                            Timer(
-                                              const Duration(microseconds: 300),
-                                              () {
-                                                // nearlistdriverApi();
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageScreen2(
-                                                              id: "12345678",
-                                                            )));
-                                                // Get.to(MessageScreen(
-                                                //   id: message.data['id'],
-                                                // ));
-                                                //Get.to((MapView));
-                                                //postAmbulancerequestApi(markers);
-
-                                                ///
-                                              },
-                                            );
-                                            CallLoader.hideLoader();
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.notifications_active_rounded,
-                                          size: size.height * 0.04,
-                                          color: MyTheme.blueww,
-                                        ),
-                                      ),
-                                    ),
+                                    width: size.width * 0.0,
                                   ),
                                 ],
                               ),
@@ -583,9 +329,9 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                               horizontal: size.width * 0.03,
                                               vertical: size.height * 0.0005),
                                           child: Container(
-                                            height: size.height * 0.2,
+                                            height: size.height * 0.16,
                                             margin: EdgeInsets.symmetric(
-                                                vertical: 30 / 5),
+                                                vertical: 30 / 3),
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: NetworkImage(
@@ -648,7 +394,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                   ]),
                                               child: Padding(
                                                 padding:
-                                                    const EdgeInsets.all(12.0),
+                                                    const EdgeInsets.all(10.0),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -660,10 +406,6 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                       width: size.width * 0.17,
                                                       padding:
                                                           EdgeInsets.all(8),
-                                                      child: Image.asset(
-                                                        'lib/assets/icons/user.png',
-                                                        // "lib/assets/image/icons8-hospital-64.png",
-                                                      ),
                                                       decoration: BoxDecoration(
                                                           color:
                                                               Colors.grey[300],
@@ -689,6 +431,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                               spreadRadius: 1,
                                                             ),
                                                           ]),
+                                                      child: Image.asset(
+                                                        'lib/assets/icons/user.png',
+                                                        // "lib/assets/image/icons8-hospital-64.png",
+                                                      ),
                                                     ),
                                                     Column(
                                                       crossAxisAlignment:
@@ -705,20 +451,35 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                               color: Color(
                                                                   0xff12BFC4),
                                                             ),
-                                                            Text(
-                                                              "${widget.driverlist?.message?[index].name}",
-                                                              // 'Kumar Prince',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                              style: GoogleFonts
-                                                                  .aBeeZee(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.04,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: MyTheme
-                                                                    .blueww,
+                                                            SizedBox(
+                                                              width:
+                                                                  size.width *
+                                                                      0.35,
+                                                              height:
+                                                                  size.height *
+                                                                      0.05,
+                                                              child: Center(
+                                                                child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child: Text(
+                                                                    "${widget.driverlist?.message?[index].name}",
+                                                                    // 'Kumar Prince',
+                                                                    //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                                    style: GoogleFonts
+                                                                        .aBeeZee(
+                                                                      fontSize:
+                                                                          size.width *
+                                                                              0.044,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                      color: MyTheme
+                                                                          .blueww,
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
 
@@ -793,7 +554,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                         ),
                                                         SizedBox(
                                                           height: size.height *
-                                                              0.02,
+                                                              0.01,
                                                         ),
                                                         Row(
                                                           children: [
@@ -804,7 +565,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   .actor(
                                                                 fontSize:
                                                                     size.width *
-                                                                        0.03,
+                                                                        0.04,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -833,65 +594,66 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   .aBeeZee(
                                                                 fontSize:
                                                                     size.width *
-                                                                        0.027,
+                                                                        0.033,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w700,
+                                                                        .w900,
                                                                 color: Colors
-                                                                    .grey
+                                                                    .red
                                                                     .shade600,
                                                               ),
                                                             ),
                                                           ],
                                                         ),
+                                                        // SizedBox(
+                                                        //   height: size.height *
+                                                        //       0.01,
+                                                        // ),
+                                                        // Row(
+                                                        //   children: [
+                                                        //     Text(
+                                                        //       'Estimated Price :',
+                                                        //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                        //       style: GoogleFonts
+                                                        //           .actor(
+                                                        //         fontSize:
+                                                        //             size.width *
+                                                        //                 0.04,
+                                                        //         fontWeight:
+                                                        //             FontWeight
+                                                        //                 .w700,
+                                                        //         color: Color(
+                                                        //             0xff12BFC4),
+                                                        //       ),
+                                                        //     ),
+                                                        //     SizedBox(
+                                                        //       width:
+                                                        //           size.width *
+                                                        //               0.01,
+                                                        //     ),
+                                                        //     Text(
+                                                        //       "FREE",
+                                                        //       // "\u{20B9} ${widget.driverlist?.message?[index].totalPrice?.toDouble()}",
+                                                        //       // '121234333377',
+                                                        //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                        //       style: GoogleFonts
+                                                        //           .poppins(
+                                                        //         fontSize:
+                                                        //             size.width *
+                                                        //                 0.034,
+                                                        //         fontWeight:
+                                                        //             FontWeight
+                                                        //                 .w600,
+                                                        //         color: Colors
+                                                        //             .green
+                                                        //             .shade400,
+                                                        //       ),
+                                                        //     ),
+                                                        //   ],
+                                                        // ),
                                                         SizedBox(
                                                           height: size.height *
-                                                              0.02,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              'Estimated Price :',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                              style: GoogleFonts
-                                                                  .actor(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Color(
-                                                                    0xff12BFC4),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width:
-                                                                  size.width *
-                                                                      0.01,
-                                                            ),
-                                                            Text(
-                                                              "\u{20B9} ${widget.driverlist?.message?[index].totalPrice?.toDouble()}",
-                                                              // '121234333377',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                fontSize:
-                                                                    size.width *
-                                                                        0.03,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: size.height *
-                                                              0.02,
+                                                              0.01,
                                                         ),
                                                         Row(
                                                           children: [
@@ -902,7 +664,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   .actor(
                                                                 fontSize:
                                                                     size.width *
-                                                                        0.03,
+                                                                        0.04,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -949,9 +711,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                           height: size.height *
                                                               0.035,
                                                           width:
-                                                              size.width * 0.22,
-                                                          padding:
-                                                              EdgeInsets.all(8),
+                                                              size.width * 0.18,
                                                           decoration: BoxDecoration(
                                                               color: Colors
                                                                   .grey[300],
@@ -981,63 +741,25 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                       0,
                                                                 ),
                                                               ]),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Total:',
+                                                          child: Center(
+                                                            child: Text(
+                                                              'FREE',
 
-                                                                  /// '\u{20B9}',
-                                                                  //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .actor(
-                                                                    fontSize:
-                                                                        size.width *
-                                                                            0.024,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w800,
-                                                                    color: Colors
-                                                                        .indigo,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width:
+                                                              /// '\u{20B9}',
+                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                fontSize:
                                                                     size.width *
-                                                                        0.00,
+                                                                        0.05,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800,
+                                                                color: Colors
+                                                                    .red
+                                                                    .shade700,
                                                               ),
-                                                              Text(
-                                                                "${widget.driverlist?.message?[index].toatlDistance}Km",
-
-                                                                // '10/km',
-                                                                //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .roboto(
-                                                                  fontSize:
-                                                                      size.width *
-                                                                          0.026,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: Colors
-                                                                      .red
-                                                                      .shade900,
-                                                                ),
-                                                              ),
-                                                            ],
+                                                            ),
                                                           ),
                                                         ),
                                                         Spacer(),
@@ -1065,38 +787,66 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                               _driverAcceptlistController
                                                                   .driveracceptuserDetailApi();
 
+                                                              await _commingDriveremgcyController
+                                                                  .drivercominguseremrgencyDetailApi();
+                                                              _commingDriveremgcyController
+                                                                  .update();
+                                                              // _commingDriveremgcyController
+                                                              //     .onInit();
+                                                              // _commingDriveremgcyController
+                                                              //     .refresh();
+
+                                                              // CallLoader
+                                                              //     .loader();
+                                                              // await Future.delayed(
+                                                              //     Duration(
+                                                              //         seconds:
+                                                              //             2));
+                                                              // CallLoader
+                                                              //     .hideLoader();
+                                                              // await Get.to(
+                                                              //     ComingEmergencyDriver());
+
                                                               ///accept______reject....
                                                               _driverAcceptlistController
                                                                   .update();
-                                                              accountService
-                                                                  .getAccountData
-                                                                  .then(
-                                                                      (accountData) {
-                                                                CallLoader
-                                                                    .loader();
-                                                                Timer(
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          900),
-                                                                  () {
-                                                                    // nearlistdriverApi();
-                                                                    Navigator.push(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                UserHomePage()));
-                                                                    // Get.to(MessageScreen(
-                                                                    //   id: message.data['id'],
-                                                                    // ));
-                                                                    //Get.to((MapView));
-                                                                    //postAmbulancerequestApi(markers);
-
-                                                                    ///
-                                                                  },
-                                                                );
-                                                                CallLoader
-                                                                    .hideLoader();
-                                                              });
+                                                              // accountService
+                                                              //     .getAccountData
+                                                              //     .then(
+                                                              //         (accountData) async {
+                                                              //   CallLoader
+                                                              //       .loader();
+                                                              //   await Future.delayed(
+                                                              //       Duration(
+                                                              //           seconds:
+                                                              //               2));
+                                                              //   CallLoader
+                                                              //       .hideLoader();
+                                                              //   await Get.to(
+                                                              //       ComingEmergencyDriver());
+                                                              //   // Timer(
+                                                              //   //   const Duration(
+                                                              //   //       milliseconds:
+                                                              //   //           900),
+                                                              //   //   () {
+                                                              //   //     // nearlistdriverApi();
+                                                              //   //     Navigator.push(
+                                                              //   //         context,
+                                                              //   //         MaterialPageRoute(
+                                                              //   //             builder: (context) =>
+                                                              //   //                 ComingEmergencyDriver()));
+                                                              //   //     // Get.to(MessageScreen(
+                                                              //   //     //   id: message.data['id'],
+                                                              //   //     // ));
+                                                              //   //     //Get.to((MapView));
+                                                              //   //     //postAmbulancerequestApi(markers);
+                                                              //   //
+                                                              //   //     ///
+                                                              //   //   },
+                                                              //   // );
+                                                              //   // CallLoader
+                                                              //   //     .hideLoader();
+                                                              // });
 
                                                               ///
                                                               SharedPreferences
@@ -1105,7 +855,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                       .getInstance();
 
                                                               await prefs.setString(
-                                                                  "driverId",
+                                                                  "driveremgId",
                                                                   "${widget.driverlist?.message?[index].driverId}");
                                                               prefs.setString(
                                                                   "driverlistssId",
@@ -1121,10 +871,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   "okolllllidd${widget.driverlist?.message?[index].id.toString()}");
                                                               prefs.setString(
                                                                   "lng1",
-                                                                  "${widget.driverlist?.startLong.toString()}");
+                                                                  "${widget.driverlist?.lang.toString()}");
                                                               prefs.setString(
                                                                   "lat1",
-                                                                  "${widget.driverlist?.startLat.toString()}");
+                                                                  "${widget.driverlist?.lat.toString()}");
 
                                                               prefs.setString(
                                                                   "lng2",
@@ -1139,8 +889,10 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                   "vehicle1",
                                                                   "${widget.driverlist?.vehicleTypeId.toString()}");
 
-                                                              await _ambulancegetController
-                                                                  .postRequestIndividualApi();
+                                                              await _ambulanceEmergencygetController
+                                                                  .postRequestIndividualemgApi();
+
+                                                              ///...todo: book now click...
                                                               print(
                                                                 "okokotokenww:${widget.driverlist?.message?[index].deviceId}"
                                                                     .toString(),
@@ -1179,7 +931,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                       'title':
                                                                           'Ps_Wellness',
                                                                       'body':
-                                                                          'You have request for ambulance',
+                                                                          'You have request for Accident ambulance',
                                                                       //"sound": "jetsons_doorbell.mp3"
                                                                     },
                                                                     'android': {
@@ -1191,9 +943,9 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                     },
                                                                     'data': {
                                                                       'type':
-                                                                          'msj',
+                                                                          'accident_case',
                                                                       'id':
-                                                                          '123456'
+                                                                          '9999'
                                                                     }
                                                                   };
 
@@ -1245,7 +997,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                       await http
                                                                           .post(
                                                                     Uri.parse(
-                                                                        'https://test.pswellness.in/api/DriverApi/UpadateDiviceId'),
+                                                                        'https://pswellness.in/api/DriverApi/UpadateDiviceId'),
                                                                     body: body,
                                                                   );
 
@@ -1254,11 +1006,11 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                                       200) {
                                                                     ///todo: 9 april 2024 redirect to home page of user....prince
 
-                                                                    Navigator.push(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                UserHomePage()));
+                                                                    // Navigator.push(
+                                                                    //     context,
+                                                                    //     MaterialPageRoute(
+                                                                    //         builder: (context) =>
+                                                                    //             UserHomePage()));
 
                                                                     ///todo: 9 april 2024 redirect to home page of user....prince...end...
 
@@ -1441,12 +1193,12 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
       ),
     );
   }
-  //DriverListApi
-  //alldevicetoken
-  // void devicetoken() {
-  //   List<String> alldevicetoken = ${widget?.driverlist?.message.toString();};
-  //   alldevicetoken.forEach((number) {
-  //     print(number);
-  //   });
-  // }
+//DriverListApi
+//alldevicetoken
+// void devicetoken() {
+//   List<String> alldevicetoken = ${widget?.driverlist?.message.toString();};
+//   alldevicetoken.forEach((number) {
+//     print(number);
+//   });
+// }
 }

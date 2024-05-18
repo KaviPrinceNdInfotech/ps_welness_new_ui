@@ -35,6 +35,8 @@ import '../../../widgets/circular_loader.dart';
 import '../../../widgets/support_page_comman/support_comman_page.dart';
 import '../../sign_in/sigin_screen.dart';
 import '../ambulance_driver/ambulance_payment_history/ambulance_payment_history.dart';
+import '../emergency_cases_booking/booked_ambulance/booked_ambulance_screen.dart';
+import '../emergency_cases_booking/controllerss/booked_amblnce_controller.dart';
 import 'drawer_pages_user/lab_appointment_history/lab_history.dart';
 import 'drawer_pages_user/medicine_history/medicine_history_page.dart';
 import 'drawer_pages_user/nurse_history/nurse_history_page.dart';
@@ -78,6 +80,8 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
         Get.put(DriverUserPaymentHistoryController());
     CommingDriverController _commingDriverController =
         Get.put(CommingDriverController());
+    CommingemergencyDriverController _commingDriveremgcyController =
+        Get.put(CommingemergencyDriverController());
 
     ///
 
@@ -461,6 +465,88 @@ class _UserMainDrawerState extends State<UserMainDrawer> {
                   //     Get.offNamed('/UpdateBankSeperateDetail');
                   //   },
                   // ),
+                  ListTile(
+                    // horizontalTitleGap: 10,
+                    leading: Icon(
+                      Icons.car_crash_sharp,
+                      color: MyTheme.blueww,
+                      size: size.height * 0.021,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      color: MyTheme.blueww,
+                      size: size.height * 0.02,
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    dense: true,
+                    visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+                    title: Text(
+                      'Ongoing Accidental Ambulance',
+                      style: TextStyle(
+                          fontSize: size.height * 0.016,
+                          fontWeight: FontWeight.w600,
+                          color: MyTheme.blueww),
+                    ),
+                    tileColor: Get.currentRoute == '/ComingDriver'
+                        ? Colors.grey[300]
+                        : Colors.transparent,
+
+                    onTap: () async {
+                      await accountService.getAccountData.then((accountData) {
+                        _commingDriverController.drivercominguserDetailApi();
+                        _commingDriverController.update();
+                        _commingDriverController.refresh();
+                        _commingDriverController.onInit();
+                      });
+
+                      await accountService.getAccountData
+                          .then((accountData) async {
+                        _commingDriveremgcyController
+                            .drivercominguseremrgencyDetailApi();
+                        _commingDriveremgcyController.update();
+                        _commingDriveremgcyController.onInit();
+                        _commingDriveremgcyController.refresh();
+
+                        // CallLoader.loader();
+                        // nearlistdriverApi();
+                        CallLoader.loader();
+                        await Future.delayed(Duration(milliseconds: 500));
+                        CallLoader.hideLoader();
+
+                        Timer(
+                          const Duration(milliseconds: 100),
+                          () {
+                            // nearlistdriverApi();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ComingEmergencyDriver(
+                                          id: '5555',
+                                          //id: "12345678",
+                                        )));
+                            // Get.to(MessageScreen(
+                            //   id: message.data['id'],
+                            // ));
+                            //Get.to((MapView));
+                            //postAmbulancerequestApi(markers);
+
+                            ///
+                          },
+                        );
+                        CallLoader.hideLoader();
+                      });
+
+                      /// CallLoader.loader();
+                      //await Future.delayed(Duration(milliseconds: 500));
+                      /// CallLoader.hideLoader();
+
+                      Get.back();
+                      //Get.to(() => ShareData());
+                      // Get.to(() => ComingDriver());
+                    },
+                  ),
+
                   ListTile(
                     // horizontalTitleGap: 10,
                     leading: Icon(

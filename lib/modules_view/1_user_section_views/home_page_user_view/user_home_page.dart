@@ -1,18 +1,21 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/coming_driver/coming_driver.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/ambulance/driver_accept_list_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/doctor_sections/doctors_appointment1.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/lab_controller/choose_lab_controller/lab_controller.dart';
 import 'package:ps_welness_new_ui/controllers/1_user_view_controller/user_profile_controller/user_profile_controllerss.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map.dart';
-import 'package:ps_welness_new_ui/google_map/new_map/new_g_map2.dart';
 import 'package:ps_welness_new_ui/google_map/new_map/new_g_map3.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/lab/choose_lab/choose_lab.dart';
 import 'package:ps_welness_new_ui/modules_view/1_user_section_views/notiification_view_page/notification_message2.dart';
@@ -31,9 +34,11 @@ import '../../../controllers/1_user_view_controller/medicine_controllers/medicin
 import '../../../controllers/1_user_view_controller/user_appointment_controller/user_appointment_controllers.dart';
 import '../../../controllers/1_user_view_controller/user_home_page_controller/user_home_page_controllers.dart';
 import '../../../notificationservice/notification_fb_service.dart';
+import '../../../servicess_api/api_services_all_api.dart';
 import '../../../utils/services/account_service.dart';
 import '../../../widgets/widgets/neumorphic_text_field_container.dart';
 import '../doctorss/doctor_address/doctor_address.dart';
+import '../emergency_cases_booking/booked_ambulance/hospital_list.dart';
 import '../medicine_view/search_section/search_medicine.dart';
 import '../nursess/book_nurse_appointment1/nurse_booking_1.dart';
 
@@ -78,6 +83,11 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  String? _currentAddress;
+  Position? _currentPosition;
+
+  ///todo:...
+
   NotificationServices notificationServices = NotificationServices();
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
@@ -85,12 +95,114 @@ class _UserHomePageState extends State<UserHomePage> {
   CommingDriverController _commingDriverController =
       Get.put(CommingDriverController());
 
+  late StreamSubscription periodicSub;
+
   ///implement firebase....27...jun..2023
   @override
+
+  // void initState() {
+  //   super.initState();
+  //
+  //   ///todo: it is periodic function periodic
+  //   ///
+  //   periodicSub = Stream.periodic(const Duration(seconds: 5))
+  //       .listen((_) => _getCurrentPosition());
+  //
+  //   // periodicSub = Stream.periodic(const Duration(seconds: 10))
+  //   //     //.take(6)
+  //   //     .listen((_) => _getCurrentPosition());
+  //
+  //   ///todo: it is periodic function STREAM periodic.....
+  //
+  //   periodicSub = Stream.periodic(const Duration(seconds: 9))
+  //       //.take(6)
+  //       .listen((_) => postssDriverUpdateApi2());
+  //
+  //   ///todo: get current location.......
+  //   //_userprofiledetail.userprofileApi();
+  //   //_userprofiledetail.update();
+  //   _driverAcceptlistController.driveracceptuserDetailApi();
+  //   notificationServices.requestNotificationPermission();
+  //   notificationServices.forgroundMessage();
+  //   notificationServices.firebaseInit(context);
+  //   notificationServices.setupInteractMessage(context);
+  //   notificationServices.isTokenRefresh();
+  //   // notificationServices.requestNotificationPermission();
+  //   // notificationServices.isTokenRefresh();
+  //   // notificationServices.firebaseInit();
+  //   notificationServices.getDeviceToken().then((value) {
+  //     if (kDebugMode) {
+  //       print('device token');
+  //       print(value);
+  //     }
+  //     // print('device token');
+  //     // print(value);
+  //   });
+  //
+  //   /// 1. This method call when app in terminated state and you get a notification
+  //   /// when you click on notification app open from terminated state and you can get notification data in this method
+  //
+  //   FirebaseMessaging.instance.getInitialMessage().then(
+  //     (message) {
+  //       print("FirebaseMessaging.instance.getInitialMessage");
+  //       if (message != null) {
+  //         print("New Notification");
+  //         // if (message.data['_id'] != null) {
+  //         //   Navigator.of(context).push(
+  //         //     MaterialPageRoute(
+  //         //       builder: (context) => DemoScreen(
+  //         //         id: message.data['_id'],
+  //         //       ),
+  //         //     ),
+  //         //   );
+  //         // }
+  //       }
+  //     },
+  //   );
+  //   // 2. This method only call when App in forground it mean app must be opened
+  //
+  //   FirebaseMessaging.onMessage.listen(
+  //     (message) {
+  //       print("FirebaseMessaging.onMessage.listen");
+  //       if (message.notification != null) {
+  //         print(message.notification!.title);
+  //         print(message.notification!.body);
+  //         print("message.data11 ${message.data}");
+  //
+  //         ///you can call local notification.............................
+  //
+  //         LocalNotificationService.createanddisplaynotification(message);
+  //
+  //         ///you can call local notification....................................
+  //
+  //       }
+  //     },
+  //   );
+  //   // 3. This method only call when App in background and not terminated(not closed)
+  //   FirebaseMessaging.onMessageOpenedApp.listen(
+  //     (message) {
+  //       print("FirebaseMessaging.onMessageOpenedApp.listen");
+  //       if (message.notification != null) {
+  //         print(message.notification!.title);
+  //         print(message.notification!.body);
+  //         print("message.data22 ${message.data['_id']}");
+  //       }
+  //     },
+  //   );
+  // }
   void initState() {
     super.initState();
-    //_userprofiledetail.userprofileApi();
-    //_userprofiledetail.update();
+    _getCurrentPosition();
+
+    _setupNotifications();
+
+    postssDriverUpdateApi2();
+
+    ///_setupPeriodicTasks();
+  }
+
+  ///todo: setup notification...15 may 2024...
+  void _setupNotifications() {
     _driverAcceptlistController.driveracceptuserDetailApi();
     notificationServices.requestNotificationPermission();
     notificationServices.forgroundMessage();
@@ -144,10 +256,11 @@ class _UserHomePageState extends State<UserHomePage> {
           LocalNotificationService.createanddisplaynotification(message);
 
           ///you can call local notification....................................
-
         }
       },
     );
+
+    ///
     // 3. This method only call when App in background and not terminated(not closed)
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {
@@ -159,6 +272,128 @@ class _UserHomePageState extends State<UserHomePage> {
         }
       },
     );
+  }
+
+  ///todo: setup periodic function....
+  // void _setupPeriodicTasks() {
+  //   // Stream.periodic(const Duration(seconds: 2))
+  //   //     .listen((_) => _getCurrentPosition());
+  //   // Stream.periodic(const Duration(seconds: 9))
+  //   //     .listen((_) => postssDriverUpdateApi2());
+  // }
+
+  @override
+  void dispose() {
+    periodicSub.cancel();
+    super.dispose();
+  }
+
+  ///StreamSubscription? periodicSub;
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _getGeoLocationPosition();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+
+    return true;
+  }
+
+  ///todo:......
+
+  ///todo: get location.......current.........
+  // Future<void> _getCurrentPosition() async {
+  //   final hasPermission = await _handleLocationPermission();
+  //
+  //   if (!hasPermission) return;
+  //   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) {
+  //     // print('okokokerere');
+  //     setState(() => _currentPosition = position);
+  //     _getAddressFromLatLng(_currentPosition!);
+  //     //print('okokokererewqdwq');
+  //   }).catchError((e) {
+  //     debugPrint(e);
+  //   });
+  // }
+  ///todo:.............todo.................todo...................
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handleLocationPermission();
+
+    if (!hasPermission) {
+      // Handle the case when the user denies location permission
+      return;
+    }
+
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Check if the widget is mounted before calling setState
+      if (mounted) {
+        setState(() {
+          _currentPosition = position;
+        });
+      }
+
+      _getAddressFromLatLng(_currentPosition!);
+    } catch (e) {
+      // Handle errors gracefully
+      debugPrint("Error getting current position: $e");
+    }
+  }
+
+  ///todo: get access current address.........................
+
+  Future<void> _getAddressFromLatLng(Position position) async {
+    await placemarkFromCoordinates(
+            _currentPosition!.latitude, _currentPosition!.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress =
+            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+      });
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
+  ///todo:apiiii....driver update location...
+  Future<void> postssDriverUpdateApi2() async {
+    await placemarkFromCoordinates(
+        _currentPosition!.latitude, _currentPosition!.longitude);
+    http.Response r = await ApiProvider.GoogleupdateuserApi(
+      _currentPosition?.latitude.toDouble(),
+      _currentPosition?.longitude.toDouble(),
+    );
+    if (r.statusCode == 200) {
+      //Get.snackbar('message', r.body);
+      var data = jsonDecode(r.body);
+    }
   }
 
   @override
@@ -399,7 +634,7 @@ class _UserHomePageState extends State<UserHomePage> {
                         color: Colors.white,
                       ),
                       onPressed: () async {
-                        await _userprofiledetail.userprofileApi();
+                        _userprofiledetail.userprofileApi();
                         _userprofiledetail.update();
                         Scaffold.of(context).openDrawer();
                       }),
@@ -810,23 +1045,28 @@ class _UserHomePageState extends State<UserHomePage> {
                                                                         "${_userHomepagContreoller.ambulancetype!.ambulanceT![index].id.toString()}");
                                                                     _ambulancegetController
                                                                         .update();
-
                                                                     accountService
                                                                         .getAccountData
                                                                         .then(
                                                                             (accountData) {
-                                                                      CallLoader
-                                                                          .loader();
+                                                                      // CallLoader
+                                                                      //     .loader();
                                                                       Timer(
                                                                         const Duration(
                                                                             seconds:
-                                                                                3),
+                                                                                0),
                                                                         () {
                                                                           Get.to(
-                                                                              MapView2(allowManualEntry: true));
+                                                                              HospitalListScreen());
+                                                                          _getCurrentPosition();
+                                                                          postssDriverUpdateApi2();
+
+                                                                          ///15 may 2024...
+                                                                          // Get.to(
+                                                                          //     MapView2(allowManualEntry: true));
+                                                                          ///
                                                                           //_ambulancegetController.selectedvhicleCatagary();
                                                                           //_ambulancegetController.ambulancecatagaryyApi();
-                                                                          //Get.to((MapView));
 
                                                                           ///
                                                                         },
@@ -1979,3 +2219,60 @@ class _UserHomePageState extends State<UserHomePage> {
 
 ///...........
 ///
+///
+Future<Position> _getGeoLocationPosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+  await Future.delayed(Duration(seconds: 2));
+  await Get.dialog(
+    // bool barrierDismissible = true
+
+    AlertDialog(
+      title: const Text('Ps Wellness'),
+      content: const Text(
+          """When you grant permission for  location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
+      actions: [
+        TextButton(
+          child: const Text("Reject"),
+          onPressed: () => Get.back(),
+        ),
+        TextButton(
+          child: const Text("Accept"),
+          onPressed: () => Get.back(),
+        ),
+      ],
+    ),
+    barrierDismissible: false,
+  );
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // return Future.value('');
+    // Location services are not enabled don't continue
+    // accessing the position and request users of the
+    // App to enable the location services.
+    await Geolocator.openLocationSettings();
+
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately.
+    return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+  }
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
+}
