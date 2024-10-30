@@ -18,6 +18,8 @@ import '../controllers/1_user_view_controller/drawer_contoller/nurse_history_con
 import '../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../controllers/4_nurse_controllerRRR33344new/nurse_appointment_detail_controller/nurse_appointment_nurse_detailsss.dart';
 import '../controllers/9_doctor_controllers_RRR/doctor_home_controller/doctor_home_controllers.dart';
+import '../modules_view/1_user_section_views/emergency_cases_booking/booked_ambulance/booked_ambulance_screen.dart';
+import '../modules_view/3_driver_section_view_RRR/ongoing_ride_page/ongoing_ride_trip.dart';
 import '../utils/services/account_service.dart';
 
 class NotificationServices {
@@ -360,6 +362,90 @@ class NotificationServices {
                 context,
                 MaterialPageRoute(
                     builder: (context) => MessageScreen2(
+                          id: message.data['id'],
+                        )));
+            // Get.to(MessageScreen(
+            //   id: message.data['id'],
+            // ));
+            //Get.to((MapView));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => MessageScreen(
+      //               id: message.data['id'],
+      //             )));
+    } else if (message.data['type'] == 'comingride_case') {
+      print("reject${message.data['id']}");
+    } else if (message.data['type'] == 'accident_case') {
+      print("dataaaccept${message.data['id']}");
+      //_useracptrejectController.driveracceptrejctlistApi();
+      //_useracptrejectController.update();
+
+      await Future.delayed(Duration(milliseconds: 200));
+      _driverAcceptlistController.driveracceptuserDetailApi();
+      _driverAcceptlistController.update();
+      accountService.getAccountData.then((accountData) {
+        // CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // nearlistdriverApi();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => OngoingRideTracking(
+                          id: message.data['id'],
+                        )));
+            // Get.to(MessageScreen(
+            //   id: message.data['id'],
+            // ));
+            //Get.to((MapView));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => MessageScreen(
+      //               id: message.data['id'],
+      //             )));
+    } else if (message.data['type'] == 'accident_amblnce_case') {
+      print("dataaaccept${message.data['id']}");
+
+      ///5555
+      //_useracptrejectController.driveracceptrejctlistApi();
+      //_useracptrejectController.update();
+
+      await Future.delayed(Duration(milliseconds: 200));
+      _driverAcceptlistController.driveracceptuserDetailApi();
+      _driverAcceptlistController.update();
+      accountService.getAccountData.then((accountData) {
+        // CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // nearlistdriverApi();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ComingEmergencyDriver(
                           id: message.data['id'],
                         )));
             // Get.to(MessageScreen(

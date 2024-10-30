@@ -18,7 +18,7 @@ class UserProfileControllers extends GetxController {
   //all catagary list .........
 
   Future<void> userprofileApi() async {
-    isLoading(true);
+    isLoading(false);
     userProfile = await ApiProvider.UserProfileApi();
     // if (userProfile == null) {
     //   Timer(
@@ -42,6 +42,8 @@ class UserProfileControllers extends GetxController {
         ) {
       isLoading(false);
     }
+    isLoading(false);
+
     //else {}
   }
 

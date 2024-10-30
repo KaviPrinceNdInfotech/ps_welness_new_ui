@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
@@ -42,6 +45,7 @@ import '../../../controllers/1_user_view_controller/user_appointment_controller/
 import '../../../controllers/3_driver_view_controllers/driver_complete_ride_controller/driver_complete_ride_controller.dart';
 import '../../../controllers/3_driver_view_controllers/driver_home_page_controller/driver_user_acpt_rejct_list/user_list_accept_reject_list.dart';
 import '../../../notificationservice/notification_fb_service.dart';
+import '../../../servicess_api/api_services_all_api.dart';
 import '../../../widgets/exit_popup_warning/exit_popup.dart';
 import '../driver_drawer_view/driver_drower_pages/location_practice/location_practiceeee.dart';
 import '../driver_payment_history/driver_payment_history.dart';
@@ -86,11 +90,38 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
   OngoingRideController _ongoingRideController =
       Get.put(OngoingRideController());
+  late StreamSubscription<Position> _positionStreamSubscription;
+
+  String? _currentAddress;
+  Position? _currentPosition;
+  late StreamSubscription periodicSub;
 
   ///implement firebase....27...jun..2023
   @override
   void initState() {
     super.initState();
+
+    ///todo: it is periodic function periodic
+    ///
+    // periodicSub = Stream.periodic(const Duration(seconds: 10))
+    //     .listen((_) => _getCurrentPosition());
+
+    periodicSub = Stream.periodic(const Duration(seconds: 15))
+        //.take(6)
+        .listen((_) => _getCurrentPosition());
+    // periodicSub = Stream.periodic(const Duration(seconds: 08))
+    //     //.take(6)
+    //     .listen((_) => getLocationUpdates());
+
+    ///todo: it is periodic function STREAM periodic.....
+
+    periodicSub = Stream.periodic(const Duration(seconds: 20))
+        //.take(6)
+        .listen((_) => postssDriverUpdateApi3());
+
+    // _startLocationUpdates();
+
+    ///todo: get current location.......
     _driverprofiledetail.driverProfileDetailApi();
     _driverprofiledetail.update();
     notificationServices.requestNotificationPermission();
@@ -155,6 +186,126 @@ class _DriverHomePageState extends State<DriverHomePage> {
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    periodicSub.cancel();
+    super.dispose();
+    _positionStreamSubscription.cancel();
+  }
+
+  void getLocationUpdates() {
+    final locationSettings =
+        LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100);
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position position) {
+      print('pkopksdsvds');
+      print(position == null
+          ? 'Unknown'
+          : '${position.latitude}, ${position.longitude}');
+    });
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _getGeoLocationPosition();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+
+    return true;
+  }
+
+  ///todo: get location.......current.........
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handleLocationPermission();
+
+    if (!hasPermission) {
+      // Handle the case when the user denies location permission
+      return;
+    }
+
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      setState(() {
+        _currentPosition = position;
+      });
+      _getAddressFromLatLng(_currentPosition!);
+    } catch (e) {
+      // Handle errors gracefully
+      debugPrint("Error getting current position: $e");
+    }
+  }
+
+  ///
+  // Future<void> _getCurrentPosition() async {
+  //   final hasPermission = await _handleLocationPermission();
+  //
+  //   if (!hasPermission) return;
+  //   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) {
+  //     // print('okokokerere');
+  //     setState(() => _currentPosition = position);
+  //     _getAddressFromLatLng(_currentPosition!);
+  //     //print('okokokererewqdwq');
+  //   }).catchError((e) {
+  //     debugPrint(e);
+  //   });
+  // }
+
+  ///todo: get access current address.........................
+
+  Future<void> _getAddressFromLatLng(Position position) async {
+    await placemarkFromCoordinates(
+            _currentPosition!.latitude, _currentPosition!.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress =
+            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+      });
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
+  ///todo:apiiii....driver update location...
+  Future<void> postssDriverUpdateApi3() async {
+    await placemarkFromCoordinates(
+        _currentPosition!.latitude, _currentPosition!.longitude);
+    http.Response r = await ApiProvider.GoogleupdateautodriverApi(
+      _currentPosition?.latitude.toDouble(),
+      _currentPosition?.longitude.toDouble(),
+    );
+    if (r.statusCode == 200) {
+      //Get.snackbar('message', r.body);
+      var data = jsonDecode(r.body);
+    }
   }
 
   @override
@@ -535,7 +686,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                                             Duration(milliseconds: 300));
                                         CallLoader.hideLoader();
                                         await Get.to(() =>
-                                            OngoingRideTracking(id: "1233"));
+                                            OngoingRideTracking(id: "9999"));
 
                                         // Get.to(() => AddDriverBankDetail());
                                         //UpdateDriverBankDetail());
@@ -735,6 +886,63 @@ class Mycrusial extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<Position> _getGeoLocationPosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+  await Future.delayed(Duration(seconds: 2));
+  await Get.dialog(
+    // bool barrierDismissible = true
+
+    AlertDialog(
+      title: const Text('Ps Wellness'),
+      content: const Text(
+          """When you grant permission for  location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
+      actions: [
+        TextButton(
+          child: const Text("Reject"),
+          onPressed: () => Get.back(),
+        ),
+        TextButton(
+          child: const Text("Accept"),
+          onPressed: () => Get.back(),
+        ),
+      ],
+    ),
+    barrierDismissible: false,
+  );
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // return Future.value('');
+    // Location services are not enabled don't continue
+    // accessing the position and request users of the
+    // App to enable the location services.
+    await Geolocator.openLocationSettings();
+
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately.
+    return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+  }
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
 }
 
 ///...........

@@ -1,14 +1,11 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ps_welness_new_ui/constants/my_theme.dart';
-
-//import 'package:ps_welness/constants/my_theme.dart';
-
 import '../../controllers/splash_controller/splash_controllerss.dart';
 
-//class SplashScreen extends StatelessWidget {
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

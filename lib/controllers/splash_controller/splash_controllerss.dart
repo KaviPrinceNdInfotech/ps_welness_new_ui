@@ -244,11 +244,12 @@ class SplashScreenViewModel extends GetxController
     super.onInit();
     accountService.getAccountData.then((accountData) {
       Timer(
-        const Duration(seconds: 2), // Delay by 2 seconds
+        const Duration(seconds: 1), // Delay by 2 seconds
         () async {
           try {
             if (accountData == null) {
-              Get.to(OnboardingPage());
+              // If account data is null, navigate to OnboardingPage
+              Get.offAll(OnboardingPage());
               // Throw exception after navigating to OnboardingPage
               throw Exception('User account data is null.');
             } else {
@@ -257,34 +258,34 @@ class SplashScreenViewModel extends GetxController
                   _userprofile.userprofileApi();
                   _userprofile.update();
                   _devicetokenController.UsertokenApi();
-                  await _userhomePageController.sliderBannerApi();
-                  Get.to(UserHomePage());
+                  _userhomePageController.sliderBannerApi();
+                  Get.offAll(UserHomePage());
                   break;
                 case 'Franchise':
                   _frenchiesProfileDetailController.frenchiesProfileDetailApi();
                   _frenchiesProfileDetailController.update();
-                  await frenchiesBannerController.FrenchiesBannerApi();
-                  Get.to(FranchiesHomePage());
+                  frenchiesBannerController.FrenchiesBannerApi();
+                  Get.offAll(FranchiesHomePage());
                   break;
                 case 'lab':
                   _labUploadReportController.getlabpatientApi();
                   _labUploadReportController.update();
                   _labprofiledetailController.update();
                   _labprofiledetailController.labprofileApi();
-                  Get.to(LabHomePage());
+                  Get.offAll(LabHomePage());
                   break;
                 case 'doctor':
                   _doctorProfileControllers.doctorprofileApi();
-                  await _doctorHomepageController.doctorBannerApi();
+                  _doctorHomepageController.doctorBannerApi();
                   _doctorProfileControllers.update();
                   _devicetokenController.DoctortokenApi();
-                  Get.to(DoctorHomePage());
+                  Get.offAll(DoctorHomePage());
                   break;
                 case 'driver':
                   _driverprofile.driverProfileDetailApi();
                   _driverprofile.update();
-                  await _devicetokenController.DrivertokenApi();
-                  Get.to(DriverHomePage());
+                  _devicetokenController.DrivertokenApi();
+                  Get.offAll(DriverHomePage());
                   break;
                 case 'nurse':
                   _nurseprofileContrller.nurseprofileApi();
@@ -295,7 +296,7 @@ class SplashScreenViewModel extends GetxController
                   Get.to(NurseHomePage());
                   break;
                 case 'RWA':
-                  Get.to(RwaHomePage());
+                  Get.offAll(RwaHomePage());
                   break;
                 case 'chemist':
                   await _chemistProfileDetailController
@@ -304,15 +305,21 @@ class SplashScreenViewModel extends GetxController
                   await _chemistBannerController.chemistBannerApi();
                   _chemistBannerController.update();
                   await Future.delayed(Duration(milliseconds: 900));
-                  Get.to(ChemistHomePage());
+                  Get.offAll(ChemistHomePage());
                   break;
                 default:
+                  // If the user's role is not recognized, you can log them out and redirect to the onboarding page
+                  // Or you can handle this scenario based on your application's logic
+                  Get.offAll(OnboardingPage());
                   break;
               }
             }
           } catch (e) {
             // Handle exceptions here
             print('Exception occurred: $e');
+
+            // Navigate to welcome page on exception
+            // Get.offAll(WelcomePage());
           }
         },
       );
