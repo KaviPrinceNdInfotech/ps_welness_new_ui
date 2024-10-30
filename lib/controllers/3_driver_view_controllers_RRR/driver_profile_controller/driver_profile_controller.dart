@@ -71,6 +71,7 @@ class DriverProfileController extends GetxController {
 
   void clearSelectedState() {
     selectedState.value = null;
+    // DriverNameEditText = null;
   }
 
   void getCityByStateID(String stateID) async {

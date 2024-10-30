@@ -725,19 +725,6 @@ class ApiProvider {
 
         //await _getGeoLocationPosition();
 
-        ///indirect___use of user ----api......28_august...2023
-        /// UserdevicetokenApi();
-
-        ///indirect___use of driver ----api......28_august...2023
-        /// DriverdevicetokenApi();
-
-        ///indirect___use of doctor ----api......28_august...2023
-        ///DoctordevicetokenApi();
-
-        ///indirect___use of nurse ----api......28_august...2023
-
-        ///NursedevicetokenApi();
-
         print('princee notificationdsfvdsvdsv');
 
         ///direct___call_user....

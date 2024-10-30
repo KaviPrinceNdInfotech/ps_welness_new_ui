@@ -827,26 +827,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                         await Get.offAll(
                                             () => NurseBoooking1());
                                       } else if (index == 1) {
-                                        // _doctor_appointment_1_controller.selectedCity.close();
-                                        // _doctor_appointment_1_controller.cities
-                                        //     .clear();
-                                        // _doctor_appointment_1_controller.states
-                                        //     .clear();
-                                        // _doctor_appointment_1_controller
-                                        //     .specialist
-                                        //     .clear();
-                                        // _doctor_appointment_1_controller
-                                        //     .department
-                                        //     .clear();
 
-                                        // await _doctor_appointment_1_controller
-                                        //     .getStateLabApi();
-                                        // await _doctor_appointment_1_controller
-                                        //     .getdepartmentApi();
-                                        // _doctor_appointment_1_controller
-                                        //     .onInit();
-                                        // _doctor_appointment_1_controller
-                                        //     .update();
                                         ///
                                         // _doctor_appointment_1_controller
                                         //     .refresh();

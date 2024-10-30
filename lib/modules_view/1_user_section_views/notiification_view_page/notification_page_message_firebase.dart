@@ -326,59 +326,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                      // SizedBox(
-                                                      //   height:
-                                                      //       size.height * 0.02,
-                                                      // ),
-                                                      // Row(
-                                                      //   children: [
-                                                      //     Text(
-                                                      //       'Mobile Number:',
-                                                      //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                      //       style: GoogleFonts
-                                                      //           .actor(
-                                                      //         fontSize:
-                                                      //             size.width *
-                                                      //                 0.045,
-                                                      //         fontWeight:
-                                                      //             FontWeight
-                                                      //                 .w700,
-                                                      //         color: Color(
-                                                      //             0xff12BFC4),
-                                                      //       ),
-                                                      //     ),
-                                                      //     // Icon(
-                                                      //     //   Icons
-                                                      //     //       .car_crash_sharp,
-                                                      //     //   size: size.height *
-                                                      //     //       0.02,
-                                                      //     //   color: Colors
-                                                      //     //       .grey.shade600,
-                                                      //     // ),
-                                                      //     SizedBox(
-                                                      //       width: size.width *
-                                                      //           0.01,
-                                                      //     ),
-                                                      //     Text(
-                                                      //       "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index]..toString()}",
-                                                      //
-                                                      //       // "10 km.",
-                                                      //       //'2020 Honda Clive',
-                                                      //       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
-                                                      //       style: GoogleFonts
-                                                      //           .aBeeZee(
-                                                      //         fontSize:
-                                                      //             size.width *
-                                                      //                 0.036,
-                                                      //         fontWeight:
-                                                      //             FontWeight
-                                                      //                 .w700,
-                                                      //         color: Colors.grey
-                                                      //             .shade900,
-                                                      //       ),
-                                                      //     ),
-                                                      //   ],
-                                                      // ),
                                                       SizedBox(
                                                         height:
                                                             size.height * 0.02,
@@ -400,24 +347,12 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                   0xff12BFC4),
                                                             ),
                                                           ),
-                                                          // Icon(
-                                                          //   Icons
-                                                          //       .car_crash_sharp,
-                                                          //   size: size.height *
-                                                          //       0.02,
-                                                          //   color: Colors
-                                                          //       .grey.shade600,
-                                                          // ),
                                                           SizedBox(
                                                             width: size.width *
                                                                 0.01,
                                                           ),
                                                           Text(
                                                             "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].toatlDistance}Km",
-
-                                                            // "10 km.",
-                                                            //'2020 Honda Clive',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
                                                                 .aBeeZee(
                                                               fontSize:
@@ -440,7 +375,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                         children: [
                                                           Text(
                                                             'Estimated Price :',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
                                                                 .actor(
                                                               fontSize:
@@ -459,10 +393,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                           ),
                                                           Text(
                                                             "\u{20B9}${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].totalPrice}",
-
-                                                            //"\u{20B9} 100",
-                                                            // '121234333377',
-                                                            //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                             style: GoogleFonts
                                                                 .roboto(
                                                               fontSize:
@@ -491,7 +421,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                     0.05,
                                                             child: Text(
                                                               'Pickup Address:',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                               style: GoogleFonts
                                                                   .actor(
                                                                 fontSize:
@@ -516,10 +445,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                             child: Text(
                                                               "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].reverseStartLatLongToLocation.toString()}",
 
-                                                              // """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
                                                               maxLines: 2,
                                                               //'ENP 2345',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                               style: GoogleFonts
                                                                   .roboto(
                                                                 fontSize:
@@ -550,7 +477,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                     0.05,
                                                             child: Text(
                                                               'End Address :',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                               style: GoogleFonts
                                                                   .actor(
                                                                 fontSize:
@@ -578,7 +504,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                               //  """Noida near nd infotech C53 Noida YY YY YY trhtrhtdsVsdvds cdsVDS""",
                                                               maxLines: 3,
                                                               //'ENP 2345',
-                                                              //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                               style: GoogleFonts
                                                                   .roboto(
                                                                 fontSize:
@@ -631,28 +556,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                 prefs.setString(
                                                                     "driveracceptrjctDeviceid",
                                                                     "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}");
-                                                                // prefs.setString(
-                                                                //     "lng1",
-                                                                //     "${widget.driverlist?.startLong.toString()}");
-                                                                // prefs.setString(
-                                                                //     "lat1",
-                                                                //     "${widget.driverlist?.startLat.toString()}");
-                                                                //
-                                                                // prefs.setString(
-                                                                //     "lng2",
-                                                                //     "${widget.driverlist?.endLong.toString()}");
-                                                                // prefs.setString(
-                                                                //     "lat2",
-                                                                //     "${widget.driverlist?.endLat.toString()}");
-                                                                // prefs.setString(
-                                                                //     "ambulance1",
-                                                                //     "${widget.driverlist?.ambulanceTypeId.toString()}");
-                                                                // prefs.setString(
-                                                                //     "vehicle1",
-                                                                //     "${widget.driverlist?.vehicleTypeId.toString()}");
 
-                                                                // _ambulancegetController
-                                                                // .postAmbulancerequestApi2();
                                                                 ///todo: call reject booking api...
 
                                                                 _useracptrejectController
@@ -671,10 +575,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                     //this the particular device id.....
                                                                     'to':
                                                                         "${_useracptrejectController.userListModeldriver?.userListForBookingAmbulance?[index].deviceId}",
-
-                                                                    //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                                                                    //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                                                                    //.toString(),
 
                                                                     ///this is same device token....
                                                                     // value
@@ -717,6 +617,8 @@ class _MessageScreenState extends State<MessageScreen> {
                                                                         'Authorization':
                                                                             //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
                                                                             'key=AAAASDFsCOM:APA91bGLHziX-gzIM6srTPyXPbXfg8I1TTj4qcbP3gaUxuY9blzHBvT8qpeB4DYjaj6G6ql3wiLmqd4UKHyEiDL1aJXTQKfoPH8oG5kmEfsMs3Uj5053I8fl69qylMMB-qikCH0warBc'
+
+                                                                        ///you fire base api key asccording to your firebase project .... Kumar prince....
                                                                       }).then(
                                                                       (value) {
                                                                     if (kDebugMode) {
@@ -974,22 +876,3 @@ class _MessageScreenState extends State<MessageScreen> {
 }
 
 ///
-
-// class MessageScreen1 extends StatefulWidget {
-//   final String id;
-//   const MessageScreen({Key? key, required this.id}) : super(key: key);
-//
-//   @override
-//   State<MessageScreen> createState() => _MessageScreenState();
-// }
-//
-// class _MessageScreenState extends State<MessageScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Message Screen' + widget.id),
-//       ),
-//     );
-//   }
-// }
